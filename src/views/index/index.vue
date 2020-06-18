@@ -936,7 +936,6 @@
   }
 
   .list-content .rush-list-title {
-    width: 50%;
     height: 45px;
     display: block;
     margin: 0 auto 20px;
