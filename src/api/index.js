@@ -1,0 +1,73 @@
+import request from '@/utils/request'
+
+export function index_info() {
+  // eslint-disable-next-line no-new-object
+  const params = new Object()
+  params.controller = 'index.index_info'
+  params.communityId = 4559
+
+  return request({
+    url: '/app/index.php',
+    changeOrigin: true,
+    method: 'get',
+    params
+
+  })
+}
+
+export function get_newauth_bg() {
+  // eslint-disable-next-line no-new-object
+  const params = new Object()
+  params.controller = 'index.get_newauth_bg'
+  params.communityId = 4559
+
+  return request({
+    url: '/app/index.php',
+    changeOrigin: true,
+    method: 'get',
+    params
+
+  })
+}
+
+export function get_navigat(gid, pageNum) {
+  // eslint-disable-next-line no-new-object
+  const params = new Object()
+  params.controller = 'index.get_navigat'
+
+  return request({
+    url: '/app/index.php',
+    changeOrigin: true,
+    method: 'get',
+    params
+
+  })
+}
+
+export function load_gps_goodslist(gid, pageNum) {
+// eslint-disable-next-line no-new-object
+  const params = new Object()
+  params.controller = 'index.load_gps_goodslist'
+  params.gid = gid
+  params.pageNum = pageNum
+  params.head_id = 4559
+  params.per_page = 12
+  return request({
+    url: '/app/index.php',
+    changeOrigin: true,
+    method: 'get',
+    params
+
+  })
+}
+export function get_tabbar() {
+  const params = {}
+  params.controller = 'index.get_tabbar'
+  return request({
+    url: '/app/index.php',
+    changeOrigin: true,
+    method: 'get',
+    params
+
+  })
+}
