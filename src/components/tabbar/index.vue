@@ -21,10 +21,10 @@
 
 <script>
   import {http} from '@/api/index'
+
   export default {
     name: 'i-tabbar',
     props: {
-
       currentIdx: {
         type: Number,
         value: 0,
@@ -106,16 +106,20 @@
     },
 
     methods: {
+
       getTabbar(){
 
         const p = this;
+
         http({
-          controller : 'index.get_navigat'
+          controller : 'index.get_tabbar'
         }).then(response => {
+          console.log(1111)
+          console.log(response)
 
           if (0 == response.code) {
 
-            const t = response.data, a = p.tabbar;
+            const t =  response.data, a = p.tabbar;
 
             a.list[0].text = t.t1 || "首页", a.list[0].iconPath = t.i1 || "/lionfish_comshop/images/icon-tab-index.png",
               a.list[0].selectedIconPath = t.s1 || "/lionfish_comshop/images/icon-tab-index-active.png",

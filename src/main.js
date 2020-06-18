@@ -11,7 +11,10 @@ import 'swiper/css/swiper.css'
 Vue.use(vueSwiper)
 
 import ITabbar from '@/components/tabbar'
+import IToolbar from '@/components/toolbar'
+
 Vue.component('ITabbar', ITabbar)
+Vue.component('IToolbar', IToolbar)
 
 import '@/styles/index.scss' // global css
 import qs from 'qs'
@@ -21,8 +24,6 @@ import router from './router'
 
 import '@/icons' // icon
 import '@/permission' // permission control
-
-Vue.prototype.$request = require('@/utils/request.js')
 
 /**
  * If you don't want to use mock-server

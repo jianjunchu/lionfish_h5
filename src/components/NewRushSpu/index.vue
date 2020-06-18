@@ -46,7 +46,7 @@
               </div>
             </div>
             <i-vip-price :price="spuItem.card_price" v-if="is_open_vipcard_buy==1&&spuItem.is_take_vipcard==1"></i-vip-price>
-            <i-vip-price :price="spuItem.levelprice" type="1" wx:elif="canLevelBuy&&spuItem.is_mb_level_buy==1"></i-vip-price>
+            <i-vip-price :price="spuItem.levelprice" type="1" v-else-if="canLevelBuy&&spuItem.is_mb_level_buy==1"></i-vip-price>
           </div>
           <div class="spu-price">
             <div class="sale-price">
@@ -70,7 +70,7 @@
         </block>
         <div class="mask" v-if="isPast||disabled||spuItem.spuCanBuyNum==0?'disabled':''"></div>
         <div class="act-end act-out" v-if="spuItem.spuCanBuyNum==0">已抢光</div>
-        <div class="act-end" v-elif="actEnd" v-show="false">团购已结束</div>
+        <div class="act-end" v-else-if="actEnd" v-show="false">团购已结束</div>
       </i-router-link>
       <div class="picktime" v-if="showPickTime">
         <div>预售时间：{{spuItem.begin_time}}</div>

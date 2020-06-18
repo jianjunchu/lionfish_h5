@@ -1,5 +1,5 @@
 <template>
-  <div class="page">
+  <div class="page" >
    <block v-if="isblack!=1">
 
       <div :class="['index-box', 'pb100', (showNewCoupon?'preventTouchMove':'')]">
@@ -331,7 +331,7 @@
               </div>
               <div class="market-price">¥{{cur_sku_arr.marketPrice[0]}}.{{cur_sku_arr.marketPrice[1]}}</div>
               <i-vip-price :price="cur_sku_arr.card_price" v-if="is_open_vipcard_buy==1&&is_vip_card_member==1&&is_take_vipcard==1"></i-vip-price>
-              <block v-elif="is_member_level_buy==1&&is_mb_level_buy==1">
+              <block v-else-if="is_member_level_buy==1&&is_mb_level_buy==1">
                 <i-vip-price :price="cur_sku_arr.levelprice" type="1" v-if="is_open_vipcard_buy==1&&is_vip_card_member!=1"></i-vip-price>
                 <i-vip-price :price="cur_sku_arr.levelprice" type="1" v-if="is_open_vipcard_buy!=1"></i-vip-price>
               </block>
