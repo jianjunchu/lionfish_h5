@@ -1376,7 +1376,6 @@
 
   .nav-list-item .nav-list-text {
     text-align: center;
-    margin-top: 8px;
     font-size: 12px;
   }
 
