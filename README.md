@@ -13,7 +13,7 @@ English | [简体中文](./README-zh.md)
 git clone https://github.com/jianjunchu/lionfish_h5.git
 
 # enter the project directory
-cd vue-admin-template
+cd lionfish_h5
 
 # install dependency
 npm install
