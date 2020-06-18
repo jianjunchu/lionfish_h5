@@ -1,5 +1,15 @@
 import request from '@/utils/request'
 
+export function http(params) {
+  return request({
+    url: '/app/index.php',
+    changeOrigin: true,
+    method: 'get',
+    params
+
+  })
+}
+
 export function index_info() {
   // eslint-disable-next-line no-new-object
   const params = new Object()

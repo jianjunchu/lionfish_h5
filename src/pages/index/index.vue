@@ -423,7 +423,7 @@
 
 
 <script>
-  import {index_info,get_newauth_bg,get_navigat,load_gps_goodslist} from '@/api/index'
+  import {http} from '@/api/index'
   import IModal from '@/components/modal'
   import IImg from '@/components/img'
   import ITabs from '@/components/tabs'
@@ -577,7 +577,10 @@
 
         const this_ = this;
 
-        index_info().then(response => {
+        http({
+          controller : 'index.index_info',
+          communityId : 4559
+        }).then(response => {
           console.log(response.title)
           //this.$set(this.$data,"title",response.title);
 
@@ -658,7 +661,12 @@
         })
       },
       getNewauthGg(){
-        get_newauth_bg().then(response => {
+
+
+        http({
+          controller : 'index.get_newauth_bg',
+          communityId : 4559
+        }).then(response => {
             this.newauth_bg_image = response.data.newauth_bg_image
             this.newauth_cancel_image = response.data.newauth_cancel_image
             this.newauth_confirm_image = response.data.newauth_confirm_image
@@ -666,7 +674,9 @@
         })
       },
       getNavigat(){
-        get_navigat().then(response => {
+        http({
+          controller : 'index.get_navigat'
+        }).then(response => {
 
           var a = response.data || [],
             e = [];
@@ -681,12 +691,19 @@
         })
       },
       loadGpsGoodsList(){
-        load_gps_goodslist(0,1).then(response => {
+        http({
+          controller : 'index.load_gps_goodslist',
+          gid : 0,
+          pageNum : 1,
+          head_id : 4559,
+          per_page : 12
+        }).then(response => {
 
           this.rushList = this.rushList.concat(response.list);
           console.log( this.rushList)
 
         })
+
       }
 
 
