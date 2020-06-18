@@ -20,7 +20,7 @@
 </template>
 
 <script>
-  import {get_tabbar} from '@/api/index'
+  import {http} from '@/api/index'
   export default {
     name: 'i-tabbar',
     props: {
@@ -109,7 +109,9 @@
       getTabbar(){
 
         const p = this;
-        get_tabbar().then(response => {
+        http({
+          controller : 'index.get_navigat'
+        }).then(response => {
 
           if (0 == response.code) {
 
