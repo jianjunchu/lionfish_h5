@@ -1,5 +1,5 @@
 <template>
-  <div class="page">
+  <div class="page" >
    <block v-if="isblack!=1">
 
       <div :class="['index-box', 'pb100', (showNewCoupon?'preventTouchMove':'')]">
@@ -9,11 +9,11 @@
           </div>
         </div>
         <div bindtap="handleHideProxy" class="guide" v-if="isShowGuide">
-          <image mode="widthFix" :src="index_lead_image"></image>
+          <img mode="widthFix" :src="index_lead_image"/>
         </div>
         <div class="bg-f">
           <div class="header-content" v-if="hide_top_community==0">
-            <image class="header-bg" :src="shop_info.common_header_backgroundimage?shop_info.common_header_backgroundimage:'../../images/TOP_background@2x.png'" v-if="shop_info.index_top_img_bg_open==0"></image>
+            <img class="header-bg" :src="shop_info.common_header_backgroundimage?shop_info.common_header_backgroundimage:'@/assets/images/TOP_background@2x.png'" v-if="shop_info.index_top_img_bg_open==0"/>
             <div class="location" :style="{color:shop_info.index_top_font_color}" v-if="shop_info.index_communityinfo_showtype!=1">
               <div class="location-left" v-if="community&&community.communityName">
                 <router-link hoverClass="router-hover" to="/lionfish_comshop/pages/position/community" v-if="hide_community_change_btn==0&&open_danhead_model!=1">
@@ -39,14 +39,14 @@
                 </navigator>
               </div>
               <div class="location-right">
-                <image class="img" :src="community.headImg?community.headImg:community.disUserHeadImg"></image>
+                <img class="img" :src="community.headImg?community.headImg:community.disUserHeadImg"/>
                 <text>{{community.disUserName}}</text>
               </div>
             </div>
             <div class="location-theme2" :style="{color: shop_info.index_top_font_color}" v-else>
               <block v-if="community&&community.communityName">
                 <div class="loc-l">
-                  <image class="img" :src="community.headImg?community.headImg:community.disUserHeadImg"></image>
+                  <img class="img" :src="community.headImg?community.headImg:community.disUserHeadImg"/>
                 </div>
                 <div bindtap="goLink" class="loc-m" data-link="/lionfish_comshop/pages/position/community" v-if="hide_community_change_btn==0&&open_danhead_model!=1">
                   {{community.communityName}} <text style="font-size:12px;" v-if="hide_community_change_word==0">切换</text>
@@ -79,12 +79,12 @@
           <div class="nav-list" v-if="navigat.length>0">
             <div v-for="(item,id) in navigat" style="width:20%;" class="block">
               <div bindtap="goNavUrl" class="nav-list-item" :data-idx="id" v-if="item.type!=5">
-                <img height="36" class="nav-list-img" :src="item.thumb" width="36" ></img>
+                <img height="36" class="nav-list-img" :src="item.thumb" width="36" />
                 <div class="nav-list-text">{{item.navname}}</div>
               </div>
               <button class="nav-list-item nav-contact" openType="contact" v-else>
 
-                <img height="36" iClass="nav-list-img" :src="item.thumb" width="36"></img>
+                <img height="36" iClass="nav-list-img" :src="item.thumb" width="36"/>
                 <div class="nav-list-text">{{item.navname}}</div>
               </button>
             </div>
@@ -117,7 +117,7 @@
 
           <div style="padding-bottom:5px;margin-left: 16px;margin-right: 16px" v-if="notice_list.length>0">
             <div class="top-msg" :style="{color:skin.color,background:skin.light}">
-              <image :src="notice_setting.horn" v-if="notice_setting.horn"></image>
+              <img :src="notice_setting.horn" v-if="notice_setting.horn"/>
 
               <svg-icon icon-class="laba" v-else/>
 
@@ -137,15 +137,15 @@
           <template is="seckill" :data="{secRushList:secRushList,skin:skin,scekillTimeList:scekillTimeList,secKillActiveIdx:secKillActiveIdx,secKillGoodsIndex:secKillGoodsIndex,needAuth:needAuth}" v-if="seckill_is_open==1&&seckill_is_show_index==1"></template>
           <i-topic bind:openSku="openSku" :refresh="{couponRefresh}"></i-topic>
           <div class="theme3 bg-f" v-if="typeTopicList.length&&(typeItem.banner||typeItem.list.length)" v-for="(item,index) in typeTopicList"  wx:for-item="typeItem" wx:key="id">
-            <image bindtap="goLink" class="topic-img" :data-link="'/lionfish_comshop/pages/type/details?id='+typeItem.id" mode="widthFix" :src="typeItem.banner" v-if="typeItem.banner"></image>
+            <img bindtap="goLink" class="topic-img" :data-link="'/lionfish_comshop/pages/type/details?id='+typeItem.id" mode="widthFix" :src="typeItem.banner" v-if="typeItem.banner"/>
             <i-rush-spu bind:authModal="authModal" bind:changeCartNum="changeNotListCartNum" bind:openSku="openSku" :canLevelBuy="{canLevelBuy}" class="item" :is_open_vipcard_buy="{is_open_vipcard_buy}" :needAuth="needAuth" :notNum="true" :reduction="reduction" :spuItem="item" :stopClick="stopClick" v-if="typeItem.list.length" ></i-rush-spu>
             <div bindtap="goLink" class="theme3-more" :data-link="'/lionfish_comshop/pages/type/details?id='+typeItem.id" v-if="typeItem.list.length">
               查看全部 <text class="iconfont icon-youjiantou"></text>
             </div>
           </div>
           <template is="pinrow" :data="{pinList:pinList,skin:skin}"></template>
-          <img class="rush-list-title" id="rush-title" :src="index_list_top_image" v-if="index_list_top_image"></img>
-          <img class="rush-list-title" id="rush-title" src="@/assets/images/rush-title.png" v-else></img>
+          <img class="rush-list-title" id="rush-title" :src="index_list_top_image" v-if="index_list_top_image"/>
+          <img class="rush-list-title" id="rush-title" src="@/assets/images/rush-title.png" v-else/>
 
           <div class="search-bar" v-if="index_switch_search==1">
             <div class="search-box">
@@ -155,7 +155,9 @@
               </div>
             </div>
           </div>
+
           <i-tabs :activeIndex="classification.activeIndex" bind:activeIndexChange="classificationChange" data-idx="1" fontColor="#000" iClass="category-list" :tabs="classification.tabs"></i-tabs>
+
           <block v-if="hide_index_type!=1">
             <div class="sticky-cate" v-if="index_change_cate_btn==1">
               <div v-show="!isShowClassification||tabIdx!==0">
@@ -167,13 +169,13 @@
             <div :class="['sticky-content', {'sticky-top':isSticky, 'tab-nav-sticky':scrollDirect === 'up'&&isSticky }]" v-else>
               <div class="tab-nav tab-nav-query" style="border-color:'#F75451'">
                 <div bindtap="tabSwitch" :class="['tab-nav-item', (tabIdx===0?'active':'')]" data-idx="0">
-                  <image :src="(qgtab.one_select ? qgtab.one_select : '../../images/index-tab-left-active.png')" v-if="tabIdx===0"></image>
-                  <image :src="(qgtab.one_selected?qgtab.one_selected:'../../images/index-tab-left-disabled.png')" v-else></image>
+                  <img :src="(qgtab.one_select ? qgtab.one_select : '@/assets/images/index-tab-left-active.png')" v-if="tabIdx===0"/>
+                  <img :src="(qgtab.one_selected?qgtab.one_selected:'@/assets/images/index-tab-left-disabled.png')" v-else/>
                   <span>{{index_qgtab_text[0]?index_qgtab_text[0]:'正在抢购'}}</span>
                 </div>
                 <div bindtap="tabSwitch" :class="['tab-nav-item', (tabIdx===1?'active':'')]" data-idx="1">
-                  <image :src="(qgtab.two_select?qgtab.two_select:'../../images/index-tab-right-active.png')" v-if="tabIdx===1"></image>
-                  <image :src="(qgtab.two_selected?qgtab.two_selected:'../../images/index-tab-right-disabled.png')" v-else></image>
+                  <img :src="(qgtab.two_select?qgtab.two_select:'@/assets/images/index-tab-right-active.png')" v-if="tabIdx===1"/>
+                  <img :src="(qgtab.two_selected?qgtab.two_selected:'@/assets/images/index-tab-right-disabled.png')" v-else/>
                   <span>{{index_qgtab_text[1]?index_qgtab_text[1]:'即将开抢'}}
             </span>
                 </div>
@@ -225,7 +227,7 @@
                 <i-rush-spu-big :actEnd="actEndMap[item.end_time]" :authModal="authModal" :changeCartNum="changeCartNum" :openSku="openSku" :vipModal="vipModal" :canLevelBuy="canLevelBuy" :changeCarCount="changeCarCount" :isShowListCount="isShowListCount" :is_open_vipcard_buy="is_open_vipcard_buy" :needAuth="needAuth" :reduction="reduction" :showPickTime="ishow_index_pickup_time==1" :skin="skin" :spuItem="item" :stopClick="stopClick"></i-rush-spu-big>
               </div>
               <div class="theme3" v-if="rushList.length>0&&theme==2">
-                <image bindtap="goLink" class="topic-img" :data-link="'/lionfish_comshop/pages/type/details?id='+classificationId" mode="widthFix" :src="cate_info.banner" v-if="cate_info.banner"></image>
+                <img bindtap="goLink" class="topic-img" :data-link="'/lionfish_comshop/pages/type/details?id='+classificationId" mode="widthFix" :src="cate_info.banner" v-if="cate_info.banner"/>
                 <i-rush-spu bind:authModal="authModal" bind:changeCartNum="changeCartNum" bind:openSku="openSku" bind:vipModal="vipModal" :canLevelBuy="canLevelBuy" :changeCarCount="changeCarCount" class="item" :is_open_vipcard_buy="is_open_vipcard_buy" :needAuth="needAuth" :reduction="reduction" :spuItem="item" :stopClick="stopClick" v-for="(item,index) in rushList" wx:key="actId"></i-rush-spu>
               </div>
               <i-load-more iClass="loadMore" :loading="loadMore" :tip="loadText" v-if="loadMore"></i-load-more>
@@ -236,22 +238,22 @@
                 <i-load-more iClass="loadMore" :loading="commigLoadMore" :tip="commigTip" v-if="commigLoadMore"></i-load-more>
               </div>
               <div class="none-rush-list" v-if="showCommingEmpty">
-                <image class="img-block" src="../../images/icon-index-empty.png"></image>
+                <img class="img-block" src="@/assets/images/icon-index-empty.png"/>
                 <div class="h1">暂时没有团购</div>
                 <div class="h2">我们正在为您准备更优惠的团购</div>
               </div>
               <div class="slogan" v-if="!commigLoadMore&&commingList.length">
-                <image :src="(indexBottomImage?indexBottomImage:'../../images/icon-index-slogan.png')"></image>
+                <img :src="(indexBottomImage?indexBottomImage:'@/assets/images/icon-index-slogan.png')"/>
               </div>
             </block>
             <block v-if="tabIdx===0">
               <div class="none-rush-list" v-if="showEmpty">
-                <image class="img-block" src="../../images/icon-index-empty.png"></image>
+                <img class="img-block" src="@/assets/images/icon-index-empty.png"/>
                 <div class="h1">暂时没有团购</div>
                 <div class="h2">我们正在为您准备更优惠的团购</div>
               </div>
               <div class="slogan" v-if="!loadMore&&rushList.length">
-                <image :src="(indexBottomImage?indexBottomImage:'../../images/icon-index-slogan.png')"></image>
+                <img :src="(indexBottomImage?indexBottomImage:'@/assets/images/icon-index-slogan.png')"/>
               </div>
             </block>
           </div>
@@ -314,13 +316,13 @@
       <div class="h2">请联系管理员</div>
     </div>
     <div class="mask" v-show="false"></div>
-    <div bind:cancel="close" class="sku-content" v-show="false" scrollUp="true">
+    <div :cancel="close" class="sku-content" v-show="false" scrollUp="true">
       <div class="sku-card">
         <div bindtap="closeSku" class="close">
-          <image src="../../images/icon-sku-close.png"></image>
+          <img src="@/assets/images/icon-sku-close.png"/>
         </div>
         <div class="sku-header">
-          <i-img defaultImage="../../images/placeholder-refund.png" height="80" iClass="sku-img" :loadImage="cur_sku_arr.skuImage" width="80"></i-img>
+          <i-img defaultImage="@/assets/images/placeholder-refund.png" height="80" iClass="sku-img" :loadImage="cur_sku_arr.skuImage" width="80"></i-img>
           <div class="sku-desc">
             <div class="sku-title">
               <span>{{cur_sku_arr.spuName}}</span>
@@ -331,7 +333,7 @@
               </div>
               <div class="market-price">¥{{cur_sku_arr.marketPrice[0]}}.{{cur_sku_arr.marketPrice[1]}}</div>
               <i-vip-price :price="cur_sku_arr.card_price" v-if="is_open_vipcard_buy==1&&is_vip_card_member==1&&is_take_vipcard==1"></i-vip-price>
-              <block v-elif="is_member_level_buy==1&&is_mb_level_buy==1">
+              <block v-else-if="is_member_level_buy==1&&is_mb_level_buy==1">
                 <i-vip-price :price="cur_sku_arr.levelprice" type="1" v-if="is_open_vipcard_buy==1&&is_vip_card_member!=1"></i-vip-price>
                 <i-vip-price :price="cur_sku_arr.levelprice" type="1" v-if="is_open_vipcard_buy!=1"></i-vip-price>
               </block>
@@ -349,11 +351,11 @@
           <div class="title">数量</div>
           <!--<div :class="['i-class', 'i-input-number', 'i-input-number-size-'+size]">
             <div bindtap="setNum" :class="['i-input-number-minus', (value <= min?'i-input-number-disabled':'')]" data-type="decrease">
-              <image src="../../images/icon-input-reduce.png"></image>
+              <img src="@/assets/images/icon-input-reduce.png"></image>
             </div>
             <input bindblur="handleBlur" bindfocus="handleFocus" bindinput="changeNumber" :class="['i-input-number-text',(min>=max?'i-input-number-disabled':'')]" type="number" :value="sku_val"></input>
             <div bindtap="setNum" :class="['i-input-number-plus', (value>=max?'i-input-number-disabled':'')]" data-type="add">
-              <image src="../../images/icon-input-add.png"></image>
+              <img src="@/assets/images/icon-input-add.png"></image>
             </div>
           </div>-->
           <!--<div class="msg" v-if="skuList[current].isLimit">
@@ -465,6 +467,7 @@
           loop: true
 
         },
+
         skin:{
           color:'#3dc14a',
           background:'rgb(216, 242, 218)'
@@ -563,6 +566,12 @@
         },
         immediate: true
       }
+    },
+    created:function(){
+      var i = this;
+      this.groupInfo= t
+      console.log("step1");
+
     },
     mounted:function(){
       this.tabbarRefresh = true;
