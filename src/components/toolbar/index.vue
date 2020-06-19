@@ -1,45 +1,49 @@
 <template>
-  <div class="vux-header" style="width: 100%; position: fixed; left: 0px; top: 0px; z-index: 100;">
-    <div class="vux-header-left" v-if="showBack"><a class="vux-header-back">{{backText}}</a>
+  <div class="vux-header" :style="{background:navBgColor}">
+    <div class="vux-header-left" v-if="getShowToolbarBack"><a class="vux-header-back"></a>
       <div class="left-arrow"></div>
     </div>
-    <h2 class="vux-header-title"><span>{{title}}</span></h2>
-    <div class="vux-header-right" v-if="showMore"><a class="vux-header-more"></a></div>
+    <h2 class="vux-header-title"><span>{{getToolbarTitle}}</span></h2>
+    <div class="vux-header-right" v-if="getShowToSolbarMore"><a class="vux-header-more"></a></div>
   </div>
 </template>
 
 <script>
+  import { mapGetters,mapState } from 'vuex'
   export default {
     name: '',
-    props: {
-      title: {
-        type: String,
-        default: '首页'
+    computed: {
+      getShowToolbarBack(){
+        return this.$store.getters.showToolbarBack
       },
-      showBack:{
-        type: Boolean,
-        default: true
+      getToolbarTitle(){
+        return this.$store.getters.toolbarTitle
       },
-      backText:{
-        type: String,
-        default: '返回'
+      getShowToSolbarMore(){
+        return this.$store.getters.showToolbarMore
       },
-      showMore:{
-        type: Boolean,
-        default: true
+      navBgColor(){
+        return this.$store.getters.navBgColor
+      },
+      navFontColor(){
+        return this.$store.getters.navFontColor
       }
-
     }
+
   }
 </script>
 
 <style lang="less">
 
   .vux-header {
-    position: relative;
+    position: fixed;
+    width: 100%;
     padding: 3px 0;
     box-sizing: border-box;
     background-color: #3dc14a;
+    left: 0px;
+    top: 0px;
+    z-index: 100
   }
   .vux-header .vux-header-title {
     line-height: 40px;

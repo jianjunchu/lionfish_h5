@@ -43,7 +43,6 @@
 
     methods: {
       handleTabItemTap(t){
-        console.log(t.target.dataset);
         const e = t.target.dataset.index, a = t.target.dataset.key;
 
         if(e !== this.activeIndex_){
@@ -54,8 +53,6 @@
     },
     watch: {
       activeIndex_: (newValue, oldValue) => {
-        console.log(newValue)
-        console.log(oldValue)
       },
     }
   }

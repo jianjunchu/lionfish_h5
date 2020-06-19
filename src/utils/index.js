@@ -45,7 +45,9 @@ export function parseTime(time, cFormat) {
   const time_str = format.replace(/{([ymdhisa])+}/g, (result, key) => {
     const value = formatObj[key]
     // Note: getDay() returns 0 on Sunday
-    if (key === 'a') { return ['日', '一', '二', '三', '四', '五', '六'][value ] }
+    if (key === 'a') {
+      return ['日', '一', '二', '三', '四', '五', '六'][value]
+    }
     return value.toString().padStart(2, '0')
   })
   return time_str
@@ -114,4 +116,14 @@ export function param2Obj(url) {
     }
   })
   return obj
+}
+
+export function getLightColor(e, t) {
+  e = e ? e.toUpperCase() : e
+  if (!/^\#?[0-9A-F]{6}$/.test(e)) return e
+  for (var n = (e = e.replace('#', '')).match(/../g), r = 0; r < 3; r++) {
+    var a = parseInt(n[r], 16)
+    n[r] = Math.floor((255 - a) * t + a)
+  }
+  return 'rgb(' + n[0] + ', ' + n[1] + ', ' + n[2] + ')'
 }

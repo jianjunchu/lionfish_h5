@@ -11,7 +11,6 @@
 
     methods: {
       routerLink(t){
-        console.log(t);
       }
     },
   }

@@ -426,17 +426,13 @@
 
 <script>
   import {http} from '@/api/index'
-  import IModal from '@/components/modal'
-  import IImg from '@/components/img'
-  import ITabs from '@/components/tabs'
-  import INewRushSpu from '@/components/NewRushSpu'
-  import IButton from '@/components/button'
-
+  import GlobalMixin from '@/mixin/globalMixin.js'
 
   export default {
-    components: {IModal ,IImg,ITabs,INewRushSpu,IButton},
+    mixins: [GlobalMixin],
     name: 'Index',
     data() {
+
       return {
         sliderSwiperOption:{
           //显示分页
@@ -468,10 +464,6 @@
 
         },
 
-        skin:{
-          color:'#3dc14a',
-          background:'rgb(216, 242, 218)'
-        },
         needAuth: !1,
         stopClick: !1,
         community: {},
@@ -539,6 +531,7 @@
           actPrice: [],
           marketPrice: []
         },
+        index_list_top_image:1,
         is_open_vipcard_buy:true,
         is_member_level_buy:true,
         is_show_new_buy:true,
@@ -555,7 +548,6 @@
         hide_index_type:0,
         index_qgtab_text:'',
         qgtab:{},
-        skin:{},
         rushEndTime:true
       }
     },
@@ -568,13 +560,16 @@
       }
     },
     created:function(){
-      var i = this;
-      this.groupInfo= t
-      console.log("step1");
-
+      this.setNavBgColor();
     },
     mounted:function(){
+
+      this.$store.dispatch('app/hideToolbarBack')
+      this.$store.dispatch('app/hideToolbarMore')
+      this.$store.dispatch('app/showTabbar')
+
       this.tabbarRefresh = true;
+
       this.getNewauthGg();
       this.getIndexInfo();
       this.getNavigat();
@@ -582,6 +577,16 @@
 
     },
     methods: {
+
+      setNavBgColor(){
+        http({
+          controller : 'index.get_nav_bg_color',
+        }).then(response => {
+          var t = response.data || "#F75451", e = response.nav_font_color || "#ffffff";
+          this.$store.dispatch('app/setNavBgColor',t)
+          this.$store.dispatch('app/setNavFontColor',e)
+        })
+      },
       getIndexInfo(){
 
         const this_ = this;
@@ -590,7 +595,6 @@
           controller : 'index.index_info',
           communityId : 4559
         }).then(response => {
-          console.log(response.title)
           //this.$set(this.$data,"title",response.title);
 
           var p = response.category_list || [],
@@ -665,8 +669,7 @@
           this.spike_data=response.spike_data;
           this.theme=response.theme;
           this.title=response.title;
-          console.log(this)
-
+          this.$store.state.app.toolbarTitle = response.title
         })
       },
       getNewauthGg(){
@@ -709,7 +712,6 @@
         }).then(response => {
 
           this.rushList = this.rushList.concat(response.list);
-          console.log( this.rushList)
 
         })
 
