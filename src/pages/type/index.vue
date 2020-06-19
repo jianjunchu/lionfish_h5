@@ -1,7 +1,68 @@
 <template>
   <div class="page-wrap">
-      分类页面
-  </div>
+    <div class="search-bar">
+        <div class="search-box">
+            <input v-on:click="goResult" class="ipt" confirmType="搜索" placeholder="搜索商品" type="text" />
+            <div class="search-icon">
+                <text class="iconfont icon-sousuo1"></text>
+            </div>
+        </div>
+    </div>
+    <div class="page-content" v-if="!noCateList">
+        <scroll-div scrollWithAnimation scrollY class="page-category" :scrollTop="categoryScrollBarTop" style="height:150px">
+            <div v-on:click="changeCategory(index)" class="category-item"  v-for="(item,index) in rushCategoryData.tabs" :key="index">
+                <div class="item-border" style="background: red"></div>
+                <div>{{item.name}}</div>
+            </div>
+            <div class="category-item"></div>
+        </scroll-div>
+        <div v-on:click="showDrop" class="mask" hidden="!showDrop"></div>
+        <div class="sub-cate" v-if="rushCategoryData.tabs[rushCategoryData.activeIndex].sub.length">
+            <scroll-div scrollX class="sub-cate-scroll" :scrollLeft="scrollLeft">
+                <div v-on:click="change_sub_cate(rushCategoryData.tabs[rushCategoryData.activeIndex].id,0)" class="sub-cate-item" >全部</div>
+                <div v-on:click="change_sub_cate(item.id,index+1)" class="sub-cate-item"  v-for="(item,index) in rushCategoryData.tabs[rushCategoryData.activeIndex].sub" :key="item.id">{{item.name}}</div>
+            </scroll-div>
+            <div v-on:click="showDrop" class="icon-open">
+                <image class="openImg " src="../../images/commentsOpen.png"></image>
+            </div>
+        </div>
+        <div class="sub-cate-hide" v-if="rushCategoryData.tabs[rushCategoryData.activeIndex].sub.length&&showDrop">
+            <div v-on:click="change_sub_cate(rushCategoryData.tabs[rushCategoryData.activeIndex].id,0)" class="sub-cate-item" style="color:#fff">全部</div>
+            <div v-on:click="change_sub_cate(item.id,index+1)" class="sub-cate-item" style="color:#fff" v-for="(item,index) in rushCategoryData.tabs[rushCategoryData.activeIndex].sub" :key="item.id">{{item.name}}</div>
+        </div>
+        <scroll-div scrollWithAnimation scrollY bindscroll="scroll" bindscrolltolower="scrollBottom" bindtouchend="touchend" bindtouchstart="touchstart" class="page-list " lowerThreshold="200" scrollTop="resetScrollBarTop" style="height:100px" upperThreshold="50">
+            <div class="scroll-col-tip-top">
+                <span v-if="isFirstCategory">已经拉到最顶部啦～</span>
+                <span wx:else>下拉查看上一个分类</span>
+            </div>
+            <div style="min-height: 100px;">
+                <block v-if="!pageEmpty">
+                    <!-- <i-type-item bind:authModal="authModal" bind:changeCartNum="changeCartNum" bind:openSku="openSku" bind:vipModal="vipModal" canLevelBuy="{{canLevelBuy}}" changeCarCount="{{changeCarCount}}" is_open_vipcard_buy="{{is_open_vipcard_buy}}" needAuth="{{needAuth}}" reduction="{{reduction}}" spuItem="{{item}}" stopClick="{{stopClick}}" v-for="(item,index) in rushList" :key="itm.actId"></i-type-item> -->
+                 </block>
+                <div class="none-rush-list" v-else-if="pageEmpty">
+                    <image class="img-block" src="../../images/icon-index-empty.png"></image>
+                    <div class="h1">暂时没有团购</div>
+                    <div class="h2">我们正在为您准备更优惠的团购</div>
+                </div>
+                <div v-if="loadMore">
+                    <i-load-more loading="loadMore" tip="oadText"></i-load-more>
+                </div>
+                <div class="scroll-col-tip-bottom" v-else-if="canNext">
+                    <span v-if="isLastCategory">看到我的底线了吗～</span>
+                    <span wx:else>上拉查看下一个分类</span>
+                </div>
+                <div style="height:100rpx;"></div>
+            </div>
+        </scroll-div>
+    </div>
+    <i-empty wx:else>暂无分类~</i-empty>
+    <i-tabbar bind:authModal="authModal" cartNum="cartNum" class="tabbar " currentIdx="1" needAuth="needAuth"></i-tabbar>
+</div>
+<!-- <i-new-auth bind:authSuccess="authSuccess" bind:cancel="authModal" navBackUrl="/lionfish_comshop/pages/type/index" needAuth="needAuth&&showAuthModal" needPosition="needPosition"></i-new-auth>
+<i-sku bind:cancel="closeSku" bind:changeCartNum="changeCartNum" bind:vipModal="vipModal" cur_sku_arr="{{cur_sku_arr}}" goodsid="{{addCar_goodsid}}" sku="{{sku}}" skuList="{{skuList}}" sku_val="{{sku_val}}" vipInfo="{{vipInfo}}" visible="{{visible}}"></i-sku>
+<i-change-community bind:changeComunity="confrimChangeCommunity" canChange="{{hide_community_change_btn==0}}" changeCommunity="{{changeCommunity}}" community="{{community}}" groupInfo="{{groupInfo}}" visible="{{showChangeCommunity}}"></i-change-community> -->
+<!-- <i-vip-modal :imgUrl="pop_vipmember_buyimage" :visible="showVipModal"></i-vip-modal> -->
+
 
 </template>
 
@@ -12,11 +73,42 @@
 
     data() {
       return{
-
+        cartNum: 0,
+        rushCategoryData: {
+            tabs: [],
+            activeIndex: 0
+        },
+        rushList: [],
+        categoryScrollBarTop: 0,
+        resetScrollBarTop: 50,
+        loadMore: !0,
+        loadText: "加载中...",
+        scrollViewHeight: 0,
+        isFirstCategory: !0,
+        isLastCategory: !1,
+        pageEmpty: !1,
+        active_sub_index: 0,
+        needPosition: !0,
+        groupInfo: {
+            group_name: "社区",
+            owner_name: "团长"
+        },
+        noCateList: 0
       }
     },
     methods: {
-
+      goResult: function(t) {
+        var a = t.detail.value.replace(/\s+/g, "");
+        a ? wx.navigateTo({
+            url: "/lionfish_comshop/pages/type/result?keyword=" + a
+        }) : wx.showToast({
+            title: "请输入关键词",
+            icon: "none"
+        });
+      },
+      showDrop: function() {
+            this.showDrop = this.data.showDrop
+      }
     },
 
   }
@@ -105,7 +197,7 @@
     line-height: 15px;
   }
 
-  .category-item view {
+  .category-item div {
     max-width: 68px;
     text-align: center;
   }
