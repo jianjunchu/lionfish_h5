@@ -2,26 +2,26 @@
   <div class="page-wrap">
     <div class="search-bar">
         <div class="search-box">
-            <input v-on:click="goResult" class="ipt" confirmType="搜索" placeholder="搜索商品" type="text" />
+            <input v-on:click="goResult" class="ipt" confirmType="搜索" placeholder="搜索商品" type="text" v-model="name" />
             <div class="search-icon">
-                <text class="iconfont icon-sousuo1"></text>
+                <span class="iconfont icon-sousuo1"></span>
             </div>
         </div>
     </div>
     <div class="page-content" v-if="!noCateList">
-        <scroll-div scrollWithAnimation scrollY class="page-category" :scrollTop="categoryScrollBarTop" style="height:150px">
-            <div v-on:click="changeCategory(index)" class="category-item"  v-for="(item,index) in rushCategoryData.tabs" :key="index">
+        <div class="scrollY page-category" :scrollTop="categoryScrollBarTop">
+            <div v-on:click="changeCategory(item.id)" class="category-item"  v-for="(item,index) in rushCategoryData.tabs" :key="index">
                 <div class="item-border" style="background: red"></div>
                 <div>{{item.name}}</div>
             </div>
             <div class="category-item"></div>
-        </scroll-div>
+        </div>
         <div v-on:click="showDrop" class="mask" hidden="!showDrop"></div>
         <div class="sub-cate" v-if="rushCategoryData.tabs[rushCategoryData.activeIndex].sub.length">
-            <scroll-div scrollX class="sub-cate-scroll" :scrollLeft="scrollLeft">
+            <div class="sub-cate-scroll scrollX" :scrollLeft="100">
                 <div v-on:click="change_sub_cate(rushCategoryData.tabs[rushCategoryData.activeIndex].id,0)" class="sub-cate-item" >全部</div>
                 <div v-on:click="change_sub_cate(item.id,index+1)" class="sub-cate-item"  v-for="(item,index) in rushCategoryData.tabs[rushCategoryData.activeIndex].sub" :key="item.id">{{item.name}}</div>
-            </scroll-div>
+            </div>
             <div v-on:click="showDrop" class="icon-open">
                 <image class="openImg " src="../../images/commentsOpen.png"></image>
             </div>
@@ -30,22 +30,22 @@
             <div v-on:click="change_sub_cate(rushCategoryData.tabs[rushCategoryData.activeIndex].id,0)" class="sub-cate-item" style="color:#fff">全部</div>
             <div v-on:click="change_sub_cate(item.id,index+1)" class="sub-cate-item" style="color:#fff" v-for="(item,index) in rushCategoryData.tabs[rushCategoryData.activeIndex].sub" :key="item.id">{{item.name}}</div>
         </div>
-        <scroll-div scrollWithAnimation scrollY bindscroll="scroll" bindscrolltolower="scrollBottom" bindtouchend="touchend" bindtouchstart="touchstart" class="page-list " lowerThreshold="200" scrollTop="resetScrollBarTop" style="height:100px" upperThreshold="50">
+        <div scrollWithAnimation bindscroll="scroll" bindscrolltolower="scrollBottom" bindtouchend="touchend" bindtouchstart="touchstart" class="page-list scrollY " lowerThreshold="200" scrollTop="resetScrollBarTop" upperThreshold="50">
             <div class="scroll-col-tip-top">
                 <span v-if="isFirstCategory">已经拉到最顶部啦～</span>
                 <span wx:else>下拉查看上一个分类</span>
             </div>
             <div style="min-height: 100px;">
-                <block v-if="!pageEmpty">
-                    <!-- <i-type-item bind:authModal="authModal" bind:changeCartNum="changeCartNum" bind:openSku="openSku" bind:vipModal="vipModal" canLevelBuy="{{canLevelBuy}}" changeCarCount="{{changeCarCount}}" is_open_vipcard_buy="{{is_open_vipcard_buy}}" needAuth="{{needAuth}}" reduction="{{reduction}}" spuItem="{{item}}" stopClick="{{stopClick}}" v-for="(item,index) in rushList" :key="itm.actId"></i-type-item> -->
-                 </block>
+                <div v-if="!pageEmpty">
+                  <i-type-item  v-for="(item,actId) in rushList" :key="actId" :spuItem="item"></i-type-item>                    
+                </div>
                 <div class="none-rush-list" v-else-if="pageEmpty">
-                    <image class="img-block" src="../../images/icon-index-empty.png"></image>
+                    <image class="img-div" src="../../images/icon-index-empty.png"></image>
                     <div class="h1">暂时没有团购</div>
                     <div class="h2">我们正在为您准备更优惠的团购</div>
                 </div>
                 <div v-if="loadMore">
-                    <i-load-more loading="loadMore" tip="oadText"></i-load-more>
+                    <!-- <i-load-more loading="loadMore" tip="oadText"></i-load-more> -->
                 </div>
                 <div class="scroll-col-tip-bottom" v-else-if="canNext">
                     <span v-if="isLastCategory">看到我的底线了吗～</span>
@@ -53,21 +53,21 @@
                 </div>
                 <div style="height:100rpx;"></div>
             </div>
-        </scroll-div>
+        </div>
     </div>
-    <i-empty wx:else>暂无分类~</i-empty>
-    <i-tabbar bind:authModal="authModal" cartNum="cartNum" class="tabbar " currentIdx="1" needAuth="needAuth"></i-tabbar>
+    <!-- <i-empty wx:else>暂无分类~</i-empty> -->
+    <!-- <i-tabbar bind:authModal="authModal" cartNum="cartNum" class="tabbar " currentIdx="1" needAuth="needAuth"></i-tabbar> -->
 </div>
-<!-- <i-new-auth bind:authSuccess="authSuccess" bind:cancel="authModal" navBackUrl="/lionfish_comshop/pages/type/index" needAuth="needAuth&&showAuthModal" needPosition="needPosition"></i-new-auth>
-<i-sku bind:cancel="closeSku" bind:changeCartNum="changeCartNum" bind:vipModal="vipModal" cur_sku_arr="{{cur_sku_arr}}" goodsid="{{addCar_goodsid}}" sku="{{sku}}" skuList="{{skuList}}" sku_val="{{sku_val}}" vipInfo="{{vipInfo}}" visible="{{visible}}"></i-sku>
-<i-change-community bind:changeComunity="confrimChangeCommunity" canChange="{{hide_community_change_btn==0}}" changeCommunity="{{changeCommunity}}" community="{{community}}" groupInfo="{{groupInfo}}" visible="{{showChangeCommunity}}"></i-change-community> -->
+<!-- <i-new-auth bind:authSuccess="authSuccess" bind:cancel="authModal" navBackUrl="/lionfish_comshop/pages/type/index" needAuth="needAuth&&showAuthModal" needPosition="needPosition"></i-new-auth> -->
+<!-- <i-sku bind:cancel="closeSku" bind:changeCartNum="changeCartNum" bind:vipModal="vipModal" cur_sku_arr="{{cur_sku_arr}}" goodsid="{{addCar_goodsid}}" sku="{{sku}}" skuList="{{skuList}}" sku_val="{{sku_val}}" vipInfo="{{vipInfo}}" visible="{{visible}}"></i-sku> -->
+<!-- <i-change-community bind:changeComunity="confrimChangeCommunity" canChange="{{hide_community_change_btn==0}}" changeCommunity="{{changeCommunity}}" community="{{community}}" groupInfo="{{groupInfo}}" visible="{{showChangeCommunity}}"></i-change-community> -->
 <!-- <i-vip-modal :imgUrl="pop_vipmember_buyimage" :visible="showVipModal"></i-vip-modal> -->
 
 
 </template>
 
 <script>
-
+  import {http} from '@/api/index'
   export default {
     name: 'type',
 
@@ -81,40 +81,106 @@
         rushList: [],
         categoryScrollBarTop: 0,
         resetScrollBarTop: 50,
-        loadMore: !0,
+        loadMore: false,
         loadText: "加载中...",
         scrollViewHeight: 0,
         isFirstCategory: !0,
         isLastCategory: !1,
-        pageEmpty: !1,
+        pageEmpty: false,
         active_sub_index: 0,
         needPosition: !0,
         groupInfo: {
             group_name: "社区",
             owner_name: "团长"
         },
-        noCateList: 0
+        noCateList: 0,
+        tabs: [],
+        name: ""
       }
     },
+    components: {
+      'i-type-item' : require('./type-item.vue').default,
+    },
     methods: {
-      goResult: function(t) {
-        var a = t.detail.value.replace(/\s+/g, "");
-        a ? wx.navigateTo({
-            url: "/lionfish_comshop/pages/type/result?keyword=" + a
-        }) : wx.showToast({
-            title: "请输入关键词",
-            icon: "none"
-        });
+      goResult: function() {
+        http({
+          controller : 'index.load_condition_goodslist',
+          pageNum: 1,
+          keyword: this.name
+        }).then(response => {
+          console.log(response.list)
+          //this.$set(this.$data,"title",response.title);
+          var a = response.list;
+          this.rushList = a;
+
+        })
+      },
+      getCategoryList(){
+
+        const this_ = this;
+
+        http({
+          controller : 'goods.get_category_list',
+          is_type_show: 1
+        }).then(response => {
+          console.log(response.data)
+          //this.$set(this.$data,"title",response.title);
+          var a = response.data;
+          this.rushCategoryData.tabs = a;
+
+        })
+      },
+      getGoodsList(){
+
+        const this_ = this;
+
+        http({
+          controller : 'index.load_gps_goodslist',
+          pageNum: 1,
+          per_page: 30
+        }).then(response => {
+          console.log(response.community_goods,"123456")
+          //this.$set(this.$data,"title",response.title);
+          var a = response.list;
+          this.rushList = a;
+
+        })
+      },
+      changeCategory: function(t) {
+        http({
+          controller : 'index.load_gps_goodslist',
+          pageNum: 1,
+          per_page: 30,
+          gid: t
+        }).then(response => {
+          console.log(response.community_goods,"123456")
+          //this.$set(this.$data,"title",response.title);
+          var a = response.list;
+          this.rushList = a;
+
+        })
       },
       showDrop: function() {
             this.showDrop = this.data.showDrop
       }
     },
+    created: function(){
+      this.getCategoryList();
+      this.getGoodsList();
+    }
 
   }
 </script>
 
 <style scoped>
+  .scrollX{
+    overflow-x: scroll;
+  }
+
+  .scrollY{
+    overflow-y: scroll;
+  }
+
   .page-wrap {
     display: flex;
     flex-direction: column;
@@ -180,7 +246,7 @@
     top: 0;
     left: 0;
     width: 80px;
-    height: 500px;
+    height: 630px;
     background: #f8f8f7;
     padding-bottom: 50px;
   }
@@ -219,7 +285,7 @@
   }
 
   .category-item.active .item-border {
-    display: block;
+    display: div;
   }
 
   .page-list {
@@ -227,7 +293,7 @@
     top: 0;
     left: 80px;
     width: 295px;
-    height: 500px;
+    height: 630px;
     padding-top: 5px;
     box-sizing: border-box;
   }
@@ -273,7 +339,7 @@
     padding-top: 70px;
   }
 
-  .none-rush-list .img-block {
+  .none-rush-list .img-div {
     width: 120px;
     height: 120px;
     margin-bottom: 15px;
@@ -322,7 +388,7 @@
   }
 
   .sub-cate-item {
-    display: inline-block;
+    display: inline-div;
     min-width: 40px;
     text-align: center;
     padding: 0 10px;

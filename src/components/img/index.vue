@@ -9,7 +9,7 @@
 
 <script>
   export default {
-    name: 'iImg',
+    name: 'i-img',
     props: {
       defaultImage:{
         default:''
