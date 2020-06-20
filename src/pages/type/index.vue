@@ -18,7 +18,7 @@
         </div>
         <div v-on:click="showDrop" class="mask" hidden="!showDrop"></div>
         <div class="sub-cate" v-if="rushCategoryData.tabs[rushCategoryData.activeIndex].sub.length">
-            <div class="sub-cate-scroll scrollX" :scrollLeft="100">
+            <div class="sub-cate-scroll scrollX">
                 <div v-on:click="change_sub_cate(rushCategoryData.tabs[rushCategoryData.activeIndex].id,0)" class="sub-cate-item" >全部</div>
                 <div v-on:click="change_sub_cate(item.id,index+1)" class="sub-cate-item"  v-for="(item,index) in rushCategoryData.tabs[rushCategoryData.activeIndex].sub" :key="item.id">{{item.name}}</div>
             </div>
@@ -26,10 +26,10 @@
                 <image class="openImg " src="../../images/commentsOpen.png"></image>
             </div>
         </div>
-        <div class="sub-cate-hide" v-if="rushCategoryData.tabs[rushCategoryData.activeIndex].sub.length&&showDrop">
+        <!-- <div class="sub-cate-hide" v-if="rushCategoryData.tabs[rushCategoryData.activeIndex].sub.length&&showDrop">
             <div v-on:click="change_sub_cate(rushCategoryData.tabs[rushCategoryData.activeIndex].id,0)" class="sub-cate-item" style="color:#fff">全部</div>
             <div v-on:click="change_sub_cate(item.id,index+1)" class="sub-cate-item" style="color:#fff" v-for="(item,index) in rushCategoryData.tabs[rushCategoryData.activeIndex].sub" :key="item.id">{{item.name}}</div>
-        </div>
+        </div> -->
         <div scrollWithAnimation bindscroll="scroll" bindscrolltolower="scrollBottom" bindtouchend="touchend" bindtouchstart="touchstart" class="page-list scrollY " lowerThreshold="200" scrollTop="resetScrollBarTop" upperThreshold="50">
             <div class="scroll-col-tip-top">
                 <span v-if="isFirstCategory">已经拉到最顶部啦～</span>
@@ -224,6 +224,7 @@
     padding: 0 15px 0 30px;
     line-height: 28px;
     height: 28px;
+    border-radius: 14px;
     width: 100%;
     box-sizing: border-box;
   }
@@ -388,7 +389,7 @@
   }
 
   .sub-cate-item {
-    display: inline-div;
+    display: inline;
     min-width: 40px;
     text-align: center;
     padding: 0 10px;
