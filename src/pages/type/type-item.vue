@@ -103,7 +103,7 @@
             value: !1,
             observer: function(t) {
                 t && this.setData({
-                    number: this.data.spuItem.car_count
+                    number: this.spuItem.car_count
                 });
             }
         },

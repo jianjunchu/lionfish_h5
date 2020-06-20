@@ -1,12 +1,12 @@
 <template>
   <div>
-    <button :appParameter="appParameter" bindcontact="bindcontact" binderror="binderror"
-            bindgetphonenumber="bindgetphonenumber" bindgetuserinfo="bindgetuserinfo" catchtap="handleTap"
+    <button :appParameter="appParameter" @contact="bindcontact" @error="binderror"
+            @getphonenumber="bindgetphonenumber" @getuserinfo="bindgetuserinfo" @click="handleTap"
             :class="['i-class', 'i-btn', (long?'i-btn-long':''), 'i-btn-'+size, 'i-btn-'+type, 'i-btn-'+shape, (loading?'i-btn-loading':''), (disabled?'i-btn-disabled':''), (inline?'i-btn-inline':'')]"
             hoverClass="i-btn-hover" :hoverStartTime="hoverStartTime" :hoverStayTime="hoverStayTime"
             :hoverStopPropagation="hoverStopPropagation" :openType="openType" plain="true"
-            :sendMessageImg="sendMessageImg" :sendMessagePath="sendMessagePath"
-            :sendMessageTitle="sendMessageTitle" :sessionFrom="sessionFrom" :showMessageCard="showMessageCard"
+            :endMessageImg="sendMessageImg" @sendMessagePath="sendMessagePath"
+            :sendMessageTitle="sendMessageTitle" @sessionFrom="sessionFrom" :showMessageCard="showMessageCard"
             :style="styleStr">
       <div class="i-btn-loading-inner" v-if="loading"></div>
       <slot></slot>
@@ -21,7 +21,7 @@
     props: {
       type: {
         type: String,
-        value: ""
+        default: ''
       },
       inline: {
         type: Boolean,
@@ -29,11 +29,11 @@
       },
       size: {
         type: String,
-        value: ""
+        value: ''
       },
       shape: {
         type: String,
-        value: "square"
+        value: 'square'
       },
       disabled: {
         type: Boolean,
@@ -60,11 +60,11 @@
       },
       lang: {
         type: String,
-        value: "en"
+        value: 'en'
       },
       sessionFrom: {
         type: String,
-        value: ""
+        value: ''
       },
       sendMessageTitle: String,
       sendMessagePath: String,
@@ -72,7 +72,28 @@
       showMessageCard: Boolean,
       styleStr: {
         type: String,
-        value: ""
+        value: ''
+      }
+    },
+    methods: {
+      handleTap: function() {
+        return !this.disabled && !this.loading && void this.$emit('click')
+      },
+      bindgetuserinfo: function() {
+        var e = (0 < arguments.length && void 0 !== arguments[0] ? arguments[0] : {}).detail, t = void 0 === e ? {} : e
+        this.$emit('getuserinfo', t)
+      },
+      bindcontact: function() {
+        var e = (0 < arguments.length && void 0 !== arguments[0] ? arguments[0] : {}).detail, t = void 0 === e ? {} : e
+        this.$emit('contact', t)
+      },
+      bindgetphonenumber: function() {
+        var e = (0 < arguments.length && void 0 !== arguments[0] ? arguments[0] : {}).detail, t = void 0 === e ? {} : e
+        this.$emit('getphonenumber', t)
+      },
+      binderror: function() {
+        var e = (0 < arguments.length && void 0 !== arguments[0] ? arguments[0] : {}).detail, t = void 0 === e ? {} : e
+        this.$emit('error', t)
       }
     }
   }
@@ -89,7 +110,7 @@
     user-select: none;
     font-size: 28px;
     border-radius: 4px;
-    border: 0!important;
+    border: 0 !important;
     position: relative;
     text-decoration: none;
     height: 88px;

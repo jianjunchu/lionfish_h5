@@ -8,28 +8,36 @@ import locale from 'element-ui/lib/locale/lang/en' // lang i18n
 
 import vueSwiper from 'vue-awesome-swiper'
 import 'swiper/css/swiper.css'
+
 Vue.use(vueSwiper)
 
-import ITabbar from '@/components/tabbar'
-import IToolbar from '@/components/toolbar'
-import IModal from '@/components/modal'
-import IImg from '@/components/img'
-import ITabs from '@/components/tabs'
-import INewRushSpu from '@/components/NewRushSpu'
-import IButton from '@/components/button'
+import Tabbar from '@/components/tabbar'
+import Toolbar from '@/components/toolbar'
+import Modal from '@/components/modal'
+import Img from '@/components/img'
+import Tabs from '@/components/tabs'
+import NewRushSpu from '@/components/NewRushSpu'
+import Button from '@/components/button'
+import InputNumber from '@/components/input-number'
+import IndexItem from '@/components/index-item'
+import Dialog from '@/components/dialog'
 
-Vue.component('ITabbar', ITabbar)
-Vue.component('IToolbar', IToolbar)
-Vue.component('IModal', IModal)
-Vue.component('IImg', IImg)
-Vue.component('ITabs', ITabs)
-Vue.component('INewRushSpu', INewRushSpu)
-Vue.component('IButton', IButton)
+Vue.component('i-tabbar', Tabbar)
+Vue.component('i-toolbar', Toolbar)
+Vue.component('i-modal', Modal)
+Vue.component('i-img', Img)
+Vue.component('i-tabs', Tabs)
+Vue.component('i-new-rush-spu', NewRushSpu)
+Vue.component('i-button', Button)
+Vue.component('i-input-number', InputNumber)
+Vue.component('i-index-item', IndexItem)
+Vue.component('i-dialog', Dialog)
 
 import '@/styles/index.scss' // global css
 import qs from 'qs'
 import App from './App'
 import store from './store'
+import { http } from './api/index'
 import router from './router'
 
 import '@/icons' // icon
@@ -49,6 +57,7 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 Vue.prototype.$qs = qs
+Vue.prototype.$http = http
 
 // set ElementUI lang to EN
 Vue.use(ElementUI, { locale })

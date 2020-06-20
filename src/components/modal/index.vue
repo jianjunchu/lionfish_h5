@@ -1,7 +1,8 @@
 <template>
   <div>
-    <div bindtap="handleClickMask" catchtouchmove="stopMove" :class="['i-as-mask', 'i-class-mask', (isShow ? 'i-as-mask-show':'')]"></div>
-    <div  v-show="isShow" :class="['i-class', (isIpx?'ipx':''), (scrollUp ? 'i-as':'i-modal-content')]">
+    <div @click="handleClickMask" catchtouchmove="stopMove"
+         :class="['i-as-mask', 'i-class-mask', (isShow ? 'i-as-mask-show':'')]"></div>
+    <div v-show="isShow" :class="['i-class', (isIpx?'ipx':''), (scrollUp ? 'i-as':'i-modal-content')]">
       <slot></slot>
     </div>
   </div>
@@ -14,21 +15,34 @@
   export default {
     name: 'i-modal',
     props: {
-      isIpx:{
-        default:!1
+
+      isIpx: {
+        default: !1
       },
-      isShow:{
-        default:!1
+      isShow: {
+        default: !1
       },
-      scrollUp:{
-        default:!1
+      scrollUp: {
+        default: !1
       }
     },
     data() {
       return {
         isIpx: this.isIpx,
-        isShow: this.isShow,
-        scrollUp:this.scrollUp
+        isShow: this.isShow
+      }
+    },
+    mounted: function() {
+      this.isIpx = this.$store.getters.globalData.isIpx
+    },
+    methods: {
+      stopMove: function() {
+      },
+      handleClickMask: function() {
+        this.maskClosable && this.handleClickCancel()
+      },
+      handleClickCancel: function() {
+        this.$emit('cancel')
       }
     }
 
@@ -44,12 +58,12 @@
     right: 0;
     bottom: 0;
     background: #fff;
-    transform: translate3d(0,100%,0);
+    transform: translate3d(0, 100%, 0);
     transform-origin: center;
     transition: all 0.2s ease-in-out;
     z-index: 900;
     visibility: hidden;
-    border-radius: 30rpx 30rpx 0 0;
+    border-radius: 15px 15px 0 0;
   }
 
   .i-as-mask {
@@ -58,7 +72,7 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background: rgba(0,0,0,0.7);
+    background: rgba(0, 0, 0, 0.7);
     z-index: 900;
     transition: all 0.2s ease-in-out;
     opacity: 0;
@@ -71,7 +85,7 @@
   }
 
   .i-as-show {
-    transform: translate3d(0,0,0);
+    transform: translate3d(0, 0, 0);
     visibility: visible;
   }
 
@@ -91,7 +105,7 @@
     align-items: center;
     -webkit-box-pack: center;
     justify-content: center;
-    transform: translateZ(2rpx);
+    transform: translateZ(1px);
     opacity: 0;
     visibility: hidden;
     -webkit-overflow-scrolling: touch;
@@ -103,6 +117,6 @@
   }
 
   .ipx {
-    padding-bottom: 40rpx;
+    padding-bottom: 20px;
   }
 </style>

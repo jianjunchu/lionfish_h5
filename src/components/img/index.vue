@@ -1,7 +1,7 @@
 <template>
   <view class="i-class img-content">
     <el-image class="i-class img-def" :src="defaultImage"/>
-    <el-image :error="bindError" :load="imageLoad" bindtap="preview" :class="['i-class', 'img-def', 'opacity' ,isLoad?'show-img':'']" :lazy="isLazy" mode="aspectFill" :src="img"/>
+    <el-image :error="bindError" :load="imageLoad" @click="preview" :class="['i-class', 'img-def', 'opacity' ,isLoad?'show-img':'']" :lazy="isLazy" mode="aspectFill" :src="img"/>
   </view>
 
 

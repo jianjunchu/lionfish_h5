@@ -42,31 +42,30 @@ export const constantRoutes = [
     hidden: true
   },
   {
-    path: '/index',
+    path: '/lionfish_comshop/pages/index/index',
     component: () => import('@/pages/index/index'),
     hidden: true
   },
   {
-    path: '/type',
+    path: '/lionfish_comshop/pages/type/index',
     component: () => import('@/pages/type/index'),
     hidden: true
   },
   {
-    path: '/order',
+    path: '/lionfish_comshop/pages/order/index',
     component: () => import('@/pages/order/index'),
     hidden: true
   },
   {
-    path: '/order/shopCart',
-    component: () => import('@/pages/order/shopCart'),
-    hidden: true
-  },
-  {
-    path: '/me',
+    path: '/lionfish_comshop/pages/me/index',
     component: () => import('@/pages/user/index'),
     hidden: true
   },
-
+  {
+    path: '/lionfish_comshop/pages/order/shopCart',
+    component: () => import('@/pages/order/shopCart'),
+    hidden: true
+  },
   {
     path: '/404',
     component: () => import('@/pages/404'),

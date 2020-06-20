@@ -18,7 +18,7 @@ export default {
       controller: 'index.get_firstload_msg'
     }).then(response => {
       const o = response.common_header_backgroundimage || ''
-      this.$store.state.globalData.common_header_backgroundimage = o
+      this.$store.getters.globalData.common_header_backgroundimage = o
       const t = {}
       const p = response.data || ''
 
@@ -26,7 +26,9 @@ export default {
       t.light = getLightColor(t.color, 0.4)
       t.lighter = getLightColor(t.color, 0.8)
       this.skin = t
-      this.$store.state.globalData.skin = t
+      console.log(t)
+      console.log(this.skin)
+      this.$store.getters.globalData.skin = t
     })
   }
 }

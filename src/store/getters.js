@@ -1,4 +1,5 @@
 const getters = {
+  app: state => state.app,
   sidebar: state => state.app.sidebar,
   device: state => state.app.device,
   token: state => state.user.token,
@@ -10,7 +11,7 @@ const getters = {
   showTabbar: state => state.app.showTabbar,
   navBgColor: state => state.app.navBgColor,
   navFontColor: state => state.app.navFontColor,
-  globalData: state => state.globalData,
+  globalData: state => state.app.globalData,
   cartNum: state => state.app.cartNum
 
 }

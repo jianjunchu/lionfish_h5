@@ -15,7 +15,7 @@
                     <div v-if="vipFee>0">开通“{{modify_vipcard_name}}”所选商品预计可省{{vipFee}}元</div>
                     <div v-else>“{{modify_vipcard_name}}” 尊享特权·会员专享价</div>
                 </div>
-                <div bindtap="goLink" data-link="/lionfish_comshop/moduleA/vip/upgrade">立即开通
+                <div @click="goLink" data-link="/lionfish_comshop/moduleA/vip/upgrade">立即开通
                     <span class="iconfont icon-youjiantou goright"></span>
                 </div>
             </div>
@@ -25,12 +25,12 @@
         <div class="empty" v-if="isEmpty">
             <image src="../../images/icon-index-empty.png"></image>
             <div v-if="needAuth">
-                <div bindtap="authModal" class="h1">点击<span style="color: red">“去登录”</span>查看购物车商品</div>
-                <div bindtap="authModal" class="btn" style="background: red">去登录</div>
+                <div @click="authModal" class="h1">点击<span style="color: red">“去登录”</span>查看购物车商品</div>
+                <div @click="authModal" class="btn" style="background: red">去登录</div>
             </div>
             <div v-else>
                 <div class="h1">购物车空空如也，赶紧去逛逛吧~</div>
-                <div bindtap="goindex" class="btn" style="background: red">去购物</div>
+                <div @click="goindex" class="btn" style="background: red">去购物</div>
             </div>
         </div>
     </div>
@@ -790,7 +790,7 @@
     font-size: 32rpx;
     line-height: 84rpx;
     cursor: pointer;
-    
+
 }
 .wux-button--block{
     width: 100%;

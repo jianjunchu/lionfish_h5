@@ -12,7 +12,38 @@ const state = {
   showTabbar: true,
   navBgColor: '#F75451',
   navFontColor: '#ffffff',
-  cartNum: 10
+  cartNum: 10,
+  globalData: {
+    systemInfo: {},
+    isIpx: !1,
+    userInfo: {},
+    canGetGPS: !0,
+    city: {},
+    community: {},
+    location: {},
+    hasDefaultCommunity: !0,
+    historyCommunity: [],
+    changedCommunity: !1,
+    disUserInfo: {},
+    changeCity: '',
+    timer: 0,
+    formIds: [],
+    community_id: '',
+    placeholdeImg: '',
+    cartNum: 0,
+    cartNumStamp: 0,
+    common_header_backgroundimage: '',
+    appLoadStatus: 1,
+    goodsListCarCount: [],
+    typeCateId: 0,
+    navBackUrl: '',
+    isblack: 0,
+    skin: {
+      color: '#ff5344',
+      subColor: '#ed7b3a',
+      lighter: '#fff9f4'
+    }
+  }
 }
 
 const mutations = {

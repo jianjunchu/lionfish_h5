@@ -8,7 +8,7 @@
         </div>
         <span>{{item.text}}</span>
       </router-link>
-      <div bindtap="goWeapp" class="tabbar_nav" v-show="open_tabbar_out_weapp==0&&index==2" :style="{color:item.selected?tabbar.selectedColor:tabbar.color}" v-else>
+      <div @click="goWeapp" class="tabbar_nav" v-show="open_tabbar_out_weapp==0&&index==2" :style="{color:item.selected?tabbar.selectedColor:tabbar.color}" v-else>
         <div class="tabbar_icon">
           <img class="img" :src="item.selected?item.selectedIconPath:item.iconPath"></img>
         </div>
@@ -40,13 +40,13 @@
           color: "#707070",
           selectedColor: "#ff5344",
           list: [ {
-            pagePath: "/index",
+            pagePath: "/lionfish_comshop/pages/index/index",
             text: "我的",
             iconPath: "",
             selectedIconPath: "",
             selected: !0
           }, {
-            pagePath: "/type",
+            pagePath: "/lionfish_comshop/pages/type/index",
             text: "我的",
             iconPath: "",
             selectedIconPath: "",
@@ -58,13 +58,13 @@
             selectedIconPath: "",
             selected: !1
           }, {
-            pagePath: "/order/shopCart",
+            pagePath: "/lionfish_comshop/pages/order/index",
             text: "我的",
             iconPath: "",
             selectedIconPath: "",
             selected: !1
           }, {
-            pagePath: "/me",
+            pagePath: "/lionfish_comshop/pages/me/index",
             text: "我的",
             iconPath: "",
             selectedIconPath: "",
