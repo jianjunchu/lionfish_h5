@@ -1,8 +1,9 @@
 <template>
-  <div class="i-class img-content">
-    <img class="i-class img-def" :src="defaultImage"></img>
-    <img binderror="bindError"  bindtap="preview" class="i-class img-def opacity "  mode="aspectFill" :src="img"></img>
-  </div>
+  <view class="i-class img-content">
+    <el-image class="i-class img-def" :src="defaultImage"/>
+    <el-image :error="bindError" :load="imageLoad" bindtap="preview" :class="['i-class', 'img-def', 'opacity' ,isLoad?'show-img':'']" :lazy="isLazy" mode="aspectFill" :src="img"/>
+  </view>
+
 
 </template>
 
@@ -15,13 +16,29 @@
       },
       img:{
         default:''
+      },
+      isLoad:{
+        type: Boolean
+      },
+      isLazy: {
+        type: Boolean,
+        value: !1
+      }
+
+    },
+    methods:{
+      bindError: function(e) {
+        console.log(e);
+      },
+      imageLoad:function(e) {
+          this.isLoad = false;
       }
 
     }
   }
 </script>
 
-<style scoped>
+<style lang="less">
   .img-content {
     position: relative;
   }

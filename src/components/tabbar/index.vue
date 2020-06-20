@@ -1,10 +1,10 @@
 <template>
   <div :class="['tabbar_box', isIpx?'pb20':'']" :style="{'background-color':tabbar.backgroundColor}">
-    <block v-for="(item ,index ) in tabbar.list" :key="id">
+    <div v-for="(item ,index ) in tabbar.list" :key="item.id">
       <router-link class="tabbar_nav"  hoverClass="none" openType="switchTab" :style="{color:item.selected?tabbar.selectedColor:tabbar.color}" :to="item.pagePath" v-if="index!=2">
-        <div class="tabbar_icon" :data-num="cartNum">
+        <div class="tabbar_icon" :data-num="getCartNum">
           <img class="img" :src="item.selected?item.selectedIconPath:item.iconPath"/>
-          <div class="cart-num" v-if="cartNum&&index==3">{{cartNum}}</div>
+          <div class="cart-num" v-if="getCartNum&&index==3">{{getCartNum}}</div>
         </div>
         <span>{{item.text}}</span>
       </router-link>
@@ -14,7 +14,7 @@
         </div>
         <span>{{item.text}}</span>
       </div>
-    </block>
+    </div>
   </div>
 
 </template>
@@ -23,36 +23,11 @@
   import {http} from '@/api/index'
 
   export default {
-    name: 'i-tabbar',
-    props: {
-      currentIdx: {
-        type: Number,
-        value: 0,
-        observer: function(e) {
-          if (e) {
-            console.log(e)
-          }
-        }
-      },
-      cartNum: {
-        type: Number,
-        value: 0
-      },
-      tabbarRefresh: {
-        type: Boolean,
-        value: !1
 
-      },
-      needAuth: {
-        type: Boolean,
-        value: !1
+    computed: {
+      getCartNum(){
+        return this.$store.getters.cartNum
       }
-    },
-    watch: {
-
-      tabbarRefresh: function(newValue, oldValue) {
-        this.getTabbar();
-      },
     },
     mounted() {
         this.getTabbar();
@@ -98,7 +73,6 @@
         },
         open_tabbar_type: 0,
         open_tabbar_out_weapp: 0,
-        cartNum: 0,
         tabbar_out_appid: "",
         tabbar_out_link: "",
         tabbar_out_type: 0
@@ -114,8 +88,6 @@
         http({
           controller : 'index.get_tabbar'
         }).then(response => {
-          console.log(1111)
-          console.log(response)
 
           if (0 == response.code) {
 

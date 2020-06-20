@@ -12,9 +12,19 @@ Vue.use(vueSwiper)
 
 import ITabbar from '@/components/tabbar'
 import IToolbar from '@/components/toolbar'
+import IModal from '@/components/modal'
+import IImg from '@/components/img'
+import ITabs from '@/components/tabs'
+import INewRushSpu from '@/components/NewRushSpu'
+import IButton from '@/components/button'
 
 Vue.component('ITabbar', ITabbar)
 Vue.component('IToolbar', IToolbar)
+Vue.component('IModal', IModal)
+Vue.component('IImg', IImg)
+Vue.component('ITabs', ITabs)
+Vue.component('INewRushSpu', INewRushSpu)
+Vue.component('IButton', IButton)
 
 import '@/styles/index.scss' // global css
 import qs from 'qs'
