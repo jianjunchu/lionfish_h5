@@ -57,6 +57,11 @@ export const constantRoutes = [
     hidden: true
   },
   {
+    path: '/order/shopCart',
+    component: () => import('@/pages/order/shopCart/index'),
+    hidden: true
+  },
+  {
     path: '/me',
     component: () => import('@/pages/user/index'),
     hidden: true

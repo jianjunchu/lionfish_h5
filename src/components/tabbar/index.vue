@@ -58,7 +58,7 @@
             selectedIconPath: "",
             selected: !1
           }, {
-            pagePath: "/order",
+            pagePath: "/order/shopCart",
             text: "我的",
             iconPath: "",
             selectedIconPath: "",
