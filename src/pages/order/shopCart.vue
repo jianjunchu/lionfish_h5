@@ -1,5 +1,6 @@
 <template>
   <div>
+      <div>购物车</div>
     <div class="pb100">
         <div class="cart-tabs" v-if="showTab">
             <div v-on:click="changeTabs(item.id)" class="cart-tabs-item" v-for="(item,id) in tabList" :key="id">
