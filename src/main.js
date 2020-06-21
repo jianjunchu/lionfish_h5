@@ -11,17 +11,29 @@ import 'swiper/css/swiper.css'
 
 Vue.use(vueSwiper)
 
-import Tabbar from '@/components/tabbar'
-import Toolbar from '@/components/toolbar'
-import Modal from '@/components/modal'
-import Img from '@/components/img'
-import Tabs from '@/components/tabs'
-import NewRushSpu from '@/components/NewRushSpu'
-import Button from '@/components/button'
-import InputNumber from '@/components/input-number'
-import IndexItem from '@/components/index-item'
-import Dialog from '@/components/dialog'
+import { LoadingPlugin } from 'vux'
+import Tabbar from '@/lionfish_comshop/components/tabbar'
+import Toolbar from '@/lionfish_comshop/components/toolbar'
+import Modal from '@/lionfish_comshop/components/modal'
+import Img from '@/lionfish_comshop/components/img'
+import Tabs from '@/lionfish_comshop/components/tabs'
+import NewRushSpu from '@/lionfish_comshop/components/NewRushSpu'
+import Button from '@/lionfish_comshop/components/button'
+import card from '@/lionfish_comshop/components/card'
+import InputNumber from '@/lionfish_comshop/components/input-number'
+import IndexItem from '@/lionfish_comshop/components/index-item'
+import Dialog from '@/lionfish_comshop/components/dialog'
+import NewAuth from '@/lionfish_comshop/components/new-auth'
+import NewComer from '@/lionfish_comshop/components/new-comer'
+import OrderInfoExpress from '@/lionfish_comshop/components/order/orderInfoExpress'
+import OrderNotify from '@/lionfish_comshop/components/order-notify'
+import OrderInfo from '@/lionfish_comshop/components/orderInfo'
+import OrderStatus from '@/lionfish_comshop/components/orderStatus'
+import TradeStatus from '@/lionfish_comshop/components/tradeStatus'
+import VipModal from '@/lionfish_comshop/components/vipModal'
+import VipPrice from '@/lionfish_comshop/components/vipPrice/vipPrice'
 
+Vue.use(LoadingPlugin)
 Vue.component('i-tabbar', Tabbar)
 Vue.component('i-toolbar', Toolbar)
 Vue.component('i-modal', Modal)
@@ -29,16 +41,27 @@ Vue.component('i-img', Img)
 Vue.component('i-tabs', Tabs)
 Vue.component('i-new-rush-spu', NewRushSpu)
 Vue.component('i-button', Button)
+Vue.component('i-card', card)
 Vue.component('i-input-number', InputNumber)
 Vue.component('i-index-item', IndexItem)
 Vue.component('i-dialog', Dialog)
+Vue.component('i-new-auth', NewAuth)
+Vue.component('i-new-comer', NewComer)
+Vue.component('i-order-info-express', OrderInfoExpress)
+Vue.component('i-order-notify', OrderNotify)
+Vue.component('i-order-info', OrderInfo)
+Vue.component('i-order-status', OrderStatus)
+Vue.component('i-trade-status', TradeStatus)
+Vue.component('i-vip-modal', VipModal)
+Vue.component('i-vip-price', VipPrice)
 
-import '@/styles/index.scss' // global css
+import '@/lionfish_comshop/styles/index.scss' // global css
 import qs from 'qs'
 import App from './App'
-import store from './store'
-import { http } from './api/index'
-import router from './router'
+import store from './lionfish_comshop/store'
+import { http } from './lionfish_comshop/api/index'
+import wx from './lionfish_comshop/utils/wx'
+import router from './lionfish_comshop/router'
 
 import '@/icons' // icon
 import '@/permission' // permission control
@@ -58,6 +81,7 @@ if (process.env.NODE_ENV === 'production') {
 
 Vue.prototype.$qs = qs
 Vue.prototype.$http = http
+Vue.prototype.$wx = wx
 
 // set ElementUI lang to EN
 Vue.use(ElementUI, { locale })
@@ -65,6 +89,10 @@ Vue.use(ElementUI, { locale })
 // Vue.use(ElementUI)
 
 Vue.config.productionTip = false
+
+Vue.prototype.$getApp = function() {
+  return store.getters.app
+}
 
 new Vue({
   el: '#app',
