@@ -12,7 +12,7 @@
     </div>
     <input disabled bindblur="handleBlur" bindfocus="handleFocus" catchtap="returnTap"
            :class="['i-class-number-text', 'i-input-number-text', (min>=max?'i-input-number-disabled':'')]" type="number"
-           value="{{value}}"/>
+           :value="value"/>
     <div :class="['i-input-number-plus', 'i-input-number-div', 'i-number-div', (value>=max?'i-input-number-disabled':'')]"
          v-if="max==0">
       <img class="img i-number-img" src="@assets/images/icon-spu-add-disabled.png"/>
