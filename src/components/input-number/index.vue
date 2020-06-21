@@ -3,7 +3,7 @@
     <div
       :class="['i-input-number-minus', 'i-input-number-div', 'i-number-div', (value <= min?'i-input-number-disabled':'')]"
       v-if="value==0">
-      <img class="img i-number-img" src="@assets/images/icon-spu-reduce-disabled.png"></img>
+      <img class="img i-number-img" src="@/assets/images/icon-spu-reduce-disabled.png"></img>
     </div>
     <div catchtap="handleMinus"
          :class="['i-input-number-minus', 'i-input-number-div', 'i-number-div', (value<=min?'i-input-number-disabled':'')]"
@@ -15,7 +15,7 @@
            :value="value"/>
     <div :class="['i-input-number-plus', 'i-input-number-div', 'i-number-div', (value>=max?'i-input-number-disabled':'')]"
          v-if="max==0">
-      <img class="img i-number-img" src="@assets/images/icon-spu-add-disabled.png"/>
+      <img class="img i-number-img" src="@/assets/images/icon-spu-add-disabled.png"/>
     </div>
     <div catchtap="handlePlus"
          :class="['i-input-number-plus', 'i-input-number-div', 'i-number-div', (value>=max?'i-input-number-disabled':'')]" v-else>
