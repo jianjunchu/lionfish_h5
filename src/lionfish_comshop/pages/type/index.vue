@@ -67,6 +67,12 @@
 </template>
 
 <script>
+  import GlobalMixin from '../../mixin/globalMixin.js'
+
+  var util = require("../../utils"),
+    status = require("../../utils"),
+    wcache = require("../../utils/wcache.js")
+
   export default {
     name: 'type',
 
@@ -102,7 +108,7 @@
     },
     methods: {
       goResult: function() {
-        http({
+        this.$http({
           controller : 'index.load_condition_goodslist',
           pageNum: 1,
           keyword: this.name
@@ -118,7 +124,7 @@
 
         const this_ = this;
 
-        http({
+        this.$http({
           controller : 'goods.get_category_list',
           is_type_show: 1
         }).then(response => {
@@ -133,7 +139,7 @@
 
         const this_ = this;
 
-        http({
+        this.$http({
           controller : 'index.load_gps_goodslist',
           pageNum: 1,
           per_page: 30
@@ -146,7 +152,7 @@
         })
       },
       changeCategory: function(t) {
-        http({
+        this.$http({
           controller : 'index.load_gps_goodslist',
           pageNum: 1,
           per_page: 30,
