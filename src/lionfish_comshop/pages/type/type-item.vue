@@ -7,7 +7,7 @@
       <i-router-link class="spu-content" url="">
           <div class="item-left">
               <!-- <i-img :defaultImage="spuItem.skuImage" height="170" iClass="img-class" lazyLoad="true" :loadImage="spuItem.skuImage" width="170"></i-img> -->
-              <img class="img-class" :src="spuItem.skuImage" width="150" height="150"/>
+              <img class="img-class" :src="spuItem.skuImage"/>
               <!-- <div class="tag" v-if="reduction.is_open_fullreduction==1&&spuItem.is_take_fullreduction==1">满{{reduction.full_money}}减{{reduction.full_reducemoney}}</div> -->
           </div>
           <div class="item-right">
@@ -138,12 +138,12 @@
     background-image: none;
     white-space: nowrap;
     user-select: none;
-    font-size: 28rpx;
+    font-size: 28px;
     border: 0!important;
     position: relative;
     text-decoration: none;
-    height: 88rpx;
-    line-height: 88rpx;
+    height: 88px;
+    line-height: 88px;
     background: none;
     color: #495060;
     border-radius: 0;
@@ -157,12 +157,12 @@
 
 .spu {
     width: 100%;
-    display: div;
+    display: block;
 }
 
 .spu .img-class {
-    width: 170rpx;
-    height: 170rpx;
+    width: 150px;
+    height: 150px;
 }
 
 .spu .spu-content {
@@ -170,7 +170,7 @@
     overflow: hidden;
     position: relative;
     display: flex;
-    padding: 28rpx 24rpx 40rpx;
+    padding: 20px 24px 20px;
     box-sizing: border-box;
 }
 
@@ -178,9 +178,9 @@
     content: '';
     position: absolute;
     bottom: 0;
-    left: 18rpx;
-    right: 18rpx;
-    border-bottom: 1rpx solid #e5e5e5;
+    left: 18px;
+    right: 18px;
+    border-bottom: 1px solid #e5e5e5;
 }
 
 .spu .spu-content.disabled {
@@ -188,15 +188,15 @@
 }
 
 .spu .spu-content .item-left {
-    width: 170rpx;
-    height: 170rpx;
+    width: 150px;
+    height: 150px;
     position: relative;
 }
 
 .spu .spu-content .item-right {
     flex: 1;
     box-sizing: border-box;
-    margin-left: 24rpx;
+    margin-left: 16px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -204,21 +204,21 @@
 
 .spu .spu-content .item-right .spu-title {
     color: #222;
-    font-size: 30rpx;
-    height: 32rpx;
-    margin-bottom: 12rpx;
-    margin-top: 10rpx;
+    font-size: 16px;
+    height: 20px;
+    /* margin-bottom: 12px; */
+    margin-top: 10px;
     font-weight: 500;
     position: relative;
 }
 
 .spu .spu-content .item-right .spu-title .span {
     width: 100%;
-    height: 40rpx;
+    height: 30px;
     position: absolute;
     left: 0;
-    top: -4rpx;
-    line-height: 40rpx;
+    top: -4px;
+    line-height: 20px;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -226,62 +226,62 @@
 }
 
 .spu .spu-content .item-right .spu-desc {
-    font-size: 26rpx;
-    line-height: 26rpx;
+    font-size: 16px;
+    line-height: 0px;
     color: #999;
     position: relative;
-    width: 350rpx;
-    height: 26rpx;
-    margin-bottom: 12rpx;
+    width: 350px;
+    height: 26px;
+    margin-bottom: 12px;
 }
 
 .spu .spu-content .item-right .spu-desc .em {
     width: 100%;
-    height: 32rpx;
+    height: 32px;
     position: absolute;
     left: 0;
-    top: -2rpx;
-    line-height: 32rpx;
+    top: -2px;
+    line-height: 32px;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
 }
 
 .spu .spu-content .add-cart {
-    width: 68rpx;
-    height: 68rpx;
+    width: 68px;
+    height: 68px;
     padding: 0;
     margin: 0;
     position: absolute;
-    right: 28rpx;
-    bottom: 20rpx;
+    right: 28px;
+    bottom: 20px;
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
 .spu .spu-content .add-cart .img {
-    width: 54rpx;
-    height: 54rpx;
+    width: 54px;
+    height: 54px;
     display: div;
 }
 
 .spu .spu-content .item-right .spu-price {
     display: flex;
     align-items: flex-end;
-    font-size: 24rpx;
-    line-height: 24rpx;
+    font-size: 18px;
+    line-height: 18px;
     overflow: hidden;
 }
 
 .spu .spu-content .item-right .spu-price .sale-price {
     color: #ff5344;
-    margin-right: 12rpx;
+    margin-right: 12px;
 }
 
 .spu .spu-content .item-right .spu-price .sale-price .span {
-    font-size: 36rpx;
-    line-height: 36rpx;
+    font-size: 20px;
+    line-height: 20px;
     margin: 0;
     font-weight: bold;
 }
@@ -289,30 +289,30 @@
 .spu .spu-content .item-right .spu-price .market-price {
     text-decoration: line-through;
     color: #999;
-    margin-right: 30rpx;
+    margin-right: 30px;
 }
 
 .spu .mask {
     background: rgba(255,255,255,0.5);
-    width: 170rpx;
-    height: 170rpx;
+    width: 170px;
+    height: 170px;
     position: absolute;
-    left: 24rpx;
-    top: 28rpx;
+    left: 24px;
+    top: 28px;
 }
 
 .spu .act-end {
     position: absolute;
-    height: 60rpx;
-    border-radius: 10rpx;
+    height: 60px;
+    border-radius: 10px;
     background: rgba(0,0,0,0.5);
     color: #fff;
-    font-size: 28rpx;
+    font-size: 28px;
     text-align: center;
-    line-height: 60rpx;
-    left: 110rpx;
-    top: 85rpx;
-    padding: 0 12rpx;
+    line-height: 30px;
+    left: 110px;
+    top: 85px;
+    padding: 0 12px;
     transform: translateX(-50%);
 }
 
@@ -321,17 +321,17 @@
     left: 0;
     bottom: 0;
     background: linear-gradient(to right,#ff5041,#ff994b);
-    border-radius: 0 14rpx 14rpx 0;
-    padding: 0 12rpx;
-    height: 30rpx;
-    font-size: 22rpx;
-    line-height: 30rpx;
+    border-radius: 0 14px 14px 0;
+    padding: 0 12px;
+    height: 30px;
+    font-size: 22px;
+    line-height: 30px;
     color: #fff;
     display: inline-div;
     align-items: center;
     justify-content: center;
     width: auto;
-    max-width: 180rpx;
+    max-width: 180px;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -340,15 +340,15 @@
 .spu .index-input-number {
     position: absolute;
     right: 0;
-    bottom: 10rpx;
+    bottom: 10px;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
 .spu .index-input-number .iNumberdiv {
-    width: 80rpx;
-    height: 80rpx;
+    width: 80px;
+    height: 80px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -363,14 +363,14 @@
 }
 
 .spu .index-input-number .iNumberImg {
-    font-size: 44rpx;
+    font-size: 44px;
 }
 
 .spu .index-input-number .input-number-span {
-    height: 88rpx;
-    line-height: 88rpx;
-    font-size: 24rpx;
+    height: 88px;
+    line-height: 88px;
+    font-size: 24px;
     color: #333;
-    width: 58rpx;
+    width: 58px;
 }
 </style>
