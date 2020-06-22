@@ -2,7 +2,7 @@
   <div :class="[{theme_type}, 'pb100']">
     <div class="personal">
       <div class="basicInform">
-        <img class="back-img" :src="common_header_backgroundimage?common_header_backgroundimage:'@/assets/images/TOP_background@2x.png'"/>
+        <img class="back-img" :src="(common_header_backgroundimage?common_header_backgroundimage:'@/assets/images/TOP_background@2x.png')"/>
         <div class="personalCon">
           <div class="userInfo">
             <div v-if="!needAuth">
@@ -69,25 +69,30 @@
         <div class="orderTab">
           <div @click="goLink2(3)" class="order_status">
             <span class="num" :style="{background:skin.color}" v-show="member_info.wait_pay_count!=0">{{member_info.wait_pay_count}}</span>
-            <img class="icon-img" :src="user_order_menu_icons.i1?user_order_menu_icons.i1:'@/assets/images/needPayIcon.png'"/>
+            <!--<img class="icon-img" :src="user_order_menu_icons.i1?user_order_menu_icons.i1:'@/assets/images/needPayIcon.png'"/>-->
+            <img class="icon-img" src="@/assets/images/needPayIcon.png"/>
             <span style="color: #444;">待付款</span>
           </div>
           <div @click="goLink2(1)" class="order_status">
             <span class="num" :style="{background:skin.color}" v-show="member_info.wait_send_count!=0">{{member_info.wait_send_count}}</span>
-            <img class="icon-img" :src="user_order_menu_icons.i2?user_order_menu_icons.i2:'@/assets/images/undeli.png'"/>
+            <!--<img class="icon-img" :src="user_order_menu_icons.i2?user_order_menu_icons.i2:'@/assets/images/undeli.png'"/>-->
+            <img class="icon-img" src="@/assets/images/undeli.png"/>
             <span style="color: #444;">待配送</span>
           </div>
           <div @click="goLink2(4)" class="order_status">
             <span class="num" :style="{background:skin.color}" v-show="member_info.wait_get_count!=0">{{member_info.wait_get_count}}</span>
-            <img class="icon-img" :src="user_order_menu_icons.i3?user_order_menu_icons.i3:'@/assets/images/distributionIcon.png'"/>
+            <!--<img class="icon-img" :src="user_order_menu_icons.i3?user_order_menu_icons.i3:'@/assets/images/distributionIcon.png'"/>-->
+            <img class="icon-img" src="@/assets/images/distributionIcon.png"/>
             <span style="color: #444;">待提货</span>
           </div>
           <div @click="goLink2(6)" class="order_status">
-            <img class="icon-img" :src="user_order_menu_icons.i4?user_order_menu_icons.i4:'@/assets/images/completeIcon.png'"/>
+            <!--<img class="icon-img" :src="user_order_menu_icons.i4?user_order_menu_icons.i4:'@/assets/images/completeIcon.png'"/>-->
+            <img class="icon-img" src="@/assets/images/completeIcon.png"/>
             <span style="color: #444;">已提货</span>
           </div>
           <div @click="goLink3" class="order_status" >
-            <img class="icon-img" :src="user_order_menu_icons.i5?user_order_menu_icons.i5:'@/assets/images/refundIcon.png'"/>
+            <!--<img class="icon-img" :src="user_order_menu_icons.i5?user_order_menu_icons.i5:'@/assets/images/refundIcon.png'"/>-->
+            <img class="icon-img" src="@/assets/images/refundIcon.png"/>
             <span style="color: #444;">售后服务</span>
           </div>
         </div>
@@ -211,7 +216,8 @@
           <div v-on:click="goLink2" class="yuenav" data-link="/lionfish_comshop/pages/user/charge" v-if="is_open_yue_pay==1">
             <div class="item-main">
               <div class="item-title">
-                <img class="toolIcon" mode="widthFix" :src="user_tool_icons.i1?user_tool_icons.i1:'@/assets/images/wallet.png'"/>
+                <!--<img class="toolIcon" mode="widthFix" :src="user_tool_icons.i1?user_tool_icons.i1:'@/assets/images/wallet.png'"/>-->
+                <img class="toolIcon" mode="widthFix" src="@/assets/images/wallet.png"/>
                 <span>余额<div v-if="!needAuth">: ${{member_info.account_money||0}}</div>
                 </span>
               </div>
@@ -224,7 +230,8 @@
           <div v-on:click="goLink2" data-link="/lionfish_comshop/moduleA/solitaire/me" v-if="is_open_solitaire==1">
             <div class="item-main">
               <div class="item-title">
-                <img class="toolIcon" mode="widthFix" :src="user_tool_icons.i10?user_tool_icons.i10:'@/assets/images/soli.png'"/>
+                <!--<img class="toolIcon" mode="widthFix" :src="user_tool_icons.i10?user_tool_icons.i10:'@/assets/images/soli.png'"/>-->
+                <img class="toolIcon" mode="widthFix" src="@/assets/images/soli.png"/>
                 <span>我的接龙</span>
               </div>
               <div class="tool-right">
@@ -236,7 +243,8 @@
             <div v-on:click="goLink2" class="score" data-link="/lionfish_comshop/moduleA/score/signin" v-if="isopen_signinreward==1">
               <div class="item-main">
                 <div class="item-title">
-                  <img class="toolIcon" mode="widthFix" :src="user_tool_icons.i2?user_tool_icons.i2:'@/assets/images/icon-score.png'"/>
+                  <!--<img class="toolIcon" mode="widthFix" :src="user_tool_icons.i2?user_tool_icons.i2:'@/assets/images/icon-score.png'"/>-->
+                  <img class="toolIcon" mode="widthFix" src="@/assets/images/icon-score.png"/>
                   <span>积分</span>
                 </div>
                 <div class="tool-right">
@@ -248,7 +256,8 @@
             <div v-on:click="goLink2" class="score" data-link="/lionfish_comshop/moduleA/score/scoreDetails" v-else>
               <div class="item-main">
                 <div class="item-title">
-                  <img class="toolIcon" mode="widthFix" :src="user_tool_icons.i2?user_tool_icons.i2:'@/assets/images/icon-score.png'"/>
+                  <!--<img class="toolIcon" mode="widthFix" :src="user_tool_icons.i2?user_tool_icons.i2:'@/assets/images/icon-score.png'"/>-->
+                  <img class="toolIcon" mode="widthFix" src="@/assets/images/icon-score.png"/>
                   <span>积分</span>
                 </div>
                 <div class="tool-right">
@@ -260,7 +269,8 @@
           <div v-on:click="goLink2" data-link="/lionfish_comshop/pages/user/coupon">
             <div class="item-main">
               <div class="item-title">
-                <img class="toolIcon" mode="widthFix" :src="user_tool_icons.i3?user_tool_icons.i3:'@/assets/images/coupon.png'"/>
+                <!--<img class="toolIcon" mode="widthFix" :src="user_tool_icons.i3?user_tool_icons.i3:'@/assets/images/coupon.png'"/>-->
+                <img class="toolIcon" mode="widthFix" src="@/assets/images/coupon.png"/>
                 <span>优惠券</span>
               </div>
               <div class="tool-right">
@@ -271,7 +281,8 @@
           <a hoverClass="none" href="/lionfish_comshop/pages/groupCenter/communityMembers" v-if="member_info.pickup_id>0">
             <div class="item-main">
               <div class="item-title">
-                <img class="toolIcon" mode="widthFix" :src="user_tool_icons.i4?user_tool_icons.i4:'@/assets/images/groupCenterIcon.png'"/>
+                <!--<img class="toolIcon" mode="widthFix" :src="user_tool_icons.i4?user_tool_icons.i4:'@/assets/images/groupCenterIcon.png'"/>-->
+                <img class="toolIcon" mode="widthFix" src="@/assets/images/groupCenterIcon.png"/>
                 <span>核销管理</span>
               </div>
               <div class="tool-right">
@@ -282,7 +293,8 @@
           <div v-on:click="goToGroup" v-if="member_info.is_head==1">
             <div class="item-main">
               <div class="item-title">
-                <img class="toolIcon" mode="widthFix" :src="user_tool_icons.i5?user_tool_icons.i5:'@/assets/images/groupCenterIcon.png'"/>
+                <!--<img class="toolIcon" mode="widthFix" :src="user_tool_icons.i5?user_tool_icons.i5:'@/assets/images/groupCenterIcon.png'"/>-->
+                <img class="toolIcon" mode="widthFix" src="@/assets/images/groupCenterIcon.png"/>
                 <span>{{groupInfo.owner_name}}中心</span>
               </div>
               <div class="tool-right">
@@ -293,7 +305,8 @@
           <a hoverClass="none" href="/lionfish_comshop/pages/groupCenter/apply" v-else-if="member_info.is_head==2||member_info.is_head==3">
             <div class="item-main">
               <div class="item-title">
-                <img class="toolIcon" mode="widthFix" :src="user_tool_icons.i5?user_tool_icons.i5:'@/assets/images/groupCenterIcon.png'"/>
+                <!--<img class="toolIcon" mode="widthFix" :src="user_tool_icons.i5?user_tool_icons.i5:'@/assets/images/groupCenterIcon.png'"/>-->
+                <img class="toolIcon" mode="widthFix" src="@/assets/images/groupCenterIcon.png"/>
                 <span>{{groupInfo.owner_name}}审核中</span>
               </div>
               <div class="tool-right">
@@ -305,7 +318,8 @@
             <a hoverClass="none" href="/lionfish_comshop/pages/groupCenter/recruit" v-if="close_community_apply_enter==0">
               <div class="item-main">
                 <div class="item-title">
-                  <img class="toolIcon" mode="widthFix" :src="user_tool_icons.i5?user_tool_icons.i5:'@/assets/images/groupCenterIcon.png'"/>
+                  <!--<img class="toolIcon" mode="widthFix" :src="user_tool_icons.i5?user_tool_icons.i5:'@/assets/images/groupCenterIcon.png'"/>-->
+                  <img class="toolIcon" mode="widthFix" src="@/assets/images/groupCenterIcon.png"/>
                   <span>申请成为{{groupInfo.owner_name}}</span>
                 </div>
                 <div class="tool-right">
@@ -318,7 +332,8 @@
             <a hoverClass="none" href="/lionfish_comshop/pages/supply/recruit" v-if="is_supply==0||needAuth">
               <div class="item-main">
                 <div class="item-title">
-                  <img aspectFit class="toolIcon supplier" mode="widthFix" :src="user_tool_icons.i6?user_tool_icons.i6:'@/assets/images/icon-supplier.png'"/>
+                  <!--<img aspectFit class="toolIcon supplier" mode="widthFix" :src="user_tool_icons.i6?user_tool_icons.i6:'@/assets/images/icon-supplier.png'"/>-->
+                  <img aspectFit class="toolIcon supplier" mode="widthFix" src="@/assets/images/icon-supplier.png"/>
                   <span>申请成为{{supply_diy_name}}</span>
                 </div>
                 <div class="tool-right">
@@ -329,7 +344,8 @@
             <div v-else-if="is_supply==1">
               <div class="item-main">
                 <div class="item-title">
-                  <img aspectFit class="toolIcon supplier" mode="widthFix" :src="user_tool_icons.i6?user_tool_icons.i6:'@/assets/images/icon-supplier.png'"/>
+                  <!--<img aspectFit class="toolIcon supplier" mode="widthFix" :src="user_tool_icons.i6?user_tool_icons.i6:'@/assets/images/icon-supplier.png'"/>-->
+                  <img aspectFit class="toolIcon supplier" mode="widthFix" src="@/assets/images/icon-supplier.png"/>
                   <span>{{supply_diy_name}}审核中</span>
                 </div>
               </div>
@@ -337,13 +353,15 @@
             <div v-else-if="is_supply==2">
               <div v-on:click="goLink2" class="item-main" data-link="/lionfish_comshop/moduleB/supply/index" v-if="is_open_supplymobile==1">
                 <div class="item-title">
-                  <img aspectFit class="toolIcon supplier" mode="widthFix" :src="user_tool_icons.i6?user_tool_icons.i6:'@/assets/images/icon-supplier.png'"/>
+                  <!--<img aspectFit class="toolIcon supplier" mode="widthFix" :src="user_tool_icons.i6?user_tool_icons.i6:'@/assets/images/icon-supplier.png'"/>-->
+                  <img aspectFit class="toolIcon supplier" mode="widthFix" src="@/assets/images/icon-supplier.png"/>
                   <span>{{supply_diy_name}}</span>
                 </div>
               </div>
               <div class="item-main" v-else>
                 <div class="item-title">
-                  <img aspectFit class="toolIcon supplier" mode="widthFix" :src="user_tool_icons.i6?user_tool_icons.i6:'@/assets/images/icon-supplier.png'"/>
+                  <!--<img aspectFit class="toolIcon supplier" mode="widthFix" :src="user_tool_icons.i6?user_tool_icons.i6:'@/assets/images/icon-supplier.png'"/>-->
+                  <img aspectFit class="toolIcon supplier" mode="widthFix" src="@/assets/images/icon-supplier.png"/>
                   <span>您已是{{supply_diy_name}}</span>
                 </div>
               </div>
@@ -352,7 +370,8 @@
           <div v-on:click="goLink2" data-link="/lionfish_comshop/pages/user/protocol">
             <div class="item-main">
               <div class="item-title">
-                <img class="toolIcon" mode="widthFix" :src="user_tool_icons.i7?user_tool_icons.i7:'@/assets/images/protocolIcon.png'"/>
+                <!--<img class="toolIcon" mode="widthFix" :src="user_tool_icons.i7?user_tool_icons.i7:'@/assets/images/protocolIcon.png'"/>-->
+                <img class="toolIcon" mode="widthFix" src="@/assets/images/protocolIcon.png"/>
                 <span>常见帮助</span>
               </div>
               <div class="tool-right">
@@ -365,7 +384,8 @@
           <a hoverClass="none" href="" v-if="user_service_switch!=0">
             <div class="item-main">
               <div class="item-title">
-                <img class="toolIcon" mode="widthFix" :src="user_tool_icons.i8?user_tool_icons.i8:'@/assets/images/serviceIcon.png'"/>
+                <!--<img class="toolIcon" mode="widthFix" :src="user_tool_icons.i8?user_tool_icons.i8:'@/assets/images/serviceIcon.png'"/>-->
+                <img class="toolIcon" mode="widthFix" src="@/assets/images/serviceIcon.png"/>
                 <span>联系客服</span>
               </div>
               <div class="tool-right">
@@ -377,7 +397,8 @@
           <a hoverClass="none" href="/lionfish_comshop/pages/user/articleProtocol?about=1" v-if="is_show_about_us==1">
             <div class="item-main">
               <div class="item-title">
-                <img class="toolIcon" mode="widthFix" :src="user_tool_icons.i9?user_tool_icons.i9:'@/assets/images/aboutUsIcon.png'"/>
+                <!--<img class="toolIcon" mode="widthFix" :src="(user_tool_icons && user_tool_icons.i9)?user_tool_icons.i9:'@/assets/images/aboutUsIcon.png'"/>-->
+                <img class="toolIcon" mode="widthFix" src="@/assets/images/aboutUsIcon.png"/>
                 <span>关于我们</span>
               </div>
               <div class="tool-right">
@@ -579,7 +600,8 @@
         this.getCommunityInfo();
         var that = this;
         this.$http({
-            controller: 'user.get_user_info'
+            controller: 'user.get_user_info',
+            token:token
           }).then(res=> {
             console.log(res);
             //  this.$wx.hideLoading();
@@ -587,7 +609,7 @@
             if (res.code == 0) {
               let showGetPhone = false;
               if (res.is_show_auth_mobile == 1 && !res.data.telephone) showGetPhone = true;
-              let member_info = res || '';
+              let member_info = res.data || '';
               let params = {};
 
               if (member_info){
@@ -669,8 +691,10 @@
       },
       getCopyright: function () {
         var that = this;
+        var token = "73ecaa68bdb029c0bed47554f0e2ba66";// this.$wx.getStorageSync("token");
         this.$http({
-            controller: 'user.get_copyright'
+            controller: 'user.get_copyright',
+            token:token
           }).then(res=> {
             console.log(res);
             if (res.code == 0) {
@@ -723,7 +747,7 @@
                 this.user_service_switch = user_service_switch;
                 this.fetch_coder_type = fetch_coder_type || 0;
                 this.show_user_pin = show_user_pin;
-                this.show_user_change_comunity;
+                this.show_user_change_comunity = show_user_change_comunity;
                 this.open_danhead_model = open_danhead_model;
                 this.is_open_solitaire = is_open_solitaire;
                 that.user_top_font_color = user_top_font_color;
