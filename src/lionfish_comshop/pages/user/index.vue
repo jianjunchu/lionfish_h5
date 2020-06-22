@@ -579,7 +579,8 @@
         this.getCommunityInfo();
         var that = this;
         this.$http({
-            controller: 'user.get_user_info'
+            controller: 'user.get_user_info',
+            token:token
           }).then(res=> {
             console.log(res);
             //  this.$wx.hideLoading();
@@ -587,7 +588,7 @@
             if (res.code == 0) {
               let showGetPhone = false;
               if (res.is_show_auth_mobile == 1 && !res.data.telephone) showGetPhone = true;
-              let member_info = res || '';
+              let member_info = res.data || '';
               let params = {};
 
               if (member_info){
