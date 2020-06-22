@@ -11,7 +11,6 @@ import 'swiper/css/swiper.css'
 
 Vue.use(vueSwiper)
 
-import { LoadingPlugin } from 'vux'
 import Tabbar from '@/lionfish_comshop/components/tabbar'
 import Toolbar from '@/lionfish_comshop/components/toolbar'
 import Modal from '@/lionfish_comshop/components/modal'
@@ -32,8 +31,10 @@ import OrderStatus from '@/lionfish_comshop/components/orderStatus'
 import TradeStatus from '@/lionfish_comshop/components/tradeStatus'
 import VipModal from '@/lionfish_comshop/components/vipModal'
 import VipPrice from '@/lionfish_comshop/components/vipPrice/vipPrice'
+import ChangeCommunity from '@/lionfish_comshop/components/changeCommunity'
+import Spike from '@/lionfish_comshop/components/spike'
+import AddCartBtn from '@/lionfish_comshop/components/addCartBtn'
 
-Vue.use(LoadingPlugin)
 Vue.component('i-tabbar', Tabbar)
 Vue.component('i-toolbar', Toolbar)
 Vue.component('i-modal', Modal)
@@ -54,6 +55,9 @@ Vue.component('i-order-status', OrderStatus)
 Vue.component('i-trade-status', TradeStatus)
 Vue.component('i-vip-modal', VipModal)
 Vue.component('i-vip-price', VipPrice)
+Vue.component('i-change-community', ChangeCommunity)
+Vue.component('i-spike', Spike)
+Vue.component('i-addcart', AddCartBtn)
 
 import '@/lionfish_comshop/styles/index.scss' // global css
 import qs from 'qs'
@@ -94,9 +98,15 @@ Vue.prototype.$getApp = function() {
   return store.getters.app
 }
 
-new Vue({
+Vue.prototype.$app = function() {
+  return store.getters.app
+}
+
+const vue = new Vue({
   el: '#app',
   router,
   store,
   render: h => h(App)
+
 })
+export default vue

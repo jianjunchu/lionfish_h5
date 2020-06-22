@@ -1,7 +1,7 @@
 <template>
   <i-modal @click="close" :scrollUp="false" v-show="needAuth">
     <div class="auth-content">
-      <img class="bg" mode="widthFix" :src="newauth_bg_image ? newauth_bg_image:'@/assets/images/auth-bg.png'"></img>
+      <img class="bg" mode="widthFix" :src="newauth_bg_image ? newauth_bg_image:'@/assets/images/auth-bg.png'"/>
       <div class="btn">
         <div @click="close" class="close-img" v-if="newauth_cancel_image">
           <img class="img" mode="widthFix" :src="newauth_cancel_image"/>

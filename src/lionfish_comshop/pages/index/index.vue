@@ -39,20 +39,20 @@
                 </div>
               </div>
               <div class="location-left" v-else>
-                <navigator hoverClass="router-hover" url="/lionfish_comshop/pages/position/community">
+                <router-link hoverClass="router-hover" to="/lionfish_comshop/pages/position/community">
                   您还没有选择{{groupInfo.owner_name}}，轻触去选择
                   <span class="iconfont icon-weizhi-tianchong"></span>
-                </navigator>
+                </router-link>
               </div>
               <div class="location-right">
-                <img class="img" :src="community.headImg?community.headImg:community.disUserHeadImg"/>
+                <img class="img" :src="(community && community.headImg)?community.headImg:community.disUserHeadImg"/>
                 <span>{{community.disUserName}}</span>
               </div>
             </div>
             <div class="location-theme2" :style="{color: shop_info.index_top_font_color}" v-else>
               <div v-if="community&&community.communityName">
                 <div class="loc-l">
-                  <img class="img" :src="community.headImg?community.headImg:community.disUserHeadImg"/>
+                  <img class="img" :src="(community&&community.headImg)?community.headImg:community.disUserHeadImg"/>
                 </div>
                 <div @click="goLink" class="loc-m" data-link="/lionfish_comshop/pages/position/community"
                      v-if="hide_community_change_btn==0&&open_danhead_model!=1">
@@ -105,7 +105,7 @@
               <div class="slider-wraper">
                 <div class="list">
                   <div @click="receiveCoupon" class="card-content list-item" :data-quan_id="item.id"
-                       v-for="(item,id) in quan" wx:key="id">
+                       v-for="(item,id) in quan" this.$wx:key="id">
                     <div class="card">
                       <div class="card-price span">
                         <div class="card-price&#45;&#45;unit span">¥</div>
@@ -281,7 +281,7 @@
                             bind:vipModal="vipModal" :canLevelBuy="canLevelBuy" :changeCarCount="changeCarCount"
                             class="item" :is_open_vipcard_buy="is_open_vipcard_buy" :needAuth="needAuth"
                             :reduction="reduction" :spuItem="item" :stopClick="stopClick"
-                            v-for="(item,index) in rushList" wx:key="actId"></i-rush-spu>
+                            v-for="(item,index) in rushList" this.$wx:key="actId"></i-rush-spu>
               </div>
               <i-load-more iClass="loadMore" :loading="loadMore" :tip="loadText" v-if="loadMore"></i-load-more>
             </div>
@@ -334,7 +334,7 @@
         <i-order-notify iClass="order-notify" :stopNotify="stopNotify"
                         v-if="shop_info.order_notify_switch==1"></i-order-notify>
         <i-change-community bind:changeComunity="confrimChangeCommunity" :canChange="hide_community_change_btn==0"
-                            :changeCommunity="changeCommunity" :community="community" :groupInfo="groupInfo"
+                            changeCommunity="changeCommunity" :community="community" :groupInfo="groupInfo"
                             :visible="showChangeCommunity"></i-change-community>
         <div class="new-coupou" v-if="showCouponModal&&hasAlertCoupon&&!showChangeCommunity">
           <div class="new-coupou-content">
@@ -342,7 +342,7 @@
               <div class="new-coupou-body-head">恭喜你获得{{totalAlertMoney}}元红包券</div>
               <div class="new-coupou-body-scroll">
                 <scroll-div scrollY style="max-height:580px;">
-                  <div class="new-coupou-item" wx:for="(item ,index) in alert_quan_list" wx:key="id">
+                  <div class="new-coupou-item" v-for="(item ,index) in alert_quan_list" :key="item.id">
                     <div class="m-coupon-l">
                       <div class="m-coupou-price">
                         <span>¥</span>
@@ -377,7 +377,7 @@
       <div class="h2">请联系管理员</div>
     </div>
     <div class="mask" v-show="false"></div>
-    <div :cancel="close" class="sku-content" v-show="false" scrollUp="true">
+    <div cancel="close" class="sku-content" v-show="false" scrollUp="true">
       <div class="sku-card">
         <div @click="closeSku" class="close">
           <img src="@/assets/images/icon-sku-close.png"/>
@@ -494,13 +494,13 @@
 <script>
   import GlobalMixin from '../../mixin/globalMixin.js'
 
-  var util = require("../../utils"),
-    status = require("../../utils"),
-    wcache = require("../../utils/wcache.js")
-
+  var util = require('../../utils'),
+    status = require('../../utils'),
+    wcache = require('../../utils/wcache.js'),
+    countDownInit = require('../../utils/countDown')
 
   export default {
-    mixins: [GlobalMixin],
+    mixins: [countDownInit.default, GlobalMixin],
     name: 'Index',
     data() {
 
@@ -536,13 +536,24 @@
         },
         loadMore: !0,
         ishow_index_copy_text: 0,
-        ishow_index_gotop:0,
-        hide_community_change_btn:0,
+        ishow_index_gotop: 0,
+        hide_community_change_btn: 0,
         isShowShareBtn: 0,
         isShowContactBtn: 0,
         needAuth: !1,
         stopClick: !1,
-        community: {},
+        community: {
+          communityAddress: undefined,
+          communityId: undefined,
+          communityName: undefined,
+          disUserHeadImg: undefined,
+          disUserName: undefined,
+          fullAddress: undefined,
+          headImg: undefined,
+          head_mobile: undefined,
+          lat: undefined,
+          lon: undefined
+        },
         rushList: [],
         commingList: [],
         countDownMap: [],
@@ -625,6 +636,13 @@
         index_qgtab_text: '',
         qgtab: {},
         rushEndTime: true,
+        pop_vipmember_buyimage:'',
+        showVipModal:false,
+        showCopyTextHandle:false,
+        hide_share_handler:false,
+        is_mb_level_buy:false,
+        is_vip_card_member:false,
+        is_mb_level_buy:false,
         $data: {
           stickyFlag: !1,
           scrollTop: 0,
@@ -637,7 +655,7 @@
           scrollHeight: 1300,
           stickyTop: 0,
           hasCommingGoods: !0
-        },
+        }
       }
     },
     watch: {
@@ -649,20 +667,84 @@
       }
     },
     created: function() {
-      console.log(getApp())
-      this.setNavBgColor()
-    },
-    mounted: function() {
+      this.community = {}
+      const i = this
+      const s = this.$wx.getStorageSync('token')
+      this.$wx.getLogManager(), this.$wx.hideTabBar()
+      status.setNavBgColor(), status.setGroupInfo().then(function(t) {
+        i.groupInfo = t
+      }), console.log('step1')
+      const n = this.$wx.getStorageSync('community'),
+        d = n && n.communityId ? n.communityId : ''
+      if (n && n.fullAddress && n.fullAddress.indexOf('境外') > -1) {
+        n.fullAddress = n.fullAddress.replace('境外境外境外地区', '')
+      }
 
+      const o = this.$route.query
+
+      if (o && 0 != Object.keys(o).length) {
+        console.log('step2')
+        var t = decodeURIComponent(o.scene)
+        if ('undefined' != t) {
+          var a = t.split('_')
+          o.community_id = a[0], wcache.put('share_id', a[1])
+        }
+        'undefined' != (i.options = o).share_id && 0 < o.share_id && wcache.put('share_id', o.share_id),
+          'undefined' != o.community_id && 0 < o.community_id ? (console.log('step3'), util.getCommunityById(o.community_id).then(function(t) {
+            if (0 == t.code) {
+              console.log('step4')
+              var a = t.data
+              console.log('分享community_id' + o.community_id), console.log('历史community_id' + d)
+
+              1 == t.open_danhead_model ? (console.log('开启单社区' + t.default_head_info), i.community = t.default_head_info,
+                i.open_danhead_model = t.open_danhead_model, s && i.addhistory(t.default_head_info.communityId || '')) : a && (o.community_id != d ? d ? (i.showChangeCommunity = !0,
+                i.changeCommunity = a, i.community = n) : (i.community = a, i.shareCommunity = a,
+                wcache.put('community', a)) : i.community = n), i.hidetip = !1, i.token = s, i.showEmpty = !1,
+                i.needPosition = !1, i.setData(e, function() {
+                i.loadPage()
+              })
+            } else {
+              console.log('step5')
+              i.loadPage()
+              this.hidetip = !1
+              this.token = s
+              this.showEmpty = !1
+              this.needPosition = !1
+            }
+            s && i.addhistory()
+          })) : util.getCommunityById(o.community_id).then(function(t) {
+            0 == t.code && (1 == t.open_danhead_model && (console.log('开启单社区step6'), i.setData({
+              community: t.default_head_info,
+              open_danhead_model: t.open_danhead_model
+            }), s && i.addhistory(t.default_head_info.communityId || '')), console.log('step6'),
+              i.loadPage())
+          }).catch(function() {
+            i.loadPage()
+          })
+      } else {
+        util.getCommunityById(o.community_id).then(function(t) {
+          0 == t.code && (1 == t.open_danhead_model && (console.log('开启单社区step7'), i.setData({
+            community: t.default_head_info,
+            open_danhead_model: t.open_danhead_model
+          }), s && i.addhistory(t.default_head_info.communityId || '')), i.loadPage())
+        }).catch(function() {
+          i.loadPage()
+        })
+        this.hidetip = !1,
+          this.token = s,
+          this.showEmpty = !1,
+          this.community = n
+      }
+
+    },
+
+    mounted: function() {
       this.$store.dispatch('app/hideToolbarBack')
       this.$store.dispatch('app/hideToolbarMore')
       this.$store.dispatch('app/showTabbar')
+      this.skin = this.$getApp().globalData.skin
+      this.getBg()
 
-      this.tabbarRefresh = true
-
-      this.getNewauthGg()
-      this.getIndexInfo()
-      this.getNavigat()
       this.loadGpsGoodsList()
 
     },
@@ -670,17 +752,8 @@
       copyText: function(t) {
 
       },
-      setNavBgColor() {
-        this.$http({
-          controller: 'index.get_nav_bg_color'
-        }).then(response => {
-          var t = response.data || '#F75451', e = response.nav_font_color || '#ffffff'
-          this.$store.dispatch('app/setNavBgColor', t)
-          this.$store.dispatch('app/setNavFontColor', e)
-        })
-      },
-      getIndexInfo() {
 
+      get_index_info() {
 
         this.$http({
           controller: 'index.index_info',
@@ -759,7 +832,74 @@
           this.$store.state.app.toolbarTitle = response.title
         })
       },
-      getNewauthGg() {
+      get_type_topic: function() {
+        var e = this,
+          t = this.$wx.getStorageSync('community')
+
+        e.$http({
+          controller: 'goods.get_category_col_list',
+          head_id: t.communityId
+        }).then(t => {
+          if (0 == t.code) {
+            var a = t.data || []
+            this.typeTopicList = a
+          }
+        })
+      },
+      getCoupon: function() {
+        var n = this,
+          t = this.$wx.getStorageSync('token')
+        n.$http({
+          controller: 'goods.get_seller_quan',
+          token: t
+        }).then(t => {
+
+          var a = t.quan_list,
+            e = !1,
+            o = !1
+          '[object Object]' == Object.prototype.toString.call(a) && 0 < Object.keys(a).length && (e = !0),
+          '[object Array]' == Object.prototype.toString.call(a) && 0 < a.length && (e = !0)
+          var i = t.alert_quan_list || []
+          '[object Object]' == Object.prototype.toString.call(i) && 0 < Object.keys(i).length && (o = !0),
+          '[object Array]' == Object.prototype.toString.call(i) && 0 < i.length && (o = !0)
+          var s = 0
+          '[object Object]' == Object.prototype.toString.call(i) && 0 < Object.keys(i).length ? Object.keys(i).forEach(function(t) {
+            s += 1 * i[t].credit
+          }) : '[object Array]' == Object.prototype.toString.call(i) && 0 < i.length && i.forEach(function(t) {
+            s += 1 * t.credit
+          })
+
+          n.quan = t.quan_list || []
+          n.alert_quan_list = i
+          n.hasCoupon = e
+          n.hasAlertCoupon = o
+          n.showCouponModal = o
+          n.totalAlertMoney = s.toFixed(2)
+        })
+
+      }, getPinList: function() {
+        var d = this,
+          t = this.$wx.getStorageSync('community').communityId || ''
+
+        d.$http({
+          controller: 'group.get_pintuan_list',
+          is_index: 1,
+          head_id: t
+        }).then(t => {
+          if (0 == t.code) {
+            var a = {},
+              e = t,
+              o = e.list,
+              i = e.pintuan_index_coming_img,
+              s = e.pintuan_index_show,
+              n = e.pintuan_index_show_listtop
+            a.list = o || [], a.img = i || '', a.show = s || 0, a.showRow = n || 0
+            this.pinList = a
+          }
+        })
+
+      },
+      getBg() {
 
         this.$http({
           controller: 'index.get_newauth_bg',
@@ -771,6 +911,201 @@
 
         })
       },
+      addhistory: function() {
+        var a = 0 < arguments.length && void 0 !== arguments[0] ? arguments[0] : 0
+        console.log('step13')
+        var t = 0
+        0 == a ? t = wx.getStorageSync('community').communityId : t = a
+        console.log('history community_id=' + t)
+        var e = wx.getStorageSync('token'),
+          o = this
+        void 0 !== t && app.util.request({
+          url: 'entry/wxapp/index',
+          data: {
+            controller: 'index.addhistory_community',
+            community_id: t,
+            token: e
+          },
+          dataType: 'json',
+          success: function(t) {
+            0 != a && (o.getHistoryCommunity(), console.log('addhistory+id', a))
+          }
+        })
+      },
+      loadPage() {
+        this.$wx.showLoading(), console.log('step8')
+        var e = this
+        e.get_index_info(), e.get_type_topic(), e.getNavigat(), e.getCoupon(), e.getPinList(),
+          status.loadStatus().then(function() {
+            var t = this.$getApp().globalData.appLoadStatus
+            if (console.log('appLoadStatus', t), 0 == t) {
+              setTimeout(function() {
+                this.$wx.hideLoading()
+              }, 1e3), e.setData({
+                needAuth: !0,
+                couponRefresh: !1
+              }), e.load_goods_data()
+            } else if (2 == t) {
+              console.log('step9'), e.getHistoryCommunity()
+            } else {
+              console.log('step12')
+              var a = this.$wx.getStorageSync('community')
+              a || (a = this.$getApp().globalData.community),
+                a ? this.community = e.fliterCommunity(a) : util.getCommunityInfo().then(function(t) {
+                  this.community = e.fliterCommunity(t)
+                }), console.log('step18'), e.load_goods_data()
+            }
+          })
+      },
+      load_goods_data: function() {
+        var t = wx.getStorageSync('token'),
+          m = this,
+          a = wx.getStorageSync('community'),
+          e = m.classificationId
+        this.$data.isLoadData = !0, console.log('load_goods_begin '), m.hasRefeshin || m.$data.loadOver ? m.load_over_gps_goodslist() : (console.log('load_goods_in '),
+          this.hasRefeshin = !0, m.setData({
+          loadMore: !0
+        }), this.$http({
+          controller: 'index.load_gps_goodslist',
+          token: t,
+          pageNum: m.data.pageNum,
+          head_id: a.communityId,
+          gid: e,
+          per_page: 12
+        }).then(t => {
+          if (1 == m.pageNum &&
+          (this.cate_info = t.cate_info || {})
+            , 0 == t.code) {
+            var a = ''
+            if (1 == t.is_show_list_timer) {
+              for (var e in a = m.transTime(t.list),
+                m.$data.countDownMap) {
+                m.initCountDown(m.$data.countDownMap[e])
+              }
+            } else {
+              var o = m.rushList
+              a = o.concat(t.list)
+            }
+            var i = t,
+              s = i.full_money,
+              n = i.full_reducemoney,
+              d = i.is_open_fullreduction,
+              c = i.is_open_vipcard_buy,
+              l = i.is_vip_card_member,
+              r = i.is_member_level_buy,
+              u = {
+                full_money: s,
+                full_reducemoney: n,
+                is_open_fullreduction: d
+              },
+              h = !1
+            1 == c ? 1 != l && 1 == r && (h = !0) : 1 == r && (h = !0), 1 == m.pageNum &&
+            (m.copy_text_arr = i.copy_text_arr || []), m.hasRefeshin = !1, (
+              m.rushList = a,
+                m.pageNum = m.data.pageNum + 1,
+                m.loadMore = !1,
+                m.reduction = u,
+                m.tip = '',
+                m.is_open_vipcard_buy = c || 0,
+                m.is_vip_card_member = l,
+                m.is_member_level_buy = r,
+                m.canLevelBuy = h
+            ), function() {
+              1 == m.isFirst && (m.isFirst++, a.length && !m.$data.stickyTop && (m.$wx.createSelectorQuery().select('.tab-nav-query').boundingClientRect(function(t) {
+                if (t && t.top) {
+                  wcache.put('tabPos', t), m.$data.stickyTop = t.top + t.height, m.$data.stickyBackTop = t.top
+                } else {
+                  var a = wcache.get('tabPos', !1)
+                  a && (m.$data.stickyTop = a.top + a.height, m.$data.stickyBackTop = a.top)
+                }
+              }).exec(), m.$data.scrollTop > m.$data.stickyTop && wx.pageScrollTo({
+                duration: 0,
+                scrollTop: m.$data.stickyTop + 4
+              }))), m.getScrollHeight(), 2 == m.data.pageNum && t.data.list.length < 10 && (console.log('load_over_goods_list_begin'),
+                m.$data.loadOver = !0, m.hasRefeshin = !0, m.setData({
+                loadMore: !0
+              }, function() {
+                m.load_over_gps_goodslist()
+              }))
+            }
+          } else {
+            1 == t.data.code ? (m.$data.loadOver = !0, m.load_over_gps_goodslist()) : 2 == t.data.code && m.setData({
+              needAuth: !0,
+              couponRefresh: !1
+            })
+          }
+        }))
+      },
+      load_over_gps_goodslist: function() {
+        var t = wx.getStorageSync('token'),
+          o = this,
+          a = wx.getStorageSync('community'),
+          e = o.classificationId
+        !o.$data.hasOverGoods && o.$data.loadOver ? (o.$data.hasOverGoods = !0, (o.loadMore = !0),
+          o.$http({
+            controller: 'index.load_over_gps_goodslist',
+            token: t,
+            pageNum: o.$data.overPageNum,
+            head_id: a.communityId,
+            gid: e,
+            is_index_show: 1
+          }).then(t => {
+
+            if (0 == t.code) {
+              var a = o.transTime(t.list)
+              for (var e in o.$data.countDownMap) o.initCountDown(o.$data.countDownMap[e])
+              o.$data.hasOverGoods = !1, o.$data.overPageNum += 1, o.setData({
+                rushList: a,
+                loadMore: !1,
+                tip: ''
+              }, function() {
+                1 == o.isFirst && (o.isFirst++, a.length && !o.$data.stickyTop && (o.$wx.createSelectorQuery().select('.tab-nav-query').boundingClientRect(function(t) {
+                  if (t && t.top) {
+                    wcache.put('tabPos', t), o.$data.stickyTop = t.top + t.height, o.$data.stickyBackTop = t.top
+                  } else {
+                    var a = wcache.get('tabPos', !1)
+                    a && (o.$data.stickyTop = a.top + a.height, o.$data.stickyBackTop = a.top)
+                  }
+                }).exec(), o.$data.scrollTop > o.$data.stickyTop && o.$wx.pageScrollTo({
+                  duration: 0,
+                  scrollTop: o.$data.stickyTop + 4
+                }))), o.getScrollHeight()
+              })
+            } else {
+              1 == t.code ? (1 == o.$data.overPageNum && 0 == o.data.rushList.length && o.setData({
+                showEmpty: !0
+              }), o.setData({
+                loadMore: !1,
+                tip: '^_^已经到底了'
+              })) : 2 == t.code && o.setData({
+                needAuth: !0,
+                couponRefresh: !1
+              })
+            }
+            o.$data.isLoadData = !1
+
+          })) : o.$data.isLoadData = !1
+      },
+      transTime: function(t) {
+        var a = this
+        return 0 === (1 < arguments.length && void 0 !== arguments[1] ? arguments[1] : 0) && t.map(function(t) {
+          t.end_time *= 1e3, a.$data.countDownMap[t.end_time] = t.end_time == 0 ? '' : t.end_time, a.$data.actEndMap[t.end_time] = (t.end_time <= new Date().getTime() && t.end_time != 0) || 0 == t.spuCanBuyNum
+
+        }), a.rushList.concat(t)
+
+      }
+      ,
+      fliterCommunity: function(t) {
+        if (t && t.fullAddress && t.fullAddress.indexOf('境外') > -1) {
+          t.fullAddress = t.fullAddress.replace('境外境外境外地区', '')
+        }
+        var a = t && t.fullAddress && t.fullAddress.split('省')
+        console.log(a, 'fsdfs')
+        return a ? Object.assign({}, t, {
+          address: a[1] || a[0]
+        }) : t
+      }
+      ,
       getNavigat() {
         this.$http({
           controller: 'index.get_navigat'
@@ -787,7 +1122,8 @@
           this.navigatEmpty = e
 
         })
-      },
+      }
+      ,
       loadGpsGoodsList() {
         this.$http({
           controller: 'index.load_gps_goodslist',
@@ -801,26 +1137,74 @@
 
         })
 
-      },
+      }
+      ,
       tabSwitch: function(t) {
         var a = this,
           e = 1 * t.currentTarget.dataset.idx
         this.tabIdx = e
 
-        1 == e && (a.$data.stickyFlag && a.$data.scrollTop != a.$data.stickyTop + 5 && wx.pageScrollTo({
+        1 == e && (a.$data.stickyFlag && a.$data.scrollTop != a.$data.stickyTop + 5 && this.$wx.pageScrollTo({
           scrollTop: a.$data.stickyTop + 5,
           duration: 0
         }), 1 == a.tpage && a.getCommingList())
+      }
+      ,
+      handleProxy: function() {
+        clearTimeout(timerOut), this.setData({
+          isTipShow: !1,
+          isShowGuide: !0
+        }), wcache.put('inNum', 4)
+      },
+      handleHideProxy: function() {
+        this.setData({
+          isTipShow: !1,
+          isShowGuide: !1
+        })
+      },
+      gotoMap: function() {
+        var t = this.community
+        console.log(t.communityId)
+        this.$http({
+          controller: 'index.get_community_position',
+          communityId: t.communityId
+        }).then(t => {
+          var a = t.postion;
+          var e = parseFloat(a.lon);
+          var o = parseFloat(a.lat);
+          var i = t.disUserName;
+          var s = t.fullAddress + "(" + t.communityName + ")";
+          this.$wx.openLocation({
+            latitude: o,
+            longitude: e,
+            name: i,
+            address: s,
+            scale: 28
+          });
+
+        })
+      },
+      openSku:function(t) {
+
       },
       closeSku: function() {
         this.visible = 0
         this.stopClick = !1
       },
-      handleProxy: function() {
-        clearTimeout(timerOut), this.setData({
-          isTipShow: !1,
-          isShowGuide: !0
-        }), wcache.put("inNum", 4);
+      goLink:function() {
+        var a = t.currentTarget.dataset.link,
+          e = t.currentTarget.dataset.needauth || "";
+        console.log(e), e && !this.authModal() || a && this.$wx.navigateTo({
+          url: a
+        });
+      },
+      authModal: function() {
+        var t = 0 < arguments.length && void 0 !== arguments[0] ? arguments[0] : {},
+          a = t && t.detail || this.data.needAuth;
+        return !this.needAuth && !t.detail || (this.setData({
+          showAuthModal: !this.showAuthModal,
+          needAuth: a
+        }), !1);
       },
 
     }
@@ -828,7 +1212,7 @@
 
 </script>
 
-<style>
+<style scoped>
   @import 'index.less';
 </style>
 

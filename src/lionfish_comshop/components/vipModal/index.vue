@@ -1,7 +1,7 @@
 <template>
   <i-modal :scrollUp="false" v-show="visible">
     <div class="modal">
-      <img @click="goUrl" class="img" mode="widthFix" :src="imgUrl"></img>
+      <img @click="goUrl" class="img" mode="widthFix" :src="imgUrl"/>
       <div class="close">
         <span @click="closeModal" class="iconfont icon-guanbi"></span>
       </div>

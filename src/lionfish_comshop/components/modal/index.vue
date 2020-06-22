@@ -28,8 +28,8 @@
     },
     data() {
       return {
-        isIpx: this.isIpx,
-        isShow: this.isShow
+        isIpx: !1,
+        isShow: !1
       }
     },
     mounted: function() {

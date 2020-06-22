@@ -11,7 +11,7 @@
           <i-img defaultImage="@/assets/images/placeholder-refund.png" height="200" iClass="new-img"
                  :loadImage="item.skuImage" width="180"></i-img>
           <div class="item-tag" v-if="item.label_info&&item.label_info.type==0">
-            <img class="item-tag-bg" mode="widthFix" src="@/assets/images/tag.png"></img>
+            <img class="item-tag-bg" mode="widthFix" src="@/assets/images/tag.png"/>
             <div :class="['tag-name',item.label_info.len==2?'two-word':'']">{{item.label_info.tagcontent}}</div>
           </div>
           <div class="item-tag"
@@ -22,7 +22,7 @@
           <div class="new-bot">
             <div class="price">${{item.actPrice[0]}}.{{item.actPrice[1]}}</div>
             <i-button iClass="add-cart" v-if="disabled||item.spuCanBuyNum==0">
-              <img class="img" src="@/assets/images/icon-add-shopCart-disabled.png"></img>
+              <img class="img" src="@/assets/images/icon-add-shopCart-disabled.png"/>
             </i-button>
             <i-button :click="openSku" data-idx="index" iClass="add-cart" v-else>
               <i-addcart iClass="img"></i-addcart>
@@ -41,17 +41,7 @@
     props: {
       refresh: {
         type: Boolean,
-        default: !1,
-        observer: function(t) {
-          var a = this
-          t && this.setData({
-            pageNum: 1,
-            noMore: !1,
-            list: []
-          }, function() {
-            a.getData()
-          })
-        }
+        default: !1
       },
       skin: {
         type: Object
@@ -120,135 +110,5 @@
 </script>
 
 <style scoped>
-  .new-comers {
-    position: relative;
-    padding: 10px 0;
-    margin: 10px;
-    background: #fff;
-    border-radius: 5px;
-  }
-
-  .new-comers-title {
-    position: relative;
-    margin-bottom: 10px;
-    font-size: 15px;
-    font-weight: bold;
-    color: #333;
-    padding-left: 10px;
-  }
-
-  .leftBorder {
-    position: absolute;
-    left: 0;
-    top: 0;
-    bottom: 0;
-    border-left: 4px solid #f75451;
-  }
-
-  .new-comers-scroll {
-    max-height: 310px;
-  }
-
-  .new-comers-wrap {
-    position: relative;
-    display: flex;
-    flex-direction: row;
-    flex-wrap: nowrap;
-  }
-
-  .new-comers-item {
-    width: 120px;
-    box-sizing: border-box;
-    padding: 10px;
-    font-size: 14px;
-  }
-
-  .new-comers-item .new-img {
-    width: 100px;
-    height: 90px;
-    margin-bottom: 10px;
-  }
-
-  .new-comers-item .title {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-  }
-
-  .new-comers-item .new-bot {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-top: 5px;
-  }
-
-  .new-comers-item .add-cart {
-    width: 22px;
-    height: 22px;
-    padding: 0;
-    margin: 0;
-  }
-
-  .new-comers-item .add-cart .img {
-    width: 22px;
-    height: 22px;
-    display: block;
-  }
-
-  .new-comers-item .price {
-    color: #ff5041;
-  }
-
-  .new-comers-item {
-    position: relative;
-  }
-
-  .new-comers-item .act-end {
-    position: absolute;
-    height: 30px;
-    border-radius: 5px;
-    background: rgba(0, 0, 0, 0.5);
-    color: #fff;
-    font-size: 14px;
-    text-align: center;
-    line-height: 30px;
-    left: 50%;
-    top: 40px;
-    padding: 0 6px;
-    transform: translateX(-50%);
-  }
-
-  .new-comers-item .item-tag {
-    position: absolute;
-    left: 10px;
-    top: 10px;
-    width: 27px;
-    height: 31px;
-    z-index: 1;
-    color: #fff;
-    text-align: center;
-  }
-
-  .item-tag-bg {
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 27px;
-    height: 31px;
-    z-index: 0;
-  }
-
-  .new-comers-item .item-tag .tag-name {
-    position: relative;
-    padding-top: 3px;
-    font-size: 10px;
-    line-height: 1;
-    font-weight: 600;
-    z-index: 1;
-  }
-
-  .new-comers-item .item-tag .tag-name.two-word {
-    font-size: 12px;
-    padding-top: 7px;
-  }
+  @import 'index.less';
 </style>

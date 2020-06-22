@@ -3,7 +3,7 @@
     <div
       :class="['i-input-number-minus', 'i-input-number-div', 'i-number-div', (value <= min?'i-input-number-disabled':'')]"
       v-if="value==0">
-      <img class="img i-number-img" src="@/assets/images/icon-spu-reduce-disabled.png"></img>
+      <img class="img i-number-img" src="@/assets/images/icon-spu-reduce-disabled.png"/>
     </div>
     <div catchtap="handleMinus"
          :class="['i-input-number-minus', 'i-input-number-div', 'i-number-div', (value<=min?'i-input-number-disabled':'')]"
@@ -116,6 +116,7 @@
 </script>
 
 <style scoped>
+  @import "../../../@feiying/1.less";
 
   .i-input-number {
     color: #495060;
