@@ -1066,6 +1066,7 @@
                 }), console.log('step18'), e.load_goods_data()
             }
           })
+        this.load_goods_data()
       },
       load_goods_data: function() {
         debugger
