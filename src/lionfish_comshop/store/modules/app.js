@@ -7,6 +7,7 @@ const state = {
   },
   device: 'desktop',
   toolbarTitle: '',
+  tabbarCurrentIdx: 2,
   storageSync: {},
   showToolbarBack: true,
   showToolbarMore: false,
@@ -85,8 +86,10 @@ const mutations = {
   },
   SET_CART_NUM: (state, num) => {
     state.cartNum = num
+  },
+  SET_TABBAR_CURRENT_IDX: (state, idx) => {
+    state.tabbarCurrentIdx = idx
   }
-
 }
 
 const actions = {
@@ -128,6 +131,9 @@ const actions = {
   },
   setCartNum({ commit }, num) {
     commit('SET_CART_NUM', num)
+  },
+  setTabbarCurrentIdx({ commit }, idx) {
+    commit('SET_TABBAR_CURRENT_IDX', idx)
   }
 }
 
