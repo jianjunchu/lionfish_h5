@@ -19,6 +19,19 @@ module.exports = {
   },
   clearStorageSync: function() {
     this.$store.getters.app.storageSync = {}
+  },
+  setNavigationBarColor: function(option) {
+    this.$store.dispatch('app/setNavBgColor', option.backgroundColor)
+    this.$store.dispatch('app/setNavFontColor', option.frontColor)
+  },
+  getLogManager: function() {
+
+  },
+  request: function() {
+
+  },
+  setStorage: function(option) {
+    this.setStorageSync(option.key, option.data)
   }
 
 }
