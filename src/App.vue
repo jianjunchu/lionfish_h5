@@ -1,7 +1,7 @@
 <template>
   <div id="app" style="overflow-x: hidden;">
     <i-toolbar ref="toolbar"></i-toolbar>
-    <router-view style="margin-top:50px" :v-loading="true"/>
+    <router-view style="margin-top:50px"/>
 
     <i-tabbar v-show="getShowTabbar" ref="tabbar" :currentIdx="0" :tabbarRefresh="tabbarRefresh"
               :cartNum="3"></i-tabbar>
@@ -22,11 +22,6 @@
         tabbarRefresh: false
 
       }
-    },
-    created:function(){
-      this.$vux.loading.show({
-        text: 'Loading'
-      })
     },
     computed: {
 

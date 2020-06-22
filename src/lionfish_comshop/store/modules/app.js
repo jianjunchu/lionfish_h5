@@ -72,7 +72,6 @@ const mutations = {
     state.showToolbarMore = show
   },
   SET_APP_TITLE(state, title) {
-    alert(title)
     state.toolbarTitle = title
   },
   TOGGLE_TABBAR: (state, show) => {
@@ -92,7 +91,6 @@ const mutations = {
 
 const actions = {
   toggleSideBar({ commit }) {
-    alert(1)
     commit('TOGGLE_SIDEBAR')
   },
   closeSideBar({ commit }, { withoutAnimation }) {

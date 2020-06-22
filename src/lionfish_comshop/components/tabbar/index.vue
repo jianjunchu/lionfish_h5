@@ -10,7 +10,7 @@
       </router-link>
       <div @click="goWeapp" class="tabbar_nav" v-show="open_tabbar_out_weapp==0&&index==2" :style="{color:item.selected?tabbar.selectedColor:tabbar.color}" v-else>
         <div class="tabbar_icon">
-          <img class="img" :src="item.selected?item.selectedIconPath:item.iconPath"></img>
+          <img class="img" :src="item.selected?item.selectedIconPath:item.iconPath"/>
         </div>
         <span>{{item.text}}</span>
       </div>
@@ -84,7 +84,7 @@
 
         const p = this;
 
-        http({
+        this.$http({
           controller : 'index.get_tabbar'
         }).then(response => {
 
@@ -114,9 +114,51 @@
           }
         })
 
+      },
+      goWeapp: function() {
+        var e = this.tabbar_out_appid, t = this.tabbar_out_link, a = this.tabbar_out_type;
+        if (0 == a) this.$wx.navigateTo({
+          url: "/lionfish_comshop/pages/web-view?url=" + encodeURIComponent(t)
+        }); else if (1 == a) {
+          -1 != [ "/lionfish_comshop/pages/index/index", "/lionfish_comshop/pages/order/shopCart", "/lionfish_comshop/pages/user/me", "/lionfish_comshop/pages/type/index" ].indexOf(t) ? this.$wx.switchTab({
+            url: t
+          }) : -1 != [ "/lionfish_comshop/moduleA/solitaire/index", "/lionfish_comshop/moduleA/video/index", "/lionfish_comshop/moduleA/menu/index", "/lionfish_comshop/moduleA/pin/index" ].indexOf(t) ? "/lionfish_comshop/moduleA/solitaire/index" == t && this.needAut ? this.triggerEvent("authModal", !0) : this.$wx.redirectTo({
+            url: t
+          }) : this.$wx.navigateTo({
+            url: t
+          });
+        } else if (2 == a) e && this.$wx.navigateToMiniProgram({
+          appId: e,
+          path: t,
+          extraData: {},
+          envVersion: "release",
+          success: function(e) {
+            console.log(e);
+          }
+        }); else if (3 == a) {
+          this.$wx.redirectTo({
+            url: "/lionfish_comshop/moduleA/pin/index"
+          });
+        } else if (4 == a) {
+          this.$wx.redirectTo({
+            url: "/lionfish_comshop/moduleA/menu/index"
+          });
+        } else if (5 == a) {
+          this.$wx.redirectTo({
+            url: "/lionfish_comshop/moduleA/video/index"
+          });
+        } else if (6 == a) if (this.needAuth) this.triggerEvent("authModal", !0); else {
+          this.$wx.redirectTo({
+            url: "/lionfish_comshop/moduleA/solitaire/index"
+          });
+        } else if (7 == a) {
+          this.$wx.redirectTo({
+            url: "/lionfish_comshop/moduleB/live/index"
+          });
+        }
       }
-
     }
+
   }
 </script>
 

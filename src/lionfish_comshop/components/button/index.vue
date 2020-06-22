@@ -5,8 +5,8 @@
             :class="['i-class', 'i-btn', (long?'i-btn-long':''), 'i-btn-'+size, 'i-btn-'+type, 'i-btn-'+shape, (loading?'i-btn-loading':''), (disabled?'i-btn-disabled':''), (inline?'i-btn-inline':'')]"
             hoverClass="i-btn-hover" :hoverStartTime="hoverStartTime" :hoverStayTime="hoverStayTime"
             :hoverStopPropagation="hoverStopPropagation" :openType="openType" plain="true"
-            :endMessageImg="sendMessageImg" @sendMessagePath="sendMessagePath"
-            :sendMessageTitle="sendMessageTitle" @sessionFrom="sessionFrom" :showMessageCard="showMessageCard"
+            :endMessageImg="sendMessageImg" :sendMessagePath="sendMessagePath"
+            :sendMessageTitle="sendMessageTitle" :sessionFrom="sessionFrom" :showMessageCard="showMessageCard"
             :style="styleStr">
       <div class="i-btn-loading-inner" v-if="loading"></div>
       <slot></slot>

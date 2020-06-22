@@ -1,7 +1,7 @@
 <template>
   <div class="head">
     <div class="back-img-wrap">
-      <img class="back-img" src="@/assets/images/TOP_background@2x.png"></img>
+      <img class="back-img" src="@/assets/images/TOP_background@2x.png"/>
     </div>
     <div class="to-pay-wrap" v-if="status==0">
       <div class="font-bold-30">

@@ -7,7 +7,7 @@
       <i-router-link routerClass="spu-content" url="{{url}}">
         <div class="item-top">
           <div class="item-tag" v-if="spuItem.label_info&&spuItem.label_info.type==0">
-            <img class="item-tag-bg" mode="widthFix" src="@/assets/images/tag.png"></img>
+            <img class="item-tag-bg" mode="widthFix" src="@/assets/images/tag.png"/>
             <div :class="['tag-name',spuItem.label_info.len==2?'two-word':'']">{{spuItem.label_info.tagcontent}}</div>
           </div>
           <div class="item-tag"
@@ -21,7 +21,7 @@
             <div class="tag tag-green" v-if="spuItem.isLimit">限购</div>
           </div>
           <div class="spu-play" v-if="spuItem.is_video">
-            <img class="img" src="@/assets/images/play.png"></img>
+            <img class="img" src="@/assets/images/play.png"/>
           </div>
         </div>
         <div class="item-bottom">
