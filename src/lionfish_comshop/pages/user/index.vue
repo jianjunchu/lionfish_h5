@@ -1,11 +1,8 @@
 <template>
-  <!--<div>-->
-    <!--我的-->
-  <!--</div>-->
-  <div :class="[{ theme_type }, 'pb100']">
+  <div :class="[{theme_type}, 'pb100']">
     <div class="personal">
       <div class="basicInform">
-        <img class="back-img" :src="common_header_backgroundimage?common_header_backgroundimage:'@/assets/images/TOP_background@2x.png'"/>
+        <img class="back-img" :src="(common_header_backgroundimage?common_header_backgroundimage:'@/assets/images/TOP_background@2x.png')"/>
         <div class="personalCon">
           <div class="userInfo">
             <div v-if="!needAuth">
@@ -14,7 +11,8 @@
               <div class="user-name" :style="{color:user_top_font_color}">
                 <div class="user-name-top">
                   <div>{{member_info.username}}</div>
-                  <button bindgetuserinfo="bindGetUserInfo" class="modify" openType="getUserInfo" v-if="canIUse">
+                  <!--<button @click="bindGetUserInfo" class="modify" openType="getUserInfo" v-if="canIUse">-->
+                  <button @click="bindGetUserInfo" class="modify" openType="getUserInfo" >
                     <span class="iconfont icon-shuaxin"></span>
                   </button>
                 </div>
@@ -26,40 +24,42 @@
                 </div>
               </div>
             </div>
-            <div v-on:click="authModal" class="userInfo" :style="{color:user_top_font_color}" v-else>
+            <div @click="authModal" class="userInfo" :style="{color:user_top_font_color}" v-else>
               <img class="userAvatarUrl" src="@/assets/images/head-bitmap.png"/>
               <div class="user-name">点击登录账户</div>
             </div>
-            <div v-on:click="goLink2" :class="['fetch-coder', (fetch_coder_type==1||needAuth?'signIn':'')]" data-link="/lionfish_comshop/moduleA/score/signin" :style="{color:user_top_font_color}" v-if="isopen_signinreward==1&&show_signinreward_icon==1">
+            <div @click="goLinkScore" :class="['fetch-coder', ( fetch_coder_type == 1 || needAuth?'signIn':'')]"  :style="{color:user_top_font_color}" v-if="isopen_signinreward==1&&show_signinreward_icon==1">
               <span class="iconfont icon-qiandao"></span>
               <div class="fetch-coder-text">积分签到</div>
             </div>
-            <div v-on:click="toggleFetchCoder" class="fetch-coder" :style="{color:user_top_font_color}" v-if="fetch_coder_type==1||needAuth">
+            <div @click="toggleFetchCoder" class="fetch-coder" :style="{color:user_top_font_color}" v-if="fetch_coder_type == 1||needAuth">
               <span class="iconfont icon-erweima1"></span>
               <div class="fetch-coder-text">提货码</div>
             </div>
           </div>
-          <div v-on:click="goLink2" class="vip i-flex i-flex-spb" data-link="/lionfish_comshop/moduleA/vip/upgrade" v-if="is_open_vipcard_buy==1">
+          <div @click="goLinkVip" class="vip i-flex i-flex-spb"  v-if="is_open_vipcard_buy==1">
             <div class="i-flex vip-name">
               <img class="vip-logo" :src="modify_vipcard_logo" v-if="modify_vipcard_logo"/>
-              <span class="iconfont icon-huiyuan" style="font-size:30rpx;" v-else></span>
+              <span class="iconfont icon-huiyuan" style="font-size:15px;" v-else></span>
               “{{modify_vipcard_name}}” 尊享特权·会员专享价</div>
             <div v-if="is_vip_card_member==0">立即开通<span class="iconfont icon-youjiantou goright"></span>
             </div>
-            <div v-if="is_vip_card_member==1">立即查看<span class="iconfont icon-youjiantou goright"></span>
+            <div v-else-if="is_vip_card_member==1">立即查看<span class="iconfont icon-youjiantou goright"></span>
             </div>
-            <div v-if="is_vip_card_member==2">
+            <div v-else-if="is_vip_card_member==2">
               <span style="color:#fd7f02;">已到期,</span>立即开通<span class="iconfont icon-youjiantou goright"></span>
             </div>
           </div>
         </div>
       </div>
-      <div class="['order', (is_open_vipcard_buy==1?'hasVip':'')]">
+
+      <!--<div class="['order', (is_open_vipcard_buy==1?'hasVip':'')]">-->
+      <div class="order">
         <div class="my-order">
           <div class="my-order-title">
             <span>我的订单</span>
           </div>
-          <div v-on:click="goLink2" class="to-order" data-link="/lionfish_comshop/pages/order/index">
+          <div @click="goLink2(0)" class="to-order">
             <span>查看全部订单</span>
           </div>
           <div class="order-right">
@@ -67,31 +67,37 @@
           </div>
         </div>
         <div class="orderTab">
-          <div v-on:click="goLink2" class="order_status" data-link="/lionfish_comshop/pages/order/index?order_status=3">
-            <span class="num" :style="{background:skin.color}" v-if="member_info.wait_pay_count!=0">{{member_info.wait_pay_count}}</span>
-            <img class="icon-img" :src="user_order_menu_icons.i1?user_order_menu_icons.i1:'@/assets/images/needPayIcon.png'"/>
+          <div @click="goLink2(3)" class="order_status">
+            <span class="num" :style="{background:skin.color}" v-show="member_info.wait_pay_count!=0">{{member_info.wait_pay_count}}</span>
+            <!--<img class="icon-img" :src="user_order_menu_icons.i1?user_order_menu_icons.i1:'@/assets/images/needPayIcon.png'"/>-->
+            <img class="icon-img" src="@/assets/images/needPayIcon.png"/>
             <span style="color: #444;">待付款</span>
           </div>
-          <div v-on:click="goLink2" class="order_status" data-link="/lionfish_comshop/pages/order/index?order_status=1">
-            <span class="num" :style="{background:skin.color}" v-if="member_info.wait_send_count!=0">{{member_info.wait_send_count}}</span>
-            <img class="icon-img" :src="user_order_menu_icons.i2?user_order_menu_icons.i2:'@/assets/images/undeli.png'"/>
+          <div @click="goLink2(1)" class="order_status">
+            <span class="num" :style="{background:skin.color}" v-show="member_info.wait_send_count!=0">{{member_info.wait_send_count}}</span>
+            <!--<img class="icon-img" :src="user_order_menu_icons.i2?user_order_menu_icons.i2:'@/assets/images/undeli.png'"/>-->
+            <img class="icon-img" src="@/assets/images/undeli.png"/>
             <span style="color: #444;">待配送</span>
           </div>
-          <div v-on:click="goLink2" class="order_status" data-link="/lionfish_comshop/pages/order/index?order_status=4">
-            <span class="num" :style="{background:skin.color}" v-if="member_info.wait_get_count!=0">{{member_info.wait_get_count}}</span>
-            <img class="icon-img" :src="user_order_menu_icons.i3?user_order_menu_icons.i3:'@/assets/images/distributionIcon.png'"/>
+          <div @click="goLink2(4)" class="order_status">
+            <span class="num" :style="{background:skin.color}" v-show="member_info.wait_get_count!=0">{{member_info.wait_get_count}}</span>
+            <!--<img class="icon-img" :src="user_order_menu_icons.i3?user_order_menu_icons.i3:'@/assets/images/distributionIcon.png'"/>-->
+            <img class="icon-img" src="@/assets/images/distributionIcon.png"/>
             <span style="color: #444;">待提货</span>
           </div>
-          <div v-on:click="goLink2" class="order_status" data-link="/lionfish_comshop/pages/order/index?order_status=6">
-            <img class="icon-img" :src="user_order_menu_icons.i4?user_order_menu_icons.i4:'@/assets/images/completeIcon.png'"/>
+          <div @click="goLink2(6)" class="order_status">
+            <!--<img class="icon-img" :src="user_order_menu_icons.i4?user_order_menu_icons.i4:'@/assets/images/completeIcon.png'"/>-->
+            <img class="icon-img" src="@/assets/images/completeIcon.png"/>
             <span style="color: #444;">已提货</span>
           </div>
-          <div v-on:click="goLink2" class="order_status" data-link="/lionfish_comshop/pages/refund/refundList">
-            <img class="icon-img" :src="user_order_menu_icons.i5?user_order_menu_icons.i5:'@/assets/images/refundIcon.png'"/>
+          <div @click="goLink3" class="order_status" >
+            <!--<img class="icon-img" :src="user_order_menu_icons.i5?user_order_menu_icons.i5:'@/assets/images/refundIcon.png'"/>-->
+            <img class="icon-img" src="@/assets/images/refundIcon.png"/>
             <span style="color: #444;">售后服务</span>
           </div>
         </div>
       </div>
+
       <div class="tool distribution" v-if="community&&show_user_change_comunity==1">
         <div class="my-distribution modal-head">
           <div class="my-distribution-title">
@@ -99,9 +105,9 @@
           </div>
           <div v-if="open_danhead_model==1"></div>
           <div v-else>
-            <navigator class="to-distribution" hoverClass="none" url="/lionfish_comshop/pages/position/community">
+            <a class="to-distribution" hoverClass="none" href="/lionfish_comshop/pages/position/community">
               <span>切换</span>
-            </navigator>
+            </a>
             <div class="distribution-right">
               <img class="icon-right" src="@/assets/images/rightArrowImg.png"/>
             </div>
@@ -114,10 +120,12 @@
             <div>
               <span class="iconfont icon-ziyuan fsz-28"></span> 电话：</div>
             <!--<div v-on:click="callTelphone" data-phone="{{community.disUserMobile||community.head_mobile}}" style="color:#ee884a;">{{community.disUserMobile||community.head_mobile}}</div>-->
-            <div v-on:click="callTelphone" style="color:#ee884a;">{{community.disUserMobile||community.head_mobile}}</div>
+            <!--<div v-on:click="callTelphone" style="color:#ee884a;">{{community.disUserMobile||community.head_mobile}}</div>-->
           </div>
         </div>
       </div>
+
+
       <div class="tool distribution" v-if="show_user_pin==1">
         <div v-on:click="goLink2" data-link="/lionfish_comshop/moduleA/pin/me">
           <div class="item-main">
@@ -201,17 +209,20 @@
           </div>
         </div>
       </div>
+
+
       <div class="tool">
         <div class="toolList">
           <div v-on:click="goLink2" class="yuenav" data-link="/lionfish_comshop/pages/user/charge" v-if="is_open_yue_pay==1">
             <div class="item-main">
               <div class="item-title">
-                <img class="toolIcon" mode="widthFix" :src="user_tool_icons.i1?user_tool_icons.i1:'@/assets/images/wallet.png'"/>
+                <!--<img class="toolIcon" mode="widthFix" :src="user_tool_icons.i1?user_tool_icons.i1:'@/assets/images/wallet.png'"/>-->
+                <img class="toolIcon" mode="widthFix" src="@/assets/images/wallet.png"/>
                 <span>余额<div v-if="!needAuth">: ${{member_info.account_money||0}}</div>
                 </span>
               </div>
               <div class="tool-right">
-                <span style="margin-right:10rpx;">{{excharge_nav_name}}</span>
+                <span style="margin-right:5px;">{{excharge_nav_name}}</span>
                 <img class="icon-right " src="@/assets/images/rightArrowImg.png"/>
               </div>
             </div>
@@ -219,7 +230,8 @@
           <div v-on:click="goLink2" data-link="/lionfish_comshop/moduleA/solitaire/me" v-if="is_open_solitaire==1">
             <div class="item-main">
               <div class="item-title">
-                <img class="toolIcon" mode="widthFix" :src="user_tool_icons.i10?user_tool_icons.i10:'@/assets/images/soli.png'"/>
+                <!--<img class="toolIcon" mode="widthFix" :src="user_tool_icons.i10?user_tool_icons.i10:'@/assets/images/soli.png'"/>-->
+                <img class="toolIcon" mode="widthFix" src="@/assets/images/soli.png"/>
                 <span>我的接龙</span>
               </div>
               <div class="tool-right">
@@ -231,11 +243,12 @@
             <div v-on:click="goLink2" class="score" data-link="/lionfish_comshop/moduleA/score/signin" v-if="isopen_signinreward==1">
               <div class="item-main">
                 <div class="item-title">
-                  <img class="toolIcon" mode="widthFix" :src="user_tool_icons.i2?user_tool_icons.i2:'@/assets/images/icon-score.png'"/>
+                  <!--<img class="toolIcon" mode="widthFix" :src="user_tool_icons.i2?user_tool_icons.i2:'@/assets/images/icon-score.png'"/>-->
+                  <img class="toolIcon" mode="widthFix" src="@/assets/images/icon-score.png"/>
                   <span>积分</span>
                 </div>
                 <div class="tool-right">
-                  <span style="margin-right:10rpx;">立即签到</span>
+                  <span style="margin-right:5px;">立即签到</span>
                   <img class="icon-right " src="@/assets/images/rightArrowImg.png"/>
                 </div>
               </div>
@@ -243,7 +256,8 @@
             <div v-on:click="goLink2" class="score" data-link="/lionfish_comshop/moduleA/score/scoreDetails" v-else>
               <div class="item-main">
                 <div class="item-title">
-                  <img class="toolIcon" mode="widthFix" :src="user_tool_icons.i2?user_tool_icons.i2:'@/assets/images/icon-score.png'"/>
+                  <!--<img class="toolIcon" mode="widthFix" :src="user_tool_icons.i2?user_tool_icons.i2:'@/assets/images/icon-score.png'"/>-->
+                  <img class="toolIcon" mode="widthFix" src="@/assets/images/icon-score.png"/>
                   <span>积分</span>
                 </div>
                 <div class="tool-right">
@@ -255,7 +269,8 @@
           <div v-on:click="goLink2" data-link="/lionfish_comshop/pages/user/coupon">
             <div class="item-main">
               <div class="item-title">
-                <img class="toolIcon" mode="widthFix" :src="user_tool_icons.i3?user_tool_icons.i3:'@/assets/images/coupon.png'"/>
+                <!--<img class="toolIcon" mode="widthFix" :src="user_tool_icons.i3?user_tool_icons.i3:'@/assets/images/coupon.png'"/>-->
+                <img class="toolIcon" mode="widthFix" src="@/assets/images/coupon.png"/>
                 <span>优惠券</span>
               </div>
               <div class="tool-right">
@@ -263,21 +278,23 @@
               </div>
             </div>
           </div>
-          <navigator hoverClass="none" url="/lionfish_comshop/pages/groupCenter/communityMembers" v-if="member_info.pickup_id>0">
+          <a hoverClass="none" href="/lionfish_comshop/pages/groupCenter/communityMembers" v-if="member_info.pickup_id>0">
             <div class="item-main">
               <div class="item-title">
-                <img class="toolIcon" mode="widthFix" :src="user_tool_icons.i4?user_tool_icons.i4:'@/assets/images/groupCenterIcon.png'"/>
+                <!--<img class="toolIcon" mode="widthFix" :src="user_tool_icons.i4?user_tool_icons.i4:'@/assets/images/groupCenterIcon.png'"/>-->
+                <img class="toolIcon" mode="widthFix" src="@/assets/images/groupCenterIcon.png"/>
                 <span>核销管理</span>
               </div>
               <div class="tool-right">
                 <img class="icon-right " src="@/assets/images/rightArrowImg.png"/>
               </div>
             </div>
-          </navigator>
+          </a>
           <div v-on:click="goToGroup" v-if="member_info.is_head==1">
             <div class="item-main">
               <div class="item-title">
-                <img class="toolIcon" mode="widthFix" :src="user_tool_icons.i5?user_tool_icons.i5:'@/assets/images/groupCenterIcon.png'"/>
+                <!--<img class="toolIcon" mode="widthFix" :src="user_tool_icons.i5?user_tool_icons.i5:'@/assets/images/groupCenterIcon.png'"/>-->
+                <img class="toolIcon" mode="widthFix" src="@/assets/images/groupCenterIcon.png"/>
                 <span>{{groupInfo.owner_name}}中心</span>
               </div>
               <div class="tool-right">
@@ -285,46 +302,50 @@
               </div>
             </div>
           </div>
-          <navigator hoverClass="none" url="/lionfish_comshop/pages/groupCenter/apply" v-else-if="member_info.is_head==2||member_info.is_head==3">
+          <a hoverClass="none" href="/lionfish_comshop/pages/groupCenter/apply" v-else-if="member_info.is_head==2||member_info.is_head==3">
             <div class="item-main">
               <div class="item-title">
-                <img class="toolIcon" mode="widthFix" :src="user_tool_icons.i5?user_tool_icons.i5:'@/assets/images/groupCenterIcon.png'"/>
+                <!--<img class="toolIcon" mode="widthFix" :src="user_tool_icons.i5?user_tool_icons.i5:'@/assets/images/groupCenterIcon.png'"/>-->
+                <img class="toolIcon" mode="widthFix" src="@/assets/images/groupCenterIcon.png"/>
                 <span>{{groupInfo.owner_name}}审核中</span>
               </div>
               <div class="tool-right">
                 <img class="icon-right " src="@/assets/images/rightArrowImg.png"/>
               </div>
             </div>
-          </navigator>
+          </a>
           <div v-else>
-            <navigator hoverClass="none" url="/lionfish_comshop/pages/groupCenter/recruit" v-if="close_community_apply_enter==0">
+            <a hoverClass="none" href="/lionfish_comshop/pages/groupCenter/recruit" v-if="close_community_apply_enter==0">
               <div class="item-main">
                 <div class="item-title">
-                  <img class="toolIcon" mode="widthFix" :src="user_tool_icons.i5?user_tool_icons.i5:'@/assets/images/groupCenterIcon.png'"/>
+                  <!--<img class="toolIcon" mode="widthFix" :src="user_tool_icons.i5?user_tool_icons.i5:'@/assets/images/groupCenterIcon.png'"/>-->
+                  <img class="toolIcon" mode="widthFix" src="@/assets/images/groupCenterIcon.png"/>
                   <span>申请成为{{groupInfo.owner_name}}</span>
                 </div>
                 <div class="tool-right">
                   <img class="icon-right " src="@/assets/images/rightArrowImg.png"/>
                 </div>
               </div>
-            </navigator>
+            </a>
           </div>
           <div v-if="enabled_front_supply==1">
-            <navigator hoverClass="none" url="/lionfish_comshop/pages/supply/recruit" v-if="is_supply==0||needAuth">
+            <a hoverClass="none" href="/lionfish_comshop/pages/supply/recruit" v-if="is_supply==0||needAuth">
               <div class="item-main">
                 <div class="item-title">
-                  <img aspectFit class="toolIcon supplier" mode="widthFix" :src="user_tool_icons.i6?user_tool_icons.i6:'@/assets/images/icon-supplier.png'"/>
+                  <!--<img aspectFit class="toolIcon supplier" mode="widthFix" :src="user_tool_icons.i6?user_tool_icons.i6:'@/assets/images/icon-supplier.png'"/>-->
+                  <img aspectFit class="toolIcon supplier" mode="widthFix" src="@/assets/images/icon-supplier.png"/>
                   <span>申请成为{{supply_diy_name}}</span>
                 </div>
                 <div class="tool-right">
                   <img class="icon-right " src="@/assets/images/rightArrowImg.png"/>
                 </div>
               </div>
-            </navigator>
+            </a>
             <div v-else-if="is_supply==1">
               <div class="item-main">
                 <div class="item-title">
-                  <img aspectFit class="toolIcon supplier" mode="widthFix" :src="user_tool_icons.i6?user_tool_icons.i6:'@/assets/images/icon-supplier.png'"/>
+                  <!--<img aspectFit class="toolIcon supplier" mode="widthFix" :src="user_tool_icons.i6?user_tool_icons.i6:'@/assets/images/icon-supplier.png'"/>-->
+                  <img aspectFit class="toolIcon supplier" mode="widthFix" src="@/assets/images/icon-supplier.png"/>
                   <span>{{supply_diy_name}}审核中</span>
                 </div>
               </div>
@@ -332,13 +353,15 @@
             <div v-else-if="is_supply==2">
               <div v-on:click="goLink2" class="item-main" data-link="/lionfish_comshop/moduleB/supply/index" v-if="is_open_supplymobile==1">
                 <div class="item-title">
-                  <img aspectFit class="toolIcon supplier" mode="widthFix" :src="user_tool_icons.i6?user_tool_icons.i6:'@/assets/images/icon-supplier.png'"/>
+                  <!--<img aspectFit class="toolIcon supplier" mode="widthFix" :src="user_tool_icons.i6?user_tool_icons.i6:'@/assets/images/icon-supplier.png'"/>-->
+                  <img aspectFit class="toolIcon supplier" mode="widthFix" src="@/assets/images/icon-supplier.png"/>
                   <span>{{supply_diy_name}}</span>
                 </div>
               </div>
               <div class="item-main" v-else>
                 <div class="item-title">
-                  <img aspectFit class="toolIcon supplier" mode="widthFix" :src="user_tool_icons.i6?user_tool_icons.i6:'@/assets/images/icon-supplier.png'"/>
+                  <!--<img aspectFit class="toolIcon supplier" mode="widthFix" :src="user_tool_icons.i6?user_tool_icons.i6:'@/assets/images/icon-supplier.png'"/>-->
+                  <img aspectFit class="toolIcon supplier" mode="widthFix" src="@/assets/images/icon-supplier.png"/>
                   <span>您已是{{supply_diy_name}}</span>
                 </div>
               </div>
@@ -347,7 +370,8 @@
           <div v-on:click="goLink2" data-link="/lionfish_comshop/pages/user/protocol">
             <div class="item-main">
               <div class="item-title">
-                <img class="toolIcon" mode="widthFix" :src="user_tool_icons.i7?user_tool_icons.i7:'@/assets/images/protocolIcon.png'"/>
+                <!--<img class="toolIcon" mode="widthFix" :src="user_tool_icons.i7?user_tool_icons.i7:'@/assets/images/protocolIcon.png'"/>-->
+                <img class="toolIcon" mode="widthFix" src="@/assets/images/protocolIcon.png"/>
                 <span>常见帮助</span>
               </div>
               <div class="tool-right">
@@ -356,28 +380,32 @@
             </div>
           </div>
           <!--<button class="item-fav" openType="contact" sessionFrom="sobot|{{userInfo.nickName}}|{{userInfo.avatarUrl}}" v-if="user_service_switch!=0">-->
-          <button class="item-fav" openType="contact"  v-if="user_service_switch!=0">
+          <!--<button class="item-fav" openType="contact"  v-if="user_service_switch!=0">-->
+          <a hoverClass="none" href="" v-if="user_service_switch!=0">
             <div class="item-main">
               <div class="item-title">
-                <img class="toolIcon" mode="widthFix" :src="user_tool_icons.i8?user_tool_icons.i8:'@/assets/images/serviceIcon.png'"/>
+                <!--<img class="toolIcon" mode="widthFix" :src="user_tool_icons.i8?user_tool_icons.i8:'@/assets/images/serviceIcon.png'"/>-->
+                <img class="toolIcon" mode="widthFix" src="@/assets/images/serviceIcon.png"/>
                 <span>联系客服</span>
               </div>
               <div class="tool-right">
                 <img class="icon-right " src="@/assets/images/rightArrowImg.png"/>
               </div>
             </div>
-          </button>
-          <navigator hoverClass="none" url="/lionfish_comshop/pages/user/articleProtocol?about=1" v-if="is_show_about_us==1">
+          </a>
+          <!--</button>-->
+          <a hoverClass="none" href="/lionfish_comshop/pages/user/articleProtocol?about=1" v-if="is_show_about_us==1">
             <div class="item-main">
               <div class="item-title">
-                <img class="toolIcon" mode="widthFix" :src="user_tool_icons.i9?user_tool_icons.i9:'@/assets/images/aboutUsIcon.png'"/>
+                <!--<img class="toolIcon" mode="widthFix" :src="(user_tool_icons && user_tool_icons.i9)?user_tool_icons.i9:'@/assets/images/aboutUsIcon.png'"/>-->
+                <img class="toolIcon" mode="widthFix" src="@/assets/images/aboutUsIcon.png"/>
                 <span>关于我们</span>
               </div>
               <div class="tool-right">
                 <img class="icon-right " src="@/assets/images/rightArrowImg.png"/>
               </div>
             </div>
-          </navigator>
+          </a>
           <div v-on:click="loginOut" v-if="!needAuth&&ishow_user_loginout_btn==1">
             <div class="item-main">
               <div class="item-title">
@@ -391,6 +419,8 @@
           </div>
         </div>
       </div>
+
+
       <div class="canvas-content" v-if="fetch_coder_type==0">
         <div class="left">
           <!--<img v-on:click="previewImage" class="canvas" data-src="{{member_info.hexiao_qrcod}}" :src="member_info.hexiao_qrcod" v-if="member_info.hexiao_qrcod"/>-->
@@ -400,14 +430,20 @@
         <div class="right">
           <div class="title1" :style="{color:skin.color}">向{{groupInfo.owner_name}}出示二维码提货</div>
           <div class="title2" style="display:none;">或出示提货码</div>
-          <div v-on:click="showCoder" class="btn" style="display:none;">使用提货码</div>
+          <!--<div v-on:click="showCoder" class="btn" style="display:none;">使用提货码</div>-->
+          <div class="btn" style="display:none;">使用提货码</div>
         </div>
       </div>
       <div class="version">
         <span>{{copyright}}</span>
       </div>
+
     </div>
   </div>
+
+
+
+
   <!--<i-tabbar bind:authModal="authModal" cartNum="{{cartNum}}" currentIdx="4" needAuth="{{needAuth}}" tabbarRefresh="{{tabbarRefresh}}"></i-tabbar>-->
   <!--<i-get-phone bind:cancel="close" bind:confirm="getReceiveMobile" bind:needAuth="authModal" visible="{{showGetPhone&&!needAuth}}"></i-get-phone>-->
   <!--<i-fetch-coder bind:cancel="toggleFetchCoder" codeImg="{{member_info.hexiao_qrcod}}" coderList="{{myCoderList}}" visible="{{isShowCoder}}"></i-fetch-coder>-->
@@ -446,7 +482,7 @@
     data() {
       return {
         tablebar: 4,
-        canIUse: wx.canIUse("button.open-type.getUserInfo"),
+//        canIUse: wx.canIUse("button.open-type.getUserInfo"),
         theme_type: "",
         add_mo: 0,
         is_show_on: 0,
@@ -478,6 +514,39 @@
         user_tool_icons: {},
         community: "",
         isCalling: false,
+        member_info:{},
+        is_supply : 0,
+        showGetPhone : '',
+        is_open_vipcard_buy : 0,
+        modify_vipcard_name : "会员",
+        is_vip_card_member : 0,
+        modify_vipcard_logo :'',
+        show_signinreward_icon :'',
+        isopen_signinreward : 0,
+
+
+        copyright : '',
+        common_header_backgroundimage: '',
+        is_show_about_us: 0,
+        enabled_front_supply :'',
+        is_open_yue_pay :0,
+        is_show_score :0,
+        user_order_menu_icons : {},
+        commiss_diy_name :'',
+        close_community_apply_enter : 0,
+        user_tool_icons : {},
+        ishow_user_loginout_btn :0,
+        supply_diy_name :'',
+        user_service_switch :0,
+        fetch_coder_type : 0,
+        show_user_pin : 0,
+        show_user_change_comunity :0,
+        open_danhead_model :0,
+        is_open_solitaire :0,
+        community :{},
+
+        user_top_font_color:'',
+        commiss_level:''
       }
     },
     created: function() {
@@ -486,54 +555,71 @@
     },
     methods: {
       onLoad: function (options) {
-        wx.hideTabBar();
+//         this.$wx.hideTabBar();
         let that = this;
         this.setNavBgColor();
-        status.setGroupInfo().then((groupInfo) => {
-          that.setData({
-            groupInfo
-          })
-        });
-        wx.showLoading();
+        this.setGroupInfo();
+        this.$wx.showLoading();
       },
       setNavBgColor() {
         this.$http({
           controller: 'index.get_nav_bg_color'
         }).then(response => {
-          debugger
+          console.log(response);
           var t = response.data || '#F75451', e = response.nav_font_color || '#ffffff'
           this.$store.dispatch('app/setNavBgColor', t)
           this.$store.dispatch('app/setNavFontColor', e)
         })
       },
+      setGroupInfo() {
+//        var groupInfo = this.$wcache.get('groupInfo', 1);
+//        if (groupInfo == 1) {
+          this.$http({
+              controller: 'index.get_group_info'
+            }).then(res=> {
+              console.log(res);
+              if (res.code == 0) {
+
+                let obj = res.data;
+                console.log(obj);
+                obj.commiss_diy_name = obj.commiss_diy_name || '分销';
+                obj.group_name = obj.group_name || '社区';
+                obj.owner_name = obj.owner_name || '团长';
+                obj.delivery_ziti_name = obj.delivery_ziti_name || '到点自提';
+                obj.delivery_tuanzshipping_name = obj.delivery_tuanzshipping_name || '团长配送';
+                obj.delivery_express_name = obj.delivery_express_name || '快递配送';
+                obj.placeorder_tuan_name = obj.placeorder_tuan_name;
+                obj.placeorder_trans_name = obj.placeorder_trans_name;
+                this.groupInfo = obj;
+              }
+            })
+//        }
+      },
       getMemberInfo: function () {
-        var token = wx.getStorageSync("token");
+        var token = "73ecaa68bdb029c0bed47554f0e2ba66";// this.$wx.getStorageSync("token");
         this.getCommunityInfo();
         var that = this;
         this.$http({
-          'url': 'entry/wxapp/user',
-          'data': {
             controller: 'user.get_user_info',
-            token: token
-          },
-          dataType: 'json',
-          success: function(res) {
-            // wx.hideLoading();
-            setTimeout(function(){ wx.hideLoading(); },1000);
-            if (res.data.code == 0) {
+            token:token
+          }).then(res=> {
+            console.log(res);
+            //  this.$wx.hideLoading();
+//            setTimeout(function(){  this.$wx.hideLoading(); },1000);
+            if (res.code == 0) {
               let showGetPhone = false;
-              if (res.data.is_show_auth_mobile == 1 && !res.data.data.telephone) showGetPhone = true;
-              let member_info = res.data.data || '';
+              if (res.is_show_auth_mobile == 1 && !res.data.telephone) showGetPhone = true;
+              let member_info = res.data || '';
               let params = {};
 
               if (member_info){
                 member_info.member_level_info && (member_info.member_level_info.discount = (member_info.member_level_info.discount/10).toFixed(1));
                 //开启分销
-                if (res.data.commiss_level > 0) {
+                if (res.commiss_level > 0) {
                   //还差多少人升级
-                  let commiss_share_member_update = res.data.commiss_share_member_update * 1;
-                  let share_member_count = res.data.share_member_count * 1;
-                  let need_num_update = res.data.commiss_share_member_update * 1 - res.data.share_member_count * 1;
+                  let commiss_share_member_update = res.commiss_share_member_update * 1;
+                  let share_member_count = res.share_member_count * 1;
+                  let need_num_update = res.commiss_share_member_update * 1 - res.share_member_count * 1;
 
                   //判断表单状态状态
                   let formStatus = 0; //未填写 1 已填写未审核 2 已审核
@@ -545,78 +631,74 @@
                     }
                   }
 
-                  params = {
-                    formStatus,
-                    commiss_level: res.data.commiss_level,
-                    commiss_sharemember_need: res.data.commiss_sharemember_need,
-                    commiss_share_member_update,
-                    commiss_biaodan_need: res.data.commiss_biaodan_need,
-                    share_member_count,
-                    today_share_member_count: res.data.today_share_member_count,
-                    yestoday_share_member_count: res.data.yestoday_share_member_count,
-                    need_num_update
-                  };
+
+                    this.formStatus = formStatus;
+                    this.commiss_level= res.commiss_level;
+                    this.commiss_sharemember_need = res.commiss_sharemember_need;
+                    this.commiss_share_member_update = commiss_share_member_update;
+                    this.commiss_biaodan_need = res.commiss_biaodan_need;
+                    this.share_member_count = share_member_count;
+                    this.today_share_member_count = res.today_share_member_count;
+                    this.yestoday_share_member_count = res.yestoday_share_member_count;
+                    this.need_num_update = need_num_update;
+
                 }
               } else {
-                params.needAuth = true;
+                this.needAuth = needAuth;
               }
 
-              let { is_supply, is_open_vipcard_buy, modify_vipcard_name, is_vip_card_member, modify_vipcard_logo, isopen_signinreward, show_signinreward_icon } = res.data;
-              that.setData({
-                ...params,
-                member_info,
-                is_supply: is_supply || 0,
-                showGetPhone: showGetPhone,
-                is_open_vipcard_buy: is_open_vipcard_buy || 0,
-                modify_vipcard_name: modify_vipcard_name || "会员",
-                is_vip_card_member: is_vip_card_member || 0,
-                modify_vipcard_logo,
-                show_signinreward_icon,
-                isopen_signinreward
-              });
+              let { is_supply, is_open_vipcard_buy, modify_vipcard_name, is_vip_card_member, modify_vipcard_logo, isopen_signinreward, show_signinreward_icon } = res;
+
+                this.member_info = member_info;
+                this.is_supply = is_supply || 0;
+                this.showGetPhone = showGetPhone;
+                this.is_open_vipcard_buy = is_open_vipcard_buy || 0;
+                this.modify_vipcard_name = modify_vipcard_name || "会员";
+                this.is_vip_card_member = is_vip_card_member || 0;
+                this.modify_vipcard_logo = modify_vipcard_logo;
+                this.show_signinreward_icon = show_signinreward_icon;
+                this.isopen_signinreward =isopen_signinreward;
+
             } else {
               //needAuth
-              that.setData({
-                needAuth: true
-              })
-              wx.hideTabBar();
-              wx.setStorage({
+              that.needAuth = true;
+//               this.$wx.hideTabBar();
+               this.$wx.setStorage({
                 key: "member_id",
                 data: null
               })
             }
-          }
         })
       },
       getCommunityInfo: function () {
         let that = this;
-        let community = wx.getStorageSync('community');
-        if (community) {
-          if(!community.head_mobile) {
+
+//        let community =  this.$wx.getStorageSync('community');
+//        if (community) {
+//          if(!community.head_mobile) {
 //            util.getCommunityById(community.communityId).then(res=>{
 //              that.setData({ community: res.data })
 //            })
-          } else {
-            that.setData({ community })
-          }
-        } else {
-          var token = wx.getStorageSync('token');
+//          } else {
+//            that.setData({ community })
+//          }
+//        } else {
+//          var token =  this.$wx.getStorageSync('token');
 //          token && util.getCommunityInfo().then(res => {
 //            that.setData({ community: res })
 //          })
-        }
+//        }
       },
       getCopyright: function () {
         var that = this;
+        var token = "73ecaa68bdb029c0bed47554f0e2ba66";// this.$wx.getStorageSync("token");
         this.$http({
-          'url': 'entry/wxapp/user',
-          'data': {
-            controller: 'user.get_copyright'
-          },
-          dataType: 'json',
-          success: function(res) {
-            if (res.data.code == 0) {
-              let rdata = res.data;
+            controller: 'user.get_copyright',
+            token:token
+          }).then(res=> {
+            console.log(res);
+            if (res.code == 0) {
+              let rdata = res;
               let {
                 enabled_front_supply,
                 is_open_yue_pay,
@@ -635,7 +717,8 @@
                 show_user_change_comunity,
                 open_danhead_model,
                 default_head_info,
-                is_open_solitaire
+                is_open_solitaire,
+                user_top_font_color
               } = rdata;
 
               let h = {};
@@ -645,37 +728,37 @@
 
               commiss_diy_name = commiss_diy_name || '分销';
               supply_diy_name = supply_diy_name || '供应商';
-              wcache.put('commiss_diy_name', commiss_diy_name);
-              wcache.put('supply_diy_name', supply_diy_name);
+//              this.$wcache.put('commiss_diy_name', commiss_diy_name);
+//              this.$wcache.put('supply_diy_name', supply_diy_name);
 
-              that.setData({
-                copyright: rdata.data || '',
-                common_header_backgroundimage: common_header_backgroundimage || '',
-                is_show_about_us: is_show_about_us || 0,
-                enabled_front_supply,
-                is_open_yue_pay,
-                is_show_score,
-                user_order_menu_icons: user_order_menu_icons || {},
-                commiss_diy_name,
-                close_community_apply_enter: close_community_apply_enter || 0,
-                user_tool_icons: user_tool_icons || {},
-                ishow_user_loginout_btn: ishow_user_loginout_btn || 0,
-                supply_diy_name,
-                user_service_switch,
-                fetch_coder_type: fetch_coder_type || 0,
-                show_user_pin,
-                show_user_change_comunity,
-                open_danhead_model,
-                is_open_solitaire,
-                ...h
-              })
+
+                this.copyright = rdata.data || '';
+                this.common_header_backgroundimage= common_header_backgroundimage || '';
+                this.is_show_about_us= is_show_about_us || 0;
+                this.enabled_front_supply = enabled_front_supply;
+                this.is_open_yue_pay = is_open_yue_pay;
+                this.is_show_score =is_show_score;
+                this.user_order_menu_icons = user_order_menu_icons || {};
+                this.commiss_diy_name = commiss_diy_name;
+                this.close_community_apply_enter= close_community_apply_enter || 0;
+                this.user_tool_icons = user_tool_icons || {};
+                this.ishow_user_loginout_btn = ishow_user_loginout_btn || 0;
+                this.supply_diy_name = supply_diy_name;
+                this.user_service_switch = user_service_switch;
+                this.fetch_coder_type = fetch_coder_type || 0;
+                this.show_user_pin = show_user_pin;
+                this.show_user_change_comunity = show_user_change_comunity;
+                this.open_danhead_model = open_danhead_model;
+                this.is_open_solitaire = is_open_solitaire;
+                that.user_top_font_color = user_top_font_color;
+                this.community = h.community;
+
             }
-          }
-        })
+          })
       },
       authSuccess: function () {
         var that = this;
-        wx.showLoading();
+         this.$wx.showLoading();
         that.setData({ needAuth: false, showAuthModal: false, tabbarRefresh: true });
         (0, status.cartNum)('', true).then((res) => {
           res.code == 0 && that.setData({
@@ -692,26 +775,26 @@
         return true;
       },
       goToGroup: function () {
-        5 === this.data.auditStatus ? wx.navigateTo({
+        5 === this.data.auditStatus ?  this.$wx.navigateTo({
           url: "/lionfish_comshop/pages/groupCenter/index"
-        }) : wx.navigateTo({
+        }) :  this.$wx.navigateTo({
           url: "/lionfish_comshop/pages/groupCenter/apply"
         });
       },
       bindGetUserInfo: function (e) {
         var that = this;
         if ("getUserInfo:ok" === e.detail.errMsg) {
-          var userInfo = Object.assign({}, wx.getStorageSync("userInfo"), {
+          var userInfo = Object.assign({},  this.$wx.getStorageSync("userInfo"), {
             avatarUrl: e.detail.userInfo.avatarUrl,
             nickName: e.detail.userInfo.nickName
           });
           let { nickName, avatarUrl } = e.detail.userInfo;
-          app.globalData.userInfo = userInfo, wx.setStorage({
+          app.globalData.userInfo = userInfo,  this.$wx.setStorage({
             key: "userInfo",
             data: userInfo
           }), this.setData({
             userInfo: userInfo
-          }), wx.showToast({
+          }),  this.$wx.showToast({
             title: "资料已更新",
             icon: "none",
             duration: 2000
@@ -719,7 +802,7 @@
             url: 'entry/wxapp/user',
             data: {
               controller: 'user.update_user_info',
-              token: wx.getStorageSync("token"),
+              token:  this.$wx.getStorageSync("token"),
               nickName,
               avatarUrl
             },
@@ -738,7 +821,7 @@
             }
           })
         } else {
-          wx.showToast({
+           this.$wx.showToast({
             title: "资料更新失败。",
             icon: "none"
           });
@@ -746,24 +829,40 @@
       },
       previewImage: function (e) {
         var current = e.target.dataset.src;
-        current && wx.previewImage({
+        current &&  this.$wx.previewImage({
           current: current,
           urls: [current]
         })
       },
-      goLink2: function (e) {
+      goLink2: function (order_status) {
         if(!this.authModal()) return;
-        let link = event.currentTarget.dataset.link;
-        var pages_all = getCurrentPages();
-        if (pages_all.length > 3) {
-          wx.redirectTo({
-            url: link
-          })
-        } else {
-          wx.navigateTo({
-            url: link
-          })
+        let link = "/lionfish_comshop/pages/order/index";
+        if (order_status > 0){
+          link = link + "order_status="+order_status;
         }
+        this.$router.push({ path:link  });
+//        var pages_all = getCurrentPages();
+//        if (pages_all.length > 3) {
+//           this.$wx.redirectTo({
+//            url: link
+//          })
+//        } else {
+//           this.$wx.navigateTo({
+//            url: link
+//          })
+//        }
+      },
+      goLink3:function () {
+        var link="/lionfish_comshop/pages/refund/refundList";
+        this.$router.push({ path:link  });
+      },
+      goLinkScore:function () {
+        var link="/lionfish_comshop/moduleA/score/signin";
+        this.$router.push({ path:link  });
+      },
+      goLinkVip:function () {
+        var link="/lionfish_comshop/moduleA/vip/upgrade";
+        this.$router.push({ path:link  });
       },
       onShow: function () {
         var that = this;
@@ -777,7 +876,7 @@
 //            });
 //          } else {
 //            that.setData({ needAuth: true });
-//            wx.hideLoading();
+//             this.$wx.hideLoading();
 //          }
 //        })
         that.getCopyright();
@@ -789,7 +888,7 @@
         })
       },
       getReceiveMobile: function (e) {
-        wx.showToast({
+         this.$wx.showToast({
           icon: 'none',
           title: '授权成功',
         })
@@ -818,7 +917,7 @@
             this.distributionNext();
           } else {
             //分销商已审核
-            wx.navigateTo({
+             this.$wx.navigateTo({
               url: '/lionfish_comshop/distributionCenter/pages/me',
             })
           }
@@ -828,13 +927,13 @@
         if (this.data.commiss_sharemember_need == 1) {
           console.log('需要分享');
           let url = '/lionfish_comshop/distributionCenter/pages/recruit';
-          wx.navigateTo({
+           this.$wx.navigateTo({
             url
           })
         } else if (this.data.commiss_biaodan_need == 1) {
           console.log('需要表单');
           // let url = '/lionfish_comshop/pages/distribution/apply';
-          wx.navigateTo({
+           this.$wx.navigateTo({
             url: '/lionfish_comshop/distributionCenter/pages/recruit',
           })
         } else {
@@ -848,7 +947,7 @@
           if (status == 2) {
             url = '/lionfish_comshop/distributionCenter/pages/me';
           }
-          wx.navigateTo({
+           this.$wx.navigateTo({
             url
           })
         }
@@ -862,38 +961,38 @@
         }
         let type = e.currentTarget.dataset.type;
         if (type == 'share') {
-          wx.navigateTo({
+           this.$wx.navigateTo({
             url: '/lionfish_comshop/distributionCenter/pages/share',
           })
         } else if (type == 'commiss') {
           if (status == 2) {
-            wx.navigateTo({
+             this.$wx.navigateTo({
               url: '/lionfish_comshop/distributionCenter/pages/me',
             })
           } else {
-            wx.navigateTo({
+             this.$wx.navigateTo({
               url: '/lionfish_comshop/distributionCenter/pages/recruit',
             })
           }
         } else if (type == 'form') {
           if (status == 2) {
-            wx.navigateTo({
+             this.$wx.navigateTo({
               url: '/lionfish_comshop/distributionCenter/pages/me',
             })
           } else {
             // let url = '/lionfish_comshop/pages/distribution/apply';
-            wx.navigateTo({
+             this.$wx.navigateTo({
               url: '/lionfish_comshop/distributionCenter/pages/recruit',
             })
           }
         }
       },
       loginOut: function () {
-        wx.removeStorageSync('community');
-        wx.removeStorage({
+         this.$wx.removeStorageSync('community');
+         this.$wx.removeStorage({
           key: 'token',
           success(res) {
-            wx.reLaunch({
+             this.$wx.reLaunch({
               url: '/lionfish_comshop/pages/user/me',
             })
           }
@@ -909,7 +1008,7 @@
         var that = this;
         var phoneNumber = e.currentTarget.dataset.phone;
         if (phoneNumber) {
-          this.isCalling || (this.isCalling = true, wx.makePhoneCall({
+          this.isCalling || (this.isCalling = true,  this.$wx.makePhoneCall({
             phoneNumber: phoneNumber,
             complete: function () {
               that.isCalling = false;

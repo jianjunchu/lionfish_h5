@@ -26,7 +26,7 @@
         default: ''
       },
       indicatorAnamationData: {
-        default: {}
+        default: ()=>{}
       },
       fontColor: {
         default: '#000'

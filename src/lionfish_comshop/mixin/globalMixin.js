@@ -1,5 +1,6 @@
-import { http } from '@/lionfish_comshop/api'
-import { getLightColor } from '@/lionfish_comshop/utils'
+
+
+var util = require('../utils/index')
 
 export default {
   data() {
@@ -14,17 +15,15 @@ export default {
     }
   },
   mounted() {
-    http({
-      controller: 'index.get_firstload_msg'
-    }).then(response => {
+    util.getConfig().then(response => {
       const o = response.common_header_backgroundimage || ''
-      this.$store.getters.globalData.common_header_backgroundimage = o
+      this.$getApp().globalData.common_header_backgroundimage = o
       const t = {}
-      const p = response.data || ''
+      const p = response.skin || ''
 
       t.color = p
-      t.light = getLightColor(t.color, 0.4)
-      t.lighter = getLightColor(t.color, 0.8)
+      t.light = util.getLightColor(t.color, 0.4)
+      t.lighter = util.getLightColor(t.color, 0.8)
       this.skin = t
       console.log(t)
       console.log(this.skin)

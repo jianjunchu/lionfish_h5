@@ -25,20 +25,7 @@ export function index_info() {
   })
 }
 
-export function get_newauth_bg() {
-  // eslint-disable-next-line no-new-object
-  const params = new Object()
-  params.controller = 'index.get_newauth_bg'
-  params.communityId = 4559
 
-  return request({
-    url: '/app/index.php',
-    changeOrigin: true,
-    method: 'get',
-    params
-
-  })
-}
 
 export function get_navigat(gid, pageNum) {
   // eslint-disable-next-line no-new-object

@@ -6,7 +6,10 @@
 
 <script>
   export default {
-    name: 'order'
+    name: 'order',
+    created(){
+      this.$store.dispatch('app/setTabbarCurrentIdx', 2)
+    }
   }
 </script>
 
@@ -735,7 +738,7 @@
     font-size: 32rpx;
     line-height: 84rpx;
     cursor: pointer;
-    
+
 }
 .wux-button--block{
     width: 100%;

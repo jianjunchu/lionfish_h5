@@ -7,6 +7,7 @@ const state = {
   },
   device: 'desktop',
   toolbarTitle: '',
+  tabbarCurrentIdx: 2,
   storageSync: {},
   showToolbarBack: true,
   showToolbarMore: false,
@@ -72,7 +73,6 @@ const mutations = {
     state.showToolbarMore = show
   },
   SET_APP_TITLE(state, title) {
-    alert(title)
     state.toolbarTitle = title
   },
   TOGGLE_TABBAR: (state, show) => {
@@ -86,13 +86,14 @@ const mutations = {
   },
   SET_CART_NUM: (state, num) => {
     state.cartNum = num
+  },
+  SET_TABBAR_CURRENT_IDX: (state, idx) => {
+    state.tabbarCurrentIdx = idx
   }
-
 }
 
 const actions = {
   toggleSideBar({ commit }) {
-    alert(1)
     commit('TOGGLE_SIDEBAR')
   },
   closeSideBar({ commit }, { withoutAnimation }) {
@@ -130,6 +131,9 @@ const actions = {
   },
   setCartNum({ commit }, num) {
     commit('SET_CART_NUM', num)
+  },
+  setTabbarCurrentIdx({ commit }, idx) {
+    commit('SET_TABBAR_CURRENT_IDX', idx)
   }
 }
 

@@ -1,6 +1,6 @@
 <template>
   <div class="page">
-    <div v-if="isblack!=1">
+    <div>
 
       <div :class="['index-box', 'pb100', (showNewCoupon?'preventTouchMove':'')]">
         <div class="miniAppTip" v-if="isTipShow">
@@ -39,20 +39,20 @@
                 </div>
               </div>
               <div class="location-left" v-else>
-                <navigator hoverClass="router-hover" url="/lionfish_comshop/pages/position/community">
+                <router-link hoverClass="router-hover" to="/lionfish_comshop/pages/position/community">
                   您还没有选择{{groupInfo.owner_name}}，轻触去选择
                   <span class="iconfont icon-weizhi-tianchong"></span>
-                </navigator>
+                </router-link>
               </div>
               <div class="location-right">
-                <img class="img" :src="community.headImg?community.headImg:community.disUserHeadImg"/>
+                <img class="img" :src="(community && community.headImg)?community.headImg:community.disUserHeadImg"/>
                 <span>{{community.disUserName}}</span>
               </div>
             </div>
             <div class="location-theme2" :style="{color: shop_info.index_top_font_color}" v-else>
               <div v-if="community&&community.communityName">
                 <div class="loc-l">
-                  <img class="img" :src="community.headImg?community.headImg:community.disUserHeadImg"/>
+                  <img class="img" :src="(community&&community.headImg)?community.headImg:community.disUserHeadImg"/>
                 </div>
                 <div @click="goLink" class="loc-m" data-link="/lionfish_comshop/pages/position/community"
                      v-if="hide_community_change_btn==0&&open_danhead_model!=1">
@@ -105,7 +105,7 @@
               <div class="slider-wraper">
                 <div class="list">
                   <div @click="receiveCoupon" class="card-content list-item" :data-quan_id="item.id"
-                       v-for="(item,id) in quan" wx:key="id">
+                       v-for="(item,id) in quan" :key="id">
                     <div class="card">
                       <div class="card-price span">
                         <div class="card-price&#45;&#45;unit span">¥</div>
@@ -168,7 +168,8 @@
             </div>
           </div>
           <template is="pinrow" :data="{pinList:pinList,skin:skin}"></template>
-          <img class="rush-list-title" id="rush-title" :src="index_list_top_image" v-if="index_list_top_image"/>
+          <img class="rush-list-title" id="rush-title" :src="shop_info.index_list_top_image"
+               v-if="shop_info.index_list_top_image"/>
           <img class="rush-list-title" id="rush-title" src="@/assets/images/rush-title.png" v-else/>
 
           <div class="search-bar" v-if="index_switch_search==1">
@@ -281,7 +282,7 @@
                             bind:vipModal="vipModal" :canLevelBuy="canLevelBuy" :changeCarCount="changeCarCount"
                             class="item" :is_open_vipcard_buy="is_open_vipcard_buy" :needAuth="needAuth"
                             :reduction="reduction" :spuItem="item" :stopClick="stopClick"
-                            v-for="(item,index) in rushList" wx:key="actId"></i-rush-spu>
+                            v-for="(item,index) in rushList" this.$wx:key="actId"></i-rush-spu>
               </div>
               <i-load-more iClass="loadMore" :loading="loadMore" :tip="loadText" v-if="loadMore"></i-load-more>
             </div>
@@ -334,7 +335,7 @@
         <i-order-notify iClass="order-notify" :stopNotify="stopNotify"
                         v-if="shop_info.order_notify_switch==1"></i-order-notify>
         <i-change-community bind:changeComunity="confrimChangeCommunity" :canChange="hide_community_change_btn==0"
-                            :changeCommunity="changeCommunity" :community="community" :groupInfo="groupInfo"
+                            changeCommunity="changeCommunity" :community="community" :groupInfo="groupInfo"
                             :visible="showChangeCommunity"></i-change-community>
         <div class="new-coupou" v-if="showCouponModal&&hasAlertCoupon&&!showChangeCommunity">
           <div class="new-coupou-content">
@@ -342,7 +343,7 @@
               <div class="new-coupou-body-head">恭喜你获得{{totalAlertMoney}}元红包券</div>
               <div class="new-coupou-body-scroll">
                 <scroll-div scrollY style="max-height:580px;">
-                  <div class="new-coupou-item" wx:for="(item ,index) in alert_quan_list" wx:key="id">
+                  <div class="new-coupou-item" v-for="(item ,index) in alert_quan_list" :key="item.id">
                     <div class="m-coupon-l">
                       <div class="m-coupou-price">
                         <span>¥</span>
@@ -377,7 +378,7 @@
       <div class="h2">请联系管理员</div>
     </div>
     <div class="mask" v-show="false"></div>
-    <div :cancel="close" class="sku-content" v-show="false" scrollUp="true">
+    <div cancel="close" class="sku-content" v-show="false" scrollUp="true">
       <div class="sku-card">
         <div @click="closeSku" class="close">
           <img src="@/assets/images/icon-sku-close.png"/>
@@ -407,29 +408,30 @@
         </div>
         <div class="sku-spec" v-for="(item) in skuList.list">
           <div class="title">{{item.name}}</div>
-          <div class="spec-list">
-            <span @click="selectSku" :class="(idx==sku[idx]['idx']?'on':'')" :data-disabled="item.canBuyNum-value<0"
-                  :data-idx="idx" v-for="(value,idx) in item.option_value">{{value.name}}</span>
-          </div>
+          <view class="spec-list">
+            <span @click="selectSku" :class="idx==sku[index]['idx']?'on':''" :data-disabled="(item.canBuyNum-value)<0"
+                  :data-idx="idx" :data-type="index + '_' + idx + '_' + value.option_value_id + '_' + value.name"
+                  v-for="(value, idx) in item.option_value" :key="idx">{{value.name}}</span>
+          </view>
         </div>
-        <div class="sku-num-content">
+        <!--<div class="sku-num-content">
           <div class="title">数量</div>
-          <!--<div :class="['i-class', 'i-input-number', 'i-input-number-size-'+size]">
+          <div :class="['i-class', 'i-input-number', 'i-input-number-size-'+size]">
             <div @click="setNum" :class="['i-input-number-minus', (value <= min?'i-input-number-disabled':'')]" data-type="decrease">
               <img src="@/assets/images/icon-input-reduce.png"></image>
             </div>
-            <input bindblur="handleBlur" bindfocus="handleFocus" bindinput="changeNumber" :class="['i-input-number-text',(min>=max?'i-input-number-disabled':'')]" type="number" :value="sku_val"></input>
+            <input bindblur="handleBlur" bindfocus="handleFocus" bindinput="changeNumber" :class="['i-input-number-text',(min>=max?'i-input-number-disabled':'')]" type="number" :value="sku_val"/>
             <div @click="setNum" :class="['i-input-number-plus', (value>=max?'i-input-number-disabled':'')]" data-type="add">
               <img src="@/assets/images/icon-input-add.png"></image>
             </div>
-          </div>-->
-          <!--<div class="msg" v-if="skuList[current].isLimit">
+          </div>
+          <div class="msg" v-if="skuList[current].isLimit">
             <span v-if="skuList[current].limitMemberNum>-1">每人限{{skuList[current].limitMemberNum}}单</span>
             <span v-if="skuList[current].limitOrderNum>-1">每单限{{skuList[current].limitOrderNum}}份</span>
             <span></span>
-          </div>-->
-          <!--<div class="even-num" v-elif="!skuList[current].isLimit&&skuList[current].canBuyNum_value<=10&&skuList[current].canBuyNum_value>-1">还可以购买 {{skuList[current].canBuyNum-value}} 件</div>-->
-        </div>
+          </div>
+          <div class="even-num" v-elif="!skuList[current].isLimit&&skuList[current].canBuyNum_value<=10&&skuList[current].canBuyNum_value>-1">还可以购买 {{skuList[current].canBuyNum-value}} 件</div>
+        </div>-->
         <form bindsubmit="gocarfrom" reportSubmit="true">
           <button class="sku-confirm" :disabled="(cur_sku_arr.stock==0?true:false)" formType="submit">
             <div>{{cur_sku_arr.stock==0?'已抢光':'确定'}}</div>
@@ -494,13 +496,30 @@
 <script>
   import GlobalMixin from '../../mixin/globalMixin.js'
 
-  var util = require("../../utils"),
-    status = require("../../utils"),
-    wcache = require("../../utils/wcache.js")
+  var _Page, _extends = Object.assign || function(t) {
+    for (var a = 1; a < arguments.length; a++) {
+      var e = arguments[a]
+      for (var o in e) Object.prototype.hasOwnProperty.call(e, o) && (t[o] = e[o])
+    }
+    return t
+  }
 
+  function _defineProperty(t, a, e) {
+    return a in t ? Object.defineProperty(t, a, {
+      value: e,
+      enumerable: !0,
+      configurable: !0,
+      writable: !0
+    }) : t[a] = e, t
+  }
+
+  var util = require('../../utils'),
+    status = require('../../utils'),
+    wcache = require('../../utils/wcache.js'),
+    countDownInit = require('../../utils/countDown')
 
   export default {
-    mixins: [GlobalMixin],
+    mixins: [countDownInit.default, GlobalMixin],
     name: 'Index',
     data() {
 
@@ -536,13 +555,24 @@
         },
         loadMore: !0,
         ishow_index_copy_text: 0,
-        ishow_index_gotop:0,
-        hide_community_change_btn:0,
+        ishow_index_gotop: 0,
+        hide_community_change_btn: 0,
         isShowShareBtn: 0,
         isShowContactBtn: 0,
         needAuth: !1,
         stopClick: !1,
-        community: {},
+        community: {
+          communityAddress: undefined,
+          communityId: undefined,
+          communityName: undefined,
+          disUserHeadImg: undefined,
+          disUserName: undefined,
+          fullAddress: undefined,
+          headImg: undefined,
+          head_mobile: undefined,
+          lat: undefined,
+          lon: undefined
+        },
         rushList: [],
         commingList: [],
         countDownMap: [],
@@ -625,6 +655,13 @@
         index_qgtab_text: '',
         qgtab: {},
         rushEndTime: true,
+        pop_vipmember_buyimage: '',
+        showVipModal: false,
+        showCopyTextHandle: false,
+        hide_share_handler: false,
+        is_mb_level_buy: false,
+        is_vip_card_member: false,
+        is_mb_level_buy: false,
         $data: {
           stickyFlag: !1,
           scrollTop: 0,
@@ -637,7 +674,7 @@
           scrollHeight: 1300,
           stickyTop: 0,
           hasCommingGoods: !0
-        },
+        }
       }
     },
     watch: {
@@ -649,128 +686,536 @@
       }
     },
     created: function() {
-      console.log(getApp())
-      this.setNavBgColor()
-    },
-    mounted: function() {
+      this.community = {}
+      const i = this
+      const s = this.$wx.getStorageSync('token')
+      this.$wx.getLogManager(), this.$wx.hideTabBar()
+      status.setNavBgColor(), status.setGroupInfo().then(function(t) {
+        i.groupInfo = t
+      }), console.log('step1')
+      const n = this.$wx.getStorageSync('community'),
+        d = n && n.communityId ? n.communityId : ''
+      if (n && n.fullAddress && n.fullAddress.indexOf('境外') > -1) {
+        n.fullAddress = n.fullAddress.replace('境外境外境外地区', '')
+      }
 
+      const o = this.$route.query
+
+      if (o && 0 != Object.keys(o).length) {
+        console.log('step2')
+        var t = decodeURIComponent(o.scene)
+        if ('undefined' != t) {
+          var a = t.split('_')
+          o.community_id = a[0], wcache.put('share_id', a[1])
+        }
+        'undefined' != (i.options = o).share_id && 0 < o.share_id && wcache.put('share_id', o.share_id),
+          'undefined' != o.community_id && 0 < o.community_id ? (console.log('step3'), util.getCommunityById(o.community_id).then(function(t) {
+            if (0 == t.code) {
+              console.log('step4')
+              var a = t.data
+              console.log('分享community_id' + o.community_id), console.log('历史community_id' + d)
+
+              1 == t.open_danhead_model ? (console.log('开启单社区' + t.default_head_info), i.community = t.default_head_info,
+                i.open_danhead_model = t.open_danhead_model, s && i.addhistory(t.default_head_info.communityId || '')) : a && (o.community_id != d ? d ? (i.showChangeCommunity = !0,
+                i.changeCommunity = a, i.community = n) : (i.community = a, i.shareCommunity = a,
+                wcache.put('community', a)) : i.community = n), i.hidetip = !1, i.token = s, i.showEmpty = !1,
+                i.needPosition = !1, i.loadPage()
+            } else {
+              console.log('step5')
+              i.loadPage()
+              this.hidetip = !1
+              this.token = s
+              this.showEmpty = !1
+              this.needPosition = !1
+            }
+            s && i.addhistory()
+          })) : util.getCommunityById(o.community_id).then(function(t) {
+            0 == t.code && (1 == t.open_danhead_model && (console.log('开启单社区step6'), (
+              this.community = t.default_head_info,
+                this.open_danhead_model = t.open_danhead_model
+            ), s && i.addhistory(t.default_head_info.communityId || '')), console.log('step6'),
+              i.loadPage())
+          }).catch(function() {
+            i.loadPage()
+          })
+      } else {
+        util.getCommunityById(o.community_id).then(function(t) {
+          0 == t.code && (1 == t.open_danhead_model && (console.log('开启单社区step7'), (
+            this.community = t.default_head_info,
+              this.open_danhead_model = t.open_danhead_model
+          ), s && i.addhistory(t.default_head_info.communityId || '')), i.loadPage())
+        }).catch(function() {
+          i.loadPage()
+        })
+        this.hidetip = !1,
+          this.token = s,
+          this.showEmpty = !1,
+          this.community = n
+      }
+
+    },
+
+    mounted: function() {
       this.$store.dispatch('app/hideToolbarBack')
       this.$store.dispatch('app/hideToolbarMore')
       this.$store.dispatch('app/showTabbar')
-
-      this.tabbarRefresh = true
-
-      this.getNewauthGg()
-      this.getIndexInfo()
-      this.getNavigat()
-      this.loadGpsGoodsList()
+      this.skin = this.$getApp().globalData.skin
 
     },
     methods: {
       copyText: function(t) {
 
       },
-      setNavBgColor() {
-        this.$http({
-          controller: 'index.get_nav_bg_color'
-        }).then(response => {
-          var t = response.data || '#F75451', e = response.nav_font_color || '#ffffff'
-          this.$store.dispatch('app/setNavBgColor', t)
-          this.$store.dispatch('app/setNavFontColor', e)
-        })
-      },
-      getIndexInfo() {
 
+      get_index_info() {
+        var F = this,
+          t = F.$wx.getStorageSync('community'),
+          B = t && t.communityId || '',
+          a = F.$wx.getStorageSync('token')
 
         this.$http({
           controller: 'index.index_info',
-          communityId: 4559
-        }).then(response => {
-          //this.$set(this.$data,"title",response.title);
+          communityId: B,
+          token: a
+        }).then(t => {
 
-          var p = response.category_list || [],
-            _ = response.index_type_first_name || '全部'
-          if (0 < p.length) {
-            p.unshift({
+          var a = t,
+            e = F.groupInfo
+          if (0 == a.code) {
+            if (!t.is_community && B && !F.needAuth) {
+              var o = F.changeCommunity || {}
+              o.communityId || '' ? (wcache.put('community', o), F.addhistory(o.community_id),
+                (
+                  F.community = o,
+                    F.showChangeCommunity = !1
+                ), F.loadPage()) : F.$wx.showModal({
+                title: '提示',
+                content: '该' + e.group_name + '不在，请重新选择' + e.group_name,
+                showCancel: !1,
+                confirmColor: '#F75451',
+                success: function(t) {
+                  t.confirm && F.$wx.redirectTo({
+                    url: '/lionfish_comshop/pages/position/community'
+                  })
+                }
+              })
+            }
+            var i = a.notice_list,
+              s = a.slider_list,
+              n = a.index_lead_image
+            n ? status.getInNum().then(function(t) {
+              t && (
+                F.isTipShow = !0,
+                  timerOut = setTimeout(function() {
+                    F.isTipShow = !1
+                  }, 9e3)
+              )
+            }) : (F.isTipShow = !1)
+            var d = a.common_header_backgroundimage
+            F.$getApp().globalData.common_header_backgroundimage = d
+            var c = a.order_notify_switch,
+              l = a.index_list_top_image_on || 1,
+              r = a.index_change_cate_btn || 0,
+              u = require('@/assets/images/rush-title.png')
+            1 == l && (u = '')
+            var h = a.index_list_top_image ? a.index_list_top_image : u,
+              m = {
+                shoname: a.shoname,
+                shop_index_share_image: a.shop_index_share_image,
+                index_list_top_image: h,
+                title: a.title,
+                common_header_backgroundimage: d,
+                order_notify_switch: c,
+                index_top_img_bg_open: a.index_top_img_bg_open || 0,
+                index_top_font_color: a.index_top_font_color || '#fff',
+                index_communityinfo_showtype: a.index_communityinfo_showtype || 0
+              }
+            F.$getApp().globalData.placeholdeImg = a.index_loading_image || ''
+            var g = a.index_loading_image || ''
+            wcache.put('shopname', a.shoname), F.$wx.setNavigationBarTitle({
+              title: a.shoname
+            })
+            var p = a.category_list || [],
+              _ = a.index_type_first_name || '全部'
+            0 < p.length ? (p.unshift({
               name: _,
               id: 0
-            })
-            this.isShowClassification = true
-            this.classification.tabs = p
-          } else {
-            this.isShowClassification = false
+            }), (
+              F.isShowClassification = !0,
+                F.classification.tabs = p
+            )) : (F.isShowClassification = !1)
+            var f = a.theme || 0,
+              y = 1e3 * a.rushtime || 0,
+              w = a.index_share_switch || 0,
+              x = a.is_show_list_count || 0,
+              v = a.is_show_list_timer || 0,
+              D = a.index_service_switch || 0,
+              b = a.index_switch_search || 0,
+              k = a.ishow_index_gotop || 0
+            1 != a.is_comunity_rest || F.needAuth || a.$wx.showModal({
+              title: '温馨提示',
+              content: e.owner_name + '休息中，欢迎下次光临!',
+              showCancel: !1,
+              confirmColor: '#F75451',
+              confirmText: '好的',
+              success: function(t) {
+              }
+            }), F.postion = a.postion
+            var T = a.scekill_time_arr,
+              C = a.seckill_bg_color,
+              S = a.seckill_is_open,
+              L = a.seckill_is_show_index,
+              I = a.hide_community_change_word,
+              $ = a.index_qgtab_counttime,
+              N = a.hide_index_type,
+              M = new Date().getHours()
+            console.log('当前时间:', M)
+            var O = 0,
+              P = []
+            if (3 < T.length) {
+              var R = T.length
+              O = T.findIndex(function(t) {
+                return M <= t
+              }), console.log('当前时间索引:', O), P = -1 === O ? T.slice(-3) : 0 === O ? T.slice(0, 3) : O + 1 == R ? T.slice(-3) : T.slice(O - 1, O + 2)
+            } else {
+              P = T
+            }
+            var j = [],
+              q = 0
+            P.length && (P.forEach(function(t, a) {
+              var e = {}
+              t == M ? (e.state = 1, e.desc = '疯抢中', q = a) : t < M ? (e.state = 0, e.desc = '已开抢') : (e.state = 2,
+                e.desc = '即将开抢'), e.timeStr = (t < 10 ? '0' + t : t) + ':00', e.seckillTime = t,
+                j.push(e)
+            }), F.getSecKillGoods(P[q]))
+            var A = a.index_video_arr
+
+            F.notice_list = i
+            F.slider_list = s
+            F.index_lead_image = n
+            F.theme = f
+            F.indexBottomImage = a.index_bottom_image || ''
+            F.shop_info = m
+            F.loadOver = !0
+            F.rushEndTime = y
+            F.commingNum = a.comming_goods_total
+            F.isShowShareBtn = w
+            F.isShowListCount = x
+            F.isShowListTimer = v
+            F.is_comunity_rest = a.is_comunity_rest
+            F.index_change_cate_btn = r
+            F.isShowContactBtn = D
+            F.index_switch_search = b
+            F.is_show_new_buy = a.is_show_new_buy || 0
+            F.qgtab = t.qgtab || {}
+            F.notice_setting = a.notice_setting || {}
+            F.index_hide_headdetail_address = a.index_hide_headdetail_address || 0
+            F.is_show_spike_buy = a.is_show_spike_buy || 0
+            F.hide_community_change_btn = a.hide_community_change_btn || 0
+            F.hide_top_community = a.hide_top_community || 0
+            F.index_qgtab_text = a.index_qgtab_text
+            F.ishow_index_copy_text = a.ishow_index_copy_text || 0
+            F.newComerRefresh = !0
+            F.cube = a.cube
+            F.placeholdeImg = g
+            F.seckill_bg_color = C
+            F.seckill_is_open = S
+            F.seckill_is_show_index = L
+            F.scekillTimeList = j
+            F.secKillActiveIdx = q
+            F.hide_community_change_word = I
+            F.ishow_index_gotop = k
+            F.ishow_index_pickup_time = a.ishow_index_pickup_time || 0
+            F.index_video_arr = A
+            F.index_qgtab_counttime = $
+            F.hide_index_type = N
+            F.show_index_wechat_oa = a.show_index_wechat_oa
+
           }
 
-          this.comming_goods_total = response.comming_goods_total
-          this.common_header_backgroundimage = response.common_header_backgroundimage
-          this.cube = response.cube
-          this.diypage = response.diypage
-          this.hide_community_change_btn = response.hide_community_change_btn
-          this.hide_community_change_word = response.hide_community_change_word
-          this.hide_index_type = response.hide_index_type
-          this.hide_top_community = response.hide_top_community
-          this.index_bottom_image = response.index_bottom_image
-          this.index_change_cate_btn = response.index_change_cate_btn
-          this.index_communityinfo_showtype = response.index_communityinfo_showtype
-          this.index_hide_headdetail_address = response.index_hide_headdetail_address
-          this.index_lead_image = response.index_lead_image
-          this.index_list_top_image = response.index_list_top_image
-          this.index_list_top_image_on = response.index_list_top_image_on
-          this.index_loading_image = response.index_loading_image
-          this.index_qgtab_counttime = response.index_qgtab_counttime
-          this.index_qgtab_text = response.index_qgtab_text
-          this.index_service_switch = response.index_service_switch
-          this.index_share_switch = response.index_share_switch
-          this.index_switch_search = response.index_switch_search
-          this.index_top_font_color = response.index_top_font_color
-          this.index_top_img_bg_open = response.index_top_img_bg_open
-          this.index_type_first_name = response.index_type_first_name
-          this.index_video_arr = response.index_video_arr
-          this.is_community = response.is_community
-          this.is_comunity_rest = response.is_comunity_rest
-          this.is_quan = response.is_quan
-          this.is_show_list_count = response.is_show_list_count
-          this.is_show_list_timer = response.is_show_list_timer
-          this.is_show_new_buy = response.is_show_new_buy
-          this.is_show_spike_buy = response.is_show_spike_buy
-          this.ishow_index_copy_text = response.ishow_index_copy_text
-          this.ishow_index_gotop = response.ishow_index_gotop
-          this.ishow_index_pickup_time = response.ishow_index_pickup_time
-          this.nav_bg_color = response.nav_bg_color
-          this.nav_list = response.nav_list
-          this.notice_list = response.notice_list
-          this.notice_setting = response.notice_setting
-          this.open_diy_index_page = response.open_diy_index_page
-          this.order_notify_switch = response.order_notify_switch
-          this.postion = response.postion
-          this.qgtab = response.qgtab
-          this.rushtime = response.rushtime
-          this.scekill_time_arr = response.scekill_time_arr
-          this.seckill_bg_color = response.seckill_bg_color
-          this.seckill_is_open = response.seckill_is_open
-          this.seckill_is_show_index = response.seckill_is_show_index
-          this.shoname = response.shoname
-          this.shop_index_share_image = response.shop_index_share_image
-          this.show_index_wechat_oa = response.show_index_wechat_oa
-          this.slider_list = response.slider_list
-          this.spike_data = response.spike_data
-          this.theme = response.theme
-          this.title = response.title
-          this.$store.state.app.toolbarTitle = response.title
         })
       },
-      getNewauthGg() {
+      getSecKillGoods: function(t) {
+        var e = this,
+          a = e.$wx.getStorageSync('community'),
+          o = e.$wx.getStorageSync('token')
 
-        this.$http({
-          controller: 'index.get_newauth_bg',
-          communityId: 4559
-        }).then(response => {
-          this.newauth_bg_image = response.data.newauth_bg_image
-          this.newauth_cancel_image = response.data.newauth_cancel_image
-          this.newauth_confirm_image = response.data.newauth_confirm_image
-
+        e.$http({
+          controller: 'index.load_gps_goodslist',
+          token: o,
+          pageNum: 1,
+          head_id: a.communityId,
+          seckill_time: t,
+          is_seckill: 1,
+          per_page: 1e4
+        }).then(t => {
+          if (0 == t.code) {
+            var a = t.list || []
+            r.secRushList = a
+          }
         })
       },
+      get_type_topic: function() {
+        var e = this,
+          t = this.$wx.getStorageSync('community')
+
+        e.$http({
+          controller: 'goods.get_category_col_list',
+          head_id: t.communityId
+        }).then(t => {
+          if (0 == t.code) {
+            var a = t.data || []
+            this.typeTopicList = a
+          }
+        })
+      },
+      getCoupon: function() {
+        var n = this,
+          t = this.$wx.getStorageSync('token')
+        n.$http({
+          controller: 'goods.get_seller_quan',
+          token: t
+        }).then(t => {
+
+          var a = t.quan_list,
+            e = !1,
+            o = !1
+          '[object Object]' == Object.prototype.toString.call(a) && 0 < Object.keys(a).length && (e = !0),
+          '[object Array]' == Object.prototype.toString.call(a) && 0 < a.length && (e = !0)
+          var i = t.alert_quan_list || []
+          '[object Object]' == Object.prototype.toString.call(i) && 0 < Object.keys(i).length && (o = !0),
+          '[object Array]' == Object.prototype.toString.call(i) && 0 < i.length && (o = !0)
+          var s = 0
+          '[object Object]' == Object.prototype.toString.call(i) && 0 < Object.keys(i).length ? Object.keys(i).forEach(function(t) {
+            s += 1 * i[t].credit
+          }) : '[object Array]' == Object.prototype.toString.call(i) && 0 < i.length && i.forEach(function(t) {
+            s += 1 * t.credit
+          })
+
+          n.quan = t.quan_list || []
+          n.alert_quan_list = i
+          n.hasCoupon = e
+          n.hasAlertCoupon = o
+          n.showCouponModal = o
+          n.totalAlertMoney = s.toFixed(2)
+        })
+
+      }, getPinList: function() {
+        var d = this,
+          t = this.$wx.getStorageSync('community').communityId || ''
+
+        d.$http({
+          controller: 'group.get_pintuan_list',
+          is_index: 1,
+          head_id: t
+        }).then(t => {
+
+          if (0 == t.code) {
+            var a = {},
+              e = t,
+              o = e.list,
+              i = e.pintuan_index_coming_img,
+              s = e.pintuan_index_show,
+              n = e.pintuan_index_show_listtop
+            a.list = o || [], a.img = i || '', a.show = s || 0, a.showRow = n || 0
+            this.pinList = a
+          }
+        })
+
+      },
+
+      addhistory: function() {
+        var a = 0 < arguments.length && void 0 !== arguments[0] ? arguments[0] : 0
+        console.log('step13')
+        var t = 0
+        0 == a ? t = this.$wx.getStorageSync('community').communityId : t = a
+        console.log('history community_id=' + t)
+        var e = this.$wx.getStorageSync('token'),
+          o = this
+        void 0 !== t && this.$http({
+          controller: 'index.addhistory_community',
+          community_id: t,
+          token: e
+        }).then(a => {
+          0 != a && (o.getHistoryCommunity(), console.log('addhistory+id', a))
+        })
+      },
+      loadPage() {
+
+        this.$wx.showLoading(), console.log('step8')
+        var e = this
+        e.get_index_info(), e.get_type_topic(), e.getNavigat(), e.getCoupon(), e.getPinList(),
+          status.loadStatus().then(function() {
+            var t = this.$getApp().globalData.appLoadStatus
+            debugger
+            if (console.log('appLoadStatus', t), 0 == t) {
+              setTimeout(function() {
+                this.$wx.hideLoading()
+              }, 1e3), (
+                e.needAuth = !0,
+                  e.couponRefresh = !1
+              ), e.load_goods_data()
+            } else if (2 == t) {
+              console.log('step9'), e.getHistoryCommunity()
+            } else {
+              console.log('step12')
+              var a = this.$wx.getStorageSync('community')
+              a || (a = this.$getApp().globalData.community),
+                a ? this.community = e.fliterCommunity(a) : util.getCommunityInfo().then(function(t) {
+                  this.community = e.fliterCommunity(t)
+                }), console.log('step18'), e.load_goods_data()
+            }
+          })
+        this.load_goods_data()
+      },
+      load_goods_data: function() {
+        debugger
+        var t = this.$wx.getStorageSync('token'),
+          m = this,
+          a = this.$wx.getStorageSync('community'),
+          e = m.classificationId
+        this.$data.isLoadData = !0, console.log('load_goods_begin '), m.hasRefeshin || m.$data.loadOver ? m.load_over_gps_goodslist() : (console.log('load_goods_in '),
+          this.hasRefeshin = !0, (
+          m.loadMore = !0
+        ), this.$http({
+          controller: 'index.load_gps_goodslist',
+          token: t,
+          pageNum: m.pageNum,
+          head_id: a.communityId,
+          gid: e,
+          per_page: 12
+        }).then(t => {
+          if (1 == m.pageNum &&
+          (this.cate_info = t.cate_info || {})
+            , 0 == t.code) {
+            var a = ''
+            if (1 == t.is_show_list_timer) {
+              for (var e in a = m.transTime(t.list),
+                m.$data.countDownMap) {
+                m.initCountDown(m.$data.countDownMap[e])
+              }
+            } else {
+              var o = m.rushList
+              a = o.concat(t.list)
+            }
+            var i = t,
+              s = i.full_money,
+              n = i.full_reducemoney,
+              d = i.is_open_fullreduction,
+              c = i.is_open_vipcard_buy,
+              l = i.is_vip_card_member,
+              r = i.is_member_level_buy,
+              u = {
+                full_money: s,
+                full_reducemoney: n,
+                is_open_fullreduction: d
+              },
+              h = !1
+            1 == c ? 1 != l && 1 == r && (h = !0) : 1 == r && (h = !0), 1 == m.pageNum &&
+            (m.copy_text_arr = i.copy_text_arr || []), m.hasRefeshin = !1, (
+              m.rushList = a,
+                m.pageNum = m.pageNum + 1,
+                m.loadMore = !1,
+                m.reduction = u,
+                m.tip = '',
+                m.is_open_vipcard_buy = c || 0,
+                m.is_vip_card_member = l,
+                m.is_member_level_buy = r,
+                m.canLevelBuy = h
+            ), function() {
+              1 == m.isFirst && (m.isFirst++, a.length && !m.$data.stickyTop && (m.$wx.createSelectorQuery().select('.tab-nav-query').boundingClientRect(function(t) {
+                if (t && t.top) {
+                  wcache.put('tabPos', t), m.$data.stickyTop = t.top + t.height, m.$data.stickyBackTop = t.top
+                } else {
+                  var a = wcache.get('tabPos', !1)
+                  a && (m.$data.stickyTop = a.top + a.height, m.$data.stickyBackTop = a.top)
+                }
+              }).exec(), m.$data.scrollTop > m.$data.stickyTop && m.$wx.pageScrollTo({
+                duration: 0,
+                scrollTop: m.$data.stickyTop + 4
+              }))), m.getScrollHeight(), 2 == m.pageNum && t.list.length < 10 && (console.log('load_over_goods_list_begin'),
+                m.$data.loadOver = !0, m.hasRefeshin = !0, (
+                m.loadMore = !0,
+                  m.load_over_gps_goodslist()
+              ))
+
+            }
+          } else {
+            1 == t.code ? (m.$data.loadOver = !0, m.load_over_gps_goodslist()) : 2 == t.code && (
+              m.needAuth = !0,
+                m.couponRefresh = !1
+            )
+          }
+        }))
+      },
+      load_over_gps_goodslist: function() {
+        var t = this.$wx.getStorageSync('token'),
+          o = this,
+          a = this.$wx.getStorageSync('community'),
+          e = o.classificationId
+        !o.$data.hasOverGoods && o.$data.loadOver ? (o.$data.hasOverGoods = !0, (o.loadMore = !0),
+          o.$http({
+            controller: 'index.load_over_gps_goodslist',
+            token: t,
+            pageNum: o.$data.overPageNum,
+            head_id: a.communityId,
+            gid: e,
+            is_index_show: 1
+          }).then(t => {
+
+            if (0 == t.code) {
+              var a = o.transTime(t.list)
+              for (var e in o.$data.countDownMap) o.initCountDown(o.$data.countDownMap[e])
+              o.$data.hasOverGoods = !1, o.$data.overPageNum += 1, (
+                o.rushList = a,
+                  o.loadMore = !1,
+                  o.tip = ''
+                  , function() {
+                  1 == o.isFirst && (o.isFirst++, a.length && !o.$data.stickyTop && (o.$wx.createSelectorQuery().select('.tab-nav-query').boundingClientRect(function(t) {
+                    if (t && t.top) {
+                      wcache.put('tabPos', t), o.$data.stickyTop = t.top + t.height, o.$data.stickyBackTop = t.top
+                    } else {
+                      var a = wcache.get('tabPos', !1)
+                      a && (o.$data.stickyTop = a.top + a.height, o.$data.stickyBackTop = a.top)
+                    }
+                  }).exec(), o.$data.scrollTop > o.$data.stickyTop && o.$wx.pageScrollTo({
+                    duration: 0,
+                    scrollTop: o.$data.stickyTop + 4
+                  }))), o.getScrollHeight()
+                })
+            } else {
+              1 == t.code ? (1 == o.$data.overPageNum && 0 == o.rushList.length && (o.showEmpty = !0), (
+                o.loadMore = !1,
+                  o.tip = '^_^已经到底了'
+              )) : 2 == t.code && (
+                o.needAuth = !0,
+                  o.couponRefresh = !1
+              )
+            }
+            o.$data.isLoadData = !1
+
+          })) : o.$data.isLoadData = !1
+      },
+      transTime: function(t) {
+        var a = this
+        return 0 === (1 < arguments.length && void 0 !== arguments[1] ? arguments[1] : 0) && t.map(function(t) {
+          t.end_time *= 1e3, a.$data.countDownMap[t.end_time] = t.end_time == 0 ? '' : t.end_time, a.$data.actEndMap[t.end_time] = (t.end_time <= new Date().getTime() && t.end_time != 0) || 0 == t.spuCanBuyNum
+
+        }), a.rushList.concat(t)
+
+      }
+      ,
+      fliterCommunity: function(t) {
+        if (t && t.fullAddress && t.fullAddress.indexOf('境外') > -1) {
+          t.fullAddress = t.fullAddress.replace('境外境外境外地区', '')
+        }
+        var a = t && t.fullAddress && t.fullAddress.split('省')
+        console.log(a, 'fsdfs')
+        return a ? Object.assign({}, t, {
+          address: a[1] || a[0]
+        }) : t
+      }
+      ,
       getNavigat() {
         this.$http({
           controller: 'index.get_navigat'
@@ -788,47 +1233,172 @@
 
         })
       },
-      loadGpsGoodsList() {
-        this.$http({
-          controller: 'index.load_gps_goodslist',
-          gid: 0,
-          pageNum: 1,
-          head_id: 4559,
-          per_page: 12
-        }).then(response => {
 
-          this.rushList = this.rushList.concat(response.list)
-
-        })
-
-      },
       tabSwitch: function(t) {
         var a = this,
           e = 1 * t.currentTarget.dataset.idx
         this.tabIdx = e
 
-        1 == e && (a.$data.stickyFlag && a.$data.scrollTop != a.$data.stickyTop + 5 && wx.pageScrollTo({
+        1 == e && (a.$data.stickyFlag && a.$data.scrollTop != a.$data.stickyTop + 5 && this.$wx.pageScrollTo({
           scrollTop: a.$data.stickyTop + 5,
           duration: 0
         }), 1 == a.tpage && a.getCommingList())
+      }
+      ,
+      handleProxy: function() {
+        clearTimeout(timerOut)
+        this.isTipShow = !1
+        this.isShowGuide = !0
+        wcache.put('inNum', 4)
+      },
+      handleHideProxy: function() {
+        this.isTipShow = !1
+        this.isShowGuide = !1
+      },
+      gotoMap: function() {
+        var t = this.community
+        console.log(t.communityId)
+        this.$http({
+          controller: 'index.get_community_position',
+          communityId: t.communityId
+        }).then(t => {
+          var a = t.postion
+          var e = parseFloat(a.lon)
+          var o = parseFloat(a.lat)
+          var i = t.disUserName
+          var s = t.fullAddress + '(' + t.communityName + ')'
+          this.$wx.openLocation({
+            latitude: o,
+            longitude: e,
+            name: i,
+            address: s,
+            scale: 28
+          })
+
+        })
+      },
+      openSku: function(t) {
+
       },
       closeSku: function() {
         this.visible = 0
         this.stopClick = !1
       },
-      handleProxy: function() {
-        clearTimeout(timerOut), this.setData({
-          isTipShow: !1,
-          isShowGuide: !0
-        }), wcache.put("inNum", 4);
+      goLink: function() {
+        var a = t.currentTarget.dataset.link,
+          e = t.currentTarget.dataset.needauth || ''
+        console.log(e), e && !this.authModal() || a && this.$wx.navigateTo({
+          url: a
+        })
       },
+      authModal: function() {
+        var t = 0 < arguments.length && void 0 !== arguments[0] ? arguments[0] : {},
+          a = t && t.detail || this.data.needAuth
+        return !this.needAuth && !t.detail || ((
+          this.showAuthModal = !this.showAuthModal,
+            this.needAuth = a
+        ), !1)
+      },
+      goNavUrl: function(t) {
+        debugger
+        var a = t.currentTarget.dataset.idx,
+          e = this,
+          o = e.navigat,
+          i = e.needAuth
+        if (0 < o.length) {
+          var s = o[a].link,
+            n = o[a].type
+          if (util.checkRedirectTo(s, i)) return void this.authModal()
+          if (0 == n) {
+            this.$wx.navigateTo({
+              url: '/lionfish_comshop/pages/web-view?url=' + encodeURIComponent(s)
+            })
+          } else if (1 == n) {
+            -1 != s.indexOf('lionfish_comshop/pages/index/index') || -1 != s.indexOf('lionfish_comshop/pages/order/shopCart') || -1 != s.indexOf('lionfish_comshop/pages/user/me') || -1 != s.indexOf('lionfish_comshop/pages/type/index') ? this.$wx.switchTab({
+              url: s
+            }) : this.$wx.navigateTo({
+              url: s
+            })
+          } else if (2 == n) {
+            o[a].appid && this.$wx.navigateToMiniProgram({
+              appId: o[a].appid,
+              path: s,
+              extraData: {},
+              envVersion: 'release',
+              success: function(t) {
+              },
+              fail: function(t) {
+                console.log(t)
+              }
+            })
+          } else if (3 == n) {
+            var d = this.classification,
+              c = d && d.tabs,
+              l = s,
+              r = c.findIndex(function(t) {
+                return t.id == l
+              })
+            if (-1 != r) {
+              var u = {
+                detail: {
+                  e: r,
+                  a: l
+                }
+              }
+              this.classificationChange(u)
+            }
+          } else {
+            4 == n && (this.$getApp().globalData.typeCateId = s, this.$wx.switchTab({
+              url: '/lionfish_comshop/pages/type/index'
+            }))
+          }
+        }
+      },
+      getHistoryCommunity: function() {
+        var d = this,
+          c = this.$wx.getStorageSync('token')
+
+        this.$http({
+          controller: 'index.load_history_community',
+          token: c
+        }).then(t => {
+          if (console.log('step14'), 0 == t.code) {
+            console.log('getHistoryCommunity')
+            var a = t.list,
+              e = !1
+            0 != Object.keys(a).length && 0 != a.communityId || (e = !0)
+            var o = a && a.fullAddress && a.fullAddress.split('省')
+            if (a = Object.assign({}, a, {
+              address: o[1]
+            }), (
+              d.community = a
+            ), wcache.put('community', a), d.$getApp().globalData.community = a, c && !e) {
+              var i = this.$wx.getStorageSync('lastCommunity'),
+                s = i.communityId || ''
+              '' != s && s != a.communityId && (
+                d.showChangeCommunity = !0,
+                  d.changeCommunity = i,
+                  this.$wx.removeStorageSync('lastCommunity')
+              )
+            }
+            (d.community = d.$getApp().globalData.community), d.load_goods_data()
+          } else {
+            var n = d.options
+            void 0 !== n && n.community_id ? (console.log('新人加入分享进来的社区id:', d.options), d.addhistory(n.community_id)) : 1 == t.code ? (console.log('获取历史社区'),
+              wx.redirectTo({
+                url: '/lionfish_comshop/pages/position/community'
+              })) : (d.needAuth = !0)
+          }
+        })
+
+      }
 
     }
   }
 
 </script>
 
-<style>
+<style scoped>
   @import 'index.less';
 </style>
 
