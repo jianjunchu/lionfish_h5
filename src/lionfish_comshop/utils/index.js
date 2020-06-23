@@ -319,8 +319,8 @@ function getCommunityById(n) {
 }
 
 function loadStatus() {
-  return new Promise(function(e) {
-
+  return new Promise((resolve, reject) => {
+    resolve()
   })
 }
 
@@ -347,8 +347,17 @@ function getCommunityInfo() {
 }
 
 function check_login() {
-  var e = _this.$wx.getStorageSync('token'); var t = _this.$wx.getStorageSync('member_id')
+  var e = _this.$wx.getStorageSync('token')
+  var t = _this.$wx.getStorageSync('member_id')
   return !!(e && t != null && t.length > 0)
+}
+
+function checkRedirectTo(e, t) {
+  var n = !1
+  if (t) {
+    ['/lionfish_comshop/pages/groupCenter/apply', '/lionfish_comshop/pages/supply/apply', '/lionfish_comshop/pages/user/charge', '/lionfish_comshop/pages/order/index', '/lionfish_comshop/moduleA/solitaire/index'].indexOf(e) !== -1 && (n = !0)
+  }
+  return n
 }
 
 module.exports = {
@@ -370,6 +379,7 @@ module.exports = {
   getConfig: getConfig,
   getCommunityById: getCommunityById,
   loadStatus: loadStatus,
-  getCommunityInfo: getCommunityInfo
+  getCommunityInfo: getCommunityInfo,
+  checkRedirectTo: checkRedirectTo
 }
 

@@ -1,14 +1,16 @@
 <template>
   <div :class="['tabbar_box', isIpx?'pb20':'']" :style="{'background-color':tabbar.backgroundColor}">
     <div v-for="(item ,index ) in tabbar.list" :key="item.id">
-      <router-link class="tabbar_nav"  hoverClass="none" openType="switchTab" :style="{color:item.selected?tabbar.selectedColor:tabbar.color}" :to="item.pagePath" v-if="index!=2">
-        <div class="tabbar_icon" :data-num="getCartNum">
+      <router-link @click.native="switchTab(index)" class="tabbar_nav" hoverClass="none" openType="switchTab"
+                   :style="{color:item.selected?tabbar.selectedColor:tabbar.color}" :to="item.pagePath" v-if="index!=2">
+        <div class="tabbar_icon" data-num="getCartNum">
           <img class="img" :src="item.selected?item.selectedIconPath:item.iconPath"/>
           <div class="cart-num" v-if="getCartNum&&index==3">{{getCartNum}}</div>
         </div>
         <span>{{item.text}}</span>
       </router-link>
-      <div @click="goWeapp" class="tabbar_nav" v-show="open_tabbar_out_weapp==0&&index==2" :style="{color:item.selected?tabbar.selectedColor:tabbar.color}" v-else>
+      <div @click="goWeapp" class="tabbar_nav" v-show="open_tabbar_out_weapp==0&&index==2"
+           :style="{color:item.selected?tabbar.selectedColor:tabbar.color}" v-else>
         <div class="tabbar_icon">
           <img class="img" :src="item.selected?item.selectedIconPath:item.iconPath"/>
         </div>
@@ -22,139 +24,179 @@
 <script>
 
   export default {
+    props: {
+      currentIdx: {
+        type: Number,
+        default: 0
+      },
+      cartNum: {
+        type: Number,
+        default: 0
+      },
+      tabbarRefresh: {
+        type: Boolean,
+        default: !1,
 
+      },
+      needAuth: {
+        type: Boolean,
+        default: !1
+      }
+    },
+    watch: {
+      currentIdx: (e) => {
+          alert(1)
+          const t = this.tabbar
+          for (var a in t.list) t.list[a].selected = !1, a == e && (t.list[a].selected = !0)
+          this.tabbar = t
+      }
+    },
     computed: {
-      getCartNum(){
+      getCartNum() {
         return this.$store.getters.cartNum
       }
     },
     mounted() {
-        this.getTabbar();
+      this.getTabbar()
     },
     data() {
-      return{
+      return {
         isIpx: !1,
         tabbar: {
-          backgroundColor: "#fff",
-          color: "#707070",
-          selectedColor: "#ff5344",
-          list: [ {
-            pagePath: "/lionfish_comshop/pages/index/index",
-            text: "我的",
-            iconPath: "",
-            selectedIconPath: "",
+          backgroundColor: '#fff',
+          color: '#707070',
+          selectedColor: '#ff5344',
+          list: [{
+            pagePath: '/lionfish_comshop/pages/index/index',
+            text: '我的',
+            iconPath: '',
+            selectedIconPath: '',
             selected: !0
           }, {
-            pagePath: "/lionfish_comshop/pages/type/index",
-            text: "我的",
-            iconPath: "",
-            selectedIconPath: "",
+            pagePath: '/lionfish_comshop/pages/type/index',
+            text: '我的',
+            iconPath: '',
+            selectedIconPath: '',
             selected: !1
           }, {
-            pagePath: "",
-            text: "我的",
-            iconPath: "",
-            selectedIconPath: "",
+            pagePath: '',
+            text: '我的',
+            iconPath: '',
+            selectedIconPath: '',
             selected: !1
           }, {
-            pagePath: "/lionfish_comshop/pages/order/index",
-            text: "我的",
-            iconPath: "",
-            selectedIconPath: "",
+            pagePath: '/lionfish_comshop/pages/order/index',
+            text: '我的',
+            iconPath: '',
+            selectedIconPath: '',
             selected: !1
           }, {
-            pagePath: "/lionfish_comshop/pages/me/index",
-            text: "我的",
-            iconPath: "",
-            selectedIconPath: "",
+            pagePath: '/lionfish_comshop/pages/me/index',
+            text: '我的',
+            iconPath: '',
+            selectedIconPath: '',
             selected: !1
-          } ]
+          }]
         },
         open_tabbar_type: 0,
         open_tabbar_out_weapp: 0,
-        tabbar_out_appid: "",
-        tabbar_out_link: "",
+        tabbar_out_appid: '',
+        tabbar_out_link: '',
         tabbar_out_type: 0
       }
     },
 
     methods: {
+      switchTab(e){
+        const t = this.tabbar
+        for (var a in t.list) t.list[a].selected = !1, a == e && (t.list[a].selected = !0)
+        this.tabbar = t
+        return true;
+      },
+      getTabbar() {
 
-      getTabbar(){
-
-        const p = this;
+        const p = this
 
         this.$http({
-          controller : 'index.get_tabbar'
+          controller: 'index.get_tabbar'
         }).then(response => {
 
           if (0 == response.code) {
 
-            const t =  response.data, a = p.tabbar;
+            const t = response.data, a = p.tabbar
 
-            a.list[0].text = t.t1 || "首页", a.list[0].iconPath = t.i1 || "/lionfish_comshop/images/icon-tab-index.png",
-              a.list[0].selectedIconPath = t.s1 || "/lionfish_comshop/images/icon-tab-index-active.png",
-              a.list[1].text = t.t4 || "分类", a.list[1].iconPath = t.i4 || "/lionfish_comshop/images/icon-tab-type.png",
-              a.list[1].selectedIconPath = t.s4 || "/lionfish_comshop/images/icon-tab-type-active.png",
+            a.list[0].text = t.t1 || '首页', a.list[0].iconPath = t.i1 || '/lionfish_comshop/images/icon-tab-index.png',
+              a.list[0].selectedIconPath = t.s1 || '/lionfish_comshop/images/icon-tab-index-active.png',
+              a.list[1].text = t.t4 || '分类', a.list[1].iconPath = t.i4 || '/lionfish_comshop/images/icon-tab-type.png',
+              a.list[1].selectedIconPath = t.s4 || '/lionfish_comshop/images/icon-tab-type-active.png',
               a.list[2].text = t.t5, a.list[2].iconPath = t.i5, a.list[2].selectedIconPath = t.s5,
-              a.list[3].text = t.t2 || "购物车", a.list[3].iconPath = t.i2 || "/lionfish_comshop/images/icon-tab-shop.png",
-              a.list[3].selectedIconPath = t.s2 || "/lionfish_comshop/images/icon-tab-shop-active.png",
-              a.list[4].text = t.t3 || "我的", a.list[4].iconPath = t.i3 || "/lionfish_comshop/images/icon-tab-me.png",
-              a.list[4].selectedIconPath = t.s3 || "/lionfish_comshop/images/icon-tab-me-active.png";
-            const o = response.open_tabbar_type || 0, i = response.open_tabbar_out_weapp || 0, s = response.tabbar_out_appid, n = response.tabbar_out_link, l = response.tabbar_out_type;
-            a.selectedColor = response.wepro_tabbar_selectedColor || "#F75451", a.backgroundColor = response.wepro_tabbar_bgColor || "#ffffff",
+              a.list[3].text = t.t2 || '购物车', a.list[3].iconPath = t.i2 || '/lionfish_comshop/images/icon-tab-shop.png',
+              a.list[3].selectedIconPath = t.s2 || '/lionfish_comshop/images/icon-tab-shop-active.png',
+              a.list[4].text = t.t3 || '我的', a.list[4].iconPath = t.i3 || '/lionfish_comshop/images/icon-tab-me.png',
+              a.list[4].selectedIconPath = t.s3 || '/lionfish_comshop/images/icon-tab-me-active.png'
+            const o = response.open_tabbar_type || 0, i = response.open_tabbar_out_weapp || 0,
+              s = response.tabbar_out_appid, n = response.tabbar_out_link, l = response.tabbar_out_type
+            a.selectedColor = response.wepro_tabbar_selectedColor || '#F75451', a.backgroundColor = response.wepro_tabbar_bgColor || '#ffffff',
 
-              p.tabbar= a,
-              p.open_tabbar_type= o,
-              p.open_tabbar_out_weapp= i,
-              p.tabbar_out_appid= s,
-              p.tabbar_out_link= n,
-              p.tabbar_out_type= l
+              p.tabbar = a,
+              p.open_tabbar_type = o,
+              p.open_tabbar_out_weapp = i,
+              p.tabbar_out_appid = s,
+              p.tabbar_out_link = n,
+              p.tabbar_out_type = l
 
           }
         })
 
       },
       goWeapp: function() {
-        var e = this.tabbar_out_appid, t = this.tabbar_out_link, a = this.tabbar_out_type;
-        if (0 == a) this.$wx.navigateTo({
-          url: "/lionfish_comshop/pages/web-view?url=" + encodeURIComponent(t)
-        }); else if (1 == a) {
-          -1 != [ "/lionfish_comshop/pages/index/index", "/lionfish_comshop/pages/order/shopCart", "/lionfish_comshop/pages/user/me", "/lionfish_comshop/pages/type/index" ].indexOf(t) ? this.$wx.switchTab({
+        var e = this.tabbar_out_appid, t = this.tabbar_out_link, a = this.tabbar_out_type
+        if (0 == a) {
+          this.$wx.navigateTo({
+            url: '/lionfish_comshop/pages/web-view?url=' + encodeURIComponent(t)
+          })
+        } else if (1 == a) {
+          -1 != ['/lionfish_comshop/pages/index/index', '/lionfish_comshop/pages/order/shopCart', '/lionfish_comshop/pages/user/me', '/lionfish_comshop/pages/type/index'].indexOf(t) ? this.$wx.switchTab({
             url: t
-          }) : -1 != [ "/lionfish_comshop/moduleA/solitaire/index", "/lionfish_comshop/moduleA/video/index", "/lionfish_comshop/moduleA/menu/index", "/lionfish_comshop/moduleA/pin/index" ].indexOf(t) ? "/lionfish_comshop/moduleA/solitaire/index" == t && this.needAut ? this.triggerEvent("authModal", !0) : this.$wx.redirectTo({
+          }) : -1 != ['/lionfish_comshop/moduleA/solitaire/index', '/lionfish_comshop/moduleA/video/index', '/lionfish_comshop/moduleA/menu/index', '/lionfish_comshop/moduleA/pin/index'].indexOf(t) ? '/lionfish_comshop/moduleA/solitaire/index' == t && this.needAut ? this.triggerEvent('authModal', !0) : this.$wx.redirectTo({
             url: t
           }) : this.$wx.navigateTo({
             url: t
-          });
-        } else if (2 == a) e && this.$wx.navigateToMiniProgram({
-          appId: e,
-          path: t,
-          extraData: {},
-          envVersion: "release",
-          success: function(e) {
-            console.log(e);
-          }
-        }); else if (3 == a) {
+          })
+        } else if (2 == a) {
+          e && this.$wx.navigateToMiniProgram({
+            appId: e,
+            path: t,
+            extraData: {},
+            envVersion: 'release',
+            success: function(e) {
+              console.log(e)
+            }
+          })
+        } else if (3 == a) {
           this.$wx.redirectTo({
-            url: "/lionfish_comshop/moduleA/pin/index"
-          });
+            url: '/lionfish_comshop/moduleA/pin/index'
+          })
         } else if (4 == a) {
           this.$wx.redirectTo({
-            url: "/lionfish_comshop/moduleA/menu/index"
-          });
+            url: '/lionfish_comshop/moduleA/menu/index'
+          })
         } else if (5 == a) {
           this.$wx.redirectTo({
-            url: "/lionfish_comshop/moduleA/video/index"
-          });
-        } else if (6 == a) if (this.needAuth) this.triggerEvent("authModal", !0); else {
-          this.$wx.redirectTo({
-            url: "/lionfish_comshop/moduleA/solitaire/index"
-          });
+            url: '/lionfish_comshop/moduleA/video/index'
+          })
+        } else if (6 == a) {
+          if (this.needAuth) {
+            this.triggerEvent('authModal', !0)
+          } else {
+            this.$wx.redirectTo({
+              url: '/lionfish_comshop/moduleA/solitaire/index'
+            })
+          }
         } else if (7 == a) {
           this.$wx.redirectTo({
-            url: "/lionfish_comshop/moduleB/live/index"
-          });
+            url: '/lionfish_comshop/moduleB/live/index'
+          })
         }
       }
     }
@@ -173,7 +215,7 @@
     z-index: 899;
     width: 100%;
     height: 48px;
-    box-shadow: 0 0 2px rgba(0,0,0,0.1);
+    box-shadow: 0 0 2px rgba(0, 0, 0, 0.1);
   }
 
   .tabbar_box.iphoneX-height {
@@ -194,7 +236,8 @@
     height: 100%;
     position: relative;
   }
-  .tabbar_nav span{
+
+  .tabbar_nav span {
     margin-top: 5px;
     margin-left: 5px;
   }

@@ -3,7 +3,7 @@
     <i-toolbar ref="toolbar"></i-toolbar>
     <router-view style="margin-top:50px"/>
 
-    <i-tabbar v-show="getShowTabbar" ref="tabbar" :currentIdx="0" :tabbarRefresh="tabbarRefresh"
+    <i-tabbar v-show="getShowTabbar" ref="tabbar" :currentIdx="getTabbarCurrentIdx" :tabbarRefresh="tabbarRefresh"
               :cartNum="3"></i-tabbar>
 
   </div>
@@ -19,8 +19,8 @@
     name: 'App',
     data() {
       return {
-        tabbarRefresh: false
-
+        tabbarRefresh: false,
+        currentIdx:0
       }
     },
     computed: {
@@ -28,6 +28,11 @@
       getShowTabbar() {
 
         return this.$store.getters.showTabbar
+      },
+
+      getTabbarCurrentIdx() {
+
+        return this.$store.getters.tabbarCurrentIdx
       }
 
     }

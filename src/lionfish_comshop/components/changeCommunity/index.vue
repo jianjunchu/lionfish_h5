@@ -78,9 +78,8 @@
           this.$getApp().globalData.goodsListCarCount = {}) : this.closeModal();
       },
       closeModal: function() {
-        this.cancelFn && this.$emit("noChange"), this.setData({
-          visible: !1
-        });
+        this.cancelFn && this.$emit("noChange");
+        this.visible = !1
       }
     }
   }

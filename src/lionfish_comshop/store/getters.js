@@ -12,7 +12,8 @@ const getters = {
   navBgColor: state => state.app.navBgColor,
   navFontColor: state => state.app.navFontColor,
   globalData: state => state.app.globalData,
-  cartNum: state => state.app.cartNum
+  cartNum: state => state.app.cartNum,
+  tabbarCurrentIdx: state => state.app.tabbarCurrentIdx
 
 }
 export default getters
