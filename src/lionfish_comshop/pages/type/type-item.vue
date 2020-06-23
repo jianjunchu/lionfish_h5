@@ -1,5 +1,5 @@
 <template>
-<div style="margin-top: 10px;">
+<div>
   <form bindsubmit="submit2" reportSubmit="true">
     <button hidden formType="submit" id="formId"></button>
   </form>
@@ -12,10 +12,9 @@
           </div>
           <div class="item-right">
               <div class="item-right-top">
-                <br>
                   <div class="spu-title">
                       <span class="span">{{spuItem.spuName}}</span>
-                  </div><br><br>
+                  </div>
                   <div class="spu-desc" v-if="spuItem.spuDescribe">
                       <span class="em">{{spuItem.spuDescribe}}</span>
                   </div>
@@ -30,12 +29,15 @@
           </div>
           <div v-if="!isPast">
               <div v-if="number<=0">
-                  <!-- <i-button iClass="add-cart" v-if="disabled||spuItem.spuCanBuyNum==0||actEnd">
-                      <image class="img" src="../../images/icon-add-shopCart-disabled.png"></image>
-                  </i-button> -->
+                  <div class="add-cart" v-if="disabled||spuItem.spuCanBuyNum==0||actEnd">
+                      <img class="img" src="../../../assets/images/icon-add-shopCart-disabled.png" >
+                  </div>
                   <!-- <i-button bind:click="openSku" iClass="add-cart" wx:else>
                       <i-addcart fontsize="28" iClass="img"></i-addcart>
                   </i-button> -->
+              </div>
+              <div class="add-cart">
+                <img class="img" src="../../../assets/images/icon-add-shopCart-disabled.png" >
               </div>
               <!-- <i-input-number addImage="../../images/icon-add-2.png" bind:change="changeNumber" bind:outOfMax="outOfMax" iClass="index-input-number" iClassNumberspan="input-number-span" iNumberImg="iNumberImg" iNumberdiv="iNumberdiv" max="{{spuItem.spuCanBuyNum}}" min="0" reduceImage="../../images/icon-reduce-2.png" value="{{number}}" wx:else></i-input-number> -->
           </div>
@@ -161,8 +163,9 @@
 }
 
 .spu .img-class {
-    width: 150px;
-    height: 150px;
+    width: 90px;
+    height: 90px;
+    border-radius: 0;
 }
 
 .spu .spu-content {
@@ -170,7 +173,7 @@
     overflow: hidden;
     position: relative;
     display: flex;
-    padding: 20px 24px 20px;
+    padding: 10px 10px 10px;
     box-sizing: border-box;
 }
 
@@ -188,8 +191,8 @@
 }
 
 .spu .spu-content .item-left {
-    width: 150px;
-    height: 150px;
+    width: 90px;
+    height: 90px;
     position: relative;
 }
 
@@ -198,7 +201,7 @@
     box-sizing: border-box;
     margin-left: 16px;
     display: flex;
-    flex-direction: column;
+    flex-direction: column; 
     justify-content: space-between;
 }
 
@@ -217,17 +220,13 @@
     height: 30px;
     position: absolute;
     left: 0;
-    top: -4px;
-    line-height: 20px;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-    margin: 0;
 }
 
 .spu .spu-content .item-right .spu-desc {
-    font-size: 16px;
-    line-height: 0px;
+    font-size: 14px;
     color: #999;
     position: relative;
     width: 350px;
@@ -241,15 +240,15 @@
     position: absolute;
     left: 0;
     top: -2px;
-    line-height: 32px;
+    /* line-height: 32px; */
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
 }
 
 .spu .spu-content .add-cart {
-    width: 68px;
-    height: 68px;
+    width: 32px;
+    height: 32px;
     padding: 0;
     margin: 0;
     position: absolute;
@@ -261,27 +260,25 @@
 }
 
 .spu .spu-content .add-cart .img {
-    width: 54px;
-    height: 54px;
+    width: 32px;
+    height: 32px;
     display: div;
 }
 
 .spu .spu-content .item-right .spu-price {
     display: flex;
     align-items: flex-end;
-    font-size: 18px;
-    line-height: 18px;
+    font-size: 13px;
     overflow: hidden;
 }
 
 .spu .spu-content .item-right .spu-price .sale-price {
     color: #ff5344;
-    margin-right: 12px;
+    margin-right: 6px;
 }
 
 .spu .spu-content .item-right .spu-price .sale-price .span {
-    font-size: 20px;
-    line-height: 20px;
+    font-size: 18px;
     margin: 0;
     font-weight: bold;
 }
