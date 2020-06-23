@@ -4,7 +4,7 @@
         <div style="width: 70%;float:left;line-height: 50px;font-size: 18px;font-weight: 600">&nbsp;&nbsp;&nbsp;Complete your profile</div>
         <div style="width: 20%;float:right;line-height: 50px;text-align: center;color: blue;font-weight: 400">Skip</div>
     </div>
-    <el-form ref="loginForm" :model="loginForm" :rules="loginRules" class="login-form" auto-complete="on" label-position="left">
+    <el-form ref="loginForm" :model="loginForm" class="login-form" auto-complete="on" label-position="left">
       <div class="title-container">
         <img src="../../../assets/images/contactService.png">
       </div><br><br>
@@ -51,7 +51,6 @@
 </template>
 
 <script>
-import { validUsername } from '../../utils/validate'
 
 export default {
   name: 'Login',
@@ -109,7 +108,15 @@ export default {
           return false
         }
       })
+    },
+    hideTopAndFooter: function(){
+      this.$store.dispatch('app/hideTabbar');
+      this.$store.dispatch('app/hideToolbarMore'); 
+      this.$store.dispatch('app/hideToolbarBack'); 
     }
+  },
+  created: function(){
+      this.hideTopAndFooter();
   }
 }
 </script>

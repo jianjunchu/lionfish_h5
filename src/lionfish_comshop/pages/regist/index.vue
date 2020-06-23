@@ -105,7 +105,8 @@
                 return(()=>{
                     this.showHeight = document.documentElement.clientHeight || document.body.clientHeight;
                 })()
-            }
+            },
+            this.hideFooter
         },
         methods:{
             inputPhone(){
@@ -133,6 +134,11 @@
                     }
                 }
                 this.input_info.phone = value;
+            },
+            hideTopAndFooter: function(){
+            this.$store.dispatch('app/hideTabbar');
+            this.$store.dispatch('app/hideToolbarMore'); 
+            this.$store.dispatch('app/hideToolbarBack'); 
             },
             chooseArea(){
                 
