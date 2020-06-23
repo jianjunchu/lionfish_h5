@@ -67,7 +67,7 @@
     },
     methods: {
       getData: function() {
-        var t = this.$store.getters.token, e = this, a = this.$store.getters.globalData.community
+        var t = this.$store.getters.token, e = this, a = this.$app.globalData.community
         this.$http({}).then(t => {
           if (0 == t.code) {
             const a = e.list.concat(t.data.list)

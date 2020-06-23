@@ -32,6 +32,9 @@
       },
       imageLoad:function(e) {
           this.isLoad = false;
+      },
+      preview: function() {
+
       }
 
     }

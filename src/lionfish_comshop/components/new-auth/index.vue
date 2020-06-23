@@ -12,7 +12,7 @@
                   v-if="newauth_confirm_image">
           <img class="img" mode="widthFix" :src="newauth_confirm_image"/>
         </i-button>
-        <i-button @bindgetuserinfo="bindGetUserInfo" :iClass="confirm" :loading="btnLoading" openType="getUserInfo"
+        <i-button @bindgetuserinfo="bindGetUserInfo" iClass="confirm" :loading="btnLoading" openType="getUserInfo"
                   :styleStr="'background:'+skin.color" v-else>
           立即登录
         </i-button>
@@ -29,7 +29,10 @@
     data() {
       return {
         btnLoading: !1,
-        canIUse: true
+        canIUse: true,
+        newauth_bg_image:require('@/assets/images/auth-bg.png'),
+        newauth_cancel_image:null,
+        newauth_confirm_image:null
       }
     },
     props: {
@@ -49,7 +52,7 @@
     },
     watch: {
       navBackUrl: (newValue, oldValue) => {
-        this.$store.getters.globalData.navBackUrl = newValue
+        this.$app.globalData.navBackUrl = newValue
       }
     },
     created: function() {

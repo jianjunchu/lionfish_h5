@@ -178,7 +178,9 @@ function setNavBgColor() {
         _this.$wx.setNavigationBarColor({
           frontColor: e,
           backgroundColor: t
-        }), wcache.put('navBgColor', t, 100), wcache.put('navFontColor', e, 100)
+        })
+        wcache.put('navBgColor', t, 100)
+        wcache.put('navFontColor', e, 100)
       }
     })
     : _this.$wx.setNavigationBarColor({

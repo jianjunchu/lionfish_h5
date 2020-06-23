@@ -20,20 +20,15 @@
         default: !1
       },
       isShow: {
+        type:Boolean,
         default: !1
       },
       scrollUp: {
         default: !1
       }
     },
-    data() {
-      return {
-        isIpx: !1,
-        isShow: !1
-      }
-    },
     mounted: function() {
-      this.isIpx = this.$store.getters.globalData.isIpx
+      this.isIpx = this.$app.globalData.isIpx
     },
     methods: {
       stopMove: function() {

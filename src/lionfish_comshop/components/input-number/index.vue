@@ -35,7 +35,7 @@
     },
     computed: {
       getSkin() {
-        return this.$store.getters.globalData.skin
+        return this.$app.globalData.skin
       }
     },
     props:{

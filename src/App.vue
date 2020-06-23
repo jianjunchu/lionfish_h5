@@ -2,9 +2,8 @@
   <div id="app" style="overflow-x: hidden;">
     <i-toolbar ref="toolbar"></i-toolbar>
     <router-view style="margin-top:50px"/>
-
     <i-tabbar v-show="getShowTabbar" ref="tabbar" :currentIdx="getTabbarCurrentIdx" :tabbarRefresh="tabbarRefresh"
-              :cartNum="3"></i-tabbar>
+              :cartNum="getCartNum"></i-tabbar>
 
   </div>
 </template>
@@ -20,7 +19,7 @@
     data() {
       return {
         tabbarRefresh: false,
-        currentIdx: 0
+        currentIdx: 0,
       }
     },
     util: util,
@@ -71,10 +70,11 @@
     computed: {
 
       getShowTabbar() {
-
         return this.$store.getters.showTabbar
       },
-
+      getCartNum() {
+        return this.$store.getters.cartNum
+      },
       getTabbarCurrentIdx() {
 
         return this.$store.getters.tabbarCurrentIdx

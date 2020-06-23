@@ -1,6 +1,6 @@
 <template>
   <div class="btn i-class" :style="{'background': 'linear-gradient(to top, ' + skin.color + ', '+skin.light+')'}">
-    <span class="iconfont icon-gouwuche" :style="{'color':'#fff','font-size':fontsize+'px'}"></span>
+    <span class="iconfont icon-gouwuche" style="color:#fff;font-size:14px"></span>
   </div>
 
 
@@ -9,12 +9,6 @@
 <script>
   export default {
     name: '',
-    props: {
-      fontsize: {
-        type: Number,
-        default: 24
-      }
-    },
     data() {
       return {
         skin: this.$getApp().globalData.skin

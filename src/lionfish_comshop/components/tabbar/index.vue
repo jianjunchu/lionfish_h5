@@ -45,10 +45,7 @@
     },
     watch: {
       currentIdx: (e) => {
-          alert(1)
-          const t = this.tabbar
-          for (var a in t.list) t.list[a].selected = !1, a == e && (t.list[a].selected = !0)
-          this.tabbar = t
+        this.switchTab(e)
       }
     },
     computed: {

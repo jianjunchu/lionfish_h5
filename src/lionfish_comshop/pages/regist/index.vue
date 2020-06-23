@@ -41,9 +41,6 @@
 
 <script>
  // 按需引入部分组件
-    import { Toast } from 'mint-ui';
-    import 'mint-ui/lib/style.css'
-    import { ScrollPicker, ScrollPickerGroup } from "vue-scroll-picker"
     export default {
         name: "bm_phone_regist",
         data(){
@@ -137,11 +134,11 @@
             },
             hideTopAndFooter: function(){
             this.$store.dispatch('app/hideTabbar');
-            this.$store.dispatch('app/hideToolbarMore'); 
-            this.$store.dispatch('app/hideToolbarBack'); 
+            this.$store.dispatch('app/hideToolbarMore');
+            this.$store.dispatch('app/hideToolbarBack');
             },
             chooseArea(){
-                
+
             },
             focus(type){
                 if (type === "phoneNum"){
@@ -471,5 +468,5 @@
             }
         }
     }
-    
+
 </style>

@@ -13,7 +13,7 @@
     <div  bindscrolltolower="getMore" class="new-comers-scroll">
       <view class="new-comers-wrap">
         <i-router-link routerClass="new-comers-item" :url="'/lionfish_comshop/pages/goods/goodsDetail?id='+item.actId"
-                       v-for="(item , index) in list" wx:key="id">
+                       v-for="(item , index) in list" :key="id">
           <i-img defaultImage="@/assets/images/placeholder-refund.png" height="200" iClass="new-img"
                  :loadImage="tem.skuImage" width="180"></i-img>
           <view class="act-end" v-if="item.spuCanBuyNum==0">已抢光</view>
@@ -23,7 +23,7 @@
             <i-button iClass="add-cart" v-if="disabled||item.spuCanBuyNum==0">
               <img class="img" src="@/assets/images/icon-add-shopCart-disabled.png"></img>
             </i-button>
-            <i-button bind:click="openSku" data-idx="index" iClass="add-cart" v-else>
+            <i-button @click="openSku" data-idx="index" iClass="add-cart" v-else>
               <i-addcart iClass="img"></i-addcart>
             </i-button>
           </view>
@@ -53,13 +53,8 @@
     watch:{
       refresh: (t, oldValue) => {
         var e = this;
-        t && this.setData({
-          pageNum: 1,
-          noMore: !1,
-          list: []
-        }, function() {
-          e.getData();
-        });
+        e.pageNum = 1, e.noMore = !1, e. list = [];
+        e.getData();
       },
     },
     date(){
@@ -73,31 +68,27 @@
     },
     methods: {
       getData: function() {
-        var t = wx.getStorageSync("token"), i = this, e = wx.getStorageSync("community");
-        app.util.request({
-          url: "entry/wxapp/index",
-          data: {
-            controller: "index.load_spikebuy_goodslist",
-            token: t,
-            pageNum: i.data.pageNum,
-            head_id: e.communityId
-          },
-          dataType: "json",
-          success: function(t) {
-            if (0 == t.data.code) {
-              var e = i.data.list.concat(t.data.list), a = i.getTime(e);
-              console.log(a), i.setData({
-                list: e,
-                rushEndTime: a
-              });
-            } else i.setData({
-              noMore: !0
-            });
+        var t = this.$wx.getStorageSync("token"), i = this, e = this.$.getStorageSync("community");
+
+        this.$http({
+          controller: "index.load_spikebuy_goodslist",
+          token: t,
+          pageNum: i.data.pageNum,
+          head_id: e.communityId
+        }).then(t =>{
+          if (0 == t.code) {
+            var e = i.list.concat(t.list), a = i.getTime(e);
+            console.log(a);
+            this.list = e,
+              this.rushEndTime = a
+          } else {
+            this.noMore = !0
           }
-        });
+        })
+
       },
       getMore: function() {
-        if (!this.data.noMore) {
+        if (!this.noMore) {
           var t = this, e = t.data.pageNum + 1;
           console.log(e), this.setData({
             pageNum: e
@@ -110,7 +101,7 @@
         var e = t.currentTarget.dataset.idx;
         this.disabled = !1
 
-        var a = this.data.list[e];
+        var a = this.list[e];
         this.$emit("openSku", {
           actId: a.actId,
           skuList: a.skuList,
