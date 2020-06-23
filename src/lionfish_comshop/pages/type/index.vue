@@ -47,10 +47,10 @@
                 <div v-if="loadMore">
                     <!-- <i-load-more loading="loadMore" tip="oadText"></i-load-more> -->
                 </div>
-                <div class="scroll-col-tip-bottom" v-else-if="canNext">
+                <!-- <div class="scroll-col-tip-bottom" v-else-if="canNext">
                     <span v-if="isLastCategory">看到我的底线了吗～</span>
                     <span wx:else>上拉查看下一个分类</span>
-                </div>
+                </div> -->
                 <div style="height:100rpx;"></div>
             </div>
         </div>

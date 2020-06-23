@@ -33,6 +33,16 @@ export const constantRoutes = [
     hidden: true
   },
   {
+    path: '/regist',
+    component: () => import('@/lionfish_comshop/pages/regist/index'),
+    hidden: true
+  },
+  {
+    path: '/userInfo',
+    component: () => import('@/lionfish_comshop/pages/regist/userInfo'),
+    hidden: true
+  },
+  {
     path: '',
     component: () => import('@/lionfish_comshop/pages/index/index'),
     hidden: true

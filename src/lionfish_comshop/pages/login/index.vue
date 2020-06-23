@@ -41,22 +41,7 @@
         </span>
       </el-form-item>
 
-      <el-form-item prop="CheckWord">
-        <span class="svg-container">
-          <svg-icon icon-class="user" />
-        </span>
-        <el-input
-          ref="CheckWord"
-          v-model="loginForm.checkWord"
-          placeholder="CheckWord"
-          name="username"
-          type="text"
-          tabindex="1"
-          auto-complete="on"
-        />
-      </el-form-item>
-
-      <el-button :loading="loading" type="primary" style="width:100%;margin-bottom:30px;" @click.native.prevent="handleLogin">Log In</el-button>
+      <el-button :loading="loading" type="primary" style="width:100%;margin-bottom:30px;" @click.native.prevent="handleLogin">Login</el-button>
 
       <!-- <div class="tips">
         <span style="margin-right:20px;">username: admin</span>
@@ -90,8 +75,7 @@ export default {
     return {
       loginForm: {
         username: '',
-        password: '',
-        checkWord: ''
+        password: ''
       },
       loginRules: {
         username: [{ required: true, trigger: 'blur', validator: validateUsername }],
