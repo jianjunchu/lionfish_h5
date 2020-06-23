@@ -28,7 +28,7 @@
               <img class="userAvatarUrl" src="@/assets/images/head-bitmap.png"/>
               <div class="user-name">点击登录账户</div>
             </div>
-            <div @click="goLinkScore" :class="['fetch-coder', ( fetch_coder_type == 1 || needAuth?'signIn':'')]"  :style="{color:user_top_font_color}" v-if="isopen_signinreward==1&&show_signinreward_icon==1">
+            <div @click="goLink2" :class="['fetch-coder', ( fetch_coder_type == 1 || needAuth?'signIn':'')]"  :style="{color:user_top_font_color}" data-link="/lionfish_comshop/moduleA/score/signin" v-if="isopen_signinreward==1&&show_signinreward_icon==1">
               <span class="iconfont icon-qiandao"></span>
               <div class="fetch-coder-text">积分签到</div>
             </div>
@@ -37,7 +37,7 @@
               <div class="fetch-coder-text">提货码</div>
             </div>
           </div>
-          <div @click="goLinkVip" class="vip i-flex i-flex-spb"  v-if="is_open_vipcard_buy==1">
+          <div @click="goLink2" class="vip i-flex i-flex-spb"  v-if="is_open_vipcard_buy==1" data-link="/lionfish_comshop/moduleA/vip/upgrade">
             <div class="i-flex vip-name">
               <img class="vip-logo" :src="modify_vipcard_logo" v-if="modify_vipcard_logo"/>
               <span class="iconfont icon-huiyuan" style="font-size:15px;" v-else></span>
@@ -59,7 +59,7 @@
           <div class="my-order-title">
             <span>我的订单</span>
           </div>
-          <div @click="goLink2(0)" class="to-order">
+          <div @click="goLink2" class="to-order" data-link="/lionfish_comshop/pages/order/index">
             <span>查看全部订单</span>
           </div>
           <div class="order-right">
@@ -67,30 +67,30 @@
           </div>
         </div>
         <div class="orderTab">
-          <div @click="goLink2(3)" class="order_status">
+          <div @click="goLink2" class="order_status" data-link="/lionfish_comshop/pages/order/index?order_status=3">
             <span class="num" :style="{background:skin.color}" v-show="member_info.wait_pay_count!=0">{{member_info.wait_pay_count}}</span>
             <!--<img class="icon-img" :src="user_order_menu_icons.i1?user_order_menu_icons.i1:'@/assets/images/needPayIcon.png'"/>-->
             <img class="icon-img" src="@/assets/images/needPayIcon.png"/>
             <span style="color: #444;">待付款</span>
           </div>
-          <div @click="goLink2(1)" class="order_status">
+          <div @click="goLink2" class="order_status" data-link="/lionfish_comshop/pages/order/index?order_status=1">
             <span class="num" :style="{background:skin.color}" v-show="member_info.wait_send_count!=0">{{member_info.wait_send_count}}</span>
             <!--<img class="icon-img" :src="user_order_menu_icons.i2?user_order_menu_icons.i2:'@/assets/images/undeli.png'"/>-->
             <img class="icon-img" src="@/assets/images/undeli.png"/>
             <span style="color: #444;">待配送</span>
           </div>
-          <div @click="goLink2(4)" class="order_status">
+          <div @click="goLink2" class="order_status" data-link="/lionfish_comshop/pages/order/index?order_status=4">
             <span class="num" :style="{background:skin.color}" v-show="member_info.wait_get_count!=0">{{member_info.wait_get_count}}</span>
             <!--<img class="icon-img" :src="user_order_menu_icons.i3?user_order_menu_icons.i3:'@/assets/images/distributionIcon.png'"/>-->
             <img class="icon-img" src="@/assets/images/distributionIcon.png"/>
             <span style="color: #444;">待提货</span>
           </div>
-          <div @click="goLink2(6)" class="order_status">
+          <div @click="goLink2" class="order_status" data-link="/lionfish_comshop/pages/order/index?order_status=6">
             <!--<img class="icon-img" :src="user_order_menu_icons.i4?user_order_menu_icons.i4:'@/assets/images/completeIcon.png'"/>-->
             <img class="icon-img" src="@/assets/images/completeIcon.png"/>
             <span style="color: #444;">已提货</span>
           </div>
-          <div @click="goLink3" class="order_status" >
+          <div @click="goLink2" class="order_status" data-link="/lionfish_comshop/pages/refund/refundList">
             <!--<img class="icon-img" :src="user_order_menu_icons.i5?user_order_menu_icons.i5:'@/assets/images/refundIcon.png'"/>-->
             <img class="icon-img" src="@/assets/images/refundIcon.png"/>
             <span style="color: #444;">售后服务</span>
@@ -367,7 +367,7 @@
               </div>
             </div>
           </div>
-          <div v-on:click="goLink2" data-link="/lionfish_comshop/pages/user/protocol">
+          <div @click="goLink2" data-link="/lionfish_comshop/pages/user/protocol">
             <div class="item-main">
               <div class="item-title">
                 <!--<img class="toolIcon" mode="widthFix" :src="user_tool_icons.i7?user_tool_icons.i7:'@/assets/images/protocolIcon.png'"/>-->
@@ -394,7 +394,7 @@
             </div>
           </a>
           <!--</button>-->
-          <a hoverClass="none" href="/lionfish_comshop/pages/user/articleProtocol?about=1" v-if="is_show_about_us==1">
+          <a hoverClass="none" href="#/lionfish_comshop/pages/user/articleProtocol?about=1" v-if="is_show_about_us==1">
             <div class="item-main">
               <div class="item-title">
                 <!--<img class="toolIcon" mode="widthFix" :src="(user_tool_icons && user_tool_icons.i9)?user_tool_icons.i9:'@/assets/images/aboutUsIcon.png'"/>-->
@@ -546,10 +546,13 @@
         community :{},
 
         user_top_font_color:'',
-        commiss_level:''
+        commiss_level:'',
+        showAuthModal:false,
+        auditStatus:false
       }
     },
     created: function() {
+      this.$store.state.app.toolbarTitle ="我的";
       this.onLoad();
       this.onShow();
     },
@@ -759,23 +762,23 @@
       authSuccess: function () {
         var that = this;
          this.$wx.showLoading();
-        that.setData({ needAuth: false, showAuthModal: false, tabbarRefresh: true });
+         this.needAuth = false, thia.showAuthModal= false, this.tabbarRefresh = true ;
         (0, status.cartNum)('', true).then((res) => {
-          res.code == 0 && that.setData({
-            cartNum: res.data
-          })
+          if(res.code == 0){
+            that.cartNum = res;
+          }
         });
         that.getMemberInfo();
       },
       authModal: function () {
-        if(this.data.needAuth) {
-          this.setData({ showAuthModal: !this.data.showAuthModal });
+        if(this.needAuth) {
+            this.showAuthModal = !this.showAuthModal;
           return false;
         }
         return true;
       },
       goToGroup: function () {
-        5 === this.data.auditStatus ?  this.$wx.navigateTo({
+        5 === this.auditStatus ?  this.$wx.navigateTo({
           url: "/lionfish_comshop/pages/groupCenter/index"
         }) :  this.$wx.navigateTo({
           url: "/lionfish_comshop/pages/groupCenter/apply"
@@ -789,36 +792,29 @@
             nickName: e.detail.userInfo.nickName
           });
           let { nickName, avatarUrl } = e.detail.userInfo;
-          app.globalData.userInfo = userInfo,  this.$wx.setStorage({
+          this.$getApp().globalData.userInfo = userInfo,  this.$wx.setStorage({
             key: "userInfo",
             data: userInfo
-          }), this.setData({
-            userInfo: userInfo
-          }),  this.$wx.showToast({
+          }), this.userInfo = userInfo
+          ,  this.$wx.showToast({
             title: "资料已更新",
             icon: "none",
             duration: 2000
           }), nickName && this.$http({
-            url: 'entry/wxapp/user',
-            data: {
               controller: 'user.update_user_info',
               token:  this.$wx.getStorageSync("token"),
               nickName,
               avatarUrl
-            },
-            dataType: 'json',
-            success: function(res) {
-              if(res.data.code==0) {
-                let member_info = that.data.member_info;
+            }).then(res=> {
+              if(res.code==0) {
+                let member_info = that.member_info;
                 let user_info = Object.assign({}, member_info, {
                   avatar: e.detail.userInfo.avatarUrl,
                   username: e.detail.userInfo.nickName
                 });
-                that.setData({
-                  member_info: user_info
-                })
+
+                that.member_info = user_info;
               }
-            }
           })
         } else {
            this.$wx.showToast({
@@ -834,35 +830,24 @@
           urls: [current]
         })
       },
-      goLink2: function (order_status) {
+      goLink2: function(event) {
         if(!this.authModal()) return;
-        let link = "/lionfish_comshop/pages/order/index";
-        if (order_status > 0){
-          link = link + "order_status="+order_status;
-        }
-        this.$router.push({ path:link  });
+        debugger
+        let link = event.currentTarget.dataset.link;
 //        var pages_all = getCurrentPages();
 //        if (pages_all.length > 3) {
-//           this.$wx.redirectTo({
+//          this.$wx.redirectTo({
 //            url: link
 //          })
 //        } else {
-//           this.$wx.navigateTo({
+//          this.$wx.navigateTo({
 //            url: link
 //          })
 //        }
-      },
-      goLink3:function () {
-        var link="/lionfish_comshop/pages/refund/refundList";
-        this.$router.push({ path:link  });
-      },
-      goLinkScore:function () {
-        var link="/lionfish_comshop/moduleA/score/signin";
-        this.$router.push({ path:link  });
-      },
-      goLinkVip:function () {
-        var link="/lionfish_comshop/moduleA/vip/upgrade";
-        this.$router.push({ path:link  });
+
+        this.$wx.redirectTo({
+          url: link
+        })
       },
       onShow: function () {
         var that = this;

@@ -68,6 +68,16 @@ export const constantRoutes = [
     hidden: true
   },
   {
+    path: '/lionfish_comshop/pages/user/articleProtocol',
+    component: () => import('@/lionfish_comshop/pages/user/articleProtocol'),
+    hidden: true
+  },
+  {
+    path: '/lionfish_comshop/pages/user/protocol',
+    component: () => import('@/lionfish_comshop/pages/user/protocol'),
+    hidden: true
+  },
+  {
     path: '/lionfish_comshop/pages/order/shopCart',
     component: () => import('@/lionfish_comshop/pages/order/shopCart'),
     hidden: true
