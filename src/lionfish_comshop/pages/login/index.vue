@@ -54,7 +54,11 @@
 
 <script>
 import { validUsername } from '../../utils/validate'
+ import GlobalMixin from '../../mixin/globalMixin.js'
 
+  var util = require("../../utils"),
+    status = require("../../utils"),
+    wcache = require("../../utils/wcache.js")
 export default {
   name: 'Login',
   data() {
@@ -119,7 +123,15 @@ export default {
           return false
         }
       })
+    },
+    hideTopAndFooter: function(){
+      this.$store.dispatch('app/hideTabbar');
+      this.$store.dispatch('app/hideToolbarMore'); 
+      this.$store.dispatch('app/hideToolbarBack'); 
     }
+  },
+  created: function(){
+    this.hideTopAndFooter();
   }
 }
 </script>
