@@ -2,7 +2,7 @@
   <div>
     <button :appParameter="appParameter" @contact="bindcontact" @error="binderror"
             @getphonenumber="bindgetphonenumber" @getuserinfo="bindgetuserinfo" @click="handleTap"
-            :class="['i-class', 'i-btn', (long?'i-btn-long':''), 'i-btn-'+size, 'i-btn-'+type, 'i-btn-'+shape, (loading?'i-btn-loading':''), (disabled?'i-btn-disabled':''), (inline?'i-btn-inline':'')]"
+            :class="[iClass, 'i-btn', (long?'i-btn-long':''), 'i-btn-'+size, 'i-btn-'+type, 'i-btn-'+shape, (loading?'i-btn-loading':''), (disabled?'i-btn-disabled':''), (inline?'i-btn-inline':'')]"
             hoverClass="i-btn-hover" :hoverStartTime="hoverStartTime" :hoverStayTime="hoverStayTime"
             :hoverStopPropagation="hoverStopPropagation" :openType="openType" plain="true"
             :endMessageImg="sendMessageImg" :sendMessagePath="sendMessagePath"
@@ -19,6 +19,9 @@
   export default {
     name: 'i-button',
     props: {
+      iClass:{
+        type: String,
+      },
       type: {
         type: String,
         default: ''

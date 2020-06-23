@@ -58,15 +58,13 @@
         <div v-if="!isPast">
           <div v-if="number<=0">
             <i-button iClass="add-cart" v-if="disabled||spuItem.spuCanBuyNum==0||actEnd">
-              <img class="img" src="@/assets/images/icon-add-shopCart-disabled.png"/>
+              <img class="img" src="@/assets/images/icon-add-shopCart-disabled.png"></img>
             </i-button>
-            <i-button bind:click="openSku" iClass="add-cart" v-else>
-              <div class="btn i-class" >
-                <span class="iconfont icon-gouwuche" style="color:#fff;"></span>
-              </div>
+            <i-button @click="openSku" iClass="add-cart" class="add-cart" v-else>
+              <i-addcart fontsize="14" iClass="img"></i-addcart>
             </i-button>
           </div>
-          <i-input-number addImage="@/assets/images/icon-add-2.png" bind:change="changeNumber" bind:outOfMax="outOfMax" iClass="index-input-number" iClassNumberText="input-number-span" :max="spuItem.spuCanBuyNum" min="0" reduceImage="@/assets/images/icon-reduce-2.png" :value="number" v-else></i-input-number>
+          <i-input-number addImage="@/assets/images/icon-add-2.png" @change="changeNumber" @outOfMax="outOfMax" iClass="index-input-number" iClassNumberText="input-number-span" :max="spuItem.spuCanBuyNum" min="0" reduceImage="@/assets/images/icon-reduce-2.png" :value="number" v-else></i-input-number>
         </div>
         <div class="mask" v-if="isPast||disabled||spuItem.spuCanBuyNum==0?'disabled':''"></div>
         <div class="act-end act-out" v-if="spuItem.spuCanBuyNum==0">已抢光</div>
@@ -129,7 +127,6 @@
         }
       },
       isShowListCount: {
-        type: Number,
         default: 0
       },
       changeCarCount: {
@@ -162,9 +159,133 @@
     },
     data() {
       return{
-
+        disabled: !1,
+        placeholdeImg: "",
+        number: 0,
+        url: ""
       }
     },
+    created:function() {
+      this.number =  this.spuItem.car_count || 0
+    },
+    methods: {
+      openSku: function() {
+        this.needAuth ? this.$emit("authModal", !0) : (console.log("step1"),
+          (this.stopClick =  !0, this.disabled = !1), void 0 ===this.spuItem.skuList.length ? this.$emit("openSku", {
+          actId: this.spuItem.actId,
+          skuList:this.spuItem.skuList,
+          promotionDTO:this.spuItem.promotionDTO,
+          is_take_vipcard:this.spuItem.is_take_vipcard,
+          is_mb_level_buy:this.spuItem.is_mb_level_buy,
+          allData: {
+            spuName:this.spuItem.spuName,
+            skuImage:this.spuItem.skuImage,
+            actPrice:this.spuItem.actPrice,
+            canBuyNum:this.spuItem.spuCanBuyNum,
+            stock:this.spuItem.spuCanBuyNum,
+            marketPrice:this.spuItem.marketPrice
+          }
+        }) : this.addCart({
+          value: 1,
+          type: "plus"
+        }));
+      },
+      countDownEnd: function() {
+        this.actEnd = !0
+      },
+      submit2: function(a) {
+        (0, t.collectFormIds)(a.detail.formId);
+      },
+      changeNumber: function(t) {
+        var a = t.detail;
+        a && this.addCart(a);
+      },
+      outOfMax: function(t) {
+        t.detail;
+        var a =this.spuItem.spuCanBuyNum;
+       this.number >= a && wx.showToast({
+          title: "不能购买更多啦",
+          icon: "none"
+        });
+      },
+      addCart: function(t) {
+        var a = wx.getStorageSync("token"), e = wx.getStorageSync("community"), i =this.spuItem.actId, s = e.communityId, u = this;
+        if ("plus" == t.type) {
+          var o = {
+            goods_id: i,
+            community_id: s,
+            quantity: 1,
+            sku_str: "",
+            buy_type: "dan",
+            pin_id: 0,
+            is_just_addcar: 1
+          };
+          util.addCart(o).then(function(t) {
+            if (1 == t.showVipModal) {
+              var a = t.pop_vipmember_buyimage;
+              u.$emit("vipModal", {
+                pop_vipmember_buyimage: a,
+                showVipModal: !0,
+                visible: !1
+              });
+            } else {
+              if (3 == t.code) 0 < (t.max_quantity || "") && u.setData({
+                number: u.data.number
+              }), wx.showToast({
+                title: t.msg,
+                icon: "none",
+                duration: 2e3
+              }); else if (4 == t.code) u.setData({
+                needAuth: !0
+              }), u.$emit("authModal", !0); else if (6 == t.code || 7 == t.code) {
+                0 < (t.max_quantity || "") && u.setData({
+                  number: u.data.number
+                });
+                var e = t.msg;
+                wx.showToast({
+                  title: e,
+                  icon: "none",
+                  duration: 2e3
+                });
+              } else u.$emit("changeCartNum", t.total), u.setData({
+                number: t.cur_count
+              }), wx.showToast({
+                title: "已加入购物车",
+                image: "../../images/addShopCart.png"
+              }), status.indexListCarCount(i, t.cur_count);
+            }
+          });
+        } else app.util.request({
+          url: "entry/wxapp/user",
+          data: {
+            controller: "car.reduce_car_goods",
+            token: a,
+            goods_id: i,
+            community_id: s,
+            quantity: 1,
+            sku_str: "",
+            buy_type: "dan",
+            pin_id: 0,
+            is_just_addcar: 1
+          },
+          dataType: "json",
+          method: "POST",
+          success: function(t) {
+            if (3 == t.code) wx.showToast({
+              title: t.msg,
+              icon: "none",
+              duration: 2e3
+            }); else if (4 == t.code) {
+              if (u.data.needAuth) return u.setData({
+                needAuth: !0
+              }), void u.$emit("authModal", !0);
+            } else u.$emit("changeCartNum", t.total), u.setData({
+              number: t.cur_count
+            }), status.indexListCarCount(i, t.cur_count);
+          }
+        });
+      }
+    }
   }
 </script>
 

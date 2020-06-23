@@ -1,4 +1,4 @@
-var _createClass = function() {
+var _createClass = (function() {
   function n(e, t) {
     for (var i = 0; i < t.length; i++) {
       var n = t[i]
@@ -9,7 +9,7 @@ var _createClass = function() {
   return function(e, t, i) {
     return t && n(e.prototype, t), i && n(e, i), e
   }
-}()
+}())
 
 function _classCallCheck(e, t) {
   if (!(e instanceof t)) throw new TypeError('Cannot call a class as a function')
@@ -17,13 +17,15 @@ function _classCallCheck(e, t) {
 
 exports.default = (function() {
   function t(e) {
-    _classCallCheck(this, t), this.queue = {}, this.timer = -1
+    _classCallCheck(this, t)
+    this.queue = {}
+    this.timer = -1
   }
 
   return _createClass(t, [{
     key: 'action',
     value: function() {
-      if ('{}' !== JSON.stringify(this.queue)) {
+      if (JSON.stringify(this.queue) !== '{}') {
         for (var e in this.queue) this.queue[e][0]()
         this.timer = -1, this.begin()
       } else {
@@ -34,17 +36,17 @@ exports.default = (function() {
     key: 'add',
     value: function(e) {
       var t = '' + new Date().getTime() + Math.ceil(1e3 * Math.random())
-      return this.queue['' + t] = [e], -1 === this.timer && this.start(), t
+      return (this.queue['' + t] = [e], this.timer === -1 && this.start(), t)
     }
   }, {
     key: 'remove',
     value: function(e) {
-      delete this.queue['' + e], '{}' === JSON.stringify(this.queue) && (this.timer = -1)
+      delete this.queue['' + e], JSON.stringify(this.queue) === '{}' && (this.timer = -1)
     }
   }, {
     key: 'del',
     value: function() {
-      this.queue = {}, '{}' === JSON.stringify(this.queue) && (this.timer = -1)
+      this.queue = {}, JSON.stringify(this.queue) === '{}' && (this.timer = -1)
     }
   }, {
     key: 'stop',
@@ -54,7 +56,7 @@ exports.default = (function() {
   }, {
     key: 'start',
     value: function() {
-      -1 < this.timer || this.action()
+      this.timer > -1 || this.action()
     }
   }, {
     key: 'begin',
@@ -64,5 +66,5 @@ exports.default = (function() {
         e.action()
       }, 1e3)
     }
-  }]), t;
-}());
+  }]), t
+}())

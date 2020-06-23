@@ -1,5 +1,3 @@
-
-
 var util = require('../utils/index')
 
 export default {
@@ -27,7 +25,7 @@ export default {
       this.skin = t
       console.log(t)
       console.log(this.skin)
-      this.$store.getters.globalData.skin = t
+      this.$getApp().globalData.skin = t
     })
   }
 }

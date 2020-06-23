@@ -53,8 +53,7 @@ function getConfig() {
 function changeCommunity(t, a) {
   var e = _this.$wx.getStorageSync('token') || ''
   if (t.communityId && t.communityId !== _this.$app.globalData.community.communityId) {
-    _this.$app.globalData.timer.del(), _this.$app.globalData.changedCommunity = !0, _this.$app.globalData.community = t,
-      _this.$app.globalData.refresh = !0, _this.$app.globalData.hasDefaultCommunity = !0, _this.$wx.setStorage({
+    _this.$app.globalData.timer.del(), _this.$app.globalData.changedCommunity = !0, _this.$app.globalData.community = t, _this.$app.globalData.refresh = !0, _this.$app.globalData.hasDefaultCommunity = !0, _this.$wx.setStorage({
       key: 'community',
       data: t
     }), _this.$app.globalData.city = a, _this.$wx.setStorage({
@@ -70,26 +69,18 @@ function changeCommunity(t, a) {
       n.push(o), _this.$app.globalData.historyCommunity = n, _this.$wx.setStorage({
       key: 'historyCommunity',
       data: n
-    })), _this.$app.globalData.changedCommunity = !0, _this.$app.globalData.goodsListCarCount = {},
-      e ? (console.log('changeCommunity step2'), app.util.request({
-        url: 'entry/wxapp/index',
-        data: {
-          controller: 'index.switch_history_community',
-          token: e,
-          head_id: t.communityId
-        },
-        dataType: 'json',
-        success: function(a) {
-          swithNavBack(t)
-        }
-      })) : swithNavBack(t)
+    })), _this.$app.globalData.changedCommunity = !0, _this.$app.globalData.goodsListCarCount = {}, e ? (console.log('changeCommunity step2'), _this.$http({
+      controller: 'index.switch_history_community',
+      token: e,
+      head_id: t.communityId
+    }).then(a => {
+      swithNavBack(t)
+    })) : swithNavBack(t)
   } else {
-    _this.$app.globalData.community.disUserHeadImg || (_this.$app.globalData.community = t,
-      _this.$wx.setStorage({
-        key: 'community',
-        data: t
-      })), _this.$app.globalData.changedCommunity = !0, _this.$app.globalData.goodsListCarCount = {},
-      _this.$wx.navigateBack()
+    _this.$app.globalData.community.disUserHeadImg || (_this.$app.globalData.community = t, _this.$wx.setStorage({
+      key: 'community',
+      data: t
+    })), _this.$app.globalData.changedCommunity = !0, _this.$app.globalData.goodsListCarCount = {}, _this.$wx.navigateBack()
   }
 }
 
@@ -122,20 +113,18 @@ function isIdCard(a) {
 
 function cartNum() {
   function e(t) {
-    var a = _this.$wx.getStorageSync('token') || ''
+    var a = _this.$wx.getStorageSync('token') || '';
+    var communityId =  _this.$app.globalData.community ? _this.$app.globalData.community.communityId : '';
     _this.$http({
       controller: 'car.count',
       token: a,
-      community_id: _this.$app.globalData.community.communityId
+      community_id: communityId
     }).then(a => {
       if (a.code === 0) {
         _this.$app.globalData.cartNum = a.data
         _this.$wx.setStorageSync('cartNum', a.data)
       }
     })
-  }
-
-  function o(a) {
   }
 
   const n = arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : ''
@@ -360,6 +349,17 @@ function checkRedirectTo(e, t) {
   return n
 }
 
+function check_login_new() {
+  return new Promise((resolve, reject) => {
+    var e = _this.$wx.getStorageSync('token')
+    if (e) {
+      resolve(true)
+    } else {
+      reject(false)
+    }
+  })
+}
+
 module.exports = {
   getLightColor: getLightColor,
   addCart: addCart,
@@ -380,6 +380,7 @@ module.exports = {
   getCommunityById: getCommunityById,
   loadStatus: loadStatus,
   getCommunityInfo: getCommunityInfo,
-  checkRedirectTo: checkRedirectTo
+  checkRedirectTo: checkRedirectTo,
+  check_login_new: check_login_new
 }
 

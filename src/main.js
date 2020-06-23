@@ -16,7 +16,7 @@ import Toolbar from '@/lionfish_comshop/components/toolbar'
 import Modal from '@/lionfish_comshop/components/modal'
 import Img from '@/lionfish_comshop/components/img'
 import Tabs from '@/lionfish_comshop/components/tabs'
-import NewRushSpu from '@/lionfish_comshop/components/NewRushSpu'
+import NewRushSpu from '@/lionfish_comshop/components/new-rush-spu'
 import Button from '@/lionfish_comshop/components/button'
 import card from '@/lionfish_comshop/components/card'
 import InputNumber from '@/lionfish_comshop/components/input-number'
@@ -61,15 +61,20 @@ Vue.component('i-addcart', AddCartBtn)
 
 import '@/lionfish_comshop/styles/index.scss' // global css
 import qs from 'qs'
-import App from './App'
+
 import store from './lionfish_comshop/store'
 import { http } from './lionfish_comshop/api/index'
 import wx from './lionfish_comshop/utils/wx'
 import router from './lionfish_comshop/router'
 
+import App from './App'
 import '@/icons' // icon
 import '@/permission' // permission control
 
+Vue.prototype.$getApp = function() {
+  return App
+}
+Vue.prototype.$app = App
 /**
  * If you don't want to use mock-server
  * you want to use MockJs for mock api
@@ -93,14 +98,6 @@ Vue.use(ElementUI, { locale })
 // Vue.use(ElementUI)
 
 Vue.config.productionTip = false
-
-Vue.prototype.$getApp = function() {
-  return store.getters.app
-}
-
-Vue.prototype.$app = function() {
-  return store.getters.app
-}
 
 const vue = new Vue({
   el: '#app',

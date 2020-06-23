@@ -53,6 +53,9 @@ export default {
   },
   setNavigationBarTitle: function(a) {
     _this.$store.state.app.toolbarTitle = a.title
+  },
+  getSystemInfoSync: function() {
+
   }
 
 }

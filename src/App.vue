@@ -10,18 +10,63 @@
 </template>
 
 <style lang="less">
-
+  @import "App.less";
 
 </style>
 <script>
-
+  var util = require('@/lionfish_comshop/utils'), timeQueue = require('@/lionfish_comshop/utils/timeQueue') ,wx = require('@/lionfish_comshop/utils/wx')
   export default {
     name: 'App',
     data() {
       return {
         tabbarRefresh: false,
-        currentIdx:0
+        currentIdx: 0
       }
+    },
+    util: util,
+    globalData: {
+      systemInfo: {},
+      isIpx: !1,
+      userInfo: {},
+      canGetGPS: !0,
+      city: {},
+      community: {},
+      location: {},
+      hasDefaultCommunity: !0,
+      historyCommunity: [],
+      changedCommunity: !1,
+      disUserInfo: {},
+      changeCity: '',
+      timer: 0,
+      formIds: [],
+      community_id: '',
+      placeholdeImg: '',
+      cartNum: 0,
+      cartNumStamp: 0,
+      common_header_backgroundimage: '',
+      appLoadStatus: 1,
+      goodsListCarCount: [],
+      typeCateId: 0,
+      navBackUrl: '',
+      isblack: 0,
+      skin: {
+        color: '#ff5344',
+        subColor: '#ed7b3a',
+        lighter: '#fff9f4'
+      }
+    },
+    mounted: function() {
+      this.$getApp().globalData.timer = new timeQueue.default();
+      var t = this.$store.getters.app.storageSync['userInfo']
+      this.$getApp().globalData.userInfo = t;
+      var e = this.$store.getters.app.storageSync["community"];
+      this.$getApp().globalData.hasDefaultCommunity = !!e;
+      this.$getApp().globalData.community = e;
+      this.$getApp().globalData.systemInfo = this.$wx.getSystemInfoSync();
+      var o = this.$getApp().globalData.systemInfo ? this.globalData.systemInfo.model : "";
+      this.$getApp().globalData.isIpx = -1 < o.indexOf("iPhone X") || -1 < o.indexOf("unknown<iPhone");
+
+
     },
     computed: {
 

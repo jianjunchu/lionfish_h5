@@ -165,7 +165,7 @@
         for (var n = '', d = 0; d < i.length; d++) d == i.length - 1 ? n += i[d].id : n = n + i[d].id + '_'
         var l = {}
         u > (s = Object.assign(s, o.sku_mu_list[n])).canBuyNum && (l.sku_val = s.canBuyNum,
-          $wx.showToast({
+          this.$wx.showToast({
             title: '最多只能购买' + s.canBuyNum + '件',
             icon: 'none'
           }))
@@ -183,12 +183,13 @@
         })
       },
       gocarfrom: function(t) {
-        $wx.showLoading(), a.collectFormIds(t.detail.formId), this.goOrder()
+        this.$wx.showLoading(), a.collectFormIds(t.detail.formId), this.goOrder()
       },
       goOrder: function() {
+        debugger
         var r = this, t = r.data
         t.can_car && (t.can_car = !1)
-        var a = $wx.getStorageSync('community').communityId, n = t.goodsid, e = t.sku_val, i = t.cur_sku_arr,
+        var a = this.$wx.getStorageSync('community').communityId, n = t.goodsid, e = t.sku_val, i = t.cur_sku_arr,
           s = ''
         i && i.option_item_ids && (s = i.option_item_ids)
         var d = this.buyType ? this.buyType : 'dan', o = this.soliId || '', u = {
@@ -204,13 +205,13 @@
         util.addCart(u).then(function(t) {
           if (1 == t.showVipModal) {
             var a = t.data.pop_vipmember_buyimage
-            $wx.hideLoading(), r.$emit('vipModal', {
+            this.$wx.hideLoading(), r.$emit('vipModal', {
               pop_vipmember_buyimage: a,
               showVipModal: !0,
               visible: !1
             })
           } else if (3 == t.data.code || 7 == t.data.code) {
-            $wx.showToast({
+            this.$wx.showToast({
               title: t.data.msg,
               icon: 'none',
               duration: 2e3
@@ -218,18 +219,18 @@
           } else if ('integral' == d) {
             if (6 == t.data.code) {
               var e = t.data.msg
-              $wx.showToast({
+              this.$wx.showToast({
                 title: e,
                 icon: 'none',
                 duration: 2e3
               })
             } else {
-              $wx.navigateTo({
+              this.$wx.navigateTo({
                 url: '/lionfish_comshop/pages/order/placeOrder?type=integral'
               })
             }
           } else if (4 == t.data.code) {
-            $wx.showToast({
+            this.$wx.showToast({
               title: '您未登录',
               duration: 2e3,
               success: function() {
@@ -244,13 +245,13 @@
               sku_val: i
             })
             e = t.data.msg
-            $wx.showToast({
+            this.$wx.showToast({
               title: e,
               icon: 'none',
               duration: 2e3
             })
           } else {
-            if (r.close(), $wx.hideLoading(), 'soitaire' == d) {
+            if (r.close(), this.$wx.hideLoading(), 'soitaire' == d) {
               var s = t.data, o = s.goods_total_count, u = s.total
               r.$emit('changeCartNum', {
                 goods_total_count: o,
@@ -260,7 +261,7 @@
             } else {
               t.data.total && r.$emit('changeCartNum', t.data.total)
             }
-            $wx.showToast({
+            this.$wx.showToast({
               title: '已加入购物车',
               image: '@/assets/images/addShopCart.png'
             })
@@ -280,7 +281,7 @@
         var a = this, e = a.cur_sku_arr, i = a.sku_val, s = 1 * e.stock, o = t.detail
         if (this.focusFlag = !1, o) {
           var u = parseInt(o.value)
-          s < (u = u < 1 ? 1 : u) ? ($wx.showToast({
+          s < (u = u < 1 ? 1 : u) ? (this.$wx.showToast({
             title: '最多只能购买' + s + '件',
             icon: 'none'
           }), i = s) : i = u

@@ -1,6 +1,6 @@
 <template>
   <div class="page">
-    <div>
+    <div v-if="$data.loadOver && isblack!=1">
 
       <div :class="['index-box', 'pb100', (showNewCoupon?'preventTouchMove':'')]">
         <div class="miniAppTip" v-if="isTipShow">
@@ -129,8 +129,9 @@
 
 
           <div style="padding-bottom:5px;margin-left: 16px;margin-right: 16px" v-if="notice_list.length>0">
-            <div class="top-msg" :style="{color:skin.color,background:skin.light}">
-              <img :src="notice_setting.horn" v-if="notice_setting.horn"/>
+            <div class="top-msg" :style="{color:skin.color}">
+              <img src="notice_setting.horn" v-if="notice_setting.horn"/>
+              <span class="iconfont icon-laba" v-else></span>
 
               <svg-icon icon-class="laba" v-else/>
 
@@ -144,21 +145,21 @@
           <template is="cube" :data="{data:cube}"></template>
         </div>
         <div class="list-content">
-          <i-new-comer bind:openSku="openSku" :refresh="newComerRefresh" :skin="skin"
+          <i-new-comer @openSku="openSku" :refresh="newComerRefresh" :skin="skin"
                        v-if="is_show_new_buy==1"></i-new-comer>
           <template is="pin" :data="{pinList:pinList,skin:skin}"></template>
-          <i-spike bind:openSku="openSku" :refresh="{newComerRefresh}" :skin="skin"
+          <i-spike @openSku="openSku" :refresh="{newComerRefresh}" :skin="skin"
                    v-if="is_show_spike_buy==1"></i-spike>
           <template is="seckill"
                     :data="{secRushList:secRushList,skin:skin,scekillTimeList:scekillTimeList,secKillActiveIdx:secKillActiveIdx,secKillGoodsIndex:secKillGoodsIndex,needAuth:needAuth}"
                     v-if="seckill_is_open==1&&seckill_is_show_index==1"></template>
-          <i-topic bind:openSku="openSku" :refresh="{couponRefresh}"></i-topic>
+          <i-topic @openSku="openSku" :refresh="{couponRefresh}"></i-topic>
           <div class="theme3 bg-f" v-if="typeTopicList.length&&(typeItem.banner||typeItem.list.length)"
                v-for="(typeItem,index) in typeTopicList" :key="typeItem.id">
             <img @click="goLink" class="topic-img" :data-link="'/lionfish_comshop/pages/type/details?id='+typeItem.id"
                  mode="widthFix" :src="typeItem.banner" v-if="typeItem.banner"/>
-            <i-rush-spu bind:authModal="authModal" bind:changeCartNum="changeNotListCartNum" bind:openSku="openSku"
-                        :canLevelBuy="{canLevelBuy}" class="item" :is_open_vipcard_buy="{is_open_vipcard_buy}"
+            <i-rush-spu @authModal="authModal" @changeCartNum="changeNotListCartNum" @openSku="openSku"
+                        :canLevelBuy="{canLevelBuy}" class="item" :is_open_vipcard_buy="is_open_vipcard_buy"
                         :needAuth="needAuth" :notNum="true" :reduction="reduction" :spuItem="item"
                         :stopClick="stopClick" v-if="typeItem.list.length"></i-rush-spu>
             <div @click="goLink" class="theme3-more"
@@ -181,13 +182,13 @@
             </div>
           </div>
 
-          <i-tabs :activeIndex="classification.activeIndex" bind:activeIndexChange="classificationChange" data-idx="1"
+          <i-tabs :activeIndex="classification.activeIndex" @activeIndexChange="classificationChange" data-idx="1"
                   fontColor="#000" iClass="category-list" :tabs="classification.tabs"></i-tabs>
 
           <div v-if="hide_index_type!=1">
             <div class="sticky-cate" v-if="index_change_cate_btn==1">
               <div v-show="!isShowClassification||tabIdx!==0">
-                <i-tabs :activeIndex="classification.activeIndex" bind:activeIndexChange="classificationChange"
+                <i-tabs :activeIndex="classification.activeIndex" @activeIndexChange="classificationChange"
                         data-idx="1" fontColor="#000" iClass="category-list" :tabs="classification.tabs"></i-tabs>
               </div>
               <div class="tab-nav-query"></div>
@@ -220,7 +221,7 @@
                 </div>
               </div>
               <div v-show="!isShowClassification||tabIdx!==0">
-                <i-tabs :activeIndex="classification.activeIndex" bind:activeIndexChange="classificationChange"
+                <i-tabs :activeIndex="classification.activeIndex" @activeIndexChange="classificationChange"
                         data-idx="1" fontColor="#000" class="category-list" :tabs="classification.tabs"></i-tabs>
               </div>
               <div v-show="!isShowCommingClassification||tabIdx!==1">
@@ -249,9 +250,9 @@
                   </div>
                 </div>
                 <i-new-rush-spu :actEnd="actEndMap[item.end_time]" :authModal="authModal" :changeCartNum="changeCartNum"
-                                :openSku="openSku" :vipModal="vipModal" :canLevelBuy="canLevelBuy"
-                                :changeCarCount="{changeCarCount}" :isShowListCount="{isShowListCount}"
-                                :isShowListTimer="(isShowListTimer==1)" :is_open_vipcard_buy="{is_open_vipcard_buy}"
+                                @openSku="openSku" @vipModal="vipModal" :canLevelBuy="canLevelBuy"
+                                :changeCarCount="changeCarCount" :isShowListCount="isShowListCount"
+                                :isShowListTimer="isShowListTimer==1" :is_open_vipcard_buy="is_open_vipcard_buy"
                                 :needAuth="needAuth" :reduction="reduction" :showPickTime="(ishow_index_pickup_time==1)"
                                 :skin="skin" :spuItem="item" :stopClick="stopClick"></i-new-rush-spu>
               </div>
@@ -268,7 +269,7 @@
                   </div>
                 </div>
                 <i-rush-spu-big :actEnd="actEndMap[item.end_time]" :authModal="authModal" :changeCartNum="changeCartNum"
-                                :openSku="openSku" :vipModal="vipModal" :canLevelBuy="canLevelBuy"
+                                @openSku="openSku" @vipModal="vipModal" :canLevelBuy="canLevelBuy"
                                 :changeCarCount="changeCarCount" :isShowListCount="isShowListCount"
                                 :is_open_vipcard_buy="is_open_vipcard_buy" :needAuth="needAuth" :reduction="reduction"
                                 :showPickTime="ishow_index_pickup_time==1" :skin="skin" :spuItem="item"
@@ -278,11 +279,11 @@
                 <img @click="goLink" class="topic-img"
                      :data-link="'/lionfish_comshop/pages/type/details?id='+classificationId" mode="widthFix"
                      :src="cate_info.banner" v-if="cate_info.banner"/>
-                <i-rush-spu bind:authModal="authModal" bind:changeCartNum="changeCartNum" bind:openSku="openSku"
-                            bind:vipModal="vipModal" :canLevelBuy="canLevelBuy" :changeCarCount="changeCarCount"
+                <i-rush-spu @authModal="authModal" @changeCartNum="changeCartNum" @openSku="openSku"
+                            @vipModal="vipModal" :canLevelBuy="canLevelBuy" :changeCarCount="changeCarCount"
                             class="item" :is_open_vipcard_buy="is_open_vipcard_buy" :needAuth="needAuth"
                             :reduction="reduction" :spuItem="item" :stopClick="stopClick"
-                            v-for="(item,index) in rushList" this.$wx:key="actId"></i-rush-spu>
+                            v-for="(item,index) in rushList" :key="actId"></i-rush-spu>
               </div>
               <i-load-more iClass="loadMore" :loading="loadMore" :tip="loadText" v-if="loadMore"></i-load-more>
             </div>
@@ -300,7 +301,7 @@
                 <div class="h2">我们正在为您准备更优惠的团购</div>
               </div>
               <div class="slogan" v-if="!commigLoadMore&&commingList.length">
-                <img :src="(indexBottomImage?indexBottomImage:'@/assets/images/icon-index-slogan.png')"/>
+                <img :src="(indexBottomImage?indexBottomImage:require('@/assets/images/icon-index-slogan.png'))"/>
               </div>
             </div>
             <div v-if="tabIdx===0">
@@ -310,7 +311,7 @@
                 <div class="h2">我们正在为您准备更优惠的团购</div>
               </div>
               <div class="slogan" v-if="!loadMore&&rushList.length">
-                <img :src="(indexBottomImage?indexBottomImage:'@/assets/images/icon-index-slogan.png')"/>
+                <img :src="(indexBottomImage?indexBottomImage:require('@/assets/images/icon-index-slogan.png'))"/>
               </div>
             </div>
           </div>
@@ -334,7 +335,7 @@
         </div>
         <i-order-notify iClass="order-notify" :stopNotify="stopNotify"
                         v-if="shop_info.order_notify_switch==1"></i-order-notify>
-        <i-change-community bind:changeComunity="confrimChangeCommunity" :canChange="hide_community_change_btn==0"
+        <i-change-community @changeComunity="confrimChangeCommunity" :canChange="hide_community_change_btn==0"
                             changeCommunity="changeCommunity" :community="community" :groupInfo="groupInfo"
                             :visible="showChangeCommunity"></i-change-community>
         <div class="new-coupou" v-if="showCouponModal&&hasAlertCoupon&&!showChangeCommunity">
@@ -377,9 +378,10 @@
       <div class="h1">您已被禁止访问</div>
       <div class="h2">请联系管理员</div>
     </div>
-    <div class="mask" v-show="false"></div>
-    <div cancel="close" class="sku-content" v-show="false" scrollUp="true">
-      <div class="sku-card">
+    <div class="mask" v-if="visible"></div>
+    <div cancel="close" class="sku-content" v-if="visible" scrollUp="true">
+      111111111
+      <!--<div class="sku-card">
         <div @click="closeSku" class="close">
           <img src="@/assets/images/icon-sku-close.png"/>
         </div>
@@ -406,38 +408,44 @@
             <div class="sku-switch-on">已选择：{{cur_sku_arr.spec}}</div>
           </div>
         </div>
-        <div class="sku-spec" v-for="(item) in skuList.list">
+        <div class="sku-spec" v-for="(item,index) in skuList.list" >
           <div class="title">{{item.name}}</div>
-          <view class="spec-list">
-            <span @click="selectSku" :class="idx==sku[index]['idx']?'on':''" :data-disabled="(item.canBuyNum-value)<0"
+          <div class="spec-list">
+            <span @click="selectSku" :class="idx==sku[index][idx]?'on':''" :data-disabled="(item.canBuyNum-value)<0"
                   :data-idx="idx" :data-type="index + '_' + idx + '_' + value.option_value_id + '_' + value.name"
                   v-for="(value, idx) in item.option_value" :key="idx">{{value.name}}</span>
-          </view>
+          </div>
         </div>
-        <!--<div class="sku-num-content">
+        <div class="sku-num-content">
           <div class="title">数量</div>
           <div :class="['i-class', 'i-input-number', 'i-input-number-size-'+size]">
-            <div @click="setNum" :class="['i-input-number-minus', (value <= min?'i-input-number-disabled':'')]" data-type="decrease">
+            <div @click="setNum" :class="['i-input-number-minus', (value <= min?'i-input-number-disabled':'')]"
+                 data-type="decrease">
               <img src="@/assets/images/icon-input-reduce.png"></image>
             </div>
-            <input bindblur="handleBlur" bindfocus="handleFocus" bindinput="changeNumber" :class="['i-input-number-text',(min>=max?'i-input-number-disabled':'')]" type="number" :value="sku_val"/>
-            <div @click="setNum" :class="['i-input-number-plus', (value>=max?'i-input-number-disabled':'')]" data-type="add">
+            <input bindblur="handleBlur" bindfocus="handleFocus" bindinput="changeNumber"
+                   :class="['i-input-number-text',(min>=max?'i-input-number-disabled':'')]" type="number"
+                   :value="sku_val"/>
+            <div @click="setNum" :class="['i-input-number-plus', (value>=max?'i-input-number-disabled':'')]"
+                 data-type="add">
               <img src="@/assets/images/icon-input-add.png"></image>
             </div>
           </div>
-          <div class="msg" v-if="skuList[current].isLimit">
+          &lt;!&ndash;<div class="msg" v-if="skuList[current].isLimit">
             <span v-if="skuList[current].limitMemberNum>-1">每人限{{skuList[current].limitMemberNum}}单</span>
             <span v-if="skuList[current].limitOrderNum>-1">每单限{{skuList[current].limitOrderNum}}份</span>
             <span></span>
-          </div>
-          <div class="even-num" v-elif="!skuList[current].isLimit&&skuList[current].canBuyNum_value<=10&&skuList[current].canBuyNum_value>-1">还可以购买 {{skuList[current].canBuyNum-value}} 件</div>
-        </div>-->
+          </div>&ndash;&gt;
+          &lt;!&ndash;<div class="even-num" v-elif="!skuList[current].isLimit&&skuList[current].canBuyNum_value<=10&&skuList[current].canBuyNum_value>-1">
+            还可以购买 {{skuList[current].canBuyNum-value}} 件
+          </div>&ndash;&gt;
+        </div>
         <form bindsubmit="gocarfrom" reportSubmit="true">
           <button class="sku-confirm" :disabled="(cur_sku_arr.stock==0?true:false)" formType="submit">
             <div>{{cur_sku_arr.stock==0?'已抢光':'确定'}}</div>
           </button>
         </form>
-      </div>
+      </div>-->
     </div>
     <div @click="hide_share_handler" class="ui-mask" v-show="is_share_html"></div>
     <div class="model-services show" v-show="is_share_html">
@@ -481,7 +489,7 @@
         <i-button @click="copyText" class="community-content-btn" iClass="btn">一键复制</i-button>
       </div>
     </i-modal>
-    <i-new-auth bind:authSuccess="authSuccess" bind:cancel="authModal" :needAuth="needAuth&&showAuthModal"
+    <i-new-auth @authSuccess="authSuccess" @cancel="authModal" :needAuth="needAuth&&showAuthModal"
                 :needPosition="needPosition"></i-new-auth>
     <i-vip-modal :imgUrl="pop_vipmember_buyimage" :visible="showVipModal"></i-vip-modal>
     <!--<div class="mp-account" v-if="show_index_wechat_oa==1">
@@ -515,6 +523,7 @@
 
   var util = require('../../utils'),
     status = require('../../utils'),
+    a = require('../../utils/public'),
     wcache = require('../../utils/wcache.js'),
     countDownInit = require('../../utils/countDown')
 
@@ -662,6 +671,7 @@
         is_mb_level_buy: false,
         is_vip_card_member: false,
         is_mb_level_buy: false,
+        visible: !1,
         $data: {
           stickyFlag: !1,
           scrollTop: 0,
@@ -686,6 +696,7 @@
       }
     },
     created: function() {
+
       this.community = {}
       const i = this
       const s = this.$wx.getStorageSync('token')
@@ -752,14 +763,55 @@
           this.showEmpty = !1,
           this.community = n
       }
-
+      this.skin = this.$getApp().globalData.skin
     },
 
     mounted: function() {
+
+      var a = this,
+        e = this
+      if (console.log('isblack', this.$getApp().globalData.isblack), (
+        this.stopNotify = !1,
+          this.tabbarRefresh = !0,
+          this.isblack = this.$getApp().globalData.isblack || 0
+      ), util.check_login_new().then(function(t) {
+        t ? (
+          this.needAuth = !1
+        ) : (
+          this.needAuth = !0,
+            this.couponRefresh = !1
+        )
+      }), this.$getApp().globalData.timer.start(), (0, status.cartNum)('', !0).then(function(t) {
+        0 == t.code && (this.cartNum = t.data)
+      }), this.$getApp().globalData.changedCommunity) {
+        console.log('change'), this.$getApp().globalData.goodsListCarCount = []
+        var t = this.$getApp().globalData.community
+        this.community = e.fliterCommunity(t), this.newComerRefresh = !1
+        this.getCommunityPos(t.communityId), this.hasRefeshin = !1, (
+          this.newComerRefresh = !0,
+            this.rushList = [],
+            this.pageNum = 1,
+            this.classificationId = null,
+            this.classification.activeIndex = 0
+        ), this.$data = _extends({}, this.$data, {
+          overPageNum: 1,
+          loadOver: !1,
+          hasOverGoods: !1,
+          countDownMap: {},
+          actEndMap: {},
+          timer: {},
+          stickyFlag: !1,
+          hasCommingGoods: !0
+        }), this.$getApp().globalData.changedCommunity = !1, this.get_index_info(), this.addhistory(),
+          this.load_goods_data(), this.get_type_topic()
+      } else {
+        console.log('nochange'), 1 <= e.isFirst && (this.$set(this.$data, 'loadOver', true)), this.changeRushListNum()
+      }
+      0 == e.isFirst ? (this.couponRefresh = !0) : this.getCoupon(), e.isFirst++
+
       this.$store.dispatch('app/hideToolbarBack')
       this.$store.dispatch('app/hideToolbarMore')
       this.$store.dispatch('app/showTabbar')
-      this.skin = this.$getApp().globalData.skin
 
     },
     methods: {
@@ -896,7 +948,7 @@
             F.theme = f
             F.indexBottomImage = a.index_bottom_image || ''
             F.shop_info = m
-            F.loadOver = !0
+            F.$data.loadOver = !0
             F.rushEndTime = y
             F.commingNum = a.comming_goods_total
             F.isShowShareBtn = w
@@ -1047,7 +1099,7 @@
         e.get_index_info(), e.get_type_topic(), e.getNavigat(), e.getCoupon(), e.getPinList(),
           status.loadStatus().then(function() {
             var t = this.$getApp().globalData.appLoadStatus
-            debugger
+
             if (console.log('appLoadStatus', t), 0 == t) {
               setTimeout(function() {
                 this.$wx.hideLoading()
@@ -1069,7 +1121,7 @@
         this.load_goods_data()
       },
       load_goods_data: function() {
-        debugger
+
         var t = this.$wx.getStorageSync('token'),
           m = this,
           a = this.$wx.getStorageSync('community'),
@@ -1255,6 +1307,15 @@
         this.isTipShow = !1
         this.isShowGuide = !1
       },
+      getCommunityPos: function(t) {
+        var a = this
+        a.$http({
+          controller: 'index.get_community_position',
+          communityId: t
+        }).then(t => {
+          0 == t.code && (a.postion = t.postion)
+        })
+      },
       gotoMap: function() {
         var t = this.community
         console.log(t.communityId)
@@ -1277,12 +1338,172 @@
 
         })
       },
-      openSku: function(t) {
+      goOrder: function() {
 
+        var i = this;
+        i.data.can_car && (i.data.can_car = !1);
+        this.$wx.getStorageSync("token");
+        var t = this.$wx.getStorageSync("community"),
+          a = i.data.addCar_goodsid,
+          e = t.communityId,
+          o = i.data.sku_val,
+          s = i.data.cur_sku_arr,
+          n = "";
+        s && s.option_item_ids && (n = s.option_item_ids);
+        var d = {
+          goods_id: a,
+          community_id: e,
+          quantity: o,
+          sku_str: n,
+          buy_type: "dan",
+          pin_id: 0,
+          is_just_addcar: 1
+        };
+        util.addCart(d).then(function(t) {
+          if (1 == t.showVipModal) {
+            var a = t.data.pop_vipmember_buyimage;
+            this.$wx.hideLoading(), i.setData({
+              pop_vipmember_buyimage: a,
+              showVipModal: !0,
+              visible: !1
+            });
+          } else if (3 == t.data.code || 7 == t.data.code) this.$wx.showToast({
+            title: t.data.msg,
+            icon: "none",
+            duration: 2e3
+          });
+          else if (4 == t.data.code) this.$wx.hideLoading(), i.setData({
+            needAuth: !0,
+            showAuthModal: !0,
+            visible: !1
+          });
+          else if (6 == t.data.code) {
+            var e = t.data.max_quantity || "";
+            0 < e && i.setData({
+              sku_val: e
+            });
+            var o = t.data.msg;
+            this.$wx.showToast({
+              title: o,
+              icon: "none",
+              duration: 2e3
+            });
+          } else {
+            i.closeSku(), (0, status.cartNum)(t.data.total), i.setData({
+              cartNum: t.data.total
+            }), this.$wx.showToast({
+              title: "已加入购物车",
+              image: "../../images/addShopCart.png"
+            });
+          }
+        }).catch(function(t) {
+          util.message(t || "请求失败", "", "error");
+        });
+      },
+      vipModal: function(t) {
+        this.setData(t.detail)
+      },
+      gocarfrom: function(t) {
+        this.$wx.showLoading(), (
+          this.is_take_vipcard = '',
+            this.is_mb_level_buy = ''
+        ), a.collectFormIds(t.detail.formId), this.goOrder()
+      },
+
+      openSku: function(t) {
+        if (this.authModal()) {
+          var a = t,
+            e = a.actId,
+            o = a.skuList
+          this.addCar_goodsid = e
+
+          var i = o.list || [],
+            s = []
+          if (0 < i.length) {
+            for (var n = 0; n < i.length; n++) {
+              var d = i[n].option_value[0],
+                c = {
+                  name: d.name,
+                  id: d.option_value_id,
+                  index: n,
+                  idx: 0
+                }
+              s.push(c)
+            }
+            for (var l = '', r = 0; r < s.length; r++) r == s.length - 1 ? l += s[r].id : l = l + s[r].id + '_'
+            var u = o.sku_mu_list[l] || {}
+            this.sku = s
+            this.sku_val = 1
+            this.cur_sku_arr = u
+            this.skuList = a.skuList
+            this.visible = true
+            this.$set(this, 'visible', true)
+            this.showSku = true
+            this.is_take_vipcard = a.is_take_vipcard || ''
+            this.is_mb_level_buy = a.is_mb_level_buy || ''
+            return true;
+          } else {
+            var h = a.allData
+
+            this.sku = []
+            this.sku_val = 1
+            this.skuList = []
+            this.cur_sku_arr = h
+
+            var m = {
+              detail: {
+                formId: ''
+              }
+            }
+            m.detail.formId = 'the formId is a mock one', this.gocarfrom(m)
+          }
+        }
       },
       closeSku: function() {
         this.visible = 0
         this.stopClick = !1
+      },
+      selectSku: function(t) {
+        var a = t.currentTarget.dataset.type.split('_'),
+          e = this,
+          o = e.sku,
+          i = e.skuList,
+          s = e.sku_val,
+          n = {
+            name: a[3],
+            id: a[2],
+            index: a[0],
+            idx: a[1]
+          }
+        o.splice(a[0], 1, n)
+        for (var d = '', c = 0; c < o.length; c++) c == o.length - 1 ? d += o[c].id : d = d + o[c].id + '_'
+        var l = i.sku_mu_list[d],
+          r = {};
+        (s = s || 1) > l.canBuyNum && (r.sku_val = l.canBuyNum, this.$wx.showToast({
+          title: '最多只能购买' + l.canBuyNum + '件',
+          icon: 'none'
+        })), this.setData(_extends({
+          cur_sku_arr: l,
+          sku: o
+        }, r)), console.log(d)
+      },
+      setNum: function(t) {
+        var a = t.currentTarget.dataset.type,
+          e = 1,
+          o = 1 * this.sku_val
+        'add' == a ? e = o + 1 : 'decrease' == a && 1 < o && (e = o - 1)
+        var i = this.sku,
+          s = this.skuList
+        if (0 < i.length) {
+          for (var n = '', d = 0; d < i.length; d++) d == i.length - 1 ? n += i[d].id : n = n + i[d].id + '_'
+        }
+        0 < s.length ? e > s.sku_mu_list[n].canBuyNum && (e -= 1) : e > this.cur_sku_arr.canBuyNum && (e -= 1)
+        this.sku_val = e
+      },
+      skuConfirm: function() {
+        this.closeSku(), (0, status.cartNum)().then(function(t) {
+          0 == t.code && (this.cartNum = t.data)
+        })
       },
       goLink: function() {
         var a = t.currentTarget.dataset.link,
@@ -1293,14 +1514,14 @@
       },
       authModal: function() {
         var t = 0 < arguments.length && void 0 !== arguments[0] ? arguments[0] : {},
-          a = t && t.detail || this.data.needAuth
+          a = t && t.detail || this.needAuth
         return !this.needAuth && !t.detail || ((
           this.showAuthModal = !this.showAuthModal,
             this.needAuth = a
         ), !1)
       },
       goNavUrl: function(t) {
-        debugger
+
         var a = t.currentTarget.dataset.idx,
           e = this,
           o = e.navigat,
@@ -1354,6 +1575,76 @@
           }
         }
       },
+      classificationChange: function(t) {
+        console.log(t.e), this.$wx.showLoading();
+        var a = this;
+        this.$data = _extends({}, this.$data, {
+          overPageNum: 1,
+          loadOver: !1,
+          hasOverGoods: !1,
+          countDownMap: {},
+          actEndMap: {},
+          timer: {}
+        }), this.hasRefeshin = !1;
+          this.rushList =[];
+          this.showEmpty = !1,
+          this.pageNum = 1,
+          this.classification.activeIndex = t.detail.e ;
+          this.classificationId = t.a
+          this.$data.stickyFlag || a.$data.scrollTop == a.$data.stickyTop + 5 || this.$wx.pageScrollTo({
+          scrollTop: a.$data.stickyTop - 30,
+          duration: 0
+        }), a.load_goods_data();
+      },
+      commingClassificationChange: function(t) {
+        this.$wx.showLoading();
+        var a = this;
+        a.tpage = 1, this.$data = _extends({}, this.$data, {
+          hasCommingGoods: !0
+        });
+          this.showCommingEmpty = !1;
+          this.commingList = [];
+          this.commingClassification.activeIndex = t.e;
+          this.commingClassificationId = t.a;
+
+          this.$data.stickyFlag && a.$data.scrollTop != a.$data.stickyTop + 5 && this.$wx.pageScrollTo({
+            scrollTop: a.$data.stickyTop + 5,
+            duration: 0});
+          a.getCommingList();
+      },
+      getCommingList: function() {
+        this.commigLoadMore && this.$wx.showLoading();
+        var t = this.$wx.getStorageSync("token"),
+          e = this,
+          a = this.$wx.getStorageSync("community"),
+          o = this.commingClassificationId || 0;
+        e.$data.isLoadData = !0, e.$data.hasCommingGoods ? (e.$data.hasCommingGoods = !1,
+          this.commigLoadMore =0,
+          this.$http({
+
+            controller: "index.load_comming_goodslist",
+            token: t,
+            pageNum: e.tpage,
+            head_id: a.communityId,
+            gid: o
+          }).then(t =>{
+            if (this.$wx.hideLoading(), 0 == t.code) {
+              var a = t.list;
+              a = e.commingList.concat(a), e.$data.hasCommingGoods = !0, e.tpage += 1;
+                e.commingList = a;
+                e.commigLoadMore = !1;
+                e.commigTip = "" ;
+                e.getScrollHeight();
+
+            } else 1 == t.data.code ? (1 == e.tpage && 0 == e.commingList.length && (
+                e.showCommingEmpty = !0
+            ), (
+              e.commigLoadMore = !1,
+              e.commigTip = "^_^已经到底了"
+            )) : 2 == t.code && (e.needAuth = !0 , e.couponRefresh = !1);
+            e.$data.isLoadData = !1;
+          })) : (e.$data.isLoadData = !1, !e.commigLoadMore && this.$wx.hideLoading());
+      },
       getHistoryCommunity: function() {
         var d = this,
           c = this.$wx.getStorageSync('token')
@@ -1385,12 +1676,38 @@
           } else {
             var n = d.options
             void 0 !== n && n.community_id ? (console.log('新人加入分享进来的社区id:', d.options), d.addhistory(n.community_id)) : 1 == t.code ? (console.log('获取历史社区'),
-              wx.redirectTo({
+              this.$wx.redirectTo({
                 url: '/lionfish_comshop/pages/position/community'
               })) : (d.needAuth = !0)
           }
         })
-
+      },
+      changeNotListCartNum: function(t) {
+        var a = t;
+        (0, status.cartNum)(this.cartNum = a), this.changeRushListNum()
+      },
+      changeCartNum: function(t) {
+        var a = t;
+        (0, status.cartNum)(
+          this.cartNum = a
+        );
+      },
+      changeRushListNum: function() {
+        var t = this.$getApp().globalData.goodsListCarCount,
+          o = this.rushList,
+          i = !1;
+        (this.changeCarCount = i), 0 < t.length && 0 < o.length && (t.forEach(function(a) {
+          var t = o.findIndex(function(t) {
+            return t.actId == a.actId
+          })
+          if (-1 != t && 0 === o[t].skuList.length) {
+            var e = 1 * a.num
+            o[t].car_count = 0 <= e ? e : 0, i = !0
+          }
+        }), (
+          this.rushList = o,
+            this.changeCarCount = i
+        ))
       }
 
     }
