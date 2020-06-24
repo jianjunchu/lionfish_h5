@@ -373,6 +373,7 @@ module.exports = {
   getInNum: getInNum,
   setNavBgColor: setNavBgColor,
   setGroupInfo: setGroupInfo,
+  check_login:check_login,
   setIcon: setIcon,
   getPx: getPx,
   drawText: drawText,

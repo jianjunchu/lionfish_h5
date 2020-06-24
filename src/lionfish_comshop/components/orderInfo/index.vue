@@ -40,7 +40,7 @@
             + ${{orderInfo.shipping_fare}}
           </div>
         </div>
-        <block v-if="orderInfo.is_free_shipping_fare==1">
+        <div v-if="orderInfo.is_free_shipping_fare==1">
           <div class="item">
             <div class="title">{{diyshipname}}</div>
             <div class="detail">
@@ -53,7 +53,7 @@
               - ${{orderInfo.fare_shipping_free}}
             </div>
           </div>
-        </block>
+        </div>
         <div class="item" v-if="orderInfo.score_for_money*1>0">
           <div class="title">积分抵扣</div>
           <div class="detail">
@@ -82,9 +82,9 @@
           <div class="title">商品金额</div>
           <div class="detail">
             +
-            <block v-if="orderInfo.type!='integral'">$</block>
+            <div v-if="orderInfo.type!='integral'">$</div>
             {{goodsTotal}}
-            <block v-if="orderInfo.type=='integral'">积分</block>
+            <div v-if="orderInfo.type=='integral'">积分</div>
           </div>
         </div>
       </div>
@@ -93,7 +93,7 @@
       <div class="footer" v-if="orderInfo.type=='integral'">
         <div>实付：</div>
         <div class="money">
-          <block v-if="orderInfo.shipping_fare>0">${{orderInfo.shipping_fare}} +</block>
+          <div v-if="orderInfo.shipping_fare>0">${{orderInfo.shipping_fare}} +</div>
           {{orderInfo.score}}积分
         </div>
       </div>
@@ -110,7 +110,7 @@
 
 <script>
   export default {
-    name: '',
+    name: 'orderInfo',
     props: {
       orderInfo: {
         type: Object
@@ -131,34 +131,43 @@
           delivery_tuanzshipping_name: '团长配送',
           delivery_express_name: '快递配送'
         }
-      },
-      watch: {
-        order_goods_list: (e) => {
+      }
+    },
+    watch: {
+
+      order_goods_list:  {
+        handler: function(order_goods_list) {
+          console.log(order_goods_list,'order_goods_list')
           var o = 0
-          e && e.length && e.forEach(function(e) {
+          order_goods_list && order_goods_list.length && order_goods_list.forEach(function(e) {
             var t = 1 * e.total, a = 1 * e.old_total
             1 != e.is_level_buy && 1 != e.is_vipcard_buy || (o += a - t)
           })
 
           this.levelAmount = o.toFixed(2)
         },
-        orderInfo: (e) => {
-          var t = 1 * e.real_total, a = parseFloat(t) - parseFloat(e.shipping_fare),
-            o = parseFloat(e.voucher_credit) + parseFloat(e.fullreduction_money)
+        immediate: true
+      },
+      orderInfo:  {
+        handler: function(orderInfo) {
+          console.log(orderInfo,'orderInfo')
+          var t = 1 * orderInfo.real_total, a = parseFloat(t) - parseFloat(orderInfo.shipping_fare),
+            o = parseFloat(orderInfo.voucher_credit) + parseFloat(orderInfo.fullreduction_money)
           o = a < o ? a : o
-          var r = '', n = this.data.groupInfo
-          r = 'express' == e.delivery ? n.placeorder_trans_name : n.placeorder_tuan_name
-
+          var r = '', n = this.groupInfo
+          r = 'express' == orderInfo.delivery ? n.placeorder_trans_name : n.placeorder_tuan_name
+          debugger
           this.goodsTotal = a.toFixed(2)
           this.disAmount = o.toFixed(2)
           this.diyshipname = r
-        }
-      },
-      data(){
-        return{
-          disAmount: 0,
-          goodsTotal: 0
-        }
+        },
+        immediate: true
+      }
+    },
+    data(){
+      return{
+        disAmount: 0,
+        goodsTotal: 0
       }
     }
   }

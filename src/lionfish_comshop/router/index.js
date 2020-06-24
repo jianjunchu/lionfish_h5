@@ -61,6 +61,10 @@ export const constantRoutes = [
     path: '/lionfish_comshop/pages/order/index',
     component: () => import('@/lionfish_comshop/pages/order/index'),
     hidden: true
+  }, {
+    path: '/lionfish_comshop/pages/order/order',
+    component: () => import('@/lionfish_comshop/pages/order/order'),
+    hidden: true
   },
   {
     path: '/lionfish_comshop/pages/me/index',

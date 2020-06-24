@@ -9,7 +9,15 @@ export function http(params) {
 
   })
 }
+export function http_post(params) {
+  return request({
+    url: '/app/index.php',
+    changeOrigin: true,
+    method: 'post',
+    params
 
+  })
+}
 export function index_info() {
   // eslint-disable-next-line no-new-object
   const params = new Object()

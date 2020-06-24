@@ -1,758 +1,587 @@
 <template>
   <div>
-    购物车
+    <div class="mask" catchtouchmove="preventTouchMove" v-if="showTransferModal"></div>
+    <div class="paynow" v-if="showTransferModal">
+      <div style='width: 100%;height: 10%;'>
+        <div style='float:left;width: 40%;font-size: 22px;line-height: 50px;margin-left: 10%;'>
+          转账支付
+        </div>
+        <div style='float:right;width: 50%;text-align: right' @click='closeTransferModal'>
+          <image src='@/assets/images/img-close.png' style='width: 30px;height: 30px;margin-top: 10px;margin-right: 10%'></image>
+        </div>
+      </div>
+      <div style='text-align: center'>
+        <div style='width: 100%;height: 350px;font-size: 12px;'>
+
+          <div style='margin-left: 5%;margin-top:10px;text-align:left;display: flex;justify-content: center;'>
+            <span style='display: flex;justify-content: center;'>帐号：</span>
+            <span style='text-align: left;'>{{bankInfo.account_no}}</span>
+            <button @click='copyText' size="mini" style="font-size: 8px;" :data-text="bankInfo.account_no">复制</button>
+          </div>
+          <div style='margin-left: 5%;margin-top:10px;text-align:left;display: flex;justify-content: center;'>
+            <span style='display: flex;justify-content: center;'>户名：</span>
+            <span style='text-align: left;'>{{bankInfo.account_name}}</span>
+            <button @click='copyText' size="mini" style="font-size: 8px;" :data-text="bankInfo.account_name">复制</button>
+          </div>
+          <div style='margin-left: 5%;margin-top:10px;text-align:left;display: flex;justify-content: center;'>
+            <span style='display: flex;justify-content: center;'>银行：</span>
+            <span style='text-align: left;'>{{bankInfo.bank_name}}</span>
+            <button @click='copyText' size="mini" style="font-size: 8px;" :data-text="bankInfo.bank_name">复制</button>
+          </div>
+
+          <div style='wid:200px;height:100px;text-align: center;margin-top: 30px;'>
+            <span style='font-size: 18px;'>请在支付时备注您订单内的联系号码 \n</span>
+            <span style='font-size: 18px;color: #c0c0c0'>注：转账支付为人工审核</span>
+          </div>
+        </div>
+        <div style='width: 60%;text-align: center;margin-top: 30px;margin-left: 20%;'>
+          <button @click="havePaid"  data-type="banktransfer"  class="wux-button wux-button--block" type="default">已支付，查看订单</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="mask" catchtouchmove="preventTouchMove" v-if="showPayNowModal"></div>
+    <div class="paynow" v-if="showPayNowModal">
+      <div style='width: 100%;height: 10%;'>
+        <div style='float:left;width: 40%;font-size: 18px;line-height: 50px;margin-left: 5%;'>
+          PayNow支付
+        </div>
+
+        <div style='float:right;width: 50%;text-align: right' @click='toClosePayNowModal'>
+          <img src=@/assets/images/img-close.png' style='width: 24px;height: 24px;margin-top: 10px;margin-right: 5%'></img>
+        </div>
+      </div>
+
+      <div style='float:left;width: 100%;margin-left: 5%;'>
+        PayNow支付号码：{{payNowNo}}
+      </div>
+      <div style='float:left;width: 100%;margin-left: 5%;margin-top:5px'>
+        支付金额：<span style="color:red">${{tot_price}}</span>
+      </div>
+      <div style='float:left;width: 100%;margin-left: 5%;margin-top:5px'>
+        备注订单号：<span style="color:red">{{order_num_alias}}</span>
+      </div>
+      <div style='float:left;width: 100%;margin-left: 5%;margin-top:5px'>
+        <span style="color:red">请在备注中写入该订单号，很重要！</span>
+      </div>
+
+      <div style='text-align: center'>
+        <div style='width: 100%;height: 350px;justify-content: center; '>
+          <img :src='payNowQr' style='width: 160px;height: 160px;margin-top: 20px;border: 1px solid #000;'></img>
+          <div style='wid:200px;height:40px;margin-top:10px;'>
+
+            <span style='text-align: left;'>PayNow扫码支付 \n <!--或 uen: {{payNowUen}}--></span>
+
+          </div>
+          <div style='wid:200px;height:80px; '>
+            <span style='font-size: 18px;'><!--请在支付时备注您订单内的联系号码 \n--></span>
+            <span style='font-size: 18px;color: #c0c0c0'>注：转账支付为人工审核</span>
+          </div>
+        </div>
+        <div style='width: 60%;text-align: center;margin-top: 30px;margin-left: 20%;'>
+          <button @click="havePaid" data-type="paynow"   class="wux-button wux-button--block" type="default">已支付，查看订单</button>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="mask" catchtouchmove="preventTouchMove" v-if="showPaymentModal"></div>
+    <div class="modalDlg" v-if="showPaymentModal">
+      <div style='width:100%;height:26px;border-bottom:1px solid #ccc;margin:0;padding:0;'>
+        <span style='text-align:center;font-size:14px;font-weight:600 ;margin-top=5px' >支付方式</span>
+      </div>
+
+      <!-- 总金额 -->
+      <div style='height:50px;width:100%'>
+        <span style='font-size:30px;color:#f00'>${{tot_price}}</span>
+      </div>
+
+
+      <button @click="orderPayWeixin" class="wux-button wux-button--block" type="warn">
+        微信支付</button>
+
+      <!--
+      <button class="wux-button wux-button--block" type="warn" style="margin-top=16px">到店付款</button>
+      -->
+      <button @click="payNow" class="wux-button wux-button--block" data-type="paynow" type="warn">PayNow支付</button>
+      <button @click="orderPayTransfer" data-type="banktransfer" class="wux-button wux-button--block" type="warn">公司转账</button>
+
+      <!--
+      <button wx:if='{{is_pickup}}' @click="havePaid" data-type="cash" class="wux-button wux-button--block" type="warn">货到付款</button>
+      -->
+
+      <button @click="closePaymentModal"  class="wux-button wux-button--block" type="default">取消支付</button>
+
+
+    </div>
+    <div class="nav-bar">
+      <div class="nav-bar-inner">
+        <div @click="getOrder" :class="['nav-bar-item', (order_status==item.id?'current':'')]" :data-type="item.id" :style="(order_status==item.id?'border-color:'+skin.color:'')"  v-for="(item,idx) in tabs" :key="item.id">
+          {{item.name}}
+        </div>
+      </div>
+    </div>
+    <div class="nav-bar-content">
+      <div v-if="!is_empty">
+        <div @click="goOrder" class="card" :data-type="item.order_id"  v-for="(item,idx) in order" :key="item.id">
+          <i-card :data-orderId="item.order_id" iClass="my-card" showModal="true">
+            <div class="card-header" slot="header">
+              <div>下单时间：
+                <span>{{item.createTime}}</span>
+              </div>
+
+              <div :class="['bold', (item.order_status_id==3?'red':'gray')]" :style="(item.order_status_id==3?'color:'+skin.color:'')">
+                {{item.status_name}}
+              </div>
+            </div>
+            <div class="card-content" slot="content">
+              <div class="content-wrap" v-if="item.is_pin==1">
+                <i-img height="60" iClass="show-img mar-right-10" lazyLoad="true" loadImage="item.goods_list[0].goods_images" width="60"></i-img>
+                <div class="i-flex-item">
+                  <div class="name bold">
+                    <span class="pintag" :style="{color:skin.color,background:skin.light}">拼团</span>
+                    {{item.goods_list[0].name}}
+                  </div>
+                  <div class="mount">{{item.goods_list[0].option_str}} x {{item.goods_list[0].quantity}}</div>
+                  <div class="bottom-info">${{item.goods_list[0].price}} <span>${{item.goods_list[0].orign_price}}</span>
+                  </div>
+                </div>
+              </div>
+              <div class="content-wrap" v-else>
+                <div class="clearfix">
+                  <!--<i-img height="60" iClass="['show-img', (idx<4?'mar-right-10':'')]" lazyLoad="true" :loadImage="img.goods_images" width="60" v-if="idx<4"    v-for="(img,idx) in item.goods_list" :key="img.id"></i-img>-->
+                  <div height="60" class="show-img img-content" v-for="(img,idx) in item.goods_list" :key="img.order_goods_id">
+                    <img   class="show-img img-def opacity show-img"  :src="img.goods_images"/>
+                  </div>
+                </div>
+                <div class="dot" v-if="item.goods_list.length>=4">
+                  <div class="dot-item"></div>
+                  <div class="dot-item dot-middle"></div>
+                  <div class="dot-item"></div>
+                </div>
+              </div>
+              <div class="content-wrap" style="margin-top:12px" v-if="item.delivery_time && item.delivery_time!='' && item.delivery_date && item.delivery_date!=''">
+
+                {{item.delivery=='pickup'?'提货时间:':'送货时间:'}} {{item.delivery_date}} [{{item.delivery_time}}]
+              </div>
+            </div>
+            <div class="card-footer" slot="footer">
+              <div>共
+                <span class="i-class">{{item.goods_list.length}}</span> 件商品
+                <div class="accual-pay" v-if="item.orderStatus!=3">实付：
+                  <div class="money" v-if="item.type=='integral'">
+                    <div v-if="item.shipping_fare>0">${{item.shipping_fare}} + </div>{{item.score}}积分
+                  </div>
+                  <div class="money" v-else>
+                    ${{item.total}}
+                  </div>
+                </div>
+              </div>
+              <div class="button-group" v-if="item.order_status_id==3">
+                <div @click="cancelOrder" class="my-button" data-show="cancelVisible" :data-type="item.order_id">取消订单</div>
+                <!--<div  @click="showPaymentModal" class="my-button-pay padding-15" :data-type="item"  :style="{background: linear-gradient(90deg, skin.color 0%, skin.light 100%)}">立即支付</div>-->
+                <div  @click="toShowPaymentModal" class="my-button-pay padding-15" :data-type="item"  :style="{color:skin.color,background:skin.light}">立即支付</div>
+              </div>
+              <div v-if="item.order_status_id==4">
+                <div class="get-goods" :data-delivery="item.delivery" :data-type="item.order_id">
+                  <div class="sure-get">{{item.delivery=='pickup'?'确认提货':'确认收货'}}</div>
+                  <img class="right-arrow" src="@/assets/images/rightArrowImg.png"></img>
+                </div>
+              </div>
+              <div v-if="item.order_status_id==1||item.order_status_id==6||item.order_status_id==11||item.order_status_id==14||item.order_status_id==15||item.order_status_id==16">
+                <div class="my-button" :data-type="item.order_id" size="small">查看详情</div>
+              </div>
+            </div>
+          </i-card>
+        </div>
+      </div>
+      <div class="empty-wrap" v-else>
+        <img class="empty-img" src="@/assets/images/noData.png"></img>
+        <div class="empty-txt">暂无任何订单记录～</div>
+      </div>
+      <i-loadMore :tip="tip" v-if="!isHideLoadMore"></i-loadMore>
+    </div>
   </div>
+
 </template>
 
 <script>
+  import GlobalMixin from '../../mixin/globalMixin.js';
+  //  import util from '../../utils/util.js';
+  import status from '../../utils/index.js';
+  import wcache from '../../utils/wcache.js';
+  import auth from '../../utils/auth';
+  import wx from '../../utils/wx';
+  import request from '../../utils/request';
+
+
   export default {
-    name: 'order',
-    created(){
-      this.$store.dispatch('app/setTabbarCurrentIdx', 2)
+    mixins: [GlobalMixin],
+//    util:[util],
+    status:[status],
+    wcache:[wcache],
+    auth:[auth],
+    name:'order-index',
+    components: {
+      'i-img': require('../../components/img/index.vue').default
+    },
+    data() {
+      return {
+        showPaymentModal:false,
+        showPayNowModal: false,
+        showTransferModal:false,
+        bankInfo:{},
+        order_num_alias:'',
+        payNowQr:'',
+        payNowNo:'',
+        payNowUen:'',
+        tablebar: 4,
+        tot_price:0,
+        currentItem: [],
+        is_pickup : false,
+        page: 1,
+        theme_type: "",
+        order_status: -1,
+        no_order: 0,
+        hide_tip: true,
+        order: [],
+        tip: "正在加载",
+        is_empty: false,
+        tabs: [ {
+          id: -1,
+          name: "全部"
+        }, {
+          id: 3,
+          name: "待付款"
+        }, {
+          id: 1,
+          name: "待配送"
+        }, {
+          id: 14,
+          name: "配送中"
+        }, {
+          id: 4,
+          name: "待提货"
+        }, {
+          id: 6,
+          name: "已提货"
+        } ],
+        loadover:false,
+
+      }
+    },
+    created: function() {
+      this.$store.state.app.toolbarTitle ="我的订单";
+      this.onLoad();
+    },
+    methods: {
+      toShowPaymentModal: function(t){
+        var b = t.currentTarget.dataset.type;
+        console.log(b);
+        var a = b.total;
+        var c = b.order_num_alias;
+        var d = 'pickup'==b.delivery;
+
+        this.currentItem=b,
+        this.is_pickup=d,
+        this.tot_price=a,
+        this.showPaymentModal= true,
+        this.order_num_alias=c.substring(c.length-5);
+
+
+      },
+
+      toClosePaymentModal: function(){
+
+          this.showPaymentModal = false;
+
+      },
+      toShowPayNowModal:function(){
+        this.showPayNowModal= true;
+
+      },
+      toClosePayNowModal:function(){
+        this.showPayNowModal= false;
+        this.getData();
+      },
+      toShowTransferModal:function(){
+        this.setData({
+          showTransferModal: true
+        });
+      },
+      toCloseTransferModal:function(){
+        this.setData({
+          showTransferModal: false
+        });
+        this.getData();
+      },
+
+      copyText: function (e) {
+        console.log(e)
+        wx.setClipboardData({
+          data: e.currentTarget.dataset.text,
+          success: function (res) {
+            wx.getClipboardData({
+              success: function (res) {
+                wx.showToast({
+                  title: '复制成功'
+                })
+              }
+            })
+          }
+        })
+      },
+      orderPayTransfer:function(){
+        var this_ = this;
+        wx.request({
+          // 请求地址
+          url: 'https://tuantuan.xx315.net/payment/transfer/bank.json',
+          // 请求方式
+          method: "get",
+          dataType: 'json',
+          responseType: 'text',
+          // 方法
+          success: function(data) {
+            console.log(data);
+            this_.setData({
+              bankInfo: data.data.data
+            });
+          }
+        })
+        this_.toClosePaymentModal();
+        this_.toShowTransferModal();
+      },
+      payNow :function(){
+        var this_ = this;
+        wx.request({
+          // 请求地址
+          url: 'https://tuantuan.xx315.net/payment/paynow/paynow.json',
+          // 请求方式
+          method: "get",
+          dataType: 'json',
+          responseType: 'text',
+          // 方法
+          success: function(data) {
+            console.log(data);
+            this_.setData({
+              payNowQr: data.data.data.qr,
+              payNowNo: data.data.data.payNowNo,
+              payNowUen:data.data.data.uen
+            });
+          }
+        })
+        this.toClosePaymentModal();
+        this.toShowPayNowModal();
+      },
+      havePaid: function(t){
+        this.closePaymentModal();
+        var this_ = this;
+        var s = wx.getStorageSync("token"),a = this.data.currentItem;
+        var type = t.currentTarget.dataset.type
+        wx.showLoading(), app.util.request({
+          url: "entry/wxapp/user",
+          data: {
+            controller: "order.pay_order",
+            token: s,
+            order_id: a.order_id,
+            payment_code: type,
+          },
+          dataType: "json",
+          method: "POST",
+          success: function(t) {
+            wx.hideLoading();
+            this_.getData();
+          }
+
+        });
+      },
+      onLoad: function(t) {
+        var order_status = this.$route.query.order_status;
+        var is_show_tip = this.$route.query.is_show;
+        var isfail = this.$route.query.isfail;
+        this.loadOver = true;
+        if (!order_status || order_status == undefined) {
+            this.order_status = -1;
+        }else {
+          this.order_status = order_status;
+        }
+        if (is_show_tip && is_show_tip == 1) {
+          this.$wx.showToast({
+            title: "支付成功"
+          })
+        }else if (isfail && isfail == 1){
+          this.$wx.showToast({
+            title: "支付失败",
+            icon: "none"
+          })
+        }
+        this.getData();
+      },
+      getData: function() {
+        this.isHideLoadMore = true;
+        this.no_order = 1;
+        var that = this;
+//        var token = wx.getStorageSync("token");
+//        var token = "5a4ee9ec0afee923665513b17a928c05";
+        var token = "aa8dfe90ff686cb87928e6a5523e44da";
+        this.$http({
+            controller: "order.orderlist",
+//            token: token,
+            page: that.page,
+            order_status: that.order_status
+          }).then(res=> {
+              console.log(res);
+
+               if (res.code == 0) {
+                 let rushList = that.order.concat(res.data);
+                 this.order = rushList;
+                 this.hide_tip= true;
+                 this.no_order= 0;
+               } else {
+                 if(that.page == 1 && that.order.length <= 0) this.is_empty = true;
+                 that.isHideLoadMore = true;
+                 return false;
+               }
+        });
+      },
+      goOrder: function(event) {
+        let id = event.currentTarget.dataset.type;
+        debugger
+        this.$wx.redirectTo({
+          url: '/lionfish_comshop/pages/order/order?id=' + id
+        })
+      },
+      receivOrder: function(t) {
+        let id = event.currentTarget.dataset.type;
+        let delivery = event.currentTarget.dataset.delivery;
+        var token = wx.getStorageSync('token');
+        let content = "确认收到";
+        if (delivery == "pickup") content = "确认提货";
+        var that = this;
+
+        this.$wx.showModal({
+          title: "提示",
+          content: "确认收到",
+          confirmColor: "#F75451",
+          success: function(res) {
+            if (res.confirm) {
+              this.$http({
+                  controller: 'order.receive_order',
+                  token: token,
+                  order_id: id
+                }).then(res=> {
+                  if (res.code == 0) {
+                    this.$wx.showToast({
+                      title: '收货成功',
+                      icon: 'success',
+                      duration: 1000
+                    })
+                    that.order_(that.order_status);
+                  }
+              })
+            }
+          }
+        });
+      },
+      cancelOrder: function(t) {
+        let id = event.currentTarget.dataset.type;
+//        var token = wx.getStorageSync('token');
+        var token = "aa8dfe90ff686cb87928e6a5523e44da"
+        var that = this;
+        this.$wx.showModal({
+          title: '取消支付',
+          content: '好不容易挑出来，确定要取消吗？',
+          confirmColor: '#F75451',
+          success(res) {
+            if (res.confirm) {
+               this.$http({
+
+                   controller: 'order.cancel_order',
+                   token: token,
+                   order_id: id
+                 }).then(res=> {
+                   this.$wx.showToast({
+                     title: '取消成功',
+                     icon: 'success',
+                     duration: 1000
+                   })
+                   that.order_(that.order_status);
+
+               })
+            }
+          }
+        })
+      },
+      getOrder: function(t) {
+
+          this.is_empty = false;
+
+        var e = t.currentTarget.dataset.type;
+        this.order_(e);
+      },
+      order_: function(t) {
+        this.order_status= t;
+        this.order= [];
+        this.no_order= 0;
+        this.page= 1;
+         this.getData();
+      },
+      orderPayWeixin: function() {
+        this.closePaymentModal();
+        var e = wx.getStorageSync("token"), a = this.data.currentItem;
+
+        app.util.request({
+          url: "entry/wxapp/index",
+          data: {
+            controller: "car.wxpay",
+            token: e,
+            order_id: a.order_id
+          },
+          dataType: "json",
+          method: "POST",
+          success: function(t) {
+            if (0 == t.data.code) {
+              t.data.is_pin;
+              wx.requestPayment({
+                appId: t.data.appId,
+                timeStamp: t.data.timeStamp,
+                nonceStr: t.data.nonceStr,
+                package: t.data.package,
+                signType: t.data.signType,
+                paySign: t.data.paySign,
+                success: function(t) {
+                  wx.redirectTo({
+                    url: "/lionfish_comshop/pages/order/order?id=" + a + "&is_show=1"
+                  });
+                },
+                fail: function(t) {
+                  console.log(t);
+                }
+              });
+            } else 2 == t.data.code && wx.showToast({
+              title: t.data.msg,
+              icon: "none"
+            });
+          }
+        });
+      },
+      onReachBottom: function() {
+        if (1 == this.data.no_order) return false;
+        this.data.page += 1, this.getData(), this.setData({
+          isHideLoadMore: false
+        });
+      },
+      onPullDownRefresh: function() {
+        this.setData({
+          is_empty: false,
+          page: 1,
+          order: []
+        }), wx.showLoading(), this.getData(), wx.stopPullDownRefresh();
+      }
     }
   }
 </script>
 
 <style scoped>
-.tabs {
-    box-sizing: border-box;
-    position: relative;
-    overflow: hidden;
-    zoom: 1;
-    color: #666;
-}
-
-.tabs-bar,.tabs-link-bar {
-    box-sizing: border-box;
-}
-
-.tabs-bar {
-    outline: none;
-    width: 100%;
-    background-color: #fff;
-}
-
-.tabs-nav--container {
-    overflow: hidden;
-    font-size: 0.75rem;
-    line-height: 1.5rem;
-    box-sizing: border-box;
-    position: relative;
-    white-space: nowrap;
-    margin-bottom: -1px;
-    zoom: 1;
-}
-
-.tabs-nav--container:after,.tabs-nav--container:before {
-    content: " ";
-    display: table;
-}
-
-.tabs-nav--container:after {
-    clear: both;
-    visibility: hidden;
-    font-size: 0;
-    height: 0;
-}
-
-.tabs.tabs-card>.tabs-bar .tabs-nav--wrap {
-    margin-bottom: 0;
-}
-
-.tabs-nav--wrap {
-    overflow: hidden;
-    margin-bottom: -.01rem;
-}
-
-.tabs-nav {
-    display: -webkit-box;
-    display: -webkit-flex;
-    display: -ms-flexbox;
-    display: flex;
-    box-sizing: border-box;
-    padding-left: 0;
-    transition: transform 0.5s cubic-bezier(0.645,0.045,0.355,1);
-    transition: transform 0.5s cubic-bezier(0.645,0.045,0.355,1),-webkit-transform 0.5s cubic-bezier(0.645,0.045,0.355,1);
-    position: relative;
-    margin: 0;
-    list-style: none;
-    justify-content: space-around;
-}
-
-.tabs-nav:after,.tabs-nav:before {
-    display: table;
-    content: " ";
-}
-
-.tabs-nav:after {
-    clear: both;
-}
-
-.tabs-nav .tabs-tab {
-    display: block;
-    height: 2.2rem;
-    line-height: 2.2rem;
-    margin: 0 5px;
-    box-sizing: border-box;
-    position: relative;
-    transition: color 0.3s cubic-bezier(0.645,0.045,0.355,1);
-    cursor: pointer;
-    text-decoration: none;
-    text-align: center;
-    font-size: 28rpx;
-    color: #333;
-}
-
-.tabs-nav .tabs-tab-active {
-    color: #f57;
-}
-
-.tabs.tabs-card>.tabs-bar .tabs-tab {
-    margin: 0;
-    border: 1px solid #d9d9d9;
-    border-bottom: 0;
-    border-radius: 0.06rem 0.06rem 0 0;
-    transition: all 0.3s cubic-bezier(0.645,0.045,0.355,1);
-    background: #f9f9f9;
-    margin-right: 0.02rem;
-}
-
-.tabs.tabs-card>.tabs-bar .tabs-tab-active {
-    background: #fff;
-    color: #f13e3a;
-}
-
-.tabs.tabs-card>.tabs-bar .tabs-tab-active {
-    color: #ff5777;
-}
-
-.tabs.tabs-card>.tabs-bar .tabs-tab.list-line {
-    border: 0;
-    background: #fff;
-}
-
-.tabs:not(.tabs-vertical) .tabs-content-animated {
-    display: -webkit-box;
-    display: -webkit-flex;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-orient: horizontal;
-    -webkit-box-direction: normal;
-    -moz-box-orient: horizontal;
-    -moz-box-direction: normal;
-    flex-direction: row;
-    will-change: transform;
-    transition: transform 0.3s cubic-bezier(0.645,0.045,0.355,1),-webkit-transform 0.3s cubic-bezier(0.645,0.045,0.355,1);
-}
-
-.tabs:not(.tabs-vertical) .tabs-tabpane {
-    -ms-flex-negative: 0;
-    flex-shrink: 0;
-    width: 100%;
-}
-
-.meili-all-vue-base-goodswall .module-list-wrap {
-    display: block!important;
-}
-
-.meili-all-vue-base-goodswall .module-list-wrap[data-v-498b2138] {
-    display: -webkit-box;
-    display: -webkit-flex;
-    display: -ms-flexbox;
-    display: flex;
-    overflow: hidden;
-    -webkit-box-orient: horizontal;
-    -webkit-box-direction: normal;
-    -moz-box-orient: horizontal;
-    -moz-box-direction: normal;
-    flex-flow: row wrap;
-}
-
-.meili-all-vue-base-goodswall .show {
-    height: auto!important;
-}
-
-.meili-all-vue-base-goodswall .module-item-wrap {
-    width: 100%;
-    margin-bottom: 10rpx;
-}
-
-.order {
-    width: 100%;
-    background: #fff;
-}
-
-.order-panel {
-    padding: 0 10px;
-}
-
-.shop-product,.shop-title {
-    padding: 0 10px;
-    margin: 0 -10px;
-}
-
-.shop-title image {
-    width: 40rpx;
-    height: 40rpx;
-    border-radius: 100%;
-    display: inline-block;
-    vertical-align: top;
-    margin-top: 20rpx;
-    margin-right: 10rpx;
-}
-
-.no_order {
-    margin-top: 30%;
-    text-align: center;
-}
-
-.shop-title {
-    border: 1px solid #e5e5e5;
-    border-right: none;
-    border-left: none;
-    font-size: 28rpx;
-    height: 90rpx;
-    line-height: 90rpx;
-}
-
-.shop:first-child .shop-title {
-    border-top: none;
-}
-
-.shop-title--name {
-    color: #333;
-    display: inline-block;
-    max-width: 10rem;
-    text-overflow: ellipsis;
-    overflow: hidden;
-    white-space: nowrap;
-}
-
-.shop-title--status {
-    float: right;
-    margin-left: 0.2rem;
-    color: #ff5777;
-    white-space: nowrap;
-}
-
-.shop-product,.shop-title {
-    padding: 0 10px;
-    margin: 0 -10px;
-}
-
-.product {
-    border-bottom: 1px solid #ddd;
-    min-height: 1.8rem;
-}
-
-.product-list {
-    padding: 10px 0;
-}
-
-.product.is-noborder {
-    border: none;
-}
-
-.product-wrap {
-    display: -webkit-box;
-    display: -webkit-flex;
-    display: -ms-flexbox;
-    display: flex;
-}
-
-.product-pic {
-    width: 150rpx;
-    height: 150rpx;
-    display: inline-block;
-}
-
-.product-pic image {
-    width: 150rpx;
-    height: 150rpx;
-    visibility: inherit;
-    display: inherit;
-}
-
-.product-des {
-    -webkit-box-flex: 1;
-    -moz-box-flex: 1;
-    flex: 1;
-    margin: 0 10px;
-    position: relative;
-}
-
-.red {
-    color: #ff5777;
-    padding-right: 5rpx;
-}
-
-.product-des--name {
-    color: #333;
-    font-size: 28rpx;
-    height: 46px;
-    text-overflow: ellipsis;
-    overflow: hidden;
-    display: block;
-    margin-bottom: 14px;
-    font-weight: 400;
-}
-
-.product-des--sku {
-    margin-bottom: 5px;
-    font-size: 24rpx;
-    color: #999;
-}
-
-.meili-all-order-list-order-shop .product-des--sku view {
-    display: inline-block;
-    margin-right: 5px;
-}
-
-.product-price {
-    text-align: right;
-    line-height: 1rem;
-    font-size: 24rpx;
-}
-
-.product-price--origin {
-    text-decoration: line-through;
-    color: #999;
-}
-
-.product-price--number {
-    color: #999;
-}
-
-.order-panel--operate {
-    border-top: 1px solid #e5e5e5;
-    margin: 0 -10px;
-    vertical-align: middle;
-    text-align: right;
-}
-
-.operate-button {
-    overflow: hidden;
-}
-
-.meili-all-vue-base-button {
-    display: inline-block;
-    box-sizing: border-box;
-    font-size: 0.75rem;
-    padding: 5px 10px;
-    border-radius: 5px;
-    vertical-align: middle;
-    margin: 10px 5px;
-    cursor: pointer;
-    user-select: none;
-    min-width: 5rem;
-    text-align: center;
-}
-
-.primary {
-    color: #fff;
-    background: #ff5777;
-}
-
-.operate-button .meili-all-vue-base-button {
-    width: 6rem;
-    height: 1.8rem;
-    line-height: 1.8rem;
-    font-size: 0.75rem;
-    padding: 0;
-    margin: 10px;
-    border-radius: 5px;
-}
-
-.operate-button--white.primary {
-    color: #666;
-    border: 1px solid #999;
-    background: #fdfdfd;
-}
-
-.buy {
-    margin-bottom: 116rpxpx;
-}
-
-.order-panel--price {
-    margin: 0 -10px;
-    padding: 10px;
-    border-top: 1px solid #e5e5e5;
-    text-align: right;
-    color: #999;
-}
-
-.pay {
-    color: #333;
-}
-
-.pay-delivery {
-    margin-right: -5px;
-    font-size: 0.75rem;
-}
-
-.pay-price {
-    line-height: 1rem;
-    font-size: 0.75rem;
-}
-
-.pay-price--content {
-    font-size: 0.75rem;
-    color: #ff5777;
-}
-
-.weui-loading {
-    margin: 0 5px;
-    width: 20px;
-    height: 20px;
-    display: inline-block;
-    vertical-align: middle;
-    animation: weuiLoading 1s steps(12,end) infinite;
-    background: transparent url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMjAiIGhlaWdodD0iMTIwIiB2aWV3Qm94PSIwIDAgMTAwIDEwMCI+PHBhdGggZmlsbD0ibm9uZSIgZD0iTTAgMGgxMDB2MTAwSDB6Ii8+PHJlY3Qgd2lkdGg9IjciIGhlaWdodD0iMjAiIHg9IjQ2LjUiIHk9IjQwIiBmaWxsPSIjRTlFOUU5IiByeD0iNSIgcnk9IjUiIHRyYW5zZm9ybT0idHJhbnNsYXRlKDAgLTMwKSIvPjxyZWN0IHdpZHRoPSI3IiBoZWlnaHQ9IjIwIiB4PSI0Ni41IiB5PSI0MCIgZmlsbD0iIzk4OTY5NyIgcng9IjUiIHJ5PSI1IiB0cmFuc2Zvcm09InJvdGF0ZSgzMCAxMDUuOTggNjUpIi8+PHJlY3Qgd2lkdGg9IjciIGhlaWdodD0iMjAiIHg9IjQ2LjUiIHk9IjQwIiBmaWxsPSIjOUI5OTlBIiByeD0iNSIgcnk9IjUiIHRyYW5zZm9ybT0icm90YXRlKDYwIDc1Ljk4IDY1KSIvPjxyZWN0IHdpZHRoPSI3IiBoZWlnaHQ9IjIwIiB4PSI0Ni41IiB5PSI0MCIgZmlsbD0iI0EzQTFBMiIgcng9IjUiIHJ5PSI1IiB0cmFuc2Zvcm09InJvdGF0ZSg5MCA2NSA2NSkiLz48cmVjdCB3aWR0aD0iNyIgaGVpZ2h0PSIyMCIgeD0iNDYuNSIgeT0iNDAiIGZpbGw9IiNBQkE5QUEiIHJ4PSI1IiByeT0iNSIgdHJhbnNmb3JtPSJyb3RhdGUoMTIwIDU4LjY2IDY1KSIvPjxyZWN0IHdpZHRoPSI3IiBoZWlnaHQ9IjIwIiB4PSI0Ni41IiB5PSI0MCIgZmlsbD0iI0IyQjJCMiIgcng9IjUiIHJ5PSI1IiB0cmFuc2Zvcm09InJvdGF0ZSgxNTAgNTQuMDIgNjUpIi8+PHJlY3Qgd2lkdGg9IjciIGhlaWdodD0iMjAiIHg9IjQ2LjUiIHk9IjQwIiBmaWxsPSIjQkFCOEI5IiByeD0iNSIgcnk9IjUiIHRyYW5zZm9ybT0icm90YXRlKDE4MCA1MCA2NSkiLz48cmVjdCB3aWR0aD0iNyIgaGVpZ2h0PSIyMCIgeD0iNDYuNSIgeT0iNDAiIGZpbGw9IiNDMkMwQzEiIHJ4PSI1IiByeT0iNSIgdHJhbnNmb3JtPSJyb3RhdGUoLTE1MCA0NS45OCA2NSkiLz48cmVjdCB3aWR0aD0iNyIgaGVpZ2h0PSIyMCIgeD0iNDYuNSIgeT0iNDAiIGZpbGw9IiNDQkNCQ0IiIHJ4PSI1IiByeT0iNSIgdHJhbnNmb3JtPSJyb3RhdGUoLTEyMCA0MS4zNCA2NSkiLz48cmVjdCB3aWR0aD0iNyIgaGVpZ2h0PSIyMCIgeD0iNDYuNSIgeT0iNDAiIGZpbGw9IiNEMkQyRDIiIHJ4PSI1IiByeT0iNSIgdHJhbnNmb3JtPSJyb3RhdGUoLTkwIDM1IDY1KSIvPjxyZWN0IHdpZHRoPSI3IiBoZWlnaHQ9IjIwIiB4PSI0Ni41IiB5PSI0MCIgZmlsbD0iI0RBREFEQSIgcng9IjUiIHJ5PSI1IiB0cmFuc2Zvcm09InJvdGF0ZSgtNjAgMjQuMDIgNjUpIi8+PHJlY3Qgd2lkdGg9IjciIGhlaWdodD0iMjAiIHg9IjQ2LjUiIHk9IjQwIiBmaWxsPSIjRTJFMkUyIiByeD0iNSIgcnk9IjUiIHRyYW5zZm9ybT0icm90YXRlKC0zMCAtNS45OCA2NSkiLz48L3N2Zz4=) no-repeat;
-    background-size: 100%;
-}
-
-.weui-loadmore {
-    width: 65%;
-    margin: 1.5em auto;
-    line-height: 1.6em;
-    font-size: 14px;
-    text-align: center;
-}
-
-.weui-loadmore__tips {
-    display: inline-block;
-    vertical-align: middle;
-}
-
-.orders-lottery-status {
-    z-index: 99;
-    position: absolute;
-    width: 67px;
-    height: 67px;
-    right: 12px;
-    top: 7px;
-}
-
-.order-lottery-lucky,.order-lottery-not,.order-lottery-wait {
-    background-image: url(https://mall.shiziyu888.com/Common/image/sprites_stamps-02e13e88f3.png);
-    background-repeat: no-repeat;
-    background-size: 299.83425px 299.83425px;
-    background-position: -199.8895px -99.94475px;
-}
-
-.order-lottery-lucky {
-    background-position: -99.94475px 0;
-}
-
-.order-lottery-not {
-    background-position: -199.8895px 0;
-}
-
-.order-lottery-wait {
-    background-position: -199.8895px -99.94475px;
-}
-
-.nav-bar {
-    width: 100%;
-    position: fixed;
-    left: 0;
-    top: 0;
-    z-index: 10;
-}
-
-.nav-bar .nav-bar-inner {
-    display: flex;
-    justify-content: space-between;
-    padding: 0 40rpx;
-    background-color: white;
-}
-
-.nav-bar .nav-bar-item {
-    position: relative;
-    word-break: keep-all;
-    font-size: 28rpx;
-    font-weight: 500;
-    color: #666;
-    padding: 20rpx 0;
-}
-
-.nav-bar .current.nav-bar-item {
-    border-bottom: 3px solid #ff4936;
-}
-
-.nav-bar-content {
-    margin-top: 49px;
-    padding-bottom: 30rpx;
-}
-
-.mar-right-10 {
-    margin-right: 20rpx;
-}
-
-.card {
-    margin-bottom: 20rpx;
-    margin-left: 20rpx;
-    color: #444;
-}
-
-.card .card-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 30rpx;
-    font-size: 24rpx;
-}
-
-.card .card-content {
-    padding: 30rpx;
-    border-top: 0.1rpx solid #efefef;
-    border-bottom: 0.1rpx solid #efefef;
-}
-
-.card .card-content .content-wrap {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
-
-.card .card-content .show-img {
-    float: left;
-    width: 120rpx!important;
-    height: 120rpx!important;
-}
-
-.clearfix:after {
-    visibility: hidden;
-    display: block;
-    font-size: 0;
-    content: " ";
-    clear: both;
-    height: 0;
-}
-
-.card .card-content .dot {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
-
-.card .card-content .dot .dot-item {
-    width: 12rpx;
-    height: 12rpx;
-    border-radius: 50%;
-    background: #d8d8d8;
-}
-
-.card .card-content .dot .dot-middle {
-    margin: 0 10rpx;
-}
-
-.card .card-footer {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 30rpx;
-    font-size: 24rpx;
-}
-
-.card .card-footer .money {
-    font-size: 32rpx;
-    font-weight: bold;
-    display: inline-block;
-}
-
-.card .card-footer .accual-pay {
-    display: inline-block;
-}
-
-.empty-wrap {
-    padding-top: 300rpx;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-}
-
-.empty-wrap .empty-img {
-    width: 218rpx;
-    height: 218rpx;
-}
-
-.empty-wrap .empty-txt {
-    font-size: 30rpx;
-    font-weight: 400;
-    color: #777;
-    margin-top: 32rpx;
-}
-
-.padding-15 {
-    margin-left: 16rpx;
-}
-
-.button-group {
-    display: flex;
-    justify-content: space-between;
-}
-
-.my-button {
-    position: relative;
-    color: #666;
-    width: 136rpx;
-    height: 52rpx;
-    line-height: 52rpx;
-    font-size: 24rpx;
-    text-align: center;
-}
-
-.my-button::after {
-    box-sizing: border-box;
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 200%;
-    height: 200%;
-    transform: scale(0.5);
-    transform-origin: 0 0;
-    border: 2rpx solid #b6b6b6;
-    border-radius: 52rpx;
-    pointer-events: none;
-}
-
-.get-goods {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.get-goods .sure-get {
-    color: #aaa;
-}
-
-.my-button-pay {
-    position: relative;
-    width: 136rpx;
-    height: 52rpx;
-    line-height: 52rpx;
-    font-size: 24rpx;
-    text-align: center;
-    color: white;
-    border: none;
-    border-radius: 26rpx;
-    background: linear-gradient(90deg,#ff5041 0%,#ff877d 100%);
-}
-
-.right-arrow {
-    width: 12rpx;
-    height: 22rpx;
-    margin-left: 10rpx;
-}
-
-.bold {
-    font-weight: 500;
-}
-
-.red {
-    color: #ff5344;
-    font-size: 24rpx;
-}
-
-.gray {
-    color: #aaa;
-}
-
-.name {
-    width: 510rpx;
-    font-size: 26rpx;
-    color: #444;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    overflow: hidden;
-}
-
-.pintag {
-    background: linear-gradient(to right,#ff5041,#ff695c);
-    color: #fff;
-    font-size: 20rpx;
-    padding: 1rpx 8rpx;
-    border-radius: 6rpx;
-    font-weight: bold;
-    margin-right: 10rpx;
-}
-
-.mount {
-    font-size: 22rpx;
-    color: #aaa;
-    margin-top: 10rpx;
-}
-
-.bottom-info {
-    justify-content: space-between;
-    font-size: 28rpx;
-    color: #444;
-    margin-top: 18rpx;
-}
-
-.bottom-info text {
-    text-decoration: line-through;
-    color: #999;
-    font-size: 22rpx;
-}
-
-.mask{
-    width: 100%;
-    height: 100%;
-    position: fixed;
-    top: 0;
-    left: 0;
-    background: #000;
-    z-index: 9000;
-    opacity: 0.7;
-}
-.modalDlg{
-    text-align: center;
-    position: fixed;
-    top: 25%;
-    left: 15%;
-    width: 65%;
-    padding: 16px 8px 16px 8px;
-    /* border: 8px solid #e8e9f7; */
-    background-color: white;
-    z-index: 9999;
-    border-radius: 10px;
-    overflow: auto;
-
-}
-.wux-button {
-    display: inline-block;
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0 24rpx;
-    min-width: 104rpx;
-    min-height: 88rpx;
-    border: none;
-    border-radius: 8rpx;
-    vertical-align: middle;
-    text-align: center;
-    text-overflow: ellipsis;
-    font-size: 32rpx;
-    line-height: 84rpx;
-    cursor: pointer;
-
-}
-.wux-button--block{
-    width: 100%;
-    margin-top: 20rpx;
-}
-.paynow{
-    position: fixed;
-    top: 1%;
-    width: 100%;
-    height: 99%;
-    padding: 8rpx;
-    /* border: 8px solid #e8e9f7; */
-    background-color: white;
-    z-index: 9999;
-    overflow: auto;
-}
+  @import "index.less";
 </style>

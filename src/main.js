@@ -22,6 +22,7 @@ import card from '@/lionfish_comshop/components/card'
 import InputNumber from '@/lionfish_comshop/components/input-number'
 import IndexItem from '@/lionfish_comshop/components/index-item'
 import Dialog from '@/lionfish_comshop/components/dialog'
+import GoodsInfo from '@/lionfish_comshop/components/goodsInfo'
 import NewAuth from '@/lionfish_comshop/components/new-auth'
 import NewComer from '@/lionfish_comshop/components/new-comer'
 import OrderInfoExpress from '@/lionfish_comshop/components/order/orderInfoExpress'
@@ -49,6 +50,7 @@ Vue.component('i-card', card)
 Vue.component('i-input-number', InputNumber)
 Vue.component('i-index-item', IndexItem)
 Vue.component('i-dialog', Dialog)
+Vue.component('i-goods-info', GoodsInfo)
 Vue.component('i-new-auth', NewAuth)
 Vue.component('i-new-comer', NewComer)
 Vue.component('i-order-info-express', OrderInfoExpress)
@@ -69,7 +71,7 @@ import '@/lionfish_comshop/styles/index.scss' // global css
 import qs from 'qs'
 
 import store from './lionfish_comshop/store'
-import { http } from './lionfish_comshop/api/index'
+import { http,http_post } from './lionfish_comshop/api/index'
 import wx from './lionfish_comshop/utils/wx'
 import router from './lionfish_comshop/router'
 
@@ -96,6 +98,7 @@ if (process.env.NODE_ENV === 'production') {
 
 Vue.prototype.$qs = qs
 Vue.prototype.$http = http
+Vue.prototype.$http_post = http_post
 Vue.prototype.$wx = wx
 
 // set ElementUI lang to EN

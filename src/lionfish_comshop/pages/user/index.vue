@@ -599,7 +599,8 @@
 //        }
       },
       getMemberInfo: function () {
-        var token = "73ecaa68bdb029c0bed47554f0e2ba66";// this.$wx.getStorageSync("token");
+//        var token = "5a4ee9ec0afee923665513b17a928c05";// this.$wx.getStorageSync("token");
+        var token = "aa8dfe90ff686cb87928e6a5523e44da";// this.$wx.getStorageSync("token");
         this.getCommunityInfo();
         var that = this;
         this.$http({
@@ -676,25 +677,26 @@
       getCommunityInfo: function () {
         let that = this;
 
-//        let community =  this.$wx.getStorageSync('community');
-//        if (community) {
-//          if(!community.head_mobile) {
-//            util.getCommunityById(community.communityId).then(res=>{
-//              that.setData({ community: res.data })
-//            })
-//          } else {
-//            that.setData({ community })
-//          }
-//        } else {
-//          var token =  this.$wx.getStorageSync('token');
-//          token && util.getCommunityInfo().then(res => {
-//            that.setData({ community: res })
-//          })
-//        }
+        let community =  this.$wx.getStorageSync('community');
+        if (community) {
+          if(!community.head_mobile) {
+            status.getCommunityById(community.communityId).then(res=>{
+              this.community = res;
+            })
+          } else {
+            this.community =community;
+          }
+        } else {
+          var token =  this.$wx.getStorageSync('token');
+          token && status.getCommunityInfo().then(res => {
+            this.community =res ;
+          })
+        }
       },
       getCopyright: function () {
         var that = this;
-        var token = "73ecaa68bdb029c0bed47554f0e2ba66";// this.$wx.getStorageSync("token");
+//        var token = "5a4ee9ec0afee923665513b17a928c05";// this.$wx.getStorageSync("token");
+        var token = "aa8dfe90ff686cb87928e6a5523e44da";// this.$wx.getStorageSync("token");
         this.$http({
             controller: 'user.get_copyright',
             token:token
