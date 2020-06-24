@@ -55,7 +55,7 @@
     components: {
       'i-type-item' : require('./type-item.vue').default,
       'i-img': require('../../components/img/index.vue').default,
-      'i-router-link': require('../../components/RouterLink/index.vue').default
+      'i-router-link': require('../../components/router-link/index.vue').default
     },
     props: {
       spuItem: {
@@ -201,7 +201,7 @@
     box-sizing: border-box;
     margin-left: 16px;
     display: flex;
-    flex-direction: column; 
+    flex-direction: column;
     justify-content: space-between;
 }
 

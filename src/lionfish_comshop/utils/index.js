@@ -18,7 +18,7 @@ function getLightColor(e, t) {
 
 function addCart(o) {
   const e = _this.$wx.getStorageSync('token')
-  _this.http({
+  _this.$http({
     controller: 'car.add',
     token: e
   }).then(e => {
@@ -26,13 +26,12 @@ function addCart(o) {
       const t = e
       const n = t.has_image
       const o = t.pop_vipmember_buyimage
-      n === 1 && o && (e.showVipModal = 1, e.data.pop_vipmember_buyimage = o)//, i(e);
+      n === 1 && o && (e.showVipModal = 1, e.pop_vipmember_buyimage = o)//, i(e);
     } // else i(e);
   })
 }
 
 function getConfig() {
-  const t = _this.$wx.getStorageSync('token')
   return new Promise((resolve, reject) => {
     _this.$http({
       controller: 'index.get_firstload_msg'
@@ -113,8 +112,8 @@ function isIdCard(a) {
 
 function cartNum() {
   function e(t) {
-    var a = _this.$wx.getStorageSync('token') || '';
-    var communityId =  _this.$app.globalData.community ? _this.$app.globalData.community.communityId : '';
+    var a = _this.$wx.getStorageSync('token') || ''
+    var communityId = _this.$app.globalData.community ? _this.$app.globalData.community.communityId : ''
     _this.$http({
       controller: 'car.count',
       token: a,
@@ -354,6 +353,7 @@ function checkRedirectTo(e, t) {
 function check_login_new() {
   return new Promise((resolve, reject) => {
     var e = _this.$wx.getStorageSync('token')
+    console.log(e)
     if (e) {
       resolve(true)
     } else {

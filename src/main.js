@@ -34,6 +34,9 @@ import VipPrice from '@/lionfish_comshop/components/vipPrice/vipPrice'
 import ChangeCommunity from '@/lionfish_comshop/components/changeCommunity'
 import Spike from '@/lionfish_comshop/components/spike'
 import AddCartBtn from '@/lionfish_comshop/components/addCartBtn'
+import RouterLink from '@/lionfish_comshop/components/router-link'
+import CountDown from '@/lionfish_comshop/components/count-down'
+import topic from '@/lionfish_comshop/components/topic/topic'
 
 Vue.component('i-tabbar', Tabbar)
 Vue.component('i-toolbar', Toolbar)
@@ -58,6 +61,9 @@ Vue.component('i-vip-price', VipPrice)
 Vue.component('i-change-community', ChangeCommunity)
 Vue.component('i-spike', Spike)
 Vue.component('i-addcart', AddCartBtn)
+Vue.component('i-router-link', RouterLink)
+Vue.component('i-count-down', CountDown)
+Vue.component('i-topic', topic)
 
 import '@/lionfish_comshop/styles/index.scss' // global css
 import qs from 'qs'

@@ -1,43 +1,52 @@
 <template>
-  <view class="new-comers" v-if="list.length">
-    <view class="new-comers-title">
-      <view>
-        <text class="leftBorder" :style="{'border-color':skin.color}"></text>
+  <div class="new-comers" v-if="list.length">
+    <div class="new-comers-title">
+      <div>
+        <span class="leftBorder" :style="{'border-color':skin.color}"></span>
         限时秒杀
-      </view>
+      </div>
       <i-count-down :clearTimer="clearTimer" countdownClass="count-down" itemClass="item-time" showDay="true"
                     :target="rushEndTime" v-if="rushEndTime">
         <span class="count-down-left-text">仅剩</span>
       </i-count-down>
-    </view>
-    <div  bindscrolltolower="getMore" class="new-comers-scroll">
-      <view class="new-comers-wrap">
+    </div>
+    <div bindscrolltolower="getMore" class="new-comers-scroll">
+      <div class="new-comers-wrap">
         <i-router-link routerClass="new-comers-item" :url="'/lionfish_comshop/pages/goods/goodsDetail?id='+item.actId"
-                       v-for="(item , index) in list" :key="id">
+                       v-for="(item , index) in list" :key="item.id">
           <i-img defaultImage="@/assets/images/placeholder-refund.png" height="200" iClass="new-img"
-                 :loadImage="tem.skuImage" width="180"></i-img>
-          <view class="act-end" v-if="item.spuCanBuyNum==0">已抢光</view>
-          <view class="title">{{item.spuName}}</view>
-          <view class="new-bot">
-            <view class="price">${{item.actPrice[0]}}.{{item.actPrice[1]}}</view>
+                 :loadImage="item.skuImage" width="180"></i-img>
+          <div class="act-end" v-if="item.spuCanBuyNum==0">已抢光</div>
+          <div class="title">{{item.spuName}}</div>
+          <div class="new-bot">
+            <div class="price">${{item.actPrice[0]}}.{{item.actPrice[1]}}</div>
             <i-button iClass="add-cart" v-if="disabled||item.spuCanBuyNum==0">
               <img class="img" src="@/assets/images/icon-add-shopCart-disabled.png"></img>
             </i-button>
             <i-button @click="openSku" data-idx="index" iClass="add-cart" v-else>
               <i-addcart iClass="img"></i-addcart>
             </i-button>
-          </view>
+          </div>
         </i-router-link>
-      </view>
+      </div>
     </div>
-  </view>
+  </div>
 
 </template>
 
 <script>
   export default {
     name: '',
-    props:{
+    date() {
+      return {
+        disabled: !1,
+        list: [],
+        pageNum: 1,
+        noMore: !1,
+        rushEndTime: 0
+      }
+    },
+    props: {
       refresh: {
         type: Boolean,
         default: !1
@@ -50,35 +59,27 @@
         default: Object
       }
     },
-    watch:{
+    watch: {
       refresh: (t, oldValue) => {
-        var e = this;
-        e.pageNum = 1, e.noMore = !1, e. list = [];
-        e.getData();
-      },
-    },
-    date(){
-      return{
-        disabled: !1,
-        list: [],
-        pageNum: 1,
-        noMore: !1,
-        rushEndTime: 0
+        var e = this
+        e.pageNum = 1, e.noMore = !1, e.list = []
+        e.getData()
       }
     },
+
     methods: {
       getData: function() {
-        var t = this.$wx.getStorageSync("token"), i = this, e = this.$.getStorageSync("community");
+        var t = this.$wx.getStorageSync('token'), i = this, e = this.$.getStorageSync('community')
 
         this.$http({
-          controller: "index.load_spikebuy_goodslist",
+          controller: 'index.load_spikebuy_goodslist',
           token: t,
           pageNum: i.data.pageNum,
           head_id: e.communityId
-        }).then(t =>{
+        }).then(t => {
           if (0 == t.code) {
-            var e = i.list.concat(t.list), a = i.getTime(e);
-            console.log(a);
+            var e = i.list.concat(t.list), a = i.getTime(e)
+            console.log(a)
             this.list = e,
               this.rushEndTime = a
           } else {
@@ -89,23 +90,23 @@
       },
       getMore: function() {
         if (!this.noMore) {
-          var t = this, e = t.data.pageNum + 1;
+          var t = this, e = t.data.pageNum + 1
           console.log(e), this.setData({
             pageNum: e
           }, function() {
-            t.getData();
-          });
+            t.getData()
+          })
         }
       },
       openSku: function(t) {
-        var e = t.currentTarget.dataset.idx;
+        var e = t.currentTarget.dataset.idx
         this.disabled = !1
 
-        var a = this.list[e];
-        this.$emit("openSku", {
+        var a = this.list[e]
+        this.$emit('openSku', {
           actId: a.actId,
           skuList: a.skuList,
-          promotionDTO: a.promotionDTO || "",
+          promotionDTO: a.promotionDTO || '',
           is_take_vipcard: a.is_take_vipcard,
           is_mb_level_buy: a.is_mb_level_buy,
           allData: {
@@ -116,13 +117,13 @@
             stock: a.spuCanBuyNum,
             marketPrice: a.marketPrice
           }
-        });
+        })
       },
       getTime: function(t) {
-        var e = 0;
+        var e = 0
         return 0 === (1 < arguments.length && void 0 !== arguments[1] ? arguments[1] : 0) && t.map(function(t) {
-          t.end_time *= 1e3, e = t.end_time > e ? t.end_time : e;
-        }), e;
+          t.end_time *= 1e3, e = t.end_time > e ? t.end_time : e
+        }), e
       }
     }
 
@@ -139,31 +140,31 @@
   }
 
   .count-down {
-    height: 68rpx;
-    line-height: 68rpx;
+    height: 34px;
+    line-height: 34px;
     color: #444;
-    font-size: 24rpx;
+    font-size: 12px;
     display: flex;
     align-items: center;
     flex: 1;
-    margin-right: 20rpx;
+    margin-right: 10px;
   }
 
   .count-down .item-time {
-    width: 34rpx;
-    height: 32rpx;
-    line-height: 32rpx;
+    width: 15px;
+    height: 15px;
+    line-height: 15px;
     color: #fff;
     text-align: center;
     background: #444;
-    border-radius: 4rpx;
-    padding: 0 2rpx;
+    border-radius: 2px;
+    padding: 0 1px;
     font-weight: normal;
   }
 
   .count-down-left-text {
-    font-size: 24rpx;
-    margin-right: 10rpx;
+    font-size: 12px;
+    margin-right: 5px;
     font-weight: normal;
   }
 </style>

@@ -87,8 +87,8 @@
             </swiper>
           </div>
           <div class="nav-list" v-if="navigat.length>0">
-            <div v-for="(item,id) in navigat" style="width:20%;" class="block">
-              <div @click="goNavUrl" class="nav-list-item" :data-idx="id" v-if="item.type!=5">
+            <div v-for="(item,idx) in navigat" style="width:20%;" class="block" :key="item.id">
+              <div @click="goNavUrl" class="nav-list-item" :data-idx="idx" v-if="item.type!=5">
                 <img height="36" class="nav-list-img" :src="item.thumb" width="36"/>
                 <div class="nav-list-text">{{item.navname}}</div>
               </div>
@@ -105,7 +105,7 @@
               <div class="slider-wraper">
                 <div class="list">
                   <div @click="receiveCoupon" class="card-content list-item" :data-quan_id="item.id"
-                       v-for="(item,id) in quan" :key="id">
+                       v-for="(item,index) in quan" :key="item.id">
                     <div class="card">
                       <div class="card-price span">
                         <div class="card-price&#45;&#45;unit span">¥</div>
@@ -235,7 +235,7 @@
           <div class="rush-list-box">
             <div v-if="rushList.length>0&&tabIdx==0">
 
-              <div class="active-item" v-if="rushList.length>0&&theme==0" v-for="(item,index) in rushList" :key="id">
+              <div class="active-item" v-if="rushList.length>0&&theme==0" v-for="(item,index) in rushList" :key="item.id">
                 <div class="list-item-tag-content" v-if="isShowListTimer==1">
                   <div class="empty-1"></div>
                   <div class="empty-2" v-if="item.spuDescribe"></div>
@@ -380,14 +380,15 @@
     </div>
     <div class="mask" v-if="visible"></div>
     <div cancel="close" class="sku-content" v-if="visible" scrollUp="true">
-      111111111
-      <!--<div class="sku-card">
+      <div class="sku-card">
         <div @click="closeSku" class="close">
           <img src="@/assets/images/icon-sku-close.png"/>
         </div>
         <div class="sku-header">
-          <i-img defaultImage="@/assets/images/placeholder-refund.png" height="80" iClass="sku-img"
-                 :loadImage="cur_sku_arr.skuImage" width="80"></i-img>
+
+          <el-image
+            class="sku-img"
+            :src="cur_sku_arr.skuImage"></el-image>
           <div class="sku-desc">
             <div class="sku-title">
               <span>{{cur_sku_arr.spuName}}</span>
@@ -411,41 +412,39 @@
         <div class="sku-spec" v-for="(item,index) in skuList.list" >
           <div class="title">{{item.name}}</div>
           <div class="spec-list">
-            <span @click="selectSku" :class="idx==sku[index][idx]?'on':''" :data-disabled="(item.canBuyNum-value)<0"
-                  :data-idx="idx" :data-type="index + '_' + idx + '_' + value.option_value_id + '_' + value.name"
-                  v-for="(value, idx) in item.option_value" :key="idx">{{value.name}}</span>
+            <span @click="selectSku" :data-sku="sku[index].idx"  :class="idx==sku[index].idx?'on':''" :data-disabled="(item.canBuyNum-valitem)<0"
+                  :data-idx="idx" :data-type="index + '_' + idx + '_' + valitem.option_value_id + '_' + valitem.name"
+                  v-for="(valitem, idx) in item.option_value" :key="idx">{{valitem.name}}</span>
           </div>
         </div>
         <div class="sku-num-content">
           <div class="title">数量</div>
-          <div :class="['i-class', 'i-input-number', 'i-input-number-size-'+size]">
-            <div @click="setNum" :class="['i-input-number-minus', (value <= min?'i-input-number-disabled':'')]"
+          <div :class="['i-class', 'i-input-number', 'i-input-number-size-']">
+            <div @click="setNum" :class="['i-input-number-minus']"
                  data-type="decrease">
               <img src="@/assets/images/icon-input-reduce.png"></image>
             </div>
             <input bindblur="handleBlur" bindfocus="handleFocus" bindinput="changeNumber"
-                   :class="['i-input-number-text',(min>=max?'i-input-number-disabled':'')]" type="number"
+                   :class="['i-input-number-text']" type="number"
                    :value="sku_val"/>
-            <div @click="setNum" :class="['i-input-number-plus', (value>=max?'i-input-number-disabled':'')]"
+            <div @click="setNum" :class="['i-input-number-plus']"
                  data-type="add">
               <img src="@/assets/images/icon-input-add.png"></image>
             </div>
           </div>
-          &lt;!&ndash;<div class="msg" v-if="skuList[current].isLimit">
+          <!--&lt;!&ndash;<div class="msg" v-if="current && skuList[current] && skuList[current].isLimit">
             <span v-if="skuList[current].limitMemberNum>-1">每人限{{skuList[current].limitMemberNum}}单</span>
             <span v-if="skuList[current].limitOrderNum>-1">每单限{{skuList[current].limitOrderNum}}份</span>
             <span></span>
           </div>&ndash;&gt;
           &lt;!&ndash;<div class="even-num" v-elif="!skuList[current].isLimit&&skuList[current].canBuyNum_value<=10&&skuList[current].canBuyNum_value>-1">
             还可以购买 {{skuList[current].canBuyNum-value}} 件
-          </div>&ndash;&gt;
+          </div>&ndash;&gt;-->
         </div>
-        <form bindsubmit="gocarfrom" reportSubmit="true">
-          <button class="sku-confirm" :disabled="(cur_sku_arr.stock==0?true:false)" formType="submit">
-            <div>{{cur_sku_arr.stock==0?'已抢光':'确定'}}</div>
-          </button>
-        </form>
-      </div>-->
+        <button @click="gocarfrom" class="sku-confirm" :disabled="(cur_sku_arr.stock==0?true:false)" formType="submit">
+        <div>{{cur_sku_arr.stock==0?'已抢光':'确定'}}</div>
+      </button>
+      </div>
     </div>
     <div @click="hide_share_handler" class="ui-mask" v-show="is_share_html"></div>
     <div class="model-services show" v-show="is_share_html">
@@ -646,6 +645,7 @@
           actPrice: [],
           marketPrice: []
         },
+        sku:[],
         index_list_top_image: 1,
         is_open_vipcard_buy: true,
         is_member_level_buy: true,
@@ -779,6 +779,7 @@
           a.isblack = a.$getApp().globalData.isblack || 0
       ), util.check_login_new().then(function(t) {
         t ? (
+
           a.needAuth = !1
         ) : (
           a.needAuth = !0,
@@ -1012,7 +1013,7 @@
       },
       get_type_topic: function() {
         var e = this,
-          t = this.$wx.getStorageSync('community')
+          t = this.$wx.getStorageSync('community') || {};
 
         e.$http({
           controller: 'goods.get_category_col_list',
@@ -1342,15 +1343,15 @@
         })
       },
       goOrder: function() {
-
+        debugger
         var i = this
-        i.data.can_car && (i.data.can_car = !1)
+        i.can_car && (i.can_car = !1)
         this.$wx.getStorageSync('token')
         var t = this.$wx.getStorageSync('community'),
-          a = i.data.addCar_goodsid,
+          a = i.addCar_goodsid,
           e = t.communityId,
-          o = i.data.sku_val,
-          s = i.data.cur_sku_arr,
+          o = i.sku_val,
+          s = i.cur_sku_arr,
           n = ''
         s && s.option_item_ids && (n = s.option_item_ids)
         var d = {
@@ -1364,15 +1365,15 @@
         }
         util.addCart(d).then(function(t) {
           if (1 == t.showVipModal) {
-            var a = t.data.pop_vipmember_buyimage
+            var a = t.pop_vipmember_buyimage
             this.$wx.hideLoading(), i.setData({
               pop_vipmember_buyimage: a,
               showVipModal: !0,
               visible: !1
             })
-          } else if (3 == t.data.code || 7 == t.data.code) {
+          } else if (3 == t.code || 7 == t.code) {
             this.$wx.showToast({
-              title: t.data.msg,
+              title: t.msg,
               icon: 'none',
               duration: 2e3
             })
@@ -1383,19 +1384,19 @@
               visible: !1
             })
           } else if (6 == t.data.code) {
-            var e = t.data.max_quantity || ''
+            var e = t.max_quantity || ''
             0 < e && i.setData({
               sku_val: e
             })
-            var o = t.data.msg
+            var o = t.msg
             this.$wx.showToast({
               title: o,
               icon: 'none',
               duration: 2e3
             })
           } else {
-            i.closeSku(), (0, status.cartNum)(t.data.total), i.setData({
-              cartNum: t.data.total
+            i.closeSku(), (0, status.cartNum)(t.total), i.setData({
+              cartNum: t.total
             }), this.$wx.showToast({
               title: '已加入购物车',
               image: '../../images/addShopCart.png'
@@ -1412,7 +1413,7 @@
         this.$wx.showLoading(), (
           this.is_take_vipcard = '',
             this.is_mb_level_buy = ''
-        ), a.collectFormIds(t.detail.formId), this.goOrder()
+        ), a.collectFormIds(t.formId), this.goOrder()
       },
 
       openSku: function(t) {

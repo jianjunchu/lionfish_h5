@@ -33,7 +33,7 @@
         <div scrollWithAnimation bindscroll="scroll" bindscrolltolower="scrollBottom" bindtouchend="touchend" bindtouchstart="touchstart" class="page-list scrollY " lowerThreshold="200" scrollTop="resetScrollBarTop" upperThreshold="50">
             <div class="scroll-col-tip-top">
                 <span v-if="isFirstCategory">已经拉到最顶部啦～</span>
-                <span wx:else>下拉查看上一个分类</span>
+                <span v-else>下拉查看上一个分类</span>
             </div>
             <div style="min-height: 100px;">
                 <div v-if="!pageEmpty">
@@ -51,7 +51,7 @@
                     <span v-if="isLastCategory">看到我的底线了吗～</span>
                     <span wx:else>上拉查看下一个分类</span>
                 </div> -->
-                <div style="height:100rpx;"></div>
+                <div style="height:50px"></div>
             </div>
         </div>
     </div>
