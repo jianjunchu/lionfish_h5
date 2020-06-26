@@ -41,6 +41,8 @@
 
 <script>
  // 按需引入部分组件
+    import { Toast } from 'mint-ui';
+    import 'mint-ui/lib/style.css'
     export default {
         name: "bm_phone_regist",
         data(){
@@ -69,7 +71,7 @@
                 },
                 // 获取验证码按钮禁用
                 getCodeDisabled: true,
-                registFlag: false,
+                registFlag: true,
                 // 获取验证码按钮文字
                 getCodeBtnText: "获取验证码",
                 //解决安卓输入框将fixed布局顶上的问题
@@ -90,10 +92,6 @@
             showHeight:function() {
                 this.hideFooter = this.docmHeight <= this.showHeight;
             }
-        },
-        components: {
-          ScrollPicker,
-          ScrollPickerGroup,
         },
         props:['baseConfig'],
         mounted() {
@@ -134,11 +132,11 @@
             },
             hideTopAndFooter: function(){
             this.$store.dispatch('app/hideTabbar');
-            this.$store.dispatch('app/hideToolbarMore');
-            this.$store.dispatch('app/hideToolbarBack');
+            this.$store.dispatch('app/hideToolbarMore'); 
+            this.$store.dispatch('app/hideToolbarBack'); 
             },
             chooseArea(){
-
+                
             },
             focus(type){
                 if (type === "phoneNum"){
@@ -214,14 +212,14 @@
                 return;
               }
               this.$http({
-                controller : 'index.check_sms_code',
+                controller : 'index.reg_check_sms',
                 i: 3,
                 code: code
               }).then(response => {
                 console.log(response)
                 var result = response;
-                if(result == 0){
-                  this.$router.push({path: '/userInfo'});
+                if(result.code == 0){
+                  this.$router.push({path: '/userInfo?memberId='+result.member_id});
                 }
               })
             }
@@ -468,5 +466,5 @@
             }
         }
     }
-
+    
 </style>

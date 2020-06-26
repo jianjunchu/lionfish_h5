@@ -2,7 +2,7 @@
   <div class="login-container">
     <div class="top">
         <div style="width: 70%;float:left;line-height: 50px;font-size: 18px;font-weight: 600">&nbsp;&nbsp;&nbsp;Complete your profile</div>
-        <div style="width: 20%;float:right;line-height: 50px;text-align: center;color: blue;font-weight: 400">Skip</div>
+        <div style="width: 20%;float:right;line-height: 50px;text-align: center;color: blue;font-weight: 400" @click="turnToLogin">Skip</div>
     </div>
     <el-form ref="loginForm" :model="loginForm" class="login-form" auto-complete="on" label-position="left">
       <div class="title-container">
@@ -39,7 +39,7 @@
         />
       </el-form-item>
 
-      <el-button :loading="loading" type="primary" round style="width:100%;margin-bottom:30px;" @click.native.prevent="handleLogin">Save</el-button>
+      <el-button :loading="loading" type="primary" round style="width:100%;margin-bottom:30px;" @click.native.prevent="handleSave">Save</el-button>
 
       <!-- <div class="tips">
         <span style="margin-right:20px;">username: admin</span>
@@ -72,7 +72,8 @@ export default {
       },
       loading: false,
       passwordType: 'password',
-      redirect: undefined
+      redirect: undefined,
+      memberId: ''
     }
   },
   watch: {
@@ -94,20 +95,25 @@ export default {
         this.$refs.password.focus()
       })
     },
-    handleLogin() {
-      this.$refs.loginForm.validate(valid => {
-        if (valid) {
-          this.loading = true
-          this.$store.dispatch('user/login', this.loginForm).then(() => {
-            this.$router.push({ path: this.redirect || '/' })
-            this.loading = false
-          }).catch(() => {
-            this.loading = false
-          })
-        } else {
-          return false
-        }
+    turnToLogin: function(){
+      this.$router.push({path: '/login'});
+    },
+    handleSave() {
+      this.$http({
+        controller : 'index.reg_save_user',
+        i: 3,
+        member_id: this.memberId,
+        user: this.loginForm.username,
+        password: this.loginForm.password
+      }).then(response => {
+        console.log(response)
+        var result = response;
+        // if(result.code == -2){
+        //   this.$router.push({path: '/login'});
+        // }
       })
+      // console.log(this.loginForm.username+":"+this.memberId);
+      // this.$router.push({path: '/login'});
     },
     hideTopAndFooter: function(){
       this.$store.dispatch('app/hideTabbar');
@@ -117,6 +123,7 @@ export default {
   },
   created: function(){
       this.hideTopAndFooter();
+      this.memberId = this.$route.query.memberId;
   }
 }
 </script>

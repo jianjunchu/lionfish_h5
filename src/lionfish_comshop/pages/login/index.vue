@@ -62,13 +62,6 @@ import { validUsername } from '../../utils/validate'
 export default {
   name: 'Login',
   data() {
-    const validateUsername = (rule, value, callback) => {
-      if (!validUsername(value)) {
-        callback(new Error('Please enter the correct user name'))
-      } else {
-        callback()
-      }
-    }
     const validatePassword = (rule, value, callback) => {
       if (value.length < 6) {
         callback(new Error('The password can not be less than 6 digits'))
@@ -82,7 +75,6 @@ export default {
         password: ''
       },
       loginRules: {
-        username: [{ required: true, trigger: 'blur', validator: validateUsername }],
         password: [{ required: true, trigger: 'blur', validator: validatePassword }]
       },
       loading: false,
@@ -110,17 +102,18 @@ export default {
       })
     },
     handleLogin() {
-      this.$refs.loginForm.validate(valid => {
-        if (valid) {
-          this.loading = true
-          this.$store.dispatch('user/login', this.loginForm).then(() => {
-            this.$router.push({ path: this.redirect || '/' })
-            this.loading = false
-          }).catch(() => {
-            this.loading = false
-          })
-        } else {
-          return false
+      this.$http({
+        controller : 'user.weblogin_do',
+        i: 3,
+        user: this.loginForm.username,
+        password: this.loginForm.password
+      }).then(response => {
+        console.log(response)
+        var result = response;
+        if(result != null && result.member_id != -1){
+          alert('登录成功');
+        }else{
+          alert("登录失败");
         }
       })
     },
