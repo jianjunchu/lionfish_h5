@@ -773,7 +773,7 @@
           debugger
         if(this.needAuth) {
             this.showAuthModal = !this.showAuthModal;
-            return false;
+//            return false;
         }
         if(this.showAuthModal){
           this.$wx.redirectTo({
