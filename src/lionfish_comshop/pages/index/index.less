@@ -7,6 +7,7 @@
 .bg-f {
   background-color: #fff;
 
+
 }
 
 ::-webkit-scrollbar {
@@ -21,7 +22,8 @@
 
 .swipe {
   height: 140px;
-  margin: 10px
+  margin: 10px;
+  padding-top: 10px;
 }
 
 .swiper-content {
@@ -232,7 +234,7 @@
 }
 
 .list-content {
-  z-index: 1;
+  z-index: 2;
   position: relative;
 }
 
@@ -243,6 +245,8 @@
 }
 
 .rush-list-box {
+  z-index: 2;
+  background: #f7f7f7;
   position: relative;
   min-height: 1300px;
   padding: 10px;
@@ -654,10 +658,10 @@
 
 .nav-list {
   position: relative;
-  z-index: 1;
-  margin: 0px 0 10px;
+  z-index: 2;
+  background: #fff;
   display: flex;
-  padding: 0 10px;
+  padding: 10px 10px;
   flex-wrap: wrap;
   justify-content: space-between;
 }
@@ -665,6 +669,7 @@
 .nav-list-item {
   color: #333;
   margin-bottom: 2px;
+  background: #fff;
   font-size: 6px;
   text-align:center
 }
@@ -711,10 +716,10 @@
 }
 
 .sticky-content .tab-nav {
-  height: 70px;
+  height: 40px;
   display: flex;
-  margin: 0 30px;
-  border-bottom: 4px solid #fc4443;
+  margin: 0 10px;
+  border-bottom: 1px solid #fc4443;
   transition: all 0.3s linear;
 }
 
@@ -735,8 +740,8 @@
 }
 
 .sticky-content .tab-nav .count-down-content .count-down {
-  height: 68px;
-  line-height: 68px;
+  height: 50px;
+  line-height: 50px;
   color: #444;
   font-size: 26px;
   display: flex;
@@ -746,8 +751,8 @@
 
 .sticky-content .tab-nav .count-down-content .count-down .item-time {
   width: 34px;
-  height: 32px;
-  line-height: 32px;
+  height: 40px;
+  line-height: 40px;
   color: #fff;
   text-align: center;
   background: #444;
@@ -757,20 +762,20 @@
 
 .sticky-content .tab-nav .tab-nav-item {
   color: #6c6c6c;
-  font-size: 26px;
+  font-size: 13px;
   font-weight: bold;
   position: relative;
   z-index: 1;
-  width: 190px;
-  height: 70px;
+  width: 100px;
+  height: 40px;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-.sticky-content .tab-nav .tab-nav-item image {
-  width: 190px;
-  height: 70px;
+.sticky-content .tab-nav .tab-nav-item img {
+  width: 100px;
+  height: 40px;
   position: absolute;
   left: 0;
   top: 0;

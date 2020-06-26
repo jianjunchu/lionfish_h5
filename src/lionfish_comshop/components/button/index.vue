@@ -80,7 +80,7 @@
     },
     methods: {
       handleTap: function() {
-        return !this.disabled && !this.loading && void this.$emit('click')
+        return !this.disabled && !this.loading && void this.$emit('handleTap')
       },
       bindgetuserinfo: function() {
         var e = (0 < arguments.length && void 0 !== arguments[0] ? arguments[0] : {}).detail, t = void 0 === e ? {} : e

@@ -777,7 +777,11 @@
             this.showAuthModal = !this.showAuthModal;
           return false;
         }
-        return true;
+        if(this.showAuthModal){
+          this.$wx.redirectTo({
+            url: "/login"
+          })
+        }
       },
       goToGroup: function () {
         5 === this.auditStatus ?  this.$wx.navigateTo({

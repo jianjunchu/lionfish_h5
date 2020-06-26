@@ -38,7 +38,6 @@
   .vux-header {
     position: fixed;
     width: 100%;
-    padding: 3px 0;
     box-sizing: border-box;
     background-color: #3dc14a;
     left: 0px;
@@ -46,7 +45,7 @@
     z-index: 100
   }
   .vux-header .vux-header-title {
-    line-height: 40px;
+    line-height: 48px;
     text-align: center;
     font-size: 18px;
     font-weight: 400;
@@ -54,7 +53,7 @@
   }
   .vux-header-title-area, .vux-header .vux-header-title {
     margin: 0 88px;
-    height: 40px;
+    height: 48px;
     width: auto;
     overflow: hidden;
     text-overflow: ellipsis;

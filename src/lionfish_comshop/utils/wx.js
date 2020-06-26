@@ -7,9 +7,12 @@ export default {
   showLoading: function() {
 
   },
+  hideLoading: function() {
+    
+  },
   getStorageSync: function(k) {
 
-    return _this.$store.getters.app.storageSync[k] || {};
+    return _this.$store.getters.app.storageSync[k] || {}
   },
   navigateTo: function(o) {
     _this.$router.push(o.url)

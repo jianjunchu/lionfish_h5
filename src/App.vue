@@ -1,7 +1,7 @@
 <template>
   <div id="app" style="overflow-x: hidden;">
     <i-toolbar ref="toolbar"></i-toolbar>
-    <router-view style="margin-top:50px"/>
+    <router-view style="margin-top:48px"/>
     <i-tabbar v-show="getShowTabbar" ref="tabbar" :currentIdx="getTabbarCurrentIdx" :tabbarRefresh="tabbarRefresh"
               :cartNum="getCartNum"></i-tabbar>
 
@@ -13,6 +13,8 @@
 
 </style>
 <script>
+  import {getToken} from './lionfish_comshop/utils/auth'
+
   var util = require('@/lionfish_comshop/utils'), timeQueue = require('@/lionfish_comshop/utils/timeQueue') ,wx = require('@/lionfish_comshop/utils/wx')
   export default {
     name: 'App',
@@ -53,6 +55,9 @@
         subColor: '#ed7b3a',
         lighter: '#fff9f4'
       }
+    },
+    created:function(){
+      this.$store.getters.app.storageSync['token'] = getToken()
     },
     mounted: function() {
       this.$getApp().globalData.timer = new timeQueue.default();

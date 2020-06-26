@@ -60,7 +60,7 @@
             <i-button iClass="add-cart" v-if="disabled||spuItem.spuCanBuyNum==0||actEnd">
               <img class="img" src="@/assets/images/icon-add-shopCart-disabled.png"></img>
             </i-button>
-            <i-button @click="openSku" iClass="add-cart" class="add-cart" v-else>
+            <i-button @handleTap="openSku" iClass="add-cart" class="add-cart" v-else>
               <i-addcart fontsize="14" iClass="img"></i-addcart>
             </i-button>
           </div>
@@ -167,6 +167,7 @@
     },
     created:function() {
       this.number =  this.spuItem.car_count || 0
+
     },
     methods: {
       openSku: function() {
@@ -189,6 +190,7 @@
           value: 1,
           type: "plus"
         }));
+        return false;
       },
       countDownEnd: function() {
         this.actEnd = !0

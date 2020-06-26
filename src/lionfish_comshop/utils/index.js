@@ -165,27 +165,22 @@ function getInNum() {
 
 function setNavBgColor() {
   const a = wcache.get('navBgColor', 1)
-  const t = wcache.get('navFontColor', 1)
-  a === 1 || t === 1
-
-    ? _this.$http({
-      controller: 'index.get_nav_bg_color'
-    }).then(a => {
-      if (a.code === 0) {
-        const t = a.data || '#F75451'
-        const e = a.nav_font_color || '#ffffff'
-        _this.$wx.setNavigationBarColor({
-          frontColor: e,
-          backgroundColor: t
-        })
-        wcache.put('navBgColor', t, 100)
-        wcache.put('navFontColor', e, 100)
-      }
-    })
-    : _this.$wx.setNavigationBarColor({
-      frontColor: t,
-      backgroundColor: a
-    })
+  const t = wcache.get('navFontColor', 1);
+  (a === 1 || t === 1) ? (_this.$http({
+    controller: 'index.get_nav_bg_color'
+  }).then(a => {
+    if (a.code === 0) {
+      const t = a.data || '#F75451'
+      const e = a.nav_font_color || '#ffffff'
+      _this.$wx.setNavigationBarColor({
+        frontColor: e,
+        backgroundColor: t
+      })
+    }
+  })) : (_this.$wx.setNavigationBarColor({
+    frontColor: t,
+    backgroundColor: a
+  }))
 }
 
 function setGroupInfo() {
@@ -310,7 +305,12 @@ function getCommunityById(n) {
 
 function loadStatus() {
   return new Promise((resolve, reject) => {
-    resolve()
+    check_login_new().then(function(a) {
+      if (!a) {
+        _this.$app.globalData.appLoadStatus = 0
+        resolve()
+      }
+    })
   })
 }
 
@@ -353,12 +353,17 @@ function checkRedirectTo(e, t) {
 function check_login_new() {
   return new Promise((resolve, reject) => {
     var e = _this.$wx.getStorageSync('token')
-    console.log(e)
-    if (e) {
-      resolve(true)
-    } else {
-      reject(false)
-    }
+
+    _this.$http({
+      controller: 'user.get_user_info',
+      token: e
+    }).then(e => {
+      if (e && e.data) {
+        resolve(true)
+      } else {
+        resolve(false)
+      }
+    })
   })
 }
 
@@ -373,7 +378,7 @@ module.exports = {
   getInNum: getInNum,
   setNavBgColor: setNavBgColor,
   setGroupInfo: setGroupInfo,
-  check_login:check_login,
+  check_login: check_login,
   setIcon: setIcon,
   getPx: getPx,
   drawText: drawText,

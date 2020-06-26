@@ -58,6 +58,7 @@
 <script>
 import { validUsername } from '../../utils/validate'
  import GlobalMixin from '../../mixin/globalMixin.js'
+import {setToken} from '../../utils/auth.js'
 
   var util = require("../../utils"),
     status = require("../../utils"),
@@ -115,6 +116,8 @@ export default {
         var result = response;
         if(result != null && result.member_id != -1){
           alert('登录成功');
+          this.$wx.setStorageSync('token', response.token)
+          setToken(response.token);
           this.$router.push({path: '/lionfish_comshop/pages/index/index'});
         }else{
           alert("登录失败");
@@ -126,8 +129,8 @@ export default {
     },
     hideTopAndFooter: function(){
       this.$store.dispatch('app/hideTabbar');
-      this.$store.dispatch('app/hideToolbarMore'); 
-      this.$store.dispatch('app/hideToolbarBack'); 
+      this.$store.dispatch('app/hideToolbarMore');
+      this.$store.dispatch('app/hideToolbarBack');
     }
   },
   created: function(){
