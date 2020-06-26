@@ -376,7 +376,7 @@
       havePaid: function(t){
         this.closePaymentModal();
         var this_ = this;
-        var s = wx.getStorageSync("token"),a = this.data.currentItem;
+        var s = this.$wx.getStorageSync("token"),a = this.currentItem;
         var type = t.currentTarget.dataset.type
         wx.showLoading(), app.util.request({
           url: "entry/wxapp/user",
@@ -421,12 +421,10 @@
         this.isHideLoadMore = true;
         this.no_order = 1;
         var that = this;
-//        var token = wx.getStorageSync("token");
-//        var token = "5a4ee9ec0afee923665513b17a928c05";
-        var token = "aa8dfe90ff686cb87928e6a5523e44da";
+        var token = this.$wx.getStorageSync("token");
         this.$http({
             controller: "order.orderlist",
-//            token: token,
+            token: token,
             page: that.page,
             order_status: that.order_status
           }).then(res=> {
@@ -454,7 +452,7 @@
       receivOrder: function(t) {
         let id = event.currentTarget.dataset.type;
         let delivery = event.currentTarget.dataset.delivery;
-        var token = wx.getStorageSync('token');
+        var token = this.$wx.getStorageSync("token");
         let content = "确认收到";
         if (delivery == "pickup") content = "确认提货";
         var that = this;
@@ -485,8 +483,7 @@
       },
       cancelOrder: function(t) {
         let id = event.currentTarget.dataset.type;
-//        var token = wx.getStorageSync('token');
-        var token = "aa8dfe90ff686cb87928e6a5523e44da"
+        var token = this.$wx.getStorageSync("token");
         var that = this;
         this.$wx.showModal({
           title: '取消支付',
@@ -528,7 +525,7 @@
       },
       orderPayWeixin: function() {
         this.closePaymentModal();
-        var e = wx.getStorageSync("token"), a = this.data.currentItem;
+        var e = this.$wx.getStorageSync("token"), a = this.currentItem;
 
         app.util.request({
           url: "entry/wxapp/index",

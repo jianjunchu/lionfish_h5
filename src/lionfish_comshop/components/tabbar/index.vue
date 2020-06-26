@@ -88,7 +88,7 @@
             selectedIconPath: '',
             selected: !1
           }, {
-            pagePath: '/lionfish_comshop/pages/me/index',
+            pagePath: '/lionfish_comshop/pages/user/me',
             text: '我的',
             iconPath: '',
             selectedIconPath: '',

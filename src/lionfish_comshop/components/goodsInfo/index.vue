@@ -31,7 +31,7 @@
                 <div class="detail">
                     <text>{{order.order_info.ziti_name}}</text>
                     <div bindtap="callTelphone" class="phone" :data-phone="order.order_info.ziti_mobile" v-if="hidePhone==0">
-                        <image class="icon-phone" src="../../images/phone2.png"></image>
+                        <image class="icon-phone" src="@/assets/images/phone2.png"></image>
                         <text>联系{{groupInfo.owner_name}}</text>
                     </div>
                 </div>

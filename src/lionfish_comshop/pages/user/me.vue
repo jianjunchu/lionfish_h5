@@ -444,10 +444,10 @@
 
 
 
-  <!--<i-tabbar bind:authModal="authModal" cartNum="{{cartNum}}" currentIdx="4" needAuth="{{needAuth}}" tabbarRefresh="{{tabbarRefresh}}"></i-tabbar>-->
+  <!--<i-tabbar bind:authModal="authModal" :cartNum="cartNum" currentIdx="4" :needAuth="needAuth" :tabbarRefresh="tabbarRefresh"></i-tabbar>-->
   <!--<i-get-phone bind:cancel="close" bind:confirm="getReceiveMobile" bind:needAuth="authModal" visible="{{showGetPhone&&!needAuth}}"></i-get-phone>-->
   <!--<i-fetch-coder bind:cancel="toggleFetchCoder" codeImg="{{member_info.hexiao_qrcod}}" coderList="{{myCoderList}}" visible="{{isShowCoder}}"></i-fetch-coder>-->
-  <!--<i-new-auth bind:authSuccess="authSuccess" bind:cancel="authModal" needAuth="{{needAuth&&showAuthModal}}"></i-new-auth>-->
+  <!--<i-new-auth bind:authSuccess="authSuccess" bind:cancel="authModal" :needAuth="needAuth&&showAuthModal"></i-new-auth>-->
 </template>
 
 <script>
@@ -476,8 +476,8 @@
     name:'me',
 //    components: {
 //      'i-type-item' : require('./type-item.vue').default,
-//      'i-img': require('../../components/img/index.vue').default,
-//      'i-router-link': require('../../components/RouterLink/index.vue').default
+//      'i-img': require('../../components/img/me.vue').default,
+//      'i-router-link': require('../../components/RouterLink/me.vue').default
 //    },
     data() {
       return {
@@ -547,8 +547,7 @@
 
         user_top_font_color:'',
         commiss_level:'',
-        showAuthModal:false,
-        auditStatus:false
+        showAuthModal:false
       }
     },
     created: function() {
@@ -599,8 +598,7 @@
 //        }
       },
       getMemberInfo: function () {
-//        var token = "5a4ee9ec0afee923665513b17a928c05";// this.$wx.getStorageSync("token");
-        var token = "aa8dfe90ff686cb87928e6a5523e44da";// this.$wx.getStorageSync("token");
+        var token = this.$wx.getStorageSync('token');
         this.getCommunityInfo();
         var that = this;
         this.$http({
@@ -648,7 +646,7 @@
 
                 }
               } else {
-                this.needAuth = needAuth;
+                this.needAuth = true;
               }
 
               let { is_supply, is_open_vipcard_buy, modify_vipcard_name, is_vip_card_member, modify_vipcard_logo, isopen_signinreward, show_signinreward_icon } = res;
@@ -695,8 +693,7 @@
       },
       getCopyright: function () {
         var that = this;
-//        var token = "5a4ee9ec0afee923665513b17a928c05";// this.$wx.getStorageSync("token");
-        var token = "aa8dfe90ff686cb87928e6a5523e44da";// this.$wx.getStorageSync("token");
+        var token = this.$wx.getStorageSync('token')
         this.$http({
             controller: 'user.get_copyright',
             token:token
@@ -764,7 +761,7 @@
       authSuccess: function () {
         var that = this;
          this.$wx.showLoading();
-         this.needAuth = false, thia.showAuthModal= false, this.tabbarRefresh = true ;
+         this.needAuth = false, this.showAuthModal= false, this.tabbarRefresh = true ;
         (0, status.cartNum)('', true).then((res) => {
           if(res.code == 0){
             that.cartNum = res;
@@ -773,20 +770,23 @@
         that.getMemberInfo();
       },
       authModal: function () {
+          debugger
         if(this.needAuth) {
             this.showAuthModal = !this.showAuthModal;
-          return false;
+//            return false;
         }
         if(this.showAuthModal){
           this.$wx.redirectTo({
             url: "/login"
           })
         }
+        return true;
       },
       goToGroup: function () {
-        5 === this.auditStatus ?  this.$wx.navigateTo({
+          debugger
+        5 === this.auditStatus ?  this.$wx.redirectTo({
           url: "/lionfish_comshop/pages/groupCenter/index"
-        }) :  this.$wx.navigateTo({
+        }) :  this.$wx.redirectTo({
           url: "/lionfish_comshop/pages/groupCenter/apply"
         });
       },
@@ -837,6 +837,7 @@
         })
       },
       goLink2: function(event) {
+        debugger
         if(!this.authModal()) return;
         debugger
         let link = event.currentTarget.dataset.link;

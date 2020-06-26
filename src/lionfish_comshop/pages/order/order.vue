@@ -532,8 +532,7 @@
         that.common_header_backgroundimage= this.$getApp().globalData.common_header_backgroundimage;
           that.userInfo = userInfo;
 
-//        var token = this.$wx.getStorageSync('token');
-        var token = "aa8dfe90ff686cb87928e6a5523e44da";
+        var token = this.$wx.getStorageSync("token");
 //        this.$wx.hideShareMenu();
 //        this.$wx.showLoading();
 
