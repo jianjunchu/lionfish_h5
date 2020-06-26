@@ -81,6 +81,7 @@
 </template>
 
 <script>
+  var util = require('../../utils');
 
   export default {
     name: '',
@@ -205,13 +206,13 @@
       outOfMax: function(t) {
         t.detail;
         var a =this.spuItem.spuCanBuyNum;
-       this.number >= a && wx.showToast({
+       this.number >= a && this.$wx.showToast({
           title: "不能购买更多啦",
           icon: "none"
         });
       },
       addCart: function(t) {
-        var a = wx.getStorageSync("token"), e = wx.getStorageSync("community"), i =this.spuItem.actId, s = e.communityId, u = this;
+        var a = this.$wx.getStorageSync("token"), e = this.$wx.getStorageSync("community"), i =this.spuItem.actId, s = e.communityId, u = this;
         if ("plus" == t.type) {
           var o = {
             goods_id: i,
@@ -233,7 +234,7 @@
             } else {
               if (3 == t.code) 0 < (t.max_quantity || "") && u.setData({
                 number: u.data.number
-              }), wx.showToast({
+              }), this.$wx.showToast({
                 title: t.msg,
                 icon: "none",
                 duration: 2e3
@@ -244,22 +245,21 @@
                   number: u.data.number
                 });
                 var e = t.msg;
-                wx.showToast({
+                this.$wx.showToast({
                   title: e,
                   icon: "none",
                   duration: 2e3
                 });
               } else u.$emit("changeCartNum", t.total), u.setData({
                 number: t.cur_count
-              }), wx.showToast({
+              }), this.$wx.showToast({
                 title: "已加入购物车",
                 image: "../../images/addShopCart.png"
               }), status.indexListCarCount(i, t.cur_count);
             }
           });
-        } else app.util.request({
-          url: "entry/wxapp/user",
-          data: {
+        } else {
+          this.$http({
             controller: "car.reduce_car_goods",
             token: a,
             goods_id: i,
@@ -269,23 +269,24 @@
             buy_type: "dan",
             pin_id: 0,
             is_just_addcar: 1
-          },
-          dataType: "json",
-          method: "POST",
-          success: function(t) {
-            if (3 == t.code) wx.showToast({
+          }).then(t =>{
+
+            if (3 == t.code) this.$wx.showToast({
               title: t.msg,
               icon: "none",
               duration: 2e3
             }); else if (4 == t.code) {
-              if (u.data.needAuth) return u.setData({
+              if (u.needAuth) return u.setData({
                 needAuth: !0
               }), void u.$emit("authModal", !0);
-            } else u.$emit("changeCartNum", t.total), u.setData({
-              number: t.cur_count
-            }), status.indexListCarCount(i, t.cur_count);
-          }
-        });
+            } else{
+              u.$emit("changeCartNum", t.total);
+              u.number = t.cur_count
+              status.indexListCarCount(i, t.cur_count);
+            }
+          })
+
+        }
       }
     }
   }

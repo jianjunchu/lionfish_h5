@@ -51,7 +51,7 @@
       navBackUrl: '',
       isblack: 0,
       skin: {
-        color: '#ff5344',
+        color: '#8ED9D1',
         subColor: '#ed7b3a',
         lighter: '#fff9f4'
       }

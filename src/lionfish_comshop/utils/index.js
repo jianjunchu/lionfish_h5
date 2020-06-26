@@ -6,6 +6,8 @@ import _this from '../../main.js'
 
 var wcache = require('../utils/wcache')
 
+import { http } from '@/lionfish_comshop/api'
+
 function getLightColor(e, t) {
   e = e ? e.toUpperCase() : e
   if (!/^\#?[0-9A-F]{6}$/.test(e)) return e
@@ -17,17 +19,21 @@ function getLightColor(e, t) {
 }
 
 function addCart(o) {
-  const e = _this.$wx.getStorageSync('token')
-  _this.$http({
-    controller: 'car.add',
-    token: e
-  }).then(e => {
-    if (e.code === 7) {
-      const t = e
-      const n = t.has_image
-      const o = t.pop_vipmember_buyimage
-      n === 1 && o && (e.showVipModal = 1, e.pop_vipmember_buyimage = o)//, i(e);
-    } // else i(e);
+  return new Promise((resolve, reject) => {
+    const e = _this.$wx.getStorageSync('token')
+    o.controller = 'car.add'
+    o.token = e
+    _this.$http(o).then(e => {
+      if (e.code === 7) {
+        const t = e
+        const n = t.has_image
+        const o = t.pop_vipmember_buyimage
+        n === 1 && o && (e.showVipModal = 1, e.pop_vipmember_buyimage = o)
+        resolve(e)
+      } else {
+        resolve(e)
+      }
+    })
   })
 }
 
@@ -308,9 +314,15 @@ function loadStatus() {
     check_login_new().then(function(a) {
       if (!a) {
         _this.$app.globalData.appLoadStatus = 0
-        resolve()
       }
+      resolve()
     })
+  })
+}
+
+function request(o) {
+  http(o.data).then(r => {
+    o.success(r)
   })
 }
 

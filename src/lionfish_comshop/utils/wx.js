@@ -1,14 +1,16 @@
 import _this from '../../main.js'
+import { MessageBox } from 'mint-ui'
+import { Indicator } from 'mint-ui'
 
 export default {
   showToast: function() {
 
   },
-  showLoading: function() {
-
+  showLoading: function(option) {
+    Indicator.open(option.title)
   },
   hideLoading: function() {
-    
+    Indicator.close()
   },
   getStorageSync: function(k) {
 
@@ -59,6 +61,15 @@ export default {
   },
   getSystemInfoSync: function() {
 
+  },
+  showModal: function(option) {
+    MessageBox({
+      title: option.title,
+      message: option.content,
+      showCancelButton: option.showCancel
+    }).then(action => {
+      option.success(action)
+    })
   }
 
 }

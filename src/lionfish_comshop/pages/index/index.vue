@@ -152,7 +152,7 @@
           <template is="seckill"
                     :data="{secRushList:secRushList,skin:skin,scekillTimeList:scekillTimeList,secKillActiveIdx:secKillActiveIdx,secKillGoodsIndex:secKillGoodsIndex,needAuth:needAuth}"
                     v-if="seckill_is_open==1&&seckill_is_show_index==1"></template>
-          <i-topic @openSku="openSku" :refresh="{couponRefresh}"></i-topic>
+          <i-topic @openSku="openSku" :refresh="couponRefresh"></i-topic>
           <div class="theme3 bg-f" v-if="typeTopicList.length&&(typeItem.banner||typeItem.list.length)"
                v-for="(typeItem,index) in typeTopicList" :key="typeItem.id">
             <img @click="goLink" class="topic-img" :data-link="'/lionfish_comshop/pages/type/details?id='+typeItem.id"
@@ -567,9 +567,9 @@
         hide_community_change_btn: 0,
         isShowShareBtn: 0,
         isShowContactBtn: 0,
-        needAuth: !1,
         stopClick: !1,
         showAuthModal: !1,
+        changeCarCount:!1,
         community: {
           communityAddress: undefined,
           communityId: undefined,
@@ -601,6 +601,7 @@
           tabs: [],
           activeIndex: -1
         },
+        needAuth: !1,
         isShowCommingClassification: !0,
         isShowClassification: !0,
         showChangeCommunity: !1,
@@ -673,9 +674,9 @@
         is_vip_card_member: false,
         is_mb_level_buy: false,
         visible: !1,
-        needAuth:!1,
         changeCommunity: {},
         loadOver:!1,
+        loadText:'Loading...',
         $data: {
           stickyFlag: !1,
           scrollTop: 0,
@@ -827,37 +828,43 @@
       },
 
       get_index_info() {
+
         var F = this,
           t = F.$wx.getStorageSync('community'),
-          B = t && t.communityId || '',
+          B = t && (t.communityId || ''),
           a = F.$wx.getStorageSync('token')
 
-        this.$http({
+        F.$http({
           controller: 'index.index_info',
           communityId: B,
           token: a
         }).then(t => {
-
           var a = t,
             e = F.groupInfo
           if (0 == a.code) {
-            if (!t.is_community && B && !F.needAuth) {
+            if (!t.is_community  && !F.needAuth) {
               var o = F.changeCommunity || {}
-              o.communityId || '' ? (wcache.put('community', o), F.addhistory(o.community_id),
-                (
-                  F.community = o,
-                    F.showChangeCommunity = !1
-                ), F.loadPage()) : F.$wx.showModal({
-                title: '提示',
-                content: '该' + e.group_name + '不在，请重新选择' + e.group_name,
-                showCancel: !1,
-                confirmColor: '#F75451',
-                success: function(t) {
-                  t.confirm && F.$wx.redirectTo({
-                    url: '/lionfish_comshop/pages/position/community'
-                  })
-                }
-              })
+
+              if(o.communityId && o.communityId!=''){
+                wcache.put('community', o);
+                F.addhistory(o.community_id);
+                F.community = o;
+                F.showChangeCommunity = !1;
+                F.loadPage()
+              }else{
+
+                  F.$wx.showModal({
+                  title: '提示',
+                  content: '该' + e.group_name + '不在，请重新选择' + e.group_name,
+                  showCancel: false,
+                  confirmColor: '#F75451',
+                  success: function(t) {
+                    F.$wx.redirectTo({
+                      url: "/lionfish_comshop/pages/position/community"
+                    });
+                  }
+                })
+              }
             }
             var i = a.notice_list,
               s = a.slider_list,
@@ -1106,6 +1113,7 @@
         e.get_index_info(), e.get_type_topic(), e.getNavigat(), e.getCoupon(), e.getPinList(),
           status.loadStatus().then(function() {
             var t = e.$app.globalData.appLoadStatus
+
             if (console.log('appLoadStatus' + t), 0 == t) {
               setTimeout(function() {
                 e.$wx.hideLoading()
@@ -1117,7 +1125,7 @@
               console.log('step9'), e.getHistoryCommunity()
             } else {
               console.log('step12')
-              var a = wx.getStorageSync('community');
+              var a = e.$wx.getStorageSync('community');
               (a || (a = e.$app.globalData.community), a) ? (e.community = e.fliterCommunity(a)) :
                 util.getCommunityInfo().then(function(t) {
                   e.community = e.fliterCommunity(t)
@@ -1416,7 +1424,7 @@
       },
 
       openSku: function(t) {
-        debugger
+
         if (this.authModal()) {
           var a = t,
             e = a.actId,
