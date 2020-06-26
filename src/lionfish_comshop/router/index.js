@@ -67,8 +67,8 @@ export const constantRoutes = [
     hidden: true
   },
   {
-    path: '/lionfish_comshop/pages/me/index',
-    component: () => import('@/lionfish_comshop/pages/user/index'),
+    path: '/lionfish_comshop/pages/user/me',
+    component: () => import('@/lionfish_comshop/pages/user/me'),
     hidden: true
   },
   {
@@ -79,6 +79,16 @@ export const constantRoutes = [
   {
     path: '/lionfish_comshop/pages/user/protocol',
     component: () => import('@/lionfish_comshop/pages/user/protocol'),
+    hidden: true
+  },
+{
+    path: '/lionfish_comshop/pages/groupCenter/index',
+    component: () => import('@/lionfish_comshop/pages/groupCenter/index'),
+    hidden: true
+  },
+{
+    path: '/lionfish_comshop/pages/groupCenter/groupList',
+    component: () => import('@/lionfish_comshop/pages/groupCenter/groupList'),
     hidden: true
   },
   {

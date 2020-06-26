@@ -50,6 +50,7 @@
         })
       },
       get_list: function() {
+         this.token = this.$wx.getStorageSync('token');
          var that = this;
          this.$http({
              controller: 'article.get_article_list',
