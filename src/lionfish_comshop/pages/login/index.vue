@@ -49,6 +49,9 @@
       </div> -->
 
     </el-form>
+    <div class="gotoRegist">
+      Don't hava an account? <a href="javascript:void()" @click="gotoRegist" style="color: blue">Register</a>
+    </div>
   </div>
 </template>
 
@@ -112,10 +115,14 @@ export default {
         var result = response;
         if(result != null && result.member_id != -1){
           alert('登录成功');
+          this.$router.push({path: '/lionfish_comshop/pages/index/index'});
         }else{
           alert("登录失败");
         }
       })
+    },
+    gotoRegist: function(){
+      this.$router.push({path: '/regist'});
     },
     hideTopAndFooter: function(){
       this.$store.dispatch('app/hideTabbar');
@@ -167,6 +174,15 @@ $cursor: rgba(122, 116, 116, 0.548);
     }
   }
 
+  .gotoRegist{
+    width: 100%;
+    height: 50px;
+    text-align: center;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    line-height: 50px;
+  }
   .el-form-item {
     border: 1px solid rgba(255, 255, 255, 0.1);
     background: rgba(0, 0, 0, 0.1);
