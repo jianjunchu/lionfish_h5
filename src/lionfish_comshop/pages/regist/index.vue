@@ -35,7 +35,9 @@
                 Register
             </button>
         </div>
-
+        <div class="gotoLogin">
+            Already hava an account? <a href="javascript:void()" @click="gotoLogin" style="color: blue">Login</a>
+        </div>
     </div>
 </template>
 
@@ -137,6 +139,9 @@
             },
             chooseArea(){
                 
+            },
+            gotoLogin: function(){
+                this.$router.push({path: '/login'});
             },
             focus(type){
                 if (type === "phoneNum"){
@@ -243,6 +248,15 @@
         color: red;
         text-align: right;
         line-height: 1.6rem;
+    }
+    .gotoLogin{
+        width: 100%;
+        height: 50px;
+        text-align: center;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        line-height: 50px;
     }
     .phoneregist{
         width: 80%;
