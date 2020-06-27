@@ -56,7 +56,7 @@
         </div>
     </div>
     <!-- <i-empty wx:else>暂无分类~</i-empty> -->
-    <!-- <i-tabbar bind:authModal="authModal" cartNum="cartNum" class="tabbar " currentIdx="1" needAuth="needAuth"></i-tabbar> -->
+    <i-tabbar @:authModal="authModal" :cartNum="cartNum" :class="['tabbar' ,isIpx?'pb20':'']" currentIdx="1" :needAuth="needAuth"></i-tabbar>
 </div>
 <!-- <i-new-auth bind:authSuccess="authSuccess" bind:cancel="authModal" navBackUrl="/lionfish_comshop/pages/type/index" needAuth="needAuth&&showAuthModal" needPosition="needPosition"></i-new-auth> -->
 <!-- <i-sku bind:cancel="closeSku" bind:changeCartNum="changeCartNum" bind:vipModal="vipModal" cur_sku_arr="{{cur_sku_arr}}" goodsid="{{addCar_goodsid}}" sku="{{sku}}" skuList="{{skuList}}" sku_val="{{sku_val}}" vipInfo="{{vipInfo}}" visible="{{visible}}"></i-sku> -->
@@ -170,9 +170,14 @@
       }
     },
     created: function(){
+      this.$wx.setNavigationBarTitle({title: '分类'})
       this.getCategoryList();
       this.getGoodsList();
+    },
+    mounted:function() {
+        this.$wx.hideLoading()
     }
+
 
   }
 </script>
@@ -192,7 +197,6 @@
     justify-content: flex-start;
     align-items: center;
     width: 100vw;
-    height: 100vh;
     background: #fff;
   }
 
@@ -254,7 +258,6 @@
     width: 80px;
     height: 630px;
     background: #f8f8f7;
-    padding-bottom: 50px;
   }
 
   .category-item {
@@ -331,7 +334,6 @@
   }
 
   .tabbar {
-    position: relative;
     height: 50px;
     width: 100%;
   }
@@ -341,7 +343,6 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding-bottom: 70px;
     padding-top: 70px;
   }
 

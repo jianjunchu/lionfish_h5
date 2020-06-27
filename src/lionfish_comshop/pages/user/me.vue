@@ -439,6 +439,7 @@
       </div>
 
     </div>
+    <i-tabbar @authModal="authModal" :cartNum="cartNum" currentIdx="4" :needAuth="needAuth" :tabbarRefresh="tabbarRefresh"></i-tabbar>
   </div>
 
 
@@ -481,6 +482,7 @@
 //    },
     data() {
       return {
+        cartNum:0,
         tablebar: 4,
 //        canIUse: wx.canIUse("button.open-type.getUserInfo"),
         theme_type: "",
@@ -554,6 +556,9 @@
       this.$store.state.app.toolbarTitle ="我的";
       this.onLoad();
       this.onShow();
+    },
+    mounted:function(){
+
     },
     methods: {
       onLoad: function (options) {
@@ -873,6 +878,7 @@
 //        })
         that.getCopyright();
         that.getMemberInfo();
+        this.$wx.hideLoading()
       },
       onHide: function () {
         this.setData({

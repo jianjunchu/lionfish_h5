@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="page">
     <div class="pb100">
       <div :class="['cart-tabs', is_open_vipcard_buy==1&&is_vip_card_member!=1?'hasVip':'']" v-if="showTab">
         <div @click="changeTabs" :class="['cart-tabs-item' ,tabIdx==index?'active':'']" :data-idx="item.id"
@@ -13,8 +13,8 @@
           <div class="i-flex vip-name">
             <img class="vip-logo" :src="modify_vipcard_logo" v-if="modify_vipcard_logo"/>
             <span class="iconfont icon-huiyuan" style="font-size:15px;" v-else></span>
-            <block v-if="vipFee>0">开通“{{modify_vipcard_name}}”所选商品预计可省{{vipFee}}元</block>
-            <block v-else>“{{modify_vipcard_name}}” 尊享特权·会员专享价</block>
+            <div v-if="vipFee>0">开通“{{modify_vipcard_name}}”所选商品预计可省{{vipFee}}元</div>
+            <div v-else>“{{modify_vipcard_name}}” 尊享特权·会员专享价</div>
           </div>
           <div @click="goLink" data-link="/lionfish_comshop/moduleA/vip/upgrade">立即开通
             <span class="iconfont icon-youjiantou goright"></span>
@@ -25,17 +25,17 @@
       <div class="h72" v-if="showTab&&is_open_vipcard_buy==1&&is_vip_card_member!=1"></div>
       <div :class="['empty', is_show_guess_like==1?'':'pos-a']" v-if="isEmpty">
         <img src="@/assets/images/icon-index-empty.png"/>
-        <block v-if="needAuth">
+        <div v-if="needAuth">
           <div @click="authModal" class="h1">点击
-            <span> :style="{color:skin.color}">“去登录”</span>
+            <span :style="{color:skin.color}">“去登录”</span>
             查看购物车商品
           </div>
           <div @click="authModal" class="btn" :style="{background:skin.color}">去登录</div>
-        </block>
-        <block v-else>
+        </div>
+        <div v-else>
           <div class="h1">购物车空空如也，赶紧去逛逛吧~</div>
           <div @click="goindex" class="btn" :style="{background:skin.color}">去购物</div>
-        </block>
+        </div>
       </div>
       <div class="shop-cart-content" v-else>
         <i-card iClass="card-group" v-for="(item , index ) in carts" :key="index">
@@ -60,8 +60,15 @@
                       </div>
                     </label>
                     <div class="cart-item-img">
-                      <i-img defaultImage="../../images/placeholder-refund.png" height="90" iClass="i-class"
-                             lazyLoad="true" :loadImage="shopcarts.imgurl" width="90"></i-img>
+
+                      <el-image style="width: 90px; height: 90px"
+                        :src="shopcarts.imgurl">
+                        <div slot="placeholder" class="image-slot">
+                          <img :src="require('@/assets/images/placeholder-refund.png')" style="width: 90px; height: 90px"/>
+                        </div>
+                      </el-image>
+
+
                       <div class="tip" v-if="shopcarts.can_buy==0||shopcarts.option_can_buy==0">已失效</div>
                       <div class="tag" v-if="shopcarts.can_man_jian&&is_open_fullreduction&&shopcarts.can_buy!=0">
                         满{{full_money}}减{{full_reducemoney}}
@@ -116,23 +123,27 @@
                 <div class="normal-item" v-else>
                   <div class="cart-item" slot="content">
                     <label :class="['cart-item-checkbox', item.isselect?'selected':'']">
-                      <checkbox-group bindchange="goodsselect" :data-id="shopcarts.id" :data-index="idx"
+                      <div @click="goodsselect" :data-id="shopcarts.id" :data-index="idx"
                                       :data-parentid="index" :data-value="shopcarts.isselect"
                                       v-if="shopcarts.can_buy==1&&shopcarts.option_can_buy==1">
                         <div class="checkbox">
-                        <span class="iconfont icon-selected checkbox-checked" :style="{color:skin.color}"
-                              v-if="shopcarts.isselect"></span>
+                        <span class="iconfont icon-selected checkbox-checked" :style="{color:skin.color}" v-if="shopcarts.isselect"></span>
                           <img class="checkbox-disabled" src="@/assets/images/checkbox-disabled.png" v-else/>
                           <checkbox hidden :checked="shopcarts.isselect" :value="shopcarts.isselect"></checkbox>
                         </div>
-                      </checkbox-group>
+                      </div>
                       <div class="checkbox" v-else>
                         <img class="checkbox-disabled" src="@/assets/images/checkbox-disabled.png"/>
                       </div>
                     </label>
                     <div class="cart-item-img">
-                      <i-img defaultImage="../../images/placeholder-refund.png" height="90" iClass="i-class"
-                             :lazyLoad="true" :loadImage="shopcarts.imgurl" width="90"></i-img>
+                      <el-image style="width: 90px; height: 90px"
+                                :src="shopcarts.imgurl">
+                        <div slot="placeholder" class="image-slot">
+                          <img :src="require('@/assets/images/placeholder-refund.png')" style="width: 90px; height: 90px"/>
+                        </div>
+                      </el-image>
+
                       <div class="tip" v-if="shopcarts.can_buy==0||shopcarts.option_can_buy==0">已失效</div>
                       <div class="tag pos-top" v-if="shopcarts.is_new_buy==1">新人专享</div>
                     </div>
@@ -208,8 +219,14 @@
                         </div>
                       </label>
                       <div class="cart-item-img">
-                        <i-img defaultImage="../../images/placeholder-refund.png" height="90" iClass="i-class"
-                               lazyLoad="true" :loadImage="shopcarts.imgurl" width="90"></i-img>
+
+                        <el-image style="width: 90px; height: 90px"
+                                  :src="shopcarts.imgurl">
+                          <div slot="placeholder" class="image-slot">
+                            <img :src="require('@/assets/images/placeholder-refund.png')" style="width: 90px; height: 90px"/>
+                          </div>
+                        </el-image>
+
                       </div>
                       <div class="cart-item-content">
                         <div>
@@ -274,15 +291,13 @@
           </i-router-link>
         </div>
         <div class="cart-bar">
-          <label class="cart-item-checkbox">
-            <checkbox-group bindchange="all_select" :data-value="allselect">
+          <label @click="all_select" class="cart-item-checkbox">
               <div class="checkbox">
               <span class="iconfont icon-selected checkbox-checked" :style="{color:skin.color}"
                     v-if="allselect"></span>
                 <img class="checkbox-disabled" src="@/assets/images/checkbox-disabled.png" v-else/>
-                <checkbox hidden :checked="allselect" :value="allselect"></checkbox>
+                <checkbox  hidden :checked="allselect" :value="allselect"></checkbox >
               </div>
-            </checkbox-group>
             全选
           </label>
           <div class="fixed-bar-center" v-if="disAmount&&disAmount!='0.00'&&is_open_fullreduction==1">
@@ -309,14 +324,14 @@
             </div>
           </div>
           <button class="fixed-bar-btn" style="background:#dcdcdc;" v-if="is_comunity_rest==1">团长休息中</button>
-          <block v-else-if="open_man_orderbuy==1">
+          <div v-else-if="open_man_orderbuy==1">
             <button @click="toorder" class="fixed-bar-btn" v-if="canbuy_other>=0">去结算({{allnum}})</button>
             <button disabled @click="toorder" class="fixed-bar-btn" v-else>
               <span> v-if="totalAmount!=0">差</span>
               <span> v-else>满</span>
               ${{-canbuy_other}}下单
             </button>
-          </block>
+          </div>
           <button @click="toorder" class="fixed-bar-btn" :style="{background:skin.color}" v-else>去结算({{allnum}})
           </button>
         </div>
@@ -327,15 +342,20 @@
                 :tabbarRefresh="tabbarRefresh"></i-tabbar>
     </div>
     <i-new-auth @authSuccess="authSuccess" @cancel="authModal" :needAuth="needAuth&&showAuthModal"></i-new-auth>
-    <div class="mask" v-show="!visible"></div>
-    <div class="sku-content" v-show="!visible" scrollUp="true">
+    <div class="mask" v-show="visible"></div>
+    <div class="sku-content" v-show="visible" scrollUp="true">
       <div class="sku-card">
         <div @click="closeSku" class="close">
           <img src="@/assets/images/icon-sku-close.png"/>
         </div>
         <div class="sku-header">
-          <i-img defaultImage="../../images/placeholder-refund.png" height="80" iClass="sku-img"
-                 :loadImage="cur_sku_arr.skuImage" width="80"></i-img>
+          <el-image style="width: 80px; height: 80px"
+                    :src="cur_sku_arr.skuImage">
+            <div slot="placeholder" class="image-slot">
+              <img :src="require('@/assets/images/placeholder-refund.png')" style="width: 80px; height: 80px"/>
+            </div>
+          </el-image>
+
           <div class="sku-desc">
             <div class="sku-title">
               <span>{{cur_sku_arr.spuName}}</span>
@@ -364,28 +384,29 @@
         </div>
         <div class="sku-num-content">
           <div class="title">数量</div>
-          <div :class="['i-class', 'i-input-number', 'i-input-number-size-'+size]">
-            <div @click="setNum" :class="['i-input-number-minus', value<=min?'i-input-number-disabled':'']"
+          <div :class="['i-class', 'i-input-number'/*, 'i-input-number-size-'+size*/]">
+            <div @click="setNum" :class="['i-input-number-minus'/*, value<=min?'i-input-number-disabled':''*/]"
                  data-type="decrease">
               <img src="@/assets/images/icon-input-reduce.png"/>
             </div>
             <input bindblur="handleBlur" bindfocus="handleFocus"
-                   :class="['i-input-number-text', min>=max?'i-input-number-disabled':'']" disabled="true" type="number"
+                   :class="['i-input-number-text'/*, min>=max?'i-input-number-disabled':''*/]" disabled="true"
+                   type="number"
                    :value="sku_val"></input>
-            <div @click="setNum" :class="['i-input-number-plus', value>=max?'i-input-number-disabled':'']"
+            <div @click="setNum" :class="['i-input-number-plus'/*, value>=max?'i-input-number-disabled':''*/]"
                  data-type="add">
               <img src="@/assets/images/icon-input-add.png"/>
             </div>
           </div>
-          <div class="msg" v-if="skuList[current].isLimit">
+          <!--<div class="msg" v-if="skuList[current].isLimit">
             <span v-if="skuList[current].limitMemberNum>-1">每人限{{skuList[current].limitMemberNum}}单</span>
             <span v-if="skuList[current].limitOrderNum>-1">每单限{{skuList[current].limitOrderNum}}份</span>
             <span></span>
-          </div>
-          <div class="even-num"
+          </div>-->
+          <!--<div class="even-num"
                v-else-if="!skuList[current].isLimit&&skuList[current].canBuyNum-value<=10&&skuList[current].canBuyNum-value>-1">
             还可以购买 {{skuList[current].canBuyNum-value}} 件
-          </div>
+          </div>-->
         </div>
         <form bindsubmit="gocarfrom" reportSubmit="true">
           <button class="sku-confirm" :disabled="cur_sku_arr.stock==0?true:false" formType="submit">
@@ -415,7 +436,7 @@
         tablebar: 3,
         allcount: '0.00',
         recount: '0.00',
-        carts: {},
+        carts: [],
         isEmpty: !1,
         needAuth: !1,
         cartNum: 0,
@@ -427,7 +448,7 @@
         updateCart: 0,
         invalidCarts: {},
         tabList: [],
-        visible: 0,
+        visible: false,
         stopClick: !1,
         showTab: !1,
         is_open_vipcard_buy: !1,
@@ -440,19 +461,32 @@
         open_man_orderbuy: '',
         is_show_guess_like: !1,
         tabbarRefresh: !1,
-        cur_sku_arr: [],
+        cur_sku_arr: {
+          actPrice: [],
+          card_price: [],
+          marketPrice: []
+        },
+        skuList: [],
         is_vip_card_member: !1,
-        size: 1
+        size: 1,
+        mult_carts: [],
+        showAuthModal: !1,
+        sku_val: 0,
+        pop_vipmember_buyimage: '',
+        showVipModal:false
 
       }
     },
     created: function() {
       const wx = this.$wx
-      wx.hideTabBar(), wx.showLoading()
+      wx.setNavigationBarTitle({title: '购物车'})
+      this.$store.dispatch('app/showToolbarBack')
     },
     mounted: function() {
+
       const wx = this.$wx, app = this.$getApp()
       var s = this
+
       util.check_login_new().then(function(t) {
         console.log(t)
         if (t) {
@@ -473,6 +507,7 @@
           s.isEmpty = !0
         }
       })
+      wx.hideLoading()
     },
     methods: {
       authSuccess: function() {
@@ -483,11 +518,14 @@
       },
       authModal: function() {
         this.needAuth && (this.showAuthModal = !this.showAuthModal)
+        if(this.showAuthModal){
+          this.$router.push({path: '/login'});
+        }
       },
       showCartGoods: function() {
 
-        const wx = this.$wx, app = this.$getApp();
-        var w = this, t = wx.getStorageSync('community').communityId;
+        const wx = this.$wx, app = this.$getApp()
+        var w = this, t = wx.getStorageSync('community').communityId
 
         console.log('onshow购物车里面的community_id:')
         w.community_id = t
@@ -604,7 +642,7 @@
           this.carts[c].count = i.toFixed(2), a += i
         }
         1 == s && 0 == o && (e = !0), (
-          r.allselect = e,
+            r.allselect = e,
             r.allnum = t,
             r.allcount = a.toFixed(2),
             r.carts = this.carts
@@ -618,7 +656,7 @@
         for (var s = 0; s < this.carts[a].shopcarts.length; s++) {
           this.carts[a].shopcarts[s].edit = 'none',
             this.carts[a].shopcarts[s].finish = 'inline', this.carts[a].shopcarts[s].description = 'onedit-description',
-            this.carts[a].shopcarts[s].cartype = 'block'
+            this.carts[a].shopcarts[s].cartype = 'div'
         }
         this.carts = this.carts
       },
@@ -687,9 +725,11 @@
         this.go_record()
       },
       goodsselect: function(t) {
+
         const wx = this.$wx, app = this.$getApp()
 
-        var a = parseInt(t.target.dataset.parentid), s = parseInt(t.target.dataset.index), e = this.allselect,
+
+        var a = parseInt(t.currentTarget.dataset.parentid), s = parseInt(t.currentTarget.dataset.index), e = this.allselect,
           o = this.carts[a].shopcarts[s]
         if (1 == o.isselect) {
           o.isselect = !1, e && (e = !1), this.carts[a].goodstypeselect = parseInt(this.carts[a].goodstypeselect) - 1,
@@ -767,7 +807,7 @@
         if (1 == o.goodsnum) {
           r.cofirm_del(a, s)
         } else if (1 == o.isselect) {
-          var c = parseInt(this.allnum) - 1, i = this.calcVipPrice(r.data.allcount, o, 1, 'red'),
+          var c = parseInt(this.allnum) - 1, i = this.calcVipPrice(r.allcount, o, 1, 'red'),
             n = this.calcVipPrice(this.carts[a].count, o, 1, 'red')
           r.carts[a].count = n.toFixed(2), o.goodsnum = o.goodsnum - 1, (
             r.carts = this.carts,
@@ -885,14 +925,15 @@
           var l = wx.getStorageSync('token'), u = [], h = [], p = (d = this.allnum, this.carts)
           for (var m in p) for (var _ in p[m].shopcarts) u.push(p[m].shopcarts[_].key), h.push(p[m].shopcarts[_].key + '_' + p[m].shopcarts[_].goodsnum)
           var g = this.updateCart || 0
+
           app.util.request({
             url: 'entry/wxapp/index',
             data: {
               controller: 'car.checkout_flushall',
               token: l,
-              car_key: u,
+              car_key: u.toString(),
               community_id: i.community_id,
-              all_keys_arr: h
+              all_keys_arr: h.toString()
             },
             method: 'POST',
             dataType: 'json',
@@ -1055,9 +1096,9 @@
                 for (var c = 0, i = 0; i < u.carts.length; i++) for (var n = 0; n < u.carts[i].shopcarts.length; n++) c += u.carts[i].shopcarts[n].goodsnum
                 e == c && (u.allselect = !0), (
                   u.carts = u.carts,
-                  u.allnum = e,
-                  u.allcount = o.toFixed(2),
-                  u.allselect = u.allselect
+                    u.allnum = e,
+                    u.allcount = o.toFixed(2),
+                    u.allselect = u.allselect
                 )
               } else {
                 u.carts[d].goodstype = u.carts[d].goodstype - 1, u.carts[d].goodstype,
@@ -1091,7 +1132,7 @@
             0 == t.code && 1 != a && status.cartNum().then(function(t) {
               0 == t.code && (
                 e.cartNum = t.data,
-                e.updateCart = o + 1
+                  e.updateCart = o + 1
               )
             })
           }
@@ -1114,7 +1155,7 @@
                 var o = e[i].shopcarts[n].key
                 e[i].shopcarts.splice(n, 1), s -= 1, (l.invalidCarts = e, l.hasInvalid = s), l.del_car_goods(o, 1)
               } else {
-                var r = l.data.carts, c = r[i].shopcarts[n].key
+                var r = l.carts, c = r[i].shopcarts[n].key
                 r[i].shopcarts.splice(n, 1), (l.carts = r), 0 == r[i].shopcarts.length && (delete r[i], 0 == Object.keys(r).length && (
                   l.carts = {}
                 )), l.del_car_goods(c)
@@ -1162,9 +1203,9 @@
           data: {
             controller: 'car.checkout_flushall',
             token: t,
-            car_key: s,
-            community_id: a.data.community_id,
-            all_keys_arr: e
+            car_key: s.toString(),
+            community_id: a.community_id,
+            all_keys_arr: e.toString()
           },
           method: 'POST',
           dataType: 'json',
@@ -1256,9 +1297,10 @@
         }), _ <= x ? u += g : h = _ - x, l = (1 * e - u).toFixed(2), 1 == o && 1 == r ? l = (l - 1 * a).toFixed(2) : d && (l = (l - 1 * s).toFixed(2))
         var k = 1 * (l = l <= 0 ? 0 : l) - this.man_orderbuy_money, b = 1 * e - f, w = 1 * e - v
         console.log('deliveryGoodsTot', y)
+
         var D = 0;
         (y = l) < 1 * n && (D = 1 * n - y), (
-          this.totalAmount = l,
+          this.$set(this, 'totalAmount', l),
             this.disAmount = u.toFixed(2),
             this.diffMoney = h.toFixed(2),
             this.canbuy_other = k.toFixed(2),
@@ -1313,10 +1355,10 @@
       goOrder: function() {
         const wx = this.$wx, app = this.$getApp()
         var o = this
-        o.data.can_car && (o.data.can_car = !1)
+        o.can_car && (o.can_car = !1)
         wx.getStorageSync('token')
-        var t = wx.getStorageSync('community'), r = o.data.addCar_goodsid, a = t.communityId, s = o.data.sku_val,
-          e = o.data.cur_sku_arr, c = '', i = o.data.updateCart
+        var t = wx.getStorageSync('community'), r = o.addCar_goodsid, a = t.communityId, s = o.sku_val,
+          e = o.cur_sku_arr, c = '', i = o.updateCart
         e && e.option_item_ids && (c = e.option_item_ids)
         var n = {
           goods_id: r,
@@ -1358,7 +1400,7 @@
             o.closeSku(), o.showCartGoods(), status.indexListCarCount(r, t.cur_count),
               (0, status.cartNum)(t.total), (o.cartNum = t.total, o.updateCart = i + 1), wx.showToast({
               title: '已加入购物车',
-              image: '../../images/addShopCart.png'
+              image: require('@/assets/images/addShopCart.png')
             })
           }
         }).catch(function(t) {
@@ -1421,7 +1463,6 @@
 
 <style scoped>
   @import "../../../@feiying/8.less";
-
   .empty {
     background: #fff;
     padding: 25px 0 40px;
@@ -1455,7 +1496,6 @@
   }
 
   .empty .btn {
-    width: 150px;
     height: 48px;
     border-radius: 10px;
     background: linear-gradient(to right, #ff5041, #ff695c);
@@ -1553,7 +1593,6 @@
 
   .cart-bar {
     width: 100%;
-    height: 48px;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -1562,6 +1601,7 @@
 
   .fixed-bar .cart-item-checkbox {
     display: flex;
+
     font-size: 13px;
     align-items: center;
     color: #444;
@@ -1621,7 +1661,7 @@
     background: #ff5344;
     border-radius: 0;
     font-weight: bold;
-    margin: 10px;
+    margin: 0px 0px 10px 10px;
   }
 
   .fixed-bar button.fixed-bar-btn::after {
@@ -1635,7 +1675,7 @@
   }
 
   .i-card {
-    width: 90%;
+    width: 100%;
     border-radius: 10px;
     background: #fff;
     box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.05);
@@ -1673,6 +1713,7 @@
   }
 
   .cart-item {
+    width: 100%;
     display: flex;
     align-items: center;
     flex-wrap: wrap;
@@ -1715,7 +1756,7 @@
   }
 
   .cart-item-content {
-    width: 190px;
+    width: 50%;
     height: 90px;
     display: flex;
     flex-direction: column;
@@ -1836,6 +1877,7 @@
   }
 
   .reduce-item + .normal-item {
+    width: 100%;
     border-top: 15px solid #f6f6f6;
   }
 
@@ -2016,4 +2058,6 @@
     line-height: 1;
     border-radius: 3px;
   }
+
+
 </style>

@@ -21,7 +21,7 @@
 
 <style scoped>
   .i-card {
-    width: 90%;
+    width: 100%;
     border-radius: 10px;
     background: #fff;
     display: flex;

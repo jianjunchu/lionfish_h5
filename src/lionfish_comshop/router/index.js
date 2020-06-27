@@ -87,6 +87,11 @@ export const constantRoutes = [
     hidden: true
   },
   {
+    path: '/lionfish_comshop/pages/order/placeOrder',
+    component: () => import('@/lionfish_comshop/pages/order/placeOrder'),
+    hidden: true
+  },
+  {
     path: '/lionfish_comshop/pages/position/community',
     component: () => import('@/lionfish_comshop/pages/position/community'),
     hidden: true

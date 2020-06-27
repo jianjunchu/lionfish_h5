@@ -26,25 +26,22 @@
   export default {
     props: {
       currentIdx: {
-        type: Number,
         default: 0
       },
       cartNum: {
-        type: Number,
         default: 0
       },
       tabbarRefresh: {
-        type: Boolean,
         default: !1,
 
       },
       needAuth: {
-        type: Boolean,
         default: !1
       }
     },
     watch: {
       currentIdx: (e) => {
+
         this.switchTab(e)
       }
     },
@@ -54,6 +51,7 @@
       }
     },
     mounted() {
+
       this.getTabbar()
     },
     data() {
@@ -141,7 +139,7 @@
               p.tabbar_out_appid = s,
               p.tabbar_out_link = n,
               p.tabbar_out_type = l
-
+              p.switchTab(p.currentIdx)
           }
         })
 

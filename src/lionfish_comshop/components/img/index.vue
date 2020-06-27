@@ -4,8 +4,15 @@
     <!--<el-image :error="bindError" :load="imageLoad" @click="preview" :class="['i-class', 'img-def', 'opacity' ,isLoad?'show-img':'']" :lazy="isLazy_" mode="aspectFill" :src="img"/>-->
   <!--</div>-->
   <div class="i-class img-content">
-    <img class="i-class img-def" :src="defaultImage"/>
-    <img class="show-img" :src="img" :width="width" :height="height" />
+    <el-image
+      :style="{'width': width+'px', 'height': height+'px'}"
+      :src="loadImage">
+
+      <div slot="placeholder" class="image-slot">
+          <img :src="require(defaultImage)" :style="{'width': width+'px', 'height': height+'px'}"/>
+      </div>
+    </el-image>
+
   </div>
 
 </template>

@@ -332,6 +332,9 @@
             <div>顶部</div>
           </button>
         </div>
+
+        <i-tabbar @authModal="authModal" :cartNum="cartNum" currentIdx="0" :needAuth="needAuth" :tabbarRefresh="tabbarRefresh"></i-tabbar>
+
         <i-order-notify iClass="order-notify" :stopNotify="stopNotify"
                         v-if="shop_info.order_notify_switch==1"></i-order-notify>
         <i-change-community @changeComunity="confrimChangeCommunity" :canChange="hide_community_change_btn==0"
@@ -768,7 +771,7 @@
         e = this;
 
       if ((a.stopNotify = !1, a.tabbarRefresh = !0, a.isblack = a.$app.globalData.isblack || 0), util.check_login_new().then(function(t) {
-        t ? ( a.needAuth = !1 , status.cartNum()) : (a.needAuth = !0, a.couponRefresh = !1 );
+        t ? ( a.needAuth = !1 , status.cartNum().then(t=>{a.cartNum = t.data})) : (a.needAuth = !0, a.couponRefresh = !1 );
       }), a.$app.globalData.timer.start(), a.$app.globalData.changedCommunity) {
 
          a.$app.globalData.goodsListCarCount = [];
