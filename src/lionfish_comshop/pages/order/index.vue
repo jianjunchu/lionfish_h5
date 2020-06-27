@@ -444,7 +444,7 @@
       },
       goOrder: function(event) {
         let id = event.currentTarget.dataset.type;
-        debugger
+
         this.$wx.redirectTo({
           url: '/lionfish_comshop/pages/order/order?id=' + id
         })
@@ -460,7 +460,7 @@
         this.$wx.showModal({
           title: "提示",
           content: "确认收到",
-          confirmColor: "#F75451",
+          confirmColor: "#8ED9D1",
           success: function(res) {
             if (res.confirm) {
               this.$http({
@@ -488,7 +488,7 @@
         this.$wx.showModal({
           title: '取消支付',
           content: '好不容易挑出来，确定要取消吗？',
-          confirmColor: '#F75451',
+          confirmColor: '#8ED9D1',
           success(res) {
             if (res.confirm) {
                this.$http({

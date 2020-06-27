@@ -5,7 +5,8 @@ function checkGPS(t) {
   this.$wx.authorize({
     scope: 'scope.userLocation',
     success: function() {
-      console.log('get GPS success'), this.$wx.getLocation({
+      console.log('get GPS success')
+      this.$wx.getLocation({
         success: function(t) {
           console.log('get GPS location success')
           this.$app.globalData.location = {

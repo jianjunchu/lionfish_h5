@@ -86,7 +86,7 @@
       order: {
         handler: function(order) {
           console.log(order,'order');
-          debugger
+
           var t = order && order.order_info && order.order_info.shipping_tel || "";
           if (t) {
             var a = (t = "" + t).replace(/(\d{3})\d*(\d{4})/, "$1****$2");

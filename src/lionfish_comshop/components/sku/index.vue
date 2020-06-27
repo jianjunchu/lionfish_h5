@@ -186,7 +186,7 @@
         this.$wx.showLoading(), a.collectFormIds(t.detail.formId), this.goOrder()
       },
       goOrder: function() {
-        debugger
+
         var r = this, t = r.data
         t.can_car && (t.can_car = !1)
         var a = this.$wx.getStorageSync('community').communityId, n = t.goodsid, e = t.sku_val, i = t.cur_sku_arr,

@@ -1,79 +1,82 @@
 <template>
   <i-auth @authSuccess="authSuccess" :needAuth="needAuth">
-    <view>
-      <view class="header-content">
+    <div>
+      <div class="header-content">
         <img class="header-bg"
-               :src="common_header_backgroundimage?common_header_backgroundimage:require('@/assets/images/TOP_background@2x.png')"/>
-        <view class="search-content">
+             :src="common_header_backgroundimage?common_header_backgroundimage:require('@/assets/images/TOP_background@2x.png')"/>
+        <div class="search-content">
           <i-router-link openType="redirect" url="/lionfish_comshop/pages/position/cities">
-            <view class="city-content">
+            <div class="city-content">
               <img class="search-icon" src="@/assets/images/icon-search.png"/>
               {{city.districtName}}
               <img class="bottom-arrow" src="@/assets/images/icon-bottom-arrow.png"/>
-            </view>
+            </div>
           </i-router-link>
-          <view bindtap="linkSearch" class="search-ipt">
-            <view class="ipt-class">请输入{{groupInfo.group_name}}名称</view>
-          </view>
-        </view>
-        <block v-if="!community.communityId">
-          <view class="location-title">当前地址</view>
-          <view class="location-msg">{{city.districtName}}</view>
-          <view class="switch-btn">请选择您的{{groupInfo.group_name}}</view>
-        </block>
-        <block v-else>
-          <view class="location-title location-title-pad">当前{{groupInfo.group_name}}</view>
+          <div bindtap="linkSearch" class="search-ipt">
+            <div class="ipt-class">请输入{{groupInfo.group_name}}名称</div>
+          </div>
+        </div>
+        <div v-if="!community.communityId">
+          <div class="location-title">当前地址</div>
+          <div class="location-msg">{{city.districtName}}</div>
+          <div class="switch-btn">请选择您的{{groupInfo.group_name}}</div>
+        </div>
+        <div v-else>
+          <div class="location-title location-title-pad">当前{{groupInfo.group_name}}</div>
           <navigator class="local-community-card" openType="navigateBack">
             <img class="card-bg" src="@/assets/images/community-desc-bg.png"/>
-            <view class="head-pic">
+            <div class="head-pic">
               <img class="head-pic-content" :src="community.disUserHeadImg||community.headImg"
-                     v-if="community.disUserHeadImg||community.headImg"/>
+                   v-if="community.disUserHeadImg||community.headImg"/>
               <img class="head-pic-content" src="@/assets/images/head-bitmap.png" v-else/>
-            </view>
-            <view class="card-msg">
-              <view class="group-master">{{groupInfo.owner_name}}：{{community.disUserName||community.realName}}</view>
-              <view class="community-name">{{community.communityName}}</view>
-              <view class="community-address">{{community.communityAddress||community.fullAddress}}</view>
-            </view>
+            </div>
+            <div class="card-msg">
+              <div class="group-master">{{groupInfo.owner_name}}：{{community.disUserName||community.realName}}</div>
+              <div class="community-name">{{community.communityName}}</div>
+              <div class="community-address">{{community.communityAddress||community.fullAddress}}</div>
+            </div>
           </navigator>
-        </block>
-      </view>
-      <view class="community-list history-communities" style="display:none;" v-if="!isNotHistory">
-        <view class="title">曾用{{groupInfo.group_name}}</view>
-        <i-community-item :city="city" class="item-border" isOld="true"
+        </div>
+      </div>
+      <div class="community-list history-communities" style="display:none;" v-if="!isNotHistory">
+        <div class="title">曾用{{groupInfo.group_name}}</div>
+        <i-community-item :city="city" class="item-border" :isOld="true"
                           :item="historyCommunity"></i-community-item>
-      </view>
-      <view class="community-list around-communities">
-        <view class="title" :style="{'border-color':skin.color}">附近{{groupInfo.group_name}}</view>
-        <i-community-item :city="city" class="item-border" :groupInfo="groupInfo"
+      </div>
+      <div class="community-list around-communities">
+        <div class="title" :style="{'border-color':skin.color}">附近{{groupInfo.group_name}}</div>
+        <i-community-item :isOld="true" :city="city" class="item-border" :groupInfo="groupInfo"
                           :hiddenDetails="index_hide_headdetail_address" :item="item" :skin="skin"
-                          v-if="communities.length" v-for="(item,index) in communities" :key="item.id"></i-community-item>
-        <view class="no-community" v-if="isEmpty">
-          <view bindtap="openSetting" class="flex-align" v-if="!canGetGPS">
+                          v-if="communities.length" v-for="(item,index) in communities"
+                          :key="item.id"></i-community-item>
+        <div class="no-community" v-if="isEmpty">
+          <div bindtap="openSetting" class="flex-align" v-if="!canGetGPS">
             <img src="@/assets/images/noData.png"/>
-            <view>未获得您的位置信息，点击开启</view>
-          </view>
+            <div>未获得您的位置信息，点击开启</div>
+          </div>
           <block v-else>
             <img src="@/assets/images/noData.png"/>
-            <view>当前城市暂未开通服务，请更换城市或
+            <div>当前城市暂未开通服务，请更换城市或
               <router-link class="link-apply" to="/lionfish_comshop/pages/groupCenter/recruit">申请开通></router-link>
-            </view>
+            </div>
           </block>
-        </view>
+        </div>
         <i-load-more :loading="loadMore" :tip="tip"></i-load-more>
-      </view>
-    </view>
+      </div>
+    </div>
   </i-auth>
 
 </template>
 
 <script>
+  import GlobalMixin from '../../mixin/globalMixin.js'
+
   var location = require('../../utils/Location'), QQMapWX = require('../../utils/qqmap-wx-jssdk.min.js'),
     status = require('../../utils/index.js')
 
   export default {
     name: '',
-    mixins: [require('../../mixin/globalMixin.js')],
+    mixins: [GlobalMixin],
     data() {
       return {
         loadMore: !0,
@@ -101,12 +104,19 @@
       }
     },
     created: function() {
+
+
+      var i = this
       this.common_header_backgroundimage = this.$app.globalData.common_header_backgroundimage
       status.setNavBgColor()
       status.setGroupInfo().then(function(t) {
-        this.groupInfo = t
+
+        i.groupInfo = t
       })
+      this.$store.dispatch('app/showToolbarBack')
+      this.$store.dispatch('app/hideTabbar')
       this.loadpage()
+
     },
     mounted: function() {
       console.log('show')
@@ -124,7 +134,7 @@
             this.communities = []
         }
 
-        wx.showLoading({
+        this.$wx.showLoading({
           title: '加载中...',
           mask: !0,
           icon: 'none'
@@ -184,7 +194,8 @@
         })
       },
       load_gps_community: function() {
-        var t = wx.getStorageSync('token'), e = wx.getStorageSync('tx_map_key')
+        const app = this.$getApp()
+        var t = this.$wx.getStorageSync('token'), e = this.$wx.getStorageSync('tx_map_key')
         if (null == e || '' == e) {
           if (!this.tx_map_key) return void this.getCommunityConfig()
           e = this.tx_map_key
@@ -200,64 +211,70 @@
           success: function(t) {
             if (0 == t.code) {
               var e = t.list, a = !1
-              0 != Object.keys(e).length && 0 != e.communityId || (a = !0), i.data.community && (app.globalData.community = e),
-                i.setData({
-                  historyCommunity: e,
-                  isNotHistory: a
-                })
+              0 != Object.keys(e).length && 0 != e.communityId || (a = !0), i.data.community && (app.globalData.community = e)
+              i.historyCommunity = e
+              i.isNotHistory = a
+
             }
           }
         })
         var o = new QQMapWX({
           key: e || ''
         })
-        console.log('腾讯地图api key', e), wx.getLocation({
+        console.log('腾讯地图api key', e), i.$wx.getLocation({
           type: 'gcj02',
           success: function(t) {
             console.log('getLocation success')
             var e = t.latitude, a = t.longitude
-            i.setData({
-              latitude: t.latitude,
-              longitude: t.longitude
-            }), wx.setStorage({
+            i.latitude = t.latitude,
+              i.longitude = t.longitude
+
+            i.$wx.setStorage({
               key: 'latitude',
               data: e
-            }), wx.setStorage({
+            })
+            i.$wx.setStorage({
               key: 'longitude',
               data: a
-            }), o.reverseGeocoder({
+            })
+            o.reverseGeocoder({
               location: {
                 latitude: t.latitude,
                 longitude: t.longitude
               },
               success: function(t) {
                 var e = t.result.address_component.city
-                i.setData({
-                  city: {
-                    districtName: e
-                  }
-                }), wx.showLoading({
+                i.$set(i.city, 'districtName', e)
+
+                i.$wx.showLoading({
                   title: '加载中...',
                   mask: !0,
                   icon: 'none'
-                }), i.load_gps_community_list()
+                })
+                i.load_gps_community_list()
               },
               fail: function(t) {
                 console.log('腾讯地图api error', t)
                 var e = t.message || ''
-                app.util.message(e, '', 'error'), wx.setStorageSync('tx_map_key', '')
+                i.$app.util.message(e, '', 'error'), i.$wx.setStorageSync('tx_map_key', '')
               }
             })
           },
           fail: function(t) {
-            i.isFirst = !0, location.checkGPS(app, function() {
-              if (console.log('canGetGPS', app.globalData.canGetGPS), app.globalData.canGetGPS) {
+            const app = this.$getApp()
+            const wx = this.$wx
+            i.isFirst = !0
+            location.checkGPS(app, function() {
+
+              console.log('canGetGPS' + app.globalData.canGetGPS)
+
+              if (app.globalData.canGetGPS) {
                 console.log('checkGPS sucess')
                 var t = app.globalData.location
-                t && t.lat && (i.setData({
-                  latitude: t.latitude,
-                  longitude: t.longitude
-                }), wx.setStorage({
+                t && t.lat && ((
+                  i.latitude = t.latitude,
+                    i.longitude = t.longitude
+                ), wx.setStorage({
                   key: 'latitude',
                   data: t.latitude
                 }), wx.setStorage({
@@ -270,19 +287,15 @@
                   },
                   success: function(t) {
                     var e = t.result.address_component.city
-                    i.setData({
-                      city: {
-                        districtName: e
-                      }
-                    }), i.load_gps_community_list()
+                    i.$set(i.city, 'districtName', e)
+                    i.load_gps_community_list()
                   }
                 }))
               } else {
                 location.openSetting(app).then(function(t) {
-                  i.setData({
-                    latitude: t.latitude,
-                    longitude: t.longitude
-                  }), wx.setStorage({
+                  i.latitude = t.latitude
+                  i.longitude = t.longitude
+                  wx.setStorage({
                     key: 'latitude',
                     data: t.latitude
                   }), wx.setStorage({
@@ -295,11 +308,8 @@
                     },
                     success: function(t) {
                       var e = t.result.address_component.city
-                      i.setData({
-                        city: {
-                          districtName: e
-                        }
-                      })
+                      i.$set(i.city, 'districtName', e)
+
                       i.load_gps_community_list()
                     }
                   })
@@ -317,67 +327,62 @@
       },
       load_gps_community_list: function(t) {
         console.log('load_gps_community_list')
+        const wx = this.$wx
         var e = wx.getStorageSync('token'), a = this
-        console.log('come gpslist'), a.hasRefeshin || (a.setData({
-          hasRefeshin: !0,
-          loadMore: !0
-        }), a.$app.util.request({
+        console.log('come gpslist'), a.hasRefeshin || ((
+          a.hasRefeshin = !0, a.loadMore = !0
+        ), a.$app.util.request({
           url: 'entry/wxapp/index',
           data: {
             controller: 'index.load_gps_community',
             token: e,
             pageNum: a.pageNum,
-            longitude: a.longitude,
-            latitude: a.latitude,
-            city_id: a.city_id || 0
+            longitude: '114.45646',
+            latitude: '22.78851',
+            city_id:  0
           },
           dataType: 'json',
           success: function(t) {
             if (wx.hideLoading(), 0 == t.code) {
               var e = a.communities.concat(t.list)
               if (1 == a.pageNum && 0 == e.length) {
-                return a.setData({
-                  isEmpty: !0,
-                  loadMore: !1,
-                  tip: '',
-                  hasRefeshin: !0
-                }), !1
+
+                a.isEmpty = !0
+                a.loadMore = !1
+                a.tip = ''
+                a.hasRefeshin = !0
+
+                return !1
               }
               for (var i = 0; i < e.length; i++) {
                 if (e && e[i] && e[i].fullAddress && e[i].fullAddress.indexOf('境外') > -1) {
                   e[i].fullAddress = e[i].fullAddress.replace('境外境外境外地区', '')
                 }
               }
-              a.setData({
-                communities: e,
-                pageNum: a.pageNum + 1,
-                loadMore: !1,
-                hasRefeshin: !1,
-                tip: '',
-                index_hide_headdetail_address: t.index_hide_headdetail_address || 0
-              })
+
+              a.communities = e
+              a.pageNum = a.pageNum + 1
+              a.loadMore = !1
+              a.hasRefeshin = !1
+              a.tip = ''
+              a.index_hide_headdetail_address = t.index_hide_headdetail_address || 0
+
             } else {
-              1 == t.code ? a.setData({
-                loadMore: !1,
-                tip: '^_^已经到底了'
-              }) : 2 == t.code && (wx.hideLoading(), console.log(a.needAuth), a.setData({
-                needAuth: !0,
-                hasRefeshin: !1
-              }))
+              console.log(a.needAuth)
+              1 == t.code ? ( a.loadMore = !1, a.tip = '^_^已经到底了') : 2 == t.code && (wx.hideLoading(), (a.needAuth = !0, a.hasRefeshin = !1))
             }
           }
         }))
       },
       openSetting: function() {
         var t = this
-        t.setData({
-          isEmpty: !1,
-          loadMore: !0,
-          hasRefeshin: !1,
-          tip: '加载中'
-        }, function() {
-          t.load_gps_community()
-        })
+
+        t.isEmpty = !1
+        t.loadMore = !0
+        t.hasRefeshin = !1
+        t.tip = '加载中'
+
+        t.load_gps_community()
       }
     }
 
@@ -407,7 +412,7 @@
 
   .header-content .header-bg {
     width: 100%;
-    height: 320px;
+    height: 150px;
     position: absolute;
     left: 0;
     top: 0;
@@ -489,7 +494,7 @@
   }
 
   .header-content .switch-btn {
-    width: 420px;
+    width: 90%;
     height: 50px;
     border-radius: 50px;
     text-align: center;
@@ -602,7 +607,6 @@
   }
 
   .item-border {
-    display: block;
     border-bottom: 1px solid #efefef;
   }
 

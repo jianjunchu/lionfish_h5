@@ -143,7 +143,7 @@
 
   .community-content-tip .item-l .type {
     font-size: 24rpx;
-    background-color: #f75451;
+    background-color: #8ED9D1;
     color: #fff;
     border-radius: 3px;
     padding: 3rpx 5rpx;

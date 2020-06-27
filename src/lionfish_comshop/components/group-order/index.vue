@@ -39,7 +39,7 @@
       item: {
         handler: function(item) {
           console.log(item,'item');
-          debugger
+
           var a = item;
           null === a.createTime ? a.createTime = (0, e.formatYMD)(new Date()) : a.createTime = (0,
             e.formatYMD)(new Date(parseInt(a.createTime))), a.orderStatusName = this.switchState(a.groupOrderStatus),

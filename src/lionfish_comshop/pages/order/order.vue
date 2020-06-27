@@ -569,7 +569,7 @@
                    title: '兑换成功'
                  })
                } else if (is_show_tip != undefined && is_show_tip == 1) {
-                   debugger
+
                  if (res.order_pay_after_share == 1) {
                    let share_img = res.data.share_img;
                    this.share_img = share_img;
@@ -662,7 +662,7 @@
         this.$wx.showModal({
           title: "提示",
           content: "确认收到",
-          confirmColor: "#F75451",
+          confirmColor: "#8ED9D1",
           success: function(e) {
             e.confirm && this.$http({
                 controller: "order.receive_order",
@@ -703,7 +703,7 @@
         this.$wx.showModal({
           title: "取消支付",
           content: "好不容易挑出来，确定要取消吗？",
-          confirmColor: "#F75451",
+          confirmColor: "#8ED9D1",
           success: function(e) {
             e.confirm && this.$http({
                 controller: "order.cancel_order",

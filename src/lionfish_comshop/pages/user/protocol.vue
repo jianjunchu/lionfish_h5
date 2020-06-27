@@ -44,7 +44,7 @@
           controller: 'index.get_nav_bg_color'
         }).then(response => {
           console.log(response);
-          var t = response.data || '#F75451', e = response.nav_font_color || '#ffffff'
+          var t = response.data || '#8ED9D1', e = response.nav_font_color || '#ffffff'
           this.$store.dispatch('app/setNavBgColor', t)
           this.$store.dispatch('app/setNavFontColor', e)
         })

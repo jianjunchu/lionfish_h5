@@ -3,10 +3,9 @@
  */
 
 import _this from '../../main.js'
+import { http } from '@/lionfish_comshop/api'
 
 var wcache = require('../utils/wcache')
-
-import { http } from '@/lionfish_comshop/api'
 
 function getLightColor(e, t) {
   e = e ? e.toUpperCase() : e
@@ -56,12 +55,20 @@ function getConfig() {
 }
 
 function changeCommunity(t, a) {
+
   var e = _this.$wx.getStorageSync('token') || ''
-  if (t.communityId && t.communityId !== _this.$app.globalData.community.communityId) {
-    _this.$app.globalData.timer.del(), _this.$app.globalData.changedCommunity = !0, _this.$app.globalData.community = t, _this.$app.globalData.refresh = !0, _this.$app.globalData.hasDefaultCommunity = !0, _this.$wx.setStorage({
+  if (t.communityId) {
+    _this.$app.globalData.timer.del()
+    _this.$app.globalData.changedCommunity = !0
+    _this.$app.globalData.community = t
+    _this.$app.globalData.refresh = !0
+    _this.$app.globalData.hasDefaultCommunity = !0
+    _this.$wx.setStorage({
       key: 'community',
       data: t
-    }), _this.$app.globalData.city = a, _this.$wx.setStorage({
+    })
+    _this.$app.globalData.city = a
+    _this.$wx.setStorage({
       key: 'city',
       data: a
     })
@@ -70,8 +77,7 @@ function changeCommunity(t, a) {
       city: a
     }
     var n = _this.$app.globalData.historyCommunity || [];
-    (n.length === 0 || n[0] && n[0].communityId !== t.communityId) && (n.length > 1 && n.shift(),
-      n.push(o), _this.$app.globalData.historyCommunity = n, _this.$wx.setStorage({
+    (n.length === 0 || n[0] && n[0].communityId !== t.communityId) && (n.length > 1 && n.shift(), n.push(o), _this.$app.globalData.historyCommunity = n, _this.$wx.setStorage({
       key: 'historyCommunity',
       data: n
     })), _this.$app.globalData.changedCommunity = !0, _this.$app.globalData.goodsListCarCount = {}, e ? (console.log('changeCommunity step2'), _this.$http({
@@ -117,31 +123,23 @@ function isIdCard(a) {
 }
 
 function cartNum() {
-  function e(t) {
-    var a = _this.$wx.getStorageSync('token') || ''
+  return new Promise((resolve, reject) => {
+    const n = arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : ''
+    const i = arguments.length > 1 && void 0 !== arguments[1] && arguments[1]
+
+    var token = _this.$wx.getStorageSync('token') || ''
     var communityId = _this.$app.globalData.community ? _this.$app.globalData.community.communityId : ''
     _this.$http({
       controller: 'car.count',
-      token: a,
+      token: token,
       community_id: communityId
     }).then(a => {
       if (a.code === 0) {
         _this.$app.globalData.cartNum = a.data
         _this.$wx.setStorageSync('cartNum', a.data)
       }
+      resolve(a)
     })
-  }
-
-  const n = arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : ''
-  const i = arguments.length > 1 && void 0 !== arguments[1] && arguments[1]
-  return new Promise(function(a) {
-    if (i) {
-      e(a)
-    } else {
-      const t = new Date().getTime()
-      _this.$app.globalData.cartNumStamp < t ? e(a) : (typeof n === 'number' && (_this.$app.globalData.cartNum = n), _this.$app.globalData.cartNum, a(n))
-      _this.$app.globalData.cartNumStamp = new Date().getTime() + 6e4
-    }
   })
 }
 
@@ -170,23 +168,20 @@ function getInNum() {
 }
 
 function setNavBgColor() {
-  const a = wcache.get('navBgColor', 1)
-  const t = wcache.get('navFontColor', 1);
-  (a === 1 || t === 1) ? (_this.$http({
+
+  _this.$http({
     controller: 'index.get_nav_bg_color'
   }).then(a => {
+    console.log(a)
     if (a.code === 0) {
-      const t = a.data || '#F75451'
+      const t = a.data || '#8ED9D1'
       const e = a.nav_font_color || '#ffffff'
       _this.$wx.setNavigationBarColor({
         frontColor: e,
         backgroundColor: t
       })
     }
-  })) : (_this.$wx.setNavigationBarColor({
-    frontColor: t,
-    backgroundColor: a
-  }))
+  })
 }
 
 function setGroupInfo() {
@@ -401,6 +396,7 @@ module.exports = {
   loadStatus: loadStatus,
   getCommunityInfo: getCommunityInfo,
   checkRedirectTo: checkRedirectTo,
-  check_login_new: check_login_new
+  check_login_new: check_login_new,
+  request: request
 }
 

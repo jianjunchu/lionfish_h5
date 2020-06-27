@@ -194,7 +194,7 @@
 
             <div :class="['sticky-content', {'sticky-top':isSticky, 'tab-nav-sticky':scrollDirect === 'up'&&isSticky }]"
                  v-else>
-              <div class="tab-nav tab-nav-query" style="border-color:'#F75451'">
+              <div class="tab-nav tab-nav-query" style="border-color:'#8ED9D1'">
                 <div @click="tabSwitch" :class="['tab-nav-item', (tabIdx===0?'active':'')]" data-idx="0">
                   <img :src="(qgtab.one_select ? qgtab.one_select : require('@/assets/images/index-tab-left-active.png'))"
                        v-if="tabIdx===0"/>
@@ -766,13 +766,10 @@
     mounted: function() {
       var a = this,
         e = this;
-      console.log("isblack"+ a.$app.globalData.isblack);
 
       if ((a.stopNotify = !1, a.tabbarRefresh = !0, a.isblack = a.$app.globalData.isblack || 0), util.check_login_new().then(function(t) {
-        t ? ( a.needAuth = !1 ) : (a.needAuth = !0, a.couponRefresh = !1 );
-      }), a.$app.globalData.timer.start(), (0, status.cartNum)("", !0).then(function(t) {
-        0 == t.code && (a.cartNum = t.data);
-      }), a.$app.globalData.changedCommunity) {
+        t ? ( a.needAuth = !1 , status.cartNum()) : (a.needAuth = !0, a.couponRefresh = !1 );
+      }), a.$app.globalData.timer.start(), a.$app.globalData.changedCommunity) {
 
          a.$app.globalData.goodsListCarCount = [];
         var t = a.$app.globalData.community;
@@ -816,7 +813,7 @@
 
         0 == e.isFirst ? a.couponRefresh = !0 : (this.getCoupon(), e.isFirst++)
       }
-      a.load_goods_data()
+
       a.$store.dispatch('app/hideToolbarBack')
       a.$store.dispatch('app/hideToolbarMore')
       a.$store.dispatch('app/showTabbar')
@@ -828,7 +825,6 @@
       },
 
       get_index_info() {
-
         var F = this,
           t = F.$wx.getStorageSync('community'),
           B = t && (t.communityId || ''),
@@ -855,9 +851,9 @@
 
                   F.$wx.showModal({
                   title: '提示',
-                  content: '该' + e.group_name + '不在，请重新选择' + e.group_name,
+                  content: '请选择' + e.group_name,
                   showCancel: false,
-                  confirmColor: '#F75451',
+                  confirmColor: '#8ED9D1',
                   success: function(t) {
                     F.$wx.redirectTo({
                       url: "/lionfish_comshop/pages/position/community"
@@ -922,7 +918,7 @@
               title: '温馨提示',
               content: e.owner_name + '休息中，欢迎下次光临!',
               showCancel: !1,
-              confirmColor: '#F75451',
+              confirmColor: '#8ED9D1',
               confirmText: '好的',
               success: function(t) {
               }
@@ -1357,7 +1353,7 @@
         })
       },
       goOrder: function() {
-        debugger
+
         var i = this
         i.can_car && (i.can_car = !1)
         this.$wx.getStorageSync('token')
@@ -1414,6 +1410,7 @@
         })
       },
       vipModal: function(t) {
+
         this.setData(t.detail)
       },
       gocarfrom: function(t) {
@@ -1493,13 +1490,10 @@
         for (var d = '', c = 0; c < o.length; c++) c == o.length - 1 ? d += o[c].id : d = d + o[c].id + '_'
         var l = i.sku_mu_list[d],
           r = {};
-        (s = s || 1) > l.canBuyNum && (r.sku_val = l.canBuyNum, this.$wx.showToast({
+        (s = s || 1) > l.canBuyNum && (e.sku_val = l.canBuyNum, this.$wx.showToast({
           title: '最多只能购买' + l.canBuyNum + '件',
           icon: 'none'
-        })), this.setData(_extends({
-          cur_sku_arr: l,
-          sku: o
-        }, r)), console.log(d)
+        })), (e.cur_sku_arr = l, e.sku = o), console.log(d)
       },
       setNum: function(t) {
         var a = t.currentTarget.dataset.type,

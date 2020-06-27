@@ -200,8 +200,10 @@
         (0, t.collectFormIds)(a.detail.formId);
       },
       changeNumber: function(t) {
-        var a = t.detail;
+        console.log(t)
+        var a = t;
         a && this.addCart(a);
+
       },
       outOfMax: function(t) {
         t.detail;
@@ -232,27 +234,25 @@
                 visible: !1
               });
             } else {
-              if (3 == t.code) 0 < (t.max_quantity || "") && u.setData({
-                number: u.data.number
-              }), this.$wx.showToast({
+              if (3 == t.code) 0 < (t.max_quantity || "") && (
+                u.number = u.number
+              ), this.$wx.showToast({
                 title: t.msg,
                 icon: "none",
                 duration: 2e3
-              }); else if (4 == t.code) u.setData({
-                needAuth: !0
-              }), u.$emit("authModal", !0); else if (6 == t.code || 7 == t.code) {
-                0 < (t.max_quantity || "") && u.setData({
-                  number: u.data.number
-                });
+              }); else if (4 == t.code) (
+                u.needAuth = !0
+              ), u.$emit("authModal", !0); else if (6 == t.code || 7 == t.code) {
+                0 < (t.max_quantity || "") && (u.number = u.data.number);
                 var e = t.msg;
                 this.$wx.showToast({
                   title: e,
                   icon: "none",
                   duration: 2e3
                 });
-              } else u.$emit("changeCartNum", t.total), u.setData({
-                number: t.cur_count
-              }), this.$wx.showToast({
+              } else u.$emit("changeCartNum", t.total), (
+                u.number = t.cur_count
+              ), u.$wx.showToast({
                 title: "已加入购物车",
                 image: "../../images/addShopCart.png"
               }), status.indexListCarCount(i, t.cur_count);

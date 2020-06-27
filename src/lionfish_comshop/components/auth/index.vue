@@ -1,12 +1,15 @@
 <template>
   <div class="wrap" v-if="needAuth&&loaded">
-    <button bindgetuserinfo="bindGetUserInfoTwo" class="auth_bg" openType="getUserInfo" :style="'background: url('+auth_bg+') no-repeat top center;background-size: cover'" v-if="auth_bg"></button>
+    <button bindgetuserinfo="bindGetUserInfoTwo" class="auth_bg" openType="getUserInfo"
+            :style="'background: url('+auth_bg+') no-repeat top center;background-size: cover'" v-if="auth_bg"></button>
     <div v-else>
       <img class="auth-login" mode="widthFix" src="@/assets/images/login.png"/>
       <div class="line1">我们的小程序将获取您的以下权限：</div>
       <div class="line2">·获取您的公开信息（昵称和头像等）</div>
       <div class="line3">（如未授权，可能无法正常使用该小程序）</div>
-      <i-button bindgetuserinfo="bindGetUserInfo" iClass="confirm" loading="{{btnLoading}}" openType="getUserInfo" v-if="canIUse">确认授权</i-button>
+      <i-button bindgetuserinfo="bindGetUserInfo" iClass="confirm" :loading="btnLoading" openType="getUserInfo"
+                v-if="canIUse">确认授权
+      </i-button>
       <div class="updateWx" v-else>请升级微信版本</div>
     </div>
   </div>
@@ -17,11 +20,11 @@
 </template>
 
 <script>
-  var util = require("../../utils/index"), wcache = require("../../utils/wcache.js"), flag = !0;
+  var util = require('../../utils/index'), wcache = require('../../utils/wcache.js'), flag = !0
 
   export default {
     name: 'i-auth',
-    props:{
+    props: {
       needAuth: {
         type: Boolean,
         value: !1
@@ -32,77 +35,80 @@
       },
       navBackUrl: {
         type: String,
-        value: "",
+        value: ''
       }
     },
-    data(){
-      return{
+    data() {
+      return {
         btnLoading: !1,
         isIpx: !1,
-        auth_bg: "",
+        auth_bg: '',
         loaded: !1
       }
     },
-    created:function() {
-      this.getBg();
-      this.$app.globalData.isIpx && (this.isIpx = !0);
+    created: function() {
+      this.getBg()
+      this.$app.globalData.isIpx && (this.isIpx = !0)
     },
     methods: {
       getBg: function() {
-        var a = this, t = wcache.get("auth_bg", !1);
-        if(t){
-          this.auth_bg = t;
-            this.loaded = !0
-        }else {
+        var a = this, t = wcache.get('auth_bg', !1)
+        if (t) {
+          this.auth_bg = t
+          this.loaded = !0
+        } else {
           a.$http({
-            controller: "index.get_auth_bg"
-          }).then(t=>{
-            this.loaded =  !0
-            0 == t.code && (wcache.put("auth_bg", t.data, 600)
-            t.data.data && (this.auth_bg = t.data)
+            controller: 'index.get_auth_bg'
+          }).then(t => {
+            this.loaded = !0
+            0 == t.code && (wcache.put('auth_bg', t.data, 600))
+            t.data && (this.auth_bg = t.data)
 
           })
         }
       },
       bindGetUserInfo: function(t) {
-        var a = this;
+        var a = this
+        const wx = a.$wx
         if (!this.btnLoading) {
-          var e = t;
+          var e = t
           this.btnLoading = !0
-          "getUserInfo:ok" === e.errMsg ? util.login_prosime(a.needPosition).then(function() {
-            console.log("授权成功"), a.setData({
+          'getUserInfo:ok' === e.errMsg ? util.login_prosime(a.needPosition).then(function() {
+            console.log('授权成功'), a.setData({
               btnLoading: !1
             }), wx.showToast({
-              title: "登录成功",
-              icon: "success",
+              title: '登录成功',
+              icon: 'success',
               duration: 2e3
-            }), a.triggerEvent("authSuccess");
+            }), a.triggerEvent('authSuccess')
           }).catch(function() {
-            console.log("授权失败");
+            console.log('授权失败')
           }) : (wx.showToast({
-            title: "授权失败，为了完整体验，获取更多优惠活动，需要您的授权。",
-            icon: "none"
+            title: '授权失败，为了完整体验，获取更多优惠活动，需要您的授权。',
+            icon: 'none'
           }), this.setData({
             btnLoading: !1
-          }));
+          }))
         }
       },
       bindGetUserInfoTwo: function(t) {
         var a = this;
+        const wx = a.$wx
+
         (wx.showLoading({
-          title: "授权中"
-        }), flag) && (flag = !1, "getUserInfo:ok" === t.detail.errMsg ? util.login_prosime().then(function() {
-          console.log("授权成功"), wx.hideLoading(), flag = !0, wx.showToast({
-            title: "登录成功",
-            icon: "success",
+          title: '授权中'
+        }), flag) && (flag = !1, 'getUserInfo:ok' === t.detail.errMsg ? util.login_prosime().then(function() {
+          console.log('授权成功'), wx.hideLoading(), flag = !0, wx.showToast({
+            title: '登录成功',
+            icon: 'success',
             duration: 2e3
-          }), a.triggerEvent("authSuccess");
+          }), a.triggerEvent('authSuccess')
         }).catch(function() {
-          flag = !0, wx.hideLoading(), console.log("授权失败");
+          flag = !0, wx.hideLoading(), console.log('授权失败')
         }) : (wx.hideLoading(), wx.showToast({
-          title: "授权失败，为了完整体验，获取更多优惠活动，需要您的授权。",
-          icon: "none"
-        }), flag = !0));
+          title: '授权失败，为了完整体验，获取更多优惠活动，需要您的授权。',
+          icon: 'none'
+        }), flag = !0))
       }
     }
 
@@ -157,7 +163,7 @@
   }
 
   .wrap .confirm {
-    width:80%;
+    width: 80%;
     height: 40px;
     line-height: 40px;
     margin-top: 20px;

@@ -568,7 +568,7 @@
           controller: 'index.get_nav_bg_color'
         }).then(response => {
           console.log(response);
-          var t = response.data || '#F75451', e = response.nav_font_color || '#ffffff'
+          var t = response.data || '#8ED9D1', e = response.nav_font_color || '#ffffff'
           this.$store.dispatch('app/setNavBgColor', t)
           this.$store.dispatch('app/setNavFontColor', e)
         })
@@ -770,7 +770,7 @@
         that.getMemberInfo();
       },
       authModal: function () {
-          debugger
+
         if(this.needAuth) {
             this.showAuthModal = !this.showAuthModal;
 //            return false;
@@ -783,7 +783,7 @@
         return true;
       },
       goToGroup: function () {
-          debugger
+
         5 === this.auditStatus ?  this.$wx.redirectTo({
           url: "/lionfish_comshop/pages/groupCenter/index"
         }) :  this.$wx.redirectTo({
@@ -837,9 +837,9 @@
         })
       },
       goLink2: function(event) {
-        debugger
+
         if(!this.authModal()) return;
-        debugger
+
         let link = event.currentTarget.dataset.link;
 //        var pages_all = getCurrentPages();
 //        if (pages_all.length > 3) {

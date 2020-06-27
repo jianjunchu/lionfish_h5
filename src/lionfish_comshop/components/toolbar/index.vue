@@ -1,6 +1,6 @@
 <template>
   <div class="vux-header" :style="{background:navBgColor}">
-    <div class="vux-header-left" v-if="getShowToolbarBack"><a class="vux-header-back"></a>
+    <div class="vux-header-left" v-if="getShowToolbarBack" @click="back"><a class="vux-header-back"></a>
       <div class="left-arrow"></div>
     </div>
     <h2 class="vux-header-title"><span>{{getToolbarTitle}}</span></h2>
@@ -27,6 +27,11 @@
       },
       navFontColor(){
         return this.$store.getters.navFontColor
+      }
+    },
+    methods:{
+      back:function() {
+        this.$router.go(-1)
       }
     }
 

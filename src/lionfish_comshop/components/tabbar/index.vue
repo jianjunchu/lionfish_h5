@@ -50,7 +50,7 @@
     },
     computed: {
       getCartNum() {
-        return this.$store.getters.cartNum
+        return this.$app.globalData.cartNum
       }
     },
     mounted() {
@@ -82,7 +82,7 @@
             selectedIconPath: '',
             selected: !1
           }, {
-            pagePath: '/lionfish_comshop/pages/order/index',
+            pagePath: '/lionfish_comshop/pages/order/shopCart',
             text: '我的',
             iconPath: '',
             selectedIconPath: '',
@@ -133,7 +133,7 @@
               a.list[4].selectedIconPath = t.s3 || require('@/assets/images/icon-tab-me-active.png')
             const o = response.open_tabbar_type || 0, i = response.open_tabbar_out_weapp || 0,
               s = response.tabbar_out_appid, n = response.tabbar_out_link, l = response.tabbar_out_type
-            a.selectedColor = response.wepro_tabbar_selectedColor || '#F75451', a.backgroundColor = response.wepro_tabbar_bgColor || '#ffffff',
+            a.selectedColor = response.wepro_tabbar_selectedColor || '#8ED9D1', a.backgroundColor = response.wepro_tabbar_bgColor || '#ffffff',
 
               p.tabbar = a,
               p.open_tabbar_type = o,

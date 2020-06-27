@@ -53,7 +53,7 @@
       loadImage: {
         handler: function(loadImage) {
           console.log(loadImage,'loadImage');
-//          debugger
+//
           if (loadImage) {
 //            var pixelRatio = (this.$getApp().globalData.systemInfo && this.$getApp().globalData.systemInfo.pixelRatio) ? this.$getApp().globalData.systemInfo.pixelRatio :2;
 //            var t = Math.ceil(pixelRatio), a = loadImage + "?imageView2/" + this.imgType + "/w/" + this.getPx(this.width) * t + "/h/" + this.getPx(this.height) * t + "/ignore-error/1";

@@ -1,17 +1,12 @@
 import Vue from 'vue'
 
 import 'normalize.css/normalize.css' // A modern alternative to CSS resets
-
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 import 'mint-ui/lib/style.css'
 import locale from 'element-ui/lib/locale/lang/en' // lang i18n
-
 import vueSwiper from 'vue-awesome-swiper'
 import 'swiper/css/swiper.css'
-
-Vue.use(vueSwiper)
-
 import Tabbar from '@/lionfish_comshop/components/tabbar'
 import Toolbar from '@/lionfish_comshop/components/toolbar'
 import Modal from '@/lionfish_comshop/components/modal'
@@ -40,6 +35,22 @@ import RouterLink from '@/lionfish_comshop/components/router-link'
 import CountDown from '@/lionfish_comshop/components/count-down'
 import topic from '@/lionfish_comshop/components/topic/topic'
 import LoadMore from '@/lionfish_comshop/components/load-more'
+import auth from '@/lionfish_comshop/components/auth'
+import CommunityItem from '@/lionfish_comshop/components/community-item'
+
+import '@/lionfish_comshop/styles/index.scss' // global css
+import qs from 'qs'
+
+import store from './lionfish_comshop/store'
+import { http, http_post } from './lionfish_comshop/api/index'
+import wx from './lionfish_comshop/utils/wx'
+import router from './lionfish_comshop/router'
+
+import App from './App'
+import '@/icons' // icon
+import '@/permission' // permission control
+
+Vue.use(vueSwiper)
 
 Vue.component('i-tabbar', Tabbar)
 Vue.component('i-toolbar', Toolbar)
@@ -70,18 +81,8 @@ Vue.component('i-router-link', RouterLink)
 Vue.component('i-count-down', CountDown)
 Vue.component('i-topic', topic)
 Vue.component('i-load-more', LoadMore)
-
-import '@/lionfish_comshop/styles/index.scss' // global css
-import qs from 'qs'
-
-import store from './lionfish_comshop/store'
-import { http, http_post } from './lionfish_comshop/api/index'
-import wx from './lionfish_comshop/utils/wx'
-import router from './lionfish_comshop/router'
-
-import App from './App'
-import '@/icons' // icon
-import '@/permission' // permission control
+Vue.component('i-auth', auth)
+Vue.component('i-community-item', CommunityItem)
 
 Vue.prototype.$getApp = function() {
   return App

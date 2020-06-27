@@ -99,7 +99,7 @@
         }
       },
       openSku: function(t) {
-        debugger
+
         var e = t.currentTarget.dataset.idx
         this.disabled = !1
 

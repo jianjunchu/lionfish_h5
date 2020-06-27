@@ -1,19 +1,17 @@
 import _this from '../../main.js'
-import { MessageBox } from 'mint-ui'
-import { Indicator } from 'mint-ui'
+import { Indicator, MessageBox } from 'mint-ui'
 
 export default {
   showToast: function() {
 
   },
   showLoading: function(option) {
-    Indicator.open(option.title)
+    Indicator.open(option ? option.title : '')
   },
   hideLoading: function() {
     Indicator.close()
   },
   getStorageSync: function(k) {
-
     return _this.$store.getters.app.storageSync[k] || {}
   },
   navigateTo: function(o) {
@@ -21,6 +19,7 @@ export default {
   },
   setStorageSync: function(k, v) {
     _this.$store.getters.app.storageSync[k] = v
+    _this.$store.dispatch('app/setStorageSync', _this.$store.getters.app.storageSync)
   },
   removeStorageSync: function(k) {
     this.setStorageSync(k, undefined)
@@ -70,6 +69,28 @@ export default {
     }).then(action => {
       option.success(action)
     })
+  },
+  getLocation: function(option) {
+    return new Promise((resolve, reject) => {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function(position) {
+          const latitude = position.coords.latitude
+          const longitude = position.coords.longitude
+          const data = {
+            latitude: latitude,
+            longitude: longitude
+          }
+          resolve(data)
+        }, function() {
+          reject(arguments)
+        })
+      } else {
+        reject('你的浏览器不支持当前地理位置信息获取')
+      }
+    })
+  },
+  navigateBack: function() {
+    _this.$router.go(-1)
   }
 
 }

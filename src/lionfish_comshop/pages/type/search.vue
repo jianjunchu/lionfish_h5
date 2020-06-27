@@ -401,7 +401,7 @@
   }
 
   .sub-cate-item.active {
-    color: #f75451;
+    color: #8ED9D1;
   }
 
   .icon-open {
@@ -458,9 +458,9 @@
   }
 
   .sub-cate-hide .sub-cate-item.active {
-    background-color: #f75451;
+    background-color: #8ED9D1;
     color: #fff;
-    border: 1px solid #f75451;
+    border: 1px solid #8ED9D1;
   }
 
   .pt50 {

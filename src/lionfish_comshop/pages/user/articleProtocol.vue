@@ -28,7 +28,7 @@
     methods: {
       onLoad: function() {
         var id = this.$route.query.id;
-        debugger
+
         var a = id || 0;
         this.articleId = a;
         var about = this.$route.query.about;
