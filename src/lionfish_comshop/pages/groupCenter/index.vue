@@ -278,7 +278,7 @@
 
         let that = this;
         status.loadStatus().then(function () {
-          debugger
+
           let appLoadStatus = 1;//this.$getApp().globalData.appLoadStatus;
           if (appLoadStatus == 0) {
             //未登录
