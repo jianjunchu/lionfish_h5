@@ -105,20 +105,21 @@
           </div>
           <div v-if="open_danhead_model==1"></div>
           <div v-else>
-            <a class="to-distribution" hoverClass="none" href="#/lionfish_comshop/pages/position/community">
-              <span>切换</span>
-            </a>
             <div class="distribution-right">
+              <a class="to-distribution" hoverClass="none" href="#/lionfish_comshop/pages/position/community">
+                <span>切换</span>
+              </a>
               <img class="icon-right" src="@/assets/images/rightArrowImg.png"/>
             </div>
           </div>
         </div>
         <div class="modal-body community fsz-30">
-          <div class="weight red mb5" :style="{color:skin.color}">{{community.communityName}}</div>
-          <div class="fsz-26 text-gray mb5">{{community.fullAddress}}</div>
+          <div class="weight red mb5">{{community.communityName}}</div>
+          <div class="fsz-30 text-gray mb5">{{community.fullAddress}}</div>
           <div class="i-flex" v-if="community.disUserMobile||community.head_mobile">
             <div>
-              <span class="iconfont icon-ziyuan fsz-28"></span> 电话：</div>
+              <span class="iconfont icon-ziyuan fsz-30"></span> 电话：
+            </div>
             <div v-on:click="callTelphone" :data-phone="(community.disUserMobile||community.head_mobile)" style="color:#ee884a;">{{community.disUserMobile||community.head_mobile}}</div>
             <!--<div v-on:click="callTelphone" style="color:#ee884a;">{{community.disUserMobile||community.head_mobile}}</div>-->
           </div>
@@ -680,13 +681,11 @@
       },
       getCommunityInfo: function () {
         let that = this;
-
         let community =  this.$wx.getStorageSync('community');
         if (community) {
           if(!community.head_mobile) {
             status.getCommunityById(community.communityId).then(res=>{
-
-              this.community = res;
+              this.community = res.data;
             })
           } else {
             this.community =community;
@@ -694,8 +693,7 @@
         } else {
           var token =  this.$wx.getStorageSync('token');
           token && status.getCommunityInfo().then(res => {
-
-            this.community =res ;
+            this.community =res.data;
           })
         }
       },
@@ -891,22 +889,16 @@
           icon: 'none',
           title: '授权成功',
         })
-        this.setData({
-          showGetPhone: false
-        });
+        this.showGetPhone= false;
       },
       close: function () {
-        this.setData({
-          showGetPhone: false
-        });
+        this.showGetPhone= false;
       },
       closeDistribution: function () {
-        this.setData({
-          showDistribution: false
-        })
+        this.showDistribution= false
       },
       goDistribution: function () {
-        let member_info = this.data.member_info;
+        let member_info = this.member_info;
         //判断是不是分销商
         if (member_info.comsiss_flag == 0) {
           this.distributionNext();
@@ -923,13 +915,13 @@
         }
       },
       distributionNext: function () {
-        if (this.data.commiss_sharemember_need == 1) {
+        if (this.commiss_sharemember_need == 1) {
           console.log('需要分享');
           let url = '/lionfish_comshop/distributionCenter/pages/recruit';
            this.$wx.navigateTo({
             url
           })
-        } else if (this.data.commiss_biaodan_need == 1) {
+        } else if (this.commiss_biaodan_need == 1) {
           console.log('需要表单');
           // let url = '/lionfish_comshop/pages/distribution/apply';
            this.$wx.navigateTo({
@@ -938,7 +930,7 @@
         } else {
           // 跳转表单自动审核
           let status = 0;
-          let member_info = this.data.member_info;
+          let member_info = this.member_info;
           if (member_info.comsiss_flag == 1) {
             member_info.comsiss_state == 0 ? status = 1 : status = 2;
           }
@@ -991,7 +983,7 @@
          this.$wx.removeStorage({
           key: 'token',
           success(res) {
-             this.$wx.reLaunch({
+             this.$wx.navigateTo({
               url: '/lionfish_comshop/pages/user/me',
             })
           }
@@ -999,20 +991,20 @@
       },
       toggleFetchCoder: function () {
         if (!this.authModal()) return;
-        this.setData({
-          isShowCoder: !this.data.isShowCoder
-        })
+        this.isShowCoder= !this.isShowCoder;
       },
       callTelphone: function (e) {
         var that = this;
         var phoneNumber = e.currentTarget.dataset.phone;
         if (phoneNumber) {
-          this.isCalling || (this.isCalling = true,  this.$wx.makePhoneCall({
-            phoneNumber: phoneNumber,
-            complete: function () {
-              that.isCalling = false;
-            }
-          }));
+//          this.isCalling || (this.isCalling = true,
+//            this.$wx.makePhoneCall({
+//              phoneNumber: phoneNumber,
+//              complete: function () {
+//                that.isCalling = false;
+//              }
+//            })
+//          );
         }
       }
     }
