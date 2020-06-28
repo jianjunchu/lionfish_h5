@@ -8,7 +8,7 @@ var _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator 
     var e = Array.prototype, o = Object.prototype, n = Function.prototype, u = e.push, a = e.slice, p = o.toString, r = o.hasOwnProperty, t = Array.isArray, i = Object.keys, c = n.bind, f = Object.create, l = function() {}, h = function n(t) {
         return t instanceof n ? t : this instanceof n ? void (this._wrapped = t) : new n(t);
     };
-    (module.exports = h).VERSION = "1.8.2";
+    (ex h).VERSION = "1.8.2";
     var s = function(u, i, n) {
         if (void 0 === i) return u;
         switch (null == n ? 3 : n) {
@@ -128,20 +128,20 @@ var _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator 
         return h.find(n, h.matcher(t));
     }, h.max = function(n, e, t) {
         var r, u, i = -1 / 0, o = -1 / 0;
-        if (null == e && null != n) for (var a = 0, c = (n = m(n) ? n : h.values(n)).length; a < c; a++) r = n[a], 
+        if (null == e && null != n) for (var a = 0, c = (n = m(n) ? n : h.values(n)).length; a < c; a++) r = n[a],
         i < r && (i = r); else e = v(e, t), h.each(n, function(n, t, r) {
             u = e(n, t, r), (o < u || u === -1 / 0 && i === -1 / 0) && (i = n, o = u);
         });
         return i;
     }, h.min = function(n, e, t) {
         var r, u, i = 1 / 0, o = 1 / 0;
-        if (null == e && null != n) for (var a = 0, c = (n = m(n) ? n : h.values(n)).length; a < c; a++) (r = n[a]) < i && (i = r); else e = v(e, t), 
+        if (null == e && null != n) for (var a = 0, c = (n = m(n) ? n : h.values(n)).length; a < c; a++) (r = n[a]) < i && (i = r); else e = v(e, t),
         h.each(n, function(n, t, r) {
             ((u = e(n, t, r)) < o || u === 1 / 0 && i === 1 / 0) && (i = n, o = u);
         });
         return i;
     }, h.shuffle = function(n) {
-        for (var t, r = m(n) ? n : h.values(n), e = r.length, u = Array(e), i = 0; i < e; i++) (t = h.random(0, i)) !== i && (u[i] = u[t]), 
+        for (var t, r = m(n) ? n : h.values(n), e = r.length, u = Array(e), i = 0; i < e; i++) (t = h.random(0, i)) !== i && (u[i] = u[t]),
         u[t] = r[i];
         return u;
     }, h.sample = function(n, t, r) {
@@ -272,7 +272,7 @@ var _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator 
         return i;
     }, h.range = function(n, t, r) {
         arguments.length <= 1 && (t = n || 0, n = 0), r = r || 1;
-        for (var e = Math.max(Math.ceil((t - n) / r), 0), u = Array(e), i = 0; i < e; i++, 
+        for (var e = Math.max(Math.ceil((t - n) / r), 0), u = Array(e), i = 0; i < e; i++,
         n += r) u[i] = n;
         return u;
     };
@@ -321,14 +321,14 @@ var _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator 
             var n = h.now();
             f || !1 !== u.leading || (f = n);
             var t = e - (n - f);
-            return i = this, o = arguments, t <= 0 || e < t ? (c && (clearTimeout(c), c = null), 
-            f = n, a = r.apply(i, o), c || (i = o = null)) : c || !1 === u.trailing || (c = setTimeout(l, t)), 
+            return i = this, o = arguments, t <= 0 || e < t ? (c && (clearTimeout(c), c = null),
+            f = n, a = r.apply(i, o), c || (i = o = null)) : c || !1 === u.trailing || (c = setTimeout(l, t)),
             a;
         };
     }, h.debounce = function(r, e, u) {
         var i, o, a, c, f, t = function n() {
             var t = h.now() - c;
-            t < e && 0 <= t ? i = setTimeout(n, e - t) : (i = null, u || (f = r.apply(a, o), 
+            t < e && 0 <= t ? i = setTimeout(n, e - t) : (i = null, u || (f = r.apply(a, o),
             i || (a = o = null)));
         };
         return function() {
@@ -399,7 +399,7 @@ var _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator 
     }, h.pick = function(n, t, r) {
         var e, u, i = {}, o = n;
         if (null == o) return i;
-        h.isFunction(t) ? (u = h.allKeys(o), e = s(t, r)) : (u = j(arguments, !1, !1, 1), 
+        h.isFunction(t) ? (u = h.allKeys(o), e = s(t, r)) : (u = j(arguments, !1, !1, 1),
         e = function(n, t, r) {
             return t in r;
         }, o = Object(o));
@@ -570,7 +570,7 @@ var _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator 
         !n && t && (n = t), n = h.defaults({}, n, h.templateSettings);
         var r = RegExp([ (n.escape || M).source, (n.interpolate || M).source, (n.evaluate || M).source ].join("|") + "|$", "g"), o = 0, a = "__p+='";
         i.replace(r, function(n, t, r, e, u) {
-            return a += i.slice(o, u).replace(B, T), o = u + n.length, t ? a += "'+\n((__t=(" + t + "))==null?'':_.escape(__t))+\n'" : r ? a += "'+\n((__t=(" + r + "))==null?'':__t)+\n'" : e && (a += "';\n" + e + "\n__p+='"), 
+            return a += i.slice(o, u).replace(B, T), o = u + n.length, t ? a += "'+\n((__t=(" + t + "))==null?'':_.escape(__t))+\n'" : r ? a += "'+\n((__t=(" + r + "))==null?'':__t)+\n'" : e && (a += "';\n" + e + "\n__p+='"),
             n;
         }), a += "';\n", n.variable || (a = "with(obj||{}){\n" + a + "}\n"), a = "var __t,__p='',__j=Array.prototype.join,print=function(){__p+=__j.call(arguments,'');};\n" + a + "return __p;\n";
         try {
@@ -601,7 +601,7 @@ var _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator 
         var r = e[t];
         h.prototype[t] = function() {
             var n = this._wrapped;
-            return r.apply(n, arguments), "shift" !== t && "splice" !== t || 0 !== n.length || delete n[0], 
+            return r.apply(n, arguments), "shift" !== t && "splice" !== t || 0 !== n.length || delete n[0],
             R(this, n);
         };
     }), h.each([ "concat", "join", "slice" ], function(n) {
