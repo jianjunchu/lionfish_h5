@@ -9,7 +9,7 @@
         </div>
         <span>{{item.text}}</span>
       </router-link>
-      <div @click="goWeapp" class="tabbar_nav" v-show="open_tabbar_out_weapp==0&&index==2"
+      <div @click="goWeapp" class="tabbar_nav" v-show="open_tabbar_out_weapp!=0&&index!=2"
            :style="{color:item.selected?tabbar.selectedColor:tabbar.color}" v-else>
         <div class="tabbar_icon">
           <img class="img" :src="item.selected?item.selectedIconPath:item.iconPath"/>

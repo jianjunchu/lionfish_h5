@@ -2,11 +2,17 @@ import Vue from 'vue'
 
 import 'normalize.css/normalize.css' // A modern alternative to CSS resets
 import ElementUI from 'element-ui'
+
 import 'element-ui/lib/theme-chalk/index.css'
 import 'mint-ui/lib/style.css'
-import locale from 'element-ui/lib/locale/lang/en' // lang i18n
+
 import vueSwiper from 'vue-awesome-swiper'
 import 'swiper/css/swiper.css'
+import Cookies from 'js-cookie'
+import less from 'less'
+
+import i18n from './lang' // Internationalization
+
 import Tabbar from '@/lionfish_comshop/components/tabbar'
 import Toolbar from '@/lionfish_comshop/components/toolbar'
 import Modal from '@/lionfish_comshop/components/modal'
@@ -103,15 +109,17 @@ if (process.env.NODE_ENV === 'production') {
   mockXHR()
 }
 
+Vue.use(less)
+
 Vue.prototype.$qs = qs
 Vue.prototype.$http = http
 Vue.prototype.$http_post = http_post
 Vue.prototype.$wx = wx
 
-// set ElementUI lang to EN
-Vue.use(ElementUI, { locale })
-// 如果想要中文版 element-ui，按如下方式声明
-// Vue.use(ElementUI)
+Vue.use(ElementUI, {
+  size: Cookies.get('size') || 'medium', // set element-ui default size
+  i18n: (key, value) => i18n.t(key, value)
+})
 
 Vue.config.productionTip = false
 
@@ -119,6 +127,7 @@ const vue = new Vue({
   el: '#app',
   router,
   store,
+  i18n,
   render: h => h(App)
 
 })

@@ -380,7 +380,7 @@
             <span>满减</span>
             <em>- $ {{reduce_money}}</em>
           </div>
-          <div @click="showvoucher" class="cell" data-seller_id="0" v-if="seller_goodss[0].show_voucher==1">
+          <div @click="showvoucher" class="cell" data-seller_id="0" v-if="seller_goodss[0] && seller_goodss[0].show_voucher==1">
             <div>
               <span>优惠券</span>
               <span class="cell-desc" v-if="sel_chose_vouche.limit_money>0">满{{sel_chose_vouche.limit_money}}元优惠{{sel_chose_vouche.credit}}元</span>
@@ -391,8 +391,8 @@
               <img class="icon-right" src="@/assets/images/rightArrowImg.png"/>
             </div>
           </div>
-          <div @click="showvoucher" class="cell" :data-seller_id="seller_goodss[0].store_info.s_id"
-               v-if="ssvoucher_list.length&&seller_goodss[0].show_voucher==0">
+          <div @click="showvoucher" class="cell" :data-seller_id="seller_goodss[0] && seller_goodss[0].store_info.s_id"
+               v-if="seller_goodss[0] && seller_goodss[0].show_voucher==0">
             <div>
               <span>选择优惠券</span>
             </div>
@@ -879,6 +879,7 @@
               var T = 0, D = 0, P = t.seller_goodss, z = (Object.keys(P).length, {})
               for (var I in P) z[I] = ''
               var L = ''
+              console.log(P)
               for (var O in P) {
                 for (var j in 1 == P[O].show_voucher && (P[O].chose_vouche.id && (T = P[O].chose_vouche.id),
                 P[O].chose_vouche.store_id && (D = P[O].chose_vouche.store_id), '[object Object]' == Object.prototype.toString.call(P[O].chose_vouche) && (L = P[O].chose_vouche)),
@@ -886,7 +887,7 @@
                   0 < P[O].goods[j].header_disc && P[O].goods[j].header_disc < 100 && (P[O].goods[j].header_disc = (P[O].goods[j].header_disc / 10).toFixed(1))
                 }
               }
-
+              console.log(t)
               F.is_hexiao = S
               F.loadover = !0
               F.commentArr = z
