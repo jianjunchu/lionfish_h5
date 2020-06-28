@@ -13,6 +13,7 @@ import Modal from '@/lionfish_comshop/components/modal'
 import Img from '@/lionfish_comshop/components/img'
 import Tabs from '@/lionfish_comshop/components/tabs'
 import NewRushSpu from '@/lionfish_comshop/components/new-rush-spu'
+import RushSpu from '@/lionfish_comshop/components/new-rush-spu'
 import Button from '@/lionfish_comshop/components/button'
 import card from '@/lionfish_comshop/components/card'
 import InputNumber from '@/lionfish_comshop/components/input-number'
@@ -83,6 +84,7 @@ Vue.component('i-topic', topic)
 Vue.component('i-load-more', LoadMore)
 Vue.component('i-auth', auth)
 Vue.component('i-community-item', CommunityItem)
+Vue.component('i-rush-spu', RushSpu)
 
 Vue.prototype.$getApp = function() {
   return App

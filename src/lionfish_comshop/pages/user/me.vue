@@ -680,12 +680,12 @@
       },
       getCommunityInfo: function () {
         let that = this;
-        debugger
+
         let community =  this.$wx.getStorageSync('community');
         if (community) {
           if(!community.head_mobile) {
             status.getCommunityById(community.communityId).then(res=>{
-                debugger
+
               this.community = res;
             })
           } else {
@@ -694,7 +694,7 @@
         } else {
           var token =  this.$wx.getStorageSync('token');
           token && status.getCommunityInfo().then(res => {
-            debugger
+
             this.community =res ;
           })
         }
@@ -791,7 +791,7 @@
         return true;
       },
       goToGroup: function () {
-        debugger
+
         5 === this.auditStatus ?  this.$wx.redirectTo({
           url: "/lionfish_comshop/pages/groupCenter/index"
         }) :  this.$wx.redirectTo({

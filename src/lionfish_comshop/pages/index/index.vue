@@ -223,7 +223,7 @@
                         data-idx="1" fontColor="#000" class="category-list" :tabs="classification.tabs"></i-tabs>
               </div>
               <div v-show="!isShowCommingClassification||tabIdx!==1">
-                <i-tabs :activeIndex="commingClassification.activeIndex" data-idx="2" fontColor="#000"
+                <i-tabs :activeIndex="commingClassification.activeIndex" @activeIndexChange="classificationChange" data-idx="2" fontColor="#000"
                         iClass="category-list" :tabs="classification.tabs"></i-tabs>
               </div>
             </div>
@@ -769,7 +769,6 @@
     mounted: function() {
       var a = this,
         e = this;
-
       if ((a.stopNotify = !1, a.tabbarRefresh = !0, a.isblack = a.$app.globalData.isblack || 0), util.check_login_new().then(function(t) {
         t ? ( a.needAuth = !1 , status.cartNum().then(t=>{a.cartNum = t.data})) : (a.needAuth = !0, a.couponRefresh = !1 );
       }), a.$app.globalData.timer.start(), a.$app.globalData.changedCommunity) {
@@ -820,6 +819,7 @@
       a.$store.dispatch('app/hideToolbarBack')
       a.$store.dispatch('app/hideToolbarMore')
       a.$store.dispatch('app/showTabbar')
+
 
     },
     methods: {
@@ -1108,7 +1108,6 @@
       loadPage() {
 
         var e = this
-        e.$wx.showLoading(), console.log('step8')
         e.get_index_info(), e.get_type_topic(), e.getNavigat(), e.getCoupon(), e.getPinList(),
           status.loadStatus().then(function() {
             var t = e.$app.globalData.appLoadStatus
@@ -1414,13 +1413,11 @@
       },
       vipModal: function(t) {
 
-        this.setData(t.detail)
+        this.setData(t)
       },
       gocarfrom: function(t) {
-        this.$wx.showLoading(), (
-          this.is_take_vipcard = '',
-            this.is_mb_level_buy = ''
-        ), a.collectFormIds(t.formId), this.goOrder()
+        this.is_take_vipcard = '', this.is_mb_level_buy = ''
+        a.collectFormIds(t.formId), this.goOrder()
       },
 
       openSku: function(t) {
@@ -1621,7 +1618,8 @@
         this.$store.getters.tabbarCurrentIdx = 2
       },
       classificationChange: function(t) {
-        console.log(t.e), this.$wx.showLoading()
+        console.log(t)
+
         var a = this
         this.$data = _extends({}, this.$data, {
           overPageNum: 1,
@@ -1634,7 +1632,7 @@
         this.rushList = []
         this.showEmpty = !1,
           this.pageNum = 1,
-          this.classification.activeIndex = t.detail.e
+          this.classification.activeIndex = t.e
         this.classificationId = t.a
         this.$data.stickyFlag || a.$data.scrollTop == a.$data.stickyTop + 5 || this.$wx.pageScrollTo({
           scrollTop: a.$data.stickyTop - 30,
@@ -1642,7 +1640,6 @@
         }), a.load_goods_data()
       },
       commingClassificationChange: function(t) {
-        this.$wx.showLoading()
         var a = this
         a.tpage = 1, this.$data = _extends({}, this.$data, {
           hasCommingGoods: !0
@@ -1659,7 +1656,6 @@
         a.getCommingList()
       },
       getCommingList: function() {
-        this.commigLoadMore && this.$wx.showLoading()
         var t = this.$wx.getStorageSync('token'),
           e = this,
           a = this.$wx.getStorageSync('community'),

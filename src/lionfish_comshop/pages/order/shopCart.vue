@@ -651,7 +651,7 @@
       edit: function(t) {
         const wx = this.$wx, app = this.$getApp()
 
-        var a = parseInt(t.target.dataset.index)
+        var a = parseInt(t.currentTarget.dataset.index)
         this.carts[a].caredit = 'none', this.carts[a].finish = 'inline'
         for (var s = 0; s < this.carts[a].shopcarts.length; s++) {
           this.carts[a].shopcarts[s].edit = 'none',
@@ -661,7 +661,7 @@
         this.carts = this.carts
       },
       finish: function(t) {
-        var a = parseInt(t.target.dataset.index)
+        var a = parseInt(t.currentTarget.dataset.index)
         this.carts[a].caredit = 'inline', this.carts[a].finish = 'none'
         for (var s = 0; s < this.carts[a].shopcarts.length; s++) {
           this.carts[a].shopcarts[s].edit = 'inline',
@@ -690,7 +690,7 @@
       shopselect: function(t) {
         const wx = this.$wx, app = this.$getApp()
 
-        var a = parseInt(t.target.dataset.index), s = this.allselect, e = 0, o = 0, r = 0
+        var a = parseInt(t.currentTarget.dataset.index), s = this.allselect, e = 0, o = 0, r = 0
         if (1 == this.carts[a].isselect) {
           s = this.carts[a].isselect = !1
           for (var c = 0; c < this.carts[a].shopcarts.length; c++) {
@@ -1078,7 +1078,7 @@
       delgoods: function(t) {
         const wx = this.$wx, app = this.$getApp()
 
-        var d = parseInt(t.target.dataset.parentid), l = parseInt(t.target.dataset.index), u = this
+        var d = parseInt(t.currentTarget.dataset.parentid), l = parseInt(t.currentTarget.dataset.index), u = this
         wx.showModal({
           title: '提示',
           content: '确定删除这件商品吗？',
