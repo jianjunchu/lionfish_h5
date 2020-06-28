@@ -105,7 +105,7 @@
           </div>
           <div v-if="open_danhead_model==1"></div>
           <div v-else>
-            <a class="to-distribution" hoverClass="none" href="/lionfish_comshop/pages/position/community">
+            <a class="to-distribution" hoverClass="none" href="#/lionfish_comshop/pages/position/community">
               <span>切换</span>
             </a>
             <div class="distribution-right">
@@ -119,7 +119,7 @@
           <div class="i-flex" v-if="community.disUserMobile||community.head_mobile">
             <div>
               <span class="iconfont icon-ziyuan fsz-28"></span> 电话：</div>
-            <!--<div v-on:click="callTelphone" data-phone="{{community.disUserMobile||community.head_mobile}}" style="color:#ee884a;">{{community.disUserMobile||community.head_mobile}}</div>-->
+            <div v-on:click="callTelphone" :data-phone="(community.disUserMobile||community.head_mobile)" style="color:#ee884a;">{{community.disUserMobile||community.head_mobile}}</div>
             <!--<div v-on:click="callTelphone" style="color:#ee884a;">{{community.disUserMobile||community.head_mobile}}</div>-->
           </div>
         </div>
@@ -293,7 +293,7 @@
           <div v-on:click="goToGroup" v-if="member_info.is_head==1">
             <div class="item-main">
               <div class="item-title">
-                <!--<img class="toolIcon" mode="widthFix" :src="user_tool_icons.i5?user_tool_icons.i5:'@/assets/images/groupCenterIcon.png'"/>-->
+                <!--<img class="toolIcon" mode="widthFix" :src="(user_tool_icons.i5?user_tool_icons.i5:'@/assets/images/groupCenterIcon.png')"/>-->
                 <img class="toolIcon" mode="widthFix" src="@/assets/images/groupCenterIcon.png"/>
                 <span>{{groupInfo.owner_name}}中心</span>
               </div>
@@ -549,7 +549,8 @@
 
         user_top_font_color:'',
         commiss_level:'',
-        showAuthModal:false
+        showAuthModal:false,
+        tabbarRefresh:false
       }
     },
     created: function() {
@@ -562,7 +563,7 @@
     },
     methods: {
       onLoad: function (options) {
-//         this.$wx.hideTabBar();
+         this.$wx.hideTabBar();
         let that = this;
         this.setNavBgColor();
         this.setGroupInfo();
@@ -611,7 +612,7 @@
             token:token
           }).then(res=> {
             console.log(res);
-            //  this.$wx.hideLoading();
+              this.$wx.hideLoading();
 //            setTimeout(function(){  this.$wx.hideLoading(); },1000);
             if (res.code == 0) {
               let showGetPhone = false;
@@ -679,11 +680,12 @@
       },
       getCommunityInfo: function () {
         let that = this;
-
+        debugger
         let community =  this.$wx.getStorageSync('community');
         if (community) {
           if(!community.head_mobile) {
             status.getCommunityById(community.communityId).then(res=>{
+                debugger
               this.community = res;
             })
           } else {
@@ -692,6 +694,7 @@
         } else {
           var token =  this.$wx.getStorageSync('token');
           token && status.getCommunityInfo().then(res => {
+            debugger
             this.community =res ;
           })
         }
@@ -788,7 +791,7 @@
         return true;
       },
       goToGroup: function () {
-
+        debugger
         5 === this.auditStatus ?  this.$wx.redirectTo({
           url: "/lionfish_comshop/pages/groupCenter/index"
         }) :  this.$wx.redirectTo({
@@ -881,9 +884,7 @@
         this.$wx.hideLoading()
       },
       onHide: function () {
-        this.setData({
-          tabbarRefresh: false
-        })
+        this.tabbarRefresh= false
       },
       getReceiveMobile: function (e) {
          this.$wx.showToast({

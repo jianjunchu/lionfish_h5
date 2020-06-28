@@ -1,0 +1,454 @@
+.groupCenter {
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+}
+
+.groupCenter .basicInform {
+    width: 100%;
+    height: 113px;
+    background: #fe8464;
+    display: flex;
+    justify-content: flex-start;
+}
+
+.groupCenter .basicInform .user-avatar {
+    width: 72px;
+    height: 72px;
+    margin: 5px 15px 0;
+    display: flex;
+    justify-content: center;
+}
+
+.groupCenter .basicInform .user-avatar .userAvatarUrl {
+    border-radius: 50%;
+    width: 70px;
+    height: 70px;
+    border: 1px solid rgba(255,255,255,0.24);
+    overflow: hidden;
+    display: flex;
+}
+
+.groupCenter .basicInform .userInfo {
+    display: flex;
+    flex-direction: column;
+    padding-top: 5px;
+    width: 100%;
+}
+
+.groupCenter .basicInform .userInfo .user-name {
+    height: 20px;
+    line-height: 20px;
+    color: #fff;
+    font-size: 20px;
+}
+
+.groupCenter .basicInform .userInfo .user-name .edit-name {
+    float: right;
+    margin-top: 5px;
+    font-size: 12px;
+    line-height: 17px;
+    padding-right: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.groupCenter .basicInform .userInfo .user-name .icon-edit {
+    margin-right: 5px;
+    font-size: 12px;
+}
+
+.groupCenter .basicInform .userInfo .userId,.groupCenter .basicInform .userInfo .address {
+    position: relative;
+    font-size: 13px;
+    color: #fff;
+    z-index: 1;
+    margin-top: 5px;
+}
+
+.groupCenter .basicInform .userInfo .address {
+    width: 260px;
+    line-height: 16px;
+}
+
+.groupCenter .basicInform .userInfo .address .iconfont {
+    font-size: 12px;
+}
+
+.groupCenter .distributionCon {
+    width: 100%;
+    margin-top: -15px;
+    z-index: 9;
+}
+
+.groupCenter .distributionCon .distribution {
+    background: #fff;
+    border-radius: 5px;
+    padding: 12px 0;
+    margin: 0 10px;
+}
+
+.groupCenter .distributionCon .distribution .myDistribution {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 15px;
+    color: #333;
+    font-weight: 500;
+}
+
+.groupCenter .distributionCon .distribution .incomeCon {
+    margin-top: 15px;
+    display: flex;
+    justify-content: flex-start;
+}
+
+.groupCenter .distributionCon .distribution .incomeCon .income {
+    width: 33.3%;
+    padding: 10px 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.groupCenter .distributionCon .distribution .incomeCon .income:last-child {
+    border: none;
+}
+
+.groupCenter .distributionCon .distribution .incomeCon .income .incomeTop {
+    font-size: 18px;
+    color: #ff673f;
+    margin-bottom: 8px;
+    font-weight: 500;
+}
+
+.groupCenter .distributionCon .distribution .incomeCon .income .incomeBottom {
+    font-size: 12px;
+    color: #999;
+}
+
+.groupCenter .effectData {
+    width: 100%;
+    margin-top: 15px;
+}
+
+.groupCenter .effectData .nav {
+    z-index: 10;
+    background: #fff;
+    height: 45px;
+    border-bottom: 0.05px solid #f2f2f2;
+    padding: 0 30px;
+    width: unset;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.groupCenter .effectData .nav .orderList_item {
+    font-size: 15px;
+    color: #333;
+    padding: 11px 0;
+    margin-bottom: 2px;
+}
+
+.groupCenter .effectData .nav .on {
+    color: #fe8464;
+    border-bottom: 2px solid #fe8464;
+    margin: 0;
+}
+
+.groupCenter .effectData .swiper-box {
+    width: 100%;
+    height: 70px;
+}
+
+.groupCenter .effectData .swiper-box .item {
+    margin-bottom: 10px;
+    background: #fff;
+    overflow: hidden;
+}
+
+.groupCenter .effectData .swiper-box .item:last-child {
+    margin: 0;
+}
+
+.groupCenter .effectData .effect {
+    background: #fff;
+    border-radius: 5px;
+    padding: 12px 0;
+    margin: 0 10px;
+}
+
+.groupCenter .effectData .effect .myEffect {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 15px;
+    color: #333;
+    font-weight: 500;
+}
+
+.groupCenter .effectData .effect .incomeCon {
+    margin-top: 15px;
+    display: flex;
+    justify-content: flex-start;
+}
+
+.groupCenter .effectData .effect .incomeCon .income {
+    width: 33.3%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.groupCenter .effectData .effect .incomeCon .income:last-child {
+    border: none;
+}
+
+.groupCenter .effectData .effect .incomeCon .income .incomeTop {
+    font-size: 18px;
+    color: #333;
+    margin-bottom: 8px;
+    font-weight: 500;
+}
+
+.groupCenter .effectData .effect .incomeCon .income .incomeBottom {
+    font-size: 12px;
+    color: #999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.groupCenter .effectData .effect .incomeCon .income .incomeBottom .distributionInstrIcon {
+    width: 14px;
+    height: 14px;
+    margin-right: 4px;
+}
+
+.groupCenter .groupCenterCon {
+    margin-top: 15px;
+}
+
+.groupCenter .groupCenterCon .order,.groupCenter .groupCenterCon .record {
+    border-radius: 5px;
+    background: #fff;
+    margin: 10px;
+}
+
+.groupCenter .groupCenterCon .order .myOrders,.groupCenter .groupCenterCon .record .myOrders {
+    height: 45px;
+    border-top-right-radius: 5px;
+    border-top-left-radius: 5px;
+    background: #fff;
+    border-bottom: 0.05px solid #e4e4e4;
+    padding: 0 15px;
+    font-size: 15px;
+    color: #333;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.groupCenter .groupCenterCon .order .myOrders .allGroupOrder,.groupCenter .groupCenterCon .record .myOrders .allGroupOrder {
+    font-size: 13px;
+    color: #999;
+}
+
+.groupCenter .groupCenterCon .order .myOrders .allGroupOrder .rightArrowImg,.groupCenter .groupCenterCon .record .myOrders .allGroupOrder .rightArrowImg {
+    width: 6px;
+    height: 11px;
+    color: #a7a7a7;
+    margin-left: 7px;
+    margin-bottom: -1px;
+}
+
+.groupCenter .groupCenterCon .order .orderTab,.groupCenter .groupCenterCon .record .orderTab {
+    padding: 15px 26px;
+    background-color: #fff;
+    overflow: hidden;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.groupCenter .groupCenterCon .order .orderTab .order_status,.groupCenter .groupCenterCon .record .orderTab .order_status {
+    position: relative;
+    color: #58595b;
+    font-size: 13px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.groupCenter .groupCenterCon .order .orderTab .order_status .num,.groupCenter .groupCenterCon .record .orderTab .order_status .num {
+    width: 17px;
+    height: 17px;
+    background: #fff;
+    font-size: 11px;
+    color: #fff;
+    background: #ff6557;
+    border-radius: 50%;
+    position: absolute;
+    right: 0;
+    top: -7px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1;
+}
+
+.groupCenter .groupCenterCon .order .orderTab .order_status .distributionIcon,.groupCenter .groupCenterCon .record .orderTab .order_status .distributionIcon {
+    width: 30px;
+    height: 25px;
+    margin-bottom: 8px;
+}
+
+.groupCenter .groupCenterCon .order .orderTab .order_status .receiveIcon,.groupCenter .groupCenterCon .record .orderTab .order_status .receiveIcon {
+    margin-bottom: 8px;
+    width: 27px;
+    height: 25px;
+}
+
+.groupCenter .groupCenterCon .order .orderTab .order_status .completeIcon,.groupCenter .groupCenterCon .record .orderTab .order_status .completeIcon {
+    margin-bottom: 8px;
+    width: 25px;
+    height: 25px;
+}
+
+.groupCenter .groupCenterCon .order .orderTab .order_status .needPickIcon,.groupCenter .groupCenterCon .record .orderTab .order_status .needPickIcon {
+    margin-bottom: 8px;
+    margin-left: 5px;
+    width: 29px;
+    height: 27px;
+}
+
+.groupCenter .groupCenterCon .record {
+    margin-top: 10px;
+}
+
+.groupCenter .groupCenterCon .record .recordList {
+    padding: 0 15px;
+    height: 50px;
+    line-height: 50px;
+    border-bottom: 0.05px solid #e4e4e4;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.groupCenter .groupCenterCon .record .recordList .recordListTit {
+    height: 50px;
+    font-size: 15px;
+    color: #333;
+}
+
+.groupCenter .groupCenterCon .record .recordList .rightText {
+    color: #999;
+}
+
+.groupCenter .groupCenterCon .record .recordList .rightArrowImg {
+    width: 6px;
+    height: 11px;
+    color: #a7a7a7;
+    margin-left: 15px;
+}
+
+.groupCenter .groupCenterCon .record .borNone {
+    border: none;
+}
+
+.groupCenter .groupCenterCon .distributionInstr {
+    margin: 20px 0 34px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.groupCenter .groupCenterCon .distributionInstr .disInstr {
+    width: 122px;
+    height: 38px;
+    background: #fff;
+    border-radius: 19px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.groupCenter .groupCenterCon .distributionInstr .disInstr .distributionInstrIcon {
+    width: 14px;
+    height: 14px;
+    margin-right: 4px;
+}
+
+.hide-dialog {
+    height: 100%;
+    width: 100%;
+    bottom: 0;
+    left: 0;
+    z-index: 19;
+    background: rgba(0,0,0,0.3);
+    position: fixed;
+}
+
+.dialog-tips {
+    width: 260px;
+    height: 206px;
+    border-radius: 12px;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+    margin: auto;
+    position: absolute;
+    background: #fff;
+    z-index: 20;
+}
+
+.dialog-tips .dialog-title {
+    padding: 15px 0;
+    font-size: 16px;
+    color: #333;
+    text-align: center;
+    font-weight: 500;
+}
+
+.dialog-tips .dialog-content {
+    font-size: 14px;
+    padding: 0 25px;
+    color: #999;
+}
+
+.dialog-tips .dialog-btn {
+    margin: 0 22px 0 22px;
+    bottom: 15px;
+    position: absolute;
+    text-align: center;
+    color: #fff;
+    background: #ff673f;
+    font-size: 16px;
+    height: 36px;
+    width: 216px;
+    line-height: 36px;
+    border-radius: 30px;
+}
+
+.scan-code {
+    position: absolute;
+    width: 60px;
+    height: 50px;
+    padding: 5px 20px 0 0;
+    right: -10px;
+    top: 0;
+    z-index: 1000;
+    text-align: right;
+}
+
+.scan-code .icon-scan {
+    font-size: 25px;
+}

@@ -1,5 +1,5 @@
 <template>
-  <div class="i-class i-load-more {{loading?'':'i-load-more-line'}}">
+  <div class="['i-class', 'i-load-more', (loading?'':'i-load-more-line')]">
     <div class="i-load-more-loading" v-if="loading"></div>
     <div class="i-load-more-tip">
       <div v-if="tip!==''">{{tip}}</div>
