@@ -6,7 +6,7 @@
     </div>
     <el-form ref="loginForm" :model="loginForm" class="login-form" auto-complete="on" label-position="left">
       <div class="title-container">
-        <img src="../../../assets/images/contactService.png">
+        <img src="../../../assets/images/9.png" style="width: 100px;height: 100px">
       </div><br><br>
 
       <el-form-item prop="username">
