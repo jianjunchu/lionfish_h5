@@ -19,8 +19,9 @@
 
 <script>
   import GlobalMixin from '../../mixin/globalMixin.js';
-  var status = require('../../utils/index.js');
-  var util = require('../../utils/index.js');
+  import status from '../../utils/index.js'
+  import util from '../../utils/index.js'
+
   export default {
     mixins: [GlobalMixin],
     name:'groupcenter-recruit',

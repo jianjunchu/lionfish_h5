@@ -1,5 +1,5 @@
 import _this from '../../main.js'
-import { Indicator, MessageBox,Toast } from 'mint-ui'
+import { Indicator, MessageBox, Toast } from 'mint-ui'
 
 export default {
   showToast: function(option) {
@@ -7,7 +7,7 @@ export default {
       message: option.title,
       position: 'middle',
       duration: 3000
-    });
+    })
   },
   showLoading: function(option) {
     Indicator.open(option ? option.title : '')

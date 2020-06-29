@@ -523,10 +523,11 @@
       writable: !0
     }) : t[a] = e, t
   }
+  import util from '../../utils/index.js'
+  import status from '../../utils/index.js'
+  import a from '../../utils/public'
 
-  var util = require('../../utils'),
-    status = require('../../utils'),
-    a = require('../../utils/public'),
+  var
     wcache = require('../../utils/wcache.js'),
     countDownInit = require('../../utils/countDown')
 

@@ -35,7 +35,8 @@
 </template>
 
 <script>
-  var utils = require("../../utils/index"), location = require("../../utils/Location");
+  import utils from '../../utils/index'
+  var  location = require("../../utils/Location");
   export default {
     name: 'i-community-item',
     props:{

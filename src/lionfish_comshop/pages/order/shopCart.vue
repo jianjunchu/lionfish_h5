@@ -421,9 +421,10 @@
 
 <script>
   import globalMixin from '../../mixin/globalMixin.js'
-
-  var util = require('../../utils/index'), status = require('../../utils/index.js'), a = require('../../utils/public'),
-    addFlag = 1
+  import util from '../../utils/index.js'
+  import status from '../../utils/index.js'
+  import a from '../../utils/public'
+  var addFlag = 1
 
   export default {
     name: 'shopCart',

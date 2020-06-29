@@ -139,7 +139,8 @@
 
 <script>
   import GlobalMixin from '../../mixin/globalMixin.js';
-  var status = require('../../utils/index.js');
+  import status from '../../utils/index.js'
+
   var _extends = Object.assign || function(e) {
       for (var t = 1; t < arguments.length; t++) {
         var a = arguments[t];

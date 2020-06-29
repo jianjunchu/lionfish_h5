@@ -665,6 +665,8 @@
 <script>
   import GlobalMixin from '../../mixin/globalMixin.js'
   import ITabs from '@/lionfish_comshop/components/tabs'
+  import status from '../../utils/index.js'
+  import util from '../../utils/index.js'
   var app, wx
   var _extends = Object.assign || function(e) {
       for (var t = 1; t < arguments.length; t++) {
@@ -672,8 +674,8 @@
         for (var i in a) Object.prototype.hasOwnProperty.call(a, i) && (e[i] = a[i])
       }
       return e
-    }, locat = require('../../utils/Location.js'), util = require('../../utils/index.js'),
-    status = require('../../utils/index.js'), wcache = require('../../utils/wcache.js')
+    }, locat = require('../../utils/Location.js')
+    ,wcache = require('../../utils/wcache.js')
   export default {
     name: 'placeOrder',
     mixins: [GlobalMixin],

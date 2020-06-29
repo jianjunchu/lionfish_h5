@@ -393,11 +393,11 @@
   function fill_zero_prefix(e) {
     return e < 10 ? "0" + e : e;
   }
+  import status from '../../utils/index.js'
+  import util from '../../utils/index.js'
 
-  var util = require('../../utils/index.js'),
-    status = require('../../utils'),
-    a = require('../../utils/public'),
-    wcache = require('../../utils/wcache.js'),
+  import a from '../../utils/public'
+   var wcache = require('../../utils/wcache.js'),
     countDownInit = require('../../utils/countDown')
 
   export default {

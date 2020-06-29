@@ -20,7 +20,8 @@
 </template>
 
 <script>
-  var util = require('../../utils/index'), wcache = require('../../utils/wcache.js'), flag = !0
+  import util from '../../utils/index'
+  var  wcache = require('../../utils/wcache.js'), flag = !0
 
   export default {
     name: 'i-auth',
