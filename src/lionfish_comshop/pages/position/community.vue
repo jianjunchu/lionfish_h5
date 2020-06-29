@@ -23,7 +23,7 @@
         </div>
         <div v-else>
           <div class="location-title location-title-pad">当前{{groupInfo.group_name}}</div>
-          <navigator class="local-community-card" openType="navigateBack">
+          <div class="local-community-card" openType="navigateBack">
             <img class="card-bg" src="@/assets/images/community-desc-bg.png"/>
             <div class="head-pic">
               <img class="head-pic-content" :src="community.disUserHeadImg||community.headImg"
@@ -35,7 +35,7 @@
               <div class="community-name">{{community.communityName}}</div>
               <div class="community-address">{{community.communityAddress||community.fullAddress}}</div>
             </div>
-          </navigator>
+          </div>
         </div>
       </div>
       <div class="community-list history-communities" style="display:none;" v-if="!isNotHistory">
@@ -404,53 +404,53 @@
   }
 
   .header-content {
-    width: 100%;
-    padding-top: 10px;
+    width: 100vw;
+    padding-top: 2vw;
     box-sizing: border-box;
     position: relative;
   }
 
   .header-content .header-bg {
-    width: 100%;
-    height: 150px;
+    width: 100vw;
+    height: 45vw;
     position: absolute;
     left: 0;
     top: 0;
   }
 
   .header-content .search-content {
-    margin: 0 auto 18px;
+    margin: 0 auto 5vw;
     width: 80%;
-    height: 30px;
-    border-radius: 30px;
+    height: 10vw;
+    border-radius: 10vw;
     background: #fff;
     position: relative;
     display: flex;
   }
 
   .header-content .search-content .city-content {
-    height: 30px;
-    padding: 0 8px;
+    height: 10vw;
+    padding: 0 3vw;
     box-sizing: border-box;
     display: flex;
     align-items: center;
-    font-size: 13px;
+    font-size: 4vw;
     color: #444;
     white-space: nowrap;
     font-weight: bold;
   }
 
   .header-content .search-content .city-content .search-icon {
-    width: 12px;
-    height: 12px;
-    margin-right: 10px;
-    margin-top: -1px;
+    width: 4vw;
+    height: 4vw;
+    margin-right: 3vw;
+    margin-top: -0.1vw;
   }
 
   .header-content .search-content .city-content .bottom-arrow {
-    width: 6px;
-    height: 1px;
-    margin-left: 4px;
+    width: 2vw;
+    height: 0.1vw;
+    margin-left: 1vw;
   }
 
   .header-content .search-ipt {
@@ -458,30 +458,30 @@
   }
 
   .header-content .ipt-class {
-    line-height: 30px;
-    height: 30px;
-    font-size: 13px;
+    line-height: 10vw;
+    height: 10vw;
+    font-size: 4vw;
     color: #999;
   }
 
   .header-content .location-title {
     color: #fff;
-    font-size: 13px;
+    font-size: 4vw;
     text-align: center;
-    margin-bottom: 15px;
+    margin-bottom: 5vw;
     position: relative;
   }
 
   .header-content .location-title.location-title-pad {
-    margin-bottom: 30px;
+    margin-bottom: 10vw;
   }
 
   .header-content .location-msg {
-    font-size: 15px;
-    width: 530px;
-    height: 30px;
-    margin: 0 auto 12px;
-    line-height: 18px;
+    font-size: 5vw;
+    width: 180vw;
+    height: 10vw;
+    margin: 0 auto 4vw;
+    line-height: 6vw;
     position: relative;
     color: #fff;
     text-align: center;
@@ -494,68 +494,68 @@
   }
 
   .header-content .switch-btn {
-    width: 90%;
-    height: 50px;
-    border-radius: 50px;
+    width: 90vw;
+    height: 18vw;
+    border-radius: 18vw;
     text-align: center;
-    line-height: 50px;
+    line-height: 18vw;
     background: #fff;
-    font-size: 15px;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.08);
+    font-size: 5vw;
+    box-shadow: 0 0 6vw rgba(0, 0, 0, 0.08);
     position: relative;
     margin: 0 auto;
   }
 
   .header-content .local-community-card {
-    width: 90%;
-    height: 330px;
-    border-radius: 8px;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.08);
+    width: 90vw;
+    height: 36vw;
+    border-radius: 0.2vw;
+    box-shadow: 0 0 6vw rgba(0, 0, 0, 0.08);
     margin: 0 auto;
     position: relative;
   }
 
   .header-content .local-community-card .local-distance {
     position: absolute;
-    top: 40px;
-    right: 6px;
-    width: 60px;
-    height: 20px;
-    border-radius: 10px 0 0 10px;
+    top: 13vw;
+    right: 2vw;
+    width: 20vw;
+    height: 6vw;
+    border-radius: 3vw 0 0 3vw;
     background: linear-gradient(to right, #ff5041, #ff695c);
     color: #fff;
-    font-size: 10px;
-    line-height: 20px;
+    font-size: 3vw;
+    line-height: 6vw;
     text-align: center;
   }
 
   .header-content .local-community-card .card-bg {
     position: absolute;
-    width: 90%;
-    height: 330px;
+    width: 90vw;
+    height: 36vw;
     left: 0;
     top: 0;
   }
 
   .header-content .local-community-card .head-pic {
     position: absolute;
-    width: 110px;
-    height: 110px;
-    left: 120px;
-    top: -30px;
-    border-radius: 30px;
+    width: 15.3vw;
+    height: 15.3vw;
+    left: 37vw;
+    top: -8vw;
+    border-radius: 8vw;
     background: #fff;
     display: flex;
     align-items: center;
     justify-content: center;
-    box-shadow: 0 0 1px rgba(0, 0, 0, 0.2) inset;
+    box-shadow: 0 0 0.1vw rgba(0, 0, 0, 0.2) inset;
   }
 
   .header-content .local-community-card .head-pic .head-pic-content {
     position: relative;
-    width: 50px;
-    height: 50px;
-    border-radius: 20px;
+    width: 15vw;
+    height: 15vw;
+    border-radius: 8vw;
   }
 
   .header-content .local-community-card .card-msg {
@@ -563,28 +563,28 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding-top: 40px;
+    padding-top: 10vw;
   }
 
   .header-content .local-community-card .card-msg .group-master {
-    font-size: 13px;
-    line-height: 13px;
+    font-size: 3vw;
+    line-height: 4vw;
     color: #999;
-    margin-bottom: 20px;
+    margin-bottom: 1vw;
   }
 
   .header-content .local-community-card .card-msg .community-name {
-    font-size: 20px;
+    font-size: 4vw;
     color: #444;
-    line-height: 20px;
-    margin-bottom: 15px;
+    line-height: 6vw;
+    margin-bottom: 1vw;
     font-weight: bold;
   }
 
   .header-content .local-community-card .card-msg .community-address {
-    width: 80%;
-    font-size: 13px;
-    line-height: 18px;
+    width: 90vw;
+    font-size: 3vw;
+    line-height: 5vw;
     color: #444;
     text-align: center;
   }
@@ -599,11 +599,11 @@
   }
 
   .community-list {
-    padding-top: 30px;
+    padding-top: 10vw;
   }
 
   .history-communities {
-    border-bottom: 10px solid #f6f6f6;
+    border-bottom: 2vw solid #f6f6f6;
   }
 
   .item-border {
@@ -626,13 +626,13 @@
     flex-direction: column;
     align-content: center;
     align-items: center;
-    padding: 50px 15px;
+    padding: 12vw 5vw;
   }
 
   .no-community img {
-    width: 100px;
-    height: 100px;
-    margin-bottom: 15px;
+    width: 33vw;
+    height: 33vw;
+    margin-bottom: 5vw;
   }
 
   .link-apply {

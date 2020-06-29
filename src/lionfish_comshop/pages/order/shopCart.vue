@@ -1,5 +1,5 @@
 <template>
-  <div class="page">
+  <div class="page" style="margin-bottom: 52px">
     <div class="pb100">
       <div :class="['cart-tabs', is_open_vipcard_buy==1&&is_vip_card_member!=1?'hasVip':'']" v-if="showTab">
         <div @click="changeTabs" :class="['cart-tabs-item' ,tabIdx==index?'active':'']" :data-idx="item.id"
@@ -1461,7 +1461,7 @@
   }
 </script>
 
-<style scoped>
+<style>
   @import "../../../@feiying/8.less";
   .empty {
     background: #fff;
@@ -1652,16 +1652,17 @@
   }
 
   .fixed-bar .fixed-bar-btn {
-    width: 130px;
-    height: 48px;
+    width: 30vw;
+    height: 15vw;
     text-align: center;
-    line-height: 48px;
+    line-height: 12vw;
     color: #fff;
-    font-size: 15px;
+    font-size: 4vw;
     background: #ff5344;
     border-radius: 0;
+    padding: 0;
+    margin: 0;
     font-weight: bold;
-    margin: 0px 0px 10px 10px;
   }
 
   .fixed-bar button.fixed-bar-btn::after {
@@ -1672,16 +1673,6 @@
     background: #ececec;
     color: #666;
     font-size: 14px;
-  }
-
-  .i-card {
-    width: 100%;
-    border-radius: 10px;
-    background: #fff;
-    box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.05);
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
   }
 
   .checkbox .checkbox-disabled {
@@ -1717,7 +1708,7 @@
     display: flex;
     align-items: center;
     flex-wrap: wrap;
-    padding: 20px 0;
+    padding: 2vw 0;
     border-bottom: 1px solid #efefef;
   }
 

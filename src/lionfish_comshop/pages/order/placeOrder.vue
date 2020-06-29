@@ -144,7 +144,7 @@
 
       <div class="mask" catchtouchmove="preventTouchMove" v-if="show_payment_modal"></div>
       <div class="modalDlg" v-if="show_payment_modal">
-        <div style='width:100%;height:26px;border-bottom:1px solid #ccc;margin:0;padding:0;'>
+        <div style='width:100%;height:40px;border-bottom:1px solid #ccc;margin:0;padding:0;'>
           <span style='text-align:center;font-size:14px;font-weight:600 ;margin-top:10px'>支付方式</span>
         </div>
 
@@ -154,16 +154,16 @@
         </div>
 
 
-        <button @click="preSubscript" data-type="wxpay" class="wux-button wux-button--block" type="warn">
+        <button @click="preSubscript" data-type="wxpay" class="wux-button wux-button--block" :style="{background:skin.color,color:' #fff'}" type="warn">
           微信支付
         </button>
 
         <!--
         <button @click="preSubscript"  data-type="cashpay" class="wux-button wux-button--block" type="warn" style="margin-top=16px">到店付款</button>
         -->
-        <button @click="preSubscript" data-type="paynow" class="wux-button wux-button--block" type="warn">PayNow支付
+        <button @click="preSubscript" data-type="paynow" class="wux-button wux-button--block" :style="{background:skin.color,color:' #fff'}" type="warn">PayNow支付
         </button>
-        <button @click="preSubscript" data-type="banktransfer" class="wux-button wux-button--block" type="warn">公司转账
+        <button @click="preSubscript" data-type="banktransfer" class="wux-button wux-button--block" :style="{background:skin.color,color:' #fff'}" type="warn">公司转账
         </button>
 
         <!--
@@ -275,10 +275,10 @@
           <div v-if="tabIdx!=2&&is_hexiao!=1">
             <p class="address-red">{{groupInfo.owner_name}}信息：{{community.disUserName}} ({{community.communityName}})
 
-              <navigator style="display:inline;position: absolute;right: 10px;" class="to-distribution"
-                         hoverClass="none" url="/lionfish_comshop/pages/position/community">
+              <router-link style="display:inline;position: absolute;right: 10px;" class="to-distribution"
+                         hoverClass="none" to="/lionfish_comshop/pages/position/community">
                 <span>切换团长</span>
-              </navigator>
+              </router-link>
             </p>
             <p class="address">{{tabIdx==0?'提货地点':groupInfo.owner_name+'位置'}}：{{community.fullAddress}}</p>
           </div>
@@ -311,10 +311,10 @@
             <div class="cart-item" slot="content">
               <div class="sku-item" v-for="(item,index) in value.goods" :key="index">
 
-                <el-image style="width: 60px; height: 60px"
+                <el-image class="sku-img"
                           :src="item.image">
                   <div slot="placeholder" class="image-slot">
-                    <img src="@/assets/images/placeholder-refund.png" style="width: 60px; height: 60px"/>
+                    <img src="@/assets/images/placeholder-refund.png" style="width: 20vw; height: 20vw"/>
                   </div>
                 </el-image>
 
@@ -326,9 +326,9 @@
                     <span v-for="(option,index) in item.option " :key="option.option_id">{{option.value}}；</span>
                   </div>
                   <div class="original-price">
-                    <div v-if="buy_type!='integral'">$</div>
+                    <span v-if="buy_type!='integral'">$</span>
                     {{item.price}} ×{{item.quantity}}
-                    <div v-if="buy_type=='integral'">积分</div>
+                    <span v-if="buy_type=='integral'">积分</span>
                     <i-vip-price :price="item.card_price"
                                  v-if="is_open_vipcard_buy==1&&item.is_take_vipcard==1&&is_vip_card_member==1"></i-vip-price>
                     <i-vip-price :price="item.levelprice" type="1"
@@ -336,8 +336,8 @@
                   </div>
                   <div class="sku-price">小计：
                     <span>
-                                    <div v-if="buy_type!='integral'">$</div>{{item.total}}
-                    <div v-if="buy_type=='integral'">积分</div>
+                                    <span v-if="buy_type!='integral'">$</span>{{item.total}}
+                    <span v-if="buy_type=='integral'">积分</span>
                                 </span>
                   </div>
                 </div>
@@ -478,7 +478,7 @@
               </div>
             </div>
             <div class="fixed-bar-btn bgDisabled" v-if="btnDisable">{{btnText?btnText:'立即支付'}}</div>
-            <i-button bind:click="goOrderfrom" iClass="fixed-bar-btn" :loading="btnLoading" v-else>
+            <i-button @handleTap="goOrderfrom" iClass="fixed-bar-btn" :loading="btnLoading" v-else>
               <div :style="{background:skin.color}" v-if="buy_type=='integral'">立即兑换</div>
               <div :style="{background:skin.color}" v-else>立即支付</div>
             </i-button>
@@ -663,8 +663,8 @@
 </template>
 
 <script>
-  import globalMixin from '../../mixin/globalMixin'
-
+  import GlobalMixin from '../../mixin/globalMixin.js'
+  import ITabs from '@/lionfish_comshop/components/tabs'
   var app, wx
   var _extends = Object.assign || function(e) {
       for (var t = 1; t < arguments.length; t++) {
@@ -676,7 +676,8 @@
     status = require('../../utils/index.js'), wcache = require('../../utils/wcache.js')
   export default {
     name: 'placeOrder',
-    mixins: [globalMixin],
+    mixins: [GlobalMixin],
+    components:{ITabs},
     data() {
       return {
         order_id: '',
@@ -801,7 +802,18 @@
         voucher_serller_id: 0,
         is_hexiao: !1,
         is_vip_card_member: !1,
-        canLevelBuy: !1
+        canLevelBuy: !1,
+        disAmount: 0 ,
+        seller_chose_id: 0,
+        index_hide_headdetail_address: 0,
+        open_score_buy_score: 0,
+        total_all: 0,
+        pick_up_type: 0,
+        pick_up_time: '',
+        pick_up_weekday: '',
+        total_goods_price: '',
+        current_distance: '',
+
       }
     },
     created: function() {
@@ -820,14 +832,15 @@
 
         var e = this.$route.query
 
-        console.log(e)
-
         var F = this
         status.setGroupInfo().then(function(f) {
           F.groupInfo = f
         })
-        var t = wx.getStorageSync('token'), a = wx.getStorageSync('community'), i = a.communityId
-        util.check_login() ? (F.needAuth = !1) : (F.needAuth = !0, wx.hideTabBar())
+        var t = wx.getStorageSync('token'), a = wx.getStorageSync('community'), i = a.communityId;
+        util.check_login_new().then(function(t){
+          F.needAuth = !t
+        })
+
         var o = e.is_limit || 0
 
         var fullAddress = a.fullAddress || ''
@@ -856,7 +869,6 @@
             dataType: 'json',
             method: 'POST',
             success: function(e) {
-              console.log(e)
               setTimeout(function() {
                 wx.hideLoading()
               }, 1e3)
@@ -876,10 +888,10 @@
               }
               r && (o[2].name = r), d && (o[1].name = d), c && (o[0].name = c)
               1 == a || 2 == a && t.trans_free_toal
+
               var T = 0, D = 0, P = t.seller_goodss, z = (Object.keys(P).length, {})
               for (var I in P) z[I] = ''
               var L = ''
-              console.log(P)
               for (var O in P) {
                 for (var j in 1 == P[O].show_voucher && (P[O].chose_vouche.id && (T = P[O].chose_vouche.id),
                 P[O].chose_vouche.store_id && (D = P[O].chose_vouche.store_id), '[object Object]' == Object.prototype.toString.call(P[O].chose_vouche) && (L = P[O].chose_vouche)),
@@ -887,7 +899,6 @@
                   0 < P[O].goods[j].header_disc && P[O].goods[j].header_disc < 100 && (P[O].goods[j].header_disc = (P[O].goods[j].header_disc / 10).toFixed(1))
                 }
               }
-              console.log(t)
               F.is_hexiao = S
               F.loadover = !0
               F.commentArr = z
@@ -1014,7 +1025,6 @@
           responseType: 'text',
           // 方法
           success: function(data) {
-            console.log(data)
             var datas = data.data
             this_storefronts = datas
 
@@ -1034,7 +1044,6 @@
           responseType: 'text',
           // 方法
           success: function(data) {
-            console.log(data)
             var datas = data.data
             var list = new Array()
             for (var i = 0; i < datas.length; i++) {
@@ -1073,7 +1082,6 @@
         }
       },
       copyText: function(e) {
-        console.log(e)
         wx.setClipboardData({
           data: e.currentTarget.dataset.text,
           success: function(res) {
@@ -1224,7 +1232,7 @@
       },
       preSubscript: function(t) {
         var type = t.currentTarget.dataset.type
-        console.log(type)
+        alert(type)
         var e = this
         this.canPreSub && (this.canPreSub = !1, 1 == this.is_need_subscript ? this.subscriptionNotice().then(function() {
           e.prepay(type)
@@ -1342,8 +1350,8 @@
               var ona = t.order_num_alias
               var id = t.order_id
 
-              e.order_id = id
-              e.order_num_alias = ona.substring(ona.length - 5)
+              this_.order_id = id
+              this_.order_num_alias = ona.substring(ona.length - 5)
 
               if (type == 'cash') {
                 wx.redirectTo({
@@ -1359,10 +1367,9 @@
                   responseType: 'text',
                   // 方法
                   success: function(data) {
-                    console.log(data)
-                    e.payNowQr = data.data.qr
-                    e.payNowNo = data.data.payNowNo
-                    e.payNowUen = data.data.uen
+                    this_.payNowQr = data.data.qr
+                    this_.payNowNo = data.data.payNowNo
+                    this_.payNowUen = data.data.uen
                   }
                 })
                 this_.closePaymentModal()
@@ -1378,7 +1385,7 @@
                   // 方法
                   success: function(data) {
                     console.log(data)
-                    e.bankInfo = data.data
+                    this_.bankInfo = data.data
                   }
                 })
                 this_.closePaymentModal()
@@ -1673,11 +1680,9 @@
         0 != t && wx.showToast({
           title: '配送变更，费用已变化',
           icon: 'none'
-        }), this.setData({
-          tabIdx: t
-        }, function() {
-          this.calcPrice(1)
         })
+        this.tabIdx =  t;
+        this.calcPrice(1);
       },
       showvoucher: function(e) {
         var t = e.currentTarget.dataset.seller_id, a = [], i = this.seller_chose_id,
@@ -1905,13 +1910,13 @@
   }
 </script>
 
-<style scoped>
+<style>
   .page {
     background: #f6f6f6;
   }
 
   .address-content {
-    padding: 22vw 20vw;
+    padding: 2vw 2vw;
     background: #fff;
   }
 
@@ -1920,25 +1925,26 @@
     align-items: center;
     position: relative;
     color: #444;
-    font-size: 28vw;
-    margin-bottom: 20vw;
+    font-size: 3.5vw;
+    margin-bottom: 2vw;
     font-weight: 500;
   }
 
   .address-content .receiver span {
-    width: 160vw;
+    width: 20vw;
     color: #666;
   }
 
   .address-content .receiver input, .sel-btn {
-    border-radius: 4vw;
+    border-radius: 1vw;
     flex: 1;
-    height: 52vw;
-    line-height: 52vw;
-    padding: 5vw 10vw;
+    height: 8vw;
+    line-height: 8vw;
+    padding: 1vw 1vw;
     box-sizing: border-box;
     font-weight: bold;
     background-color: #f7f7f7;
+    outline :none;
   }
 
   .sel-btn {
@@ -1951,7 +1957,7 @@
 
   .address-content p {
     color: #999;
-    font-size: 22vw;
+    font-size: 2vw;
     display: block;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -1959,63 +1965,76 @@
   }
 
   .address-line {
-    margin-bottom: 20vw;
-    height: 4vw;
+    margin-bottom: 3vw;
+    height: 1vw;
     background: #fff;
   }
 
-  .address-line image {
-    width: 750vw;
-    height: 4vw;
+  .address-line img {
+    width: 100%;
+    height: 0.1vw;
     display: block;
   }
 
   .card-content {
-    margin: 0 auto 20vw;
+    margin: 0 auto 2vw;
   }
 
   .card-container {
-    padding-bottom: 20vw;
+    width: 95vw;
+    margin: 0 auto 2vw;
+    border-radius: 2vw;
+    background: #fff;
+    -webkit-box-shadow: 0 0 4vw 0 rgba(0, 0, 0, 0.05);
+    box-shadow: 0 0 4vw 0 rgba(0, 0, 0, 0.05);
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    overflow: hidden;
+
   }
 
   .card-header {
-    font-size: 24vw;
+    font-size: 2vw;
     color: #aaa;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0 30vw;
-    height: 84vw;
-    border-bottom: 1vw solid #efefef;
+    padding: 0 5vw;
+    height: 10vw;
+    border-bottom: 0.1vw solid #efefef;
   }
 
   .cart-item {
     display: flex;
-    flex-direction: column;
   }
 
   .sku-item {
-    padding: 26vw;
-    border-bottom: 1vw solid #efefef;
+    padding: 3vw;
+    border-bottom: 0.1vw solid #efefef;
     display: flex;
     align-items: flex-start;
   }
 
   .sku-item .sku-img {
-    width: 120vw;
-    height: 120vw;
-    margin-right: 20vw;
+    width: 20vw;
+    height: 20vw;
+    margin-right: 2vw;
   }
 
   .sku-item .sku-msg {
-    width: 510vw;
+    width: 80vw;
   }
 
   .sku-item .sku-msg .sku-title {
-    font-size: 26vw;
+    font-size: 2.5vw;
     color: #444;
-    line-height: 32vw;
-    margin-bottom: 10vw;
+    line-height: 3vw;
+    margin-bottom: 1.2vw;
     font-weight: 500;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -2023,29 +2042,29 @@
   }
 
   .sku-item .sku-msg .sku-spec {
-    font-size: 22vw;
-    line-height: 22vw;
+    font-size: 2vw;
+    line-height: 4vw;
     color: #aaa;
-    margin-bottom: 12vw;
+    margin-bottom: 3vw;
   }
 
   .sku-item .sku-msg .original-price {
-    font-size: 22vw;
-    line-height: 22vw;
+    font-size: 2vw;
+    line-height: 5vw;
     color: #aaa;
-    margin-bottom: 10vw;
+    margin-bottom: 1vw;
   }
 
   .sku-item .sku-msg .sku-price {
-    font-size: 22vw;
-    line-height: 26vw;
+    font-size: 2.3vw;
+    line-height: 5vw;
     color: #444;
-    margin-top: 10vw;
+    margin-top: 1.5vw;
   }
 
   .sku-item .sku-msg .sku-price span {
     color: #ff5344;
-    font-size: 26vw;
+    font-size: 2vw;
     font-weight: 500;
   }
 
@@ -2053,17 +2072,17 @@
     width: 650vw;
     height: 140vw;
     background: #f9f9f9;
-    margin: 28vw auto 30vw;
-    padding: 20vw;
+    margin: 2vw auto 2vw;
+    padding: 2vw;
     box-sizing: border-box;
     display: flex;
     order: 99;
   }
 
   .sku-item-gift .sku-img {
-    width: 100vw;
-    height: 100vw;
-    margin-right: 20vw;
+    width: 10vw;
+    height: 10vw;
+    margin-right: 2vw;
   }
 
   .sku-item-gift .sku-msg {
@@ -2071,7 +2090,7 @@
   }
 
   .sku-item-gift .sku-msg .sku-title {
-    font-size: 26vw;
+    font-size: 2vw;
     color: #444;
     line-height: 30vw;
     margin-bottom: 10vw;
@@ -2082,7 +2101,7 @@
   }
 
   .sku-item-gift .sku-msg .sku-spec {
-    font-size: 22vw;
+    font-size: 2vw;
     line-height: 22vw;
     color: #aaa;
     margin-bottom: 14vw;
@@ -2106,10 +2125,9 @@
 
   .fixed-content {
     display: flex;
-    padding-left: 20vw;
+    padding-left: 2vw;
     justify-content: space-between;
     align-items: center;
-    height: 96vw;
   }
 
   .fixed-content .fixed-left {
@@ -2119,10 +2137,10 @@
   }
 
   .fixed-content .fixed-left .h1 {
-    font-size: 28vw;
-    line-height: 28vw;
+    font-size: 4vw;
+    line-height: 5vw;
     color: #444;
-    margin-bottom: 12vw;
+    margin-bottom: 0.2vw;
   }
 
   .fixed-content .fixed-left .h1 span {
@@ -2131,22 +2149,22 @@
   }
 
   .fixed-content .fixed-left .h2 {
-    font-size: 22vw;
-    line-height: 22vw;
+    font-size: 2vw;
+    line-height: 5vw;
     color: #666;
   }
 
   .fixed-content .fixed-left .h2 em {
-    margin-right: 20vw;
+    margin-right: 2vw;
   }
 
   .fixed-content .fixed-bar-btn {
-    width: 260vw;
-    height: 96vw;
+    width: 30vw;
+    height: 15vw;
     text-align: center;
-    line-height: 96vw;
+    line-height: 15vw;
     color: #fff;
-    font-size: 30vw;
+    font-size: 4vw;
     background: #ff5344;
     border-radius: 0;
     padding: 0;
@@ -2165,7 +2183,7 @@
   }
 
   .confirm-order-modal .title {
-    font-size: 32vw;
+    font-size: 3vw;
     color: #444;
     line-height: 32vw;
     margin-bottom: 40vw;
@@ -2178,7 +2196,7 @@
     align-items: center;
     color: #ff5344;
     line-height: 26vw;
-    font-size: 26vw;
+    font-size: 2vw;
     margin-bottom: 48vw;
     font-weight: 500;
   }
@@ -2202,7 +2220,7 @@
     padding: 0 30vw;
     margin-bottom: 20vw;
     display: flex;
-    font-size: 24vw;
+    font-size: 2vw;
     line-height: 24vw;
     color: #444;
     box-sizing: border-box;
@@ -2267,21 +2285,21 @@
   }
 
   .tab-nav {
-    height: 70vw;
+    height: 10vw;
     display: flex;
-    border-bottom: 4vw solid #ff5041;
+    border-bottom: 0.2vw solid #ff5041;
     transition: all 0.3s linear;
-    margin-bottom: 20vw;
+    margin-bottom: 2vw;
   }
 
   .tab-nav .tab-nav-item {
     color: #6c6c6c;
-    font-size: 26vw;
+    font-size: 2vw;
     font-weight: bold;
     position: relative;
     z-index: 1;
-    width: 190vw;
-    height: 70vw;
+    width: 90vw;
+    height: 10vw;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -2339,20 +2357,20 @@
   }
 
   .receive-icon {
-    width: 40vw;
-    height: 40vw;
+    width: 4vw;
+    height: 4vw;
     position: absolute;
-    right: 10vw;
+    right: 5vw;
     bottom: 6vw;
     z-index: 20;
   }
 
   .act-content {
-    width: 710vw;
-    margin: 0 auto 20vw;
-    border-radius: 20vw;
+    width: 95vw;
+    margin: 0 auto 2vw;
+    border-radius: 2vw;
     background: #fff;
-    box-shadow: 0 0 40vw 0 rgba(0, 0, 0, 0.05);
+    box-shadow: 0 0 4vw 0 rgba(0, 0, 0, 0.05);
     display: flex;
     flex-direction: column;
     overflow: hidden;
@@ -2364,25 +2382,25 @@
     justify-content: space-between;
     align-items: center;
     border-bottom: 1vw solid #efefef;
-    line-height: 78vw;
-    font-size: 24vw;
+    line-height: 10vw;
+    font-size: 3vw;
     color: #444;
-    padding: 0 30vw;
+    padding: 0 3vw;
   }
 
   .icon-right {
     position: absolute;
-    right: 10vw;
+    right: 3vw;
     top: 50%;
-    width: 12vw;
-    height: 22vw;
-    margin-top: -10vw;
+    width: 3vw;
+    height: 4vw;
+    margin-top: -2vw;
   }
 
   .cell-desc {
     margin-left: 8vw;
     color: #666;
-    font-size: 22vw;
+    font-size: 2vw;
   }
 
   .confirm-coupon-modal {
@@ -2398,7 +2416,7 @@
     width: 100%;
     border-bottom: 1vw solid #efefef;
     line-height: 2.5;
-    font-size: 32vw;
+    font-size: 3vw;
     text-align: center;
     background: #fff;
   }
@@ -2461,7 +2479,7 @@
   }
 
   .placeOrderBox {
-    padding-bottom: 100vw;
+    padding-bottom: 20vw;
   }
 
   .oc-payment {
@@ -2485,7 +2503,7 @@
     position: relative;
     display: inline-block;
     margin-left: 10vw;
-    font-size: 13px;
+    font-size: 2px;
     color: #333;
   }
 
@@ -2497,7 +2515,7 @@
     margin-left: 10px;
     line-height: 17px;
     text-align: center;
-    font-size: 11px;
+    font-size: 2px;
     color: #ee2e3a;
     border-radius: 2px;
     border: 1px solid #ee2e3a;
@@ -2505,7 +2523,7 @@
 
   .oc-payment-selected:after {
     font-family: iconfont !important;
-    font-size: 28vw;
+    font-size: 2vw;
     font-style: normal;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -2517,7 +2535,7 @@
   }
 
   .oc-payment-icon {
-    font-size: 36vw;
+    font-size: 3vw;
   }
 
   .coupon {
@@ -2558,7 +2576,7 @@
 
   .coupon .footer {
     color: #747474;
-    font-size: 24vw;
+    font-size: 2vw;
     padding: 22vw 0 20vw 35vw;
   }
 
@@ -2571,18 +2589,18 @@
 
   .coupon .price .reduce-price {
     color: #000;
-    font-size: 38vw;
+    font-size: 3vw;
     font-weight: bold;
     padding-top: 30vw;
   }
 
   .coupon .price .reduce-price span {
-    font-size: 24vw;
+    font-size: 2vw;
   }
 
   .coupon .price .reduce-desc {
-    font-size: 20vw;
-    margin-top: 10vw;
+    font-size: 2vw;
+    margin-top: 1vw;
   }
 
   .coupon .info {
@@ -2592,7 +2610,7 @@
 
   .coupon .info .reduce-title {
     color: #000;
-    font-size: 28vw;
+    font-size: 2vw;
     font-weight: bold;
     padding-top: 20vw;
   }
@@ -2600,7 +2618,7 @@
   .coupon .info .reduce-type {
     color: #fff;
     font-weight: normal;
-    font-size: 20vw;
+    font-size: 2vw;
     background: #ec6b5a;
     padding: 2vw 8vw;
     border-radius: 4vw;
@@ -2676,8 +2694,8 @@
     position: fixed;
     top: 25%;
     left: 15%;
-    width: 65%;
-    padding: 16px 8px 16px 8px;
+    width: 70%;
+    padding: 1px 8px 16px 8px;
     /* border: 8px solid #e8e9f7; */
     background-color: white;
     z-index: 9100;
@@ -2703,7 +2721,7 @@
   .deliveryTimeItem {
     border: 1px solid #ccc;
     height: 30px;
-    font-size: 12px;
+    font-size: 1px;
     margin-bottom: 8px;
     padding-left: 8px;
     padding-right: 8px;
@@ -2720,7 +2738,7 @@
   .storefront-item {
     border: 1px solid #ccc;
     height: 50px;
-    font-size: 12px;
+    font-size: 1px;
     margin-bottom: 8px;
     padding: 8px;
     border-radius: 5px;
@@ -2735,30 +2753,30 @@
 
   .storefront-item-address {
     text-align: left;
-    font-size: 12px;
+    font-size: 1px;
   }
 
   .wux-button {
     display: inline-block;
     box-sizing: border-box;
     margin: 0;
-    padding: 0 24vw;
-    min-width: 104vw;
-    min-height: 88vw;
+    padding: 0 2vw;
+    min-width: 10vw;
+    min-height: 10vw;
     border: none;
-    border-radius: 8vw;
+    border-radius: 2vw;
     vertical-align: middle;
     text-align: center;
     text-overflow: ellipsis;
-    font-size: 32vw;
-    line-height: 84vw;
+    font-size: 4vw;
+    line-height: 10vw;
     cursor: pointer;
 
   }
 
   .wux-button--block {
     width: 100%;
-    margin-top: 20vw;
+    margin-top: 4vw;
   }
 
   .paynow {
@@ -2781,11 +2799,11 @@
   .category-item {
     position: relative;
     width: 220vw;
-    height: 100vw;
+    height: 50vw;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 28vw;
+    font-size: 2vw;
     color: #787878;
     line-height: 30vw;
   }

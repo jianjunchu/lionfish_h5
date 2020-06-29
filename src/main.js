@@ -12,7 +12,6 @@ import Cookies from 'js-cookie'
 import less from 'less'
 
 import i18n from './lang' // Internationalization
-
 import Tabbar from '@/lionfish_comshop/components/tabbar'
 import Toolbar from '@/lionfish_comshop/components/toolbar'
 import Modal from '@/lionfish_comshop/components/modal'
@@ -44,6 +43,7 @@ import topic from '@/lionfish_comshop/components/topic/topic'
 import LoadMore from '@/lionfish_comshop/components/load-more'
 import auth from '@/lionfish_comshop/components/auth'
 import CommunityItem from '@/lionfish_comshop/components/community-item'
+import FixedBottom from '@/lionfish_comshop/components/fixed-bottom'
 
 import '@/lionfish_comshop/styles/index.scss' // global css
 import qs from 'qs'
@@ -91,6 +91,7 @@ Vue.component('i-load-more', LoadMore)
 Vue.component('i-auth', auth)
 Vue.component('i-community-item', CommunityItem)
 Vue.component('i-rush-spu', RushSpu)
+Vue.component('i-fixed-bottom', FixedBottom)
 
 Vue.prototype.$getApp = function() {
   return App

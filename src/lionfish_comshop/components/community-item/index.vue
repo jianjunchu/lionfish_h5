@@ -4,12 +4,12 @@
       <img class="group-head" :src="item.headImg||item.disUserHeadImg"
            v-if="item.headImg||item.disUserHeadImg"/>
       <img class="group-head" src='@/assets/images/head-bitmap.png' v-else/>
-      <text class="rest" v-if="item.rest==1">休息中</text>
+      <span class="rest" v-if="item.rest==1">休息中</span>
     </div>
     <div class="item-center">
       <div class="community-title">
-        <text class="span">{{item.communityName}}</text>
-        <text class="em" :style="{'color':skin.color}" v-if="!isOld&&item.distance">距离{{item.distance}}</text>
+        <span class="span">{{item.communityName}}</span>
+        <span class="em" :style="{'color':skin.color}" v-if="!isOld&&item.distance">距离{{item.distance}}</span>
       </div>
       <div class="group-master">
         {{groupInfo.owner_name}}：{{item.realName||item.disUserName}}
@@ -19,12 +19,12 @@
 
       <div class="community-date" v-for="(item,index) in item.times">
         {{item.date}} :
-        <text class="span" v-if="item.times.length>0">
-          <text class="span" v-if="item.times[0]"> {{item.times[0]}}</text>
-          <text class="span" v-if="item.times[1]"> , {{item.times[1]}}</text>
-          <text class="span" v-if="item.times[2]"> , {{item.times[2]}}</text>
-        </text>
-        <text class="span" v-else>没有可用时间</text>
+        <span class="span" v-if="item.times.length>0">
+          <span class="span" v-if="item.times[0]"> {{item.times[0]}}</span>
+          <span class="span" v-if="item.times[1]"> , {{item.times[1]}}</span>
+          <span class="span" v-if="item.times[2]"> , {{item.times[2]}}</span>
+        </span>
+        <span class="span" v-else>没有可用时间</span>
       </div>
 
     </div>
@@ -93,20 +93,20 @@
   .community-item {
     box-sizing: border-box;
     display: flex;
-    padding: 30px 15px;
+    padding: 2vw 5vw;
   }
 
   .community-item .group-head {
-    width: 40px;
-    height: 40px;
-    border-radius: 30px;
+    width: 12vw;
+    height: 12vw;
+    border-radius: 10vw;
   }
 
   .community-item .community-title {
-    font-size: 12px;
-    line-height: 12px;
-    height: 12px;
-    width: 70%;
+    font-size: 4vw;
+    line-height: 4vw;
+    height: 4vw;
+    width: 60vw;
     margin-bottom: 10px;
     display: flex;
     justify-content: space-between;
@@ -120,16 +120,16 @@
 
   .community-item .community-title .em {
     color: #ff5344;
-    font-size: 13px;
-    line-height: 13px;
+    font-size: 4vw;
+    line-height: 4vw;
     white-space: nowrap;
   }
 
   .community-item .community-address {
-    font-size: 13px;
-    line-height: 17px;
+    font-size: 3vw;
+    line-height: 4vw;
     color: #666;
-    width: 75%;
+    width: 70vw;
     display: -webkit-box;
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 2;
@@ -139,11 +139,11 @@
   }
 
   .community-item .community-date {
-    margin-top: 5px;
-    font-size: 12px;
-    line-height: 17px;
+    margin-top: 0.5vw;
+    font-size: 2vw;
+    line-height: 4.2vw;
     color: #aaa;
-    width: 70%;
+    width: 70vw;
     display: -webkit-box;
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 2;
@@ -154,39 +154,39 @@
 
   .community-item .group-master {
     width: 100%;
-    font-size: 13px;
-    line-height: 13px;
+    font-size: 4vw;
+    line-height: 4vw;
     color: #aaa;
     position: relative;
-    margin-bottom: 3px;
+    margin-bottom: 1vw;
   }
 
   .community-item .group-master .right-arrow {
     position: absolute;
     right: 0;
     top: 0;
-    width: 7px;
-    height: 12px;
+    width: 2vw;
+    height: 4vw;
   }
 
   .group-img {
     position: relative;
-    width: 40px;
-    height: 40px;
-    border-radius: 30px;
-    margin-right: 10px;
+    width: 14vw;
+    height: 14vw;
+    border-radius: 10vw;
+    margin-right: 3.3vw;
     overflow: hidden;
   }
 
   .rest {
     position: absolute;
     left: 0;
-    bottom: 4px;
+    bottom: 1vw;
     right: 0;
-    font-size: 9px;
+    font-size: 3vw;
     background: rgba(255, 83, 68, 0.8);
     text-align: center;
     color: #fff;
-    padding: 1px 0 1px;
+    padding: 0.1vw 0 0.1vw;
   }
 </style>

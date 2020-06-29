@@ -21,9 +21,10 @@
 
 <style scoped>
   .i-card {
-    width: 100%;
-    border-radius: 10px;
+    width: 95vw;
+    border-radius: 3vw;
     background: #fff;
+    box-shadow: 0 0 4vw 0 rgba(0,0,0,0.05);
     display: flex;
     flex-direction: column;
     overflow: hidden;
