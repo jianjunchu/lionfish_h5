@@ -266,11 +266,15 @@
       this.onLoad();
     },
     methods: {
-      onLoad: function(t) {
+      onLoad: function() {
         var o = this;
+
         status.setGroupInfo().then(function(t) {
           var e = t && t.owner_name || "团长";
-          o.$store.state.app.toolbarTitle = e + "中心"
+//          o.$store.state.app.toolbarTitle = e + "中心"
+          o.$wx.setNavigationBarTitle({
+            title: e + "中心"
+          })
           , o.groupInfo= t;
         }), this.loadPage();
       },
@@ -302,8 +306,9 @@
         var c = this;
         this.$http({
             controller: "community.get_community_info",
-            token: t
+            token: token
           }).then(t=> {
+
               console.log(t);
             if (0 == t.code) {
               var e = t, o = e.commission_info;

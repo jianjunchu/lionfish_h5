@@ -91,6 +91,21 @@ export const constantRoutes = [
       component: () => import('@/lionfish_comshop/pages/groupCenter/groupList'),
     hidden: true
   },
+{
+    path: '/lionfish_comshop/pages/groupCenter/groupDetail',
+      component: () => import('@/lionfish_comshop/pages/groupCenter/groupDetail'),
+    hidden: true
+  },
+{
+    path: '/lionfish_comshop/pages/groupCenter/apply',
+      component: () => import('@/lionfish_comshop/pages/groupCenter/apply'),
+    hidden: true
+  },
+{
+    path: '/lionfish_comshop/pages/groupCenter/recruit',
+      component: () => import('@/lionfish_comshop/pages/groupCenter/recruit'),
+    hidden: true
+  },
   {
     path: '/lionfish_comshop/pages/order/shopCart',
     component: () => import('@/lionfish_comshop/pages/order/shopCart'),
