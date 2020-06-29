@@ -35,7 +35,10 @@
     },
     methods: {
       onLoad: function() {
-        this.$store.state.app.toolbarTitle = "常见帮助";
+//        this.$store.state.app.toolbarTitle = "常见帮助";
+        this.$wx.setNavigationBarTitle({
+          title: "常见帮助"
+        })
         this.setNavBgColor();
         this.get_list()
       },

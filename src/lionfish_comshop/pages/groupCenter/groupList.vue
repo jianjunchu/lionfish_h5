@@ -4,19 +4,24 @@
       <div class="fixed-top">
         <div class="nav-bar">
           <div class="nav-bar-inner">
-            <div @click="switchNav" :class="['nav-bar-item', (currentTab==index?'current':'')]" :data-id="item.id" v-for="(item,idx) in navList" :key="item.id">{{item.name}}</div>
+            <!--<div @click="switchNav" :class="['nav-bar-item', (currentTab==idx?'current':'')]" :data-id="item.id" v-for="(item,idx) in navList" :key="item.id">{{item.name}}</div>-->
+            <div @click="switchNav" :class="['nav-bar-item', (currentTab==idx?'current':'')]" :data-id="item.id" v-for="(item,idx) in navList" :key="item.id">{{item.name}}</div>
           </div>
         </div>
         <div class="search-box i-flex">
           <div class="filed">
-            <picker bindchange="bindFiledChange" :range="searchfield" :rangeKey="name" :value="fieldIdx">
-              <div class="picker">{{searchfield[fieldIdx].name}} <span class="iconfont icon-xiatiao"></span>
-              </div>
-            </picker>
+            <!--<picker bindchange="bindFiledChange" :range="searchfield" rangeKey="'name'" :value="fieldIdx">-->
+              <!--<div class="picker">{{searchfield[fieldIdx].name}} <span class="iconfont icon-xiatiao"></span>-->
+              <!--</div>-->
+            <!--</picker>-->
+            <select @change='bindFiledChange' v-model="fieldIdx">
+              <option v-for="x in searchfield" :value="x.field">{{x.name}}</option>
+            </select>
           </div>
           <div class="search">
-            <icon class="icon-search" size="14" type="search"></icon>
-            <input bindconfirm="searchByKey" confirmType="done" placeholder="请输入关键词" type="span" :value="keyword"></input>
+            <!--<icon class="icon-search" size="14" type="search"></icon>-->
+            <!--<input bindconfirm="searchByKey" confirmType="done" placeholder="请输入关键词" type="span" :value="keyword"></input>-->
+            <input @keyup.enter="searchByKey"  placeholder="请输入关键词"  v-model="keyword"></input>
           </div>
         </div>
       </div>
@@ -24,9 +29,9 @@
         <div class="noRecordCon" v-if="order.length<=0">
           <img class="noRecordImg" src="@/assets/images/noRecord.png"></img>
           <div class="noRecord">您还没有相关的订单～</div>
-          <navigator hoverClass="none" openType="switchTab" url="/lionfish_comshop/pages/index/index">
+          <a hoverClass="none" openType="switchTab" href="#/lionfish_comshop/pages/index/index">
             <div class="goIndex">去购物</div>
-          </navigator>
+          </a>
         </div>
         <div v-else>
           <div class="item" v-for="(item,idx) in order" :key="item.order_id">
@@ -146,7 +151,7 @@
 
   export default {
     mixins: [GlobalMixin],
-    name:'groupcenter-index',
+    name:'groupcenter-groupList',
     data() {
       return {
         currentTab: 0,
@@ -193,12 +198,18 @@
           field: "goodstitle",
           name: "商品标题"
         } ],
-        fieldIdx: 0,
+        fieldIdx: 'ordersn',
+        value:'',
         groupInfo: {
           group_name: "社区",
           owner_name: "团长"
         },
         searchOBj: {},
+        open_aftersale: 0,
+        open_aftersale_time: 0,
+        fen_type:0,
+        showTipDialog:'',
+        keyword:''
       }
     },
     created: function() {
@@ -206,27 +217,38 @@
     },
     methods: {
       onLoad: function(e) {
+        var query = this.$route.query;
         var t = this;
         status.setGroupInfo().then(function(e) {
           t.groupInfo= e;
-        }), page = 1;
+        }), this.page = 1;
         var a = 0;
-        null != e && (a = e.tab), this.currentTab= a, this.getData(a);
+        null != query && (a = query.tab), this.currentTab= a, this.getData(a);
       },
       onShow: function() {},
-      bindFiledChange: function(e) {
-        this.fieldIdx= e.detail.value;
+      bindFiledChange: function() {
+
+//        this.fieldIdx= e.detail.value;
       },
-      searchByKey: function(e) {
-        var t = this, a = this.data, r = a.searchfield[a.fieldIdx].field, n = e.detail.value || "";
+      searchByKey: function() {
+
+//        var t = this, a = this.data, r = a.searchfield[a.fieldIdx].field, n = e.detail.value || "";
+//        this.searchOBj = {
+//          keyword: n,
+//          searchfield: r
+//        }, this.page= 1,
+//          this.order= []
+//        ,
+//          t.getData();
+//        ;
         this.searchOBj = {
-          keyword: n,
-          searchfield: r
+          keyword: this.keyword,
+          searchfield: this.fieldIdx
         }, this.page= 1,
           this.order= []
         ,
-          t.getData();
-        ;
+          this.getData();
+
       },
       callPhone: function(e) {
         var t = e.currentTarget.dataset.phone;
@@ -249,11 +271,12 @@
         , this.no_order = 1;
         var o = this, e = this.$wx.getStorageSync("token"), t = this.currentTab, a = -1;
         1 == t ? a = 1 : 2 == t ? a = 14 : 3 == t ? a = 4 : 4 == t && (a = 6);
+
         var data= _extends({
           controller: "order.orderlist",
           is_tuanz: 1,
           token: e,
-          page: o.data.page,
+          page: o.page,
           order_status: a
         }, this.searchOBj);
           this.$http({
@@ -264,12 +287,12 @@
               open_aftersale: t.open_aftersale,
               open_aftersale_time: t.open_aftersale_time
             };
-            if (0 != e.code) return o._extends({
+            if (0 != e.code) return _extends({
               isHideLoadMore: !0
             }, a), this.$wx.hideLoading(), !1;
             console.log(o.page);
             var r = e.data, n = o.order.concat(r);
-            o._extends({
+            _extends({
               order: n,
               hide_tip: !0,
               no_order: 0

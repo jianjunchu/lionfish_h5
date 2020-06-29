@@ -279,7 +279,7 @@
               </div>
             </div>
           </div>
-          <a hoverClass="none" href="/lionfish_comshop/pages/groupCenter/communityMembers" v-if="member_info.pickup_id>0">
+          <a hoverClass="none" href="#/lionfish_comshop/pages/groupCenter/communityMembers" v-if="member_info.pickup_id>0">
             <div class="item-main">
               <div class="item-title">
                 <!--<img class="toolIcon" mode="widthFix" :src="user_tool_icons.i4?user_tool_icons.i4:'@/assets/images/groupCenterIcon.png'"/>-->
@@ -303,7 +303,7 @@
               </div>
             </div>
           </div>
-          <a hoverClass="none" href="/lionfish_comshop/pages/groupCenter/apply" v-else-if="member_info.is_head==2||member_info.is_head==3">
+          <a hoverClass="none" href="#/lionfish_comshop/pages/groupCenter/apply" v-else-if="member_info.is_head==2||member_info.is_head==3">
             <div class="item-main">
               <div class="item-title">
                 <!--<img class="toolIcon" mode="widthFix" :src="user_tool_icons.i5?user_tool_icons.i5:'@/assets/images/groupCenterIcon.png'"/>-->
@@ -316,7 +316,7 @@
             </div>
           </a>
           <div v-else>
-            <a hoverClass="none" href="/lionfish_comshop/pages/groupCenter/recruit" v-if="close_community_apply_enter==0">
+            <a hoverClass="none" href="#/lionfish_comshop/pages/groupCenter/recruit" v-if="close_community_apply_enter==0">
               <div class="item-main">
                 <div class="item-title">
                   <!--<img class="toolIcon" mode="widthFix" :src="user_tool_icons.i5?user_tool_icons.i5:'@/assets/images/groupCenterIcon.png'"/>-->
@@ -330,7 +330,7 @@
             </a>
           </div>
           <div v-if="enabled_front_supply==1">
-            <a hoverClass="none" href="/lionfish_comshop/pages/supply/recruit" v-if="is_supply==0||needAuth">
+            <a hoverClass="none" href="#/lionfish_comshop/pages/supply/recruit" v-if="is_supply==0||needAuth">
               <div class="item-main">
                 <div class="item-title">
                   <!--<img aspectFit class="toolIcon supplier" mode="widthFix" :src="user_tool_icons.i6?user_tool_icons.i6:'@/assets/images/icon-supplier.png'"/>-->
@@ -555,7 +555,10 @@
       }
     },
     created: function() {
-      this.$store.state.app.toolbarTitle ="我的";
+//      this.$store.state.app.toolbarTitle ="我的";
+      this.$wx.setNavigationBarTitle({
+        title: "我的"
+      })
       this.onLoad();
       this.onShow();
     },
