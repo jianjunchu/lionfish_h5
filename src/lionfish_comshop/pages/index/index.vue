@@ -6,7 +6,7 @@
       <div :class="['index-box', 'pb100', (showNewCoupon?'preventTouchMove':'')]">
         <div class="miniAppTip" v-if="isTipShow">
           <div @click="handleProxy" class="add-myapp">
-            <span>添加到「我的小程序」团购更方便</span>
+            <span>$t('index.desktop')</span>
           </div>
         </div>
         <div @click="handleHideProxy" class="guide" v-if="isShowGuide">
@@ -24,7 +24,7 @@
                              v-if="hide_community_change_btn==0&&open_danhead_model!=1">
                   <div class="community-title">
                                 <span>{{community.communityName}}
-                <span class="community-change" v-if="hide_community_change_word==0">切换</span>
+                <span class="community-change" v-if="hide_community_change_word==0">$t('index.change')</span>
                                     <span class="iconfont icon-youjiantou"></span>
                                 </span>
                   </div>
@@ -41,7 +41,7 @@
               </div>
               <div class="location-left" v-else>
                 <router-link hoverClass="router-hover" to="/lionfish_comshop/pages/position/community">
-                  您还没有选择{{groupInfo.owner_name}}，轻触去选择
+                  $t('index.not_choose'){{groupInfo.owner_name}}， $t('index.to_choose')
                   <span class="iconfont icon-weizhi-tianchong"></span>
                 </router-link>
               </div>
@@ -71,7 +71,7 @@
               </div>
               <div @click="goLink" class="top-search" data-link="/lionfish_comshop/pages/type/search">
                 <span class="iconfont icon-sousuo1"></span>
-                搜索
+                $t('index.search')
               </div>
             </div>
           </div>
@@ -175,7 +175,7 @@
 
           <div class="search-bar" v-if="index_switch_search==1">
             <div class="search-box">
-              <input bindconfirm="goResult" class="ipt" confirmType="搜索" placeholder="搜索商品" type="text"></input>
+              <input bindconfirm="goResult" class="ipt" confirmType="搜索" placeholder="$t('index.search_products')" type="text"></input>
               <div class="search-icon">
                 <span class="iconfont icon-sousuo1"></span>
               </div>
@@ -201,14 +201,14 @@
                        v-if="tabIdx===0"/>
                   <img :src="(qgtab.one_selected?qgtab.one_selected:require('@/assets/images/index-tab-left-disabled.png'))"
                        v-else/>
-                  <span>{{index_qgtab_text[0]?index_qgtab_text[0]:'正在抢购'}}</span>
+                  <span>{{index_qgtab_text[0]?index_qgtab_text[0]:'"$t('index.buying')'}}</span>
                 </div>
                 <div @click="tabSwitch" :class="['tab-nav-index-item', (tabIdx===1?'active':'')]" data-idx="1">
                   <img :src="(qgtab.two_select?qgtab.two_select:require('@/assets/images/index-tab-right-active.png'))"
                        v-if="tabIdx===1"/>
                   <img :src="(qgtab.two_selected?qgtab.two_selected:require('@/assets/images/index-tab-right-disabled.png'))"
                        v-else/>
-                  <span>{{index_qgtab_text[1]?index_qgtab_text[1]:'即将开抢'}}
+                  <span>{{index_qgtab_text[1]?index_qgtab_text[1]:'$t('index.to_buy')'}}
             </span>
                 </div>
                 <div class="count-down-content" v-if="tabIdx===0">
