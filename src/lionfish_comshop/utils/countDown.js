@@ -7,11 +7,9 @@ function t(t, a, e) {
   }) : t[a] = e, t
 }
 
-var timeFormat = require('./timeFormat')
+import timeFormat from './timeFormat'
 
-import _this from '../../main.js'
-
-exports.default = {
+const exp = {
   initCountDown: function(a) {
     var e
     var r = this
@@ -50,3 +48,5 @@ exports.default = {
     this.$data.actEndMap[t] && (a['actEndMap.' + t] = !1), this.$set(this, 'countDownMap.' + t, m)
   }
 }
+
+export default exp

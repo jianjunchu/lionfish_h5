@@ -455,7 +455,7 @@
 <script>
   import GlobalMixin from '../../mixin/globalMixin.js';
   //  import util from '../../utils/util.js';
-  import status from '../../utils/index.js';
+  import status from '../../utils/index.js'
   import wcache from '../../utils/wcache.js';
   import auth from '../../utils/auth';
   import wx from '../../utils/wx';

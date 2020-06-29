@@ -1,5 +1,5 @@
 import _this from '../../main.js'
-import { Indicator, MessageBox,Toast } from 'mint-ui'
+import { Indicator, MessageBox, Toast } from 'mint-ui'
 
 export default {
   showToast: function(option) {
@@ -7,7 +7,7 @@ export default {
       message: option.title,
       position: 'middle',
       duration: 3000
-    });
+    })
   },
   showLoading: function(option) {
     Indicator.open(option ? option.title : '')
@@ -16,14 +16,14 @@ export default {
     Indicator.close()
   },
   getStorageSync: function(k) {
-    return _this.$store.getters.app.storageSync[k] || {}
+    const v = window.localStorage.getItem(k) || '{}'
+    return JSON.parse(v)
   },
   navigateTo: function(o) {
     _this.$router.push(o.url)
   },
   setStorageSync: function(k, v) {
-    _this.$store.getters.app.storageSync[k] = v
-    _this.$store.dispatch('app/setStorageSync', _this.$store.getters.app.storageSync)
+    window.localStorage.setItem(k, JSON.stringify(v))
   },
   removeStorageSync: function(k) {
     this.setStorageSync(k, undefined)

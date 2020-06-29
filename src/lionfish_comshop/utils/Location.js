@@ -1,4 +1,4 @@
-var QQMapWX = require('./qqmap-wx-jssdk.min.js')
+import QQMapWX from './qqmap-wx-jssdk.min.js'
 
 function checkGPS(t) {
   var e = arguments.length > 1 && void 0 !== arguments[1] ? arguments[1] : null
@@ -146,9 +146,11 @@ function analyzeGps(t, e, n) {
   })
 }
 
-module.exports = {
+let exp = {
   checkGPS: checkGPS,
   openSetting: openSetting,
   getGps: getGps,
   getGpsLocation: getGpsLocation
 }
+
+export default exp

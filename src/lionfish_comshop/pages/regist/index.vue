@@ -4,10 +4,10 @@
             <h2>Hzmart Register</h2>
         </slot><br>
         <div class="input_wrapper">
-            <div class="inputItem" :class="{'focus':isFocus.phoneNum,'phone_empty':errorFlag.phone_empty,'phone_error':errorFlag.phone_err}">
+            <div class="inputItem" :class="{'focus':isFocus.phoneNum,'phone_empty':errorFlag.phone_empty}">
                 <span class="chooseArea" @click="chooseArea()">
                     <!-- <slot name="country_tel">+86</slot> -->
-                    <select v-model="cityCode" style="width:60px">
+                    <select v-model="cityCode" style="width:60px;border: solid 0px #fff">
                       <option v-for="(city,index) in options" :key="index" :value="city.value">{{city.name}}</option>
                     </select>
                     <!-- <span>
@@ -114,18 +114,20 @@
                 let phone_num = this.input_info.phone;
                 this.errorFlag.phone_empty = phone_num === "" || phone_num === null || phone_num === undefined;
                 //判断手机号格式是否正确
-                this.errorFlag.phone_err = !(/^1[3456789]\d\s\d{4}\s\d{4}$/.test(phone_num)) && !this.errorFlag.phone_empty;
+                // this.errorFlag.phone_err = !(/^1[3456789]\d\s\d{4}\s\d{4}$/.test(phone_num)) && !this.errorFlag.phone_empty;
                 if (len > 3 && len < 8) {
-                    value = value.replace(/^(\d{3})/g, '$1 ')
+                    value = value.replace(/^(\d{3})/g, '$1 ');
+                    if (!this.errorFlag.phone_empty && this.timeOut) {
+                        //激活获取验证码按钮
+                        this.getCodeDisabled = false;
+                    } else {
+                        this.getCodeDisabled = true;
+                    }
                 } else if (len >= 8) {
-                    value = value.replace(/^(\d{3})(\d{4})/g, '$1 $2 ')
-                    if (len === 11) {
-                        if (!(this.errorFlag.phone_empty || this.errorFlag.phone_err) && this.timeOut) {
-                            //激活获取验证码按钮
-                            this.getCodeDisabled = false;
-                        } else {
-                            this.getCodeDisabled = true;
-                        }
+                    value = value.replace(/^(\d{3})(\d{4})/g, '$1 $2 ')  
+                    if (!this.errorFlag.phone_empty && this.timeOut) {
+                        //激活获取验证码按钮
+                        this.getCodeDisabled = false;
                     } else {
                         this.getCodeDisabled = true;
                     }
@@ -176,7 +178,7 @@
                 this.registFlag = true;
                 this.timeOut = false;
                 //倒计时
-                if (!this.errorFlag.phone_err && !this.errorFlag.phone_empty){
+                if (!this.errorFlag.phone_empty){
                     Toast({
                         message: '验证码已发送',
                         position: 'middle',

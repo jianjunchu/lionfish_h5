@@ -374,7 +374,7 @@ function check_login_new() {
   })
 }
 
-module.exports = {
+export default {
   getLightColor: getLightColor,
   addCart: addCart,
   changeCommunity: changeCommunity,

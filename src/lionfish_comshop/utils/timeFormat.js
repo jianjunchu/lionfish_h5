@@ -1,8 +1,10 @@
-Object.defineProperty(exports, "__esModule", {
+const exp = {};
+
+Object.defineProperty(exp, "__esModule", {
     value: !0
 });
 
-var e = exports.formatTime = function(e) {
+var e = exp.formatTime = function(e) {
     return {
         year: e.getFullYear(),
         month: e.getMonth() + 1,
@@ -12,34 +14,34 @@ var e = exports.formatTime = function(e) {
         second: e.getSeconds(),
         weekday: e.getDay()
     };
-}, t = (exports.formatYMDLocal = function(r) {
+}, t = (exp.formatYMDLocal = function(r) {
     var n = e(r);
     return [ n.year, n.month, n.day ].map(t).join("/");
-}, exports.formatYMD = function(r) {
+}, exp.formatYMD = function(r) {
     var n = e(r);
     return [ n.year, n.month, n.day ].map(t).join("-");
-}, exports.formatHMS = function(r) {
+}, exp.formatHMS = function(r) {
     var n = e(r);
     return [ n.hour, n.minute, n.second ].map(t).join(":");
-}, exports.formatWithoutSecond = function(r) {
+}, exp.formatWithoutSecond = function(r) {
     var n = e(r);
     return [ n.year, n.month, n.day ].map(t).join("-") + " " + [ n.hour, n.minute ].map(t).join(":");
-}, exports.formatFull = function(r) {
+}, exp.formatFull = function(r) {
     var n = e(r);
     return [ n.year, n.month, n.day ].map(t).join("-") + " " + [ n.hour, n.minute, n.second ].map(t).join(":");
-}, exports.formatMD = function(r) {
+}, exp.formatMD = function(r) {
     var n = e(r);
     return [ n.month ].map(t) + "月" + [ n.day ].map(t) + "日";
-}, exports.formatYMDPoint = function(r) {
+}, exp.formatYMDPoint = function(r) {
     var n = e(r);
     return [ n.year, n.month, n.day ].map(t).join(".");
-}, exports.formatYMDHMPoint = function(r) {
+}, exp.formatYMDHMPoint = function(r) {
     var n = e(r);
     return [ n.year, n.month, n.day ].map(t).join(".") + " " + [ n.hour, n.minute ].map(t).join(":");
-}, exports.formatMDHM = function(r) {
+}, exp.formatMDHM = function(r) {
     var n = e(r);
     return [ n.month ].map(t) + "." + [ n.day ].map(t) + " " + [ n.hour, n.minute ].map(t).join(":");
-}, exports.formatWeekday = function(t) {
+}, exp.formatWeekday = function(t) {
     var r = e(t), n = "";
     switch (r.weekday) {
       case 0:
@@ -70,13 +72,15 @@ var e = exports.formatTime = function(e) {
         n = "周六";
     }
     return r.weekday = n, r;
-}, exports.formatNumber = function(e) {
+}, exp.formatNumber = function(e) {
     return (e = e.toString())[1] ? e : "0" + e;
 });
 
-exports.getBeginTime = function(r, n) {
+exp.getBeginTime = function(r, n) {
     var o = new Date(new Date(1 * n).getTime() + 864e5);
     o.setHours(0), o.setMinutes(0), o.setSeconds(0);
     var a = o.getTime(), u = e(new Date(1 * r));
     return r < a ? "今日" + [ u.hour, u.minute ].map(t).join(":") + "开抢" : a < r && r < a + 864e5 ? "明日" + [ u.hour, u.minute ].map(t).join(":") + "开抢" : "即将开抢";
 };
+
+export default exp

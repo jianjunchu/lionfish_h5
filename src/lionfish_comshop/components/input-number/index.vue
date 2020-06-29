@@ -56,31 +56,24 @@
     props:{
       size: String,
       value: {
-        type: Number,
         default: 1
       },
       min: {
-        type: Number,
         default: -1 / 0
       },
       max: {
-        type: Number,
         default: 1 / 0
       },
       step: {
-        type: Number,
         default: 1
       },
       reduceImage: {
-        type: String,
         default: "@/assets/images/icon-input-reduce.png"
       },
       addImage: {
-        type: String,
         default: "@/assets/images/icon-input-add.png"
       },
       idx: {
-        type: Number,
         default: 0
       }
     },

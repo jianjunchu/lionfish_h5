@@ -81,7 +81,8 @@
 </template>
 
 <script>
-  var util = require('../../utils');
+
+  import util from '../../utils/index.js'
 
   export default {
     name: '',

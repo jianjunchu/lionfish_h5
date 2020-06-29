@@ -1,5 +1,5 @@
 <template>
-  <div class="wrap" v-if="needAuth&&loaded">
+  <div class="wrap" v-if="needAuth">
     <button bindgetuserinfo="bindGetUserInfoTwo" class="auth_bg" openType="getUserInfo"
             :style="'background: url('+auth_bg+') no-repeat top center;background-size: cover'" v-if="auth_bg"></button>
     <div v-else>
@@ -20,22 +20,23 @@
 </template>
 
 <script>
-  var util = require('../../utils/index'), wcache = require('../../utils/wcache.js'), flag = !0
+  import util from '../../utils/index'
+  var  wcache = require('../../utils/wcache.js'), flag = !0
 
   export default {
     name: 'i-auth',
     props: {
       needAuth: {
         type: Boolean,
-        value: !1
+        default: !1
       },
       needPosition: {
         type: Boolean,
-        value: !0
+        default: !0
       },
       navBackUrl: {
         type: String,
-        value: ''
+        default: ''
       }
     },
     data() {
@@ -54,16 +55,16 @@
       getBg: function() {
         var a = this, t = wcache.get('auth_bg', !1)
         if (t) {
-          this.auth_bg = t
-          this.loaded = !0
+          a.auth_bg = t
+          a.loaded = !0
         } else {
           a.$http({
             controller: 'index.get_auth_bg'
           }).then(t => {
-            this.loaded = !0
+            console.log('index.get_auth_bg',t)
+            a.loaded = !0
             0 == t.code && (wcache.put('auth_bg', t.data, 600))
             t.data && (this.auth_bg = t.data)
-
           })
         }
       },

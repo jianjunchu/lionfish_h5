@@ -111,16 +111,16 @@
     background-image: none;
     white-space: nowrap;
     user-select: none;
-    font-size: 28px;
-    border-radius: 4px;
+    font-size: 4vw;
+    border-radius: 4vw;
     border: 0 !important;
     position: relative;
     text-decoration: none;
-    height: 88px;
-    line-height: 88px;
+    height: 10vw;
+    line-height: 10vw;
     background: #f7f7f7;
     color: #495060;
-    margin: 20px;
+    margin: 4vw;
   }
 
   .i-btn-hover {
