@@ -480,7 +480,7 @@
     created: function() {
       const wx = this.$wx
       wx.setNavigationBarTitle({title: '购物车'})
-      this.$store.dispatch('app/showToolbarBack')
+      this.$store.dispatch('app/hideToolbarMore')
     },
     mounted: function() {
 
@@ -989,9 +989,9 @@
               data: {
                 controller: 'car.checkout_flushall',
                 token: l,
-                car_key: u,
+                car_key: u.toString(),
                 community_id: e.community_id,
-                all_keys_arr: h
+                all_keys_arr: h.toString()
               },
               method: 'POST',
               dataType: 'json',
@@ -1030,9 +1030,9 @@
               data: {
                 controller: 'car.checkout_flushall',
                 token: l,
-                car_key: u,
+                car_key: u.toString(),
                 community_id: e.community_id,
-                all_keys_arr: h
+                all_keys_arr: h.toString()
               },
               method: 'POST',
               dataType: 'json',
@@ -1238,8 +1238,8 @@
               controller: 'car.checkout_flushall',
               token: t,
               community_id: e.community_id,
-              car_key: a,
-              all_keys_arr: s
+              car_key: a.toString(),
+              all_keys_arr: s.toString()
             },
             method: 'POST',
             dataType: 'json',
@@ -1713,7 +1713,7 @@
   }
 
   .cart-item {
-    width: 100%;
+    width: 90vw;
     display: flex;
     align-items: center;
     flex-wrap: wrap;

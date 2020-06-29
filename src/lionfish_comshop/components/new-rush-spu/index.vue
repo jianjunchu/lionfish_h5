@@ -15,7 +15,7 @@
           </div>
           <div class="item-tag" :style="'background:url('+spuItem.label_info.tagcontent+') no-repeat left top;background-size: 100%;'" v-if="spuItem.label_info&&spuItem.label_info.type==1"></div>
           <el-image
-            style="width: 100px; height: 100px"
+            style="width: 90px; height: 90px"
             :src="spuItem.skuImage">
             <div slot="placeholder" class="image-slot">
               加载中<span class="dot">...</span>
@@ -57,7 +57,7 @@
         </div>
         <div v-if="!isPast">
           <div v-if="number<=0">
-            <i-button iClass="add-cart" v-if="disabled||spuItem.spuCanBuyNum==0||actEnd">
+            <i-button class="add-cart" v-if="disabled||spuItem.spuCanBuyNum==0||actEnd">
               <img class="img" src="@/assets/images/icon-add-shopCart-disabled.png"></img>
             </i-button>
             <i-button @handleTap="openSku" iClass="add-cart" class="add-cart" v-else>

@@ -380,7 +380,7 @@
             <span>满减</span>
             <em>- $ {{reduce_money}}</em>
           </div>
-          <div @click="show_voucher" class="cell" data-seller_id="0" v-if="seller_goodss[0].show_voucher==1">
+          <div @click="showvoucher" class="cell" data-seller_id="0" v-if="seller_goodss[0] && seller_goodss[0].show_voucher==1">
             <div>
               <span>优惠券</span>
               <span class="cell-desc" v-if="sel_chose_vouche.limit_money>0">满{{sel_chose_vouche.limit_money}}元优惠{{sel_chose_vouche.credit}}元</span>
@@ -391,8 +391,8 @@
               <img class="icon-right" src="@/assets/images/rightArrowImg.png"/>
             </div>
           </div>
-          <div @click="show_voucher" class="cell" :data-seller_id="seller_goodss[0].store_info.s_id"
-               v-if="ssvoucher_list.length&&seller_goodss[0].show_voucher==0">
+          <div @click="showvoucher" class="cell" :data-seller_id="seller_goodss[0] && seller_goodss[0].store_info.s_id"
+               v-if="seller_goodss[0] && seller_goodss[0].show_voucher==0">
             <div>
               <span>选择优惠券</span>
             </div>
@@ -618,7 +618,7 @@
         <div class="line"></div>
         <div class="order-content" style="padding:0; border-radius:0vw; width: 750vw;margin-bottom: 0">
           <div class="page-content">
-            <div scrollWithAnimation scrollY class="page-category" :scrollTop="categoryScrollBarTop"
+            <div scrollWithAnimation scrollY class="page-category" scrollTop="categoryScrollBarTop"
                  style="min-height:600vw">
 
               <div @click="changePickupDate"
@@ -634,7 +634,7 @@
 
             <div scrollWithAnimation scrollY bindscroll="scroll" bindscrolltolower="scrollBottom"
                  bindtouchend="touchend" bindtouchstart="touchstart" class="page-list pt50"
-                 lowerThreshold="200" :scrollTop="resetScrollBarTop" style="" upperThreshold="50">
+                 lowerThreshold="200" scrollTop="resetScrollBarTop" style="" upperThreshold="50">
 
               <div @click="changePickupTime" v-for="(item , index ) in rickupTimeData.currentTimes" :key="index"
                    :data-index="index">
@@ -767,32 +767,70 @@
         community: '',
         canPay: !0,
         canPreSub: !0,
-        tabAddress: [],
-        tabLength: 0
+        tabAddress: [{
+          name: '',
+          mobile: ''
+          //delivery_time:e.pick_up_time+'('+e.pick_up_weekday+')'
+        }, {
+          name: '',
+          mobile:  '',
+          receiverAddress: '',
+          lou_meng_hao: '',
+          zipCode: '', //lilongyun 2020-05-28
+          roadName: '',//lilongyun 2020-05-28
+          building: '',//lilongyun 2020-05-28
+          blk_no: '', //lilongyun 2020-05-28 大牌号
+          region: []
+        }, {
+          name: '',
+          mobile: '',
+          receiverAddress: '',
+          lou_meng_hao:  '',
+          zipCode: '', //lilongyun 2020-05-28
+          roadName:  '',//lilongyun 2020-05-28
+          building: '',//lilongyun 2020-05-28
+          blk_no: '', //lilongyun 2020-05-28 大牌号
+          region: []
+        }],
+        tabLength: 0,
+        seller_goodss: [],
+        ssvoucher_list: [],
+        btnLoading: !1,
+        btnDisable: !1,
+        visible: !1,
+        voucher_serller_id: 0,
+        is_hexiao: !1,
+        is_vip_card_member: !1,
+        canLevelBuy: !1
       }
     },
     created: function() {
 
       app = this.$getApp()
       wx = this.$wx
-      wx.setNavigationBarTitle({title: '提交订单'})
-      this.$store.dispatch('app/hideToolbarBack')
+      wx.setNavigationBarTitle({ title: '提交订单' })
+      this.$store.dispatch('app/showToolbarBack')
       this.onLoad()
     },
     method: function() {
       this.onShow()
     },
     methods: {
-      onLoad: function(e) {
+      onLoad: function() {
+
+        var e = this.$route.query
+
+        console.log(e)
+
         var F = this
-        status.setGroupInfo().then(function(e) {
-          F.groupInfo = e
+        status.setGroupInfo().then(function(f) {
+          F.groupInfo = f
         })
         var t = wx.getStorageSync('token'), a = wx.getStorageSync('community'), i = a.communityId
         util.check_login() ? (F.needAuth = !1) : (F.needAuth = !0, wx.hideTabBar())
         var o = e.is_limit || 0
 
-        var fullAddress = a.fullAddress
+        var fullAddress = a.fullAddress || ''
         fullAddress = fullAddress.replace('境外境外境外地区', '')
 
         F.buy_type = e.type || ''
@@ -818,10 +856,11 @@
             dataType: 'json',
             method: 'POST',
             success: function(e) {
+              console.log(e)
               setTimeout(function() {
                 wx.hideLoading()
               }, 1e3)
-              var t = e, a = 0, i = 0, o = F.data.tabList, s = [], n = e.data, r = n.delivery_express_name,
+              var t = e, a = 0, i = 0, o = F.tabList, s = [], n = e, r = n.delivery_express_name,
                 d = n.delivery_tuanzshipping_name, c = n.delivery_ziti_name, _ = n.delivery_diy_sort,
                 u = n.delivery_type_express, l = n.delivery_type_tuanz, h = n.delivery_type_ziti,
                 p = n.delivery_tuanz_money, m = n.is_vip_card_member, y = n.vipcard_save_money, g = n.level_save_money,
@@ -840,6 +879,7 @@
               var T = 0, D = 0, P = t.seller_goodss, z = (Object.keys(P).length, {})
               for (var I in P) z[I] = ''
               var L = ''
+              console.log(P)
               for (var O in P) {
                 for (var j in 1 == P[O].show_voucher && (P[O].chose_vouche.id && (T = P[O].chose_vouche.id),
                 P[O].chose_vouche.store_id && (D = P[O].chose_vouche.store_id), '[object Object]' == Object.prototype.toString.call(P[O].chose_vouche) && (L = P[O].chose_vouche)),
@@ -847,7 +887,7 @@
                   0 < P[O].goods[j].header_disc && P[O].goods[j].header_disc < 100 && (P[O].goods[j].header_disc = (P[O].goods[j].header_disc / 10).toFixed(1))
                 }
               }
-
+              console.log(t)
               F.is_hexiao = S
               F.loadover = !0
               F.commentArr = z
@@ -884,54 +924,55 @@
               F.need_subscript_template = w
 
               var q = t.address, C = t.tuan_send_address_info, M = C.address || '选择位置'
-              '' != C.city_name && 3708 != C.city_id && '' != C.country_name && 3708 != C.country_id || (M = '选择位置'),
-                F.tabAddress = [{
-                  name: t.ziti_name || '',
-                  mobile: t.ziti_mobile || ''
-                  //delivery_time:e.data.pick_up_time+'('+e.data.pick_up_weekday+')'
-                }, {
-                  name: C.name || '',
-                  mobile: C.telephone || '',
-                  receiverAddress: M,
-                  lou_meng_hao: C.lou_meng_hao || '',
-                  zipCode: C.zip_code || '', //lilongyun 2020-05-28
-                  roadName: C.road_name || '',//lilongyun 2020-05-28
-                  building: C.building || '',//lilongyun 2020-05-28
-                  blk_no: C.blk_no || '', //lilongyun 2020-05-28 大牌号
-                  region: [C.province_name || '', C.city_name || '', C.country_name || '']
-                }, {
-                  name: q.name || '',
-                  mobile: q.telephone || '',
-                  receiverAddress: q.address || '',
-                  lou_meng_hao: C.lou_meng_hao || '',
-                  zipCode: C.zip_code || '', //lilongyun 2020-05-28
-                  roadName: C.road_name || '',//lilongyun 2020-05-28
-                  building: C.building || '',//lilongyun 2020-05-28
-                  blk_no: C.blk_no || '', //lilongyun 2020-05-28 大牌号
-                  region: [q.province_name || '选择地址', q.city_name || '', q.country_name || '']
-                }]
+              '' != C.city_name && 3708 != C.city_id && '' != C.country_name && 3708 != C.country_id || (M = '选择位置')
 
-              F.pick_up_time = e.data.pick_up_time
-              F.pick_up_type = e.data.pick_up_type
-              F.pick_up_weekday = e.data.pick_up_weekday
+              F.tabAddress = [{
+                name: t.ziti_name || '',
+                mobile: t.ziti_mobile || ''
+                //delivery_time:e.pick_up_time+'('+e.pick_up_weekday+')'
+              }, {
+                name: C.name || '',
+                mobile: C.telephone || '',
+                receiverAddress: M,
+                lou_meng_hao: C.lou_meng_hao || '',
+                zipCode: C.zip_code || '', //lilongyun 2020-05-28
+                roadName: C.road_name || '',//lilongyun 2020-05-28
+                building: C.building || '',//lilongyun 2020-05-28
+                blk_no: C.blk_no || '', //lilongyun 2020-05-28 大牌号
+                region: [C.province_name || '', C.city_name || '', C.country_name || '']
+              }, {
+                name: q.name || '',
+                mobile: q.telephone || '',
+                receiverAddress: q.address || '',
+                lou_meng_hao: C.lou_meng_hao || '',
+                zipCode: C.zip_code || '', //lilongyun 2020-05-28
+                roadName: C.road_name || '',//lilongyun 2020-05-28
+                building: C.building || '',//lilongyun 2020-05-28
+                blk_no: C.blk_no || '', //lilongyun 2020-05-28 大牌号
+                region: [q.province_name || '选择地址', q.city_name || '', q.country_name || '']
+              }]
+
+              F.pick_up_time = e.pick_up_time
+              F.pick_up_type = e.pick_up_type
+              F.pick_up_weekday = e.pick_up_weekday
               F.addressState = !0
-              F.is_integer = e.data.is_integer
-              F.is_ziti = e.data.is_ziti
-              F.pick_up_arr = e.data.pick_up_arr
-              F.seller_goodss = e.data.seller_goodss
+              F.is_integer = e.is_integer
+              F.is_ziti = e.is_ziti
+              F.pick_up_arr = e.pick_up_arr
+              F.seller_goodss = e.seller_goodss
               F.seller_chose_id = T
               F.seller_chose_store_id = D
-              F.goods = e.data.goods
-              F.buy_type = e.data.buy_type
-              F.yupay = e.data.can_yupay
-              F.is_yue_open = e.data.is_yue_open
-              F.yu_money = e.data.yu_money
-              F.total_free = e.data.total_free
-              F.trans_free_toal = e.data.trans_free_toal
-              F.delivery_tuanz_money = e.data.delivery_tuanz_money
-              F.reduce_money = e.data.reduce_money
-              F.is_open_fullreduction = e.data.is_open_fullreduction
-              F.cha_reduce_money = e.data.cha_reduce_money
+              F.goods = e.goods
+              F.buy_type = e.buy_type
+              F.yupay = e.can_yupay
+              F.is_yue_open = e.is_yue_open
+              F.yu_money = e.yu_money
+              F.total_free = e.total_free
+              F.trans_free_toal = e.trans_free_toal
+              F.delivery_tuanz_money = e.delivery_tuanz_money
+              F.reduce_money = e.reduce_money
+              F.is_open_fullreduction = e.is_open_fullreduction
+              F.cha_reduce_money = e.cha_reduce_money
 
               F.calcPrice()
             }
@@ -949,22 +990,18 @@
       getCommunityInfo: function() {
         var t = this, e = wx.getStorageSync('community')
         e ? e.head_mobile ? (t.community = e) : util.getCommunityById(e.communityId).then(function(e) {
-          t.community = e.data
+          t.community = e
         }) : wx.getStorageSync('token') && util.getCommunityInfo().then(function(e) {
           t.community = e
         })
       },
       getReceiveMobile: function(e) {
-        var t = e.detail
-        this.setData({
-          t_ziti_mobile: t,
-          showGetPhone: !1
-        })
+        var t = e
+        this.t_ziti_mobile = t
+        this.showGetPhone = !1
       },
       ck_wxpays: function() {
-        this.setData({
-          ck_yupay: 0
-        })
+        this.ck_yupay = 0
       },
       selectStorefront: function() {
         var this_ = this
@@ -978,10 +1015,9 @@
           // 方法
           success: function(data) {
             console.log(data)
-            var datas = data.data.data
-            this_.setData({
-              storefronts: datas
-            })
+            var datas = data.data
+            this_storefronts = datas
+
           }
         })
         this_.showStorefrontModal()
@@ -999,7 +1035,7 @@
           // 方法
           success: function(data) {
             console.log(data)
-            var datas = data.data.data
+            var datas = data.data
             var list = new Array()
             for (var i = 0; i < datas.length; i++) {
               const item = datas[i]
@@ -1019,22 +1055,19 @@
 
               list.push(item)
             }
-            this_.setData({
-              deliveryTimes: list
-            })
+            this_.deliveryTimes = list
+
           }
         })
         this.showDeliveryTimeModal()
       },
       deliveryTimeItemClick: function(item) {
-        var e = this.data, s = e.tabAddress, n = e.tabIdx, r = this
+        var e = this, s = e.tabAddress, n = e.tabIdx, r = this
 
         if (item && item.currentTarget && item.currentTarget.dataset && item.currentTarget.dataset.item && !item.currentTarget.dataset.item.full) {
           s[n].delivery_time = item.currentTarget.dataset.item.date
 
-          this.setData({
-            tabAddress: s
-          })
+          this.tabAddress = s
           this.closeDeliveryTimeModal()
 
         }
@@ -1055,92 +1088,65 @@
         })
       },
       ck_yupays: function() {
-        this.setData({
-          ck_yupay: 1
-        })
+        this.ck_yupay = 1
       },
       scoreChange: function(e) {
         console.log('是否使用', e.detail.value)
-        var t = this.data, a = 1 * t.score_for_money, i = 1 * t.tot_price, o = 1 * t.disAmount
-        e.detail.value ? (i = (i - a).toFixed(2), o += a) : (i = (i + a).toFixed(2), o -= a),
-          this.setData({
-            use_score: e.detail.value ? 1 : 0,
-            tot_price: i,
-            disAmount: o.toFixed(2)
-          })
+        var t = this, a = 1 * t.score_for_money, i = 1 * t.tot_price, o = 1 * t.disAmount
+        e.detail.value ? (i = (i - a).toFixed(2), o += a) : (i = (i + a).toFixed(2), o -= a)
+        t.use_score = e.detail.value ? 1 : 0
+        t.tot_price = i
+        t.disAmount = o.toFixed(2)
       },
 
       close: function() {
-        this.setData({
-          showGetPhone: !1
-        })
+        this.showGetPhone = !1
       },
       showPaymentModal: function() {
-        this.setData({
-          show_payment_modal: !0
-        })
+        this.show_payment_modal = !0
       },
       closePaymentModal: function() {
-        this.setData({
-          show_payment_modal: !1
-        })
+        this.show_payment_modal = !1
       },
       showPayNowModal: function() {
-        this.setData({
-          show_paynow_modal: !0
-        })
+        this.show_paynow_modal = !0
       },
       closePayNowModal: function() {
-        this.setData({
-          show_paynow_modal: !1
-        })
+        this.show_paynow_modal = !1
         wx.redirectTo({
-          url: '/lionfish_comshop/pages/order/order?id=' + this.data.order_id + '&is_show=1'
+          url: '/lionfish_comshop/pages/order/order?id=' + this.order_id + '&is_show=1'
         })
       },
 
       showTransferModal: function() {
-        this.setData({
-          show_transfer_modal: !0
-        })
+        this.show_transfer_modal = !0
         wx.redirectTo({
-          url: '/lionfish_comshop/pages/order/order?id=' + this.data.order_id + '&is_show=1'
+          url: '/lionfish_comshop/pages/order/order?id=' + this.order_id + '&is_show=1'
         })
       },
       closeTransferModal: function() {
-        this.setData({
-          show_transfer_modal: !1
-        })
+        this.show_transfer_modal = !1
       },
       showDeliveryTimeModal: function() {
-        this.setData({
-          show_delivery_time_modal: !0
-        })
+        this.show_delivery_time_modal = !0
       },
 
       closeDeliveryTimeModal: function() {
-        this.setData({
-          show_delivery_time_modal: !1
-        })
+        this.show_delivery_time_modal = !1
       },
       showStorefrontModal: function() {
-        this.setData({
-          show_storefront_modal: !0
-        })
+        this.show_storefront_modal = !0
+
       },
       closeStorefrontModal: function() {
-        this.setData({
-          show_storefront_modal: !1
-        })
+        this.show_storefront_modal = !1
       },
       goOrderfrom: function() {
-        var e = this.data, t = e.tabAddress, a = e.tabIdx, i = t[a].name, o = t[a].mobile, s = t[a].receiverAddress,
+        var e = this, t = e.tabAddress, a = e.tabIdx, i = t[a].name, o = t[a].mobile, s = t[a].receiverAddress,
           n = t[a].region, r = t[a].receiverAddress, d = t[a].lou_meng_hao, dt = t[a].delivery_date_str,
           zc = t[a].zipCode, rn = t[a].roadName, bd = t[a].building
         if ('' == i) {
-          this.setData({
-            focus_name: !0
-          })
+          e.focus_name = !0
           var c = '请填写收货人'
           return 0 == a && (c = '请填写提货人'), wx.showToast({
             title: c,
@@ -1148,55 +1154,36 @@
           }), !1
         }
 
-        if ('' == o) {
-          return this.setData({
-            focus_mobile: !0
-          }), wx.showToast({
-            title: '手机号码有误',
-            icon: 'none'
-          }), !1
-        }
-
         if (!/^\d{8}$/.test(o) && !/^1(3|4|5|6|7|8|9)\d{9}$/.test(o)) {
-          return this.setData({
-            focus_mobile: !0
-          }), wx.showToast({
+          return wx.showToast({
             title: '手机号码有误',
             icon: 'none'
           }), !1
         }
 
         if (0 != a && ('' == zc || !/^\d{6}$/.test(zc))) {
-          return this.setData({
-            focus_zip_code: !0
-          }), wx.showToast({
+          return wx.showToast({
             title: '邮编有误',
             icon: 'none'
           }), !1
         }
 
         if (0 != a && '' == rn) {
-          return this.setData({
-            focus_road_name: !0
-          }), wx.showToast({
+          return wx.showToast({
             title: '请填写道路名',
             icon: 'none'
           }), !1
         }
 
         if (0 != a && '' == bd) {
-          return this.setData({
-            focus_building: !0
-          }), wx.showToast({
+          return wx.showToast({
             title: '请填写建筑名',
             icon: 'none'
           }), !1
         }
 
         if (0 != a && '' == d) {
-          return this.setData({
-            focus_addr: !0
-          }), wx.showToast({
+          return wx.showToast({
             title: '请填写门牌号',
             icon: 'none'
           }), !1
@@ -1226,9 +1213,7 @@
          */
         var ter = a == 0 ? '请选择自提时间' : '请选择配送时间'
         if (2 != a && !dt || '' == dt) {
-          return this.setData({
-            focus_delivery_time: !0
-          }), wx.showToast({
+          return wx.showToast({
             title: ter,
             icon: 'none'
           }), !1
@@ -1241,7 +1226,7 @@
         var type = t.currentTarget.dataset.type
         console.log(type)
         var e = this
-        this.canPreSub && (this.canPreSub = !1, 1 == this.data.is_need_subscript ? this.subscriptionNotice().then(function() {
+        this.canPreSub && (this.canPreSub = !1, 1 == this.is_need_subscript ? this.subscriptionNotice().then(function() {
           e.prepay(type)
         }).catch(function() {
           e.prepay(type)
@@ -1257,7 +1242,7 @@
           data: {
             controller: 'order.pay_order',
             token: s,
-            order_id: this.data.order_id,
+            order_id: this.order_id,
             payment_code: type
           },
           dataType: 'json',
@@ -1265,7 +1250,7 @@
           success: function(t) {
             wx.hideLoading()
             wx.redirectTo({
-              url: '/lionfish_comshop/pages/order/order?id=' + this.data.order_id + '&is_show=1'
+              url: '/lionfish_comshop/pages/order/order?id=' + this.order_id + '&is_show=1'
             })
           }
 
@@ -1274,7 +1259,7 @@
       prepay: function(type) {
         this.canPreSub = !0
         var this_ = this
-        var e = this.data, t = e.tabAddress, a = e.tabIdx
+        var e = this, t = e.tabAddress, a = e.tabIdx
         if (1 == e.is_limit_distance_buy && 1 == a) {
           return wx.showModal({
             title: '提示',
@@ -1284,10 +1269,9 @@
           }), !1
         }
         if (this.canPay) {
-          this.setData({
-            payBtnLoading: !0
-          }), this.canPay = !1
-          var o = this, i = this.data, s = wx.getStorageSync('token'), n = this.data, r = n.seller_chose_id,
+          this.payBtnLoading = !0
+          this.canPay = !1
+          var o = this, i = this, s = wx.getStorageSync('token'), n = this, r = n.seller_chose_id,
             d = n.seller_chose_store_id, c = n.ck_yupay, _ = n.tabList, u = r, l = ''
           _.forEach(function(e) {
             e.id == a && (l = e.dispatching)
@@ -1317,7 +1301,7 @@
             P = f[1], z = f[2])
           A = zip_code + ' ' + blk_no + ' ' + road_name + ' ' + x + ' ' + building
           var I = wx.getStorageSync('community').communityId, L = wx.getStorageSync('latitude2'),
-            O = wx.getStorageSync('longitude2'), j = this.data, N = j.use_score, q = j.buy_type, C = j.soli_id
+            O = wx.getStorageSync('longitude2'), j = this, N = j.use_score, q = j.buy_type, C = j.soli_id
           wx.showLoading(), app.util.request({
             url: 'entry/wxapp/user',
             data: {
@@ -1354,13 +1338,12 @@
             success: function(t) {
               wx.hideLoading()
 
-              var e = t.data.has_yupay || 0, a = t.data.order_id, i = {}
-              var ona = t.data.order_num_alias
-              var id = t.data.order_id
-              this_.setData({
-                order_id: id,
-                order_num_alias: ona.substring(ona.length - 5)
-              })
+              var e = t.has_yupay || 0, a = t.order_id, i = {}
+              var ona = t.order_num_alias
+              var id = t.order_id
+
+              e.order_id = id
+              e.order_num_alias = ona.substring(ona.length - 5)
 
               if (type == 'cash') {
                 wx.redirectTo({
@@ -1377,11 +1360,9 @@
                   // 方法
                   success: function(data) {
                     console.log(data)
-                    this_.setData({
-                      payNowQr: data.data.data.qr,
-                      payNowNo: data.data.data.payNowNo,
-                      payNowUen: data.data.data.uen
-                    })
+                    e.payNowQr = data.data.qr
+                    e.payNowNo = data.data.payNowNo
+                    e.payNowUen = data.data.uen
                   }
                 })
                 this_.closePaymentModal()
@@ -1397,30 +1378,28 @@
                   // 方法
                   success: function(data) {
                     console.log(data)
-                    this_.setData({
-                      bankInfo: data.data.data
-                    })
+                    e.bankInfo = data.data
                   }
                 })
                 this_.closePaymentModal()
                 this_.showTransferModal()
               } else {
-                console.log('支付日志：', t), 0 == t.data.code ? (o.changeIndexList(), 1 == e ? (o.canPay = !0,
-                  'dan' == q || 'pindan' == q || 'integral' == q || 'soitaire' == q ? t.data.is_go_orderlist <= 1 ? wx.redirectTo({
+                console.log('支付日志：', t), 0 == t.code ? (o.changeIndexList(), 1 == e ? (o.canPay = !0,
+                  'dan' == q || 'pindan' == q || 'integral' == q || 'soitaire' == q ? t.is_go_orderlist <= 1 ? wx.redirectTo({
                     url: '/lionfish_comshop/pages/order/order?id=' + a + '&is_show=1'
                   }) : wx.redirectTo({
                     url: '/lionfish_comshop/pages/order/index?is_show=1'
                   }) : wx.redirectTo({
                     url: '/lionfish_comshop/moduleA/pin/share?id=' + a
                   })) : wx.requestPayment({
-                  appId: t.data.appId,
-                  timeStamp: t.data.timeStamp,
-                  nonceStr: t.data.nonceStr,
-                  package: t.data.package,
-                  signType: t.data.signType,
-                  paySign: t.data.paySign,
+                  appId: t.appId,
+                  timeStamp: t.timeStamp,
+                  nonceStr: t.nonceStr,
+                  package: t.package,
+                  signType: t.signType,
+                  paySign: t.paySign,
                   success: function(e) {
-                    o.canPay = !0, 'dan' == q || 'pindan' == q || 'integral' == q || 'soitaire' == q ? t.data.is_go_orderlist <= 1 ? wx.redirectTo({
+                    o.canPay = !0, 'dan' == q || 'pindan' == q || 'integral' == q || 'soitaire' == q ? t.is_go_orderlist <= 1 ? wx.redirectTo({
                       url: '/lionfish_comshop/pages/order/order?id=' + a + '&is_show=1'
                     }) : wx.redirectTo({
                       url: '/lionfish_comshop/pages/order/index?is_show=1'
@@ -1429,32 +1408,30 @@
                     })
                   },
                   fail: function(e) {
-                    t.data.is_go_orderlist <= 1 ? wx.redirectTo({
+                    t.is_go_orderlist <= 1 ? wx.redirectTo({
                       url: '/lionfish_comshop/pages/order/order?id=' + a + '&?isfail=1'
                     }) : wx.redirectTo({
                       url: '/lionfish_comshop/pages/order/index?isfail=1'
                     })
                   }
-                })) : 1 == t.data.code ? (o.canPay = !0, wx.showModal({
+                })) : 1 == t.code ? (o.canPay = !0, wx.showModal({
                   title: '提示',
-                  content: t.data.RETURN_MSG || '支付失败',
+                  content: t.RETURN_MSG || '支付失败',
                   showCancel: !1,
                   confirmColor: '#F75451',
                   success: function(e) {
-                    e.confirm && (t.data.is_go_orderlist <= 1 ? wx.redirectTo({
+                    e.confirm && (t.is_go_orderlist <= 1 ? wx.redirectTo({
                       url: '/lionfish_comshop/pages/order/order?id=' + a + '&isfail=1'
                     }) : wx.redirectTo({
                       url: '/lionfish_comshop/pages/order/index?is_show=1&?isfail=1'
                     }))
                   }
-                })) : 2 == t.data.code ? (o.canPay = !0, 1 == t.data.is_forb && (i.btnDisable = !0,
+                })) : 2 == t.code ? (o.canPay = !0, 1 == t.is_forb && (i.btnDisable = !0,
                   i.btnText = '已抢光'), wx.showToast({
-                  title: t.data.msg,
+                  title: t.msg,
                   icon: 'none'
-                })) : console.log(t), o.setData(_extends({
-                  btnLoading: !1,
-                  payBtnLoading: !1
-                }, i))
+                })) : console.log(t), (this.btnLoading = !1,
+                  this.payBtnLoading = !1)
               }
 
             }
@@ -1462,7 +1439,7 @@
         }
       },
       changeReceiverName: function(e) {
-        var t = this.data, a = t.tabAddress, i = t.tabIdx, o = e.detail.value.trim()
+        var t = this, a = t.tabAddress, i = t.tabIdx, o = e.detail.value.trim()
         if (!(a[i].name = o)) {
           var s = '请填写收货人'
           0 == i && (s = '请填写提货人'), wx.showToast({
@@ -1477,7 +1454,7 @@
         }
       },
       bindReceiverMobile: function(e) {
-        var t = this.data, a = t.tabAddress, i = t.tabIdx, o = e.detail.value.trim()
+        var t = this, a = t.tabAddress, i = t.tabIdx, o = e.detail.value.trim()
         return a[i].mobile = o, this.setData({
           tabAddress: a
         }), {
@@ -1486,7 +1463,7 @@
       },
 
       bindReceiverZipCode: function(e) {
-        var t = this.data, a = t.tabAddress, i = t.tabIdx, o = e.detail.value.trim()
+        var t = this, a = t.tabAddress, i = t.tabIdx, o = e.detail.value.trim()
         return a[i].zipCode = o, this.setData({
           tabAddress: a
         }), {
@@ -1495,7 +1472,7 @@
       },
       inputZipCode: function(e) {
         var this_ = this
-        var t = this.data, a = t.tabAddress, i = t.tabIdx, o = e.detail.value.trim()
+        var t = this, a = t.tabAddress, i = t.tabIdx, o = e.detail.value.trim()
         var tk = wx.getStorageSync('token')
         if ('' != o && /^\d{6}$/.test(o)) {
           a[i].zipCode = o
@@ -1510,7 +1487,7 @@
             method: 'GET',
             success: function(e) {
               console.log(e)
-              var data = e.data
+              var data = e
               console.log(data.results[0])
               if (data.found > 0) {
                 var result = data.results[0]
@@ -1518,9 +1495,7 @@
                 a[i].building = result.BUILDING
                 a[i].roadName = result.ROAD_NAME
                 console.log(a)
-                this_.setData({
-                  tabAddress: a
-                })
+                this.tabAddress = a
 
               }
             }
@@ -1530,7 +1505,7 @@
       },
 
       bindReceiverRoadName: function(e) {
-        var t = this.data, a = t.tabAddress, i = t.tabIdx, o = e.detail.value.trim()
+        var t = this, a = t.tabAddress, i = t.tabIdx, o = e.detail.value.trim()
         return a[i].roadName = o, this.setData({
           tabAddress: a
         }), {
@@ -1539,7 +1514,7 @@
       },
 
       bindReceiverBuilding: function(e) {
-        var t = this.data, a = t.tabAddress, i = t.tabIdx, o = e.detail.value.trim()
+        var t = this, a = t.tabAddress, i = t.tabIdx, o = e.detail.value.trim()
         return a[i].building = o, this.setData({
           tabAddress: a
         }), {
@@ -1548,7 +1523,7 @@
       },
 
       changeTuanBlkNo: function(e) {
-        var t = this.data, a = t.tabAddress, i = t.tabIdx, o = e.detail.value.trim()
+        var t = this, a = t.tabAddress, i = t.tabIdx, o = e.detail.value.trim()
         return a[i].blk_no = o, this.setData({
           tabAddress: a
         }), {
@@ -1557,7 +1532,7 @@
       },
 
       changeReceiverAddress: function(e) {
-        var t = this.data, a = t.tabAddress
+        var t = this, a = t.tabAddress
         return a[t.tabIdx].receiverAddress = e.detail.value.trim(), this.setData({
           tabAddress: a
         }), {
@@ -1565,7 +1540,7 @@
         }
       },
       changeTuanAddress: function(e) {
-        var t = this.data, a = t.tabAddress
+        var t = this, a = t.tabAddress
         return a[t.tabIdx].lou_meng_hao = e.detail.value.trim(), this.setData({
           tabAddress: a
         }), {
@@ -1591,8 +1566,8 @@
       },
       checkOut: function(e) {
         var r = this, t = wx.getStorageSync('token'), a = wx.getStorageSync('community').communityId,
-          i = wx.getStorageSync('latitude2'), o = wx.getStorageSync('longitude2'), s = this.data.buy_type,
-          n = this.data.soli_id
+          i = wx.getStorageSync('latitude2'), o = wx.getStorageSync('longitude2'), s = this.buy_type,
+          n = this.soli_id
         app.util.request({
           url: 'entry/wxapp/user',
           data: {
@@ -1608,37 +1583,36 @@
           dataType: 'json',
           method: 'POST',
           success: function(e) {
-            if (1 == e.data.code) {
-              var t = e.data, a = t.vipcard_save_money, i = t.shop_buy_distance, o = t.is_limit_distance_buy,
+            if (1 == e.code) {
+              var t = e, a = t.vipcard_save_money, i = t.shop_buy_distance, o = t.is_limit_distance_buy,
                 s = t.current_distance, n = t.level_save_money
-              1 == r.data.tabIdx && 1 == o && i < s && wx.showModal({
+              1 == r.tabIdx && 1 == o && i < s && wx.showModal({
                 title: '提示',
                 content: '超出配送范围，请重新选择',
                 showCancel: !1,
                 confirmColor: '#F75451'
-              }), r.setData({
-                vipcard_save_money: a,
-                level_save_money: n,
-                is_limit_distance_buy: o || 0,
-                current_distance: s || '',
-                trans_free_toal: t.trans_free_toal,
-                is_man_delivery_tuanz_fare: t.is_man_delivery_tuanz_fare,
-                fare_man_delivery_tuanz_fare_money: t.fare_man_delivery_tuanz_fare_money,
-                is_man_shipping_fare: t.is_man_shipping_fare,
-                fare_man_shipping_fare_money: t.fare_man_shipping_fare_money
-              }, function() {
-                r.calcPrice()
-              })
+              }), (
+                r.vipcard_save_money = a,
+                  r.level_save_money = n,
+                  r.is_limit_distance_buy = o || 0,
+                  r.current_distance = s || '',
+                  r.trans_free_toal = t.trans_free_toal,
+                  r.is_man_delivery_tuanz_fare = t.is_man_delivery_tuanz_fare,
+                  r.fare_man_delivery_tuanz_fare_money = t.fare_man_delivery_tuanz_fare_money,
+                  r.is_man_shipping_fare = t.is_man_shipping_fare,
+                  r.fare_man_shipping_fare_money = t.fare_man_shipping_fare_money,
+                  r.calcPrice()
+              )
             }
           }
         })
       },
       choseLocation: function() {
-        var e = this.data, s = e.tabAddress, n = e.tabIdx, r = this
+        var e = this, s = e.tabAddress, n = e.tabIdx, r = this
         wx.chooseLocation({
           success: function(e) {
             console.log(e)
-            var t = r.data.region, a = e.name, i = (e.address, null)
+            var t = r.region, a = e.name, i = (e.address, null)
 
             function o() {
               console.log('setData'), t && '市' != t[1] && r.checkOut(t[1]), s[n].region = t, s[n].receiverAddress = a,
@@ -1659,7 +1633,7 @@
         })
       },
       getWxAddress: function() {
-        var e = this.data, a = e.tabAddress, i = e.tabIdx, o = a[i].region || [], s = this
+        var e = this, a = e.tabAddress, i = e.tabIdx, o = a[i].region || [], s = this
         wx.getSetting({
           success: function(e) {
             console.log('vres.authSetting[\'scope.address\']：', e.authSetting['scope.address']),
@@ -1705,26 +1679,24 @@
           this.calcPrice(1)
         })
       },
-      show_voucher: function(e) {
-        var t = e.currentTarget.dataset.seller_id, a = [], i = this.data.seller_chose_id,
-          o = this.data.seller_chose_store_id, s = this.data.seller_goodss
+      showvoucher: function(e) {
+        var t = e.currentTarget.dataset.seller_id, a = [], i = this.seller_chose_id,
+          o = this.seller_chose_store_id, s = this.seller_goodss
         for (var n in s) {
           s[n].store_info.s_id == t && (a = s[n].voucher_list, 0 == i && (i = s[n].chose_vouche.id || 0,
             o = s[n].chose_vouche.store_id || 0))
         }
-        this.setData({
-          ssvoucher_list: a,
-          voucher_serller_id: t,
-          seller_chose_id: i,
-          seller_chose_store_id: o,
-          hide_quan: !1
-        })
+        this.ssvoucher_list = a,
+          this.voucher_serller_id = t,
+          this.seller_chose_id = i,
+          this.seller_chose_store_id = o,
+          this.hide_quan = !1
       },
       chose_voucher_id: function(e) {
         wx.showLoading()
         var s = e.currentTarget.dataset.voucher_id, n = e.currentTarget.dataset.seller_id, r = this,
           t = wx.getStorageSync('token'), a = n + '_' + s, i = wx.getStorageSync('latitude2'),
-          o = wx.getStorageSync('longitude2'), d = r.data.buy_type, c = this.data.soli_id,
+          o = wx.getStorageSync('longitude2'), d = r.buy_type, c = this.soli_id,
           _ = wx.getStorageSync('community').communityId || ''
         app.util.request({
           url: 'entry/wxapp/user',
@@ -1742,36 +1714,32 @@
           dataType: 'json',
           method: 'POST',
           success: function(e) {
-            if (wx.hideLoading(), 1 == e.data.code) {
-              var t = e.data.seller_goodss, a = ''
+            if (wx.hideLoading(), 1 == e.code) {
+              var t = e.seller_goodss, a = ''
               for (var i in t) t[i].goodsnum = Object.keys(t[i].goods).length, '[object Object]' == Object.prototype.toString.call(t[i].chose_vouche) && (a = t[i].chose_vouche)
-              var o = e.data
-              r.setData({
-                seller_goodss: t,
-                seller_chose_id: s,
-                seller_chose_store_id: n,
-                hide_quan: !0,
-                goods: o.goods,
-                buy_type: o.buy_type || 'dan',
-                yupay: o.can_yupay,
-                is_yue_open: o.is_yue_open,
-                total_free: o.total_free,
-                sel_chose_vouche: a,
-                current_distance: o.current_distance || ''
-              }, function() {
-                r.calcPrice()
-              })
+              var o = e
+              r.seller_goodss = t
+              r.seller_chose_id = s
+              r.seller_chose_store_id = n
+              r.hide_quan = !0
+              r.goods = o.goods
+              r.buy_type = o.buy_type || 'dan'
+              r.yupay = o.can_yupay
+              r.is_yue_open = o.is_yue_open
+              r.total_free = o.total_free
+              r.sel_chose_vouche = a
+              r.current_distance = o.current_distance || ''
+              r.calcPrice()
+
             }
           }
         })
       },
       closeCouponModal: function() {
-        this.setData({
-          hide_quan: !0
-        })
+        this.hide_quan = !0
       },
       calcPrice: function() {
-        var e = 0 < arguments.length && void 0 !== arguments[0] ? arguments[0] : 0, t = this.data, a = t.total_free,
+        var e = 0 < arguments.length && void 0 !== arguments[0] ? arguments[0] : 0, t = this, a = t.total_free,
           i = t.delivery_tuanz_money, o = t.trans_free_toal, s = t.tabIdx, n = t.goods, r = (t.is_open_vipcard_buy,
             t.is_member_level_buy, t.is_vip_card_member, t.canLevelBuy)
         a *= 1, i *= 1, o *= 1
@@ -1802,22 +1770,22 @@
         var f = t.use_score
         e && f && (d -= 1 * t.score_for_money)
         var v
-        v = (g - 1 * d).toFixed(2), this.setData({
-          total_all: g.toFixed(2),
-          disAmount: v,
-          tot_price: d.toFixed(2),
-          total_goods_price: c.toFixed(2),
-          levelAmount: _.toFixed(2)
-        })
+        v = (g - 1 * d).toFixed(2), (
+          this.total_all = g.toFixed(2),
+            this.disAmount = v,
+            this.tot_price = d.toFixed(2),
+            this.total_goods_price = c.toFixed(2),
+            this.levelAmount = _.toFixed(2)
+        )
       },
       bindInputMessage: function(e) {
-        var t = this.data.commentArr, a = e.currentTarget.dataset.idx, i = e.detail.value
+        var t = this.commentArr, a = e.currentTarget.dataset.idx, i = e.detail.value
         t[a] = i, this.setData({
           commentArr: t
         })
       },
       changeIndexList: function() {
-        var e = this.data.goods || []
+        var e = this.goods || []
         0 < e.length && e.forEach(function(e) {
           0 == e.option.length && status.indexListCarCount(e.goods_id, 0)
         })
@@ -1826,7 +1794,7 @@
         console.log('subscriptionNotice')
         var s = this
         return new Promise(function(e, t) {
-          var o = s.data.need_subscript_template, a = Object.keys(o).map(function(e) {
+          var o = s.need_subscript_template, a = Object.keys(o).map(function(e) {
             return o[e]
           })
           wx.requestSubscribeMessage ? a.length && wx.requestSubscribeMessage({
@@ -1874,7 +1842,7 @@
           method: 'POST',
           success: function(e) {
             console.log(e)
-            var list = e.data.data
+            var list = e.data
             r.setData({
               'rickupTimeData.list': list,
               'rickupTimeData.currentTimes': list[0].times
@@ -1894,7 +1862,7 @@
       },
       changePickupDate: function(e) {
         var r = this, i = e.currentTarget.dataset.index
-        var d = r.data.rickupTimeData.list[i]
+        var d = r.rickupTimeData.list[i]
 
         console.log(d)
         r.setData({
@@ -1905,13 +1873,13 @@
       },
       changePickupTime: function(e) {
         var r = this, i = e.currentTarget.dataset.index
-        var activeDateIndex = r.data.rickupTimeData.activeDateIndex
+        var activeDateIndex = r.rickupTimeData.activeDateIndex
         r.setData({
           'rickupTimeData.activeTimeIndex': i
         })
       },
       changePickupDateTime: function() {
-        var e = this.data, s = e.tabAddress, n = e.tabIdx, r = this
+        var e = this, s = e.tabAddress, n = e.tabIdx, r = this
 
         var activeDateIndex = e.rickupTimeData.activeDateIndex
         var activeTimeIndex = e.rickupTimeData.activeTimeIndex
@@ -1962,7 +1930,7 @@
     color: #666;
   }
 
-  .address-content .receiver input,.sel-btn {
+  .address-content .receiver input, .sel-btn {
     border-radius: 4vw;
     flex: 1;
     height: 52vw;
@@ -2267,7 +2235,7 @@
   .confirm-order-modal .button-group {
     display: flex;
     width: 100%;
-    border-top: 1vw solid rgba(0,0,0,0.1);
+    border-top: 1vw solid rgba(0, 0, 0, 0.1);
     position: absolute;
     left: 0;
     bottom: 0;
@@ -2295,7 +2263,7 @@
 
   .confirm-order-modal .button-group .right-btn {
     color: #fff;
-    background: linear-gradient(to right,#ff5041,#ff695c);
+    background: linear-gradient(to right, #ff5041, #ff695c);
   }
 
   .tab-nav {
@@ -2384,7 +2352,7 @@
     margin: 0 auto 20vw;
     border-radius: 20vw;
     background: #fff;
-    box-shadow: 0 0 40vw 0 rgba(0,0,0,0.05);
+    box-shadow: 0 0 40vw 0 rgba(0, 0, 0, 0.05);
     display: flex;
     flex-direction: column;
     overflow: hidden;
@@ -2536,7 +2504,7 @@
   }
 
   .oc-payment-selected:after {
-    font-family: iconfont!important;
+    font-family: iconfont !important;
     font-size: 28vw;
     font-style: normal;
     -webkit-font-smoothing: antialiased;
@@ -2561,7 +2529,7 @@
     box-shadow: 0 0 6vw #ccc;
   }
 
-  .coupon:before,.coupon:after {
+  .coupon:before, .coupon:after {
     content: '';
     position: absolute;
     width: 20vw;
@@ -2649,23 +2617,23 @@
     height: 48vw;
   }
 
-  .coupon.used,.coupon.expired {
+  .coupon.used, .coupon.expired {
     background: #fafafa;
   }
 
-  .coupon.used .price,.coupon.expired .price {
+  .coupon.used .price, .coupon.expired .price {
     color: #949494;
   }
 
-  .coupon.used .reduce-price,.coupon.expired .reduce-price,.coupon.used .reduce-title,.coupon.expired .reduce-title {
+  .coupon.used .reduce-price, .coupon.expired .reduce-price, .coupon.used .reduce-title, .coupon.expired .reduce-title {
     color: #7a7a7a;
   }
 
-  .coupon.used .reduce-type,.coupon.expired .reduce-type {
+  .coupon.used .reduce-type, .coupon.expired .reduce-type {
     background: #eeaea6;
   }
 
-  .coupon.used .footer,.coupon.expired .footer {
+  .coupon.used .footer, .coupon.expired .footer {
     color: #b6b6b6;
   }
 
@@ -2674,25 +2642,25 @@
   }
 
   .wx-switch-input {
-    width: 42px!important;
-    height: 20px!important;
+    width: 42px !important;
+    height: 20px !important;
   }
 
   .wx-switch-input::before {
-    width: 40px!important;
-    height: 18px!important;
+    width: 40px !important;
+    height: 18px !important;
   }
 
   .wx-switch-input::after {
-    width: 18px!important;
-    height: 18px!important;
+    width: 18px !important;
+    height: 18px !important;
   }
 
   .cart-header-right {
     color: #aaa;
   }
 
-  .mask{
+  .mask {
     width: 100%;
     height: 100%;
     position: fixed;
@@ -2702,7 +2670,8 @@
     z-index: 9000;
     opacity: 0.7;
   }
-  .modalDlg{
+
+  .modalDlg {
     text-align: center;
     position: fixed;
     top: 25%;
@@ -2716,7 +2685,8 @@
     overflow: auto;
 
   }
-  .deliveryTimeDlg{
+
+  .deliveryTimeDlg {
     text-align: center;
     position: fixed;
     top: 15%;
@@ -2729,9 +2699,10 @@
     border-radius: 2px;
     overflow: auto;
   }
-  .deliveryTimeItem{
-    border:1px solid #ccc;
-    height:30px;
+
+  .deliveryTimeItem {
+    border: 1px solid #ccc;
+    height: 30px;
     font-size: 12px;
     margin-bottom: 8px;
     padding-left: 8px;
@@ -2739,30 +2710,34 @@
     line-height: 30px;
     border-radius: 5px;
     display: flex;
-    flex-direction:row;
+    flex-direction: row;
   }
-  .deliveryTimeFull{
+
+  .deliveryTimeFull {
     color: #888585;
   }
 
-  .storefront-item{
-    border:1px solid #ccc;
-    height:50px;
+  .storefront-item {
+    border: 1px solid #ccc;
+    height: 50px;
     font-size: 12px;
     margin-bottom: 8px;
-    padding:8px;
+    padding: 8px;
     border-radius: 5px;
-    flex-direction:column;
+    flex-direction: column;
   }
-  .storefront-item-name{
-    text-align:left;
+
+  .storefront-item-name {
+    text-align: left;
     font-size: 13px;
-    font-weight:bold
+    font-weight: bold
   }
-  .storefront-item-address{
-    text-align:left;
+
+  .storefront-item-address {
+    text-align: left;
     font-size: 12px;
   }
+
   .wux-button {
     display: inline-block;
     box-sizing: border-box;
@@ -2781,11 +2756,12 @@
 
   }
 
-  .wux-button--block{
+  .wux-button--block {
     width: 100%;
     margin-top: 20vw;
   }
-  .paynow{
+
+  .paynow {
     position: fixed;
     top: 1%;
     width: 100%;
@@ -2827,7 +2803,7 @@
     display: none;
     width: 8vw;
     height: 28vw;
-    background: linear-gradient(#ff7955,#ff4242);
+    background: linear-gradient(#ff7955, #ff4242);
   }
 
   .category-item.active {
@@ -2835,6 +2811,7 @@
     font-weight: 500;
     color: #333;
   }
+
   .page-list {
     position: absolute;
     top: 0;
@@ -2847,13 +2824,13 @@
     box-sizing: border-box;
   }
 
-  .line{
+  .line {
     position: absolute;
     margin-top: 75vw;
-    width:100%;
-    height:1vw;
+    width: 100%;
+    height: 1vw;
     z-index: 9999;
-    background:#efefef;
+    background: #efefef;
   }
 
 </style>

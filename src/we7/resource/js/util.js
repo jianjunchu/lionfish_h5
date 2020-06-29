@@ -433,8 +433,9 @@ util.base64_encode = function(e) {
   e = e ? e.toUpperCase() : e
   if (!/^\#?[0-9A-F]{6}$/.test(e)) return e
   for (var n = (e = e.replace('#', '')).match(/../g), r = 0; r < 3; r++) {
-    var a = parseInt(n[r], 16);
-    n[r] = Math.floor((255 - a) * t + a);
+    var a = parseInt(n[r], 16)
+    n[r] = Math.floor((255 - a) * t + a)
   }
-  return "rgb(" + n[0] + ", " + n[1] + ", " + n[2] + ")";
-}, module.exports = util;
+  return 'rgb(' + n[0] + ', ' + n[1] + ', ' + n[2] + ')'
+};
+export default util

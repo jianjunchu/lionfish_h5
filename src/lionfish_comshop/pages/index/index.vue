@@ -1,5 +1,6 @@
 <template>
   <div class="page">
+
     <div v-if="loadOver && isblack!=1">
 
       <div :class="['index-box', 'pb100', (showNewCoupon?'preventTouchMove':'')]">
