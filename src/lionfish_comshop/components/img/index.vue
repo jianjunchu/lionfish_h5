@@ -4,16 +4,14 @@
     <!--<el-image :error="bindError" :load="imageLoad" @click="preview" :class="['i-class', 'img-def', 'opacity' ,isLoad?'show-img':'']" :lazy="isLazy_" mode="aspectFill" :src="img"/>-->
   <!--</div>-->
   <div class="i-class img-content">
-    <el-image
+    <van-image
       :style="{'width': width+'px', 'height': height+'px'}"
       :src="loadImage">
-
-      <div slot="placeholder" class="image-slot">
-          <img :src="require(defaultImage)" :style="{'width': width+'px', 'height': height+'px'}"/>
-      </div>
-    </el-image>
-
-  </div>
+      <template v-slot:loading>
+        <van-loading type="spinner" size="20" />
+      </template>
+    </van-image>
+    </div>
 
 </template>
 

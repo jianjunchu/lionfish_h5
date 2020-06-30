@@ -3,6 +3,9 @@ import Vue from 'vue'
 import 'normalize.css/normalize.css' // A modern alternative to CSS resets
 import ElementUI from 'element-ui'
 
+import { Image as VanImage } from 'vant'
+import { Loading } from 'vant'
+
 import 'element-ui/lib/theme-chalk/index.css'
 import 'mint-ui/lib/style.css'
 
@@ -11,7 +14,7 @@ import 'swiper/css/swiper.css'
 import Cookies from 'js-cookie'
 import less from 'less'
 
-import i18n from './lang' // Internationalization
+import { i18n, vantLocales } from './lang'
 import Tabbar from '@/lionfish_comshop/components/tabbar'
 import Toolbar from '@/lionfish_comshop/components/toolbar'
 import Modal from '@/lionfish_comshop/components/modal'
@@ -57,7 +60,11 @@ import App from './App'
 import '@/icons' // icon
 import '@/permission' // permission control
 
+vantLocales(i18n.locale)
+
 Vue.use(vueSwiper)
+Vue.use(VanImage)
+Vue.use(Loading)
 
 Vue.component('i-tabbar', Tabbar)
 Vue.component('i-toolbar', Toolbar)
@@ -105,7 +112,7 @@ Vue.prototype.$app = App
  * Currently MockJs will be used in the production environment,
  * please remove it before going online ! ! !
 
-if (process.env.NODE_ENV === 'production') {
+ if (process.env.NODE_ENV === 'production') {
   const { mockXHR } = require('../mock')
   mockXHR()
 }

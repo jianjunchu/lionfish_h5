@@ -311,12 +311,12 @@
             <div class="cart-item" slot="content">
               <div class="sku-item" v-for="(item,index) in value.goods" :key="index">
 
-                <el-image class="sku-img"
-                          :src="item.image">
-                  <div slot="placeholder" class="image-slot">
-                    <img src="@/assets/images/placeholder-refund.png" style="width: 20vw; height: 20vw"/>
-                  </div>
-                </el-image>
+
+                <van-image class="sku-img" :src="item.image">
+                  <template v-slot:loading>
+                    <van-loading type="spinner" size="20" />
+                  </template>
+                </van-image>
 
                 <div class="sku-msg">
                   <div class="sku-title">

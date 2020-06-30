@@ -1,19 +1,20 @@
 import _this from '../../main.js'
-import { Indicator, MessageBox, Toast } from 'mint-ui'
+import { Dialog, Toast } from 'vant'
+import GetSystemInfoSyncResult from '@/lionfish_comshop/utils/GetSystemInfoSyncResult'
 
 export default {
   showToast: function(option) {
-    Toast({
-      message: option.title,
-      position: 'middle',
-      duration: 3000
-    })
+    Toast(option.title)
   },
   showLoading: function(option) {
-    Indicator.open(option ? option.title : '')
+    Toast.loading({
+      message: 'Loading...',
+      forbidClick: true,
+      loadingType: 'spinner'
+    })
   },
   hideLoading: function() {
-    Indicator.close()
+
   },
   getStorageSync: function(k) {
     const v = window.localStorage.getItem(k) || '{}'
@@ -63,15 +64,17 @@ export default {
     _this.$store.state.app.toolbarTitle = a.title
   },
   getSystemInfoSync: function() {
-
+    return GetSystemInfoSyncResult
   },
   showModal: function(option) {
-    MessageBox({
+    Dialog.confirm({
       title: option.title,
       message: option.content,
       showCancelButton: option.showCancel
-    }).then(action => {
-      option.success(action)
+    }).then(() => {
+      option.success('confirm')
+    }).catch(() => {
+      option.success('cancel')
     })
   },
   getLocation: function(option) {

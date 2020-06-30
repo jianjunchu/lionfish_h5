@@ -61,12 +61,12 @@
                     </label>
                     <div class="cart-item-img">
 
-                      <el-image style="width: 90px; height: 90px"
-                        :src="shopcarts.imgurl">
-                        <div slot="placeholder" class="image-slot">
-                          <img :src="require('@/assets/images/placeholder-refund.png')" style="width: 90px; height: 90px"/>
-                        </div>
-                      </el-image>
+
+                      <van-image style="width: 90px; height: 90px" :src="shopcarts.imgurl">
+                        <template v-slot:loading>
+                          <van-loading type="spinner" size="20" />
+                        </template>
+                      </van-image>
 
 
                       <div class="tip" v-if="shopcarts.can_buy==0||shopcarts.option_can_buy==0">已失效</div>
@@ -137,12 +137,12 @@
                       </div>
                     </label>
                     <div class="cart-item-img">
-                      <el-image style="width: 90px; height: 90px"
-                                :src="shopcarts.imgurl">
-                        <div slot="placeholder" class="image-slot">
-                          <img :src="require('@/assets/images/placeholder-refund.png')" style="width: 90px; height: 90px"/>
-                        </div>
-                      </el-image>
+
+                      <van-image style="width: 90px; height: 90px" :src="shopcarts.imgurl">
+                        <template v-slot:loading>
+                          <van-loading type="spinner" size="20" />
+                        </template>
+                      </van-image>
 
                       <div class="tip" v-if="shopcarts.can_buy==0||shopcarts.option_can_buy==0">已失效</div>
                       <div class="tag pos-top" v-if="shopcarts.is_new_buy==1">新人专享</div>
@@ -220,12 +220,13 @@
                       </label>
                       <div class="cart-item-img">
 
-                        <el-image style="width: 90px; height: 90px"
-                                  :src="shopcarts.imgurl">
-                          <div slot="placeholder" class="image-slot">
-                            <img :src="require('@/assets/images/placeholder-refund.png')" style="width: 90px; height: 90px"/>
-                          </div>
-                        </el-image>
+
+
+                        <van-image style="width: 90px; height: 90px" :src="shopcarts.imgurl">
+                          <template v-slot:loading>
+                            <van-loading type="spinner" size="20" />
+                          </template>
+                        </van-image>
 
                       </div>
                       <div class="cart-item-content">
@@ -349,12 +350,12 @@
           <img src="@/assets/images/icon-sku-close.png"/>
         </div>
         <div class="sku-header">
-          <el-image style="width: 80px; height: 80px"
-                    :src="cur_sku_arr.skuImage">
-            <div slot="placeholder" class="image-slot">
-              <img :src="require('@/assets/images/placeholder-refund.png')" style="width: 80px; height: 80px"/>
-            </div>
-          </el-image>
+
+          <van-image style="width: 80px; height: 80px" :src="cur_sku_arr.skuImage">
+            <template v-slot:loading>
+              <van-loading type="spinner" size="20" />
+            </template>
+          </van-image>
 
           <div class="sku-desc">
             <div class="sku-title">

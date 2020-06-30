@@ -1,6 +1,5 @@
 <template>
   <div class="page">
-
     <div v-if="loadOver && isblack!=1">
 
       <div :class="['index-box', 'pb100', (showNewCoupon?'preventTouchMove':'')]">
@@ -130,7 +129,7 @@
 
           <div style="padding-bottom:5px;margin-left: 16px;margin-right: 16px" v-if="notice_list.length>0">
             <div class="top-msg" :style="{color:skin.color}">
-              <img src="notice_setting.horn" v-if="notice_setting.horn"/>
+              <img :src="notice_setting.horn" v-if="notice_setting.horn"/>
               <span class="iconfont icon-laba" v-else></span>
 
               <svg-icon icon-class="laba" v-else/>
@@ -183,31 +182,35 @@
           </div>
 
 
-
           <div v-if="hide_index_type!=1">
             <div class="sticky-cate_index" v-if="index_change_cate_btn==1">
               <div v-show="!isShowClassification||tabIdx!==0">
                 <i-tabs :activeIndex="classification.activeIndex" @activeIndexChange="classificationChange"
                         data-idx="1" fontColor="#000" iClass="category-list" :tabs="classification.tabs"></i-tabs>
+
               </div>
               <div class="tab-nav-index-query"></div>
             </div>
 
-            <div :class="['sticky-content-index', {'sticky-top':isSticky, 'tab-nav-index-sticky':scrollDirect === 'up'&&isSticky }]"
-                 v-else>
+            <div
+              :class="['sticky-content-index', {'sticky-top':isSticky, 'tab-nav-index-sticky':scrollDirect === 'up'&&isSticky }]"
+              v-else>
               <div class="tab-nav-index tab-nav-index-query" :style="{'border-color':skin.color}">
                 <div @click="tabSwitch" :class="['tab-nav-index-item', (tabIdx===0?'active':'')]" data-idx="0">
-                  <img :src="(qgtab.one_select ? qgtab.one_select : require('@/assets/images/index-tab-left-active.png'))"
-                       v-if="tabIdx===0"/>
-                  <img :src="(qgtab.one_selected?qgtab.one_selected:require('@/assets/images/index-tab-left-disabled.png'))"
-                       v-else/>
+                  <img
+                    :src="(qgtab.one_select ? qgtab.one_select : require('@/assets/images/index-tab-left-active.png'))"
+                    v-if="tabIdx===0"/>
+                  <img
+                    :src="(qgtab.one_selected?qgtab.one_selected:require('@/assets/images/index-tab-left-disabled.png'))"
+                    v-else/>
                   <span>{{index_qgtab_text[0]?index_qgtab_text[0]:'正在抢购'}}</span>
                 </div>
                 <div @click="tabSwitch" :class="['tab-nav-index-item', (tabIdx===1?'active':'')]" data-idx="1">
                   <img :src="(qgtab.two_select?qgtab.two_select:require('@/assets/images/index-tab-right-active.png'))"
                        v-if="tabIdx===1"/>
-                  <img :src="(qgtab.two_selected?qgtab.two_selected:require('@/assets/images/index-tab-right-disabled.png'))"
-                       v-else/>
+                  <img
+                    :src="(qgtab.two_selected?qgtab.two_selected:require('@/assets/images/index-tab-right-disabled.png'))"
+                    v-else/>
                   <span>{{index_qgtab_text[1]?index_qgtab_text[1]:'即将开抢'}}
             </span>
                 </div>
@@ -222,10 +225,15 @@
               <div v-show="!isShowClassification||tabIdx!==0">
                 <i-tabs :activeIndex="classification.activeIndex" @activeIndexChange="classificationChange"
                         data-idx="1" fontColor="#000" class="category-list" :tabs="classification.tabs"></i-tabs>
+
+
               </div>
               <div v-show="!isShowCommingClassification||tabIdx!==1">
-                <i-tabs :activeIndex="commingClassification.activeIndex" @activeIndexChange="classificationChange" data-idx="2" fontColor="#000"
+                <i-tabs :activeIndex="commingClassification.activeIndex" @activeIndexChange="classificationChange"
+                        data-idx="2" fontColor="#000"
                         iClass="category-list" :tabs="classification.tabs"></i-tabs>
+
+
               </div>
             </div>
           </div>
@@ -283,7 +291,7 @@
                             @vipModal="vipModal" :canLevelBuy="canLevelBuy" :changeCarCount="changeCarCount"
                             class="item" :is_open_vipcard_buy="is_open_vipcard_buy" :needAuth="needAuth"
                             :reduction="reduction" :spuItem="item" :stopClick="stopClick"
-                            v-for="(item,index) in rushList" :key="actId"></i-rush-spu>
+                            v-for="(item,index) in rushList" :key="item.actId"></i-rush-spu>
               </div>
               <i-load-more iClass="loadMore" :loading="loadMore" :tip="loadText" v-if="loadMore"></i-load-more>
             </div>
@@ -334,7 +342,8 @@
           </button>
         </div>
 
-        <i-tabbar @authModal="authModal" :cartNum="cartNum" currentIdx="0" :needAuth="needAuth" :tabbarRefresh="tabbarRefresh"></i-tabbar>
+        <i-tabbar @authModal="authModal" :cartNum="cartNum" currentIdx="0" :needAuth="needAuth"
+                  :tabbarRefresh="tabbarRefresh"></i-tabbar>
 
         <i-order-notify iClass="order-notify" :stopNotify="stopNotify"
                         v-if="shop_info.order_notify_switch==1"></i-order-notify>
@@ -389,9 +398,13 @@
         </div>
         <div class="sku-header">
 
-          <el-image
-            class="sku-img"
-            :src="cur_sku_arr.skuImage"></el-image>
+          <van-image class="sku-img" :src="cur_sku_arr.skuImage">
+            <template v-slot:loading>
+              <van-loading type="spinner" size="20" />
+            </template>
+          </van-image>
+
+
           <div class="sku-desc">
             <div class="sku-title">
               <span>{{cur_sku_arr.spuName}}</span>
@@ -505,7 +518,11 @@
 
 
 <script>
+  import { Tab, Tabs } from 'vant'
   import GlobalMixin from '../../mixin/globalMixin.js'
+  import util from '../../utils/index.js'
+  import status from '../../utils/index.js'
+  import a from '../../utils/public'
 
   var _Page, _extends = Object.assign || function(t) {
     for (var a = 1; a < arguments.length; a++) {
@@ -523,9 +540,6 @@
       writable: !0
     }) : t[a] = e, t
   }
-  import util from '../../utils/index.js'
-  import status from '../../utils/index.js'
-  import a from '../../utils/public'
 
   var
     wcache = require('../../utils/wcache.js'),
@@ -533,6 +547,7 @@
 
   export default {
     mixins: [countDownInit.default, GlobalMixin],
+    components: { [Tab.name]: Tab, [Tabs.name]: Tabs },
     name: 'Index',
     data() {
 
@@ -574,7 +589,7 @@
         isShowContactBtn: 0,
         stopClick: !1,
         showAuthModal: !1,
-        changeCarCount:!1,
+        changeCarCount: !1,
         community: {
           communityAddress: undefined,
           communityId: undefined,
@@ -680,8 +695,8 @@
         is_mb_level_buy: false,
         visible: !1,
         changeCommunity: {},
-        loadOver:!1,
-        loadText:'Loading...',
+        loadOver: !1,
+        loadText: 'Loading...',
         $data: {
           stickyFlag: !1,
           scrollTop: 0,
@@ -770,21 +785,23 @@
     },
     mounted: function() {
       var a = this,
-        e = this;
+        e = this
       if ((a.stopNotify = !1, a.tabbarRefresh = !0, a.isblack = a.$app.globalData.isblack || 0), util.check_login_new().then(function(t) {
-        t ? ( a.needAuth = !1 , status.cartNum().then(t=>{a.cartNum = t.data})) : (a.needAuth = !0, a.couponRefresh = !1 );
+        t ? (a.needAuth = !1 , status.cartNum().then(t => {
+          a.cartNum = t.data
+        })) : (a.needAuth = !0, a.couponRefresh = !1)
       }), a.$app.globalData.timer.start(), a.$app.globalData.changedCommunity) {
 
-         a.$app.globalData.goodsListCarCount = [];
-        var t = a.$app.globalData.community;
-          a.community = e.fliterCommunity(t)
-          a.newComerRefresh = !1
+        a.$app.globalData.goodsListCarCount = []
+        var t = a.$app.globalData.community
+        a.community = e.fliterCommunity(t)
+        a.newComerRefresh = !1
         a.getCommunityPos(t.communityId)
         a.hasRefeshin = !1
         a.newComerRefresh = !0
-          a.rushList = []
-          a.pageNum = 1
-          a.classificationId = null
+        a.rushList = []
+        a.pageNum = 1
+        a.classificationId = null
         /*this.setData({
 
           "classification.activeIndex": -1
@@ -802,15 +819,15 @@
           timer: {},
           stickyFlag: !1,
           hasCommingGoods: !0
-        });
+        })
         a.$app.globalData.changedCommunity = !1
         a.get_index_info()
         a.addhistory()
         a.load_goods_data()
-        a.get_type_topic();
+        a.get_type_topic()
       } else {
-        console.log("nochange");
-        if(1 <= e.isFirst){
+        console.log('nochange')
+        if (1 <= e.isFirst) {
           a.loadOver = !0
           this.changeRushListNum()
         }
@@ -821,7 +838,6 @@
       a.$store.dispatch('app/hideToolbarBack')
       a.$store.dispatch('app/hideToolbarMore')
       a.$store.dispatch('app/showTabbar')
-
 
     },
     methods: {
@@ -843,26 +859,26 @@
           var a = t,
             e = F.groupInfo
           if (0 == a.code) {
-            if (!t.is_community  && !F.needAuth) {
+            if (!t.is_community && !F.needAuth) {
               var o = F.changeCommunity || {}
 
-              if(o.communityId && o.communityId!=''){
-                wcache.put('community', o);
-                F.addhistory(o.community_id);
-                F.community = o;
-                F.showChangeCommunity = !1;
+              if (o.communityId && o.communityId != '') {
+                wcache.put('community', o)
+                F.addhistory(o.community_id)
+                F.community = o
+                F.showChangeCommunity = !1
                 F.loadPage()
-              }else{
+              } else {
 
-                  F.$wx.showModal({
+                F.$wx.showModal({
                   title: '提示',
                   content: '请选择' + e.group_name,
                   showCancel: false,
                   confirmColor: '#8ED9D1',
                   success: function(t) {
                     F.$wx.redirectTo({
-                      url: "/lionfish_comshop/pages/position/community"
-                    });
+                      url: '/lionfish_comshop/pages/position/community'
+                    })
                   }
                 })
               }
@@ -1142,7 +1158,7 @@
         this.$data.isLoadData = !0
         console.log('load_goods_begin');
 
-        (m.hasRefeshin || m.loadOver) ? m.load_over_gps_goodslist() : (console.log('load_goods_in '));
+        (m.hasRefeshin || m.loadOver) ? m.load_over_gps_goodslist() : (console.log('load_goods_in '))
         this.hasRefeshin = !0
         m.loadMore = !0
         this.$http({
@@ -1557,12 +1573,12 @@
       authModal: function() {
         var t = 0 < arguments.length && void 0 !== arguments[0] ? arguments[0] : {},
           a = t && t || this.needAuth
-         !this.needAuth && !t || ((this.showAuthModal = !this.showAuthModal, this.needAuth = a), !1);
-        if(this.showAuthModal){
+        !this.needAuth && !t || ((this.showAuthModal = !this.showAuthModal, this.needAuth = a), !1)
+        /*if(this.showAuthModal){
             this.$wx.redirectTo({
               url: "/login"
             })
-        }
+        }*/
       },
       goNavUrl: function(t) {
         var a = t.currentTarget.dataset.idx,
@@ -1790,6 +1806,7 @@
     font-weight: 400;
     color: #333;
   }
+
   .bg-f {
     background-color: #fff;
 
@@ -1973,7 +1990,7 @@
     width: 100%;
     border-radius: 20px;
     background: #fff;
-    box-shadow: 0 10px 60px rgba(0,0,0,0.1);
+    box-shadow: 0 10px 60px rgba(0, 0, 0, 0.1);
     margin: 0 auto 40px;
     overflow: hidden;
   }
@@ -2159,12 +2176,12 @@
     border-radius: 40px;
   }
 
-  .top-msg image {
-    width: 42px;
-    height: 26px;
-    margin-right: 20px;
-    margin-top: -4px;
-    line-height: 30px;
+  .top-msg img {
+    width: 6vw;
+    height: 5vw;
+    margin-right: 6vw;
+    margin-top: -1.1vw;
+    line-height: 10vw;
   }
 
   .top-msg .iconfont {
@@ -2223,7 +2240,7 @@
     width: 100%;
     height: 80px;
     line-height: 80px;
-    border-bottom: 1px solid rgba(0,0,0,0.1);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
   }
 
   .sticky-title.sticky .tab-btn {
@@ -2250,11 +2267,11 @@
     width: 112px;
     height: 6px;
     border-radius: 6px;
-    background: linear-gradient(to right,#fe655c,#fa875b);
+    background: linear-gradient(to right, #fe655c, #fa875b);
     position: absolute;
     bottom: 0;
     left: 0;
-    box-shadow: 0 4px 8px rgba(255,89,9,0.25);
+    box-shadow: 0 4px 8px rgba(255, 89, 9, 0.25);
   }
 
   .none-rush-list {
@@ -2304,11 +2321,11 @@
     width: 80px;
     height: 80px;
     position: fixed;
-    background: rgba(0,0,0,0.5);
+    background: rgba(0, 0, 0, 0.5);
     border-radius: 50%;
     color: #fff;
     text-align: center;
-    transform: translate3d(0,100%,0);
+    transform: translate3d(0, 100%, 0);
     opacity: 0;
     transition: all 0.3s;
   }
@@ -2320,7 +2337,7 @@
   }
 
   .back-top.show-icon {
-    transform: translate3d(0,0,0);
+    transform: translate3d(0, 0, 0);
     opacity: 1;
   }
 
@@ -2329,13 +2346,12 @@
   }
 
 
-
   .img-content {
     position: relative;
   }
 
   .img-def {
-    position: absolute!important;
+    position: absolute !important;
     transition: opacity 0.6s;
   }
 
@@ -2365,7 +2381,7 @@
     height: 80px;
     line-height: 80px;
     width: 100vw;
-    border-bottom: 2px solid rgba(0,0,0,0.1);
+    border-bottom: 2px solid rgba(0, 0, 0, 0.1);
     z-index: 99;
   }
 
@@ -2414,7 +2430,7 @@
     right: 0;
     top: 0;
     bottom: 0;
-    background: rgba(0,0,0,0.5);
+    background: rgba(0, 0, 0, 0.5);
     z-index: 1000;
   }
 
@@ -2457,7 +2473,7 @@
     margin-bottom: 2px;
     background: #fff;
     font-size: 6px;
-    text-align:center
+    text-align: center
   }
 
   .nav-list-item .nav-list-img {
@@ -2612,7 +2628,7 @@
     width: 100%;
     height: 100%;
     z-index: 999;
-    background: rgba(0,0,0,0.6);
+    background: rgba(0, 0, 0, 0.6);
   }
 
   .model-services {
@@ -2623,7 +2639,7 @@
     z-index: 1000;
     color: #333;
     transition: all 0.3s;
-    transform: translate(0,100%);
+    transform: translate(0, 100%);
   }
 
   .model-services.show {
@@ -2684,7 +2700,7 @@
     right: 0;
     top: 0;
     bottom: 0;
-    background: rgba(0,0,0,0.6);
+    background: rgba(0, 0, 0, 0.6);
     z-index: 101;
     transition: all 400ms ease-in;
   }
@@ -2745,7 +2761,7 @@
     display: inline-block;
     width: 48px;
     height: 48px;
-    background: rgba(0,0,0,0.5);
+    background: rgba(0, 0, 0, 0.5);
     border-radius: 50%;
     text-align: center;
     color: #fff;
@@ -2768,7 +2784,7 @@
     padding: 6px 10px;
     background-color: #fff;
     width: 100%;
-    overflow:scroll;
+    overflow: scroll;
   }
 
   .search-box {
@@ -2818,7 +2834,7 @@
     right: 0;
     top: 0;
     bottom: 0;
-    background: rgba(0,0,0,0.3);
+    background: rgba(0, 0, 0, 0.3);
     z-index: 999;
     transition: all 400ms ease-in;
   }
@@ -2832,13 +2848,13 @@
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
-    transform: translate(-50%,-50%);
+    transform: translate(-50%, -50%);
   }
 
   .new-coupou-body {
     flex: 1;
     width: 100%;
-    background: linear-gradient(to right,#fe655c,#fa875b);
+    background: linear-gradient(to right, #fe655c, #fa875b);
     border-radius: 20px;
     box-sizing: border-box;
     padding: 0 30px;
@@ -3098,7 +3114,7 @@
     align-items: flex-start;
   }
 
-  .promotion .card-price--unit,.card-price {
+  .promotion .card-price--unit, .card-price {
     display: flex;
   }
 
@@ -3111,7 +3127,7 @@
     line-height: 48px;
   }
 
-  .promotion .card-desc,.card-price--num {
+  .promotion .card-desc, .card-price--num {
     display: flex;
   }
 
@@ -3145,8 +3161,8 @@
   }
 
   .promotion .card-content.get {
-    background-image: none!important;
-    background-color: #c7c7c7!important;
+    background-image: none !important;
+    background-color: #c7c7c7 !important;
   }
 
   .m-coupou-m {

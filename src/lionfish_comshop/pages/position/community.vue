@@ -72,8 +72,7 @@
   import GlobalMixin from '../../mixin/globalMixin.js'
   import status from '../../utils/index.js'
   import QQMapWX from '../../utils/qqmap-wx-jssdk.min.js'
-
-  var location = require('../../utils/Location')
+  import location from '../../utils/Location'
 
   export default {
     name: '',

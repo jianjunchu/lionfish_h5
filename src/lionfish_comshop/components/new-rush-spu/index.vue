@@ -14,13 +14,13 @@
             <div :class="['tag-name',(spuItem.label_info.len==2?'two-word':'')]">{{spuItem.label_info.tagcontent}}</div>
           </div>
           <div class="item-tag" :style="'background:url('+spuItem.label_info.tagcontent+') no-repeat left top;background-size: 100%;'" v-if="spuItem.label_info&&spuItem.label_info.type==1"></div>
-          <el-image
-            style="width: 90px; height: 90px"
-            :src="spuItem.skuImage">
-            <div slot="placeholder" class="image-slot">
-              加载中<span class="dot">...</span>
-            </div>
-          </el-image>
+
+
+          <van-image style="width: 90px; height: 90px" class="sku-img" :src="spuItem.skuImage">
+            <template v-slot:loading>
+              <van-loading type="spinner" size="20" />
+            </template>
+          </van-image>
 
           <div class="spu-active" v-if="reduction.is_open_fullreduction==1&&spuItem.is_take_fullreduction==1">
             <div class="tag">满{{reduction.full_money}}减{{reduction.full_reducemoney}}</div>

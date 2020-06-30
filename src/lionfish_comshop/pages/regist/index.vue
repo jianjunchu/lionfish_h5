@@ -43,8 +43,7 @@
 
 <script>
  // 按需引入部分组件
-    import { Toast } from 'mint-ui';
-    import 'mint-ui/lib/style.css'
+    import { Toast } from 'vant';
     export default {
         name: "bm_phone_regist",
         data(){
@@ -124,7 +123,7 @@
                         this.getCodeDisabled = true;
                     }
                 } else if (len >= 8) {
-                    value = value.replace(/^(\d{3})(\d{4})/g, '$1 $2 ')  
+                    value = value.replace(/^(\d{3})(\d{4})/g, '$1 $2 ')
                     if (!this.errorFlag.phone_empty && this.timeOut) {
                         //激活获取验证码按钮
                         this.getCodeDisabled = false;
@@ -136,11 +135,11 @@
             },
             hideTopAndFooter: function(){
             this.$store.dispatch('app/hideTabbar');
-            this.$store.dispatch('app/hideToolbarMore'); 
-            this.$store.dispatch('app/hideToolbarBack'); 
+            this.$store.dispatch('app/hideToolbarMore');
+            this.$store.dispatch('app/hideToolbarBack');
             },
             chooseArea(){
-                
+
             },
             gotoLogin: function(){
                 this.$router.push({path: '/login'});
@@ -179,10 +178,8 @@
                 this.timeOut = false;
                 //倒计时
                 if (!this.errorFlag.phone_empty){
-                    Toast({
-                        message: '验证码已发送',
-                        position: 'middle',
-                    });
+                  Toast('验证码已发送');
+
                     this.timer = setInterval(()=>{
                         that.countDownTime--;
                         // that.getCodeBtnText = this.countDownTime + "s后重新获取";
@@ -482,5 +479,5 @@
             }
         }
     }
-    
+
 </style>

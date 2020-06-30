@@ -2,8 +2,7 @@
   <div class="tabs i-class">
     <div scrollWithAnimation class="tabs__navs" scrollX="true" scrollY="false" :scrollLeft="scrollLeft">
       <div class="tabs__navs__wrap">
-        <div @click="handleTabItemTap" :class="['tabs__nav tav__nav__'+index, index===activeIndex?'active':'']" :data-id="tabItem.id" :data-index="index" :style="{'color': index===activeIndex?fontColor:''}" v-for="(tabItem ,index ) in tabs" :key="tabItem.id">{{tabItem.name}}</div>
-        <div :animation="indicatorAnamationData" class="activeIndicator" :style="lineBgColor"></div>
+        <div @click="handleTabItemTap" :class="['tabs__nav tav__nav__'+index, index==activeIndex?'active':'']" :data-id="tabItem.id" :data-index="index" :style="{'color': index===activeIndex?fontColor:''}" v-for="(tabItem ,index ) in tabs" :key="tabItem.id">{{tabItem.name}}</div>
       </div>
     </div>
   </div>
@@ -32,7 +31,8 @@
       return{
         indicatorAnamationData: {},
         scrollLeft: 0,
-        activeIndex:0
+        activeIndex:0,
+        screenWidth:0
       }
     },
     created:function(){
@@ -120,8 +120,9 @@
 <style scoped>
 
   .tabs {
+    width: 100vw;
     position: relative;
-    padding-right: 10px;
+    padding-right: 2vw;
   }
 
   .tabs__nav {
@@ -140,6 +141,7 @@
   .tabs__nav.active {
     font-weight: bold;
     font-size: 16px;
+    border-bottom:2px solid #F00
   }
 
   .tabs__nav:first-child {

@@ -118,7 +118,7 @@ export default {
           alert('登录成功');
           this.$wx.setStorageSync('token', response.token)
           setToken(response.token);
-          this.$router.push({path: '/lionfish_comshop/pages/index/index'});
+          this.$router.push({path: '/'});
         }else{
           alert("登录失败");
         }
