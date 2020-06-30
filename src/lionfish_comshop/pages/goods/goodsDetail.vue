@@ -46,10 +46,10 @@
         <!--<swiper-item v-for="(item,index) in goods_image" :key="item.id">-->
         <swiper-slide v-for="(item,index) in goods_image" :key="item.id">
           <div v-if="goods.video!=''&&goods.video!=null">
-            <img bindload="imageLoad" @click="predivImg" height="300px" :data-idx="index" lazyLoad="true" mode="widthFix" :src="item.image" v-if="index!=0"/>
+            <img bindload="imageLoad" @click="predivImg" width="100%" height="260px" :data-idx="index" lazyLoad="true" mode="widthFix" :src="item.image" v-if="index!=0"/>
             <div class="video-wrap" v-else>
-              <!--<div v-if="fmShow">-->
-              <div v-if="false">
+              <div v-if="fmShow">
+              <!--<div v-if="false">-->
                 <div class="btn_div centerboth" v-if="item.video==''"></div>
                 <div @click="btnPlay" class="btn_div centerboth" v-else>
                   <img src="@/assets/images/play.png"/>
@@ -57,10 +57,11 @@
                 <img bindload="imageLoad" @click="predivImg" :data-idx="index" lazyLoad="true" mode="widthFix" :src="item.image"/>
               </div>
               <!--<video bindended="videEnd" class="swiper-video" :hidden="fmShow" id="myVideo" objectFit="contain" :src="goods.video"></video>-->
-              <video bindended="videEnd" class="swiper-video"  id="myVideo" objectFit="contain" :src="goods.video"></video>
+              <video bindended="videEnd" class="swiper-video" v-show="fmShow" id="myVideo" objectFit="contain" :src="goods.video"></video>
+
             </div>
           </div>
-          <img bindload="imageLoad" @click="predivImg" height="300px" :data-idx="index" lazyLoad="true" mode="widthFix" :src="item.image" v-else/>
+          <img bindload="imageLoad" @click="predivImg" width="100%" height="260px" :data-idx="index" lazyLoad="true" mode="widthFix" :src="item.image" v-else/>
         </swiper-slide>
         <!--</swiper-item>-->
       </swiper>
@@ -257,8 +258,8 @@
           <img class="detailLogoImg" mode="widthFix" :src="goods_details_middle_image" v-if="goods_details_middle_image"/>
           <div></div>
         </div>
-        <!--<div class="instructions" v-if="!noIns">-->
-        <div class="instructions" >
+        <div class="instructions" v-show="!noIns">
+        <!--<div class="instructions" >-->
           <div class="wxParse">
             <!--<parser html="{{instructions}}"></parser>-->
             <p v-html="instructions"></p>
@@ -312,11 +313,11 @@
           </label>
         </div>
         <div class="gobuy" v-else>
-          <form bindsubmit="addToCart" reportSubmit="true">
+          <form @click="addToCart" reportSubmit="true">
             <div class="bar-item add-to-cart" :style="{background: goodsdetails_addcart_bg_color}">加入购物车</div>
             <button class="btn" formType="submit"></button>
           </form>
-          <form bindsubmit="submit" reportSubmit="true">
+          <form click="submit" reportSubmit="true">
             <button hidden formType="submit" id="formId"></button>
           </form>
           <label class="balanceBtn" for="formId">
@@ -329,71 +330,74 @@
     </div>
 
 
-    <div @click="closeSku" class="mask" :hidden="!visible"></div>
+    <!--<div @click="closeSku" class="mask" :hidden="!visible"></div>-->
+    <div @click="closeSku" class="mask" v-show="visible"></div>
     <!--<div bind:cancel="close" class="sku-content" :hidden="!visible" scrollUp="true">-->
-    <!--<div @click="close" class="sku-content" :hidden="!visible" scrollUp="true">-->
-      <!--<div class="sku-card">-->
-        <!--<div @click="closeSku" class="close">-->
-          <!--<img src="@/assets/images/icon-sku-close.png"/>-->
-        <!--</div>-->
-        <!--<div class="sku-header">-->
-          <!--<img class="sku-img" :src="cur_sku_arr.skuImage" style="width:80px;height:80px;"/>-->
-          <!--<div class="sku-desc">-->
-            <!--<div class="sku-title">-->
-              <!--<span>{{cur_sku_arr.spuName}}</span>-->
-            <!--</div>-->
-            <!--<div class="sku-price">-->
-              <!--<div class="sale-price" v-if="buy_type=='integral'">-->
-                <!--<span>{{cur_sku_arr.actPrice[0]}}</span>.{{cur_sku_arr.actPrice[1]}} 积分-->
-              <!--</div>-->
-              <!--<div class="sale-price" v-else>-->
-                <!--$ <span>{{cur_sku_arr.actPrice[0]}}</span>.{{cur_sku_arr.actPrice[1]}}-->
-              <!--</div>-->
-              <!--<div class="market-price">-->
-                <!--<div v-if="buy_type!='integral'">$</div>{{cur_sku_arr.marketPrice[0]}}.{{cur_sku_arr.marketPrice[1]}}<div v-if="buy_type=='integral'">积分</div>-->
-              <!--</div>-->
-              <!--<i-vip-price :price="cur_sku_arr.card_price" v-if="is_open_vipcard_buy==1&&is_vip_card_member==1&&goods.is_take_vipcard==1"></i-vip-price>-->
-              <!--<div v-else-if="is_member_level_buy==1&&goods.is_mb_level_buy==1">-->
-                <!--<i-vip-price :price="cur_sku_arr.levelprice" type="1" v-if="is_open_vipcard_buy==1&&is_vip_card_member!=1"></i-vip-price>-->
-                <!--<i-vip-price :price="cur_sku_arr.levelprice" type="1" v-if="is_open_vipcard_buy!=1"></i-vip-price>-->
-              <!--</div>-->
-            <!--</div>-->
-            <!--<div class="sku-switch-on" v-if="cur_sku_arr.spec">已选择：{{cur_sku_arr.spec}}</div>-->
-          <!--</div>-->
-        <!--</div>-->
-        <!--&lt;!&ndash;<div class="sku-spec" wx:for="{{skuList.list}}" wx:key="id">&ndash;&gt;-->
-        <!--<div class="sku-spec" v-for="(item,index) in skuList.list" :key="item.id">-->
-          <!--<div class="title">{{item.name}}</div>-->
-          <!--<div class="spec-list">-->
-            <!--&lt;!&ndash;<span @click="selectSku" class="{{idx==sku[index]['idx']?'on':''}}" data-disabled="{{item.canBuyNum-value<0}}" data-idx="{{idx}}" data-type="{{index}}_{{idx}}_{{value.option_value_id}}_{{value.name}}" wx:for="{{item.option_value}}" wx:for-index="idx" wx:for-item="value" wx:key="idx">{{value.name}}</span>&ndash;&gt;-->
-            <!--<span @click="selectSku" :class="idx==sku[index]['idx']?'on':''" :data-disabled="item.canBuyNum-value<0" :data-idx="idx" :data-type="index_idx_value.option_value_id_value.name"  v-for="(value,idx) in item.option_value" :key="item.idx">{{value.name}}</span>-->
-          <!--</div>-->
-        <!--</div>-->
-        <!--<div class="sku-num-content">-->
-          <!--<div class="title">数量</div>-->
-          <!--<div :class="['i-class', 'i-input-number', 'i-input-number-size-'+size]">-->
-            <!--<div @click="setNum" class="i-input-number-minus" data-type="decrease">-->
-              <!--<img src="@/assets/images/icon-input-reduce.png"/>-->
-            <!--</div>-->
-            <!--<input bindblur="handleBlur" bindfocus="handleFocus" bindinput="changeNumber" class="i-input-number-text" type="number" :value="sku_val"></input>-->
-            <!--<div @click="setNum" class="i-input-number-plus" data-type="add">-->
-              <!--<img src="@/assets/images/icon-input-add.png"/>-->
-            <!--</div>-->
-          <!--</div>-->
+    <div @click="close" class="sku-content" v-show="visible" scrollUp="true">
+      <div class="sku-card">
+        <div @click="closeSku" class="close">
+          <img src="@/assets/images/icon-sku-close.png"/>
+        </div>
+
+        <div class="sku-header">
+          <img class="sku-img" :src="cur_sku_arr.skuImage" style="width:80px;height:80px;"/>
+          <div class="sku-desc">
+            <div class="sku-title">
+              <span>{{cur_sku_arr.spuName}}</span>
+            </div>
+            <div class="sku-price">
+              <div class="sale-price" v-if="buy_type=='integral'">
+                <span>{{cur_sku_arr.actPrice[0]}}</span>.{{cur_sku_arr.actPrice[1]}} 积分
+              </div>
+              <div class="sale-price" v-else>
+                $ <span>{{cur_sku_arr.actPrice[0]}}</span>.{{cur_sku_arr.actPrice[1]}}
+              </div>
+              <div class="market-price">
+                <span v-if="buy_type!='integral'">$</span>{{cur_sku_arr.marketPrice[0]}}.{{cur_sku_arr.marketPrice[1]}}<span v-if="buy_type=='integral'">积分</span>
+              </div>
+              <i-vip-price :price="cur_sku_arr.card_price" v-if="is_open_vipcard_buy==1&&is_vip_card_member==1&&goods.is_take_vipcard==1"></i-vip-price>
+              <div v-else-if="is_member_level_buy==1&&goods.is_mb_level_buy==1">
+                <i-vip-price :price="cur_sku_arr.levelprice" type="1" v-if="is_open_vipcard_buy==1&&is_vip_card_member!=1"></i-vip-price>
+                <i-vip-price :price="cur_sku_arr.levelprice" type="1" v-if="is_open_vipcard_buy!=1"></i-vip-price>
+              </div>
+            </div>
+            <div class="sku-switch-on" v-if="cur_sku_arr.spec">已选择：{{cur_sku_arr.spec}}</div>
+          </div>
+        </div>
+
+        <!--<div class="sku-spec" wx:for="{{skuList.list}}" wx:key="id">-->
+        <div class="sku-spec" v-for="(item,index) in skuList.list" :key="item.id">
+          <div class="title">{{item.name}}</div>
+          <div class="spec-list">
+            <!--<span @click="selectSku" class="{{idx==sku[index]['idx']?'on':''}}" data-disabled="{{item.canBuyNum-value<0}}" data-idx="{{idx}}" data-type="{{index}}_{{idx}}_{{value.option_value_id}}_{{value.name}}" wx:for="{{item.option_value}}" wx:for-index="idx" wx:for-item="value" wx:key="idx">{{value.name}}</span>-->
+            <span @click="selectSku" :class="idx==sku[index]['idx']?'on':''" :data-disabled="item.canBuyNum-value<0" :data-idx="idx" :data-type="index_idx_value.option_value_id_value.name"  v-for="(value,idx) in item.option_value" :key="item.idx">{{value.name}}</span>
+          </div>
+        </div>
+        <div class="sku-num-content">
+          <div class="title">数量</div>
+          <div :class="['i-class', 'i-input-number', 'i-input-number-size-'+size]">
+            <div @click="setNum" class="i-input-number-minus" data-type="decrease">
+              <img src="@/assets/images/icon-input-reduce.png"/>
+            </div>
+            <input bindblur="handleBlur" bindfocus="handleFocus" bindinput="changeNumber" class="i-input-number-text" type="number" :value="sku_val"></input>
+            <div @click="setNum" class="i-input-number-plus" data-type="add">
+              <img src="@/assets/images/icon-input-add.png"/>
+            </div>
+          </div>
           <!--<div class="msg" v-if="skuList[current].isLimit">-->
             <!--<span v-if="skuList[current].limitMemberNum>-1">每人限{{skuList[current].limitMemberNum}}单</span>-->
             <!--<span v-if="skuList[current].limitOrderNum>-1">每单限{{skuList[current].limitOrderNum}}份</span>-->
             <!--<span></span>-->
           <!--</div>-->
           <!--<div class="even-num" v-else-if="!skuList[current].isLimit&&skuList[current].canBuyNum-value<=10&&skuList[current].canBuyNum-value>-1">还可以购买 {{skuList[current].canBuyNum-value}} 件</div>-->
-        <!--</div>-->
-        <!--<form bindsubmit="gocarfrom" reportSubmit="true">-->
-          <!--<button class="sku-confirm" :disabled="cur_sku_arr.stock==0?true:false" formType="submit">-->
-            <!--<div>{{cur_sku_arr.stock==0?'已抢光':'确定'}}</div>-->
-          <!--</button>-->
-        <!--</form>-->
-      <!--</div>-->
-    <!--</div>-->
+        </div>
+        <form @click="gocarfrom" reportSubmit="true">
+          <button class="sku-confirm" :disabled="cur_sku_arr.stock==0?true:false" formType="submit">
+            <div>{{cur_sku_arr.stock==0?'已抢光':'确定'}}</div>
+          </button>
+        </form>
+      </div>
+    </div>
     </div>
 
 
@@ -432,7 +436,7 @@
     <!--</div>-->
     <!--<i-change-community bind:changeComunity="confrimChangeCommunity" bind:noChange="cancelChangeCommunity" :canChange="hide_community_change_btn==0" cancelFn="true" :changeCommunity="changeCommunity" :community="community" :groupInfo="groupInfo" :visible="showChangeCommunity"></i-change-community>-->
     <!--<canvas canvasId="myCanvas" class="canvas-img" :style="width: (canvasWidth)px;height: (canvasHeight)px;"></canvas>-->
-    <!--<canvas canvasId="myCanvas" class="canvas-img" :style="width:canvasWidth + 'px',height: canvasHeight + 'px'"></canvas>-->
+    <canvas canvasId="myCanvas" class="canvas-img" :style="{width:canvasWidth + 'px',height: canvasHeight + 'px'}"></canvas>
     <!--<i-sub-notice :templateId="need_subscript_template" :visible="is_need_subscript==1"></i-sub-notice>-->
     <!--<i-vip-modal :imgUrl="pop_vipmember_buyimage" :visible="showVipModal"></i-vip-modal>-->
     <!--<i-modal bind:cancel="handleHexiaoModal" scrollUp="true" :visible="showHexiaoModal">-->
@@ -449,24 +453,24 @@
         <!--</scroll-div>-->
       <!--</div>-->
     <!--</i-modal>-->
-    <scroll-div class="coverVideo" scrollY="false" style="height:100vh;" v-if="showCoverVideo">
-      <div class="main">
-        <div class="section">
-          <video autoplay loop autoPauseIfOpenNative="true" bindended="coverVideoEnd" controls="false" direction="0" id="coverVideo" :objectFit="is_heng==0?'fill':'contain'" showFullscreenBtn="false" :src="goods.video"></video>
-        </div>
-        <cover-div @click="closeCoverVideo" class="goods" :data-id="goods.id" v-if="goods">
-          <cover-div class="good-img">
-            <cover-image :src="goods.image_thumb?goods.image_thumb:'@/assets/images/placeholder-refund.png'"></cover-image>
-          </cover-div>
-          <cover-div style="display: flex;flex-direction: column;justify-content: space-between;margin-right:5px;flex:1;">
-            <cover-div class="good-title .text-overflow2">{{goods.goodsname}}</cover-div>
-            <cover-div class="xqbottom">
-              <cover-div class="good-price">${{goods.price_front}}.{{goods.price_after}}</cover-div>
-            </cover-div>
-          </cover-div>
-        </cover-div>
-      </div>
-    </scroll-div>
+    <!--<scroll-div class="coverVideo" scrollY="false" style="height:100vh;" v-if="showCoverVideo">-->
+      <!--<div class="main">-->
+        <!--<div class="section">-->
+          <!--<video autoplay loop autoPauseIfOpenNative="true" bindended="coverVideoEnd" controls="false" direction="0" id="coverVideo" :objectFit="is_heng==0?'fill':'contain'" showFullscreenBtn="false" :src="goods.video"></video>-->
+        <!--</div>-->
+        <!--<cover-div @click="closeCoverVideo" class="goods" :data-id="goods.id" v-if="goods">-->
+          <!--<cover-div class="good-img">-->
+            <!--<cover-image :src="goods.image_thumb?goods.image_thumb:'@/assets/images/placeholder-refund.png'"></cover-image>-->
+          <!--</cover-div>-->
+          <!--<cover-div style="display: flex;flex-direction: column;justify-content: space-between;margin-right:5px;flex:1;">-->
+            <!--<cover-div class="good-title .text-overflow2">{{goods.goodsname}}</cover-div>-->
+            <!--<cover-div class="xqbottom">-->
+              <!--<cover-div class="good-price">${{goods.price_front}}.{{goods.price_after}}</cover-div>-->
+            <!--</cover-div>-->
+          <!--</cover-div>-->
+        <!--</cover-div>-->
+      <!--</div>-->
+    <!--</scroll-div>-->
 
   </div>
 
@@ -512,8 +516,9 @@
 //  require("swiper/dist/css/swiper.css");
 
   import GlobalMixin from '../../mixin/globalMixin.js';
-  var status = require('../../utils/index.js');
-  var util = require('../../utils/index.js');
+  import status from '../../utils/index.js'
+  import util from '../../utils/index.js'
+
   export default {
     mixins: [GlobalMixin],
     swiper: [swiper],
@@ -521,6 +526,8 @@
     name:'goods-goodsDetail',
     data() {
       return {
+        size:1,
+        showHexiaoModal:false,
         indexcomminggoodsbitmap:'/lionfish_comshop/images/index-comming-goods-bitmap.png',
         needAuth: false,
         goodsIndex: 1,
@@ -639,9 +646,27 @@
 
         sku: [],
         sku_val: 1,
-        skuList: [],
-        cur_sku_arr: g,
-        is_just_addcar: e
+        skuList: {
+          list:[],
+//          isLimit:false,
+//          canBuyNum:0,
+//          limitMemberNum:0,
+//          limitOrderNum:0
+
+        },
+        cur_sku_arr: {
+          skuImage:'',
+          spuName:'',
+          actPrice:[],
+          marketPrice:[],
+          card_price:0,
+          levelprice:0,
+          spec:'',
+          stock:0
+        },
+        is_just_addcar: 0,
+        showVipModal : false,
+        showSku:false
       }
     },
     created: function() {
@@ -862,6 +887,34 @@
             L.hx_len= M,
             L.is_hide_details_count= b;
 
+          L.skuList= {
+              list:[
+//                  {
+//                isLimit:false,
+//                canBuyNum:0,
+//                limitMemberNum:0,
+//                limitOrderNum:0
+//              }
+              ],
+          };
+          L.cur_sku_arr = {
+            skuImage: '',
+            spuName: '',
+            actPrice:[],
+            marketPrice:[],
+            card_price:0,
+            levelprice:0,
+            spec:'',
+            stock:0
+          };
+          L.visible = false;
+          L.noIns = false;
+          L.cartNum = 0;
+          L.showVipModal = false;
+          L.showHexiaoModal = false;
+          L.sku_val= 1;
+          L.size = 1;
+          L.$forceUpdate();
           var t = e.goods_share_image;
           if (t) console.log("draw分享图")
 //            status.download(t + "?imagediv2/1/w/500/h/400").then(function(t) {
@@ -885,11 +938,11 @@
             });
             var j = 0;
 //            0 < (j = 0 == e.over_type ? 1e3 * (e.begin_time - t.cur_time) : 1e3 * (e.end_time - t.cur_time)) && count_down(L, j);
-            this.$forceUpdate();
+
         });
       },
       confrimChangeCommunity: function() {
-        var t = this.data.changeCommunity, a = this.$wx.getStorageSync("token");
+        var t = this.changeCommunity, a = this.$wx.getStorageSync("token");
         this.$app.globalData.community = t, this.$app.globalData.changedCommunity = true, this.$wx.setStorage({
           key: "community",
           data: t
@@ -905,14 +958,25 @@
       },
       authSuccess: function() {
         var t = this.$data.id, a = this.$data.scene, e = "/lionfish_comshop/pages/goods/goodsDetail?id=" + t + "&community_id=" + this.$data.community_id + "&scene=" + a;
-//        this.$app.globalData.navBackUrl = e;
+        this.$app.globalData.navBackUrl = e;
         var o = this.$wx.getStorageSync("community"), s = this.needPosition;
         this.needAuth= false, o && (s = false), s || this.$wx.redirectTo({
           url: e
         });
       },
       authModal: function() {
-        return !this.needAuth || (this.showAuthModal= !this.showAuthModal, false);
+
+        if (this.needAuth) {
+          this.showAuthModal= !this.showAuthModal
+//          return false;
+        }
+        if(this.showAuthModal){
+          this.$wx.redirectTo({
+            url: "/login"
+          })
+        }
+        return true;
+
       },
       imageLoad: function(t) {
 //        var a = util.imageUtil(t);
@@ -927,7 +991,7 @@
               console.log(t,"get_instructions")
             if (0 == t.code) {
               var a = t.data.value;
-//              "" == a && e.noIns= true,
+              if("" == a) e.noIns= true;
                 e.instructions= a,
                 e.index_bottom_image= t.data.index_bottom_image,
                 e.goods_details_middle_image= t.data.goods_details_middle_image,
@@ -953,33 +1017,32 @@
         });
       },
       addToCart: function(t) {
+
         if (this.authModal()) {
-          var a = t.detail.formId, e = this.$wx.getStorageSync("token");
-          app.util.request({
-            url: "entry/wxapp/user",
-            data: {
+
+          var a = t.detail.formId;
+          var e = this.$wx.getStorageSync("token");
+          this.$http({
               controller: "user.get_member_form_id",
               token: e,
               from_id: a
-            },
-            dataType: "json",
-            success: function(t) {}
-          }), this.setData({
-            is_just_addcar: 1
-          }), this.openSku();
+            }).then(t=> {
+          });
+          this.is_just_addcar= 1;
+          this.openSku();
         }
       },
       openSku: function() {
+
         var t = 0 < arguments.length && void 0 !== arguments[0] ? arguments[0] : null;
         if (this.authModal()) {
-          var a = this, e = this.data.is_just_addcar;
+
+          var a = this, e = this.is_just_addcar;
           if (t) {
             var o = t.detail, s = o.actId, i = o.skuList;
             e = 1;
           } else s = this.goods_id, i = this.currentOptions;
-          a.setData({
-            addCar_goodsid: s
-          });
+          a.addCar_goodsid= s;
           var n = i.list || [], d = [];
           if (0 < n.length) {
             for (var r = 0; r < n.length; r++) {
@@ -1017,7 +1080,7 @@
             };
             h.detail.formId = "the formId is a mock one", a.gocarfrom(h);
           } else {
-            var f = this.data.goods, p = f.card_price || "0.00", y = f.levelprice || "0.00", v = {
+            var f = this.goods, p = f.card_price || "0.00", y = f.levelprice || "0.00", v = {
               canBuyNum: f.total,
               spuName: f.goodsname,
               actPrice: f.actPrice,
@@ -1034,41 +1097,38 @@
               a.skuList= [],
               a.visible= true,
               a.showSku= true;
+              a.$forceUpdate();
           }
         }
       },
       gocarfrom: function(t) {
-        this.data.is_just_addcar;
+//        this.is_just_addcar;
         this.$wx.showLoading();
         var a = this.$wx.getStorageSync("token");
-        app.util.request({
-          url: "entry/wxapp/user",
-          data: {
+        this.$http({
             controller: "user.get_member_form_id",
             token: a,
             from_id: t.detail.formId
-          },
-          dataType: "json",
-          success: function(t) {}
-        }), this.goOrder();
+          }).then(t=> {
+        });
+        this.goOrder();
       },
       closeSku: function() {
-        this.setData({
-          visible: 0,
-          stopClick: false
-        });
+          this.visible= false,
+          this.stopClick= false;
+          this.$forceUpdate();
       },
       goOrder: function() {
         var i = this;
-        if (i.data.can_car && (i.data.can_car = false), 1 == this.data.open_man_orderbuy && 0 == this.data.is_just_addcar) {
-          var t = 1 * this.data.man_orderbuy_money, a = this.data.sku_val, e = this.data.cur_sku_arr, o = e.actPrice[0] + "." + e.actPrice[1];
+        if (i.can_car && (i.can_car = false), 1 == this.open_man_orderbuy && 0 == this.is_just_addcar) {
+          var t = 1 * this.man_orderbuy_money, a = this.sku_val, e = this.cur_sku_arr, o = e.actPrice[0] + "." + e.actPrice[1];
           if (console.log(1 * o * a), 1 * o * a < t) return this.$wx.showToast({
             title: "满" + t + "元可下单！",
             icon: "none"
           }), false;
         }
         this.$wx.getStorageSync("token");
-        var s = this.$wx.getStorageSync("community"), n = i.data.addCar_goodsid, d = s.communityId, r = i.data.sku_val, c = i.data.cur_sku_arr, u = "", l = i.data.is_just_addcar;
+        var s = this.$wx.getStorageSync("community"), n = i.addCar_goodsid, d = s.communityId, r = i.sku_val, c = i.cur_sku_arr, u = "", l = i.is_just_addcar;
         c && c.option_item_ids && (u = c.option_item_ids);
         var _ = this.buy_type ? this.buy_type : "dan", m = {
           goods_id: n,
@@ -1080,6 +1140,8 @@
           is_just_addcar: l
         };
         util.addCart(m).then(function(t) {
+            console.log(m,"addCart")
+            debugger
           if (1 == t.showVipModal) {
             var a = t.data.pop_vipmember_buyimage;
 //            this.$wx.hideLoading(),
@@ -1087,55 +1149,70 @@
               i.showVipModal= true,
               i.visible= false;
 
-          } else if (3 == t.data.code || 7 == t.data.code) this.$wx.showToast({
-            title: t.data.msg,
+          } else if (3 == t.code || 7 == t.code) i.$wx.showToast({
+            title: t.msg,
             icon: "none",
             duration: 2e3
-          }); else if ("integral" == _) if (6 == t.data.code) {
-            var e = t.data.msg;
-            this.$wx.showToast({
+          }); else if ("integral" == _) if (6 == t.code) {
+            var e = t.msg;
+            i.$wx.showToast({
               title: e,
               icon: "none",
               duration: 2e3
             });
-          } else this.$wx.navigateTo({
+          } else i.$wx.navigateTo({
             url: "/lionfish_comshop/pages/order/placeOrder?type=integral"
-          }); else if (4 == t.data.code)
+          }); else if (4 == t.code)
 //              this.$wx.hideLoading(),
 
             i.needAuth= true,
             i.showAuthModal= true,
             i.visible= false
-          ; else if (6 == t.data.code) {
-            e = t.data.msg;
-            var o = t.data.max_quantity || "";
-            0 < o && i.setData({
-              sku_val: o
-            }), this.$wx.showToast({
-              title: e,
-              icon: "none",
-              duration: 2e3
-            });
-          } else if (1 == l) i.closeSku(), this.$wx.showToast({
-            title: "已加入购物车",
-            image: "@/assets/images/addShopCart.png"
-          }), this.$app.globalData.cartNum = t.data.total, i.cartNum= t.data.total, status.indexListCarCount(n); else {
-            var s = t.data.is_limit_distance_buy;
-            3 < getCurrentPages().length ? this.$wx.redirectTo({
-              url: "/lionfish_comshop/pages/order/placeOrder?type=dan&is_limit=" + s
-            }) : this.$wx.navigateTo({
+          ; else if (6 == t.code) {
+            e = t.msg;
+            var o = t.max_quantity || "";
+            if(0 < o){
+                i.sku_val= o;
+                this.$wx.showToast({
+                title: e,
+                icon: "none",
+                duration: 2e3
+              });
+            }
+          } else if (1 == l) {
+              debugger
+              i.closeSku();
+              i.$wx.showToast({
+                title: "已加入购物车",
+                image: "@/assets/images/addShopCart.png"
+              });
+              i.$app.globalData.cartNum = t.total;
+              i.cartNum= t.total;
+              status.indexListCarCount(n);
+          } else {
+            var s = t.is_limit_distance_buy;
+//            3 < getCurrentPages().length ? this.$wx.redirectTo({
+//              url: "/lionfish_comshop/pages/order/placeOrder?type=dan&is_limit=" + s
+//            }) : this.$wx.navigateTo({
+//              url: "/lionfish_comshop/pages/order/placeOrder?type=dan&is_limit=" + s
+//            });
+            i.$wx.redirectTo({
               url: "/lionfish_comshop/pages/order/placeOrder?type=dan&is_limit=" + s
             });
           }
         }).catch(function(t) {
-          this.$app.util.message(t || "请求失败", "", "error");
+          this.$wx.showToast({
+            title: t || "请求失败",
+            icon: "none",
+            duration: 2000
+          })
         });
       },
       vipModal: function(t) {
         this.setData(t.detail);
       },
       selectSku: function(t) {
-        var a = t.currentTarget.dataset.type.split("_"), e = this.data, o = e.sku, s = e.skuList, i = e.sku_val, n = {
+        var a = t.currentTarget.dataset.type.split("_"), e = this, o = e.sku, s = e.skuList, i = e.sku_val, n = {
           name: a[3],
           id: a[2],
           index: a[0],
@@ -1147,38 +1224,39 @@
         (i = i || 1) > c.canBuyNum && (u.sku_val = c.canBuyNum, this.$wx.showToast({
           title: "最多只能购买" + c.canBuyNum + "件",
           icon: "none"
-        })), this.setData(_extends({
+        }));
+        var ext = _extends({
           cur_sku_arr: c,
           sku: o
-        }, u)), console.log(d);
+        }, u)
+        console.log(d);
       },
       submit: function(t) {
         var a = t.detail.formId, e = this.$wx.getStorageSync("token");
-        app.util.request({
-          url: "entry/wxapp/user",
-          data: {
+        this.$http({
+
             controller: "user.get_member_form_id",
             token: e,
             from_id: a
-          },
-          dataType: "json",
-          success: function(t) {}
+          }).then(t=> {
         });
       },
       balance: function(t) {
-        this.authModal() && (this.setData({
-          is_just_addcar: 0
-        }), this.openSku());
+        if(this.authModal()){
+          this.is_just_addcar= 0;
+          this.openSku()
+        }
       },
       setNum: function(t) {
-        var a = t.currentTarget.dataset.type, e = 1, o = 1 * this.data.sku_val;
+
+        var a = t.currentTarget.dataset.type, e = 1, o = 1 * this.sku_val;
         "add" == a ? e = o + 1 : "decrease" == a && 1 < o && (e = o - 1);
-        var s = this.data.sku, i = this.data.skuList;
+        var s = this.sku, i = this.skuList;
         if (0 < s.length) for (var n = "", d = 0; d < s.length; d++) d == s.length - 1 ? n += s[d].id : n = n + s[d].id + "_";
-        0 < i.length ? e > i.sku_mu_list[n].canBuyNum && (e -= 1) : e > this.data.cur_sku_arr.canBuyNum && (e -= 1);
-        this.setData({
-          sku_val: e
-        });
+        0 < i.length ? e > i.sku_mu_list[n].canBuyNum && (e -= 1) : e > this.cur_sku_arr.canBuyNum && (e -= 1);
+        this.sku_val= e;
+        this.visible = true;
+        this.$forceUpdate();
       },
       scrollImagesChange: function(t) {
         this.videoContext.pause(), this.fmShow= true,
@@ -1196,47 +1274,43 @@
             title: "获取中"
           });
           var t = this.$wx.getStorageSync("token"), a = this.$wx.getStorageSync("community"), e = this.order.goods_id, o = a.communityId, s = this;
-          app.util.request({
-            url: "entry/wxapp/index",
-            data: {
+          this.$http({
+
               controller: "goods.get_user_goods_qrcode",
               token: t,
               community_id: o,
               goods_id: e
-            },
-            dataType: "json",
-            success: function(t) {
-              if (0 == t.data.code) {
+            }).then(t=> {
+                console.log(t,"get_user_goods_qrcode");
+              if (0 == t.code) {
 //                setTimeout(function() {
 //                  this.$wx.hideLoading();
 //                }, 2e3);
-                var a = t.data.image_path;
+                var a = t.image_path;
                 this.$wx.getImageInfo({
                   src: a,
                   success: function(t) {
                     var a = t.path;
-                    this.$wx.saveImageToPhotosAlbum({
-                      filePath: a,
-                      success: function(t) {
-                        this.$wx.showToast({
-                          title: "图片保存成功，可以分享了",
-                          icon: "none",
-                          duration: 2e3
-                        }), s.is_share_html= true;
-                      }
-                    });
+//                    this.$wx.saveImageToPhotosAlbum({
+//                      filePath: a,
+//                      success: function(t) {
+//                        this.$wx.showToast({
+//                          title: "图片保存成功，可以分享了",
+//                          icon: "none",
+//                          duration: 2e3
+//                        }), s.is_share_html= true;
+//                      }
+//                    });
                   }
                 });
-              } else s.setData({
-                needAuth: true
-              });
-            }
+              } else s.needAuth= true;
           });
         }
       },
       onShow: function() {
         var a = this;
         util.check_login_new().then(function(t) {
+            console.log(t,"check_login_new");
           t ? (0, status.cartNum)("", true).then(function(t) {
             if (0 == t.code) a.cartNum= t.data;
           }) : a.needAuth= true;
@@ -1266,10 +1340,10 @@
               if (0 == t.code) {
                 this.$wx.hideLoading();
                 var a = t.image_path;
-                this.$wx.predivImage({
-                  current: a,
-                  urls: [ a ]
-                });
+//                this.$wx.predivImage({
+//                  current: a,
+//                  urls: [ a ]
+//                });
               } else s.needAuth= true;
           });
         }
@@ -1296,23 +1370,23 @@
           src: a,
           success: function(t) {
             var a = t.path;
-            a && this.$wx.saveImageToPhotosAlbum({
-              filePath: a,
-              success: function(t) {
-                console.log(t), this.$wx.hideLoading(), this.$wx.showToast({
-                  title: "已保存相册",
-                  icon: "none",
-                  duration: 2e3
-                }), e.hideModal= true;
-              },
-              fail: function(t) {
-                this.$wx.hideLoading(), console.log(t), "saveImageToPhotosAlbum:fail:auth denied" === t.errMsg && this.$wx.openSetting({
-                  success: function(t) {
-                    t.authSetting["scope.writePhotosAlbum"] ? console.log("获取权限成功，再次点击图片保存到相册") : console.log("获取权限失败");
-                  }
-                });
-              }
-            });
+//            a && this.$wx.saveImageToPhotosAlbum({
+//              filePath: a,
+//              success: function(t) {
+//                console.log(t), this.$wx.hideLoading(), this.$wx.showToast({
+//                  title: "已保存相册",
+//                  icon: "none",
+//                  duration: 2e3
+//                }), e.hideModal= true;
+//              },
+//              fail: function(t) {
+//                this.$wx.hideLoading(), console.log(t), "saveImageToPhotosAlbum:fail:auth denied" === t.errMsg && this.$wx.openSetting({
+//                  success: function(t) {
+//                    t.authSetting["scope.writePhotosAlbum"] ? console.log("获取权限成功，再次点击图片保存到相册") : console.log("获取权限失败");
+//                  }
+//                });
+//              }
+//            });
           }
         });
       },
@@ -1461,7 +1535,7 @@
         if("" == e || isNaN(e))  this.sku_val= 1;
       },
       changeNumber: function(t) {
-        var a = this.data, e = a.cur_sku_arr, o = a.sku_val, s = 1 * e.stock, i = t.detail;
+        var a = this, e = a.cur_sku_arr, o = a.sku_val, s = 1 * e.stock, i = t.detail;
         if (this.focusFlag = false, i) {
           var n = parseInt(i.value);
           s < (n = n < 1 ? 1 : n) ? (this.$wx.showToast({
@@ -1500,6 +1574,9 @@
         this.$wx.redirectTo({
           url: link + id
         })
+      },
+      close: function() {
+        this.visible = false;
       },
     }
   }
