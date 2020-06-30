@@ -77,23 +77,23 @@
             <span class="num" :style="{background:skin.color}" v-show="member_info.wait_send_count!=0">{{member_info.wait_send_count}}</span>
             <!--<img class="icon-img" :src="user_order_menu_icons.i2?user_order_menu_icons.i2:'@/assets/images/undeli.png'"/>-->
             <img class="icon-img" src="@/assets/images/undeli.png"/>
-            <span style="color: #444;">$t('common.daipeisong')</span>
+            <span style="color: #444;">{{$t('common.daipeisong')}}</span>
           </div>
           <div @click="goLink2" class="order_status" data-link="/lionfish_comshop/pages/order/index?order_status=4">
             <span class="num" :style="{background:skin.color}" v-show="member_info.wait_get_count!=0">{{member_info.wait_get_count}}</span>
             <!--<img class="icon-img" :src="user_order_menu_icons.i3?user_order_menu_icons.i3:'@/assets/images/distributionIcon.png'"/>-->
             <img class="icon-img" src="@/assets/images/distributionIcon.png"/>
-            <span style="color: #444;">$t('common.daitihuo')</span>
+            <span style="color: #444;">{{$t('common.daitihuo')}}</span>
           </div>
           <div @click="goLink2" class="order_status" data-link="/lionfish_comshop/pages/order/index?order_status=6">
             <!--<img class="icon-img" :src="user_order_menu_icons.i4?user_order_menu_icons.i4:'@/assets/images/completeIcon.png'"/>-->
             <img class="icon-img" src="@/assets/images/completeIcon.png"/>
-            <span style="color: #444;">$t('common.yitihuo')</span>
+            <span style="color: #444;">{{$t('common.yitihuo')}}</span>
           </div>
           <div @click="goLink2" class="order_status" data-link="/lionfish_comshop/pages/refund/refundList">
             <!--<img class="icon-img" :src="user_order_menu_icons.i5?user_order_menu_icons.i5:'@/assets/images/refundIcon.png'"/>-->
             <img class="icon-img" src="@/assets/images/refundIcon.png"/>
-            <span style="color: #444;">$t('common.shouhoufuwu')</span>
+            <span style="color: #444;">{{$t('common.shouhoufuwu')}}</span>
           </div>
         </div>
       </div>
@@ -101,7 +101,7 @@
       <div class="tool distribution" v-if="community&&show_user_change_comunity==1">
         <div class="my-distribution modal-head">
           <div class="my-distribution-title">
-            <span>$t('common.wodezitidian')</span>
+            <span>{{$t('common.wodezitidian')}}</span>
           </div>
           <div v-if="open_danhead_model==1"></div>
           <div v-else>
@@ -125,7 +125,6 @@
           </div>
         </div>
       </div>
-
 
       <div class="tool distribution" v-if="show_user_pin==1">
         <div v-on:click="goLink2" data-link="/lionfish_comshop/moduleA/pin/me">
