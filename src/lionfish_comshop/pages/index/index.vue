@@ -5,7 +5,7 @@
       <div :class="['index-box', 'pb100', (showNewCoupon?'preventTouchMove':'')]">
         <div class="miniAppTip" v-if="isTipShow">
           <div @click="handleProxy" class="add-myapp">
-            <span>$t('index.desktop')</span>
+            <span>{{$t('index.desktop')}}</span>
           </div>
         </div>
         <div @click="handleHideProxy" class="guide" v-if="isShowGuide">
@@ -23,7 +23,7 @@
                              v-if="hide_community_change_btn==0&&open_danhead_model!=1">
                   <div class="community-title">
                                 <span>{{community.communityName}}
-                <span class="community-change" v-if="hide_community_change_word==0">$t('index.change')</span>
+                <span class="community-change" v-if="hide_community_change_word==0">{{$t('index.change')}}</span>
                                     <span class="iconfont icon-youjiantou"></span>
                                 </span>
                   </div>
@@ -40,7 +40,7 @@
               </div>
               <div class="location-left" v-else>
                 <router-link hoverClass="router-hover" to="/lionfish_comshop/pages/position/community">
-                  $t('index.not_choose'){{groupInfo.owner_name}}， $t('index.to_choose')
+                  {{$t('index.not_choose')}}{{groupInfo.owner_name}}，{{ $t('index.to_choose')}}
                   <span class="iconfont icon-weizhi-tianchong"></span>
                 </router-link>
               </div>
@@ -70,7 +70,7 @@
               </div>
               <div @click="goLink" class="top-search" data-link="/lionfish_comshop/pages/type/search">
                 <span class="iconfont icon-sousuo1"></span>
-                $t('index.search')
+                ${{$t('index.search')}}
               </div>
             </div>
           </div>
@@ -207,7 +207,7 @@
                        v-if="tabIdx===1"/>
                   <img :src="(qgtab.two_selected?qgtab.two_selected:require('@/assets/images/index-tab-right-disabled.png'))"
                        v-else/>
-                  <span>{{index_qgtab_text[1]?index_qgtab_text[1]:$t('index.to_buy')}}
+                  <span>{{index_qgtab_text[1]?index_qgtab_text[1]: $t('index.to_buy')}}
             </span>
                 </div>
                 <div class="count-down-content" v-if="tabIdx===0">
