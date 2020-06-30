@@ -32,7 +32,7 @@
                 </div>
               </div>
             </div>
-            <div class="px15 pb10 fsz-26 text-gray">
+            <div class="px15 pb10 fsz-30 text-gray">
               <div class="tips i-flex i-flex-spb mb5">
                 <div>商品金额: <span class="red">${{goodsInfo.price}}</span>
                 </div>
@@ -49,15 +49,15 @@
               </div>
             </div>
           </div>
-          <div class="px15 py10 text-right">
+          <div class="px15 py10 fsz-30 text-right">
             <div class="mb5" v-if="head_shipping_fare">
               团长配送费:<span class="red weight">${{head_shipping_fare}} </span>
               <span class="fsz-24 text-gray">(归团长收入)</span>
             </div>
             <div bindtap="handleTipDialog">
               实际佣金:<span class="red weight">${{commision}} </span>
-              <span class="iconfont icon-shuoming text-dark fsz-28"></span>
-              <span class="fsz-24 text-gray"> ({{is_statements_state==1?'已结算':'待结算'}}<div v-if="is_statements_state==1&&statements_end_date"> {{statements_end_date}}</div>)</span>
+              <span class="iconfont icon-shuoming text-dark fsz-30"></span>
+              <span class="fsz-30 text-gray"> ({{is_statements_state==1?'已结算':'待结算'}}<span v-if="is_statements_state==1&&statements_end_date"> {{statements_end_date}}</span>)</span>
             </div>
           </div>
         </div>
@@ -162,39 +162,47 @@
 
       },
       getData: function() {
-        var h = this, t = this.$wx.getStorageSync("token");
-        this.orderId ? this.$http({
+        var h = this, token = this.$wx.getStorageSync("token");
+        if(this.orderId) {
+          this.$http({
             controller: "order.order_head_info",
-            token: t,
-            is_share: this.is_share,
-            id: this.orderId
+            token: token,
+            is_share: h.is_share,
+            id: h.orderId
           }).then(t=> {
-            if (this.$wx.hideLoading(), 0 == t.data.code) {
+            console.log(t, "order_head_info");
+            h.$wx.hideLoading();
+            if (0 == t.code) {
               var a = t.data, e = 0, s = 0, r = "", i = 0;
-              a && a.order_goods_list && a.order_goods_list.forEach(function(t) {
-                e += parseFloat(t.commision), i += parseFloat(t.head_shipping_fare), 1 == t.is_statements_state && (s = 1,
-                  r = t.statements_end_date);
+              a && a.order_goods_list && a.order_goods_list.forEach(function (item) {
+                e += parseFloat(item.commision), i += parseFloat(item.head_shipping_fare), 1 == item.is_statements_state && (s = 1,
+                  r = item.statements_end_date);
               });
               var o = t.data, n = o.open_aftersale, d = o.open_aftersale_time;
-              h.order= t.data;
-              h.commision= e.toFixed(2),
-              h.is_statements_state= s,
-              h.statements_end_date= r,
-              h.head_shipping_fare= i,
-              h.open_aftersale= n,
-              h.open_aftersale_time= d;
+              h.order = t.data;
+              h.commision = e.toFixed(2),
+              h.is_statements_state = s,
+              h.statements_end_date = r,
+              h.head_shipping_fare = i,
+              h.open_aftersale = n,
+              h.open_aftersale_time = d;
             }
-
-        }) : this.$wx.showModal({
-          title: "提示",
-          content: "订单不存在",
-          showCancel: !1,
-          success: function(t) {
-            t.confirm && this.$wx.redirectTo({
-              url: "/lionfish_comshop/pages/groupCenter/groupList"
-            });
-          }
         });
+
+        }else{
+          this.$wx.showModal({
+            title: "提示",
+            content: "订单不存在",
+            showCancel: !1,
+            success: function(t) {
+              if(t.confirm){
+                this.$wx.redirectTo({
+                  url: "/lionfish_comshop/pages/groupCenter/groupList"
+                });
+              }
+            }
+          });
+        }
       },
       swithState: function(t) {
         switch (t) {
