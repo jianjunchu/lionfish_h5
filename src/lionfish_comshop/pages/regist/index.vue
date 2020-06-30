@@ -1,21 +1,17 @@
 <template>
   <div class="phoneregist">
+	   <el-form >
         <slot name="header">
-            <h2>Hzmart Register</h2>
+            <h2 style="text-align: center;">Hzmart Register</h2>
         </slot><br>
-        <div class="input_wrapper">
+		
+		
+       <!-- <div class="input_wrapper">
             <div class="inputItem" :class="{'focus':isFocus.phoneNum,'phone_empty':errorFlag.phone_empty}">
                 <span class="chooseArea" @click="chooseArea()">
-                    <!-- <slot name="country_tel">+86</slot> -->
                     <select v-model="cityCode" style="width:60px;border: solid 0px #fff">
                       <option v-for="(city,index) in options" :key="index" :value="city.value">{{city.name}}</option>
                     </select>
-                    <!-- <span>
-                      <svg t="1566640213388" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2787" width="18" height="18">
-                        <path d="M512 721.5c-4.6 0-9.2-1.8-12.7-5.3l-383.1-383c-7-7-7-18.4 0-25.5s18.4-7 25.5 0L512 678.1l370.3-370.3c7-7 18.4-7 25.5 0 7 7 7 18.4 0 25.5l-383.1 383c-3.5 3.5-8.1 5.2-12.7 5.2z" p-id="2788">
-                        </path>
-                      </svg>
-                    </span> -->
                 </span>
                 <div class="inputContent">
                     <input type="text" @focus="focus('phoneNum')" @blur="blur('phoneNum')" ref="phoneNum" placeholder="Phone" v-model="input_info.phone" @keyup="inputPhone" maxlength="13" autofocus>
@@ -29,25 +25,66 @@
                     <button @click="getVerifyCode()" ref="getCode" :disabled="getCodeDisabled">{{getCodeBtnText}}</button>
                 </div>
             </div>
-        </div>
+        </div> -->
+		
+		
+		
+		
+		<div style="height: 50px;">
+		<div style="width: 100%;height:25px;border-bottom:1px solid #ccc;font-size: 16px;color: #939393;float: left;" @click="click_btn()" v-show="this.isShow">Phone</div>
+		<div style="width: 100%;height:41px;border-bottom:1px solid #3D7BD0;font-size: 16px;color: #3D7BD0;float: left;" v-show="this.isShow2">
+				 <span> 
+		 <el-select v-model="cityCode" placeholder="请选择" style="width:70px;height:30px;float: left;color: #0076FF;border:none">
+				<el-option label="65" value="1">+65 Singapore</el-option>
+		        <el-option label="60" value="2">+60 Malaysia </el-option>
+				<el-option label="62" value="3">+62 Indonesia</el-option>
+		  </el-select>
+		<span style="margin-top: 12220px;">|</span>
+		</span>
+		<input style="width: 60%;height: 100%;border:none;outline: none;height: 40px;background: none;"    v-model="input_info.phone"  @focus="focus('phoneNum')" @blur="blur('phoneNum')" ref="phoneNum" @keyup="inputPhone" maxlength="13" autofocus/>
+		</div>
+		</div>
+		
+		
+		<div style="height: 50px;">
+		 <!-- <div style="width: 100%;height:25px;border-bottom:1px solid #ccc;font-size: 16px;color: #939393;margin-top: 5px;"  @click="click_btn2()" >OTP code</div> -->
+		 <div style="width: 100%;height:28px;border-bottom:1px solid #ccc;font-size: 16px;color: #3D7BD0;" >
+		 <input style="width: 70%;height: 100%;border:none;outline: none;background: none;" v-model="input_info.code" id="input_code" @focus="focus('code')" @blur="blur('code')" @keyup="activeregist()" ref="code" placeholder="Code"/>
+		 <div style="float: right;background: #FDEACA;border-radius: 20px;color: #FDB56D;font-size: 13px;padding:5px;margin-bottom: 10px;" @click="getVerifyCode()" ref="getCode" :disabled="getCodeDisabled">{{getCodeBtnText}}</div>
+		 </div>
+		 <!-- <button @click="getVerifyCode()" ref="getCode" :disabled="getCodeDisabled" >{{getCodeBtnText}}</button> -->
+		 </div>
+	
+		
+		
         <div>
-            <button class="registBtn" :disabled="!registFlag" @click="regist()">
+            <button class="registBtn" :disabled="!registFlag" @click="regist()" style="background: #F3F8FE;color: #387BFE;border-radius: 5px;font-weight: 600;margin-top: 30px;">
                 Register
             </button>
         </div>
         <div class="gotoLogin">
-            Already hava an account? <a href="javascript:void()" @click="gotoLogin" style="color: blue">Login</a>
+           <span style="color: #959595;"> Already hava an account? </span> <a href="javascript:void()" @click="gotoLogin" style="color: blue">Login</a>
         </div>
+		<!-- <div class="gotoLogin">
+		 <span style="color: #959595;">Don't hava an account?</span>  <a href="javascript:void()" @click="gotoRegist" style="color: #568CE2;">Register</a>
+		</div> -->
+		</el-form>
     </div>
 </template>
 
 <script>
  // 按需引入部分组件
-    import { Toast } from 'vant';
+    import { Toast } from 'mint-ui';
+    import 'mint-ui/lib/style.css'
     export default {
         name: "bm_phone_regist",
         data(){
             return{
+				isShow:true,
+				isShow2:false,
+				isShow3:true,
+				isShow4:false,
+				aa:'65',
                 //用户输入信息
                 input_info:{
                     phone:"",
@@ -74,7 +111,7 @@
                 getCodeDisabled: true,
                 registFlag: true,
                 // 获取验证码按钮文字
-                getCodeBtnText: "获取验证码",
+                getCodeBtnText: "Get OTP",
                 //解决安卓输入框将fixed布局顶上的问题
                 hideFooter:true,
                 docmHeight: document.documentElement.clientHeight || document.body.clientHeight,
@@ -105,6 +142,14 @@
             this.hideFooter
         },
         methods:{
+			click_btn(){
+					this.isShow=false,
+					this.isShow2=true
+			},
+			click_btn2(){
+					  this.isShow3=false,
+					  this.isShow4=true
+			},
             inputPhone(){
                 //输入手机号时，keyup事件
                 let value = this.input_info.phone.replace(/\D/g, '').substr(0, 11); // 不允许输入非数字字符，超过11位数字截取前11位
@@ -123,7 +168,7 @@
                         this.getCodeDisabled = true;
                     }
                 } else if (len >= 8) {
-                    value = value.replace(/^(\d{3})(\d{4})/g, '$1 $2 ')
+                    value = value.replace(/^(\d{3})(\d{4})/g, '$1 $2 ')  
                     if (!this.errorFlag.phone_empty && this.timeOut) {
                         //激活获取验证码按钮
                         this.getCodeDisabled = false;
@@ -135,11 +180,11 @@
             },
             hideTopAndFooter: function(){
             this.$store.dispatch('app/hideTabbar');
-            this.$store.dispatch('app/hideToolbarMore');
-            this.$store.dispatch('app/hideToolbarBack');
+            this.$store.dispatch('app/hideToolbarMore'); 
+            this.$store.dispatch('app/hideToolbarBack'); 
             },
             chooseArea(){
-
+                
             },
             gotoLogin: function(){
                 this.$router.push({path: '/login'});
@@ -178,8 +223,10 @@
                 this.timeOut = false;
                 //倒计时
                 if (!this.errorFlag.phone_empty){
-                  Toast('验证码已发送');
-
+                    Toast({
+                        message: '验证码已发送',
+                        position: 'middle',
+                    });
                     this.timer = setInterval(()=>{
                         that.countDownTime--;
                         // that.getCodeBtnText = this.countDownTime + "s后重新获取";
@@ -236,32 +283,31 @@
 </script>
 
 <style lang="scss">
+	input::-webkit-input-placeholder{
+	       font-size: 20px;
+	}
   $mainColor: #007cdc;
-    .gradient{
-        background-image: linear-gradient(to right,$mainColor,lighten($mainColor,18%));
-    }
-    .error{
-        background: red;
-        transform: scaleY(1);
-        font-size: .72rem;
-        color: red;
-        text-align: right;
-        line-height: 1.6rem;
-    }
+  
+    
     .gotoLogin{
-        width: 100%;
-        height: 50px;
-        text-align: center;
+		font-size: 18px;
+		text-align: center;
+        // width: 100%;
+        // height: 50px;
+        // text-align: center;
         position: absolute;
-        bottom: 0;
-        left: 0;
-        line-height: 50px;
+		margin-top: 200px;
+		margin-left: 17px;
+        // bottom: 0;
+        // left: 0;
+        // line-height: 50px;
     }
     .phoneregist{
         width: 80%;
         height: 400px;
-        margin: 33% auto;
-        text-align: center;
+        // margin: 33% auto;
+		margin-left: 10%;
+        // text-align: center;
         h2{
             color: #2370e2;
             font-size: 1.8rem;
@@ -287,71 +333,7 @@
         }
         //用户名、密码输入框
         .input_wrapper{
-            .inputItem{
-                display: flex;
-                flex-direction: row;
-                justify-content: center;
-                align-items: center;
-                position: relative;
-                margin-top: 1.42rem;
-                &::after{
-                    content: "";
-                    position: absolute;
-                    height: 1px;
-                    width: 100%;
-                    bottom: 0;
-                    transform: scaleY(.5);
-                    background: #bfbfbf;
-                }
-                .chooseArea{
-                    display: flex;
-                    align-items: center;
-                    span{
-                        margin-left: .2rem;
-                        margin-top: 7.2%;
-                    }
-                }
-                .inputContent{
-                    padding: .4rem;
-                    input{
-                        font-size: 1.11rem;
-                        border: none;
-                        outline: none;
-                        width: 90%;
-                        letter-spacing: .1rem;
-                        &::placeholder{
-                            color: #aaaaaa;
-                        }
-                    }
-                    #input_code{
-                        text-align: center;
-                        letter-spacing: .6rem;
-                        &::placeholder{
-                            letter-spacing: .1rem;
-                        }
-                    }
-                }
-                .getCodeBtn{
-                    button {
-                        letter-spacing: 0;
-                        font-size: .72rem;
-                        background: white;
-                        color: $mainColor;
-                        border: .5px $mainColor solid;
-                        border-radius: 6px;
-                        margin-bottom: .4rem;
-                        text-indent: 0;
-                        &:active{
-                            background: #f1f1f1;
-                        }
-                        &:disabled{
-                            background: tint($mainColor,90%);
-                            color: fade($mainColor,40%);
-                            border: #f2f2f2;
-                        }
-                    }
-                }
-            }
+          
             /*.codeInput{*/
             /*    display: inline;*/
             /*}*/
@@ -479,5 +461,5 @@
             }
         }
     }
-
+    
 </style>
