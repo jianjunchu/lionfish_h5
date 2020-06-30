@@ -144,14 +144,46 @@
           <template is="cube" :data="{data:cube}"></template>
         </div>
         <div class="list-content">
-          <i-new-comer @openSku="openSku" :refresh="newComerRefresh" :skin="skin"
-                       v-if="is_show_new_buy==1"></i-new-comer>
-          <template is="pin" :data="{pinList:pinList,skin:skin}"></template>
-          <i-spike @openSku="openSku" :refresh="newComerRefresh" :skin="skin"
-                   v-if="is_show_spike_buy==1"></i-spike>
+
+          <i-new-comer @openSku="openSku" :refresh="newComerRefresh" :skin="skin" v-if="is_show_new_buy==1"></i-new-comer>
+
+          <!--<template is="pin" :data="{pinList:pinList,skin:skin}"></template>-->
+
+
+
+          <i-spike @openSku="openSku" :refresh="newComerRefresh" :skin="skin" v-if="is_show_spike_buy==1"></i-spike>
           <template is="seckill"
                     :data="{secRushList:secRushList,skin:skin,scekillTimeList:scekillTimeList,secKillActiveIdx:secKillActiveIdx,secKillGoodsIndex:secKillGoodsIndex,needAuth:needAuth}"
                     v-if="seckill_is_open==1&&seckill_is_show_index==1"></template>
+
+          <!--<view class="seckill" v-if="seckill_is_open==1&&seckill_is_show_index==1">
+            <view class="seckill-head i-flex" :style="{background:skin.color}">
+              <view class="tit">
+                <view>整点</view>
+                <view>秒杀</view>
+              </view>
+              <view class="i-flex-item i-flex">
+                <view bindtap="changeSecKillTime" class="seckill-head-item {{secKillActiveIdx==index?'active':''}}" data-idx="{{index}}" data-time="{{item.seckillTime}}" wx:for="{{scekillTimeList}}" wx:key="id">
+                  <view class="time">{{item.timeStr}}</view>
+                  <view class="desc" style="{{secKillActiveIdx==index?'color:'+skin.color:''}}">{{item.desc}}</view>
+                </view>
+              </view>
+              <view bindtap="goLink" class="more" data-link="/lionfish_comshop/moduleA/seckill/list?time={{scekillTimeList[secKillActiveIdx].seckillTime}}">
+                更多 <text class="iconfont icon-gengduo"></text>
+              </view>
+            </view>
+            <view class="seckill-list" wx:if="{{secRushList.length}}">
+              <swiper circular indicatorDots="{{false}}" bindchange="scrollSecKillGoodsChange" class="sec-swiper-content" duration="400">
+                <swiper-item wx:for="{{secRushList}}" wx:key="id">
+                  <i-seckill-spu begin="{{scekillTimeList[currentTab].state==2?1:0}}" needAuth="{{needAuth}}" skin="{{skin}}" spuItem="{{item}}"></i-seckill-spu>
+                </swiper-item>
+              </swiper>
+              <text class="current" wx:if="{{secRushList.length}}">{{secKillGoodsIndex}}/{{secRushList.length}}</text>
+            </view>
+          </view>-->
+
+
+
           <i-topic @openSku="openSku" :refresh="couponRefresh"></i-topic>
           <div class="theme3 bg-f" v-if="typeTopicList.length&&(typeItem.banner||typeItem.list.length)"
                v-for="(typeItem,index) in typeTopicList" :key="typeItem.id">
@@ -1395,27 +1427,27 @@
             var a = t.pop_vipmember_buyimage
             i.$wx.hideLoading(), (i.pop_vipmember_buyimage = a, i.showVipModal = !0, i.visible = !1)
           } else if (3 == t.code || 7 == t.code) {
-            this.$wx.showToast({
+            i.$wx.showToast({
               title: t.msg,
               icon: 'none',
               duration: 2e3
             })
-          } else if (4 == t.data.code) {
-            this.$wx.hideLoading(), (i.needAuth = !0, i.showAuthModal = !0, i.visible = !1)
-          } else if (6 == t.data.code) {
+          } else if (4 == t.code) {
+            i.$wx.hideLoading(), (i.needAuth = !0, i.showAuthModal = !0, i.visible = !1)
+          } else if (6 == t.code) {
             var e = t.max_quantity || ''
             if (0 < e) {
               i.sku_val = e
             }
             var o = t.msg
-            this.$wx.showToast({
+            i.$wx.showToast({
               title: o,
               icon: 'none',
               duration: 2e3
             })
           } else {
             i.closeSku()
-            this.$wx.showToast({
+            i.$wx.showToast({
               title: '已加入购物车',
               image: '../../images/addShopCart.png'
             })
@@ -1567,6 +1599,14 @@
       },
       authModal: function() {
         var i = this;
+
+        var t = i.$wx.getStorageSync('community');
+        if(!t && !t.communityId){
+          this.$wx.redirectTo({
+            url: '/lionfish_comshop/pages/position/community'
+          })
+        }
+
         util.check_login_new().then(function(e) {
             if(e){
               i.needAuth = !1
@@ -1576,6 +1616,9 @@
               })
             }
         })
+
+
+
       },
       goNavUrl: function(t) {
         var a = t.currentTarget.dataset.idx,
@@ -2596,11 +2639,11 @@
   }
 
   .sticky-content-index .tab-nav-index .tab-nav-index-item:nth-child(2) {
-    margin-left: -20px;
+    margin-left: -8px;
   }
 
   .sticky-content-index .tab-nav-index .tab-nav-index-item:nth-child(2) span {
-    margin-left: 30px;
+    margin-left: -12px;
   }
 
   .sticky-content-index .category-list {
