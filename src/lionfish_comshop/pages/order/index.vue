@@ -160,7 +160,7 @@
                   <div class="dot-item"></div>
                 </div>
               </div>
-              <div class="content-wrap" style="margin-top:12px" v-if="item.delivery_time && item.delivery_time!='' && item.delivery_date && item.delivery_date!=''">
+              <div class="content-wrap fsz-30" style="margin-top:12px" v-if="item.delivery_time && item.delivery_time!='' && item.delivery_date && item.delivery_date!=''">
 
                 {{item.delivery=='pickup'?'提货时间:':'送货时间:'}} {{item.delivery_date}} [{{item.delivery_time}}]
               </div>
@@ -318,12 +318,12 @@
 
       copyText: function (e) {
         console.log(e)
-        wx.setClipboardData({
+        this.$wx.setClipboardData({
           data: e.currentTarget.dataset.text,
           success: function (res) {
-            wx.getClipboardData({
+            this.$wx.getClipboardData({
               success: function (res) {
-                wx.showToast({
+                this.$wx.showToast({
                   title: '复制成功'
                 })
               }
@@ -378,20 +378,15 @@
         var this_ = this;
         var s = this.$wx.getStorageSync("token"),a = this.currentItem;
         var type = t.currentTarget.dataset.type
-        wx.showLoading(), app.util.request({
-          url: "entry/wxapp/user",
-          data: {
+        this.$wx.showLoading();
+        this.$http_post({
             controller: "order.pay_order",
             token: s,
             order_id: a.order_id,
             payment_code: type,
-          },
-          dataType: "json",
-          method: "POST",
-          success: function(t) {
-            wx.hideLoading();
+          }).then(t=> {
+            this.$wx.hideLoading();
             this_.getData();
-          }
 
         });
       },
@@ -492,7 +487,6 @@
           success(res) {
             if (res.confirm) {
                this.$http({
-
                    controller: 'order.cancel_order',
                    token: token,
                    order_id: id
@@ -510,9 +504,7 @@
         })
       },
       getOrder: function(t) {
-
           this.is_empty = false;
-
         var e = t.currentTarget.dataset.type;
         this.order_(e);
       },
@@ -527,27 +519,22 @@
         this.closePaymentModal();
         var e = this.$wx.getStorageSync("token"), a = this.currentItem;
 
-        app.util.request({
-          url: "entry/wxapp/index",
-          data: {
+        this.$http_post({
             controller: "car.wxpay",
             token: e,
             order_id: a.order_id
-          },
-          dataType: "json",
-          method: "POST",
-          success: function(t) {
-            if (0 == t.data.code) {
-              t.data.is_pin;
+          }).then(t=> {
+            if (0 == t.code) {
+              t.is_pin;
               wx.requestPayment({
-                appId: t.data.appId,
-                timeStamp: t.data.timeStamp,
-                nonceStr: t.data.nonceStr,
-                package: t.data.package,
-                signType: t.data.signType,
-                paySign: t.data.paySign,
+                appId: t.appId,
+                timeStamp: t.timeStamp,
+                nonceStr: t.nonceStr,
+                package: t.package,
+                signType: t.signType,
+                paySign: t.paySign,
                 success: function(t) {
-                  wx.redirectTo({
+                  this.$wx.redirectTo({
                     url: "/lionfish_comshop/pages/order/order?id=" + a + "&is_show=1"
                   });
                 },
@@ -555,25 +542,26 @@
                   console.log(t);
                 }
               });
-            } else 2 == t.data.code && wx.showToast({
-              title: t.data.msg,
-              icon: "none"
-            });
+            } else if(2 == t.code){
+                this.$wx.showToast({
+                  title: t.msg,
+                  icon: "none"
+                });
           }
         });
       },
       onReachBottom: function() {
-        if (1 == this.data.no_order) return false;
-        this.data.page += 1, this.getData(), this.setData({
-          isHideLoadMore: false
-        });
+        if (1 == this.no_order) return false;
+        this.page += 1, this.getData(), this.isHideLoadMore= false;
       },
       onPullDownRefresh: function() {
-        this.setData({
-          is_empty: false,
-          page: 1,
-          order: []
-        }), wx.showLoading(), this.getData(), wx.stopPullDownRefresh();
+        this.is_empty= false,
+        this.page= 1,
+        this.order= [];
+
+        this.$wx.showLoading();
+        this.getData();
+        this.$wx.stopPullDownRefresh();
       }
     }
   }

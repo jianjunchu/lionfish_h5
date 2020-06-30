@@ -90,14 +90,14 @@
                         </div>
                         <div :class="['i-class', 'i-input-number', 'i-input-number-size-'+size]"
                              v-if="shopcarts.can_buy==1&&shopcarts.option_can_buy==1">
-                          <div @click="regoodsnum" class="i-input-number-minus " :data-gid="shopcarts.id"
+                          <div @click.stop="regoodsnum" class="i-input-number-minus " :data-gid="shopcarts.id"
                                :data-index="idx" :data-parentid="index">
                             <img src="@/assets/images/icon-input-reduce.png"/>
                           </div>
                           <input @change="changeNumber" class="i-input-number-text " :data-index="idx"
                                  :data-parentid="index" :max="shopcarts.max_quantity" min="0" type="number"
                                  :value="shopcarts.goodsnum"></input>
-                          <div @click="addgoodsnum" class="i-input-number-plus " :data-gid="shopcarts.id"
+                          <div @click.stop="addgoodsnum" class="i-input-number-plus " :data-gid="shopcarts.id"
                                :data-index="idx" :data-parentid="index" :id="'tapTest'+idx">
                             <img src="@/assets/images/icon-input-add.png"/>
                           </div>
@@ -162,14 +162,14 @@
                         </div>
                         <div :class="['i-class', 'i-input-number', 'i-input-number-size-'+size]"
                              v-if="shopcarts.can_buy==1&&shopcarts.option_can_buy==1">
-                          <div @click="regoodsnum" class="i-input-number-minus " :data-gid="shopcarts.id"
+                          <div @click.stop="regoodsnum" class="i-input-number-minus " :data-gid="shopcarts.id"
                                :data-index="idx" :data-parentid="index">
                             <img src="@/assets/images/icon-input-reduce.png"/>
                           </div>
                           <input @change="changeNumber" class="i-input-number-text " :data-index="idx"
                                  :data-parentid="index" :max="shopcarts.max_quantity" min="0" type="number"
                                  :value="shopcarts.goodsnum"></input>
-                          <div @click="addgoodsnum" class="i-input-number-plus " :data-gid="shopcarts.id"
+                          <div @click.stop="addgoodsnum" class="i-input-number-plus " :data-gid="shopcarts.id"
                                :data-index="idx" :data-parentid="index" :id="'tapTest'+idx">
                             <img src="@/assets/images/icon-input-add.png"/>
                           </div>
@@ -500,7 +500,6 @@
           s.community_id = a
           s.isIpx = app.globalData.isIpx
           status.cartNum().then(function(t) {
-
             s.cartNum = t.data
           })
           s.showCartGoods()
@@ -893,7 +892,7 @@
         const wx = this.$wx, app = this.$getApp()
         if (0 != addFlag) {
           addFlag = 0
-          var c = parseInt(r.currentTarget.dataset.parentid), t = parseInt(r.currentTarget.dataset.index), i = this,
+          var c = parseInt(r.currentTarget.dataset.parentid), t = parseInt(r.currentTarget.dataset.index), i = this,s = r.currentTarget.dataset.gid,
             n = this.carts[c].shopcarts[t], a = parseInt(n.max_quantity)
           if (1 == n.isselect) {
             var d = parseInt(this.allnum) + 1, s = this.calcVipPrice(this.allcount, n, 1),
@@ -941,10 +940,10 @@
             dataType: 'json',
             success: function(t) {
               if (0 == t.code) {
-                if ((i.carts = i.carts), status.cartNum.then(function(t) {
+                if (status.cartNum().then(function(t) {
                   0 == t.code && (i.cartNum = t.data)
                 }), '' == n.goodstype) {
-                  var a = 1 * n.goodsnum, s = r.currentTarget.dataset.gid
+                  var a = 1 * n.goodsnum;
                   status.indexListCarCount(s, a), (i.updateCart = g + 1)
                 }
               } else {

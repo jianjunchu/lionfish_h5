@@ -6,7 +6,7 @@
         <h3 class="title">Hzmart Login</h3>
       </div>
 
-      <el-form-item prop="username">
+      <!-- <el-form-item prop="username">
         <span class="svg-container">
           <svg-icon icon-class="user" />
         </span>
@@ -19,9 +19,25 @@
           tabindex="1"
           auto-complete="on"
         />
-      </el-form-item>
+      </el-form-item> -->
+	  <div style="height: 50px;">
+	  <div style="width: 100%;height:25px;border-bottom:1px solid #ccc;font-size: 16px;color: #939393;float: left;" @click="click_btn()" v-show="this.isShow">Phone</div>
+	  <div style="width: 100%;height:41px;border-bottom:1px solid #3D7BD0;font-size: 16px;color: #3D7BD0;float: left;" v-show="this.isShow2">
+		 <span> 
+	   <el-select v-model="aa" placeholder="请选择" style="width:20px;height:30px;float: left;color: #0076FF;float: left;">
+		   <el-option label="65" value="1">+65 Singapore</el-option>
+	          <el-option label="60" value="2">+60 Malaysia </el-option>
+			   <el-option label="62" value="3">+62 Indonesia</el-option>
+	    </el-select>
+	  <span style="margin-top: 12220px;">|</span>
+	  </span>
+	  <input style="width: 60%;height: 100%;border:none;outline: none;height: 40px;" v-model="loginForm.username"/>
+	  </div>
+	  </div>
 
-      <el-form-item prop="password">
+	  <!-- <input style="width: 100%;border: none;border-bottom: 1px solid #ccc;outline: none;font-size: 17px;height:40px" placeholder="Phone" /> -->
+      <!-- <input style="width: 100%;border: none;border-bottom: 1px solid #ccc;outline: none;font-size: 17px;height:40px" placeholder="Phone" /> -->
+      <!-- <el-form-item prop="password">
         <span class="svg-container">
           <svg-icon icon-class="password" />
         </span>
@@ -39,9 +55,14 @@
         <span class="show-pwd" @click="showPwd">
           <svg-icon :icon-class="passwordType === 'password' ? 'eye' : 'eye-open'" />
         </span>
-      </el-form-item>
-
-      <el-button :loading="loading" type="primary" style="width:100%;margin-bottom:30px;" @click.native.prevent="handleLogin">Login</el-button>
+      </el-form-item> -->
+	  <div style="height: 50px;">
+       <div style="width: 100%;height:25px;border-bottom:1px solid #ccc;font-size: 16px;color: #939393;margin-top: 5px;" @click="click_btn2()" v-show="this.isShow3">Password</div>
+	   <div style="width: 100%;height:28px;border-bottom:1px solid #3D7BD0;font-size: 16px;color: #3D7BD0;margin-top: 10px;" v-show="this.isShow4">
+	   <input style="width: 90%;height: 100%;border:none;outline: none;" v-model="loginForm.password"/>
+	   </div>
+	   </div>
+      <el-button :loading="loading" type="primary" style="height: 40px;width:100%;margin-bottom:30px;border-radius: 20px;background: #FDEACA;border:none;color: #F7AC39;font-weight: 600;margin-top: 50px;" @click.native.prevent="handleLogin">Log in</el-button>
 
       <!-- <div class="tips">
         <span style="margin-right:20px;">username: admin</span>
@@ -50,7 +71,7 @@
 
     </el-form>
     <div class="gotoRegist">
-      Don't hava an account? <a href="javascript:void()" @click="gotoRegist" style="color: blue">Register</a>
+     <span style="color: #959595;">Don't hava an account?</span>  <a href="javascript:void()" @click="gotoRegist" style="color: #568CE2;">Register</a>
     </div>
   </div>
 </template>
@@ -76,14 +97,20 @@ export default {
     return {
       loginForm: {
         username: '',
-        password: ''
+        password: '',
+
       },
       loginRules: {
         password: [{ required: true, trigger: 'blur', validator: validatePassword }]
       },
       loading: false,
       passwordType: 'password',
-      redirect: undefined
+      redirect: undefined,
+	  isShow:true,
+	  isShow2:false,
+	  isShow3:true,
+	  isShow4:false,
+	  aa:'65',
     }
   },
   watch: {
@@ -95,6 +122,14 @@ export default {
     }
   },
   methods: {
+	  click_btn(){
+		this.isShow=false,
+		this.isShow2=true
+	  },
+	  click_btn2(){
+		  this.isShow3=false,
+		  this.isShow4=true
+	  },
     showPwd() {
       if (this.passwordType === 'password') {
         this.passwordType = ''
@@ -118,7 +153,7 @@ export default {
           alert('登录成功');
           this.$wx.setStorageSync('token', response.token)
           setToken(response.token);
-          this.$router.push({path: '/'});
+          this.$router.push({path: '/lionfish_comshop/pages/index/index'});
         }else{
           alert("登录失败");
         }
@@ -140,6 +175,9 @@ export default {
 </script>
 
 <style lang="scss">
+		input::-webkit-input-placeholder{
+			   font-size: 20px;
+		}
 /* 修复input 背景不协调 和光标变色 */
 /* Detail see https://github.com/PanJiaChen/vue-element-admin/pull/927 */
 
@@ -179,12 +217,14 @@ $cursor: rgba(122, 116, 116, 0.548);
 
   .gotoRegist{
     width: 100%;
-    height: 50px;
+    // height: 50px;
     text-align: center;
-    position: absolute;
-    bottom: 0;
+    // position: absolute;
+    bottom: 0px;
     left: 0;
-    line-height: 50px;
+	margin-top: 70px;
+	font-size: 16px;
+    // line-height: 50px;
   }
   .el-form-item {
     border: 1px solid rgba(255, 255, 255, 0.1);
@@ -201,7 +241,7 @@ $dark_gray:#889aa4;
 $light_gray:rgb(17, 123, 245);
 
 .login-container {
-  min-height: 80%;
+  min-height: 94%;
   width: 100%;
   background-color: $bg;
   overflow: hidden;
