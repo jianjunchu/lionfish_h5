@@ -202,14 +202,14 @@
                        v-if="tabIdx===0"/>
                   <img :src="(qgtab.one_selected?qgtab.one_selected:require('@/assets/images/index-tab-left-disabled.png'))"
                        v-else/>
-                  <span>{{index_qgtab_text[0]?index_qgtab_text[0]:'"$t(index.buying)'}}</span>
+                  <span>{{index_qgtab_text[0]?index_qgtab_text[0]:$t('index.buying')}}</span>
                 </div>
                 <div @click="tabSwitch" :class="['tab-nav-index-item', (tabIdx===1?'active':'')]" data-idx="1">
                   <img :src="(qgtab.two_select?qgtab.two_select:require('@/assets/images/index-tab-right-active.png'))"
                        v-if="tabIdx===1"/>
                   <img :src="(qgtab.two_selected?qgtab.two_selected:require('@/assets/images/index-tab-right-disabled.png'))"
                        v-else/>
-                  <span>{{index_qgtab_text[1]?index_qgtab_text[1]:$t(index.to_buy)}}
+                  <span>{{index_qgtab_text[1]?index_qgtab_text[1]:$t('index.to_buy')}}
             </span>
                 </div>
                 <div class="count-down-content" v-if="tabIdx===0">
