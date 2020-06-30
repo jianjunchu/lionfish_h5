@@ -1,5 +1,5 @@
 <template>
-  <view class="countdown-class i-count-down">
+   <div class="countdown-class i-count-down">
     <slot></slot>
     <span class="em" v-if="showDay&&time.day>0">{{time.day}}天</span>
     <text class="item-class">{{time.hour}}</text>
@@ -7,7 +7,7 @@
     <text class="item-class">{{time.minute}}</text>
     :
     <text class="item-class">{{time.second}}</text>
-  </view>
+   </div>
 </template>
 
 <script>

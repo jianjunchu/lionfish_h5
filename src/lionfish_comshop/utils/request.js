@@ -16,7 +16,7 @@ service.interceptors.request.use(
     // do something before request is sent
 
     config.params = {
-      i: 2,
+      i: 3,
       t: 0,
       v: '12.4.0',
       from: 'wxapp',

@@ -36,10 +36,12 @@ function isIdCard(o) {
   return /(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/.test(o)
 }
 
-module.exports = {
+const exp = {
   addToCart: addToCart,
   skuConfirm: skuConfirm,
   collectFormIds: collectFormIds,
   checkMobile: checkMobile,
   isIdCard: isIdCard
 }
+
+export default exp

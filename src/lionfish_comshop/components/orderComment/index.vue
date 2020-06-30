@@ -4,9 +4,9 @@
       <div slot="header">
         <div class="header">订单备注</div>
       </div>
-      <view slot="content">
-        <view class="content-wrap">{{comment}}</view>
-      </view>
+       <div slot="content">
+         <div class="content-wrap">{{comment}} </div>
+       </div>
     </i-card>
   </div>
 

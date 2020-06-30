@@ -4,9 +4,14 @@
     <!--<el-image :error="bindError" :load="imageLoad" @click="preview" :class="['i-class', 'img-def', 'opacity' ,isLoad?'show-img':'']" :lazy="isLazy_" mode="aspectFill" :src="img"/>-->
   <!--</div>-->
   <div class="i-class img-content">
-    <img class="i-class img-def" :src="defaultImage"/>
-    <img class="show-img" :src="img" :width="width" :height="height" />
-  </div>
+    <van-image
+      :style="{'width': width+'px', 'height': height+'px'}"
+      :src="loadImage">
+      <template v-slot:loading>
+        <van-loading type="spinner" size="20" />
+      </template>
+    </van-image>
+    </div>
 
 </template>
 
@@ -53,7 +58,7 @@
       loadImage: {
         handler: function(loadImage) {
           console.log(loadImage,'loadImage');
-//          debugger
+//
           if (loadImage) {
 //            var pixelRatio = (this.$getApp().globalData.systemInfo && this.$getApp().globalData.systemInfo.pixelRatio) ? this.$getApp().globalData.systemInfo.pixelRatio :2;
 //            var t = Math.ceil(pixelRatio), a = loadImage + "?imageView2/" + this.imgType + "/w/" + this.getPx(this.width) * t + "/h/" + this.getPx(this.height) * t + "/ignore-error/1";

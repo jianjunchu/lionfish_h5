@@ -67,8 +67,8 @@ export const constantRoutes = [
     hidden: true
   },
   {
-    path: '/lionfish_comshop/pages/me/index',
-    component: () => import('@/lionfish_comshop/pages/user/index'),
+    path: '/lionfish_comshop/pages/user/me',
+    component: () => import('@/lionfish_comshop/pages/user/me'),
     hidden: true
   },
   {
@@ -82,8 +82,48 @@ export const constantRoutes = [
     hidden: true
   },
   {
+    path: '/lionfish_comshop/pages/goods/goodsDetail',
+      component: () => import('@/lionfish_comshop/pages/goods/goodsDetail'),
+    hidden: true
+  },
+{
+    path: '/lionfish_comshop/pages/groupCenter/index',
+      component: () => import('@/lionfish_comshop/pages/groupCenter/index'),
+    hidden: true
+  },
+  {
+    path: '/lionfish_comshop/pages/groupCenter/groupList',
+      component: () => import('@/lionfish_comshop/pages/groupCenter/groupList'),
+    hidden: true
+  },
+{
+    path: '/lionfish_comshop/pages/groupCenter/groupDetail',
+      component: () => import('@/lionfish_comshop/pages/groupCenter/groupDetail'),
+    hidden: true
+  },
+{
+    path: '/lionfish_comshop/pages/groupCenter/apply',
+      component: () => import('@/lionfish_comshop/pages/groupCenter/apply'),
+    hidden: true
+  },
+{
+    path: '/lionfish_comshop/pages/groupCenter/recruit',
+      component: () => import('@/lionfish_comshop/pages/groupCenter/recruit'),
+    hidden: true
+  },
+  {
     path: '/lionfish_comshop/pages/order/shopCart',
     component: () => import('@/lionfish_comshop/pages/order/shopCart'),
+    hidden: true
+  },
+  {
+    path: '/lionfish_comshop/pages/order/placeOrder',
+    component: () => import('@/lionfish_comshop/pages/order/placeOrder'),
+    hidden: true
+  },
+  {
+    path: '/lionfish_comshop/pages/position/community',
+    component: () => import('@/lionfish_comshop/pages/position/community'),
     hidden: true
   },
   {

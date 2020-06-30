@@ -1,9 +1,7 @@
 <template>
   <div id="app" style="overflow-x: hidden;">
     <i-toolbar ref="toolbar"></i-toolbar>
-    <router-view style="margin-top:50px"/>
-    <i-tabbar v-show="getShowTabbar" ref="tabbar" :currentIdx="getTabbarCurrentIdx" :tabbarRefresh="tabbarRefresh"
-              :cartNum="getCartNum"></i-tabbar>
+    <router-view style="margin-top: 49px"/>
 
   </div>
 </template>
@@ -13,7 +11,11 @@
 
 </style>
 <script>
-  var util = require('@/lionfish_comshop/utils'), timeQueue = require('@/lionfish_comshop/utils/timeQueue') ,wx = require('@/lionfish_comshop/utils/wx')
+  import {getToken} from './lionfish_comshop/utils/auth'
+  import util from './lionfish_comshop/utils/index'
+  import timeQueue from './lionfish_comshop/utils/timeQueue'
+  import wx from './lionfish_comshop/utils/wx'
+
   export default {
     name: 'App',
     data() {
@@ -49,20 +51,23 @@
       navBackUrl: '',
       isblack: 0,
       skin: {
-        color: '#ff5344',
+        color: '#8ED9D1',
         subColor: '#ed7b3a',
         lighter: '#fff9f4'
       }
     },
+    created:function(){
+      this.$store.getters.app.storageSync['token'] = getToken()
+    },
     mounted: function() {
       this.$getApp().globalData.timer = new timeQueue.default();
-      var t = this.$store.getters.app.storageSync['userInfo']
+      var t = wx.getStorageSync('userInfo')
       this.$getApp().globalData.userInfo = t;
-      var e = this.$store.getters.app.storageSync["community"];
+      var e = wx.getStorageSync('community')
       this.$getApp().globalData.hasDefaultCommunity = !!e;
       this.$getApp().globalData.community = e;
-      this.$getApp().globalData.systemInfo = this.$wx.getSystemInfoSync();
-      var o = this.$getApp().globalData.systemInfo ? this.globalData.systemInfo.model : "";
+      this.$getApp().globalData.systemInfo = wx.getSystemInfoSync();
+      var o = this.$getApp().globalData.systemInfo ? this.$getApp().globalData.systemInfo.model : "";
       this.$getApp().globalData.isIpx = -1 < o.indexOf("iPhone X") || -1 < o.indexOf("unknown<iPhone");
 
 
@@ -72,9 +77,7 @@
       getShowTabbar() {
         return this.$store.getters.showTabbar
       },
-      getCartNum() {
-        return this.$store.getters.cartNum
-      },
+
       getTabbarCurrentIdx() {
 
         return this.$store.getters.tabbarCurrentIdx

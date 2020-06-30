@@ -5,11 +5,11 @@ function base64_encode(r) {
             break;
         }
         if (a = r.charCodeAt(c++), c == h) {
-            d += o.charAt(e >> 2), d += o.charAt((3 & e) << 4 | (240 & a) >> 4), d += o.charAt((15 & a) << 2), 
+            d += o.charAt(e >> 2), d += o.charAt((3 & e) << 4 | (240 & a) >> 4), d += o.charAt((15 & a) << 2),
             d += "=";
             break;
         }
-        t = r.charCodeAt(c++), d += o.charAt(e >> 2), d += o.charAt((3 & e) << 4 | (240 & a) >> 4), 
+        t = r.charCodeAt(c++), d += o.charAt(e >> 2), d += o.charAt((3 & e) << 4 | (240 & a) >> 4),
         d += o.charAt((15 & a) << 2 | (192 & t) >> 6), d += o.charAt(63 & t);
     }
     return d;
@@ -38,7 +38,7 @@ function base64_decode(r) {
     return f;
 }
 
-module.exports = {
+export default {
     base64_encode: base64_encode,
     base64_decode: base64_decode
 };

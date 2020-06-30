@@ -5,11 +5,11 @@
                    :style="{color:item.selected?tabbar.selectedColor:tabbar.color}" :to="item.pagePath" v-if="index!=2">
         <div class="tabbar_icon" data-num="getCartNum">
           <img class="img" :src="item.selected?item.selectedIconPath:item.iconPath"/>
-          <div class="cart-num" v-if="getCartNum&&index==3">{{getCartNum}}</div>
+          <div class="cart-num" v-if="cartNum&&index==3">{{cartNum}}</div>
         </div>
         <span>{{item.text}}</span>
       </router-link>
-      <div @click="goWeapp" class="tabbar_nav" v-show="open_tabbar_out_weapp==0&&index==2"
+      <div @click="goWeapp" class="tabbar_nav" v-show="open_tabbar_out_weapp!=0&&index!=2"
            :style="{color:item.selected?tabbar.selectedColor:tabbar.color}" v-else>
         <div class="tabbar_icon">
           <img class="img" :src="item.selected?item.selectedIconPath:item.iconPath"/>
@@ -26,34 +26,28 @@
   export default {
     props: {
       currentIdx: {
-        type: Number,
         default: 0
       },
       cartNum: {
-        type: Number,
         default: 0
       },
       tabbarRefresh: {
-        type: Boolean,
         default: !1,
 
       },
       needAuth: {
-        type: Boolean,
         default: !1
       }
     },
     watch: {
       currentIdx: (e) => {
+
         this.switchTab(e)
       }
     },
-    computed: {
-      getCartNum() {
-        return this.$store.getters.cartNum
-      }
-    },
+
     mounted() {
+
       this.getTabbar()
     },
     data() {
@@ -82,13 +76,13 @@
             selectedIconPath: '',
             selected: !1
           }, {
-            pagePath: '/lionfish_comshop/pages/order/index',
+            pagePath: '/lionfish_comshop/pages/order/shopCart',
             text: '我的',
             iconPath: '',
             selectedIconPath: '',
             selected: !1
           }, {
-            pagePath: '/lionfish_comshop/pages/me/index',
+            pagePath: '/lionfish_comshop/pages/user/me',
             text: '我的',
             iconPath: '',
             selectedIconPath: '',
@@ -122,18 +116,18 @@
 
             const t = response.data, a = p.tabbar
 
-            a.list[0].text = t.t1 || '首页', a.list[0].iconPath = t.i1 || '/lionfish_comshop/images/icon-tab-index.png',
-              a.list[0].selectedIconPath = t.s1 || '/lionfish_comshop/images/icon-tab-index-active.png',
-              a.list[1].text = t.t4 || '分类', a.list[1].iconPath = t.i4 || '/lionfish_comshop/images/icon-tab-type.png',
-              a.list[1].selectedIconPath = t.s4 || '/lionfish_comshop/images/icon-tab-type-active.png',
+            a.list[0].text = t.t1 || '首页', a.list[0].iconPath = t.i1 || require('@/assets/images/icon-tab-index.png'),
+              a.list[0].selectedIconPath = t.s1 || require('@/assets/images/icon-tab-index-active.png'),
+              a.list[1].text = t.t4 || '分类', a.list[1].iconPath = t.i4 || require('@/assets/images/icon-tab-type.png'),
+              a.list[1].selectedIconPath = t.s4 || require('@/assets/images/icon-tab-type-active.png'),
               a.list[2].text = t.t5, a.list[2].iconPath = t.i5, a.list[2].selectedIconPath = t.s5,
-              a.list[3].text = t.t2 || '购物车', a.list[3].iconPath = t.i2 || '/lionfish_comshop/images/icon-tab-shop.png',
-              a.list[3].selectedIconPath = t.s2 || '/lionfish_comshop/images/icon-tab-shop-active.png',
-              a.list[4].text = t.t3 || '我的', a.list[4].iconPath = t.i3 || '/lionfish_comshop/images/icon-tab-me.png',
-              a.list[4].selectedIconPath = t.s3 || '/lionfish_comshop/images/icon-tab-me-active.png'
+              a.list[3].text = t.t2 || '购物车', a.list[3].iconPath = t.i2 || require('@/assets/images/icon-tab-shop.png'),
+              a.list[3].selectedIconPath = t.s2 || require('@/assets/images/icon-tab-shop-active.png'),
+              a.list[4].text = t.t3 || '我的', a.list[4].iconPath = t.i3 || require('@/assets/images/icon-tab-me.png'),
+              a.list[4].selectedIconPath = t.s3 || require('@/assets/images/icon-tab-me-active.png')
             const o = response.open_tabbar_type || 0, i = response.open_tabbar_out_weapp || 0,
               s = response.tabbar_out_appid, n = response.tabbar_out_link, l = response.tabbar_out_type
-            a.selectedColor = response.wepro_tabbar_selectedColor || '#F75451', a.backgroundColor = response.wepro_tabbar_bgColor || '#ffffff',
+            a.selectedColor = response.wepro_tabbar_selectedColor || '#8ED9D1', a.backgroundColor = response.wepro_tabbar_bgColor || '#ffffff',
 
               p.tabbar = a,
               p.open_tabbar_type = o,
@@ -141,7 +135,7 @@
               p.tabbar_out_appid = s,
               p.tabbar_out_link = n,
               p.tabbar_out_type = l
-
+              p.switchTab(p.currentIdx)
           }
         })
 

@@ -31,7 +31,7 @@
                 <div class="detail">
                     <text>{{order.order_info.ziti_name}}</text>
                     <div bindtap="callTelphone" class="phone" :data-phone="order.order_info.ziti_mobile" v-if="hidePhone==0">
-                        <image class="icon-phone" src="../../images/phone2.png"></image>
+                        <image class="icon-phone" src="@/assets/images/phone2.png"></image>
                         <text>联系{{groupInfo.owner_name}}</text>
                     </div>
                 </div>
@@ -86,7 +86,7 @@
       order: {
         handler: function(order) {
           console.log(order,'order');
-          debugger
+
           var t = order && order.order_info && order.order_info.shipping_tel || "";
           if (t) {
             var a = (t = "" + t).replace(/(\d{3})\d*(\d{4})/, "$1****$2");

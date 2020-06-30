@@ -156,7 +156,7 @@
           o = a < o ? a : o
           var r = '', n = this.groupInfo
           r = 'express' == orderInfo.delivery ? n.placeorder_trans_name : n.placeorder_tuan_name
-          debugger
+
           this.goodsTotal = a.toFixed(2)
           this.disAmount = o.toFixed(2)
           this.diyshipname = r

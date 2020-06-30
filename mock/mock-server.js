@@ -43,7 +43,7 @@ const responseFake = (url, type, respond) => {
   }
 }
 
-module.exports = app => {
+var exp = app => {
   // parse app.body
   // https://expressjs.com/en/4x/api.html#req.body
   app.use(bodyParser.json())
@@ -79,3 +79,5 @@ module.exports = app => {
     }
   })
 }
+
+export default exp

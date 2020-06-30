@@ -1,7 +1,7 @@
 <template>
   <div>
     <button :appParameter="appParameter" @contact="bindcontact" @error="binderror"
-            @getphonenumber="bindgetphonenumber" @getuserinfo="bindgetuserinfo" @click="handleTap"
+            @getphonenumber="bindgetphonenumber" @getuserinfo="bindgetuserinfo" @click.stop="handleTap"
             :class="[iClass, 'i-btn', (long?'i-btn-long':''), 'i-btn-'+size, 'i-btn-'+type, 'i-btn-'+shape, (loading?'i-btn-loading':''), (disabled?'i-btn-disabled':''), (inline?'i-btn-inline':'')]"
             hoverClass="i-btn-hover" :hoverStartTime="hoverStartTime" :hoverStayTime="hoverStayTime"
             :hoverStopPropagation="hoverStopPropagation" :openType="openType" plain="true"
@@ -80,7 +80,7 @@
     },
     methods: {
       handleTap: function() {
-        return !this.disabled && !this.loading && void this.$emit('click')
+        return !this.disabled && !this.loading && void this.$emit('handleTap')
       },
       bindgetuserinfo: function() {
         var e = (0 < arguments.length && void 0 !== arguments[0] ? arguments[0] : {}).detail, t = void 0 === e ? {} : e
@@ -111,16 +111,16 @@
     background-image: none;
     white-space: nowrap;
     user-select: none;
-    font-size: 28px;
-    border-radius: 4px;
+    font-size: 4vw;
+    border-radius: 4vw;
     border: 0 !important;
     position: relative;
     text-decoration: none;
-    height: 88px;
-    line-height: 88px;
+    height: 10vw;
+    line-height: 10vw;
     background: #f7f7f7;
     color: #495060;
-    margin: 20px;
+    margin: 4vw;
   }
 
   .i-btn-hover {

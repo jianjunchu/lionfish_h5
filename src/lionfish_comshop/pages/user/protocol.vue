@@ -35,7 +35,10 @@
     },
     methods: {
       onLoad: function() {
-        this.$store.state.app.toolbarTitle = "常见帮助";
+//        this.$store.state.app.toolbarTitle = "常见帮助";
+        this.$wx.setNavigationBarTitle({
+          title: "常见帮助"
+        })
         this.setNavBgColor();
         this.get_list()
       },
@@ -44,12 +47,13 @@
           controller: 'index.get_nav_bg_color'
         }).then(response => {
           console.log(response);
-          var t = response.data || '#F75451', e = response.nav_font_color || '#ffffff'
+          var t = response.data || '#8ED9D1', e = response.nav_font_color || '#ffffff'
           this.$store.dispatch('app/setNavBgColor', t)
           this.$store.dispatch('app/setNavFontColor', e)
         })
       },
       get_list: function() {
+         this.token = this.$wx.getStorageSync('token');
          var that = this;
          this.$http({
              controller: 'article.get_article_list',

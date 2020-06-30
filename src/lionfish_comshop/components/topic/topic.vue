@@ -5,26 +5,26 @@
            v-if="voitem.cover"/>
       <div class="new-comers" v-if="voitem.list.length">
         <div scrollX class="new-comers-scroll">
-          <view class="new-comers-wrap">
+           <div class="new-comers-wrap">
             <i-router-link routerClass="new-comers-item"
                            :url="'/lionfish_comshop/pages/goods/goodsDetail?id='+item.actId"
                            v-for="(item,gidx) in voitem.list" :key="item.id">
               <i-img :defaultImage="placeholdeImg?placeholdeImg:require('@/assets/images/placeholder-refund.png')"
                      height="200"
                      iClass="new-img" :loadImage="item.skuImage" width="180"></i-img>
-              <view class="act-end" v-if="item.spuCanBuyNum==0">已抢光</view>
-              <view class="title">{{item.spuName}}</view>
-              <view class="new-bot">
-                <view class="price">${{item.actPrice[0]}}.{{item.actPrice[1]}}</view>
+               <div class="act-end" v-if="item.spuCanBuyNum==0">已抢光 </div>
+               <div class="title">{{item.spuName}} </div>
+               <div class="new-bot">
+                 <div class="price">${{item.actPrice[0]}}.{{item.actPrice[1]}} </div>
                 <i-button iClass="add-cart" v-if="disabled||item.spuCanBuyNum==0">
                   <img class="img" src="@/assets/images/icon-add-shopCart-disabled.png"/>
                 </i-button>
                 <i-button bind:click="openSku" :data-gidx="gidx" :data-idx="idx" iClass="add-cart" v-else>
                   <i-addcart iClass="img"></i-addcart>
                 </i-button>
-              </view>
+               </div>
             </i-router-link>
-          </view>
+           </div>
         </div>
       </div>
     </div>

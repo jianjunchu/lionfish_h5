@@ -4,11 +4,11 @@ var startTag = /^<([-A-Za-z0-9_]+)((?:\s+[a-zA-Z_:][-a-zA-Z0-9_:.]*(?:\s*=\s*(?:
         return this[this.length - 1];
     }; e; ) {
         if (a = !0, s.last() && special[s.last()]) e = e.replace(new RegExp("([\\s\\S]*?)</" + s.last() + "[^>]*>"), function(e, t) {
-            return t = t.replace(/<!--([\s\S]*?)-->|<!\[CDATA\[([\s\S]*?)]]>/g, "$1$2"), n.chars && n.chars(t), 
+            return t = t.replace(/<!--([\s\S]*?)-->|<!\[CDATA\[([\s\S]*?)]]>/g, "$1$2"), n.chars && n.chars(t),
             "";
-        }), c("", s.last()); else if (0 == e.indexOf("\x3c!--") ? 0 <= (t = e.indexOf("--\x3e")) && (n.comment && n.comment(e.substring(4, t)), 
-        e = e.substring(t + 3), a = !1) : 0 == e.indexOf("</") ? (r = e.match(endTag)) && (e = e.substring(r[0].length), 
-        r[0].replace(endTag, c), a = !1) : 0 == e.indexOf("<") && (r = e.match(startTag)) && (e = e.substring(r[0].length), 
+        }), c("", s.last()); else if (0 == e.indexOf("\x3c!--") ? 0 <= (t = e.indexOf("--\x3e")) && (n.comment && n.comment(e.substring(4, t)),
+        e = e.substring(t + 3), a = !1) : 0 == e.indexOf("</") ? (r = e.match(endTag)) && (e = e.substring(r[0].length),
+        r[0].replace(endTag, c), a = !1) : 0 == e.indexOf("<") && (r = e.match(startTag)) && (e = e.substring(r[0].length),
         r[0].replace(startTag, o), a = !1), a) {
             var l = (t = e.indexOf("<")) < 0 ? e : e.substring(0, t);
             e = t < 0 ? "" : e.substring(t), n.chars && n.chars(l);
@@ -18,7 +18,7 @@ var startTag = /^<([-A-Za-z0-9_]+)((?:\s+[a-zA-Z_:][-a-zA-Z0-9_:.]*(?:\s*=\s*(?:
     }
     function o(e, t, a, r) {
         if (t = t.toLowerCase(), block[t]) for (;s.last() && inline[s.last()]; ) c("", s.last());
-        if (closeSelf[t] && s.last() == t && c("", t), (r = empty[t] || !!r) || s.push(t), 
+        if (closeSelf[t] && s.last() == t && c("", t), (r = empty[t] || !!r) || s.push(t),
         n.start) {
             var i = [];
             a.replace(attr, function(e, t) {
@@ -71,7 +71,7 @@ global.html2json = function(e) {
             };
             if (0 !== t.length && (r.attr = t.reduce(function(e, t) {
                 var a = t.name, r = t.value;
-                return r.match(/ /) && (r = r.split(" ")), e[a] ? Array.isArray(e[a]) ? e[a].push(r) : e[a] = [ e[a], r ] : e[a] = r, 
+                return r.match(/ /) && (r = r.split(" ")), e[a] ? Array.isArray(e[a]) ? e[a].push(r) : e[a] = [ e[a], r ] : e[a] = r,
                 e;
             }, {})), a) {
                 var i = n[0] || s;
@@ -147,7 +147,7 @@ var html2wxwebview = function(e) {
             a.push(n);
         }
         var s = e[r].attr;
-        e[r].attr.width && -1 === e[r].attr.width.indexOf("%") && -1 === e[r].attr.width.indexOf("px") && (e[r].attr.width = e[r].attr.width + "px"), 
+        e[r].attr.width && -1 === e[r].attr.width.indexOf("%") && -1 === e[r].attr.width.indexOf("px") && (e[r].attr.width = e[r].attr.width + "px"),
         e[r].attr.height && -1 === e[r].attr.height.indexOf("%") && -1 === e[r].attr.height.indexOf("px") && (e[r].attr.height = e[r].attr.height + "px");
         n = {
             type: "img",
@@ -198,6 +198,6 @@ var html2wxwebview = function(e) {
     }(e), n;
 };
 
-module.exports = {
+export default{
     html2json: html2wxwebview
 };

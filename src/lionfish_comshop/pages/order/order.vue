@@ -365,6 +365,7 @@
       <!--</div>-->
     <!--</div>-->
   <!--</i-modal>-->
+
   </div>
 </template>
 
@@ -393,11 +394,11 @@
   function fill_zero_prefix(e) {
     return e < 10 ? "0" + e : e;
   }
+  import status from '../../utils/index.js'
+  import util from '../../utils/index.js'
 
-  var util = require('../../utils/index.js'),
-    status = require('../../utils'),
-    a = require('../../utils/public'),
-    wcache = require('../../utils/wcache.js'),
+  import a from '../../utils/public'
+   var wcache = require('../../utils/wcache.js'),
     countDownInit = require('../../utils/countDown')
 
   export default {
@@ -532,8 +533,7 @@
         that.common_header_backgroundimage= this.$getApp().globalData.common_header_backgroundimage;
           that.userInfo = userInfo;
 
-//        var token = this.$wx.getStorageSync('token');
-        var token = "aa8dfe90ff686cb87928e6a5523e44da";
+        var token = this.$wx.getStorageSync("token");
 //        this.$wx.hideShareMenu();
 //        this.$wx.showLoading();
 
@@ -570,7 +570,7 @@
                    title: '兑换成功'
                  })
                } else if (is_show_tip != undefined && is_show_tip == 1) {
-                   debugger
+
                  if (res.order_pay_after_share == 1) {
                    let share_img = res.data.share_img;
                    this.share_img = share_img;
@@ -663,7 +663,7 @@
         this.$wx.showModal({
           title: "提示",
           content: "确认收到",
-          confirmColor: "#F75451",
+          confirmColor: "#8ED9D1",
           success: function(e) {
             e.confirm && this.$http({
                 controller: "order.receive_order",
@@ -704,7 +704,7 @@
         this.$wx.showModal({
           title: "取消支付",
           content: "好不容易挑出来，确定要取消吗？",
-          confirmColor: "#F75451",
+          confirmColor: "#8ED9D1",
           success: function(e) {
             e.confirm && this.$http({
                 controller: "order.cancel_order",

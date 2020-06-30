@@ -191,8 +191,6 @@
 }
 
 .spu .spu-content .item-left {
-    width: 90px;
-    height: 90px;
     position: relative;
 }
 

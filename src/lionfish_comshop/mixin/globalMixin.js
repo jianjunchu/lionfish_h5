@@ -1,4 +1,4 @@
-var util = require('../utils/index')
+import util from '../utils/index'
 
 export default {
   data() {

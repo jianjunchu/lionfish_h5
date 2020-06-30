@@ -1,4 +1,5 @@
 import Cookies from 'js-cookie'
+
 const state = {
   sidebar: {
     opened: Cookies.get('sidebarStatus') ? !!+Cookies.get('sidebarStatus') : true,
@@ -9,9 +10,9 @@ const state = {
   tabbarCurrentIdx: 2,
   storageSync: {},
   showToolbarBack: true,
-  showToolbarMore: false,
+  showToolbarMore: true,
   showTabbar: true,
-  navBgColor: '#F75451',
+  navBgColor: '#8ED9D1',
   navFontColor: '#ffffff',
   cartNum: 10,
   globalData: {
@@ -88,6 +89,9 @@ const mutations = {
   },
   SET_TABBAR_CURRENT_IDX: (state, idx) => {
     state.tabbarCurrentIdx = idx
+  },
+  SET_STORAGE_SYNC: (state, storageSync) => {
+    state.storageSync = storageSync
   }
 }
 
@@ -133,7 +137,11 @@ const actions = {
   },
   setTabbarCurrentIdx({ commit }, idx) {
     commit('SET_TABBAR_CURRENT_IDX', idx)
+  },
+  setStorageSync({ commit }, storageSync) {
+    commit('SET_STORAGE_SYNC', storageSync)
   }
+
 }
 
 export default {

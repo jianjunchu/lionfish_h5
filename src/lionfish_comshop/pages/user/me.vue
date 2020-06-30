@@ -71,29 +71,29 @@
             <span class="num" :style="{background:skin.color}" v-show="member_info.wait_pay_count!=0">{{member_info.wait_pay_count}}</span>
             <!--<img class="icon-img" :src="user_order_menu_icons.i1?user_order_menu_icons.i1:'@/assets/images/needPayIcon.png'"/>-->
             <img class="icon-img" src="@/assets/images/needPayIcon.png"/>
-            <span style="color: #444;">待付款</span>
+            <span style="color: #444;">{{$t('common.daifukuan')}}</span>
           </div>
           <div @click="goLink2" class="order_status" data-link="/lionfish_comshop/pages/order/index?order_status=1">
             <span class="num" :style="{background:skin.color}" v-show="member_info.wait_send_count!=0">{{member_info.wait_send_count}}</span>
             <!--<img class="icon-img" :src="user_order_menu_icons.i2?user_order_menu_icons.i2:'@/assets/images/undeli.png'"/>-->
             <img class="icon-img" src="@/assets/images/undeli.png"/>
-            <span style="color: #444;">待配送</span>
+            <span style="color: #444;">$t('common.daipeisong')</span>
           </div>
           <div @click="goLink2" class="order_status" data-link="/lionfish_comshop/pages/order/index?order_status=4">
             <span class="num" :style="{background:skin.color}" v-show="member_info.wait_get_count!=0">{{member_info.wait_get_count}}</span>
             <!--<img class="icon-img" :src="user_order_menu_icons.i3?user_order_menu_icons.i3:'@/assets/images/distributionIcon.png'"/>-->
             <img class="icon-img" src="@/assets/images/distributionIcon.png"/>
-            <span style="color: #444;">待提货</span>
+            <span style="color: #444;">$t('common.daitihuo')</span>
           </div>
           <div @click="goLink2" class="order_status" data-link="/lionfish_comshop/pages/order/index?order_status=6">
             <!--<img class="icon-img" :src="user_order_menu_icons.i4?user_order_menu_icons.i4:'@/assets/images/completeIcon.png'"/>-->
             <img class="icon-img" src="@/assets/images/completeIcon.png"/>
-            <span style="color: #444;">已提货</span>
+            <span style="color: #444;">$t('common.yitihuo')</span>
           </div>
           <div @click="goLink2" class="order_status" data-link="/lionfish_comshop/pages/refund/refundList">
             <!--<img class="icon-img" :src="user_order_menu_icons.i5?user_order_menu_icons.i5:'@/assets/images/refundIcon.png'"/>-->
             <img class="icon-img" src="@/assets/images/refundIcon.png"/>
-            <span style="color: #444;">售后服务</span>
+            <span style="color: #444;">$t('common.shouhoufuwu')</span>
           </div>
         </div>
       </div>
@@ -101,25 +101,26 @@
       <div class="tool distribution" v-if="community&&show_user_change_comunity==1">
         <div class="my-distribution modal-head">
           <div class="my-distribution-title">
-            <span>我的当前自提点</span>
+            <span>$t('common.wodezitidian')</span>
           </div>
           <div v-if="open_danhead_model==1"></div>
           <div v-else>
-            <a class="to-distribution" hoverClass="none" href="/lionfish_comshop/pages/position/community">
-              <span>切换</span>
-            </a>
             <div class="distribution-right">
+              <a class="to-distribution" hoverClass="none" href="#/lionfish_comshop/pages/position/community">
+                <span>切换</span>
+              </a>
               <img class="icon-right" src="@/assets/images/rightArrowImg.png"/>
             </div>
           </div>
         </div>
         <div class="modal-body community fsz-30">
-          <div class="weight red mb5" :style="{color:skin.color}">{{community.communityName}}</div>
-          <div class="fsz-26 text-gray mb5">{{community.fullAddress}}</div>
+          <div class="weight red mb5">{{community.communityName}}</div>
+          <div class="fsz-30 text-gray mb5">{{community.fullAddress}}</div>
           <div class="i-flex" v-if="community.disUserMobile||community.head_mobile">
             <div>
-              <span class="iconfont icon-ziyuan fsz-28"></span> 电话：</div>
-            <!--<div v-on:click="callTelphone" data-phone="{{community.disUserMobile||community.head_mobile}}" style="color:#ee884a;">{{community.disUserMobile||community.head_mobile}}</div>-->
+              <span class="iconfont icon-ziyuan fsz-30"></span> 电话：
+            </div>
+            <div v-on:click="callTelphone" :data-phone="(community.disUserMobile||community.head_mobile)" style="color:#ee884a;">{{community.disUserMobile||community.head_mobile}}</div>
             <!--<div v-on:click="callTelphone" style="color:#ee884a;">{{community.disUserMobile||community.head_mobile}}</div>-->
           </div>
         </div>
@@ -278,7 +279,7 @@
               </div>
             </div>
           </div>
-          <a hoverClass="none" href="/lionfish_comshop/pages/groupCenter/communityMembers" v-if="member_info.pickup_id>0">
+          <a hoverClass="none" href="#/lionfish_comshop/pages/groupCenter/communityMembers" v-if="member_info.pickup_id>0">
             <div class="item-main">
               <div class="item-title">
                 <!--<img class="toolIcon" mode="widthFix" :src="user_tool_icons.i4?user_tool_icons.i4:'@/assets/images/groupCenterIcon.png'"/>-->
@@ -293,7 +294,7 @@
           <div v-on:click="goToGroup" v-if="member_info.is_head==1">
             <div class="item-main">
               <div class="item-title">
-                <!--<img class="toolIcon" mode="widthFix" :src="user_tool_icons.i5?user_tool_icons.i5:'@/assets/images/groupCenterIcon.png'"/>-->
+                <!--<img class="toolIcon" mode="widthFix" :src="(user_tool_icons.i5?user_tool_icons.i5:'@/assets/images/groupCenterIcon.png')"/>-->
                 <img class="toolIcon" mode="widthFix" src="@/assets/images/groupCenterIcon.png"/>
                 <span>{{groupInfo.owner_name}}中心</span>
               </div>
@@ -302,7 +303,7 @@
               </div>
             </div>
           </div>
-          <a hoverClass="none" href="/lionfish_comshop/pages/groupCenter/apply" v-else-if="member_info.is_head==2||member_info.is_head==3">
+          <a hoverClass="none" href="#/lionfish_comshop/pages/groupCenter/apply" v-else-if="member_info.is_head==2||member_info.is_head==3">
             <div class="item-main">
               <div class="item-title">
                 <!--<img class="toolIcon" mode="widthFix" :src="user_tool_icons.i5?user_tool_icons.i5:'@/assets/images/groupCenterIcon.png'"/>-->
@@ -315,7 +316,7 @@
             </div>
           </a>
           <div v-else>
-            <a hoverClass="none" href="/lionfish_comshop/pages/groupCenter/recruit" v-if="close_community_apply_enter==0">
+            <a hoverClass="none" href="#/lionfish_comshop/pages/groupCenter/recruit" v-if="close_community_apply_enter==0">
               <div class="item-main">
                 <div class="item-title">
                   <!--<img class="toolIcon" mode="widthFix" :src="user_tool_icons.i5?user_tool_icons.i5:'@/assets/images/groupCenterIcon.png'"/>-->
@@ -329,7 +330,7 @@
             </a>
           </div>
           <div v-if="enabled_front_supply==1">
-            <a hoverClass="none" href="/lionfish_comshop/pages/supply/recruit" v-if="is_supply==0||needAuth">
+            <a hoverClass="none" href="#/lionfish_comshop/pages/supply/recruit" v-if="is_supply==0||needAuth">
               <div class="item-main">
                 <div class="item-title">
                   <!--<img aspectFit class="toolIcon supplier" mode="widthFix" :src="user_tool_icons.i6?user_tool_icons.i6:'@/assets/images/icon-supplier.png'"/>-->
@@ -439,21 +440,22 @@
       </div>
 
     </div>
+    <i-tabbar @authModal="authModal" :cartNum="cartNum" currentIdx="4" :needAuth="needAuth" :tabbarRefresh="tabbarRefresh"></i-tabbar>
   </div>
 
 
 
 
-  <!--<i-tabbar bind:authModal="authModal" cartNum="{{cartNum}}" currentIdx="4" needAuth="{{needAuth}}" tabbarRefresh="{{tabbarRefresh}}"></i-tabbar>-->
+  <!--<i-tabbar bind:authModal="authModal" :cartNum="cartNum" currentIdx="4" :needAuth="needAuth" :tabbarRefresh="tabbarRefresh"></i-tabbar>-->
   <!--<i-get-phone bind:cancel="close" bind:confirm="getReceiveMobile" bind:needAuth="authModal" visible="{{showGetPhone&&!needAuth}}"></i-get-phone>-->
   <!--<i-fetch-coder bind:cancel="toggleFetchCoder" codeImg="{{member_info.hexiao_qrcod}}" coderList="{{myCoderList}}" visible="{{isShowCoder}}"></i-fetch-coder>-->
-  <!--<i-new-auth bind:authSuccess="authSuccess" bind:cancel="authModal" needAuth="{{needAuth&&showAuthModal}}"></i-new-auth>-->
+  <!--<i-new-auth bind:authSuccess="authSuccess" bind:cancel="authModal" :needAuth="needAuth&&showAuthModal"></i-new-auth>-->
 </template>
 
 <script>
   import GlobalMixin from '../../mixin/globalMixin.js';
   //  import util from '../../utils/util.js';
-  import status from '../../utils/index.js';
+  import status from '../../utils/index.js'
   import wcache from '../../utils/wcache.js';
   import auth from '../../utils/auth';
   import wx from '../../utils/wx';
@@ -476,11 +478,12 @@
     name:'me',
 //    components: {
 //      'i-type-item' : require('./type-item.vue').default,
-//      'i-img': require('../../components/img/index.vue').default,
-//      'i-router-link': require('../../components/RouterLink/index.vue').default
+//      'i-img': require('../../components/img/me.vue').default,
+//      'i-router-link': require('../../components/RouterLink/me.vue').default
 //    },
     data() {
       return {
+        cartNum:0,
         tablebar: 4,
 //        canIUse: wx.canIUse("button.open-type.getUserInfo"),
         theme_type: "",
@@ -548,17 +551,23 @@
         user_top_font_color:'',
         commiss_level:'',
         showAuthModal:false,
-        auditStatus:false
+        tabbarRefresh:false
       }
     },
     created: function() {
-      this.$store.state.app.toolbarTitle ="我的";
+//      this.$store.state.app.toolbarTitle ="我的";
+      this.$wx.setNavigationBarTitle({
+        title: "我的"
+      })
       this.onLoad();
       this.onShow();
     },
+    mounted:function(){
+
+    },
     methods: {
       onLoad: function (options) {
-//         this.$wx.hideTabBar();
+         this.$wx.hideTabBar();
         let that = this;
         this.setNavBgColor();
         this.setGroupInfo();
@@ -569,7 +578,7 @@
           controller: 'index.get_nav_bg_color'
         }).then(response => {
           console.log(response);
-          var t = response.data || '#F75451', e = response.nav_font_color || '#ffffff'
+          var t = response.data || '#8ED9D1', e = response.nav_font_color || '#ffffff'
           this.$store.dispatch('app/setNavBgColor', t)
           this.$store.dispatch('app/setNavFontColor', e)
         })
@@ -599,8 +608,7 @@
 //        }
       },
       getMemberInfo: function () {
-//        var token = "5a4ee9ec0afee923665513b17a928c05";// this.$wx.getStorageSync("token");
-        var token = "aa8dfe90ff686cb87928e6a5523e44da";// this.$wx.getStorageSync("token");
+        var token = this.$wx.getStorageSync('token');
         this.getCommunityInfo();
         var that = this;
         this.$http({
@@ -608,7 +616,7 @@
             token:token
           }).then(res=> {
             console.log(res);
-            //  this.$wx.hideLoading();
+              this.$wx.hideLoading();
 //            setTimeout(function(){  this.$wx.hideLoading(); },1000);
             if (res.code == 0) {
               let showGetPhone = false;
@@ -648,7 +656,7 @@
 
                 }
               } else {
-                this.needAuth = needAuth;
+                this.needAuth = true;
               }
 
               let { is_supply, is_open_vipcard_buy, modify_vipcard_name, is_vip_card_member, modify_vipcard_logo, isopen_signinreward, show_signinreward_icon } = res;
@@ -676,12 +684,11 @@
       },
       getCommunityInfo: function () {
         let that = this;
-
         let community =  this.$wx.getStorageSync('community');
         if (community) {
           if(!community.head_mobile) {
             status.getCommunityById(community.communityId).then(res=>{
-              this.community = res;
+              this.community = res.data;
             })
           } else {
             this.community =community;
@@ -689,14 +696,13 @@
         } else {
           var token =  this.$wx.getStorageSync('token');
           token && status.getCommunityInfo().then(res => {
-            this.community =res ;
+            this.community =res.data;
           })
         }
       },
       getCopyright: function () {
         var that = this;
-//        var token = "5a4ee9ec0afee923665513b17a928c05";// this.$wx.getStorageSync("token");
-        var token = "aa8dfe90ff686cb87928e6a5523e44da";// this.$wx.getStorageSync("token");
+        var token = this.$wx.getStorageSync('token')
         this.$http({
             controller: 'user.get_copyright',
             token:token
@@ -764,7 +770,7 @@
       authSuccess: function () {
         var that = this;
          this.$wx.showLoading();
-         this.needAuth = false, thia.showAuthModal= false, this.tabbarRefresh = true ;
+         this.needAuth = false, this.showAuthModal= false, this.tabbarRefresh = true ;
         (0, status.cartNum)('', true).then((res) => {
           if(res.code == 0){
             that.cartNum = res;
@@ -773,16 +779,23 @@
         that.getMemberInfo();
       },
       authModal: function () {
+
         if(this.needAuth) {
             this.showAuthModal = !this.showAuthModal;
-          return false;
+//            return false;
+        }
+        if(this.showAuthModal){
+          this.$wx.redirectTo({
+            url: "/login"
+          })
         }
         return true;
       },
       goToGroup: function () {
-        5 === this.auditStatus ?  this.$wx.navigateTo({
+
+        5 === this.auditStatus ?  this.$wx.redirectTo({
           url: "/lionfish_comshop/pages/groupCenter/index"
-        }) :  this.$wx.navigateTo({
+        }) :  this.$wx.redirectTo({
           url: "/lionfish_comshop/pages/groupCenter/apply"
         });
       },
@@ -833,8 +846,9 @@
         })
       },
       goLink2: function(event) {
+
         if(!this.authModal()) return;
-        debugger
+
         let link = event.currentTarget.dataset.link;
 //        var pages_all = getCurrentPages();
 //        if (pages_all.length > 3) {
@@ -868,33 +882,26 @@
 //        })
         that.getCopyright();
         that.getMemberInfo();
+        this.$wx.hideLoading()
       },
       onHide: function () {
-        this.setData({
-          tabbarRefresh: false
-        })
+        this.tabbarRefresh= false
       },
       getReceiveMobile: function (e) {
          this.$wx.showToast({
           icon: 'none',
           title: '授权成功',
         })
-        this.setData({
-          showGetPhone: false
-        });
+        this.showGetPhone= false;
       },
       close: function () {
-        this.setData({
-          showGetPhone: false
-        });
+        this.showGetPhone= false;
       },
       closeDistribution: function () {
-        this.setData({
-          showDistribution: false
-        })
+        this.showDistribution= false
       },
       goDistribution: function () {
-        let member_info = this.data.member_info;
+        let member_info = this.member_info;
         //判断是不是分销商
         if (member_info.comsiss_flag == 0) {
           this.distributionNext();
@@ -911,13 +918,13 @@
         }
       },
       distributionNext: function () {
-        if (this.data.commiss_sharemember_need == 1) {
+        if (this.commiss_sharemember_need == 1) {
           console.log('需要分享');
           let url = '/lionfish_comshop/distributionCenter/pages/recruit';
            this.$wx.navigateTo({
             url
           })
-        } else if (this.data.commiss_biaodan_need == 1) {
+        } else if (this.commiss_biaodan_need == 1) {
           console.log('需要表单');
           // let url = '/lionfish_comshop/pages/distribution/apply';
            this.$wx.navigateTo({
@@ -926,7 +933,7 @@
         } else {
           // 跳转表单自动审核
           let status = 0;
-          let member_info = this.data.member_info;
+          let member_info = this.member_info;
           if (member_info.comsiss_flag == 1) {
             member_info.comsiss_state == 0 ? status = 1 : status = 2;
           }
@@ -979,7 +986,7 @@
          this.$wx.removeStorage({
           key: 'token',
           success(res) {
-             this.$wx.reLaunch({
+             this.$wx.navigateTo({
               url: '/lionfish_comshop/pages/user/me',
             })
           }
@@ -987,20 +994,20 @@
       },
       toggleFetchCoder: function () {
         if (!this.authModal()) return;
-        this.setData({
-          isShowCoder: !this.data.isShowCoder
-        })
+        this.isShowCoder= !this.isShowCoder;
       },
       callTelphone: function (e) {
         var that = this;
         var phoneNumber = e.currentTarget.dataset.phone;
         if (phoneNumber) {
-          this.isCalling || (this.isCalling = true,  this.$wx.makePhoneCall({
-            phoneNumber: phoneNumber,
-            complete: function () {
-              that.isCalling = false;
-            }
-          }));
+//          this.isCalling || (this.isCalling = true,
+//            this.$wx.makePhoneCall({
+//              phoneNumber: phoneNumber,
+//              complete: function () {
+//                that.isCalling = false;
+//              }
+//            })
+//          );
         }
       }
     }

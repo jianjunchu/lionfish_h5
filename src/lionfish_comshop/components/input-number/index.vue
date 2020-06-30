@@ -5,7 +5,7 @@
       v-if="value==0">
       <img class="img i-number-img" src="@/assets/images/icon-spu-reduce-disabled.png"/>
     </div>
-    <div catchtap="handleMinus"
+    <div @click.stop="handleMinus"
          :class="['i-input-number-minus', 'i-input-number-div', 'i-number-div', (value<=min?'i-input-number-disabled':'')]"
          v-else>
       <span class="iconfont icon-jian img i-number-img" :style="{color:getSkin.color}"></span>
@@ -17,7 +17,7 @@
          v-if="max==0">
       <img class="img i-number-img" src="@/assets/images/icon-spu-add-disabled.png"/>
     </div>
-    <div catchtap="handlePlus"
+    <div @click.stop="handlePlus"
          :class="['i-input-number-plus', 'i-input-number-div', 'i-number-div', (value>=max?'i-input-number-disabled':'')]" v-else>
       <span class="iconfont icon-jia img i-number-img" :style="{color:getSkin.color}"></span>
     </div>
@@ -26,6 +26,21 @@
 </template>
 
 <script>
+  function t(t, a) {
+    var e, i = void 0, n = void 0;
+    try {
+      i = t.toString().split(".")[1].length;
+    } catch (t) {
+      i = 0;
+    }
+    try {
+      n = a.toString().split(".")[1].length;
+    } catch (t) {
+      n = 0;
+    }
+    return e = Math.pow(10, Math.max(i, n)), (Math.round(t * e) + Math.round(a * e)) / e;
+  }
+
   export default {
     name: '',
     data(){
@@ -41,31 +56,24 @@
     props:{
       size: String,
       value: {
-        type: Number,
         default: 1
       },
       min: {
-        type: Number,
         default: -1 / 0
       },
       max: {
-        type: Number,
         default: 1 / 0
       },
       step: {
-        type: Number,
         default: 1
       },
       reduceImage: {
-        type: String,
         default: "@/assets/images/icon-input-reduce.png"
       },
       addImage: {
-        type: String,
         default: "@/assets/images/icon-input-add.png"
       },
       idx: {
-        type: Number,
         default: 0
       }
     },
@@ -82,7 +90,7 @@
         this.canChange && this.handleChangeStep(t, "plus", !0);
       },
       handleFocus: function() {
-        this.canChange = !1, this.triggerEvent("focus");
+        this.canChange = !1, this.$emit("focus");
       },
       getType: function(t) {
         return t > this.value ? "plus" : t < this.value ? "minus" : "";
@@ -98,7 +106,7 @@
         this.handleEmit(e, i, s);
       },
       handleEmit: function(t, a) {
-        t < this.min && this.triggerEvent("outOfMin", t), t > this.max && this.triggerEvent("outOfMax", t);
+        t < this.min && this.$emit("outOfMin", t), t > this.max && this.$emit("outOfMax", t);
         var e = this, i = e.min, n = e.max;
         n < t ? t = n : t < i ? t = i : t || (t = i);
         var s = t !== this.value, u = {
@@ -106,9 +114,7 @@
           type: a,
           idx: this.idx
         };
-        a && (u.type = a), s ? this.triggerEvent("change", u) : (this.setData({
-          value: t
-        }), this.triggerEvent("change"));
+        a && (u.type = a), s ? this.$emit("change", u) : ((this.value = t), this.$emit("change"));
       },
       returnTap: function() {}
     }
@@ -119,6 +125,7 @@
   @import "../../../@feiying/1.less";
 
   .i-input-number {
+    margin-top: 70px;
     color: #495060;
     display: flex;
     align-items: center;

@@ -1,22 +1,27 @@
 import Vue from 'vue'
 
 import 'normalize.css/normalize.css' // A modern alternative to CSS resets
-
 import ElementUI from 'element-ui'
+
+import { Image as VanImage } from 'vant'
+import { Loading } from 'vant'
+
 import 'element-ui/lib/theme-chalk/index.css'
-import locale from 'element-ui/lib/locale/lang/en' // lang i18n
+import 'mint-ui/lib/style.css'
 
 import vueSwiper from 'vue-awesome-swiper'
 import 'swiper/css/swiper.css'
+import Cookies from 'js-cookie'
+import less from 'less'
 
-Vue.use(vueSwiper)
-
+import { i18n, vantLocales } from './lang'
 import Tabbar from '@/lionfish_comshop/components/tabbar'
 import Toolbar from '@/lionfish_comshop/components/toolbar'
 import Modal from '@/lionfish_comshop/components/modal'
 import Img from '@/lionfish_comshop/components/img'
 import Tabs from '@/lionfish_comshop/components/tabs'
 import NewRushSpu from '@/lionfish_comshop/components/new-rush-spu'
+import RushSpu from '@/lionfish_comshop/components/new-rush-spu'
 import Button from '@/lionfish_comshop/components/button'
 import card from '@/lionfish_comshop/components/card'
 import InputNumber from '@/lionfish_comshop/components/input-number'
@@ -38,6 +43,28 @@ import AddCartBtn from '@/lionfish_comshop/components/addCartBtn'
 import RouterLink from '@/lionfish_comshop/components/router-link'
 import CountDown from '@/lionfish_comshop/components/count-down'
 import topic from '@/lionfish_comshop/components/topic/topic'
+import LoadMore from '@/lionfish_comshop/components/load-more'
+import auth from '@/lionfish_comshop/components/auth'
+import CommunityItem from '@/lionfish_comshop/components/community-item'
+import FixedBottom from '@/lionfish_comshop/components/fixed-bottom'
+
+import '@/lionfish_comshop/styles/index.scss' // global css
+import qs from 'qs'
+
+import store from './lionfish_comshop/store'
+import { http, http_post } from './lionfish_comshop/api/index'
+import wx from './lionfish_comshop/utils/wx'
+import router from './lionfish_comshop/router'
+
+import App from './App'
+import '@/icons' // icon
+import '@/permission' // permission control
+
+vantLocales(i18n.locale)
+
+Vue.use(vueSwiper)
+Vue.use(VanImage)
+Vue.use(Loading)
 
 Vue.component('i-tabbar', Tabbar)
 Vue.component('i-toolbar', Toolbar)
@@ -50,6 +77,7 @@ Vue.component('i-card', card)
 Vue.component('i-input-number', InputNumber)
 Vue.component('i-index-item', IndexItem)
 Vue.component('i-dialog', Dialog)
+Vue.component('i-goods-info', GoodsInfo)
 Vue.component('i-goods-info', GoodsInfo)
 Vue.component('i-new-auth', NewAuth)
 Vue.component('i-new-comer', NewComer)
@@ -66,18 +94,11 @@ Vue.component('i-addcart', AddCartBtn)
 Vue.component('i-router-link', RouterLink)
 Vue.component('i-count-down', CountDown)
 Vue.component('i-topic', topic)
-
-import '@/lionfish_comshop/styles/index.scss' // global css
-import qs from 'qs'
-
-import store from './lionfish_comshop/store'
-import { http,http_post } from './lionfish_comshop/api/index'
-import wx from './lionfish_comshop/utils/wx'
-import router from './lionfish_comshop/router'
-
-import App from './App'
-import '@/icons' // icon
-import '@/permission' // permission control
+Vue.component('i-load-more', LoadMore)
+Vue.component('i-auth', auth)
+Vue.component('i-community-item', CommunityItem)
+Vue.component('i-rush-spu', RushSpu)
+Vue.component('i-fixed-bottom', FixedBottom)
 
 Vue.prototype.$getApp = function() {
   return App
@@ -90,21 +111,23 @@ Vue.prototype.$app = App
  *
  * Currently MockJs will be used in the production environment,
  * please remove it before going online ! ! !
- */
-if (process.env.NODE_ENV === 'production') {
+
+ if (process.env.NODE_ENV === 'production') {
   const { mockXHR } = require('../mock')
   mockXHR()
 }
+ */
+Vue.use(less)
 
 Vue.prototype.$qs = qs
 Vue.prototype.$http = http
 Vue.prototype.$http_post = http_post
 Vue.prototype.$wx = wx
 
-// set ElementUI lang to EN
-Vue.use(ElementUI, { locale })
-// 如果想要中文版 element-ui，按如下方式声明
-// Vue.use(ElementUI)
+Vue.use(ElementUI, {
+  size: Cookies.get('size') || 'medium', // set element-ui default size
+  i18n: (key, value) => i18n.t(key, value)
+})
 
 Vue.config.productionTip = false
 
@@ -112,6 +135,7 @@ const vue = new Vue({
   el: '#app',
   router,
   store,
+  i18n,
   render: h => h(App)
 
 })

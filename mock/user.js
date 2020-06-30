@@ -22,8 +22,7 @@ const users = {
     name: 'Normal Editor'
   }
 }
-
-module.exports = [
+ var exp = [
   // user login
   {
     url: '/vue-admin-template/user/login',
@@ -82,3 +81,5 @@ module.exports = [
     }
   }
 ]
+
+export default exp

@@ -37,7 +37,7 @@
             </div>
             <div style="min-height: 100px;">
                 <div v-if="!pageEmpty">
-                  <i-type-item  v-for="(item,actId) in rushList" :key="actId" :spuItem="item"></i-type-item>
+                  <i-type-item  v-for="(item,actId) in rushList" :key="item.actId" :spuItem="item"></i-type-item>
                 </div>
                 <div class="none-rush-list" v-else-if="pageEmpty">
                     <image class="img-div" src="../../images/icon-index-empty.png"></image>
@@ -401,7 +401,7 @@
   }
 
   .sub-cate-item.active {
-    color: #f75451;
+    color: #8ED9D1;
   }
 
   .icon-open {
@@ -458,9 +458,9 @@
   }
 
   .sub-cate-hide .sub-cate-item.active {
-    background-color: #f75451;
+    background-color: #8ED9D1;
     color: #fff;
-    border: 1px solid #f75451;
+    border: 1px solid #8ED9D1;
   }
 
   .pt50 {

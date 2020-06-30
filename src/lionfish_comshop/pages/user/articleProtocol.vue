@@ -28,7 +28,7 @@
     methods: {
       onLoad: function() {
         var id = this.$route.query.id;
-        debugger
+
         var a = id || 0;
         this.articleId = a;
         var about = this.$route.query.about;
@@ -52,9 +52,11 @@
             if ( 0 == t.code) {
               var a = t.data;
 
-              this.article = a.content;
-              this.$store.state.app.toolbarTitle =a.title;
-
+              e.article = a.content;
+//              this.$store.state.app.toolbarTitle =a.title;
+              e.$wx.setNavigationBarTitle({
+                title: a.title
+              })
             }
         });
       },

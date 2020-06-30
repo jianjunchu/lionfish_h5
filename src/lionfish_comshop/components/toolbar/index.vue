@@ -1,6 +1,6 @@
 <template>
   <div class="vux-header" :style="{background:navBgColor}">
-    <div class="vux-header-left" v-if="getShowToolbarBack"><a class="vux-header-back"></a>
+    <div class="vux-header-left" v-if="getShowToolbarBack" @click="back"><a class="vux-header-back"></a>
       <div class="left-arrow"></div>
     </div>
     <h2 class="vux-header-title"><span>{{getToolbarTitle}}</span></h2>
@@ -28,6 +28,11 @@
       navFontColor(){
         return this.$store.getters.navFontColor
       }
+    },
+    methods:{
+      back:function() {
+        this.$router.go(-1)
+      }
     }
 
   }
@@ -38,7 +43,6 @@
   .vux-header {
     position: fixed;
     width: 100%;
-    padding: 3px 0;
     box-sizing: border-box;
     background-color: #3dc14a;
     left: 0px;
@@ -46,7 +50,7 @@
     z-index: 100
   }
   .vux-header .vux-header-title {
-    line-height: 40px;
+    line-height: 48px;
     text-align: center;
     font-size: 18px;
     font-weight: 400;
@@ -54,7 +58,7 @@
   }
   .vux-header-title-area, .vux-header .vux-header-title {
     margin: 0 88px;
-    height: 40px;
+    height: 48px;
     width: auto;
     overflow: hidden;
     text-overflow: ellipsis;
