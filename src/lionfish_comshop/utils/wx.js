@@ -1,6 +1,7 @@
 import _this from '../../main.js'
 import { Dialog, Toast } from 'vant'
 import GetSystemInfoSyncResult from '@/lionfish_comshop/utils/GetSystemInfoSyncResult'
+import axios from 'axios'
 
 export default {
   showToast: function(option) {
@@ -39,8 +40,17 @@ export default {
   getLogManager: function() {
     return true
   },
-  request: function() {
-
+  request: function(option) {
+    axios({
+      method: option.method,
+      url: option.url,
+      data: option.data,
+      responseType: option.responseType
+    }).then(function(res) {
+      option.success(res)
+    }).catch(function(res) {
+      option.error(res)
+    })
   },
   setStorage: function(option) {
     this.setStorageSync(option.key, option.data)

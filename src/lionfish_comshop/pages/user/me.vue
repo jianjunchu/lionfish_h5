@@ -71,7 +71,7 @@
             <span class="num" :style="{background:skin.color}" v-show="member_info.wait_pay_count!=0">{{member_info.wait_pay_count}}</span>
             <!--<img class="icon-img" :src="user_order_menu_icons.i1?user_order_menu_icons.i1:'@/assets/images/needPayIcon.png'"/>-->
             <img class="icon-img" src="@/assets/images/needPayIcon.png"/>
-            <span style="color: #444;">$t('common.daifukuan')</span>
+            <span style="color: #444;">{{$t('common.daifukuan')}}</span>
           </div>
           <div @click="goLink2" class="order_status" data-link="/lionfish_comshop/pages/order/index?order_status=1">
             <span class="num" :style="{background:skin.color}" v-show="member_info.wait_send_count!=0">{{member_info.wait_send_count}}</span>

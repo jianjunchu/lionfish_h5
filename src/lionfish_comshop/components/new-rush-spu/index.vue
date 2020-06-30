@@ -169,7 +169,8 @@
     },
     created:function() {
       this.number =  this.spuItem.car_count || 0
-
+      var a = "/lionfish_comshop/pages/goods/goodsDetail?&id=" + this.spuItem.actId;
+      this.url = a
     },
     methods: {
       openSku: function() {

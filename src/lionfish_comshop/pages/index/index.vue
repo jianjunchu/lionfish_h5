@@ -186,8 +186,10 @@
           <div v-if="hide_index_type!=1">
             <div class="sticky-cate_index" v-if="index_change_cate_btn==1">
               <div v-show="!isShowClassification||tabIdx!==0">
+                <van-sticky :offset-top="50">
                 <i-tabs :activeIndex="classification.activeIndex" @activeIndexChange="classificationChange"
                         data-idx="1" fontColor="#000" iClass="category-list" :tabs="classification.tabs"></i-tabs>
+                </van-sticky>
               </div>
               <div class="tab-nav-index-query"></div>
             </div>
@@ -200,14 +202,14 @@
                        v-if="tabIdx===0"/>
                   <img :src="(qgtab.one_selected?qgtab.one_selected:require('@/assets/images/index-tab-left-disabled.png'))"
                        v-else/>
-                  <span>{{index_qgtab_text[0]?index_qgtab_text[0]:'"$t('index.buying')'}}</span>
+                  <span>{{index_qgtab_text[0]?index_qgtab_text[0]:'"$t(index.buying)'}}</span>
                 </div>
                 <div @click="tabSwitch" :class="['tab-nav-index-item', (tabIdx===1?'active':'')]" data-idx="1">
                   <img :src="(qgtab.two_select?qgtab.two_select:require('@/assets/images/index-tab-right-active.png'))"
                        v-if="tabIdx===1"/>
                   <img :src="(qgtab.two_selected?qgtab.two_selected:require('@/assets/images/index-tab-right-disabled.png'))"
                        v-else/>
-                  <span>{{index_qgtab_text[1]?index_qgtab_text[1]:'$t('index.to_buy')'}}
+                  <span>{{index_qgtab_text[1]?index_qgtab_text[1]:$t(index.to_buy)}}
             </span>
                 </div>
                 <div class="count-down-content" v-if="tabIdx===0">
@@ -219,12 +221,16 @@
                 </div>
               </div>
               <div v-show="!isShowClassification||tabIdx!==0">
+                <van-sticky :offset-top="50">
                 <i-tabs :activeIndex="classification.activeIndex" @activeIndexChange="classificationChange"
                         data-idx="1" fontColor="#000" class="category-list" :tabs="classification.tabs"></i-tabs>
+                </van-sticky>
               </div>
               <div v-show="!isShowCommingClassification||tabIdx!==1">
+                <van-sticky :offset-top="50">
                 <i-tabs :activeIndex="commingClassification.activeIndex" @activeIndexChange="classificationChange" data-idx="2" fontColor="#000"
                         iClass="category-list" :tabs="classification.tabs"></i-tabs>
+                </van-sticky>
               </div>
             </div>
           </div>
@@ -282,7 +288,7 @@
                             @vipModal="vipModal" :canLevelBuy="canLevelBuy" :changeCarCount="changeCarCount"
                             class="item" :is_open_vipcard_buy="is_open_vipcard_buy" :needAuth="needAuth"
                             :reduction="reduction" :spuItem="item" :stopClick="stopClick"
-                            v-for="(item,index) in rushList" :key="actId"></i-rush-spu>
+                            v-for="(item,index) in rushList" :key="item.actId"></i-rush-spu>
               </div>
               <i-load-more iClass="loadMore" :loading="loadMore" :tip="loadText" v-if="loadMore"></i-load-more>
             </div>
@@ -510,6 +516,7 @@
 
 <script>
   import GlobalMixin from '../../mixin/globalMixin.js'
+  import { Sticky } from 'vant';
 
   var _Page, _extends = Object.assign || function(t) {
     for (var a = 1; a < arguments.length; a++) {
@@ -538,6 +545,7 @@
   export default {
     mixins: [countDownInit.default, GlobalMixin],
     name: 'Index',
+    components:{[Sticky.name]:Sticky },
     data() {
 
       return {
@@ -773,6 +781,7 @@
 
     },
     mounted: function() {
+
       var a = this,
         e = this;
       if ((a.stopNotify = !1, a.tabbarRefresh = !0, a.isblack = a.$app.globalData.isblack || 0), util.check_login_new().then(function(t) {
@@ -1405,9 +1414,7 @@
               duration: 2e3
             })
           } else {
-            i.closeSku(), (0, status.cartNum)(t.total)
-            i.cartNum = t.total
-
+            i.closeSku()
             this.$wx.showToast({
               title: '已加入购物车',
               image: '../../images/addShopCart.png'
@@ -1559,14 +1566,16 @@
         }, 7e3));*/
       },
       authModal: function() {
-        var t = 0 < arguments.length && void 0 !== arguments[0] ? arguments[0] : {},
-          a = t && t || this.needAuth
-         !this.needAuth && !t || ((this.showAuthModal = !this.showAuthModal, this.needAuth = a), !1);
-        if(this.showAuthModal){
-            this.$wx.redirectTo({
-              url: "/login"
-            })
-        }
+        var i = this;
+        util.check_login_new().then(function(e) {
+            if(e){
+              i.needAuth = !1
+            }else{
+              i.$wx.redirectTo({
+                url: "/login"
+              })
+            }
+        })
       },
       goNavUrl: function(t) {
         var a = t.currentTarget.dataset.idx,
@@ -1666,7 +1675,7 @@
           e = this,
           a = this.$wx.getStorageSync('community'),
           o = this.commingClassificationId || 0
-        e.$data.isLoadData = !0, e.$data.hasCommingGoods ? (e.$data.hasCommingGoods = !1,
+          e.$data.isLoadData = !0, e.$data.hasCommingGoods ? (e.$data.hasCommingGoods = !1,
           this.commigLoadMore = 0,
           this.$http({
 
@@ -1676,7 +1685,8 @@
             head_id: a.communityId,
             gid: o
           }).then(t => {
-            if (this.$wx.hideLoading(), 0 == t.code) {
+            this.$wx.hideLoading()
+            if ( 0 == t.code) {
               var a = t.list
               a = e.commingList.concat(a), e.$data.hasCommingGoods = !0, e.tpage += 1
               e.commingList = a
@@ -1685,7 +1695,7 @@
               e.getScrollHeight()
 
             } else {
-              1 == t.data.code ? (1 == e.tpage && 0 == e.commingList.length && (
+              1 == t.code ? (1 == e.tpage && 0 == e.commingList.length && (
                 e.showCommingEmpty = !0
               ), (
                 e.commigLoadMore = !1,
@@ -1734,13 +1744,14 @@
       },
       changeNotListCartNum: function(t) {
         var a = t;
-        (0, status.cartNum)(this.cartNum = a), this.changeRushListNum()
+        status.cartNum().then(function(e) {
+          this.cartNum = e.data
+        })
+        this.changeRushListNum()
       },
       changeCartNum: function(t) {
         var a = t;
-        (0, status.cartNum)(
-          this.cartNum = a
-        )
+        this.cartNum = a
       },
       changeRushListNum: function() {
         var t = this.$getApp().globalData.goodsListCarCount,
@@ -2038,7 +2049,7 @@
     z-index: 2;
     background: #f7f7f7;
     position: relative;
-    min-height: 400px;
+    min-height: 800px;
     padding: 10px;
   }
 

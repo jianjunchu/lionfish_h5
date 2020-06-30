@@ -1234,7 +1234,6 @@
       },
       preSubscript: function(t) {
         var type = t.currentTarget.dataset.type
-        alert(type)
         var e = this
         this.canPreSub && (this.canPreSub = !1, 1 == this.is_need_subscript ? this.subscriptionNotice().then(function() {
           e.prepay(type)
@@ -1244,7 +1243,7 @@
 
       },
       havePaid: function(t) {
-
+        var i= this
         var s = wx.getStorageSync('token')
         var type = t.currentTarget.dataset.type
         wx.showLoading(), app.util.request({
@@ -1252,15 +1251,16 @@
           data: {
             controller: 'order.pay_order',
             token: s,
-            order_id: this.order_id,
+            order_id: i.order_id,
             payment_code: type
           },
           dataType: 'json',
           method: 'POST',
           success: function(t) {
+
             wx.hideLoading()
             wx.redirectTo({
-              url: '/lionfish_comshop/pages/order/order?id=' + this.order_id + '&is_show=1'
+              url: '/lionfish_comshop/pages/order/order?id=' + i.order_id + '&is_show=1'
             })
           }
 
@@ -1346,6 +1346,8 @@
             dataType: 'json',
             method: 'POST',
             success: function(t) {
+              debugger
+              console.log(t)
               wx.hideLoading()
 
               var e = t.has_yupay || 0, a = t.order_id, i = {}
