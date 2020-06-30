@@ -144,14 +144,46 @@
           <template is="cube" :data="{data:cube}"></template>
         </div>
         <div class="list-content">
-          <i-new-comer @openSku="openSku" :refresh="newComerRefresh" :skin="skin"
-                       v-if="is_show_new_buy==1"></i-new-comer>
-          <template is="pin" :data="{pinList:pinList,skin:skin}"></template>
-          <i-spike @openSku="openSku" :refresh="newComerRefresh" :skin="skin"
-                   v-if="is_show_spike_buy==1"></i-spike>
+
+          <i-new-comer @openSku="openSku" :refresh="newComerRefresh" :skin="skin" v-if="is_show_new_buy==1"></i-new-comer>
+
+          <!--<template is="pin" :data="{pinList:pinList,skin:skin}"></template>-->
+
+
+
+          <i-spike @openSku="openSku" :refresh="newComerRefresh" :skin="skin" v-if="is_show_spike_buy==1"></i-spike>
           <template is="seckill"
                     :data="{secRushList:secRushList,skin:skin,scekillTimeList:scekillTimeList,secKillActiveIdx:secKillActiveIdx,secKillGoodsIndex:secKillGoodsIndex,needAuth:needAuth}"
                     v-if="seckill_is_open==1&&seckill_is_show_index==1"></template>
+
+          <!--<view class="seckill" v-if="seckill_is_open==1&&seckill_is_show_index==1">
+            <view class="seckill-head i-flex" :style="{background:skin.color}">
+              <view class="tit">
+                <view>整点</view>
+                <view>秒杀</view>
+              </view>
+              <view class="i-flex-item i-flex">
+                <view bindtap="changeSecKillTime" class="seckill-head-item {{secKillActiveIdx==index?'active':''}}" data-idx="{{index}}" data-time="{{item.seckillTime}}" wx:for="{{scekillTimeList}}" wx:key="id">
+                  <view class="time">{{item.timeStr}}</view>
+                  <view class="desc" style="{{secKillActiveIdx==index?'color:'+skin.color:''}}">{{item.desc}}</view>
+                </view>
+              </view>
+              <view bindtap="goLink" class="more" data-link="/lionfish_comshop/moduleA/seckill/list?time={{scekillTimeList[secKillActiveIdx].seckillTime}}">
+                更多 <text class="iconfont icon-gengduo"></text>
+              </view>
+            </view>
+            <view class="seckill-list" wx:if="{{secRushList.length}}">
+              <swiper circular indicatorDots="{{false}}" bindchange="scrollSecKillGoodsChange" class="sec-swiper-content" duration="400">
+                <swiper-item wx:for="{{secRushList}}" wx:key="id">
+                  <i-seckill-spu begin="{{scekillTimeList[currentTab].state==2?1:0}}" needAuth="{{needAuth}}" skin="{{skin}}" spuItem="{{item}}"></i-seckill-spu>
+                </swiper-item>
+              </swiper>
+              <text class="current" wx:if="{{secRushList.length}}">{{secKillGoodsIndex}}/{{secRushList.length}}</text>
+            </view>
+          </view>-->
+
+
+
           <i-topic @openSku="openSku" :refresh="couponRefresh"></i-topic>
           <div class="theme3 bg-f" v-if="typeTopicList.length&&(typeItem.banner||typeItem.list.length)"
                v-for="(typeItem,index) in typeTopicList" :key="typeItem.id">
@@ -186,8 +218,10 @@
           <div v-if="hide_index_type!=1">
             <div class="sticky-cate_index" v-if="index_change_cate_btn==1">
               <div v-show="!isShowClassification||tabIdx!==0">
+                <van-sticky :offset-top="50">
                 <i-tabs :activeIndex="classification.activeIndex" @activeIndexChange="classificationChange"
                         data-idx="1" fontColor="#000" iClass="category-list" :tabs="classification.tabs"></i-tabs>
+                </van-sticky>
               </div>
               <div class="tab-nav-index-query"></div>
             </div>
@@ -219,12 +253,16 @@
                 </div>
               </div>
               <div v-show="!isShowClassification||tabIdx!==0">
+                <van-sticky :offset-top="50">
                 <i-tabs :activeIndex="classification.activeIndex" @activeIndexChange="classificationChange"
                         data-idx="1" fontColor="#000" class="category-list" :tabs="classification.tabs"></i-tabs>
+                </van-sticky>
               </div>
               <div v-show="!isShowCommingClassification||tabIdx!==1">
+                <van-sticky :offset-top="50">
                 <i-tabs :activeIndex="commingClassification.activeIndex" @activeIndexChange="classificationChange" data-idx="2" fontColor="#000"
                         iClass="category-list" :tabs="classification.tabs"></i-tabs>
+                </van-sticky>
               </div>
             </div>
           </div>
@@ -282,7 +320,7 @@
                             @vipModal="vipModal" :canLevelBuy="canLevelBuy" :changeCarCount="changeCarCount"
                             class="item" :is_open_vipcard_buy="is_open_vipcard_buy" :needAuth="needAuth"
                             :reduction="reduction" :spuItem="item" :stopClick="stopClick"
-                            v-for="(item,index) in rushList" :key="actId"></i-rush-spu>
+                            v-for="(item,index) in rushList" :key="item.actId"></i-rush-spu>
               </div>
               <i-load-more iClass="loadMore" :loading="loadMore" :tip="loadText" v-if="loadMore"></i-load-more>
             </div>
@@ -510,6 +548,7 @@
 
 <script>
   import GlobalMixin from '../../mixin/globalMixin.js'
+  import { Sticky } from 'vant';
 
   var _Page, _extends = Object.assign || function(t) {
     for (var a = 1; a < arguments.length; a++) {
@@ -538,6 +577,7 @@
   export default {
     mixins: [countDownInit.default, GlobalMixin],
     name: 'Index',
+    components:{[Sticky.name]:Sticky },
     data() {
 
       return {
@@ -773,6 +813,7 @@
 
     },
     mounted: function() {
+
       var a = this,
         e = this;
       if ((a.stopNotify = !1, a.tabbarRefresh = !0, a.isblack = a.$app.globalData.isblack || 0), util.check_login_new().then(function(t) {
@@ -1386,29 +1427,27 @@
             var a = t.pop_vipmember_buyimage
             i.$wx.hideLoading(), (i.pop_vipmember_buyimage = a, i.showVipModal = !0, i.visible = !1)
           } else if (3 == t.code || 7 == t.code) {
-            this.$wx.showToast({
+            i.$wx.showToast({
               title: t.msg,
               icon: 'none',
               duration: 2e3
             })
-          } else if (4 == t.data.code) {
-            this.$wx.hideLoading(), (i.needAuth = !0, i.showAuthModal = !0, i.visible = !1)
-          } else if (6 == t.data.code) {
+          } else if (4 == t.code) {
+            i.$wx.hideLoading(), (i.needAuth = !0, i.showAuthModal = !0, i.visible = !1)
+          } else if (6 == t.code) {
             var e = t.max_quantity || ''
             if (0 < e) {
               i.sku_val = e
             }
             var o = t.msg
-            this.$wx.showToast({
+            i.$wx.showToast({
               title: o,
               icon: 'none',
               duration: 2e3
             })
           } else {
-            i.closeSku(), (0, status.cartNum)(t.total)
-            i.cartNum = t.total
-
-            this.$wx.showToast({
+            i.closeSku()
+            i.$wx.showToast({
               title: '已加入购物车',
               image: '../../images/addShopCart.png'
             })
@@ -1559,14 +1598,27 @@
         }, 7e3));*/
       },
       authModal: function() {
-        var t = 0 < arguments.length && void 0 !== arguments[0] ? arguments[0] : {},
-          a = t && t || this.needAuth
-         !this.needAuth && !t || ((this.showAuthModal = !this.showAuthModal, this.needAuth = a), !1);
-        if(this.showAuthModal){
-            this.$wx.redirectTo({
-              url: "/login"
-            })
+        var i = this;
+
+        var t = i.$wx.getStorageSync('community');
+        if(!t && !t.communityId){
+          this.$wx.redirectTo({
+            url: '/lionfish_comshop/pages/position/community'
+          })
         }
+
+        util.check_login_new().then(function(e) {
+            if(e){
+              i.needAuth = !1
+            }else{
+              i.$wx.redirectTo({
+                url: "/login"
+              })
+            }
+        })
+
+
+
       },
       goNavUrl: function(t) {
         var a = t.currentTarget.dataset.idx,
@@ -1666,7 +1718,7 @@
           e = this,
           a = this.$wx.getStorageSync('community'),
           o = this.commingClassificationId || 0
-        e.$data.isLoadData = !0, e.$data.hasCommingGoods ? (e.$data.hasCommingGoods = !1,
+          e.$data.isLoadData = !0, e.$data.hasCommingGoods ? (e.$data.hasCommingGoods = !1,
           this.commigLoadMore = 0,
           this.$http({
 
@@ -1676,7 +1728,8 @@
             head_id: a.communityId,
             gid: o
           }).then(t => {
-            if (this.$wx.hideLoading(), 0 == t.code) {
+            this.$wx.hideLoading()
+            if ( 0 == t.code) {
               var a = t.list
               a = e.commingList.concat(a), e.$data.hasCommingGoods = !0, e.tpage += 1
               e.commingList = a
@@ -1685,7 +1738,7 @@
               e.getScrollHeight()
 
             } else {
-              1 == t.data.code ? (1 == e.tpage && 0 == e.commingList.length && (
+              1 == t.code ? (1 == e.tpage && 0 == e.commingList.length && (
                 e.showCommingEmpty = !0
               ), (
                 e.commigLoadMore = !1,
@@ -1734,13 +1787,14 @@
       },
       changeNotListCartNum: function(t) {
         var a = t;
-        (0, status.cartNum)(this.cartNum = a), this.changeRushListNum()
+        status.cartNum().then(function(e) {
+          this.cartNum = e.data
+        })
+        this.changeRushListNum()
       },
       changeCartNum: function(t) {
         var a = t;
-        (0, status.cartNum)(
-          this.cartNum = a
-        )
+        this.cartNum = a
       },
       changeRushListNum: function() {
         var t = this.$getApp().globalData.goodsListCarCount,
@@ -2038,7 +2092,7 @@
     z-index: 2;
     background: #f7f7f7;
     position: relative;
-    min-height: 400px;
+    min-height: 800px;
     padding: 10px;
   }
 
@@ -2585,11 +2639,11 @@
   }
 
   .sticky-content-index .tab-nav-index .tab-nav-index-item:nth-child(2) {
-    margin-left: -20px;
+    margin-left: -8px;
   }
 
   .sticky-content-index .tab-nav-index .tab-nav-index-item:nth-child(2) span {
-    margin-left: 30px;
+    margin-left: -12px;
   }
 
   .sticky-content-index .category-list {

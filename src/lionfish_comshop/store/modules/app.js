@@ -10,7 +10,7 @@ const state = {
   tabbarCurrentIdx: 2,
   storageSync: {},
   showToolbarBack: true,
-  showToolbarMore: false,
+  showToolbarMore: true,
   showTabbar: true,
   navBgColor: '#8ED9D1',
   navFontColor: '#ffffff',

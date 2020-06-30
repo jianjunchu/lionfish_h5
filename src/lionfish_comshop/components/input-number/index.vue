@@ -5,7 +5,7 @@
       v-if="value==0">
       <img class="img i-number-img" src="@/assets/images/icon-spu-reduce-disabled.png"/>
     </div>
-    <div @click="handleMinus"
+    <div @click.stop="handleMinus"
          :class="['i-input-number-minus', 'i-input-number-div', 'i-number-div', (value<=min?'i-input-number-disabled':'')]"
          v-else>
       <span class="iconfont icon-jian img i-number-img" :style="{color:getSkin.color}"></span>
@@ -17,7 +17,7 @@
          v-if="max==0">
       <img class="img i-number-img" src="@/assets/images/icon-spu-add-disabled.png"/>
     </div>
-    <div @click="handlePlus"
+    <div @click.stop="handlePlus"
          :class="['i-input-number-plus', 'i-input-number-div', 'i-number-div', (value>=max?'i-input-number-disabled':'')]" v-else>
       <span class="iconfont icon-jia img i-number-img" :style="{color:getSkin.color}"></span>
     </div>

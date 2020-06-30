@@ -5,7 +5,7 @@
                    :style="{color:item.selected?tabbar.selectedColor:tabbar.color}" :to="item.pagePath" v-if="index!=2">
         <div class="tabbar_icon" data-num="getCartNum">
           <img class="img" :src="item.selected?item.selectedIconPath:item.iconPath"/>
-          <div class="cart-num" v-if="getCartNum&&index==3">{{getCartNum}}</div>
+          <div class="cart-num" v-if="cartNum&&index==3">{{cartNum}}</div>
         </div>
         <span>{{item.text}}</span>
       </router-link>
@@ -45,11 +45,7 @@
         this.switchTab(e)
       }
     },
-    computed: {
-      getCartNum() {
-        return this.$app.globalData.cartNum
-      }
-    },
+
     mounted() {
 
       this.getTabbar()

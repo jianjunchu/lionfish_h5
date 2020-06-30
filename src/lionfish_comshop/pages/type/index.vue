@@ -37,7 +37,7 @@
             </div>
             <div style="min-height: 100px;">
                 <div v-if="!pageEmpty">
-                  <i-type-item  v-for="(item,actId) in rushList" :key="actId" :spuItem="item"></i-type-item>
+                  <i-type-item  v-for="(item,actId) in rushList" :key="item.actId" :spuItem="item"></i-type-item>
                 </div>
                 <div class="none-rush-list" v-else-if="pageEmpty">
                     <image class="img-div" src="../../images/icon-index-empty.png"></image>
