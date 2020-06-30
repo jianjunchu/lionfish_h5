@@ -82,11 +82,15 @@
             </div>
             <div class="song_button">
               <div @click="callPhone" class="goods-sign-btn" :data-phone="item.shipping_tel">
-                <img src="@/assets/images/phone.png"></img> {{item.shipping_name}}
+                <img src="@/assets/images/phone.png" /> <span style="font-size:medium">{{item.shipping_name}}</span>
               </div>
               <div class="song_button_item">
-                <div @click="sign_one" class="goods-sign-btn" :data-order_id="item.order_id" v-if="currentTab==2">确认签收</div>
-                <div @click="goOrderDetail" class="goods-sign-btn gray" :data-order_id="item.order_id">查看详情</div>
+                <div @click="sign_one" class="goods-sign-btn" :data-order_id="item.order_id" v-if="currentTab==2">
+                  <span style="font-size:medium">确认签收</span>
+                </div>
+                <div @click="goOrderDetail" class="goods-sign-btn gray" :data-order_id="item.order_id">
+                  <span style="font-size:medium">查看详情</span>
+                </div>
               </div>
             </div>
           </div>
@@ -222,9 +226,15 @@
         var t = this;
         status.setGroupInfo().then(function(e) {
           t.groupInfo= e;
-        }), this.page = 1;
+        });
+        this.page = 1;
         var a = 0;
-        null != query && (a = query.tab), this.currentTab= a, this.getData(a);
+        var currentTab = 0;
+        if (query != undefined) {
+          currentTab = query.tab;
+        }
+        this.currentTab= currentTab;
+        this.getData(currentTab);
       },
       onShow: function() {},
       bindFiledChange: function() {
@@ -267,37 +277,67 @@
       getData: function() {
         this.$wx.showLoading({
           title: "加载中...",
-          mask: !0
-        }), this.isHideLoadMore= !0
-        , this.no_order = 1;
-        var o = this, e = this.$wx.getStorageSync("token"), t = this.currentTab, a = -1;
-        1 == t ? a = 1 : 2 == t ? a = 14 : 3 == t ? a = 4 : 4 == t && (a = 6);
+          mask: true
+        });
+        this.isHideLoadMore= true;
+        this.no_order = 1;
+        var that = this;
+        var token= this.$wx.getStorageSync("token");
 
-        var data= _extends({
-          controller: "order.orderlist",
-          is_tuanz: 1,
-          token: e,
-          page: o.page,
-          order_status: a
-        }, this.searchOBj);
+        var  currentTab = this.currentTab;
+        var order_status = -1;
+        if (currentTab == 1) {
+          order_status = 1;
+        } else if (currentTab == 2) {
+          order_status = 14;
+        } else if (currentTab == 3) {
+          order_status = 4;
+        } else if (currentTab == 4) {
+          order_status = 6;
+        }
+
+
+//        var data= _extends({
+//          controller: "order.orderlist",
+//          is_tuanz: 1,
+//          token: e,
+//          page: o.page,
+//          order_status: a
+//        }, this.searchOBj);
+
           this.$http({
-             data
-          }).then(e=> {
-              console.log(e);
-            var t = e, a = {
-              open_aftersale: t.open_aftersale,
-              open_aftersale_time: t.open_aftersale_time
-            };
-            if (0 != e.code) return _extends({
-              isHideLoadMore: !0
-            }, a), this.$wx.hideLoading(), !1;
-            console.log(o.page);
-            var r = e.data, n = o.order.concat(r);
-            _extends({
-              order: n,
-              hide_tip: !0,
-              no_order: 0
-            }, a), this.$wx.hideLoading();
+            controller: "order.orderlist",
+            is_tuanz: 1,
+            token: token,
+            page: that.page,
+            order_status: order_status,
+            keyword: that.keyword,
+            searchfield: that.fieldIdx
+          }).then(res=> {
+              console.log(res,"orderlist");
+
+              var open_aftersale= res.open_aftersale;
+              var open_aftersale_time = res.open_aftersale_time;
+              let h = { open_aftersale, open_aftersale_time };
+               if (res.code == 0) {
+                 console.log(that.page);
+                 let data = res.data;
+                 let rushList = that.order.concat(data);
+                 that.order= rushList;
+                 that.hide_tip= true;
+                 that.no_order= 0;
+                 that.open_aftersale=open_aftersale;
+                 that.open_aftersale_time=open_aftersale_time;
+                 that.$forceUpdate();
+                 that.$wx.hideLoading();
+               } else {
+                 that.isHideLoadMore= true;
+                 that.open_aftersale=open_aftersale;
+                 that.open_aftersale_time=open_aftersale_time;
+                 that.$forceUpdate();
+                 that.$wx.hideLoading();
+                 return false;
+               }
 
         });
       },
