@@ -1535,6 +1535,7 @@
       openSku: function(t) {
 
         if (this.authModal()) {
+          debugger
           var a = t,
             e = a.actId,
             o = a.skuList
@@ -1973,12 +1974,12 @@
 
 </script>
 
-<style scoped>
-  @import "index.less";
-  @import "seckill.less";
-  @import "cube.less";
+<style  src="@/lionfish_comshop/pages/index/index.css">
 </style>
-
+<style  src="@/lionfish_comshop/pages/index/cube.css">
+</style>
+<style  src="@/lionfish_comshop/pages/index/seckill.css">
+</style>
 
 
 

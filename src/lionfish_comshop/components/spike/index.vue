@@ -132,7 +132,7 @@
 </script>
 
 <style scoped>
-  @import "../new-comer/index.less";
+  @import "../new-comer/index.css";
 
   .new-comers-title {
     display: flex;

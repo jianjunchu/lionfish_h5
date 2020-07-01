@@ -1,5 +1,5 @@
 <template>
-  <div @click="routerLink" class="i-router-class router-class" hoverClass="i-router-hover">
+  <div @click="routerLink" :class="[routerClass, 'router-class']" hoverClass="i-router-hover">
     <slot></slot>
   </div>
 
@@ -8,12 +8,13 @@
 <script>
   export default {
     name: 'router-link',
-    data(){
-      return{
+
+    data() {
+      return {
         canClick: !0
       }
     },
-    props:{
+    props: {
       url: String,
       type: String,
       disabled: {
@@ -23,20 +24,27 @@
       delta: {
         type: Number,
         default: 1
+      },
+      routerClass: {
+        default: ''
       }
     },
+
     methods: {
-      routerLink(t){
-        var t = this;
-        if (!this.disabled && this.canClick) if (this.url) {
+      routerLink(t) {
+        var t = this
+        if (!this.disabled && this.canClick) {
+          if (this.url) {
 
-          this.canClick = !1
-          this.$router.push(this.url)
+            this.canClick = !1
+            this.$router.push(this.url)
 
+          } else {
+            console.warn('url 不能为空')
+          }
         }
-        else console.warn("url 不能为空");
       }
-    },
+    }
   }
 
 </script>
