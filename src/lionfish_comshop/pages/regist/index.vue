@@ -133,9 +133,6 @@
             }
         },
         props:['baseConfig'],
-      created:function(){
-        this.hideTopAndFooter()
-      },
         mounted() {
             //监听事件
             window.onresize = ()=>{
@@ -184,7 +181,7 @@
             },
             hideTopAndFooter: function(){
               this.$wx.setNavigationBarTitle({
-                title: "Regist",
+                title: 'Regist',
                 showLogo:false,
                 showMore:false,
                 showBack:true
@@ -224,14 +221,17 @@
                   phone: input_phone,
                   i: 3
                 }).then(response => {
-                  console.log(response)
+                  console.log(response,",,,,,")
+				  if(response.code ==-1){
+					  alert(response.message)
+				  }
                 });
                 this.registFlag = true;
                 this.timeOut = false;
                 //倒计时
                 if (!this.errorFlag.phone_empty){
                     Toast({
-                        message: '验证码已发送',
+                        message: 'OTP Send',
                         position: 'middle',
                     });
                     this.timer = setInterval(()=>{
@@ -259,6 +259,7 @@
                 this.errorFlag.code_empty = code === "" || code === null || code === undefined;
             },
             /***************************************************注册****************************************************/
+
             regist(){
               var code = this.input_info.code;
               var phone = this.input_info.phone;
@@ -276,9 +277,18 @@
               }).then(response => {
                 console.log(response)
                 var result = response;
+                	var a = this.input_info.phone;
+           	      var str   =   a.replace(/\s+/g,"");
+                 	console.log(str);
                 if(result.code == 0){
-                  this.$router.push({path: '/userInfo?memberId='+result.member_id});
-                }
+                  this.$router.push({path: '/userInfo?memberId='+result.member_id+'&country='+this.cityCode+'&phone='+str});
+                } else if(result.code == -1){
+									alert(" code parameter not")
+								}else if(result.code == -2){
+									alert("timeout")
+								}else if(result.code == -3){
+									alert("code verify fails")
+								}
               })
             }
         },

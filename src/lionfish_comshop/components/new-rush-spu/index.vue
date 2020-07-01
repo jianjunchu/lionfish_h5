@@ -295,6 +295,5 @@
   }
 </script>
 
-<style scoped>
-  @import 'index.css';
+<style src="@/lionfish_comshop/components/new-rush-spu/index.css" scoped>
 </style>

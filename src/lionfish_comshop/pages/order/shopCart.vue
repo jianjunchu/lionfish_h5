@@ -333,8 +333,8 @@
               ${{-canbuy_other}}下单
             </button>
           </div>
-          <button @click="toorder" class="fixed-bar-btn" :style="{background:skin.color}" v-else>去结算({{allnum}})
-          </button>
+          <div @click="toorder" class="fixed-bar-btn" :style="{background:skin.color}" v-else>去结算({{allnum}})
+          </div>
         </div>
       </div>
       <guess-like @changeCartNum="showCartGoods" @openSku="openSku" @vipModal="vipModal" :updateCart="updateCart"
@@ -1662,14 +1662,15 @@
   .fixed-bar .fixed-bar-btn {
     width: 30vw;
     height: 15vw;
+
     text-align: center;
-    line-height: 12vw;
+    line-height: 13vw;
     color: #fff;
     font-size: 4vw;
     background: #ff5344;
     border-radius: 0;
     padding: 0;
-    margin: 0;
+    margin: 0vw 0vw 0vw 2vw;
     font-weight: bold;
   }
 

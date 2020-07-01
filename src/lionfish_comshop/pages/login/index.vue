@@ -162,17 +162,17 @@ export default {
     },
     gotoRegist: function(){
       this.$router.push({path: '/regist'});
+    },
+    hideTopAndFooter: function(){
+      this.$wx.setNavigationBarTitle({
+        title: 'Login',
+        showLogo:false,
+        showMore:false,
+        showBack:true
+      })
     }
-
   },
   created: function(){
-    this.$wx.setNavigationBarTitle({
-      title: "Login",
-      showLogo:false,
-      showMore:false,
-      showBack:true
-    })
-
     this.hideTopAndFooter();
   }
 }

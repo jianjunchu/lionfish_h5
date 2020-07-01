@@ -2,7 +2,7 @@
   <div class="tabs i-class">
     <div scrollWithAnimation class="tabs__navs" scrollX="true" scrollY="false" :scrollLeft="scrollLeft">
       <div class="tabs__navs__wrap">
-        <div @click="handleTabItemTap" :class="['tabs__nav tav__nav__'+index, index==activeIndex?'active':'']" :data-id="tabItem.id" :data-index="index" :style="{'color': index===activeIndex?fontColor:''}" v-for="(tabItem ,index ) in tabs" :key="tabItem.id">{{tabItem.name}}</div>
+        <div @click.stop="handleTabItemTap" :class="['tabs__nav tav__nav__'+index, index==activeIndex?'active':'']" :data-id="tabItem.id" :data-index="index" :style="{'color': index===activeIndex?fontColor:''}" v-for="(tabItem ,index ) in tabs" :key="tabItem.id">{{tabItem.name}}</div>
       </div>
     </div>
   </div>

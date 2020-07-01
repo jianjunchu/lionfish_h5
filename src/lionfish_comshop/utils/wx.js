@@ -82,7 +82,7 @@ export default {
     router.push(option.url)
   },
   pageScrollTo: function() {
-
+    window.scrollTo(0, 130)
   },
   getScrollHeight: function() {
 

@@ -11,7 +11,7 @@
   justify-content: space-between;
   margin-bottom: 1vw
 }
-.van-image__img{
+.rounded img{
   border-radius: 1.5vw;
 }
 

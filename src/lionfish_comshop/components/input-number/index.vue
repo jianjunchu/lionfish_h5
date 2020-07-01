@@ -125,7 +125,6 @@
   @import "../../../@feiying/1.less";
 
   .i-input-number {
-    margin-top: 70px;
     color: #495060;
     display: flex;
     align-items: center;
@@ -133,16 +132,16 @@
   }
 
   .i-input-number .i-input-number-div {
-    width: 24px;
-    height: 24px;
+    width: 5vw;
+    height: 5vw;
     display: inline-block;
     vertical-align: middle;
   }
 
   .i-input-number .i-input-number-div .img {
-    width: 24px;
-    height: 24px;
-    font-size: 24px;
+    width: 5vw;
+    height: 5vw;
+    font-size: 5vw;
   }
 
   .i-input-number-minus {
@@ -158,10 +157,10 @@
   .i-input-number .i-input-number-text {
     position: relative;
     text-align: center;
-    height: 24px;
-    width: 33px;
-    font-size: 12px;
-    line-height: 24px;
+    height: 5vw;
+    width: 5vw;
+    font-size: 1vw;
+    line-height: 5vw;
     z-index: 0;
   }
 </style>
