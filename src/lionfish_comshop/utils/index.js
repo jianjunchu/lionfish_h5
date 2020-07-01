@@ -4,6 +4,7 @@
 
 import _this from '../../main.js'
 import { http } from '@/lionfish_comshop/api'
+import siteInfo from '../../siteinfo'
 
 var wcache = require('../utils/wcache')
 
@@ -55,7 +56,6 @@ function getConfig() {
 }
 
 function changeCommunity(t, a) {
-
   var e = _this.$wx.getStorageSync('token') || ''
   if (t.communityId) {
     _this.$app.globalData.timer.del()
@@ -168,7 +168,6 @@ function getInNum() {
 }
 
 function setNavBgColor() {
-
   _this.$http({
     controller: 'index.get_nav_bg_color'
   }).then(a => {
@@ -374,6 +373,33 @@ function check_login_new() {
   })
 }
 
+function url(e, t) {
+  var n = siteInfo.siteroot + '?i=' + siteInfo.uniacid + '&t=' + siteInfo.multiid + '&v=' + siteInfo.version + '&from=wxapp&c=entry&a=h5&do=index&m=lionfish_comshop&sign=' + getSign()
+
+  const sdata = []
+  for (const attr in t) {
+    sdata.push(`${attr}=${filter(t[attr])}`)
+  }
+  return n + (sdata.length > 0 ? '&' + sdata.join('&') : '')
+}
+
+function filter(str) { // 特殊字符转义
+  str += '' // 隐式转换
+  str = str.replace(/%/g, '%25')
+  str = str.replace(/\+/g, '%2B')
+  str = str.replace(/ /g, '%20')
+  str = str.replace(/\//g, '%2F')
+  str = str.replace(/\?/g, '%3F')
+  str = str.replace(/&/g, '%26')
+  str = str.replace(/\=/g, '%3D')
+  str = str.replace(/#/g, '%23')
+  return str
+}
+
+function getSign(e, t, n) {
+  return 'c1b97ac15caab79ab4d10089cd6b82d0'
+}
+
 export default {
   getLightColor: getLightColor,
   addCart: addCart,
@@ -397,6 +423,8 @@ export default {
   getCommunityInfo: getCommunityInfo,
   checkRedirectTo: checkRedirectTo,
   check_login_new: check_login_new,
-  request: request
+  request: request,
+  url: url
+
 }
 
