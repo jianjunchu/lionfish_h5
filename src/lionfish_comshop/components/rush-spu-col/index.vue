@@ -294,6 +294,7 @@
     height: 6vw;
     padding: 0;
     margin: 0;
+    border-radius: 50%;
   }
 
   .new-comers-item .add-cart .img, .w250 .add-cart .img {
