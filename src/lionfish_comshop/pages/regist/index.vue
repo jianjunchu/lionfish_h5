@@ -35,9 +35,10 @@
 		<div style="width: 100%;height:41px;border-bottom:1px solid #3D7BD0;font-size: 16px;color: #3D7BD0;float: left;" v-show="this.isShow2">
 				 <span> 
 		 <el-select v-model="cityCode" placeholder="请选择" style="width:70px;height:30px;float: left;color: #0076FF;border:none">
-				<el-option label="65" value="1">+65 Singapore</el-option>
-		        <el-option label="60" value="2">+60 Malaysia </el-option>
-				<el-option label="62" value="3">+62 Indonesia</el-option>
+				<el-option label="65" value="65">+65 Singapore</el-option>
+		        <el-option label="60" value="60">+60 Malaysia </el-option>
+				<el-option label="62" value="62">+62 Indonesia</el-option>
+				<el-option label="86" value="86">+86 China</el-option>
 		  </el-select>
 		<span style="margin-top: 12220px;">|</span>
 		</span>
@@ -239,7 +240,7 @@
                             that.getCodeDisabled = false;
                             // that.$refs.getCode.removeAttribute("disabled");
                             // that.$refs.getCode.value = "获取验证码";
-                            that.getCodeBtnText = "获取验证码";
+                            that.getCodeBtnText = "Get OTP";
                         }
                     },1000)
                 } else {
