@@ -1,6 +1,6 @@
 import { login, logout, getInfo } from '@/lionfish_comshop/api/user'
 import { getToken, setToken, removeToken } from '@/lionfish_comshop/utils/auth'
-import { resetRouter } from '@/lionfish_comshop/router'
+import { resetRouter } from '@/router'
 
 const getDefaultState = () => {
   return {

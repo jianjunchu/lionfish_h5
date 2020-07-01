@@ -15,6 +15,7 @@
   import util from './lionfish_comshop/utils/index'
   import timeQueue from './lionfish_comshop/utils/timeQueue'
   import wx from './lionfish_comshop/utils/wx'
+  import siteInfo from './siteinfo'
 
   export default {
     name: 'App',
@@ -25,6 +26,7 @@
       }
     },
     util: util,
+    siteInfo:siteInfo,
     globalData: {
       systemInfo: {},
       isIpx: !1,

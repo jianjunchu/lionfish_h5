@@ -26,10 +26,7 @@
       defaultImage:{
         default:''
       },
-      img:{
-          type:String,
-        default:''
-      },
+
       isLoad:{
         type: Boolean
       },

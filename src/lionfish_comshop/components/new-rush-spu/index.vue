@@ -295,6 +295,6 @@
   }
 </script>
 
-<style>
-  @import 'index.less';
+<style scoped>
+  @import 'index.css';
 </style>

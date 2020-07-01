@@ -2,7 +2,7 @@ import { Dialog, Toast } from 'vant'
 import GetSystemInfoSyncResult from '@/lionfish_comshop/utils/GetSystemInfoSyncResult'
 import axios from 'axios'
 import store from '../store/'
-import router from '../router/'
+import router from '../../router/'
 
 export default {
   showToast: function(option) {

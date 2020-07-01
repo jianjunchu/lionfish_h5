@@ -1,5 +1,5 @@
 <template>
-  <div class="new-comers" v-if="list.length">
+  <div class="new-comers" v-if="list && list.length">
     <div class="new-comers-title">
       <div>
         <span class="leftBorder" :style="{'border-color':skin.color}"></span>
@@ -122,7 +122,7 @@
       },
       getTime: function(t) {
         var e = 0
-        return 0 === (1 < arguments.length && void 0 !== arguments[1] ? arguments[1] : 0) && t.map(function(t) {
+        return 0 === (arguments && 1 < arguments.length && void 0 !== arguments[1] ? arguments[1] : 0) && t.map(function(t) {
           t.end_time *= 1e3, e = t.end_time > e ? t.end_time : e
         }), e
       }

@@ -780,7 +780,6 @@
         rushEndTime: true,
         pop_vipmember_buyimage: '',
         showVipModal: false,
-        showCopyTextHandle: false,
         hide_share_handler: false,
         is_mb_level_buy: false,
         is_vip_card_member: false,
@@ -813,6 +812,8 @@
       }
     },
     created: function() {
+
+
       var i = this, s = i.$wx.getStorageSync('token')
 
       i.$wx.getLogManager(), console.log('options', o), i.$wx.hideTabBar()
@@ -1951,8 +1952,22 @@
           t.pageNum = 1
         t.loadPage()
         t.addhistory()
-      }
+      },
+      showCopyTextHandle: function(t) {
+        if (this.authModal()) {
+          var a = t.currentTarget.dataset.status;
+          this.showCopyText =  a
+        }
+      },
+      changeSecKillTime: function(t) {
+        var a = this,
+          e = t.currentTarget.dataset.time,
+          o = t.currentTarget.dataset.idx;
 
+        this.secRushList = [],
+        this.secKillActiveIdx = o
+        a.getSecKillGoods(e);
+      },
     }
   }
 
