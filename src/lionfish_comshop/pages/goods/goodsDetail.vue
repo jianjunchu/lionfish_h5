@@ -1003,7 +1003,7 @@
                 e.is_show_buy_record= t.data.is_show_buy_record,
                 e.order_notify_switch= t.data.order_notify_switch,
                 e.is_show_comment_list= t.data.is_show_comment_list,
-                e.is_show_comment_list= 1,
+                //e.is_show_comment_list= 1,
                 e.goods_details_price_bg= t.data.goods_details_price_bg,
                 e.isShowContactBtn= t.data.index_service_switch || 0,
                 e.goods_industrial_switch= t.data.goods_industrial_switch || 0,
