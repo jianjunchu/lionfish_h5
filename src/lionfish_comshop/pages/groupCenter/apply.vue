@@ -2,13 +2,13 @@
   <!--<div>-->
     <div>
       <div class="container" v-if="member_info.is_head==0&&!apply_complete">
-        <div class="header">请填写姓名、手机号等相关信息</div>
+        <div class="header">{{$t(host.shuruxinxi)}}</div>
         <form>
           <div class="form-group">
             <!--<div :class="['form-item', (errors[3]===2?'error':'')]">-->
             <div class="form-item">
-              <label class="form-item-control">姓名</label>
-              <!--<input bindinput="inputRealName" class="form-item-input" data-key="3" placeholder="请输入姓名" type="text"/>-->
+              <label class="form-item-control">{{$t(host.xingming)}}</label>
+              <!--<input bindinput="inputRealName" class="form-item-input" data-key="3" placeholder="{{$t(host.shuruxingming)}}" type="text"/>-->
               <input v-model="head_name" class="form-item-input" placeholder="请输入姓名" type="text"/>
             </div>
             <!--<div class="['form-item', (errors[2]===2?'error':'')]">-->
