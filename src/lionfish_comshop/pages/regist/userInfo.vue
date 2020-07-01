@@ -2,11 +2,11 @@
   <div class="login-container">
     <div class="top">
         <div style="width: 70%;float:left;line-height: 50px;font-size: 18px;font-weight: 600">&nbsp;&nbsp;&nbsp;Complete your profile</div>
-        <div style="width: 20%;float:right;line-height: 50px;text-align: center;color: blue;font-weight: 400" @click="turnToLogin">Skip</div>
+        <!-- <div style="width: 20%;float:right;line-height: 50px;text-align: center;color: blue;font-weight: 400" @click="turnToLogin">Skip</div> -->
     </div>
     <el-form ref="loginForm" :model="loginForm" class="login-form" auto-complete="on" label-position="left">
       <div class="title-container">
-        <img src="../../../assets/images/9.png" style="width: 100px;height: 100px">
+        <img :src="this.logoImg" style="width: 100px;height: 100px">
       </div><br><br>
 
       <el-form-item prop="username">
@@ -16,7 +16,7 @@
         <el-input
           ref="username"
           v-model="loginForm.username"
-          placeholder="Name"
+          placeholder="User Name"
           name="username"
           type="text"
           tabindex="1"
@@ -33,7 +33,7 @@
           v-model="loginForm.password"
           placeholder="Password"
           name="password"
-          type="text"
+          type="password"
           tabindex="1"
           auto-complete="on"
         />
@@ -73,7 +73,11 @@ export default {
       loading: false,
       passwordType: 'password',
       redirect: undefined,
-      memberId: ''
+      memberId: '',
+      phone:'',
+      country:'',
+
+	  logoImg:'',
     }
   },
   watch: {
@@ -84,7 +88,25 @@ export default {
       immediate: true
     }
   },
+	mounted(){
+		this.Logo()
+	},
   methods: {
+	  // 头像
+	  Logo(){
+		 this.$http({
+		   controller : 'index.get_avatar',
+		   i: 3,
+		   member_id: this.memberId,
+		 }).then(response => {
+		   console.log(response)
+		   this.logoImg = response.url;
+		   var result = response;
+		   // if(result.code == -2){
+		   //   this.$router.push({path: '/login'});
+		   // }
+		 })
+	  },
     showPwd() {
       if (this.passwordType === 'password') {
         this.passwordType = ''
@@ -104,26 +126,38 @@ export default {
         i: 3,
         member_id: this.memberId,
         user: this.loginForm.username,
-        password: this.loginForm.password
+        password: this.loginForm.password,
+        country:this.country,
+        phone:this.phone,
       }).then(response => {
         console.log(response)
         var result = response;
+		if(response.token!=''){
+			// this.$router.push({path: '/lionfish_comshop/pages/index/index'});
+		}else if(response.token ==''){
+			alert("异常，请联系管理员")
+		}
         // if(result.code == -2){
         //   this.$router.push({path: '/login'});
         // }
       })
       // console.log(this.loginForm.username+":"+this.memberId);
       // this.$router.push({path: '/login'});
+    },
+    hideTopAndFooter: function(){
+      this.$wx.setNavigationBarTitle({
+        title: 'Regist',
+        showLogo:false,
+        showMore:false,
+        showBack:true
+      })
     }
   },
   created: function(){
-    this.$wx.setNavigationBarTitle({
-      title: "Regist",
-      showLogo:false,
-      showMore:false,
-      showBack:true
-    })
+      this.hideTopAndFooter();
       this.memberId = this.$route.query.memberId;
+      this.country = this.$route.query.country;
+      this.phone = this.$route.query.phone;
   }
 }
 </script>
