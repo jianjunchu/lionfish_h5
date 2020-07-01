@@ -23,6 +23,12 @@
       }
     },
     created: function() {
+      this.$wx.setNavigationBarTitle({
+        title: '关于我们',
+        showLogo:false,
+        showMore:false,
+        showBack:true
+      })
       this.onLoad();
     },
     methods: {
@@ -69,7 +75,6 @@
             if ( 0 == t.code) {
               var a = t.data;
               this.article = a;
-              this.$store.state.app.toolbarTitle = "关于我们";
             }
         });
       }

@@ -7,6 +7,7 @@ const getters = {
   name: state => state.user.name,
   showToolbarBack: state => state.app.showToolbarBack,
   showToolbarMore: state => state.app.showToolbarMore,
+  showToolbarLogo: state => state.app.showToolbarLogo,
   toolbarTitle: state => state.app.toolbarTitle,
   showTabbar: state => state.app.showTabbar,
   navBgColor: state => state.app.navBgColor,

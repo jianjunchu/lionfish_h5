@@ -128,7 +128,7 @@
 
 
           <div style="padding-bottom:5px;margin-left: 16px;margin-right: 16px" v-if="notice_list.length>0">
-            <div class="top-msg" :style="{color:skin.color}">
+            <div class="top-msg" :style="{color:skin.color,background:skin.lighter}">
               <img :src="notice_setting.horn" v-if="notice_setting.horn"/>
               <span class="iconfont icon-laba" v-else></span>
 
@@ -149,7 +149,7 @@
           <template is="cube" :data="{data:cube}"></template>
 
           <div class="cube" v-if="cube.length">
-            <block v-for="(item,index) in cube" :key="item.id">
+            <div v-for="(item,index) in cube" :key="item.id">
               <div class="cube-item" v-if="item.type==1">
                 <img @click="goCube" class="cube-one rounded" data-idx="0" :data-index="index" mode="widthFix" :src="item.thumb.cover[0]"></img>
               </div>
@@ -186,7 +186,7 @@
               <div class="cube-item two-row" v-if="item.type==8">
                 <img @click="goCube" class="cube-w" :data-idx="idx" :data-index="index" mode="widthFix" :src="imgItem" v-for="(imgItem,idx) in item.thumb.cover" :key="idx"></img>
               </div>
-            </block>
+            </div>
           </div>
 
           <!--限时抢购结束-->
@@ -1008,7 +1008,10 @@
             F.$getApp().globalData.placeholdeImg = a.index_loading_image || ''
             var g = a.index_loading_image || ''
             wcache.put('shopname', a.shoname), F.$wx.setNavigationBarTitle({
-              title: a.shoname
+              title: a.shoname,
+              showLogo:true,
+              showMore:false,
+              showBack:false
             })
             var p = a.category_list || [],
               _ = a.index_type_first_name || '全部'
@@ -1737,6 +1740,57 @@
           }
         }
         this.$store.getters.tabbarCurrentIdx = 2
+      },
+      goCube: function(t) {
+        debugger
+        var a = t.currentTarget.dataset.idx,
+          e = t.currentTarget.dataset.index,
+          o = this.data,
+          i = o.cube,
+          s = o.needAuth;
+        if (console.log(i), 0 < i.length) {
+          var n = i[e].thumb.link[a],
+            d = i[e].thumb.linktype && i[e].thumb.linktype[a];
+          if (void 0 === d && (d = 1), util.checkRedirectTo(n, s)) return void this.authModal();
+          if (0 == d) n = i[e].thumb.webview[a], wx.navigateTo({
+            url: "/lionfish_comshop/pages/web-view?url=" + encodeURIComponent(n)
+          });
+          else if (1 == d) - 1 != n.indexOf("lionfish_comshop/pages/index/index") || -1 != n.indexOf("lionfish_comshop/pages/order/shopCart") || -1 != n.indexOf("lionfish_comshop/pages/user/me") || -1 != n.indexOf("lionfish_comshop/pages/type/index") ? n && wx.switchTab({
+            url: n
+          }) : n && wx.navigateTo({
+            url: n
+          });
+          else if (2 == d) {
+            navigat[a].appid && wx.navigateToMiniProgram({
+              appId: navigat[a].appid,
+              path: n,
+              extraData: {},
+              envVersion: "release",
+              success: function(t) {},
+              fail: function(t) {
+                console.log(t);
+              }
+            });
+          } else if (3 == d) {
+            var c = this.data.classification,
+              l = c && c.tabs,
+              r = n,
+              u = l.findIndex(function(t) {
+                return t.id == r;
+              });
+            if (-1 != u) {
+              var h = {
+                detail: {
+                  e: u,
+                  a: r
+                }
+              };
+              this.classificationChange(h);
+            }
+          } else 4 == d && (app.globalData.typeCateId = n, wx.switchTab({
+            url: "/lionfish_comshop/pages/type/index"
+          }));
+        }
       },
       classificationChange: function(t) {
         console.log(t)

@@ -3,6 +3,9 @@
     <div class="vux-header-left" v-if="getShowToolbarBack" @click="back"><a class="vux-header-back"></a>
       <div class="left-arrow"></div>
     </div>
+    <div class="vux-header-left" v-if="getShowToolbarLogo"><a class="vux-header-back"></a>
+      <div class="left-arrow"></div>
+    </div>
     <h2 class="vux-header-title"><span>{{getToolbarTitle}}</span></h2>
     <div class="vux-header-right" v-if="getShowToSolbarMore"><a class="vux-header-more"></a></div>
   </div>
@@ -13,6 +16,9 @@
   export default {
     name: '',
     computed: {
+      getShowToolbarLogo(){
+        return this.$store.getters.showToolbarLogo
+      },
       getShowToolbarBack(){
         return this.$store.getters.showToolbarBack
       },
@@ -70,6 +76,7 @@
   .vux-header .vux-header-left,.vux-header .vux-header-right {
     position: absolute;
     top: 14px;
+
     display: block;
     font-size: 14px;
     line-height: 21px;
@@ -84,7 +91,8 @@
     opacity: .5
   }
   .vux-header .vux-header-left {
-    left: 18px
+    left: 18px;
+    width: 30px;
   }
   .vux-header .vux-header-left .vux-header-back {
     padding-left: 16px

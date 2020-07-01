@@ -23,7 +23,7 @@
 	  <div style="height: 50px;">
 	  <div style="width: 100%;height:25px;border-bottom:1px solid #ccc;font-size: 16px;color: #939393;float: left;" @click="click_btn()" v-show="this.isShow">Phone</div>
 	  <div style="width: 100%;height:41px;border-bottom:1px solid #3D7BD0;font-size: 16px;color: #3D7BD0;float: left;" v-show="this.isShow2">
-		 <span> 
+		 <span>
 	   <el-select v-model="aa" placeholder="请选择" style="width:20px;height:30px;float: left;color: #0076FF;float: left;">
 		   <el-option label="65" value="65">+65 Singapore</el-option>
 	          <el-option label="60" value="60">+60 Malaysia </el-option>
@@ -162,14 +162,17 @@ export default {
     },
     gotoRegist: function(){
       this.$router.push({path: '/regist'});
-    },
-    hideTopAndFooter: function(){
-      this.$store.dispatch('app/hideTabbar');
-      this.$store.dispatch('app/hideToolbarMore');
-      this.$store.dispatch('app/hideToolbarBack');
     }
+
   },
   created: function(){
+    this.$wx.setNavigationBarTitle({
+      title: "Login",
+      showLogo:false,
+      showMore:false,
+      showBack:true
+    })
+
     this.hideTopAndFooter();
   }
 }

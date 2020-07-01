@@ -105,6 +105,12 @@
     },
     created: function() {
 
+      this.$wx.setNavigationBarTitle({
+        title: "Order",
+        showLogo:false,
+        showMore:false,
+        showBack:true
+      })
 
       var i = this
       this.common_header_backgroundimage = this.$app.globalData.common_header_backgroundimage
@@ -113,8 +119,7 @@
 
         i.groupInfo = t
       })
-      this.$store.dispatch('app/showToolbarBack')
-      this.$store.dispatch('app/hideTabbar')
+
       this.loadpage()
 
     },

@@ -11,8 +11,9 @@ const state = {
   storageSync: {},
   showToolbarBack: true,
   showToolbarMore: true,
+  showToolbarLogo: false,
   showTabbar: true,
-  navBgColor: '#8ED9D1',
+  navBgColor: '#F75451',
   navFontColor: '#ffffff',
   cartNum: 10,
   globalData: {
@@ -72,6 +73,9 @@ const mutations = {
   TOGGLE_TOOLBAR_MORE: (state, show) => {
     state.showToolbarMore = show
   },
+  TOGGLE_TOOLBAR_LOGO: (state, show) => {
+    state.showToolbarLogo = show
+  },
   SET_APP_TITLE(state, title) {
     state.toolbarTitle = title
   },
@@ -115,6 +119,12 @@ const actions = {
     commit('TOGGLE_TOOLBAR_MORE', true)
   },
   hideToolbarMore({ commit }) {
+    commit('TOGGLE_TOOLBAR_MORE', false)
+  },
+  showToolbarLogo({ commit }) {
+    commit('TOGGLE_TOOLBAR_MORE', true)
+  },
+  hideToolbarLogo({ commit }) {
     commit('TOGGLE_TOOLBAR_MORE', false)
   },
   setToolbarTitle({ commit }, title) {

@@ -465,7 +465,13 @@
       'i-goods-info': require('../../components/goodsInfo/index.vue').default
     },
     created: function() {
-      this.$store.state.app.toolbarTitle ="我的订单";
+
+      this.$wx.setNavigationBarTitle({
+        title: "Order",
+        showLogo:false,
+        showMore:false,
+        showBack:false
+      })
       this.onLoad();
     },
     methods: {

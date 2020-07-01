@@ -556,7 +556,10 @@
     created: function() {
 //      this.$store.state.app.toolbarTitle ="我的";
       this.$wx.setNavigationBarTitle({
-        title: "我的"
+        title: "Me",
+        showLogo:false,
+        showMore:false,
+        showBack:false
       })
       this.onLoad();
       this.onShow();

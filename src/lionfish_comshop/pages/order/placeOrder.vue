@@ -822,7 +822,13 @@
 
       app = this.$getApp()
       wx = this.$wx
-      wx.setNavigationBarTitle({ title: '提交订单' })
+      this.$wx.setNavigationBarTitle({
+        title: "Place Order",
+        showLogo:false,
+        showMore:false,
+        showBack:false
+      })
+
       this.$store.dispatch('app/showToolbarBack')
       this.onLoad()
     },

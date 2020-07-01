@@ -4,8 +4,8 @@
         <slot name="header">
             <h2 style="text-align: center;">Hzmart Register</h2>
         </slot><br>
-		
-		
+
+
        <!-- <div class="input_wrapper">
             <div class="inputItem" :class="{'focus':isFocus.phoneNum,'phone_empty':errorFlag.phone_empty}">
                 <span class="chooseArea" @click="chooseArea()">
@@ -26,14 +26,14 @@
                 </div>
             </div>
         </div> -->
-		
-		
-		
-		
+
+
+
+
 		<div style="height: 50px;">
 		<div style="width: 100%;height:25px;border-bottom:1px solid #ccc;font-size: 16px;color: #939393;float: left;" @click="click_btn()" v-show="this.isShow">Phone</div>
 		<div style="width: 100%;height:41px;border-bottom:1px solid #3D7BD0;font-size: 16px;color: #3D7BD0;float: left;" v-show="this.isShow2">
-				 <span> 
+				 <span>
 		 <el-select v-model="cityCode" placeholder="请选择" style="width:70px;height:30px;float: left;color: #0076FF;border:none">
 				<el-option label="65" value="65">+65 Singapore</el-option>
 		        <el-option label="60" value="60">+60 Malaysia </el-option>
@@ -45,8 +45,8 @@
 		<input style="width: 60%;height: 100%;border:none;outline: none;height: 40px;background: none;"    v-model="input_info.phone"  @focus="focus('phoneNum')" @blur="blur('phoneNum')" ref="phoneNum" @keyup="inputPhone" maxlength="13" autofocus/>
 		</div>
 		</div>
-		
-		
+
+
 		<div style="height: 50px;">
 		 <!-- <div style="width: 100%;height:25px;border-bottom:1px solid #ccc;font-size: 16px;color: #939393;margin-top: 5px;"  @click="click_btn2()" >OTP code</div> -->
 		 <div style="width: 100%;height:28px;border-bottom:1px solid #ccc;font-size: 16px;color: #3D7BD0;" >
@@ -55,9 +55,9 @@
 		 </div>
 		 <!-- <button @click="getVerifyCode()" ref="getCode" :disabled="getCodeDisabled" >{{getCodeBtnText}}</button> -->
 		 </div>
-	
-		
-		
+
+
+
         <div>
             <button class="registBtn" :disabled="!registFlag" @click="regist()" style="background: #F3F8FE;color: #387BFE;border-radius: 5px;font-weight: 600;margin-top: 30px;">
                 Register
@@ -133,6 +133,9 @@
             }
         },
         props:['baseConfig'],
+      created:function(){
+        this.hideTopAndFooter()
+      },
         mounted() {
             //监听事件
             window.onresize = ()=>{
@@ -169,7 +172,7 @@
                         this.getCodeDisabled = true;
                     }
                 } else if (len >= 8) {
-                    value = value.replace(/^(\d{3})(\d{4})/g, '$1 $2 ')  
+                    value = value.replace(/^(\d{3})(\d{4})/g, '$1 $2 ')
                     if (!this.errorFlag.phone_empty && this.timeOut) {
                         //激活获取验证码按钮
                         this.getCodeDisabled = false;
@@ -180,12 +183,15 @@
                 this.input_info.phone = value;
             },
             hideTopAndFooter: function(){
-            this.$store.dispatch('app/hideTabbar');
-            this.$store.dispatch('app/hideToolbarMore'); 
-            this.$store.dispatch('app/hideToolbarBack'); 
+              this.$wx.setNavigationBarTitle({
+                title: "Regist",
+                showLogo:false,
+                showMore:false,
+                showBack:true
+              })
             },
             chooseArea(){
-                
+
             },
             gotoLogin: function(){
                 this.$router.push({path: '/login'});
@@ -288,8 +294,8 @@
 	       font-size: 20px;
 	}
   $mainColor: #007cdc;
-  
-    
+
+
     .gotoLogin{
 		font-size: 18px;
 		text-align: center;
@@ -334,7 +340,7 @@
         }
         //用户名、密码输入框
         .input_wrapper{
-          
+
             /*.codeInput{*/
             /*    display: inline;*/
             /*}*/
@@ -462,5 +468,5 @@
             }
         }
     }
-    
+
 </style>

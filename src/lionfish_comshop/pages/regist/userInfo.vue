@@ -114,15 +114,15 @@ export default {
       })
       // console.log(this.loginForm.username+":"+this.memberId);
       // this.$router.push({path: '/login'});
-    },
-    hideTopAndFooter: function(){
-      this.$store.dispatch('app/hideTabbar');
-      this.$store.dispatch('app/hideToolbarMore'); 
-      this.$store.dispatch('app/hideToolbarBack'); 
     }
   },
   created: function(){
-      this.hideTopAndFooter();
+    this.$wx.setNavigationBarTitle({
+      title: "Regist",
+      showLogo:false,
+      showMore:false,
+      showBack:true
+    })
       this.memberId = this.$route.query.memberId;
   }
 }

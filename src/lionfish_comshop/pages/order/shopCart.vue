@@ -481,7 +481,14 @@
     },
     created: function() {
       const wx = this.$wx
-      wx.setNavigationBarTitle({title: '购物车'})
+
+      this.$wx.setNavigationBarTitle({
+        title: "Cart",
+        showLogo:false,
+        showMore:false,
+        showBack:false
+      })
+
       this.$store.dispatch('app/hideToolbarMore')
     },
     mounted: function() {
