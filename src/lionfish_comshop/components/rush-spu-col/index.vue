@@ -33,14 +33,14 @@
         <div class="new-bot">
           <div class="price">${{spuItem.actPrice[0]}}.{{spuItem.actPrice[1]}}</div>
           <div v-if="!isPast">
-            <block v-if="number<=0||notNum">
+            <div v-if="number<=0||notNum">
               <i-button iClass="add-cart" v-if="disabled||spuItem.spuCanBuyNum==0||actEnd">
                 <img class="img" src="@/assets/images/icon-add-shopCart-disabled.png"/>
               </i-button>
               <i-button @handleTap="openSku" iClass="add-cart" v-else>
                 <i-addcart iClass="img"></i-addcart>
               </i-button>
-            </block>
+            </div>
             <i-input-number addImage="@/assets/images/icon-add-2.png" @change="changeNumber" @outOfMax="outOfMax"
                             class="col-input-number" iClassNumberText="input-number-input" iNumberImg="input-number-img"
                             iNumberdiv="input-number-div" :max="spuItem.spuCanBuyNum" min="0"

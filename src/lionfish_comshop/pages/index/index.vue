@@ -902,16 +902,16 @@
             "classification.activeIndex": 0
           });
         })*/
-        this.$data = _extends({}, this.$data, {
-          overPageNum: 1,
-          loadOver: !1,
-          hasOverGoods: !1,
-          countDownMap: {},
-          actEndMap: {},
-          timer: {},
-          stickyFlag: !1,
-          hasCommingGoods: !0
-        });
+          a.$set(a.$data.$data,'overPageNum', 1)
+          a.$set(a.$data.$data,'loadOver', !1)
+          a.$set(a.$data.$data,'hasOverGoods', !1)
+          a.$set(a.$data.$data,'countDownMap', {})
+          a.$set(a.$data.$data,'actEndMap', {})
+          a.$set(a.$data.$data,'timer', {})
+          a.$set(a.$data.$data,'stickyFlag', !1)
+          a.$set(a.$data.$data,'hasCommingGoods', !0)
+
+
         a.$app.globalData.changedCommunity = !1
         a.get_index_info()
         a.addhistory()
@@ -927,9 +927,6 @@
         0 == e.isFirst ? a.couponRefresh = !0 : (this.getCoupon(), e.isFirst++)
       }
 
-      a.$store.dispatch('app/hideToolbarBack')
-      a.$store.dispatch('app/hideToolbarMore')
-      a.$store.dispatch('app/showTabbar')
 
 
     },
@@ -1251,7 +1248,7 @@
           m = this,
           a = this.$wx.getStorageSync('community'),
           e = m.classificationId
-        this.$data.isLoadData = !0
+        m.$data.$data.isLoadData = !0
         console.log('load_goods_begin');
 
         (m.hasRefeshin || m.loadOver) ? m.load_over_gps_goodslist() : (console.log('load_goods_in '));
@@ -1381,7 +1378,7 @@
       transTime: function(t) {
         var a = this
         return 0 === (1 < arguments.length && void 0 !== arguments[1] ? arguments[1] : 0) && t.map(function(t) {
-          t.end_time *= 1e3, a.$data.countDownMap[t.end_time] = t.end_time == 0 ? '' : t.end_time, a.$data.actEndMap[t.end_time] = (t.end_time <= new Date().getTime() && t.end_time != 0) || 0 == t.spuCanBuyNum
+          t.end_time *= 1e3, a.$data.$data.countDownMap[t.end_time] = t.end_time == 0 ? '' : t.end_time, a.$data.$data.actEndMap[t.end_time] = (t.end_time <= new Date().getTime() && t.end_time != 0) || 0 == t.spuCanBuyNum
 
         }), a.rushList.concat(t)
 
@@ -1421,8 +1418,8 @@
           e = 1 * t.currentTarget.dataset.idx
         this.tabIdx = e
 
-        1 == e && (a.$data.stickyFlag && a.$data.scrollTop != a.$data.stickyTop + 5 && this.$wx.pageScrollTo({
-          scrollTop: a.$data.stickyTop + 5,
+        1 == e && (a.$data.$data.stickyFlag && a.$data.$data.scrollTop != a.$data.$data.stickyTop + 5 && this.$wx.pageScrollTo({
+          scrollTop: a.$data.$data.stickyTop + 5,
           duration: 0
         }), 1 == a.tpage && a.getCommingList())
       }
@@ -1636,22 +1633,25 @@
       authSuccess: function() {
         console.log('authSuccess')
         var a = this
-        this.tpage = 1, this.hasRefeshin = !1, (
+        this.tpage = 1
+        this.hasRefeshin = !1
           a.rushList = [],
             a.pageNum = 1,
             a.needAuth = !1,
             a.newComerRefresh = !1,
             a.couponRefresh = !0,
             a.isblack = a.$app.globalData.isblack || 0
-        ), this.$data = _extends({}, this.$data, {
-          overPageNum: 1,
-          loadOver: !1,
-          hasOverGoods: !1,
-          countDownMap: {},
-          actEndMap: {},
-          timer: {},
-          hasCommingGoods: !0
-        }), status.getInNum().then(function(t) {
+
+            a.$set(a.$data.$data,'overPageNum', 1)
+            a.$set(a.$data.$data,'loadOver', !1)
+            a.$set(a.$data.$data,'hasOverGoods', !1)
+            a.$set(a.$data.$data,'countDownMap', {})
+            a.$set(a.$data.$data,'actEndMap', {})
+            a.$set(a.$data.$data,'timer', {})
+            a.$set(a.$data.$data,'stickyFlag', !1)
+            a.$set(a.$data.$data,'hasCommingGoods', !0)
+
+        status.getInNum().then(function(t) {
           t /*&& (a.setData({
             isTipShow: !0
           }), timerOut = setTimeout(function() {
@@ -1659,7 +1659,8 @@
               isTipShow: !1
             });
           }, 7e3));*/
-        }), this.loadPage(), this.data.isTipShow /*&& (timerOut = setTimeout(function() {
+        })
+        this.loadPage(), this.isTipShow /*&& (timerOut = setTimeout(function() {
           a.setData({
             isTipShow: !1
           });
@@ -1795,39 +1796,41 @@
         }
       },
       classificationChange: function(t) {
-        console.log(t)
 
         var a = this
-        this.$data = _extends({}, this.$data, {
-          overPageNum: 1,
-          loadOver: !1,
-          hasOverGoods: !1,
-          countDownMap: {},
-          actEndMap: {},
-          timer: {}
-        }), this.hasRefeshin = !1
+        a.$set(a.$data.$data,'overPageNum', 1)
+        a.$set(a.$data.$data,'loadOver', !1)
+        a.$set(a.$data.$data,'hasOverGoods', !1)
+        a.$set(a.$data.$data,'countDownMap', {})
+        a.$set(a.$data.$data,'actEndMap', {})
+        a.$set(a.$data.$data,'timer', {})
+
+
+        this.hasRefeshin = !1
         this.rushList = []
         this.showEmpty = !1,
           this.pageNum = 1,
           this.classification.activeIndex = t.e
         this.classificationId = t.a
-        this.$data.stickyFlag || a.$data.scrollTop == a.$data.stickyTop + 5 || this.$wx.pageScrollTo({
-          scrollTop: a.$data.stickyTop - 30,
+
+        a.$data.$data.stickyFlag || a.$data.$data.scrollTop == a.$data.$data.stickyTop + 5 || this.$wx.pageScrollTo({
+          scrollTop: a.$data.$data.stickyTop - 30,
           duration: 0
-        }), a.load_goods_data()
+        })
+        a.load_goods_data()
       },
       commingClassificationChange: function(t) {
         var a = this
-        a.tpage = 1, this.$data = _extends({}, this.$data, {
-          hasCommingGoods: !0
-        })
+        a.tpage = 1
+        a.$set(a.$data.$data,'hasCommingGoods', !0)
+
         this.showCommingEmpty = !1
         this.commingList = []
         this.commingClassification.activeIndex = t.e
         this.commingClassificationId = t.a
 
-        this.$data.stickyFlag && a.$data.scrollTop != a.$data.stickyTop + 5 && this.$wx.pageScrollTo({
-          scrollTop: a.$data.stickyTop + 5,
+        a.$data.$data.stickyFlag && a.$data.$data.scrollTop != a.$data.$data.stickyTop + 5 && this.$wx.pageScrollTo({
+          scrollTop: a.$data.$data.stickyTop + 5,
           duration: 0
         })
         a.getCommingList()
@@ -1938,15 +1941,18 @@
       confrimChangeCommunity: function() {
         var t = this,
           a = t.changeCommunity
-        t.$app.globalData.community = a, wcache.put('community', a), this.$data = _extends({}, this.$data, {
-          overPageNum: 1,
-          loadOver: !1,
-          hasOverGoods: !1,
-          countDownMap: {},
-          actEndMap: {},
-          timer: {},
-          stickyFlag: !1
-        }), this.hasRefeshin = !1,
+        t.$app.globalData.community = a, wcache.put('community', a)
+        console.log(t.$data.$data)
+
+        t.$set(t.$data.$data,'overPageNum', 1)
+        t.$set(t.$data.$data,'loadOver', !1)
+        t.$set(t.$data.$data,'hasOverGoods', !1)
+        t.$set(t.$data.$data,'countDownMap', {})
+        t.$set(t.$data.$data,'actEndMap', {})
+        t.$set(t.$data.$data,'timer', {})
+        t.$set(t.$data.$data,'stickyFlag', !1)
+
+        this.hasRefeshin = !1,
           t.showChangeCommunity = !1,
           t.community = a,
           t.rushList = [],
