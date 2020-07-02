@@ -8,6 +8,13 @@ export default {
     daitihuo: 'To Collection',
     yitihuo: 'Collected',
     shouhoufuwu: 'Returns',
-    wodezitidian: 'My Collection Point'
+    wodezitidian: 'My Collection Point',
+    dengluchenggong: 'Login Successful',
+    denglushibai: 'Login Failed',
+  },
+  host: {
+    shuruxinxi: 'Input Name and Cell phone',
+    xingming: 'Name',
+    shuruxingming: 'Please Input Your Name'
   }
 }

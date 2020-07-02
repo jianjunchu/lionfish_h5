@@ -45,6 +45,13 @@ export default {
     daitihuo: '待提货',
     yitihuo: '已提货',
     shouhoufuwu: '售后服务',
-    wodezitidian: '我的当前自提点'
+    wodezitidian: '我的当前自提点',
+    dengluchenggong: '登陆成功',
+    denglushibai: '登陆失败'
+  },
+  host: {
+    shuruxinxi: '请填写姓名、手机号等相关信息',
+    xingming: '姓名',
+    shuruxingming: '请输入姓名'
   }
 }
