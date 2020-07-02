@@ -35,13 +35,13 @@
         </div>
       </div>
     </div>
-    <div class="noComments" :style="{height:containerHeight+'px'}" v-if="showData===0">
+    <div class="noComments" :style="{height:containerHeight+'px'}" v-if="showData==0">
       <div class="noCommentsCon">
         <img class="noCommentsImg" src="@/assets/images/noData.png"></img>
         <div class="noCommentsTit">暂无评论</div>
       </div>
     </div>
-    <div class="comments" v-if="showData===1">
+    <div class="comments" v-if="showData==1">
       <div class="commentsDetail">
         <div class="commentsList"  v-for="(item,index) in list" :key="item.id" >
           <i-card>
@@ -78,7 +78,7 @@
               回首页
             </div>
           </a>
-          <a hoverClass="none" openType="switchTab" url="#/lionfish_comshop/pages/order/shopCart">
+          <a hoverClass="none" openType="switchTab" href="#/lionfish_comshop/pages/order/shopCart">
             <div class="bar-item shop-cart">
               <div class="icon">
                 <!--<img :src="iconArr.car"></img>-->
@@ -174,7 +174,7 @@
   var buyClearTime = null;
 
   function count_down(t, a) {
-    var e = Math.floor(a / 1e3), o = e / 3600 / 24, i = Math.floor(o), s = e / 3600 - 24 * i, n = Math.floor(s), d = e / 60 - 1440 * i - 60 * n, r = Math.floor(d), c = e - 86400 * i - 3600 * n - 60 * r;
+    var e = Math.floor(a / 1000), o = e / 3600 / 24, i = Math.floor(o), s = e / 3600 - 24 * i, n = Math.floor(s), d = e / 60 - 1440 * i - 60 * n, r = Math.floor(d), c = e - 86400 * i - 3600 * n - 60 * r;
 
         t.endtime= {
           days: fill_zero_prefix(i),
@@ -208,6 +208,9 @@
     name:'protocol',
     data() {
       return {
+        value:0,
+        min:0,
+        max:0,
         size:1,
         endtime: {
           days: "00",
@@ -270,7 +273,6 @@
         skuList: [],
         visible:false,
 
-      page:1,
         hasRefeshin : !1,
         loadMore:false
       }
@@ -283,6 +285,7 @@
         showBack:true
       })
       this.onLoad();
+      this.onShow();
     },
     methods: {
       onLoad: function() {
@@ -415,7 +418,9 @@
       i.order_comment_images= t.order_comment_images,
       i.comment_list= e,
       i.loadover= !0,
-      i.goods= a,
+      i.goods= a;
+      i.max = a.total;
+      i.min = 1;
       i.buy_record_arr= t.data.buy_record_arr,
       i.site_name= t.data.site_name,
       i.share_title= a.share_title,
@@ -433,7 +438,7 @@
       i.is_comunity_rest= t.is_comunity_rest,
       i.goodsdetails_addcart_bg_color= t.goodsdetails_addcart_bg_color || "linear-gradient(270deg, #f9c706 0%, #feb600 100%)",
       i.goodsdetails_buy_bg_color= t.goodsdetails_buy_bg_color || "linear-gradient(90deg, #ff5041 0%, #ff695c 100%)";
-      i.list = [];
+      i.list = i.list || [];
       i.endtime= {
         days: "00",
           hours: "00",
@@ -456,11 +461,13 @@
         stock:0
       },
       i.skuList= [];
-      i.page=1,
+      i.page=i.page > 1 ? i.page : 1;
       i.hasRefeshin = !1,
       i.loadMore=false;
       i.size=1;
-
+      i.showData = 1;
+      console.log(i.page,"i.page in get_goods_detail");
+      console.log(i.showData,"i.showData in get_goods_detail");
       if(1 == t.is_comunity_rest){
         this.$wx.showModal({
           title: "温馨提示",
@@ -551,19 +558,25 @@
 //                  3 < 14 * t.content.length / this.$app.globalData.systemInfo.windowWidth && (t.showOpen = !0),
 //                    t.isOpen = !0;
 //                });
-                debugger
+
                 if (!o.list)
                   o.list = [];
 
                 var e = o.list.concat(a);
-                o.page++, o.hasRefeshin = !1,
-                  o.list= e,
-                  o.loadMore= !1,
+                o.page++;
+                o.hasRefeshin = !1;
+                  o.list= e;
+                  o.loadMore= !1;
                   o.tip= "";
+                  o.showData = 1;
+                console.log(o.page,"o.page in comment_info");
+                console.log(o.showData,"o.showData in comment_info");
+                  o.$forceUpdate();
               } else if(1 == t.code){
                 if(1 == o.page) {
-                  o.showData= 0, o.loadMore= !1,
-                    o.tip= "^_^已经到底了";
+                  o.showData= 0;
+                  o.loadMore= !1;
+                  o.tip= "^_^已经到底了";
                 }
 
               }
@@ -591,10 +604,14 @@
       onShow: function() {
         var a = this;
         util.check_login_new().then(function(t) {
-          if(t){
+            console.log(t,"check_login_new");
+
+          if(!t){
             a.needAuth= !0;
           } else {
             status.cartNum().then(function(e) {
+                console.log(e,"cartNum");
+
               if(0 == e.code) {
                 a.cartNum = e.data
               }
@@ -617,6 +634,7 @@
         }
       },
       openSku: function() {
+
         var t = this.goods_id, a = this.options;
         this.addCar_goodsid= t;
         var e = a.list || [], o = [];
@@ -680,6 +698,7 @@
           this.stopClick= !1;
       },
       goOrder: function() {
+
         var i = this;
         i.can_car && (i.can_car = !1);
         this.$wx.getStorageSync("token");
@@ -695,25 +714,27 @@
           is_just_addcar: d
         };
         util.addCart(r).then(function(t) {
+            console.log(t,"addCart");
+
           if (1 == t.showVipModal) {
             var a = t.data.pop_vipmember_buyimage;
-            this.$wx.hideLoading();
+            i.$wx.hideLoading();
             i.pop_vipmember_buyimage= a,
               i.showVipModal= !0,
               i.visible= !1;
           } else if (3 == t.code || 7 == t.code)
-              this.$wx.showToast({
+              i.$wx.showToast({
             title: t.msg,
             icon: "none",
             duration: 3000
-          }); else if (4 == t.code) this.$wx.showToast({
+          }); else if (4 == t.code) i.$wx.showToast({
             title: "您未登录",
             duration: 2e3
           }); else if (6 == t.code) {
             var e = t.msg, o = t.max_quantity || "";
             if(0 < o){
               i.sku_val= o;
-              this.$wx.showToast({
+              i.$wx.showToast({
                 title: e,
                 icon: "none",
                 duration: 2e3
@@ -721,24 +742,34 @@
             }
           } else {
             if (1 == d) {
-              i.closeSku(), this.$wx.showToast({
+//              i.closeSku(), i.$wx.showToast({
+//                title: "已加入购物车",
+//                image: "@/assets/images/addShopCart.png"
+//              }), this.$app.globalData.cartNum = t.total, i.cartNum = t.total, status.indexListCarCount(s);
+
+              i.closeSku();
+              i.$wx.showToast({
                 title: "已加入购物车",
                 image: "@/assets/images/addShopCart.png"
-              }), this.$app.globalData.cartNum = t.total, i.cartNum = t.total, status.indexListCarCount(s);
+              });
+              i.$app.globalData.cartNum = t.total;
+              i.cartNum= t.total;
+              status.indexListCarCount(s);
+
             }else {
 //              3 < getCurrentPages().length ? this.$wx.redirectTo({
 //                url: "/lionfish_comshop/pages/order/placeOrder?type=dan"
 //              }) : this.$wx.navigateTo({
 //                url: "/lionfish_comshop/pages/order/placeOrder?type=dan"
 //              });
-              this.$wx.redirectTo({
+              i.$wx.redirectTo({
                 url: "/lionfish_comshop/pages/order/placeOrder?type=dan"
               });
             }
           }
         }).catch(function(t) {
 //          app.util.message(t || "请求失败", "", "error");
-          this.$wx.showToast({
+          i.$wx.showToast({
             title: t || "请求失败",
             icon: "none",
             duration: 2000
@@ -773,7 +804,7 @@
         var a = t.currentTarget.dataset.type, e = 1, o = 1 * this.sku_val;
         "add" == a ? e = o + 1 : "decrease" == a && 1 < o && (e = o - 1);
         for (var i = this.sku, s = this.skuList, n = "", d = 0; d < i.length; d++) d == i.length - 1 ? n += i[d].id : n = n + i[d].id + "_";
-        e > s.sku_mu_list[n].canBuyNum && (e -= 1), this.sku_val= e;
+        e > s.sku_mu_list[n].canBuyNum && (e -= 1), this.sku_val= e,this.value=e;
       },
       preview: function(t) {
         var a = t.currentTarget.dataset.index, e = t.currentTarget.dataset.idx;
