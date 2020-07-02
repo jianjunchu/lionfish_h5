@@ -481,7 +481,7 @@
     },
     created: function() {
       const wx = this.$wx
-
+      status.setNavBgColor()
       this.$wx.setNavigationBarTitle({
         title: "Cart",
         showLogo:false,
@@ -489,7 +489,6 @@
         showBack:false
       })
 
-      this.$store.dispatch('app/hideToolbarMore')
     },
     mounted: function() {
 
@@ -841,6 +840,7 @@
         wx.showModal({
           title: '提示',
           content: '确定删除这件商品吗？',
+          showCancelButton:true,
           confirmColor: '#FF0000',
           success: function(t) {
             if (t.confirm) {
@@ -1090,6 +1090,7 @@
         wx.showModal({
           title: '提示',
           content: '确定删除这件商品吗？',
+          showCancel:false,
           confirmColor: '#FF0000',
           success: function(t) {
             if (t.confirm) {

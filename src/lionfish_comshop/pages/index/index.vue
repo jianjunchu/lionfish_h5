@@ -268,9 +268,9 @@
 
           <div class="search-bar" v-if="index_switch_search==1">
             <div class="search-box">
-              <input bindconfirm="goResult" class="ipt" confirmType="搜索" placeholder="搜索商品" type="text"></input>
+              <input bindconfirm="goResult" class="ipt" confirmType="搜索" placeholder="搜索商品" type="search"></input>
               <div class="search-icon">
-                <span class="iconfont icon-sousuo1"></span>
+                <div class="iconfont icon-sousuo1"></div>
               </div>
             </div>
           </div>
@@ -1623,7 +1623,8 @@
           0 == t.code && (this.cartNum = t.data)
         })
       },
-      goLink: function() {
+      goLink: function(t) {
+        debugger
         var a = t.currentTarget.dataset.link,
           e = t.currentTarget.dataset.needauth || ''
         console.log(e), e && !this.authModal() || a && this.$wx.navigateTo({

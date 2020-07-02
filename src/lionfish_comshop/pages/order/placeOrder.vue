@@ -153,14 +153,14 @@
           <span style='font-size:30px;color:#f00'>${{tot_price}}</span>
         </div>
 
-
-        <button @click="preSubscript" data-type="wxpay" class="wux-button wux-button--block" :style="{background:skin.color,color:' #fff'}" type="warn">
-          微信支付
-        </button>
-
         <!--
-        <button @click="preSubscript"  data-type="cashpay" class="wux-button wux-button--block" type="warn" style="margin-top=16px">到店付款</button>
-        -->
+                <button @click="preSubscript" data-type="wxpay" class="wux-button wux-button--block" :style="{background:skin.color,color:' #fff'}" type="warn">
+                  微信支付
+                </button>
+
+
+                <button @click="preSubscript"  data-type="cashpay" class="wux-button wux-button--block" type="warn" style="margin-top=16px">到店付款</button>
+                -->
         <button @click="preSubscript" data-type="paynow" class="wux-button wux-button--block" :style="{background:skin.color,color:' #fff'}" type="warn">PayNow支付
         </button>
         <button @click="preSubscript" data-type="banktransfer" class="wux-button wux-button--block" :style="{background:skin.color,color:' #fff'}" type="warn">公司转账
@@ -186,44 +186,44 @@
           <div class="receiver">
             <span space="ensp">{{tabIdx==0?'提 货 人':'收 货 人'}}：</span>
             <input bindinput="changeReceiverName" class="receive-name" placeholder="提货人"
-                   type="text" :value="tabAddress[tabIdx].name"></input>
+                   type="text" v-model="tabAddress[tabIdx].name"></input>
           </div>
 
 
           <div class="receiver">
             <span>手机号码：</span>
-            <input bindinput="bindReceiverMobile" class="mobile" placeholder="手机号码" type="text"
-                   :value="tabAddress[tabIdx].mobile"></input>
+            <input bindinput="bindReceiverMobile"  class="mobile" placeholder="手机号码" type="text"
+                   v-model="tabAddress[tabIdx].mobile"></input>
           </div>
 
 
           <div class="address-box" v-if="tabIdx!=0">
             <div class="receiver">
               <span space="ensp">邮 编：</span>
-              <input bindinput="bindReceiverZipCode" class="receive-name"
-                     placeholder="邮编" type="" :value="tabAddress[tabIdx].zipCode"></input>
+              <input oninput="bindReceiverZipCode,inputZipCode" class="receive-name"
+                     placeholder="邮编" type="" v-model="tabAddress[tabIdx].zipCode"></input>
             </div>
             <div class="receiver align-start">
               <span space="ensp">大 牌 号：</span>
               <input bindinput="changeTuanBlkNo" class="receive-name" placeholder="大牌号"
-                     type="text" :value="tabAddress[tabIdx].blk_no"></input>
+                     type="text" v-model="tabAddress[tabIdx].blk_no"></input>
             </div>
             <div class="receiver">
               <span space="ensp">道 路 名：</span>
               <input bindinput="bindReceiverRoadName" class="receive-name" placeholder="道路名"
-                     type="" :value="tabAddress[tabIdx].roadName"></input>
+                     type="" v-model="tabAddress[tabIdx].roadName"></input>
             </div>
 
             <div class="receiver align-start">
               <span space="ensp">单元门牌：</span>
               <input bindinput="changeTuanAddress" class="receive-name" placeholder="例如:106室"
-                     type="text" :value="tabAddress[tabIdx].lou_meng_hao" v-if="!showConfirmModal"></input>
+                     type="text" v-model="tabAddress[tabIdx].lou_meng_hao" v-if="!showConfirmModal"></input>
             </div>
 
             <div class="receiver">
               <span space="ensp">建 筑 名：</span>
               <input bindinput="bindReceiverBuilding" class="receive-name" placeholder="建筑名称"
-                     type="" :value="tabAddress[tabIdx].building "></input>
+                     type="" v-model="tabAddress[tabIdx].building "></input>
             </div>
 
 
@@ -826,7 +826,7 @@
         title: "Place Order",
         showLogo:false,
         showMore:false,
-        showBack:false
+        showBack:true
       })
 
       this.$store.dispatch('app/showToolbarBack')
@@ -1377,9 +1377,10 @@
                   responseType: 'text',
                   // 方法
                   success: function(data) {
-                    this_.payNowQr = data.data.qr
-                    this_.payNowNo = data.data.payNowNo
-                    this_.payNowUen = data.data.uen
+                    console.log(data)
+                    this_.payNowQr = data.data.data.qr
+                    this_.payNowNo = data.data.data.payNowNo
+                    this_.payNowUen = data.data.data.uen
                   }
                 })
                 this_.closePaymentModal()

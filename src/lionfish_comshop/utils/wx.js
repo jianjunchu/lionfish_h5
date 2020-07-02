@@ -95,11 +95,11 @@ export default {
     Dialog.confirm({
       title: option.title,
       message: option.content,
-      showCancelButton: option.showCancel
+      showCancelButton: option.showCancelButton
     }).then(() => {
-      option.success('confirm')
+      option.success({ confirm: true })
     }).catch(() => {
-      option.success('cancel')
+      option.success({ confirm: false })
     })
   },
   getLocation: function(option) {

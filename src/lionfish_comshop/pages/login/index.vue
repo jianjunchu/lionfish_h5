@@ -81,12 +81,14 @@
 import { validUsername } from '../../utils/validate'
  import GlobalMixin from '../../mixin/globalMixin.js'
 import {setToken} from '../../utils/auth.js'
+import util from "../../utils";
+import  status from "../../utils";
+var wcache = require("../../utils/wcache.js")
+import { Field ,Button} from 'vant';
 
-  var util = require("../../utils"),
-    status = require("../../utils"),
-    wcache = require("../../utils/wcache.js")
 export default {
   name: 'Login',
+  components:{[Field.name]:Field ,[Button.name]:Button},
   data() {
     const validatePassword = (rule, value, callback) => {
       if (value.length < 6) {
