@@ -632,9 +632,8 @@
   import status from '../../utils/index.js'
   import a from '../../utils/public'
 
-  var
-    wcache = require('../../utils/wcache.js'),
-    countDownInit = require('../../utils/countDown')
+  var wcache = require('../../utils/wcache.js'),
+    countDownInit = require('../../utils/countDown'),wx,app;
 
   export default {
     mixins: [countDownInit.default, GlobalMixin],
@@ -812,15 +811,17 @@
     },
     created: function() {
 
+      app = this.$getApp();
+      wx = this.$wx;
 
-      var i = this, s = i.$wx.getStorageSync('token')
+      var i = this, s = wx.getStorageSync('token')
 
-      i.$wx.getLogManager(), console.log('options', o), i.$wx.hideTabBar()
+      wx.getLogManager(), console.log('options', o), wx.hideTabBar()
       status.setNavBgColor(), status.setGroupInfo().then(function(t) {
         i.groupInfo = t
       }), console.log('step1')
 
-      const n = i.$wx.getStorageSync('community'),
+      const n = wx.getStorageSync('community'),
         d = n && n.communityId ? n.communityId : ''
       if (n && n.fullAddress && n.fullAddress.indexOf('境外') > -1) {
         n.fullAddress = n.fullAddress.replace('境外境外境外地区', '')
@@ -936,9 +937,9 @@
 
       get_index_info() {
         var F = this,
-          t = F.$wx.getStorageSync('community'),
+          t = wx.getStorageSync('community'),
           B = t && (t.communityId || ''),
-          a = F.$wx.getStorageSync('token')
+          a = wx.getStorageSync('token')
 
         F.$http({
           controller: 'index.index_info',
@@ -959,13 +960,13 @@
                 F.loadPage()
               }else{
 
-                  F.$wx.showModal({
+                  wx.showModal({
                   title: '提示',
                   content: '请选择' + e.group_name,
                   showCancel: false,
                   confirmColor: '#8ED9D1',
                   success: function(t) {
-                    F.$wx.redirectTo({
+                    wx.redirectTo({
                       url: "/lionfish_comshop/pages/position/community"
                     });
                   }
@@ -1004,7 +1005,7 @@
               }
             F.$getApp().globalData.placeholdeImg = a.index_loading_image || ''
             var g = a.index_loading_image || ''
-            wcache.put('shopname', a.shoname), F.$wx.setNavigationBarTitle({
+            wcache.put('shopname', a.shoname), wx.setNavigationBarTitle({
               title: a.shoname,
               showLogo:true,
               showMore:false,
@@ -1027,7 +1028,7 @@
               D = a.index_service_switch || 0,
               b = a.index_switch_search || 0,
               k = a.ishow_index_gotop || 0
-            1 != a.is_comunity_rest || F.needAuth || a.$wx.showModal({
+            1 != a.is_comunity_rest || F.needAuth || wx.showModal({
               title: '温馨提示',
               content: e.owner_name + '休息中，欢迎下次光临!',
               showCancel: !1,
@@ -1112,8 +1113,8 @@
       },
       getSecKillGoods: function(t) {
         var e = this,
-          a = e.$wx.getStorageSync('community'),
-          o = e.$wx.getStorageSync('token')
+          a = wx.getStorageSync('community'),
+          o = wx.getStorageSync('token')
 
         e.$http({
           controller: 'index.load_gps_goodslist',
@@ -1132,7 +1133,7 @@
       },
       get_type_topic: function() {
         var e = this,
-          t = this.$wx.getStorageSync('community') || {}
+          t = wx.getStorageSync('community') || {}
 
         e.$http({
           controller: 'goods.get_category_col_list',
@@ -1146,7 +1147,7 @@
       },
       getCoupon: function() {
         var n = this,
-          t = this.$wx.getStorageSync('token')
+          t = wx.getStorageSync('token')
         n.$http({
           controller: 'goods.get_seller_quan',
           token: t
@@ -1177,7 +1178,7 @@
 
       }, getPinList: function() {
         var d = this,
-          t = this.$wx.getStorageSync('community').communityId || ''
+          t = wx.getStorageSync('community').communityId || ''
 
         d.$http({
           controller: 'group.get_pintuan_list',
@@ -1203,9 +1204,9 @@
         var a = 0 < arguments.length && void 0 !== arguments[0] ? arguments[0] : 0
         console.log('step13')
         var t = 0
-        0 == a ? t = this.$wx.getStorageSync('community').communityId : t = a
+        0 == a ? t = wx.getStorageSync('community').communityId : t = a
         console.log('history community_id=' + t)
-        var e = this.$wx.getStorageSync('token'),
+        var e = wx.getStorageSync('token'),
           o = this
         void 0 !== t && this.$http({
           controller: 'index.addhistory_community',
@@ -1224,7 +1225,7 @@
 
             if (console.log('appLoadStatus' + t), 0 == t) {
               setTimeout(function() {
-                e.$wx.hideLoading()
+                wx.hideLoading()
               }, 1e3)
               e.needAuth = !0
               e.couponRefresh = !1
@@ -1233,7 +1234,7 @@
               console.log('step9'), e.getHistoryCommunity()
             } else {
               console.log('step12')
-              var a = e.$wx.getStorageSync('community');
+              var a = wx.getStorageSync('community');
               (a || (a = e.$app.globalData.community), a) ? (e.community = e.fliterCommunity(a)) :
                 util.getCommunityInfo().then(function(t) {
                   e.community = e.fliterCommunity(t)
@@ -1243,16 +1244,17 @@
       },
       load_goods_data: function() {
 
-        var t = this.$wx.getStorageSync('token'),
+
+
+        var t = wx.getStorageSync('token'),
           m = this,
-          a = this.$wx.getStorageSync('community'),
+          a = wx.getStorageSync('community'),
           e = m.classificationId
         m.$data.$data.isLoadData = !0
         console.log('load_goods_begin');
 
         (m.hasRefeshin || m.loadOver) ? m.load_over_gps_goodslist() : (console.log('load_goods_in '));
         this.hasRefeshin = !0
-        m.loadMore = !0
         this.$http({
           controller: 'index.load_gps_goodslist',
           token: t,
@@ -1261,6 +1263,11 @@
           gid: e,
           per_page: 12
         }).then(t => {
+
+          m.$data.isLoadData = !1, setTimeout(function() {
+            wx.hideLoading();
+          }, 1e3);
+
           if (1 == m.pageNum && (this.cate_info = t.cate_info || {}), 0 == t.code) {
             var a = ''
             if (1 == t.is_show_list_timer) {
@@ -1295,19 +1302,18 @@
                 m.is_open_vipcard_buy = c || 0,
                 m.is_vip_card_member = l,
                 m.is_member_level_buy = r,
-                m.canLevelBuy = h,
-                m.load_over_gps_goodslist()
+                m.canLevelBuy = h
             );
 
 
-            1 == m.isFirst && (m.isFirst++, a.length && !m.$data.$data.stickyTop && (m.$wx.createSelectorQuery().select('.tab-nav-index-query').boundingClientRect(function(t) {
+            1 == m.isFirst && (m.isFirst++, a.length && !m.$data.$data.stickyTop && (wx.createSelectorQuery().select('.tab-nav-index-query').boundingClientRect(function(t) {
               if (t && t.top) {
                 wcache.put('tabPos', t), m.$data.$data.stickyTop = t.top + t.height, m.$data.$data.stickyBackTop = t.top
               } else {
                 var a = wcache.get('tabPos', !1)
                 a && (m.$data.$data.stickyTop = a.top + a.height, m.$data.$data.stickyBackTop = a.top)
               }
-            }).exec(), m.$data.$data.scrollTop > m.$data.$data.stickyTop && m.$wx.pageScrollTo({
+            }).exec(), m.$data.$data.scrollTop > m.$data.$data.stickyTop && wx.pageScrollTo({
               duration: 0,
               scrollTop: m.$data.$data.stickyTop + 4
             }))), /*m.getScrollHeight(),*/ 2 == m.pageNum && t.list.length < 10 && (console.log('load_over_goods_list_begin'),
@@ -1323,12 +1329,14 @@
             )
           }
         })
+
+
       },
       load_over_gps_goodslist: function() {
         console.log(this.$data)
-        var t = this.$wx.getStorageSync('token'),
+        var t = wx.getStorageSync('token'),
           o = this,
-          a = this.$wx.getStorageSync('community'),
+          a = wx.getStorageSync('community'),
           e = o.classificationId || 0
           !o.$data.$data.hasOverGoods && o.loadOver ? (o.$data.$data.hasOverGoods = !0, (o.loadMore = !0),
           o.$http({
@@ -1347,30 +1355,42 @@
                   o.loadMore = !1,
                   o.tip = ''
                   , function() {
-                  1 == o.isFirst && (o.isFirst++, a.length && !o.$data.$data.stickyTop && (o.$wx.createSelectorQuery().select('.tab-nav-index-query').boundingClientRect(function(t) {
+                  1 == o.isFirst && (o.isFirst++, a.length && !o.$data.$data.stickyTop && (wx.createSelectorQuery().select('.tab-nav-index-query').boundingClientRect(function(t) {
                     if (t && t.top) {
                       wcache.put('tabPos', t), o.$data.$data.stickyTop = t.top + t.height, o.$data.$data.stickyBackTop = t.top
                     } else {
                       var a = wcache.get('tabPos', !1)
                       a && (o.$data.$data.stickyTop = a.top + a.height, o.$data.$data.stickyBackTop = a.top)
                     }
-                  }).exec(), o.$data.$data.scrollTop > o.$data.$data.stickyTop && o.$wx.pageScrollTo({
+                  }).exec(), o.$data.$data.scrollTop > o.$data.$data.stickyTop && wx.pageScrollTo({
                     duration: 0,
                     scrollTop: o.$data.$data.stickyTop + 4
                   }))), o.getScrollHeight()
                 })
             } else {
-              1 == t.code ? (1 == o.$data.$data.overPageNum && 0 == o.rushList.length && (o.showEmpty = !0), (
-                o.loadMore = !1,
-                  o.tip = '^_^已经到底了'
-              )) : 2 == t.code && (
+              if(1 == t.code ){
+                  if(1 == o.$data.$data.overPageNum && 0 == o.rushList.length){
+                    o.showEmpty = !0;
+                    o.loadMore = !1;
+                      o.tip = '^_^已经到底了'
+                  }
+              }else if(2 == t.code){
                 o.needAuth = !0,
                   o.couponRefresh = !1
-              )
+              }
             }
             o.$data.$data.isLoadData = !1
 
           })) : o.$data.$data.isLoadData = !1
+
+        if(1 == o.$data.$data.overPageNum && 0 == o.rushList.length){
+          o.showEmpty = !0;
+          o.loadMore = !1;
+          o.tip = '^_^已经到底了'
+        }else{
+          o.showEmpty = !1;
+          o.loadMore = !1;
+        }
       },
       transTime: function(t) {
         var a = this
@@ -1415,7 +1435,7 @@
           e = 1 * t.currentTarget.dataset.idx
         this.tabIdx = e
 
-        1 == e && (a.$data.$data.stickyFlag && a.$data.$data.scrollTop != a.$data.$data.stickyTop + 5 && this.$wx.pageScrollTo({
+        1 == e && (a.$data.$data.stickyFlag && a.$data.$data.scrollTop != a.$data.$data.stickyTop + 5 && wx.pageScrollTo({
           scrollTop: a.$data.$data.stickyTop + 5,
           duration: 0
         }), 1 == a.tpage && a.getCommingList())
@@ -1452,7 +1472,7 @@
           var o = parseFloat(a.lat)
           var i = t.disUserName
           var s = t.fullAddress + '(' + t.communityName + ')'
-          this.$wx.openLocation({
+          wx.openLocation({
             latitude: o,
             longitude: e,
             name: i,
@@ -1466,8 +1486,8 @@
 
         var i = this
         i.can_car && (i.can_car = !1)
-        this.$wx.getStorageSync('token')
-        var t = this.$wx.getStorageSync('community'),
+        wx.getStorageSync('token')
+        var t = wx.getStorageSync('community'),
           a = i.addCar_goodsid,
           e = t.communityId,
           o = i.sku_val,
@@ -1486,22 +1506,22 @@
         util.addCart(d).then(function(t) {
           if (1 == t.showVipModal) {
             var a = t.pop_vipmember_buyimage
-            i.$wx.hideLoading(), (i.pop_vipmember_buyimage = a, i.showVipModal = !0, i.visible = !1)
+            wx.hideLoading(), (i.pop_vipmember_buyimage = a, i.showVipModal = !0, i.visible = !1)
           } else if (3 == t.code || 7 == t.code) {
-            i.$wx.showToast({
+            wx.showToast({
               title: t.msg,
               icon: 'none',
               duration: 2e3
             })
           } else if (4 == t.code) {
-            i.$wx.hideLoading(), (i.needAuth = !0, i.showAuthModal = !0, i.visible = !1)
+            wx.hideLoading(), (i.needAuth = !0, i.showAuthModal = !0, i.visible = !1)
           } else if (6 == t.code) {
             var e = t.max_quantity || ''
             if (0 < e) {
               i.sku_val = e
             }
             var o = t.msg
-            i.$wx.showToast({
+            wx.showToast({
               title: o,
               icon: 'none',
               duration: 2e3
@@ -1509,7 +1529,7 @@
           } else {
             i.cartNum = t.total
             i.closeSku()
-            i.$wx.showToast({
+            wx.showToast({
               title: '已加入购物车',
               image: '../../images/addShopCart.png'
             })
@@ -1597,7 +1617,7 @@
         for (var d = '', c = 0; c < o.length; c++) c == o.length - 1 ? d += o[c].id : d = d + o[c].id + '_'
         var l = i.sku_mu_list[d],
           r = {};
-        (s = s || 1) > l.canBuyNum && (e.sku_val = l.canBuyNum, this.$wx.showToast({
+        (s = s || 1) > l.canBuyNum && (e.sku_val = l.canBuyNum, wx.showToast({
           title: '最多只能购买' + l.canBuyNum + '件',
           icon: 'none'
         })), (e.cur_sku_arr = l, e.sku = o), console.log(d)
@@ -1623,7 +1643,7 @@
       goLink: function(t) {
         var a = t.currentTarget.dataset.link,
           e = t.currentTarget.dataset.needauth || ''
-        console.log(e), e && !this.authModal() || a && this.$wx.navigateTo({
+        console.log(e), e && !this.authModal() || a && wx.navigateTo({
           url: a
         })
       },
@@ -1666,9 +1686,9 @@
       authModal: function() {
         var i = this;
 
-        var t = i.$wx.getStorageSync('community');
+        var t = wx.getStorageSync('community');
         if(!t && !t.communityId){
-          this.$wx.redirectTo({
+          wx.redirectTo({
             url: '/lionfish_comshop/pages/position/community'
           })
         }
@@ -1677,7 +1697,7 @@
             if(e){
               i.needAuth = !1
             }else{
-              i.$wx.redirectTo({
+              wx.redirectTo({
                 url: "/login"
               })
             }
@@ -1697,17 +1717,17 @@
             n = o[a].type
           if (util.checkRedirectTo(s, i)) return void this.authModal()
           if (0 == n) {
-            this.$wx.navigateTo({
+            wx.navigateTo({
               url: '/lionfish_comshop/pages/web-div?url=' + encodeURIComponent(s)
             })
           } else if (1 == n) {
-            -1 != s.indexOf('lionfish_comshop/pages/index/index') || -1 != s.indexOf('lionfish_comshop/pages/order/shopCart') || -1 != s.indexOf('lionfish_comshop/pages/user/me') || -1 != s.indexOf('lionfish_comshop/pages/type/index') ? this.$wx.switchTab({
+            -1 != s.indexOf('lionfish_comshop/pages/index/index') || -1 != s.indexOf('lionfish_comshop/pages/order/shopCart') || -1 != s.indexOf('lionfish_comshop/pages/user/me') || -1 != s.indexOf('lionfish_comshop/pages/type/index') ? wx.switchTab({
               url: s
-            }) : this.$wx.navigateTo({
+            }) : wx.navigateTo({
               url: s
             })
           } else if (2 == n) {
-            o[a].appid && this.$wx.navigateToMiniProgram({
+            o[a].appid && wx.navigateToMiniProgram({
               appId: o[a].appid,
               path: s,
               extraData: {},
@@ -1735,7 +1755,7 @@
               this.classificationChange(u)
             }
           } else {
-            4 == n && (this.$getApp().globalData.typeCateId = s, this.$wx.switchTab({
+            4 == n && (this.$getApp().globalData.typeCateId = s, wx.switchTab({
               url: '/lionfish_comshop/pages/type/index'
             }))
           }
@@ -1810,7 +1830,7 @@
           this.classification.activeIndex = t.e
         this.classificationId = t.a
 
-        a.$data.$data.stickyFlag || a.$data.$data.scrollTop == a.$data.$data.stickyTop + 5 || this.$wx.pageScrollTo({
+        a.$data.$data.stickyFlag || a.$data.$data.scrollTop == a.$data.$data.stickyTop + 5 || wx.pageScrollTo({
           scrollTop: a.$data.$data.stickyTop - 30,
           duration: 0
         })
@@ -1826,16 +1846,16 @@
         this.commingClassification.activeIndex = t.e
         this.commingClassificationId = t.a
 
-        a.$data.$data.stickyFlag && a.$data.$data.scrollTop != a.$data.$data.stickyTop + 5 && this.$wx.pageScrollTo({
+        a.$data.$data.stickyFlag && a.$data.$data.scrollTop != a.$data.$data.stickyTop + 5 && wx.pageScrollTo({
           scrollTop: a.$data.$data.stickyTop + 5,
           duration: 0
         })
         a.getCommingList()
       },
       getCommingList: function() {
-        var t = this.$wx.getStorageSync('token'),
+        var t = wx.getStorageSync('token'),
           e = this,
-          a = this.$wx.getStorageSync('community'),
+          a = wx.getStorageSync('community'),
           o = this.commingClassificationId || 0
           e.$data.$data.isLoadData = !0, e.$data.$data.hasCommingGoods ? (e.$data.$data.hasCommingGoods = !1,
           this.commigLoadMore = 0,
@@ -1847,7 +1867,7 @@
             head_id: a.communityId,
             gid: o
           }).then(t => {
-            this.$wx.hideLoading()
+            wx.hideLoading()
             if ( 0 == t.code) {
               var a = t.list
               a = e.commingList.concat(a), e.$data.$data.hasCommingGoods = !0, e.tpage += 1
@@ -1865,11 +1885,11 @@
               )) : 2 == t.code && (e.needAuth = !0 , e.couponRefresh = !1)
             }
             e.$data.$data.isLoadData = !1
-          })) : (e.$data.$data.isLoadData = !1, !e.commigLoadMore && this.$wx.hideLoading())
+          })) : (e.$data.$data.isLoadData = !1, !e.commigLoadMore && wx.hideLoading())
       },
       getHistoryCommunity: function() {
         var d = this,
-          c = this.$wx.getStorageSync('token')
+          c = wx.getStorageSync('token')
 
         this.$http({
           controller: 'index.load_history_community',
@@ -1886,19 +1906,19 @@
             }), (
               d.community = a
             ), wcache.put('community', a), d.$getApp().globalData.community = a, c && !e) {
-              var i = this.$wx.getStorageSync('lastCommunity'),
+              var i = wx.getStorageSync('lastCommunity'),
                 s = i.communityId || ''
               '' != s && s != a.communityId && (
                 d.showChangeCommunity = !0,
                   d.changeCommunity = i,
-                  this.$wx.removeStorageSync('lastCommunity')
+                  wx.removeStorageSync('lastCommunity')
               )
             }
             (d.community = d.$getApp().globalData.community), d.load_goods_data()
           } else {
             var n = d.options
             void 0 !== n && n.community_id ? (console.log('新人加入分享进来的社区id:', d.options), d.addhistory(n.community_id)) : 1 == t.code ? (console.log('获取历史社区'),
-              this.$wx.redirectTo({
+              wx.redirectTo({
                 url: '/lionfish_comshop/pages/position/community'
               })) : (d.needAuth = !0)
           }

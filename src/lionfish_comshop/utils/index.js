@@ -375,7 +375,6 @@ function check_login_new() {
 
 function url(e, t) {
   var n = siteInfo.siteroot + '?i=' + siteInfo.uniacid + '&t=' + siteInfo.multiid + '&v=' + siteInfo.version + '&from=wxapp&c=entry&a=h5&do=index&m=lionfish_comshop&sign=' + getSign()
-  debugger
   const sdata_ = []
   for (const attr in e) {
     sdata_.push(`${attr}=${filter(e[attr])}`)
