@@ -1,20 +1,31 @@
 <template>
-   <div class="countdown-class i-count-down">
+   <div :class="[countdownClass, 'i-count-down']">
     <slot></slot>
     <span class="em" v-if="showDay&&time.day>0">{{time.day}}天</span>
-    <text class="item-class">{{time.hour}}</text>
+    <span :class="itemClass">{{time.hour}}</span>
     :
-    <text class="item-class">{{time.minute}}</text>
+    <span :class="itemClass">{{time.minute}}</span>
     :
-    <text class="item-class">{{time.second}}</text>
+    <span :class="itemClass">{{time.second}}</span>
    </div>
 </template>
 
 <script>
-  var t = require("../../utils/timeFormat");
+  import t from "../../utils/timeFormat"
   export default {
     name: '',
-    date(){
+
+    props: {
+      itemClass:'',
+      countdownClass:'',
+      target: 0,
+      showDay: true,
+      beginTime: '',
+      callback: '',
+      format: [],
+      clearTimer:false
+    },
+    data(){
       return{
         time: {
           day: "0",
@@ -28,49 +39,34 @@
         timer: null
       }
     },
-    props: {
-      target: {
-        type: String,
-        observer: function(t) {
-          this.init(t)
-        }
-      },
-      showDay: Boolean,
-      beginTime: String,
-      callback: String,
-      format: Array,
-      clearTimer: {
-        type: Boolean,
-      }
-    },
-    watch: {
-      clearTimer: () => {
-        t && clearTimeout(this.timer)
-      }
+    created:function() {
+      this.init();
     },
     methods: {
-      init: function(t) {
-        if (t - new Date().getTime() <= 0) return this.setData({
-          time: {
+
+      init: function() {
+        const t = this.target
+        if (t - new Date().getTime() <= 0) return (
+          this.time = {
             day: "0",
             second: "00",
             minute: "00",
             hour: "00"
           }
-        }), void this.triggerEvent("callback");
+        ), void this.$emit("callback");
         this.interval(t);
       },
       interval: function(e) {
         var i = this, a = e - new Date().getTime();
-        if (a <= 0) return clearTimeout(this.timer), this.triggerEvent("callback"),
-          void this.setData({
-            time: {
+        if (a <= 0) return clearTimeout(this.timer), this.$emit("callback"),
+          (
+            this.time = {
               day: "0",
               second: "00",
               minute: "00",
               hour: "00"
             }
-          });
+          );
         var r = Math.ceil(a / 1e3), n = parseInt(r / 86400), o = r % 86400, s = (0, t.formatNumber)(parseInt(o / 3600));
         o %= 3600;
         var m = {
@@ -79,11 +75,14 @@
           minute: (0, t.formatNumber)(parseInt(o / 60)),
           second: (0, t.formatNumber)(o % 60)
         };
-        this.setData({
-          time: m
-        }), this.timer = setTimeout(function() {
-          i.interval(e);
-        }, 1e3);
+        i.$set(i.time,'day',m.day);
+        i.$set(i.time,'hour',m.hour);
+        i.$set(i.time,'minute',m.minute);
+        i.$set(i.time,'second',m.second);
+
+        i.timer = setTimeout(function() {
+
+          i.interval(e);}, 1e3);
       }
     },
     destroyed(){

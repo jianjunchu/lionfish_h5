@@ -1,10 +1,8 @@
 <template>
   <div class="new-comers" v-if="list && list.length">
     <div class="new-comers-title">
-      <div>
         <span class="leftBorder" :style="{'border-color':skin.color}"></span>
         限时秒杀
-      </div>
       <i-count-down :clearTimer="clearTimer" countdownClass="count-down" itemClass="item-time" showDay="true"
                     :target="rushEndTime" v-if="rushEndTime">
         <span class="count-down-left-text">仅剩</span>
@@ -23,7 +21,7 @@
             <i-button iClass="add-cart" v-if="disabled||item.spuCanBuyNum==0">
               <img class="img" src="@/assets/images/icon-add-shopCart-disabled.png"></img>
             </i-button>
-            <i-button @click="openSku" data-idx="index" iClass="add-cart" v-else>
+            <i-button @handleTap="openSku(index)" :data-idx="index" iClass="add-cart" v-else>
               <i-addcart iClass="img"></i-addcart>
             </i-button>
           </div>
@@ -37,22 +35,11 @@
 <script>
   export default {
     name: '',
-    date() {
-      return {
-        disabled: !1,
-        list: [],
-        pageNum: 1,
-        noMore: !1,
-        rushEndTime: 0
-      }
-    },
     props: {
       refresh: {
-        type: Boolean,
         default: !1
       },
       clearTimer: {
-        type: Boolean,
         default: !1
       },
       skin: {
@@ -66,20 +53,33 @@
         e.getData()
       }
     },
-
+    data(){
+      return{
+        disabled: !1,
+        list: [],
+        pageNum: 1,
+        noMore: !1,
+        rushEndTime: 0
+      }
+    },
+    mounted:function(){
+      console.log('this')
+      console.log(this)
+      this.getData();
+    },
     methods: {
       getData: function() {
-        var t = this.$wx.getStorageSync('token'), i = this, e = this.$.getStorageSync('community')
-
+        var t = this.$wx.getStorageSync('token'), i = this, e = this.$wx.getStorageSync('community')
         this.$http({
           controller: 'index.load_spikebuy_goodslist',
           token: t,
-          pageNum: i.data.pageNum,
+          pageNum: i.pageNum,
           head_id: e.communityId
         }).then(t => {
+          console.log(t)
           if (0 == t.code) {
             var e = i.list.concat(t.list), a = i.getTime(e)
-            console.log(a)
+
             this.list = e,
               this.rushEndTime = a
           } else {
@@ -90,7 +90,7 @@
       },
       getMore: function() {
         if (!this.noMore) {
-          var t = this, e = t.data.pageNum + 1
+          var t = this, e = t.pageNum + 1
           console.log(e), this.setData({
             pageNum: e
           }, function() {
@@ -98,9 +98,9 @@
           })
         }
       },
-      openSku: function(t) {
+      openSku: function(e) {
 
-        var e = t.currentTarget.dataset.idx
+
         this.disabled = !1
 
         var a = this.list[e]
@@ -131,9 +131,7 @@
   }
 </script>
 
-<style scoped>
-  @import "../new-comer/index.css";
-
+<style>
   .new-comers-title {
     display: flex;
     justify-content: space-between;
@@ -147,7 +145,6 @@
     font-size: 12px;
     display: flex;
     align-items: center;
-    flex: 1;
     margin-right: 10px;
   }
 
@@ -168,4 +165,9 @@
     margin-right: 5px;
     font-weight: normal;
   }
+</style>
+
+<style src="@/lionfish_comshop/components/new-comer/index.css">
+
+
 </style>

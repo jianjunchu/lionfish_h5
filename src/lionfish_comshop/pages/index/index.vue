@@ -199,7 +199,6 @@
           <!--<template is="pin" :data="{pinList:pinList,skin:skin}"></template>-->
 
 
-
           <i-spike @openSku="openSku" :refresh="newComerRefresh" :skin="skin" v-if="is_show_spike_buy==1"></i-spike>
 
 
@@ -1266,8 +1265,8 @@
             var a = ''
             if (1 == t.is_show_list_timer) {
               for (var e in a = m.transTime(t.list),
-                m.$data.countDownMap) {
-                m.initCountDown(m.$data.countDownMap[e])
+                m.$data.$data.countDownMap) {
+                m.initCountDown(m.$data.$data.countDownMap[e])
               }
             } else {
               var o = m.rushList
@@ -1298,26 +1297,25 @@
                 m.is_member_level_buy = r,
                 m.canLevelBuy = h,
                 m.load_over_gps_goodslist()
-            ),
+            );
 
-              function() {
-                1 == m.isFirst && (m.isFirst++, a.length && !m.$data.stickyTop && (m.$wx.createSelectorQuery().select('.tab-nav-index-query').boundingClientRect(function(t) {
-                  if (t && t.top) {
-                    wcache.put('tabPos', t), m.$data.stickyTop = t.top + t.height, m.$data.stickyBackTop = t.top
-                  } else {
-                    var a = wcache.get('tabPos', !1)
-                    a && (m.$data.stickyTop = a.top + a.height, m.$data.stickyBackTop = a.top)
-                  }
-                }).exec(), m.$data.scrollTop > m.$data.stickyTop && m.$wx.pageScrollTo({
-                  duration: 0,
-                  scrollTop: m.$data.stickyTop + 4
-                }))), m.getScrollHeight(), 2 == m.pageNum && t.list.length < 10 && (console.log('load_over_goods_list_begin'),
-                  m.loadOver = !0, m.hasRefeshin = !0, (
-                  m.loadMore = !0,
-                    m.load_over_gps_goodslist()
-                ))
 
+            1 == m.isFirst && (m.isFirst++, a.length && !m.$data.$data.stickyTop && (m.$wx.createSelectorQuery().select('.tab-nav-index-query').boundingClientRect(function(t) {
+              if (t && t.top) {
+                wcache.put('tabPos', t), m.$data.$data.stickyTop = t.top + t.height, m.$data.$data.stickyBackTop = t.top
+              } else {
+                var a = wcache.get('tabPos', !1)
+                a && (m.$data.$data.stickyTop = a.top + a.height, m.$data.$data.stickyBackTop = a.top)
               }
+            }).exec(), m.$data.$data.scrollTop > m.$data.$data.stickyTop && m.$wx.pageScrollTo({
+              duration: 0,
+              scrollTop: m.$data.$data.stickyTop + 4
+            }))), /*m.getScrollHeight(),*/ 2 == m.pageNum && t.list.length < 10 && (console.log('load_over_goods_list_begin'),
+              m.loadOver = !0, m.hasRefeshin = !0, (
+              m.loadMore = !0,
+                m.load_over_gps_goodslist()
+            ))
+
           } else {
             1 == t.code ? (m.loadOver = !0, m.load_over_gps_goodslist()) : 2 == t.code && (
               m.needAuth = !0,
@@ -1327,43 +1325,42 @@
         })
       },
       load_over_gps_goodslist: function() {
-
+        console.log(this.$data)
         var t = this.$wx.getStorageSync('token'),
           o = this,
           a = this.$wx.getStorageSync('community'),
-          e = o.classificationId
-        !o.$data.hasOverGoods && o.loadOver ? (o.$data.hasOverGoods = !0, (o.loadMore = !0),
+          e = o.classificationId || 0
+          !o.$data.$data.hasOverGoods && o.loadOver ? (o.$data.$data.hasOverGoods = !0, (o.loadMore = !0),
           o.$http({
             controller: 'index.load_over_gps_goodslist',
             token: t,
-            pageNum: o.$data.overPageNum,
+            pageNum: o.$data.$data.overPageNum,
             head_id: a.communityId,
             gid: e,
             is_index_show: 1
           }).then(t => {
-
             if (0 == t.code) {
               var a = o.transTime(t.list)
-              for (var e in o.$data.countDownMap) o.initCountDown(o.$data.countDownMap[e])
-              o.$data.hasOverGoods = !1, o.$data.overPageNum += 1, (
+              for (var e in o.$data.$data.countDownMap) o.initCountDown(o.$data.$data.countDownMap[e])
+              o.$data.$data.hasOverGoods = !1, o.$data.$data.overPageNum += 1, (
                 o.rushList = a,
                   o.loadMore = !1,
                   o.tip = ''
                   , function() {
-                  1 == o.isFirst && (o.isFirst++, a.length && !o.$data.stickyTop && (o.$wx.createSelectorQuery().select('.tab-nav-index-query').boundingClientRect(function(t) {
+                  1 == o.isFirst && (o.isFirst++, a.length && !o.$data.$data.stickyTop && (o.$wx.createSelectorQuery().select('.tab-nav-index-query').boundingClientRect(function(t) {
                     if (t && t.top) {
-                      wcache.put('tabPos', t), o.$data.stickyTop = t.top + t.height, o.$data.stickyBackTop = t.top
+                      wcache.put('tabPos', t), o.$data.$data.stickyTop = t.top + t.height, o.$data.$data.stickyBackTop = t.top
                     } else {
                       var a = wcache.get('tabPos', !1)
-                      a && (o.$data.stickyTop = a.top + a.height, o.$data.stickyBackTop = a.top)
+                      a && (o.$data.$data.stickyTop = a.top + a.height, o.$data.$data.stickyBackTop = a.top)
                     }
-                  }).exec(), o.$data.scrollTop > o.$data.stickyTop && o.$wx.pageScrollTo({
+                  }).exec(), o.$data.$data.scrollTop > o.$data.$data.stickyTop && o.$wx.pageScrollTo({
                     duration: 0,
-                    scrollTop: o.$data.stickyTop + 4
+                    scrollTop: o.$data.$data.stickyTop + 4
                   }))), o.getScrollHeight()
                 })
             } else {
-              1 == t.code ? (1 == o.$data.overPageNum && 0 == o.rushList.length && (o.showEmpty = !0), (
+              1 == t.code ? (1 == o.$data.$data.overPageNum && 0 == o.rushList.length && (o.showEmpty = !0), (
                 o.loadMore = !1,
                   o.tip = '^_^已经到底了'
               )) : 2 == t.code && (
@@ -1371,9 +1368,9 @@
                   o.couponRefresh = !1
               )
             }
-            o.$data.isLoadData = !1
+            o.$data.$data.isLoadData = !1
 
-          })) : o.$data.isLoadData = !1
+          })) : o.$data.$data.isLoadData = !1
       },
       transTime: function(t) {
         var a = this
@@ -1532,7 +1529,6 @@
       openSku: function(t) {
 
         if (this.authModal()) {
-          debugger
           var a = t,
             e = a.actId,
             o = a.skuList
@@ -1624,7 +1620,6 @@
         })
       },
       goLink: function(t) {
-        debugger
         var a = t.currentTarget.dataset.link,
           e = t.currentTarget.dataset.needauth || ''
         console.log(e), e && !this.authModal() || a && this.$wx.navigateTo({
@@ -1746,7 +1741,6 @@
         this.$store.getters.tabbarCurrentIdx = 2
       },
       goCube: function(t) {
-        debugger
         var a = t.currentTarget.dataset.idx,
           e = t.currentTarget.dataset.index,
           o = this.data,
@@ -1841,7 +1835,7 @@
           e = this,
           a = this.$wx.getStorageSync('community'),
           o = this.commingClassificationId || 0
-          e.$data.isLoadData = !0, e.$data.hasCommingGoods ? (e.$data.hasCommingGoods = !1,
+          e.$data.$data.isLoadData = !0, e.$data.$data.hasCommingGoods ? (e.$data.$data.hasCommingGoods = !1,
           this.commigLoadMore = 0,
           this.$http({
 
@@ -1854,7 +1848,7 @@
             this.$wx.hideLoading()
             if ( 0 == t.code) {
               var a = t.list
-              a = e.commingList.concat(a), e.$data.hasCommingGoods = !0, e.tpage += 1
+              a = e.commingList.concat(a), e.$data.$data.hasCommingGoods = !0, e.tpage += 1
               e.commingList = a
               e.commigLoadMore = !1
               e.commigTip = ''
@@ -1868,8 +1862,8 @@
                   e.commigTip = '^_^已经到底了'
               )) : 2 == t.code && (e.needAuth = !0 , e.couponRefresh = !1)
             }
-            e.$data.isLoadData = !1
-          })) : (e.$data.isLoadData = !1, !e.commigLoadMore && this.$wx.hideLoading())
+            e.$data.$data.isLoadData = !1
+          })) : (e.$data.$data.isLoadData = !1, !e.commigLoadMore && this.$wx.hideLoading())
       },
       getHistoryCommunity: function() {
         var d = this,
