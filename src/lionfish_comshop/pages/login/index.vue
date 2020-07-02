@@ -151,12 +151,12 @@ export default {
         console.log(response)
         var result = response;
         if(result != null && result.member_id != -1){
-          alert('{{$t(common.dengluchenggong)}}');
+          alert('Login Successful'); //{{$t('common.dengluchenggong')}}
           this.$wx.setStorageSync('token', response.token)
           setToken(response.token);
           this.$router.push({path: '/lionfish_comshop/pages/index/index'});
         }else{
-          alert("{{$t(common.denglushibai)}}");
+          alert('Login Failed');//{{$t('common.denglushibai')}}
         }
       })
     },

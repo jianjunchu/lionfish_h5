@@ -52,6 +52,7 @@ export default {
   host: {
     shuruxinxi: '请填写姓名、手机号等相关信息',
     xingming: '姓名',
-    shuruxingming: '请输入姓名'
+    shuruxingming: '请输入姓名',
+    shurushequmingcheng: '请输入社区名称'
   }
 }

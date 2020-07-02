@@ -15,6 +15,7 @@ export default {
   host: {
     shuruxinxi: 'Input Name and Cell phone',
     xingming: 'Name',
-    shuruxingming: 'Please Input Your Name'
+    shuruxingming: 'Please Input Your Name',
+    shurushequmingcheng: 'Enter your Postal Code or Estate name'
   }
 }

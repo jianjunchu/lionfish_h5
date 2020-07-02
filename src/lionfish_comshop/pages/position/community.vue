@@ -13,7 +13,7 @@
             </div>
           </i-router-link>
           <div bindtap="linkSearch" class="search-ipt">
-            <div class="ipt-class">请输入{{groupInfo.group_name}}名称</div>
+            <div class="ipt-class">{{$t('host.shurushequmingcheng')}}</div>
           </div>
         </div>
         <div v-if="!community.communityId">

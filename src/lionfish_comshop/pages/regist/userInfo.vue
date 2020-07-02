@@ -133,7 +133,7 @@ export default {
         console.log(response)
         var result = response;
 		if(response.token!=''){
-			// this.$router.push({path: '/lionfish_comshop/pages/index/index'});
+			this.$router.push({path: '/lionfish_comshop/pages/index/index'});
 		}else if(response.token ==''){
 			alert("异常，请联系管理员")
 		}
