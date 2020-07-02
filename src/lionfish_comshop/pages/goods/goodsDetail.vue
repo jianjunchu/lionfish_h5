@@ -477,16 +477,26 @@
 </template>
 
 <script>
+
+  import { swiper, swiperSlide } from "vue-awesome-swiper";
+  //  require("swiper/dist/css/swiper.css");
+
+  import GlobalMixin from '../../mixin/globalMixin.js';
+  import status from '../../utils/index.js'
+  import util from '../../utils/index.js'
+
   var _extends = Object.assign || function(t) {
       for (var a = 1; a < arguments.length; a++) {
         var e = arguments[a];
         for (var o in e) Object.prototype.hasOwnProperty.call(e, o) && (t[o] = e[o]);
       }
       return t;
-    }, detailClearTime = null;
+    };
+  var detailClearTime = null;
 
   function count_down(t, a) {
-    var e = Math.floor(a / 1e3), o = e / 3600 / 24, i = Math.floor(o), s = e / 3600 - 24 * i, n = Math.floor(s), d = e / 60 - 1440 * i - 60 * n, r = Math.floor(d), c = e - 86400 * i - 3600 * n - 60 * r;
+
+    var e = Math.floor(a / 1000), o = e / 3600 / 24, i = Math.floor(o), s = e / 3600 - 24 * i, n = Math.floor(s), d = e / 60 - 1440 * i - 60 * n, r = Math.floor(d), c = e - 86400 * i - 3600 * n - 60 * r;
 
     t.endtime= {
       days: fill_zero_prefix(i),
@@ -494,9 +504,9 @@
       minutes: fill_zero_prefix(r),
       seconds: fill_zero_prefix(c),
       show_detail: 1
-    }
+    };
     if( a <= 0 ){
-      clearTimeout(buyClearTime);
+      clearTimeout(detailClearTime);
       t.endtime= {
         days: "00",
         hours: "00",
@@ -505,7 +515,7 @@
       }
       return;
     }
-
+    t.$forceUpdate();
     detailClearTime = setTimeout(function() {
       count_down(t, a -= 1000);
     }, 1000);
@@ -514,12 +524,7 @@
   function fill_zero_prefix(t) {
     return t < 10 ? "0" + t : t;
   }
-  import { swiper, swiperSlide } from "vue-awesome-swiper";
-//  require("swiper/dist/css/swiper.css");
 
-  import GlobalMixin from '../../mixin/globalMixin.js';
-  import status from '../../utils/index.js'
-  import util from '../../utils/index.js'
 
   export default {
     mixins: [GlobalMixin],
@@ -528,6 +533,13 @@
     name:'goods-goodsDetail',
     data() {
       return {
+        endtime: {
+          days: "00",
+          hours: "00",
+          minutes: "00",
+          seconds: "00"
+        },
+        goods_id:0,
         size:1,
         showHexiaoModal:false,
         indexcomminggoodsbitmap:'/lionfish_comshop/images/index-comming-goods-bitmap.png',
@@ -593,7 +605,9 @@
         showCoverVideo: false,
         order_comment_count: 0,
         comment_list: [],
-        goods: {},
+        goods: {
+          label_info:{}
+        },
         options: {},
         order: {
           goods_id: '',
@@ -824,7 +838,7 @@
               var s = L.data.groupInfo;
               this.$app.util.message("此商品在您所属" + s.group_name + "不可参与", "switchTo:/lionfish_comshop/pages/index/index", "error");
             }
-            debugger
+
             var i = t.comment_list;
             i.map(function(t) {
               3 < 14 * t.content.length / L.windowWidth && (t.showOpen = true),
@@ -845,7 +859,7 @@
             L.currentOptions = t.data.options;
             var N = false;
 
-            e.video && 1 == t.is_open_goods_full_video && (N = true),
+            e.video && 1 == t.is_open_goods_full_video && (N = true);
 
             L.showCoverVideo= N,
             L.order_comment_count= t.order_comment_count,
@@ -913,15 +927,23 @@
           };
           L.visible = false;
           L.noIns = false;
-          L.cartNum = 0;
+          L.cartNum = L.cartNum ? L.cartNum : 0;
           L.showVipModal = false;
           L.showHexiaoModal = false;
           L.sku_val= 1;
           L.size = 1;
+
+          L.endtime= {
+            days: "00",
+            hours: "00",
+            minutes: "00",
+            seconds: "00"
+          };
+
           L.$forceUpdate();
-          var t = e.goods_share_image;
-          if (t) console.log("draw分享图")
-//            status.download(t + "?imagediv2/1/w/500/h/400").then(function(t) {
+          var goods_share_image = e.goods_share_image;
+          if (goods_share_image) console.log("draw分享图")
+//            status.download(goods_share_image + "?imagediv2/1/w/500/h/400").then(function(t) {
 //            L.goodsImg = t.tempFilePath, L.drawImgNoPrice();
 //          });
           else {
@@ -940,8 +962,19 @@
               confirmText: "好的",
               success: function(t) {}
             });
-            var j = 0;
-//            0 < (j = 0 == e.over_type ? 1e3 * (e.begin_time - t.cur_time) : 1e3 * (e.end_time - t.cur_time)) && count_down(L, j);
+//            var j = 0;
+//            0 < (j = 0 == e.over_type ? 1000 * (e.begin_time - t.cur_time) : 1000 * (e.end_time - t.cur_time)) && count_down(L, j);
+
+          let over_type = e.over_type;
+          var seconds = 0;
+          if (over_type == 0) {
+            seconds = (e.begin_time - t.data.cur_time) * 1000;
+          } else {
+            seconds = (e.end_time - t.data.cur_time) * 1000;
+          }
+          if (seconds > 0) {
+            count_down(L, seconds);
+          }
 
         });
       },
@@ -1147,7 +1180,7 @@
         };
         util.addCart(m).then(function(t) {
             console.log(m,"addCart")
-            debugger
+
           if (1 == t.showVipModal) {
             var a = t.data.pop_vipmember_buyimage;
 //            this.$wx.hideLoading(),
@@ -1186,14 +1219,14 @@
               });
             }
           } else if (1 == l) {
-              debugger
+
               i.closeSku();
               i.$wx.showToast({
                 title: "已加入购物车",
                 image: "@/assets/images/addShopCart.png"
               });
-              i.$app.globalData.cartNum = t.total;
-              i.cartNum= t.total;
+            i.$app.globalData.cartNum = t.total;
+            i.cartNum= t.total;
               status.indexListCarCount(n);
           } else {
             var s = t.is_limit_distance_buy;
@@ -1323,12 +1356,15 @@
 //        });
         var a = this;
         util.check_login_new().then(function(t) {
-          if(t){
+
+          if(!t){
             a.needAuth= !0;
           } else {
             status.cartNum().then(function(e) {
+
               if(0 == e.code) {
-                a.cartNum = e.data
+                a.cartNum = e.data;
+                a.$forceUpdate();
               }
             })
           }
@@ -1385,10 +1421,10 @@
       saveThumb: function(t) {
         this.$wx.showLoading();
         var e = this, a = this.shareImgUrl;
-        this.$wx.getImageInfo({
-          src: a,
-          success: function(t) {
-            var a = t.path;
+//        this.$wx.getImageInfo({
+//          src: a,
+//          success: function(t) {
+//            var a = t.path;
 //            a && this.$wx.saveImageToPhotosAlbum({
 //              filePath: a,
 //              success: function(t) {
@@ -1406,30 +1442,30 @@
 //                });
 //              }
 //            });
-          }
-        });
+//          }
+//        });
       },
       drawImgNoPrice: function() {
         var a = this;
-        this.$wx.createSelectorQuery().select(".canvas-img").boundingClientRect(function() {
-          var t = this.$wx.createCanvasContext("myCanvas");
-          t.drawImage(a.goodsImg, 0, 0, status.getPx(375), status.getPx(300)), a.data.goods.video && t.drawImage("@/assets/images/play.png", status.getPx(127.5), status.getPx(90), status.getPx(120), status.getPx(120)),
-            t.save(), t.restore(), t.draw(false, a.checkCanvasNoPrice());
-        }).exec();
+//        this.$wx.createSelectorQuery().select(".canvas-img").boundingClientRect(function() {
+//          var t = this.$wx.createCanvasContext("myCanvas");
+//          t.drawImage(a.goodsImg, 0, 0, status.getPx(375), status.getPx(300)), a.data.goods.video && t.drawImage("@/assets/images/play.png", status.getPx(127.5), status.getPx(90), status.getPx(120), status.getPx(120)),
+//            t.save(), t.restore(), t.draw(false, a.checkCanvasNoPrice());
+//        }).exec();
       },
       checkCanvasNoPrice: function() {
         var a = this;
-        setTimeout(function() {
-          this.$wx.canvasToTempFilePath({
-            canvasId: "myCanvas",
-            success: function(t) {
-              t.tempFilePath ? a.imageUrl = t.tempFilePath : a.drawImgNoPrice(), console.log("我画完了");
-            },
-            fail: function(t) {
-              a.drawImgNoPrice();
-            }
-          });
-        }, 500);
+//        setTimeout(function() {
+//          this.$wx.canvasToTempFilePath({
+//            canvasId: "myCanvas",
+//            success: function(t) {
+//              t.tempFilePath ? a.imageUrl = t.tempFilePath : a.drawImgNoPrice(), console.log("我画完了");
+//            },
+//            fail: function(t) {
+//              a.drawImgNoPrice();
+//            }
+//          });
+//        }, 500);
       },
       drawImg: function() {
         var t = this.data.endtime, c = (0 < t.days ? t.days + "天" : "") + t.hours + ":" + t.minutes + ":" + t.seconds, u = this;
@@ -1484,24 +1520,24 @@
       },
       checkCanvas: function() {
         var a = this;
-        setTimeout(function() {
-          this.$wx.canvasToTempFilePath({
-            canvasId: "myCanvas",
-            success: function(t) {
-              t.tempFilePath ? a.imageUrl = t.tempFilePath : a.drawImg(), console.log("我画完了");
-            },
-            fail: function(t) {
-              a.drawImg();
-            }
-          });
-        }, 500);
+//        setTimeout(function() {
+//          this.$wx.canvasToTempFilePath({
+//            canvasId: "myCanvas",
+//            success: function(t) {
+//              t.tempFilePath ? a.imageUrl = t.tempFilePath : a.drawImg(), console.log("我画完了");
+//            },
+//            fail: function(t) {
+//              a.drawImg();
+//            }
+//          });
+//        }, 500);
       },
       predivImg: function(t) {
         var a = t.currentTarget.dataset.idx || 0, e = this.prevImgArr;
-        this.$wx.predivImage({
-          current: e[a],
-          urls: e
-        });
+//        this.$wx.predivImage({
+//          current: e[a],
+//          urls: e
+//        });
       },
       btnPlay: function() {
         this.fmShow= false, this.videoContext.play();
@@ -1514,10 +1550,10 @@
       },
       showGroupCode: function() {
         var t = this.group_share_info.share_wxcode || "";
-        t && this.$wx.predivImage({
-          current: t,
-          urls: [ t ]
-        });
+//        t && this.$wx.predivImage({
+//          current: t,
+//          urls: [ t ]
+//        });
       },
       changeCommunity: function() {
         if (0 == this.hide_community_change_btn) {
