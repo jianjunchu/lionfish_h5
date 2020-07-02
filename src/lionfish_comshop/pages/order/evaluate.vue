@@ -150,20 +150,20 @@
           } else {
               var filePath = tempFilePaths[i].name;
 
-//            var url = this.$app.util.url({
-//              controller: 'goods.doPageUpload',
-//              filePath: filePath,
-//              token: this.$wx.getStorageSync("token"),
-//              name:'upfile'
-//            });
-//            console.log(url,"url");
+            var url = this.$app.util.url({
+              controller: 'goods.doPageUpload',
+              filePath: filePath,
+              token: this.$wx.getStorageSync("token"),
+              name:'upfile'
+            });
+            console.log(url,"url");
 
-            var url = "http://localhost:9528/api/app/index.php?i=3&t=0&v=12.4.0&from=wxapp&c=entry&a=wxapp&do=index"
-              + "&m=lionfish_comshop&sign=60dcd9b5925c119972907bbf22255441"
-              + "&token=" +this.$wx.getStorageSync("token")
-              + "&controller=goods.doPageUpload"
-              + "&filePath=" +filePath
-              + "&name=upfile";
+//            var url = "http://localhost:9528/api/app/index.php?i=3&t=0&v=12.4.0&from=wxapp&c=entry&a=wxapp&do=index"
+//              + "&m=lionfish_comshop&sign=60dcd9b5925c119972907bbf22255441"
+//              + "&token=" +this.$wx.getStorageSync("token")
+//              + "&controller=goods.doPageUpload"
+//              + "&filePath=" +filePath
+//              + "&name=upfile";
 
             let formFile = new FormData();
             let imgName = 'upfile';
@@ -183,8 +183,8 @@
                  var new_img = that.image;
 
                  var new_thumb_img = that.thumb_img;
-//                 new_img.push(orign_image);
-                 new_img.push(image_thumb);
+                 new_img.push(orign_image);
+//                 new_img.push(image_thumb);
                  new_thumb_img.push(image_thumb);
                  imgGroup.push(image_thumb);
 
@@ -246,7 +246,7 @@
 
       },
       sub_comment: function() {
-          debugger
+
         var a = this.order_id, t = this.goods_id, e = this.pinjia_text, o = this.image;
         if ("" == e) return this.$wx.showToast({
           title: "请填写评价内容",
