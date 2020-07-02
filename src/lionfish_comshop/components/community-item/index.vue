@@ -4,12 +4,12 @@
       <img class="group-head" :src="item.headImg||item.disUserHeadImg"
            v-if="item.headImg||item.disUserHeadImg"/>
       <img class="group-head" src='@/assets/images/head-bitmap.png' v-else/>
-      <span class="rest" v-if="item.rest==1">休息中</span>
+      <span class="rest" v-if="item.rest==1">{{$t('host.xiuxi')}}休息中</span>
     </div>
     <div class="item-center">
       <div class="community-title">
         <span class="span">{{item.communityName}}</span>
-        <span class="em" :style="{'color':skin.color}" v-if="!isOld&&item.distance">距离{{item.distance}}</span>
+        <span class="em" :style="{'color':skin.color}" v-if="!isOld&&item.distance">{{$t('host.juli')}}{{item.distance}}</span>
       </div>
       <div class="group-master">
         {{groupInfo.owner_name}}：{{item.realName||item.disUserName}}
@@ -24,7 +24,7 @@
           <span class="span" v-if="item.times[1]"> , {{item.times[1]}}</span>
           <span class="span" v-if="item.times[2]"> , {{item.times[2]}}</span>
         </span>
-        <span class="span" v-else>没有可用时间</span>
+        <span class="span" v-else>{{$t('host.meishijian')}}</span>
       </div>
 
     </div>

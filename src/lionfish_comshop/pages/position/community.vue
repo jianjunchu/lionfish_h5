@@ -17,12 +17,12 @@
           </div>
         </div>
         <div v-if="!community.communityId">
-          <div class="location-title">当前地址</div>
+          <div class="location-title">{{$t('host.dangqiandizhi')}}</div>
           <div class="location-msg">{{city.districtName}}</div>
-          <div class="switch-btn">请选择您的{{groupInfo.group_name}}</div>
+          <div class="switch-btn">{{$t('host.qingxuanze')}}{{groupInfo.group_name}}</div>
         </div>
         <div v-else>
-          <div class="location-title location-title-pad">当前{{groupInfo.group_name}}</div>
+          <div class="location-title location-title-pad">{{$t('host.dangqian')}}{{groupInfo.group_name}}</div>
           <div class="local-community-card" openType="navigateBack">
             <img class="card-bg" src="@/assets/images/community-desc-bg.png"/>
             <div class="head-pic">
@@ -44,7 +44,7 @@
                           :item="historyCommunity"></i-community-item>
       </div>
       <div class="community-list around-communities">
-        <div class="title" :style="{'border-color':skin.color}">附近{{groupInfo.group_name}}</div>
+        <div class="title" :style="{'border-color':skin.color}">{{$t('host.fujin')}}{{groupInfo.group_name}}</div>
         <i-community-item :isOld="true" :city="city" class="item-border" :groupInfo="groupInfo"
                           :hiddenDetails="index_hide_headdetail_address" :item="item" :skin="skin"
                           v-if="communities.length" v-for="(item,index) in communities"
@@ -52,7 +52,7 @@
         <div class="no-community" v-if="isEmpty">
           <div bindtap="openSetting" class="flex-align" v-if="!canGetGPS">
             <img src="@/assets/images/noData.png"/>
-            <div>未获得您的位置信息，点击开启</div>
+            <div>{{$t(host.kaiqiweizhi)}}</div>
           </div>
           <block v-else>
             <img src="@/assets/images/noData.png"/>
@@ -97,8 +97,8 @@
         needAuth: !1,
         common_header_backgroundimage: '',
         groupInfo: {
-          group_name: '社区',
-          owner_name: '团长'
+          group_name: 'Estate',
+          owner_name: 'Host'
         },
         isEmpty: !1
       }
