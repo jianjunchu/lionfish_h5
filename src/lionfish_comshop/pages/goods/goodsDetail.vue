@@ -226,12 +226,12 @@
           <div class="moreBuyer" @click="goLink2" hoverClass="none" data-link="/lionfish_comshop/pages/goods/buyRecords?id=" :data-id="goods_id">
             <div class="title">
               购买记录
-              <div class="buyNum">
+              <span class="buyNum">
                 已有
-                <div>{{buy_record_arr.count}}</div> 人购买，商品共销售
-                <div>{{goods.seller_count}}</div> 份
+                <span>{{buy_record_arr.count}}</span> 人购买，商品共销售
+                <span>{{goods.seller_count}}</span> 份
                 <img class="goBuyRecords" src="@/assets/images/community-right-arrow.png"/>
-              </div>
+              </span>
             </div>
           </div>
           <div class="buyerList">
@@ -1034,6 +1034,7 @@
                 e.index_bottom_image= t.data.index_bottom_image,
                 e.goods_details_middle_image= t.data.goods_details_middle_image,
                 e.is_show_buy_record= t.data.is_show_buy_record,
+                //e.is_show_buy_record= 1,
                 e.order_notify_switch= t.data.order_notify_switch,
                 e.is_show_comment_list= t.data.is_show_comment_list,
                 //e.is_show_comment_list= 1,
