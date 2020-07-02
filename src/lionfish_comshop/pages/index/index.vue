@@ -1507,6 +1507,7 @@
               duration: 2e3
             })
           } else {
+            i.cartNum = t.total
             i.closeSku()
             i.$wx.showToast({
               title: '已加入购物车',
@@ -1682,6 +1683,7 @@
             }
         })
 
+        return !i.needAuth
 
 
       },

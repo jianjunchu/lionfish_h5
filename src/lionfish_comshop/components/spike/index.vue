@@ -100,7 +100,6 @@
       },
       openSku: function(e) {
 
-
         this.disabled = !1
 
         var a = this.list[e]
