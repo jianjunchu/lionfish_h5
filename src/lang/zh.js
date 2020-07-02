@@ -53,6 +53,14 @@ export default {
     shuruxinxi: '请填写姓名、手机号等相关信息',
     xingming: '姓名',
     shuruxingming: '请输入姓名',
-    shurushequmingcheng: '请输入社区名称'
+    shurushequmingcheng: '请输入社区名称',
+    dangqiandizhi: '当前地址',
+    qingxuanze: '请选择您的',
+    dangqian: '当前',
+    fujin: '附近',
+    kaiqiweizhi: '未获得您的位置信息，点击开启',
+    meishijian: '没有可用时间',
+    juli: '距离',
+    xiuxi: '休息中'
   }
 }
