@@ -28,7 +28,7 @@
       <div class="mask" catchtouchmove="preventTouchMove" v-if="show_delivery_time_modal"></div>
       <div class="deliveryTimeDlg" v-if="show_delivery_time_modal">
         <div style='width:100%;height:26px;border-bottom:1px solid #ccc;margin:0;padding:0;'>
-          <span style='text-align:center;font-size:14px;font-weight:600 ;margin-top:10vw'>选择送货日期</span>
+          <span style='text-align:center;font-size:14px;font-weight:600 ;margin-top:10vw'>{{$t('order.songhuoriqi')}}</span>
         </div>
         <div style='width:100%;margin-top:48vw'>
           <div class='deliveryTimeItem' @click="deliveryTimeItemClick" data-item="item"
@@ -184,45 +184,45 @@
             </div>
           </div>
           <div class="receiver">
-            <span space="ensp">{{tabIdx==0?'提 货 人':'收 货 人'}}：</span>
-            <input bindinput="changeReceiverName" class="receive-name" placeholder="提货人"
+            <span space="ensp">{{tabIdx==0? $t('order.tihuoren'): $t('order.shouhuoren') }}：</span>
+            <input bindinput="changeReceiverName" class="receive-name" placeholder=""
                    type="text" v-model="tabAddress[tabIdx].name"></input>
           </div>
 
 
           <div class="receiver">
-            <span>手机号码：</span>
-            <input bindinput="bindReceiverMobile"  class="mobile" placeholder="手机号码" type="text"
+            <span>{{$t('order.shoujihaoma')}}</span>
+            <input bindinput="bindReceiverMobile"  class="mobile" placeholder="" type="text"
                    v-model="tabAddress[tabIdx].mobile"></input>
           </div>
 
 
           <div class="address-box" v-if="tabIdx!=0">
             <div class="receiver">
-              <span space="ensp">邮 编：</span>
+              <span space="ensp">{{$t('order.youbian')}}</span>
               <input oninput="bindReceiverZipCode,inputZipCode" class="receive-name"
-                     placeholder="邮编" type="" v-model="tabAddress[tabIdx].zipCode"></input>
+                     placeholder="" type="" v-model="tabAddress[tabIdx].zipCode"></input>
             </div>
             <div class="receiver align-start">
-              <span space="ensp">大 牌 号：</span>
-              <input bindinput="changeTuanBlkNo" class="receive-name" placeholder="大牌号"
+              <span space="ensp">{{$t('order.dapaihao')}}</span>
+              <input bindinput="changeTuanBlkNo" class="receive-name" placeholder=""
                      type="text" v-model="tabAddress[tabIdx].blk_no"></input>
             </div>
             <div class="receiver">
-              <span space="ensp">道 路 名：</span>
-              <input bindinput="bindReceiverRoadName" class="receive-name" placeholder="道路名"
+              <span space="ensp">{{$t('order.daoluming')}}</span>
+              <input bindinput="bindReceiverRoadName" class="receive-name" placeholder=""
                      type="" v-model="tabAddress[tabIdx].roadName"></input>
             </div>
 
             <div class="receiver align-start">
-              <span space="ensp">单元门牌：</span>
-              <input bindinput="changeTuanAddress" class="receive-name" placeholder="例如:106室"
+              <span space="ensp">{{$t('order.menpaihao')}}</span>
+              <input bindinput="changeTuanAddress" class="receive-name" placeholder={{$t('order.liru106')}}
                      type="text" v-model="tabAddress[tabIdx].lou_meng_hao" v-if="!showConfirmModal"></input>
             </div>
 
             <div class="receiver">
-              <span space="ensp">建 筑 名：</span>
-              <input bindinput="bindReceiverBuilding" class="receive-name" placeholder="建筑名称"
+              <span space="ensp">{{$t('order.jianzhuming')}}</span>
+              <input bindinput="bindReceiverBuilding" class="receive-name" placeholder=""
                      type="" v-model="tabAddress[tabIdx].building "></input>
             </div>
 
@@ -273,15 +273,15 @@
            <div @click="getWxAddress" class="use-wx-address" :style="{color:skin.color}" v-if="tabIdx==2">+使用微信地址 </div>
           -->
           <div v-if="tabIdx!=2&&is_hexiao!=1">
-            <p class="address-red">{{groupInfo.owner_name}}信息：{{community.disUserName}} ({{community.communityName}})
+            <p class="address-red">{{groupInfo.owner_name}}{{$t('order.xinxi')}} {{community.disUserName}} ({{community.communityName}})
 
               <router-link style="display:inline;position: absolute;right: 10px;" class="to-distribution"
                          hoverClass="none" to="/lionfish_comshop/pages/position/community">
-                <span>切换团长</span>
+                <span>{{$t('order.qiehuantuanzhang')}} </span>
               </router-link>
             </p>
-            <p class="address">{{tabIdx==0?'提货地点':groupInfo.owner_name+'位置'}}：{{community.fullAddress}}</p>
-          </div>
+       <p class="address">{{tabIdx==0?'提货地点':groupInfo.owner_name+'位置'}}：{{community.fullAddress}}</p>          
+</div>
         </div>
         <div class="address-line">
           <img src="@/assets/images/icon-address-line.png"/>
@@ -306,7 +306,7 @@
                    <div class="cart-header-left" v-else>预计{{pick_up_time}}({{pick_up_weekday}}){{groupInfo.owner_name}}配送 </div>
               </block>
               -->
-              <div class="cart-header-right">{{value.goodsnum}}件商品</div>
+              <div class="cart-header-right">{{value.goodsnum}} {{$t(order.jianshangpin)}}</div>
             </div>
             <div class="cart-item" slot="content">
               <div class="sku-item" v-for="(item,index) in value.goods" :key="index">
@@ -322,29 +322,29 @@
                   <div class="sku-title">
                     {{item.name}}
                   </div>
-                  <div class="sku-spec" v-if="item.option.length>0">规格：
+                  <div class="sku-spec" v-if="item.option.length>0">{{$t('common.guige')}}
                     <span v-for="(option,index) in item.option " :key="option.option_id">{{option.value}}；</span>
                   </div>
                   <div class="original-price">
                     <span v-if="buy_type!='integral'">$</span>
                     {{item.price}} ×{{item.quantity}}
-                    <span v-if="buy_type=='integral'">积分</span>
+                    <span v-if="buy_type=='integral'">{{$t('common.jifen')}}</span>
                     <i-vip-price :price="item.card_price"
                                  v-if="is_open_vipcard_buy==1&&item.is_take_vipcard==1&&is_vip_card_member==1"></i-vip-price>
                     <i-vip-price :price="item.levelprice" type="1"
                                  v-else-if="canLevelBuy&&item.is_mb_level_buy"></i-vip-price>
                   </div>
-                  <div class="sku-price">小计：
+                  <div class="sku-price">{{$t('common.xiaoji')}}
                     <span>
                                     <span v-if="buy_type!='integral'">$</span>{{item.total}}
-                    <span v-if="buy_type=='integral'">积分</span>
+                    <span v-if="buy_type=='integral'">{{$t('common.jifen')}}</span>
                                 </span>
                   </div>
                 </div>
               </div>
             </div>
             <div class="cart-footer" slot="footer" v-if="is_open_order_message==1">
-              <input bindinput="bindInputMessage" class="order-message" :data-idx="key" placeholder="备注"
+              <input bindinput="bindInputMessage" class="order-message" :data-idx="key" placeholder={{$t('common.beizhu')}}
                      type="text"></input>
             </div>
           </i-card>
@@ -382,7 +382,7 @@
           </div>
           <div @click="showvoucher" class="cell" data-seller_id="0" v-if="seller_goodss[0] && seller_goodss[0].show_voucher==1">
             <div>
-              <span>优惠券</span>
+              <span>{{$t('common.youhuiquan')}}</span>
               <span class="cell-desc" v-if="sel_chose_vouche.limit_money>0">满{{sel_chose_vouche.limit_money}}元优惠{{sel_chose_vouche.credit}}元</span>
               <span class="cell-desc" v-else>优惠{{sel_chose_vouche.credit}}元</span>
             </div>
@@ -394,7 +394,7 @@
           <div @click="showvoucher" class="cell" :data-seller_id="seller_goodss[0] && seller_goodss[0].store_info.s_id"
                v-if="seller_goodss[0] && seller_goodss[0].show_voucher==0">
             <div>
-              <span>选择优惠券</span>
+              <span>{{$t('common.xuanzeyouhuiquan')}}</span>
             </div>
             <div>
               <img class="icon-right" src="@/assets/images/rightArrowImg.png"/>
@@ -473,8 +473,8 @@
                 合计：<span>${{tot_price}}</span>
               </div>
               <div class="h2" v-if="buy_type!='integral'">
-                <em>总额：${{total_all}}</em>
-                <em v-if="disAmount>0">总优惠：${{disAmount}}</em>
+                <em>{{$t('order.zonge')}}${{total_all}}</em>
+                <em v-if="disAmount>0">{{$t('order.zongyouhui')}}${{disAmount}}</em>
               </div>
             </div>
             <div class="fixed-bar-btn bgDisabled" v-if="btnDisable">{{btnText?btnText:'立即支付'}}</div>
@@ -514,10 +514,10 @@
              </div>
         </block>
         -->
-        <div class="title" v-else>需要快递配送，请确认收货信息</div>
+        <div class="title" v-else>{{$t('order.querenshouhuoxinxi')}}</div>
         <div class="order-content">
           <div class="msg-group">
-            <span>商品总额：</span>
+            <span>{{$t('order.shangpinzonge')}}</span>
             <em>+${{total_goods_price}}</em>
           </div>
           <div class="msg-group" v-if="tabIdx==1">
@@ -529,7 +529,7 @@
             <em>+${{trans_free_toal?trans_free_toal:0}}</em>
           </div>
           <div class="msg-group" v-if="disAmount>0">
-            <span>优惠金额：</span>
+            <span>{{$t('order.youhuijine')}}</span>
             <em>-${{disAmount}}</em>
           </div>
           <div class="msg-group">
@@ -539,36 +539,36 @@
             </em>
           </div>
           <div class="msg-group">
-            <span>{{tabIdx==0?'提 货 人':'收 货 人'}}：</span>
+            <span>{{tabIdx==0?$t('order.tihuoren'): $t('order.shouhuoren') }}：</span>
             <em>{{tabAddress[tabIdx].name}} {{tabAddress[tabIdx].mobile}}</em>
           </div>
           <div class="msg-group" v-if="tabIdx==0">
             <div v-if="index_hide_headdetail_address==0">
-              <span>提货地点：</span>
+              <span>{{$t('order.tihuodidian')}}</span>
               <em>{{pickUpAddress}}</em>
             </div>
           </div>
 
           <div class="msg-group" v-else-if="tabIdx==1">
-            <span>收货地址：</span>
+            <span>{{$t('order.shouhuodizhi')}}</span>
             <em>{{tabAddress[tabIdx].blk_no}} {{tabAddress[tabIdx].roadName}}{{tabAddress[tabIdx].building}}</em>
           </div>
           <div class="msg-group" v-else>
-            <span>收货地址：</span>
+            <span>{{$t('order.shouhuodizhi')}}</span>
             <em space="ensp">{{tabAddress[tabIdx].blk_no}}
               {{tabAddress[tabIdx].roadName}}{{tabAddress[tabIdx].building}}</em>
           </div>
           <div class="total">
-            合计:
+            {{$t(order.heji)}}
             <em>${{tot_price}}</em>
           </div>
         </div>
         <div class="button-group">
-          <i-button bind:click="closeConfirmModal" class="btn-content" iClass="btn left-btn">取消</i-button>
-          <div class="btn-content btn right-btn bgDisabled" v-if="btnDisable">{{btnText?btnText:'确认支付'}}</div>
+          <i-button bind:click="closeConfirmModal" class="btn-content" iClass="btn left-btn">{{$t('common.quxiao')}}</i-button>
+          <div class="btn-content btn right-btn bgDisabled" v-if="btnDisable">{{btnText?btnText:$t('order.querenzhifu')}}</div>
           <i-button bind:click="show_payment_modal" class="btn-content" iClass="btn right-btn" :loading="payBtnLoading"
                     :styleStr="'background:'+skin.color" v-else>
-            <div :style="{background:skin.color}">确认支付</div>
+            <div :style="{background:skin.color}">{{$t('order.querenzhifu')}}</div>
           </i-button>
         </div>
       </div>
