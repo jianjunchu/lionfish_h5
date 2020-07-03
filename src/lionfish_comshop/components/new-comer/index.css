@@ -35,10 +35,10 @@
 }
 
 .new-comers-item {
-  width: 120px;
+  width: 31vw;
   box-sizing: border-box;
-  padding: 10px;
-  font-size: 14px;
+  padding: 3vw;
+  font-size: 2vw;
 }
 
 .new-comers-item .new-img {

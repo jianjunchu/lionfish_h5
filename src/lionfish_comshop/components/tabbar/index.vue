@@ -3,7 +3,7 @@
     <div v-for="(item ,index ) in tabbar.list" :key="item.id" v-if="item.pagePath !=''">
       <router-link @click.native="switchTab(index)" class="tabbar_nav" hoverClass="none" openType="switchTab"
                    :style="{color:item.selected?tabbar.selectedColor:tabbar.color}" :to="item.pagePath" v-if="index!=2">
-        <div class="tabbar_icon" data-num="getCartNum">
+        <div class="tabbar_icon" data-num="getCartNum" >
           <img class="img" :src="item.selected?item.selectedIconPath:item.iconPath"/>
           <div class="cart-num" v-if="cartNum&&index==3">{{cartNum}}</div>
         </div>
@@ -54,6 +54,11 @@
     data() {
       return {
         isIpx: !1,
+        skin: {
+          color: '#8ED9D1',
+          subColor: '#ed7b3a',
+          lighter: '#fff9f4'
+        },
         tabbar: {
           backgroundColor: '#fff',
           color: '#707070',

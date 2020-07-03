@@ -1,6 +1,6 @@
 <template>
   <div class="vux-header" :style="{background:navBgColor}">
-    <div class="vux-header-left" v-if="getShowToolbarBack" @click="back"><a class="vux-header-back"></a>
+    <div class="vux-header-left" v-if="getShowToolbarBack" @click.stop="back"><a class="vux-header-back"></a>
       <div class="left-arrow"></div>
     </div>
     <div class="vux-header-left-logo" v-if="getShowToolbarLogo"><a class="vux-header-back"></a>

@@ -19,11 +19,11 @@ export default {
 
   },
   getStorageSync: function(k) {
-    const v = window.localStorage.getItem(k) || '{}';
-    if (v != '{}' && v != "undefined"){
+    const v = window.localStorage.getItem(k) || '{}'
+    if (v != '{}' && v != 'undefined'){
       return JSON.parse(v)
     }
-    return ;
+    return {}
   },
   navigateTo: function(o) {
     router.push(o.url)
@@ -35,7 +35,7 @@ export default {
     this.setStorageSync(k, undefined)
   },
   clearStorageSync: function() {
-    store.getters.app.storageSync = {}
+    window.localStorage.clear()
   },
   setNavigationBarColor: function(option) {
     console.log(this)
