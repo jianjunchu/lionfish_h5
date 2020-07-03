@@ -526,7 +526,7 @@
       authModal: function() {
         this.needAuth && (this.showAuthModal = !this.showAuthModal)
         if(this.showAuthModal){
-          this.$router.push({path: '/login'});
+          this.$router.replace({path: '/login'});
         }
       },
       showCartGoods: function() {

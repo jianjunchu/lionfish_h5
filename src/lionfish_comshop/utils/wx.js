@@ -79,7 +79,7 @@ export default {
     return true
   },
   redirectTo: function(option) {
-    router.push(option.url)
+    router.replace(option.url)
   },
   switchTab: function(option) {
     router.push(option.url)

@@ -7,7 +7,7 @@
         <span>{{order_goods.name+' '+order_goods.option_str}}</span>
       </div>
       <div class="evaluate-content">
-        <textarea Class="placeholder-class" bindinput="textinput" v-model="pinjia_text" :foucs="focus" maxlength="5000" :placeholder="placeholder"></textarea>
+        <textarea Class="placeholder-class" @input="textinput" v-model="pinjia_text" :foucs="focus" maxlength="5000" :placeholder="placeholder"></textarea>
 
         <div class="img-group">
           <div class="img-item" v-if="imgGroup.length"  v-for="(item,index) in imgGroup" :key="item.id">

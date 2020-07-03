@@ -200,29 +200,29 @@
           <div class="address-box" v-if="tabIdx!=0">
             <div class="receiver">
               <span space="ensp">{{$t('order.youbian')}}</span>
-              <input oninput="bindReceiverZipCode,inputZipCode" class="receive-name"
+              <input @input="inputZipCode" class="receive-name"
                      placeholder="" type="" v-model="tabAddress[tabIdx].zipCode"></input>
             </div>
             <div class="receiver align-start">
               <span space="ensp">{{$t('order.dapaihao')}}</span>
-              <input bindinput="changeTuanBlkNo" class="receive-name" placeholder=""
+              <input @input="changeTuanBlkNo" class="receive-name" placeholder=""
                      type="text" v-model="tabAddress[tabIdx].blk_no"></input>
             </div>
             <div class="receiver">
               <span space="ensp">{{$t('order.daoluming')}}</span>
-              <input bindinput="bindReceiverRoadName" class="receive-name" placeholder=""
+              <input @input="bindReceiverRoadName" class="receive-name" placeholder=""
                      type="" v-model="tabAddress[tabIdx].roadName"></input>
             </div>
 
             <div class="receiver align-start">
               <span space="ensp">{{$t('order.menpaihao')}}</span>
-              <input bindinput="changeTuanAddress" class="receive-name" placeholder={{$t('order.liru106')}}
+              <input @input="changeTuanAddress" class="receive-name" :placeholder="$t('order.liru106')"
                      type="text" v-model="tabAddress[tabIdx].lou_meng_hao" v-if="!showConfirmModal"></input>
             </div>
 
             <div class="receiver">
               <span space="ensp">{{$t('order.jianzhuming')}}</span>
-              <input bindinput="bindReceiverBuilding" class="receive-name" placeholder=""
+              <input @input="bindReceiverBuilding" class="receive-name" placeholder=""
                      type="" v-model="tabAddress[tabIdx].building "></input>
             </div>
 
@@ -1483,11 +1483,12 @@
         }
       },
       inputZipCode: function(e) {
-        var this_ = this
-        var t = this, a = t.tabAddress, i = t.tabIdx, o = e.detail.value.trim()
+
+        var t = this, a = t.tabAddress, i = t.tabIdx;
+        var o = a[i].zipCode;
+        console.log(o)
         var tk = wx.getStorageSync('token')
         if ('' != o && /^\d{6}$/.test(o)) {
-          a[i].zipCode = o
           app.util.request({
             url: 'entry/wxapp/user',
             data: {
@@ -1507,7 +1508,6 @@
                 a[i].building = result.BUILDING
                 a[i].roadName = result.ROAD_NAME
                 console.log(a)
-                this.tabAddress = a
 
               }
             }

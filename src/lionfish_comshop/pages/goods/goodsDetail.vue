@@ -379,7 +379,7 @@
             <div @click="setNum" class="i-input-number-minus" data-type="decrease">
               <img src="@/assets/images/icon-input-reduce.png"/>
             </div>
-            <input bindblur="handleBlur" bindfocus="handleFocus" bindinput="changeNumber" class="i-input-number-text" type="number" :value="sku_val"></input>
+            <input bindblur="handleBlur" bindfocus="handleFocus" @input="changeNumber" class="i-input-number-text" type="number" :value="sku_val"></input>
             <div @click="setNum" class="i-input-number-plus" data-type="add">
               <img src="@/assets/images/icon-input-add.png"/>
             </div>
