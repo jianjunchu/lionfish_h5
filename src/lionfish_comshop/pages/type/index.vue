@@ -115,7 +115,7 @@
             })
         }else{
           this.$wx.redirectTo({
-            url: "/search?keyword=" + this.name
+            url: "/result?keyword=" + this.name
           })
         }
       },
