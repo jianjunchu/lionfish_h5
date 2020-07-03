@@ -132,6 +132,8 @@ export default {
         avatar:this.logoImg,
       }).then(response => {
         console.log(response)
+        this.$wx.setStorageSync('token', response.token)
+//      setToken(response.token);
         var result = response;
 			if(response.token!=''){
 				 this.$router.push({path: '/lionfish_comshop/pages/index/index'});
