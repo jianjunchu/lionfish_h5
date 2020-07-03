@@ -305,7 +305,7 @@
                    <div class="cart-header-left" v-else>预计{{pick_up_time}}({{pick_up_weekday}}){{groupInfo.owner_name}}配送 </div>
               </block>
               -->
-              <div class="cart-header-right">{{value.goodsnum}} {{$t(order.jianshangpin)}}</div>
+              <div class="cart-header-right">{{value.goodsnum}} {{$t('order.jianshangpin')}}</div>
             </div>
             <div class="cart-item" slot="content">
               <div class="sku-item" v-for="(item,index) in value.goods" :key="index">
@@ -558,7 +558,7 @@
               {{tabAddress[tabIdx].roadName}}{{tabAddress[tabIdx].building}}</em>
           </div>
           <div class="total">
-            {{$t(order.heji)}}
+            {{$t('order.heji')}}
             <em>${{tot_price}}</em>
           </div>
         </div>
