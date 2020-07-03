@@ -1,5 +1,4 @@
 <template>
-  <div>
 
     <div class="goods-wrapper">
       <!--<div @click="hide_share_handler" class="ui-mask" :hidden="is_share_html"></div>-->
@@ -227,7 +226,7 @@
             <div class="title">
               {{$t('detail.goumaijilu')}}
               <div class="buyNum">
-                
+              <span>    
                 <div>{{buy_record_arr.count}}</div> {{$t('detail.rengoumai')}},{{$t('detail.gongxiaoshou')}}
                 <div>{{goods.seller_count}}</div> 份
                 <img class="goBuyRecords" src="@/assets/images/community-right-arrow.png"/>
