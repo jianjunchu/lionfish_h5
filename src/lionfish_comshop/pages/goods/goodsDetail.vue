@@ -196,7 +196,7 @@
       <div v-if="order_comment_count>0&&is_show_comment_list==1">
         <div class="straightInLive">
           <div class="title">
-            {{$t(detail.shangpinpingjia)}}
+            {{$t('detail.shangpinpingjia')}}
             <div class="commentsNum">（{{order_comment_count}}）</div>
           </div>
           <div class="comments" v-for="(item,index) in comment_list" :key="item.comment_id" >
@@ -226,9 +226,10 @@
             <div class="title">
               {{$t('detail.goumaijilu')}}
               <div class="buyNum">
-              <span>    
-                <div>{{buy_record_arr.count}}</div> {{$t('detail.rengoumai')}},{{$t('detail.gongxiaoshou')}}
-                <div>{{goods.seller_count}}</div> 份
+              <span>
+                {{buy_record_arr.count}}
+                {{$t('detail.rengoumai')}},{{$t('detail.gongxiaoshou')}}
+                {{goods.seller_count}} 份
                 <img class="goBuyRecords" src="@/assets/images/community-right-arrow.png"/>
               </span>
             </div>
@@ -373,7 +374,7 @@
           </div>
         </div>
         <div class="sku-num-content">
-          <div class="title">{{$t(common.shuliang)}}</div>
+          <div class="title">{{$t('common.shuliang')}}</div>
           <div :class="['i-class', 'i-input-number', 'i-input-number-size-'+size]">
             <div @click="setNum" class="i-input-number-minus" data-type="decrease">
               <img src="@/assets/images/icon-input-reduce.png"/>
