@@ -4,7 +4,7 @@
     <button hidden formType="submit" id="formId"></button>
   </form>
   <label class="spu" for="formId">
-      <i-router-link class="spu-content" url="">
+      <i-router-link class="spu-content" :url="'/lionfish_comshop/pages/goods/goodsDetail?id='+spuItem.actId">
           <div class="item-left">
               <!-- <i-img :defaultImage="spuItem.skuImage" height="170" iClass="img-class" lazyLoad="true" :loadImage="spuItem.skuImage" width="170"></i-img> -->
               <img class="img-class" :src="spuItem.skuImage"/>
@@ -41,9 +41,9 @@
               </div>
               <!-- <i-input-number addImage="../../images/icon-add-2.png" bind:change="changeNumber" bind:outOfMax="outOfMax" iClass="index-input-number" iClassNumberspan="input-number-span" iNumberImg="iNumberImg" iNumberdiv="iNumberdiv" max="{{spuItem.spuCanBuyNum}}" min="0" reduceImage="../../images/icon-reduce-2.png" value="{{number}}" wx:else></i-input-number> -->
           </div>
-          <div class="mask" v-if="isPast||disabled||spuItem.spuCanBuyNum==0?'disabled':''"></div>
+          <!-- <div class="mask" v-if="isPast||disabled||spuItem.spuCanBuyNum==0?'disabled':''"></div>
           <div class="act-end act-out" v-if="spuItem.spuCanBuyNum==0">已抢光</div>
-          <div class="act-end" v-else-if="actEnd">团购已结束</div>
+          <div class="act-end" v-else-if="actEnd">团购已结束</div> -->
       </i-router-link>
   </label>
 </div>
