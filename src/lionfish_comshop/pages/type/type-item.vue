@@ -28,17 +28,17 @@
               </div>
           </div>
           <div v-if="!isPast">
-              <div v-if="number<=0">
-                  <div class="add-cart" v-if="disabled||spuItem.spuCanBuyNum==0||actEnd">
-                      <img class="img" src="../../../assets/images/icon-add-shopCart-disabled.png" >
+              <div>
+                  <div class="add-cart" v-if="number<=0">
+                      <img class="img" src="@/assets/images/icon-add-shopCart-disabled.png" >
                   </div>
-                  <!-- <i-button bind:click="openSku" iClass="add-cart" wx:else>
-                      <i-addcart fontsize="28" iClass="img"></i-addcart>
-                  </i-button> -->
+                  <div @click="openSku" class="add-cart" wx:else>
+                      <i-addcart fontsize="28" class="img"></i-addcart>
+                  </div>
               </div>
-              <div class="add-cart">
-                <img class="img" src="../../../assets/images/icon-add-shopCart-disabled.png" >
-              </div>
+              <!-- <div class="add-cart">
+                <img class="img" src="@/assets/images/icon-add-shopCart-disabled.png" >
+              </div> -->
               <!-- <i-input-number addImage="../../images/icon-add-2.png" bind:change="changeNumber" bind:outOfMax="outOfMax" iClass="index-input-number" iClassNumberspan="input-number-span" iNumberImg="iNumberImg" iNumberdiv="iNumberdiv" max="{{spuItem.spuCanBuyNum}}" min="0" reduceImage="../../images/icon-reduce-2.png" value="{{number}}" wx:else></i-input-number> -->
           </div>
           <!-- <div class="mask" v-if="isPast||disabled||spuItem.spuCanBuyNum==0?'disabled':''"></div>
@@ -85,7 +85,7 @@
         },
         isPast: {
             type: Boolean,
-            value: !1
+            value: false
         },
         actEnd: {
             type: Boolean,
@@ -127,7 +127,13 @@
         placeholdeImg: "",
         number: 0
       }
+    },
+    methods: {
+        openSku: function() {
+            console.log("判断是否登录")
+        }
     }
+    
   }
 </script>
 
@@ -245,22 +251,22 @@
 }
 
 .spu .spu-content .add-cart {
-    width: 32px;
-    height: 32px;
+    width: 28px;
+    height: 28px;
     padding: 0;
     margin: 0;
     position: absolute;
     right: 28px;
-    bottom: 20px;
+    bottom: 8px;
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
 .spu .spu-content .add-cart .img {
-    width: 32px;
-    height: 32px;
-    display: div;
+    width: 28px;
+    height: 28px;
+    display: block;
 }
 
 .spu .spu-content .item-right .spu-price {
