@@ -2,7 +2,7 @@
   <div class="page-wrap">
     <div class="search-bar">
         <div class="search-box">
-            <input v-on:click="goResult" class="ipt" confirmType="搜索" placeholder="搜索商品" type="text" v-model="name" />
+            <input @keyup.enter="goResult" class="ipt" confirmType="搜索" placeholder="搜索商品" type="text" v-model="name" />
             <div class="search-icon">
                 <span class="iconfont icon-sousuo1"></span>
             </div>
@@ -22,9 +22,9 @@
                 <div v-on:click="change_sub_cate(rushCategoryData.tabs[rushCategoryData.activeIndex].id,0)" class="sub-cate-item" >全部</div>
                 <div v-on:click="change_sub_cate(item.id,index+1)" class="sub-cate-item"  v-for="(item,index) in rushCategoryData.tabs[rushCategoryData.activeIndex].sub" :key="item.id">{{item.name}}</div>
             </div>
-            <div v-on:click="showDrop" class="icon-open">
-                <image class="openImg " src="../../images/commentsOpen.png"></image>
-            </div>
+            <!-- <div v-on:click="showDrop" class="icon-open">
+                <img class="openImg " src="@/assets/images/commentsOpen.png">
+            </div> -->
         </div>
         <!-- <div class="sub-cate-hide" v-if="rushCategoryData.tabs[rushCategoryData.activeIndex].sub.length&&showDrop">
             <div v-on:click="change_sub_cate(rushCategoryData.tabs[rushCategoryData.activeIndex].id,0)" class="sub-cate-item" style="color:#fff">全部</div>
@@ -40,7 +40,7 @@
                   <i-type-item  v-for="(item,actId) in rushList" :key="item.actId" :spuItem="item"></i-type-item>
                 </div>
                 <div class="none-rush-list" v-else-if="pageEmpty">
-                    <image class="img-div" src="../../images/icon-index-empty.png"></image>
+                    <img class="img-div" src="@/assets/images/icon-index-empty.png">
                     <div class="h1">暂时没有团购</div>
                     <div class="h2">我们正在为您准备更优惠的团购</div>
                 </div>
@@ -69,9 +69,12 @@
 <script>
   import GlobalMixin from '../../mixin/globalMixin.js'
 
-  var util = require("../../utils"),
-    status = require("../../utils"),
-    wcache = require("../../utils/wcache.js")
+   import util from '../../utils';
+  import status from '../../utils/index.js'
+  import wcache from '../../utils/wcache.js';
+  import auth from '../../utils/auth';
+  import wx from '../../utils/wx';
+  import request from '../../utils/request';
 
   export default {
     name: 'type',
@@ -135,27 +138,46 @@
         })
       },
       getGoodsList(){
-
         const this_ = this;
         this.$http({
           controller : 'index.load_gps_goodslist',
           pageNum: 1,
           per_page: 30
         }).then(response => {
-          console.log(response.community_goods,"123456")
+          //console.log(response.community_goods,"123456")
           //this.$set(this.$data,"title",response.title);
           var a = response.list;
           this.rushList = a;
-
         })
       },
       changeCategory: function(t) {
         this.rushCategoryData.activeIndex = t;
+        var tab = this.rushCategoryData.tabs[t];
+        var gid = tab.id;
         this.$http({
           controller : 'index.load_gps_goodslist',
           pageNum: 1,
           per_page: 30,
-          gid: t
+          gid: gid
+        }).then(response => {
+          // console.log(response.community_goods,"123456")
+          //this.$set(this.$data,"title",response.title);
+          var a = response.list;
+          this.rushList = a;
+          console.log(this.rushList);
+          if(this.rushList == "" || this.rushList == undefined){
+            this.pageEmpty = true;
+          }
+
+        })
+      },
+      change_sub_cate: function(t,index){
+        var gid = t;
+        this.$http({
+          controller : 'index.load_gps_goodslist',
+          pageNum: 1,
+          per_page: 30,
+          gid: gid
         }).then(response => {
           console.log(response.community_goods,"123456")
           //this.$set(this.$data,"title",response.title);

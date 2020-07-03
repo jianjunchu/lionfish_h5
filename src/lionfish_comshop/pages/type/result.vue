@@ -97,7 +97,7 @@
             title: "商品列表",
             showLogo:false,
             showMore:false,
-            showBack:false
+            showBack:true
           });
       },
       mounted:function()  {
