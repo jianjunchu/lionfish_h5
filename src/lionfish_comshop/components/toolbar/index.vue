@@ -3,8 +3,8 @@
     <div class="vux-header-left" v-if="getShowToolbarBack" @click="back"><a class="vux-header-back"></a>
       <div class="left-arrow"></div>
     </div>
-    <div class="vux-header-left" v-if="getShowToolbarLogo"><a class="vux-header-back"></a>
-      <div class="left-arrow"></div>
+    <div class="vux-header-left-logo" v-if="getShowToolbarLogo"><a class="vux-header-back"></a>
+      <img src="@/assets/images/logo.png" height="40px"/>
     </div>
     <h2 class="vux-header-title"><span>{{getToolbarTitle}}</span></h2>
     <div class="vux-header-right" v-if="getShowToSolbarMore"><a class="vux-header-more"></a></div>
@@ -73,6 +73,16 @@
   .vux-header .vux-header-title > span {
     display: inline-block;
   }
+
+  .vux-header .vux-header-left-logo {
+    position: absolute;
+    top: 6px;
+    display: block;
+    font-size: 14px;
+    color: #fff;
+    left: 18px;
+  }
+
   .vux-header .vux-header-left,.vux-header .vux-header-right {
     position: absolute;
     top: 14px;
