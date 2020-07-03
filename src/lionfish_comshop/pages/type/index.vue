@@ -10,8 +10,8 @@
     </div>
     <div class="page-content" v-if="!noCateList">
         <div class="scrollY page-category" :scrollTop="categoryScrollBarTop">
-            <div v-on:click="changeCategory(item.id)" class="category-item"  v-for="(item,index) in rushCategoryData.tabs" :key="index">
-                <div class="item-border" style="background: red"></div>
+            <div v-on:click="changeCategory(index)" :class="[rushCategoryData.activeIndex===index?'category-item active':'category-item']"  v-for="(item,index) in rushCategoryData.tabs" :key="index">
+                <div class="item-border"></div>
                 <div>{{item.name}}</div>
             </div>
             <div class="category-item"></div>
@@ -108,17 +108,16 @@
     },
     methods: {
       goResult: function() {
-        this.$http({
-          controller : 'index.load_condition_goodslist',
-          pageNum: 1,
-          keyword: this.name
-        }).then(response => {
-          console.log(response.list)
-          //this.$set(this.$data,"title",response.title);
-          var a = response.list;
-          this.rushList = a;
-
-        })
+        if(this.name == ""){
+          this.$wx.showToast({
+              title: "请输入关键字",
+              icon: 'none'
+            })
+        }else{
+          this.$wx.redirectTo({
+            url: "/search?keyword=" + this.name
+          })
+        }
       },
       getCategoryList(){
 
@@ -138,7 +137,6 @@
       getGoodsList(){
 
         const this_ = this;
-
         this.$http({
           controller : 'index.load_gps_goodslist',
           pageNum: 1,
@@ -152,6 +150,7 @@
         })
       },
       changeCategory: function(t) {
+        this.rushCategoryData.activeIndex = t;
         this.$http({
           controller : 'index.load_gps_goodslist',
           pageNum: 1,
@@ -171,7 +170,7 @@
     },
     created: function(){
       this.$wx.setNavigationBarTitle({
-        title: "Type",
+        title: "Category",
         showLogo:false,
         showMore:false,
         showBack:false
@@ -182,7 +181,6 @@
     mounted:function() {
         this.$wx.hideLoading()
     }
-
 
   }
 </script>
@@ -220,6 +218,7 @@
     color: #acacac;
     display: flex;
     align-content: center;
+    font-size: 3vw;
   }
 
   .search-icon {
@@ -251,7 +250,7 @@
 
   .page-content {
     position: relative;
-    width: 375px;
+    width: 100vw;
     flex-shrink: 0;
     flex-grow: 1;
   }
@@ -260,14 +259,14 @@
     position: absolute;
     top: 0;
     left: 0;
-    width: 80px;
-    height: 630px;
+    width: 25vw;
+    height: 520px;
     background: #f8f8f7;
   }
 
   .category-item {
     position: relative;
-    width: 80px;
+    width: 100%;
     height: 50px;
     display: flex;
     align-items: center;
@@ -285,7 +284,7 @@
   .category-item .item-border {
     position: absolute;
     top: 18px;
-    left: 0;
+    left: 0px;
     display: none;
     width: 4px;
     height: 14px;
@@ -298,16 +297,16 @@
     color: #333;
   }
 
-  .category-item.active .item-border {
-    display: div;
+  .category-item .active .item-border {
+    display: block;
   }
 
   .page-list {
     position: absolute;
     top: 0;
-    left: 80px;
-    width: 295px;
-    height: 630px;
+    left: 25vw;
+    width: 75vw;
+    height: 520px;
     padding-top: 5px;
     box-sizing: border-box;
   }
@@ -372,17 +371,17 @@
 
   .sub-cate {
     position: relative;
-    line-height: 44px;
+    line-height: 50px;
     overflow: hidden;
     white-space: nowrap;
-    width: 295px;
+    width: 75vw;
     padding: 0 10px;
     box-sizing: border-box;
     font-size: 13px;
     z-index: 20;
     background-color: #fff;
     display: flex;
-    margin-left: 80px;
+    margin-left: 25vw;
   }
 
   .sub-cate-scroll {
