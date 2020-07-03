@@ -170,7 +170,12 @@
       }
     },
     created: function(){
-      this.$wx.setNavigationBarTitle({title: '分类'})
+      this.$wx.setNavigationBarTitle({
+        title: "Type",
+        showLogo:false,
+        showMore:false,
+        showBack:false
+      })
       this.getCategoryList();
       this.getGoodsList();
     },

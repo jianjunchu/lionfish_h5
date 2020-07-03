@@ -99,7 +99,7 @@
 </script>
 
 <style scoped>
-  @import "../new-comer/index.less";
+  @import "../new-comer/index.css";
 
   .topic {
     margin: 10px;

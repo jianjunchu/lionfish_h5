@@ -5,6 +5,7 @@ import ElementUI from 'element-ui'
 
 import { Image as VanImage } from 'vant'
 import { Loading } from 'vant'
+import { Uploader } from 'vant'
 
 import 'element-ui/lib/theme-chalk/index.css'
 import 'mint-ui/lib/style.css'
@@ -21,7 +22,7 @@ import Modal from '@/lionfish_comshop/components/modal'
 import Img from '@/lionfish_comshop/components/img'
 import Tabs from '@/lionfish_comshop/components/tabs'
 import NewRushSpu from '@/lionfish_comshop/components/new-rush-spu'
-import RushSpu from '@/lionfish_comshop/components/new-rush-spu'
+import RushSpu from '@/lionfish_comshop/components/rush-spu-col'
 import Button from '@/lionfish_comshop/components/button'
 import card from '@/lionfish_comshop/components/card'
 import InputNumber from '@/lionfish_comshop/components/input-number'
@@ -54,7 +55,7 @@ import qs from 'qs'
 import store from './lionfish_comshop/store'
 import { http, http_post } from './lionfish_comshop/api/index'
 import wx from './lionfish_comshop/utils/wx'
-import router from './lionfish_comshop/router'
+import router from './router'
 
 import App from './App'
 import '@/icons' // icon
@@ -65,6 +66,7 @@ vantLocales(i18n.locale)
 Vue.use(vueSwiper)
 Vue.use(VanImage)
 Vue.use(Loading)
+Vue.use(Uploader)
 
 Vue.component('i-tabbar', Tabbar)
 Vue.component('i-toolbar', Toolbar)

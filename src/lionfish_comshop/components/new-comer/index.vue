@@ -109,6 +109,8 @@
   }
 </script>
 
-<style scoped>
-  @import 'index.less';
+<style src="@/lionfish_comshop/components/new-comer/index.css" scoped>
+
+
+
 </style>

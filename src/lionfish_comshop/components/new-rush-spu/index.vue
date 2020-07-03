@@ -83,6 +83,7 @@
 <script>
 
   import util from '../../utils/index.js'
+  import status from '../../utils/index.js'
 
   export default {
     name: '',
@@ -294,6 +295,5 @@
   }
 </script>
 
-<style>
-  @import 'index.less';
+<style src="@/lionfish_comshop/components/new-rush-spu/index.css" scoped>
 </style>

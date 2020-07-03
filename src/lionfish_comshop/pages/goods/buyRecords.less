@@ -1,0 +1,330 @@
+.noBuyList {
+    background: #fff;
+}
+
+.noBuyList .noBuyListCon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.noBuyList .noBuyListCon .noBuyListImg {
+    width: 109px;
+    height: 109px;
+    margin-top: 130px;
+    margin-bottom: 15px;
+}
+
+.noBuyList .noBuyListCon .noBuyListTit {
+    font-size: 15px;
+    color: #666;
+}
+
+.buyRecords {
+    padding-bottom: 20px;
+}
+
+.buyRecords .buyListCon {
+    padding: 0 10px;
+    margin-top: 15px;
+    margin-bottom: 60px;
+}
+
+.buyRecords .buyListCon .buyList .buyListInfo {
+    height: 60px;
+    padding-left: 15px;
+    border-bottom: 0.5px solid #efefef;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.buyRecords .buyListCon .buyList .buyListInfo:last-child {
+    border: none;
+}
+
+.buyRecords .buyListCon .buyList .buyListInfo .userImg {
+    width: 36px;
+    height: 36px;
+    border-radius: 18px;
+    margin-right: 10px;
+}
+
+.buyRecords .buyListCon .buyList .buyListInfo .userName {
+    max-width: 100px;
+    font-size: 14px;
+    color: #666;
+    margin-right: 5px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.buyRecords .buyListCon .buyList .buyListInfo .buyNum {
+    font-size: 14px;
+    color: #666;
+    margin-right: 10px;
+}
+
+.buyRecords .buyListCon .buyList .buyListInfo .buyNum text {
+    color: #ff5344;
+}
+
+.buyRecords .buyListCon .buyList .buyListInfo .buyTime {
+    font-size: 11px;
+    color: #aaa;
+}
+
+.canvas-img {
+    position: absolute;
+    top: -10000px;
+}
+
+button::after {
+    border: none;
+}
+
+.goodsInfo {
+    background: #fff;
+    padding: 15px;
+    border-top: 0.05px solid #efefef;
+    border-bottom: 0.05px solid #efefef;
+    display: flex;
+    justify-content: space-between;
+}
+
+.goodsInfo .goodsImg {
+    width: 90px;
+    margin-right: 15px;
+}
+
+.goodsInfo .goodsImg .img-class {
+    width: 90px;
+    height: 90px;
+}
+
+.goodsInfo .goodsDetail {
+    width: 240px;
+    min-height: 90px;
+}
+
+.goodsInfo .goodsDetail .detailTop {
+    min-height: 60px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.goodsInfo .goodsDetail .detailTop .detailTopInfo {
+    width: 190px;
+    padding-right: 10px;
+    border-right: 1px dashed #aaa;
+}
+
+.goodsInfo .goodsDetail .detailTop .detailTopInfo .goodsName {
+    width: 190px;
+    font-size: 13px;
+    color: #444;
+    font-weight: bold;
+    line-height: 16px;
+    margin-bottom: 3px;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+    text-overflow: initial;
+    white-space: normal;
+}
+
+.goodsInfo .goodsDetail .detailTop .detailTopInfo .purchasing,.goodsInfo .goodsDetail .detailTop .detailTopInfo .saleNum {
+    font-size: 11px;
+    color: #aaa;
+}
+
+.goodsInfo .goodsDetail .detailTop .shareBtn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #fff;
+    padding: 0;
+    margin-right: 2px;
+}
+
+.goodsInfo .goodsDetail .detailTop .shareBtn .shareImg {
+    width: 21px;
+    height: 18px;
+}
+
+.goodsInfo .goodsDetail .detailBottom {
+    margin-top: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.goodsInfo .goodsDetail .detailBottom .price {
+    font-size: 10px;
+    color: #ff5344;
+}
+
+.goodsInfo .goodsDetail .detailBottom .price text {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.goodsInfo .goodsDetail .detailBottom .time {
+    width: 145px;
+    font-size: 13px;
+    color: #444;
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.goodsInfo .goodsDetail .detailBottom .time .countdown {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.goodsInfo .goodsDetail .detailBottom .time .countdown .itemTime {
+    width: 19px;
+    height: 16px;
+    background: #444;
+    border-radius: 2px;
+    font-size: 13px;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.goods-bottom-bar {
+    height: 48px;
+    display: flex;
+}
+
+.goods-bottom-bar .leftBtn {
+    height: 47px;
+    display: flex;
+    border-top: 1px solid #EFEFEF;
+}
+
+.goods-bottom-bar .leftBtn .bar-item {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.goods-bottom-bar .leftBtn .back-to-index {
+    width: 66px;
+    height: 47px;
+    font-size: 10px;
+    color: #707070;
+}
+
+.goods-bottom-bar .leftBtn .back-to-index img {
+    width: 27px;
+    height: 27px;
+}
+
+.goods-bottom-bar .leftBtn .shop-cart {
+    width: 66px;
+    height: 48px;
+    font-size: 10px;
+    color: #707070;
+    position: relative;
+}
+
+.goods-bottom-bar .leftBtn .shop-cart .icon {
+    width: 27px;
+    height: 27px;
+    position: relative;
+}
+
+.goods-bottom-bar .leftBtn .shop-cart .icon img {
+    width: 100%;
+    height: 100%;
+}
+
+.goods-bottom-bar .leftBtn .shop-cart .icon .cart-num {
+    position: absolute;
+    right: -8px;
+    top: -2px;
+    width: 18px;
+    height: 18px;
+    background: #f43530;
+    border-radius: 18px;
+    color: #fff;
+    font-size: 11px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.goods-bottom-bar .goodsStatus {
+    width: 100%;
+    height: 48px;
+    background: #dcdcdc;
+    font-size: 15px;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.goods-bottom-bar .gobuy {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-weight: bold;
+}
+
+.goods-bottom-bar .gobuy .add-to-cart {
+    width: 120px;
+    height: 48px;
+    background: linear-gradient(270deg,#f9c706 0%,#feb600 100%);
+    color: #fff;
+    font-size: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.goods-bottom-bar .gobuy .btn {
+    width: 104px;
+    height: 48px;
+    position: absolute;
+    opacity: 0;
+    z-index: 9;
+    top: 0;
+    padding: 0;
+    margin: 0;
+}
+
+.goods-bottom-bar .gobuy .balanceBtn {
+    display: flex;
+    flex: 1;
+}
+
+.goods-bottom-bar .gobuy .balanceBtn .balance {
+    height: 48px;
+    flex: 1;
+    background: linear-gradient(90deg,#ff5041 0%,#ff695c 100%);
+    color: #fff;
+    font-size: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.i-fixed-bottom {
+    position: fixed;
+    bottom: 0px;
+    z-index: 100;
+    width: 100%;
+    background-color: #fff;
+}

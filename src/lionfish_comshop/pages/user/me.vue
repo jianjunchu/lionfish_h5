@@ -77,23 +77,23 @@
             <span class="num" :style="{background:skin.color}" v-show="member_info.wait_send_count!=0">{{member_info.wait_send_count}}</span>
             <!--<img class="icon-img" :src="user_order_menu_icons.i2?user_order_menu_icons.i2:'@/assets/images/undeli.png'"/>-->
             <img class="icon-img" src="@/assets/images/undeli.png"/>
-            <span style="color: #444;">$t('common.daipeisong')</span>
+            <span style="color: #444;">{{$t('common.daipeisong')}}</span>
           </div>
           <div @click="goLink2" class="order_status" data-link="/lionfish_comshop/pages/order/index?order_status=4">
             <span class="num" :style="{background:skin.color}" v-show="member_info.wait_get_count!=0">{{member_info.wait_get_count}}</span>
             <!--<img class="icon-img" :src="user_order_menu_icons.i3?user_order_menu_icons.i3:'@/assets/images/distributionIcon.png'"/>-->
             <img class="icon-img" src="@/assets/images/distributionIcon.png"/>
-            <span style="color: #444;">$t('common.daitihuo')</span>
+            <span style="color: #444;">{{$t('common.daitihuo')}}</span>
           </div>
           <div @click="goLink2" class="order_status" data-link="/lionfish_comshop/pages/order/index?order_status=6">
             <!--<img class="icon-img" :src="user_order_menu_icons.i4?user_order_menu_icons.i4:'@/assets/images/completeIcon.png'"/>-->
             <img class="icon-img" src="@/assets/images/completeIcon.png"/>
-            <span style="color: #444;">$t('common.yitihuo')</span>
+            <span style="color: #444;">{{$t('common.yitihuo')}}</span>
           </div>
           <div @click="goLink2" class="order_status" data-link="/lionfish_comshop/pages/refund/refundList">
             <!--<img class="icon-img" :src="user_order_menu_icons.i5?user_order_menu_icons.i5:'@/assets/images/refundIcon.png'"/>-->
             <img class="icon-img" src="@/assets/images/refundIcon.png"/>
-            <span style="color: #444;">$t('common.shouhoufuwu')</span>
+            <span style="color: #444;">{{$t('common.shouhoufuwu')}}</span>
           </div>
         </div>
       </div>
@@ -101,7 +101,7 @@
       <div class="tool distribution" v-if="community&&show_user_change_comunity==1">
         <div class="my-distribution modal-head">
           <div class="my-distribution-title">
-            <span>$t('common.wodezitidian')</span>
+            <span>{{$t('common.wodezitidian')}}</span>
           </div>
           <div v-if="open_danhead_model==1"></div>
           <div v-else>
@@ -125,7 +125,6 @@
           </div>
         </div>
       </div>
-
 
       <div class="tool distribution" v-if="show_user_pin==1">
         <div v-on:click="goLink2" data-link="/lionfish_comshop/moduleA/pin/me">
@@ -454,7 +453,7 @@
 
 <script>
   import GlobalMixin from '../../mixin/globalMixin.js';
-  //  import util from '../../utils/util.js';
+  import util from '../../utils';
   import status from '../../utils/index.js'
   import wcache from '../../utils/wcache.js';
   import auth from '../../utils/auth';
@@ -483,7 +482,6 @@
 //    },
     data() {
       return {
-        cartNum:0,
         tablebar: 4,
 //        canIUse: wx.canIUse("button.open-type.getUserInfo"),
         theme_type: "",
@@ -557,7 +555,10 @@
     created: function() {
 //      this.$store.state.app.toolbarTitle ="我的";
       this.$wx.setNavigationBarTitle({
-        title: "我的"
+        title: "Me",
+        showLogo:false,
+        showMore:false,
+        showBack:false
       })
       this.onLoad();
       this.onShow();
@@ -771,11 +772,10 @@
         var that = this;
          this.$wx.showLoading();
          this.needAuth = false, this.showAuthModal= false, this.tabbarRefresh = true ;
-        (0, status.cartNum)('', true).then((res) => {
-          if(res.code == 0){
-            that.cartNum = res;
-          }
-        });
+        status.cartNum().then(function(t) {
+          s.cartNum = t.data
+        })
+
         that.getMemberInfo();
       },
       authModal: function () {
@@ -867,22 +867,21 @@
       },
       onShow: function () {
         var that = this;
-//        util.check_login_new().then((res)=>{
-//          if (res) {
-//            that.setData({ needAuth: false, tabbarRefresh: true });
-//            (0, status.cartNum)('', true).then((res) => {
-//              res.code == 0 && that.setData({
-//                cartNum: res.data
-//              })
-//            });
-//          } else {
-//            that.setData({ needAuth: true });
-//             this.$wx.hideLoading();
-//          }
-//        })
+        util.check_login_new().then((res)=>{
+          if (res) {
+            that.needAuth = false
+            that.tabbarRefresh = true
+            status.cartNum().then(function(t) {
+              that.cartNum = t.data
+            })
+          } else {
+            that.needAuth =  true
+            that.$wx.hideLoading();
+          }
+        })
         that.getCopyright();
         that.getMemberInfo();
-        this.$wx.hideLoading()
+        that.$wx.hideLoading()
       },
       onHide: function () {
         this.tabbarRefresh= false

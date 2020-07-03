@@ -31,14 +31,17 @@
       }
     },
     created: function() {
+      this.$wx.setNavigationBarTitle({
+        title: '常见帮助',
+        showLogo:false,
+        showMore:false,
+        showBack:true
+      })
       this.onLoad();
     },
     methods: {
       onLoad: function() {
-//        this.$store.state.app.toolbarTitle = "常见帮助";
-        this.$wx.setNavigationBarTitle({
-          title: "常见帮助"
-        })
+
         this.setNavBgColor();
         this.get_list()
       },

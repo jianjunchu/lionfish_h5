@@ -3,15 +3,16 @@
     <!--<el-image class="i-class img-def" :src="defaultImage"/>-->
     <!--<el-image :error="bindError" :load="imageLoad" @click="preview" :class="['i-class', 'img-def', 'opacity' ,isLoad?'show-img':'']" :lazy="isLazy_" mode="aspectFill" :src="img"/>-->
   <!--</div>-->
-  <div class="i-class img-content">
-    <van-image
-      :style="{'width': width+'px', 'height': height+'px'}"
-      :src="loadImage">
-      <template v-slot:loading>
-        <van-loading type="spinner" size="20" />
-      </template>
-    </van-image>
-    </div>
+
+  <van-image
+    :class="[iClass, 'img-content']"
+    :style="{'width': width, 'height': height}"
+    fit="cover"
+    :src="loadImage">
+    <template v-slot:loading>
+      <van-loading type="spinner" size="20" />
+    </template>
+  </van-image>
 
 </template>
 
@@ -19,13 +20,13 @@
   export default {
     name: 'i-img',
     props: {
+      iClass:{
+        default:''
+      },
       defaultImage:{
         default:''
       },
-      img:{
-          type:String,
-        default:''
-      },
+
       isLoad:{
         type: Boolean
       },

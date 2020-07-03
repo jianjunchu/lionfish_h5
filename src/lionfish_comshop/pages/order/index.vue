@@ -271,7 +271,13 @@
       }
     },
     created: function() {
-      this.$store.state.app.toolbarTitle ="我的订单";
+      this.$wx.setNavigationBarTitle({
+        title: this.$wx.getStorageSync("shopname"),
+        showLogo:false,
+        showMore:false,
+        showBack:true
+      })
+
       this.onLoad();
     },
     methods: {

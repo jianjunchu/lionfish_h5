@@ -2,13 +2,13 @@
   <!--<div>-->
     <div>
       <div class="container" v-if="member_info.is_head==0&&!apply_complete">
-        <div class="header">请填写姓名、手机号等相关信息</div>
+        <div class="header">{{$t('host.shuruxinxi')}}</div>
         <form>
           <div class="form-group">
             <!--<div :class="['form-item', (errors[3]===2?'error':'')]">-->
             <div class="form-item">
-              <label class="form-item-control">姓名</label>
-              <!--<input bindinput="inputRealName" class="form-item-input" data-key="3" placeholder="请输入姓名" type="text"/>-->
+              <label class="form-item-control">{{$t('host.xingming')}}</label>
+              <!--<input bindinput="inputRealName" class="form-item-input" data-key="3" placeholder="{{$t(host.shuruxingming)}}" type="text"/>-->
               <input v-model="head_name" class="form-item-input" placeholder="请输入姓名" type="text"/>
             </div>
             <!--<div class="['form-item', (errors[2]===2?'error':'')]">-->
@@ -60,18 +60,18 @@
       </form>
     </div>
     <div class="apply-pass" v-if="member_info.is_head==1">
-      <img src="@/assets/images/auditSuccess.png"/>
+      <img src="@/assets/images/auditSuccess.png" width="78px" height="72px" />
       <div class="h1">申请通过</div>
       <div class="p">恭喜您，您的申请已通过</div>
     </div>
     <div class="apply-pass" v-if="member_info.is_head==3">
-      <img src="@/assets/images/auditFail.png"/>
+      <img src="@/assets/images/auditFail.png" width="78px" height="72px" />
       <div class="h1">申请未通过</div>
       <div class="p">很抱歉，您的申请未通过</div>
       <div @click="applyAgain" class="link-btn">再次申请</div>
     </div>
     <div class="apply-pass" v-if="member_info.is_head==2||apply_complete">
-      <img src="@/assets/images/auditing.png"/>
+      <img src="@/assets/images/auditing.png" width="78px" height="72px" />
       <div class="h1">申请审核中</div>
       <div class="p">您的申请在处理中，请等待结果…</div>
       <a class="link-btn" openType="switchTab" href="#/lionfish_comshop/pages/index/index">返回首页</a>
@@ -269,17 +269,21 @@
       },
       preSubmit: function(t) {
         var e = this;
-
-        this.$http_post({
-           t}).then(t=> {
-               console.log(t);
-            0 == t.code ? (this.$wx.showToast({
-              title: "提交成功，等待审核",
-              icon: "none",
-              duration: 2e3
-            }), e.apply_complete= !0) : e.needAuth= !0;
-
-        });
+        e.apply_complete= !0 ;
+        e.needAuth= !0;
+//        this.$http_post({
+//           t}).then(t=> {
+//               console.log(t);
+//            if(0 == t.code ){
+//              this.$wx.showToast({
+//                title: "提交成功，等待审核",
+//                icon: "none",
+//                duration: 2e3
+//              });
+//              e.apply_complete= !0 ;
+//               e.needAuth= !0;
+//            }
+//        });
       },
       onLoad: function() {
         var a = this;
@@ -322,6 +326,7 @@
             controller: "user.get_user_info",
             token: t
           }).then(t=> {
+              console.log(t,"get_user_info");
             if (0 == t.code) {
               var e = t.data || {
                   is_head: 0

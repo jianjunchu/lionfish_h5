@@ -62,7 +62,7 @@
                     <div class="cart-item-img">
 
 
-                      <van-image style="width: 90px; height: 90px" :src="shopcarts.imgurl">
+                      <van-image  :src="shopcarts.imgurl">
                         <template v-slot:loading>
                           <van-loading type="spinner" size="20" />
                         </template>
@@ -138,7 +138,7 @@
                     </label>
                     <div class="cart-item-img">
 
-                      <van-image style="width: 90px; height: 90px" :src="shopcarts.imgurl">
+                      <van-image  :src="shopcarts.imgurl">
                         <template v-slot:loading>
                           <van-loading type="spinner" size="20" />
                         </template>
@@ -333,8 +333,8 @@
               ${{-canbuy_other}}下单
             </button>
           </div>
-          <button @click="toorder" class="fixed-bar-btn" :style="{background:skin.color}" v-else>去结算({{allnum}})
-          </button>
+          <div @click="toorder" class="fixed-bar-btn" :style="{background:skin.color}" v-else>去结算({{allnum}})
+          </div>
         </div>
       </div>
       <guess-like @changeCartNum="showCartGoods" @openSku="openSku" @vipModal="vipModal" :updateCart="updateCart"
@@ -481,8 +481,14 @@
     },
     created: function() {
       const wx = this.$wx
-      wx.setNavigationBarTitle({title: '购物车'})
-      this.$store.dispatch('app/hideToolbarMore')
+      status.setNavBgColor()
+      this.$wx.setNavigationBarTitle({
+        title: "Cart",
+        showLogo:false,
+        showMore:false,
+        showBack:false
+      })
+
     },
     mounted: function() {
 
@@ -834,6 +840,7 @@
         wx.showModal({
           title: '提示',
           content: '确定删除这件商品吗？',
+          showCancelButton:true,
           confirmColor: '#FF0000',
           success: function(t) {
             if (t.confirm) {
@@ -1083,6 +1090,7 @@
         wx.showModal({
           title: '提示',
           content: '确定删除这件商品吗？',
+          showCancel:false,
           confirmColor: '#FF0000',
           success: function(t) {
             if (t.confirm) {
@@ -1508,14 +1516,14 @@
   }
 
   .checkbox {
-    width: 25px;
-    height: 25px;
+    width: 5vw;
+    height: 5vw;
     display: flex;
     justify-content: center;
   }
 
   .checkbox .checkbox-checked {
-    font-size: 20px;
+    font-size: 5vw;
   }
 
   .shop-cart-content {
@@ -1655,14 +1663,15 @@
   .fixed-bar .fixed-bar-btn {
     width: 30vw;
     height: 15vw;
+
     text-align: center;
-    line-height: 12vw;
+    line-height: 13vw;
     color: #fff;
     font-size: 4vw;
     background: #ff5344;
     border-radius: 0;
     padding: 0;
-    margin: 0;
+    margin: 0vw 0vw 0vw 2vw;
     font-weight: bold;
   }
 
@@ -1709,7 +1718,7 @@
     display: flex;
     align-items: center;
     flex-wrap: wrap;
-    padding: 2vw 0;
+    padding: 1vw 0;
     border-bottom: 1px solid #efefef;
   }
 
@@ -1722,9 +1731,9 @@
   }
 
   .cart-item-img {
-    width: 90px;
-    height: 90px;
-    margin-right: 15px;
+    width: 25vw;
+    height: 25vw;
+    margin-right: 2vw;
     position: relative;
   }
 
@@ -1748,8 +1757,8 @@
   }
 
   .cart-item-content {
-    width: 50%;
-    height: 90px;
+    width: 51vw;
+    height: 20vw;
     display: flex;
     flex-direction: column;
     justify-content: space-between;

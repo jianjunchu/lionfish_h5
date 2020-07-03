@@ -1,7 +1,8 @@
-import _this from '../../main.js'
 import { Dialog, Toast } from 'vant'
 import GetSystemInfoSyncResult from '@/lionfish_comshop/utils/GetSystemInfoSyncResult'
 import axios from 'axios'
+import store from '../store/'
+import router from '../../router/'
 
 export default {
   showToast: function(option) {
@@ -22,7 +23,7 @@ export default {
     return JSON.parse(v)
   },
   navigateTo: function(o) {
-    _this.$router.push(o.url)
+    router.push(o.url)
   },
   setStorageSync: function(k, v) {
     window.localStorage.setItem(k, JSON.stringify(v))
@@ -31,11 +32,27 @@ export default {
     this.setStorageSync(k, undefined)
   },
   clearStorageSync: function() {
-    _this.$store.getters.app.storageSync = {}
+    store.getters.app.storageSync = {}
   },
   setNavigationBarColor: function(option) {
-    _this.$store.dispatch('app/setNavBgColor', option.backgroundColor)
-    _this.$store.dispatch('app/setNavFontColor', option.frontColor)
+    console.log(this)
+    store.dispatch('app/setNavBgColor', option.backgroundColor)
+    store.dispatch('app/setNavFontColor', option.frontColor)
+  },
+  setNavigationBarTitle: function(option) {
+    store.dispatch('app/setToolbarTitle', option.title)
+    if (option.showLogo) {
+      store.dispatch('app/showToolbarLogo')
+      store.dispatch('app/hideToolbarBack')
+    } else {
+      store.dispatch('app/hideToolbarLogo')
+      if (option.showBack) {
+        store.dispatch('app/showToolbarBack')
+      } else {
+        store.dispatch('app/hideToolbarBack')
+      }
+    }
+    option.showMore ? store.dispatch('app/showToolbarMore') : store.dispatch('app/hideToolbarMore')
   },
   getLogManager: function() {
     return true
@@ -59,20 +76,18 @@ export default {
     return true
   },
   redirectTo: function(option) {
-    _this.$router.push(option.url)
+    router.push(option.url)
   },
   switchTab: function(option) {
-    _this.$router.push(option.url)
+    router.push(option.url)
   },
   pageScrollTo: function() {
-
+    window.scrollTo(0, 130)
   },
   getScrollHeight: function() {
 
   },
-  setNavigationBarTitle: function(a) {
-    _this.$store.state.app.toolbarTitle = a.title
-  },
+
   getSystemInfoSync: function() {
     return GetSystemInfoSyncResult
   },
@@ -80,11 +95,11 @@ export default {
     Dialog.confirm({
       title: option.title,
       message: option.content,
-      showCancelButton: option.showCancel
+      showCancelButton: option.showCancelButton
     }).then(() => {
-      option.success('confirm')
+      option.success({ confirm: true })
     }).catch(() => {
-      option.success('cancel')
+      option.success({ confirm: false })
     })
   },
   getLocation: function(option) {
@@ -107,7 +122,7 @@ export default {
     })
   },
   navigateBack: function() {
-    _this.$router.go(-1)
+    router.go(-1)
   }
 
 }

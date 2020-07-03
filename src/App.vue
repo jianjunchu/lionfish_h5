@@ -1,6 +1,6 @@
 <template>
   <div id="app" style="overflow-x: hidden;">
-    <i-toolbar ref="toolbar"></i-toolbar>
+    <i-toolbar v-if="loadOver" ref="toolbar"></i-toolbar>
     <router-view style="margin-top: 49px"/>
 
   </div>
@@ -11,10 +11,10 @@
 
 </style>
 <script>
-  import {getToken} from './lionfish_comshop/utils/auth'
   import util from './lionfish_comshop/utils/index'
   import timeQueue from './lionfish_comshop/utils/timeQueue'
   import wx from './lionfish_comshop/utils/wx'
+  import siteInfo from './siteinfo'
 
   export default {
     name: 'App',
@@ -22,9 +22,11 @@
       return {
         tabbarRefresh: false,
         currentIdx: 0,
+        loadOver:false
       }
     },
     util: util,
+    siteInfo: siteInfo,
     globalData: {
       systemInfo: {},
       isIpx: !1,
@@ -56,27 +58,47 @@
         lighter: '#fff9f4'
       }
     },
-    created:function(){
-      this.$store.getters.app.storageSync['token'] = getToken()
+    created: function() {
+      this.setNavBgColor()
     },
     mounted: function() {
-      this.$getApp().globalData.timer = new timeQueue.default();
+      this.$getApp().globalData.timer = new timeQueue.default()
       var t = wx.getStorageSync('userInfo')
-      this.$getApp().globalData.userInfo = t;
+      this.$getApp().globalData.userInfo = t
       var e = wx.getStorageSync('community')
-      this.$getApp().globalData.hasDefaultCommunity = !!e;
-      this.$getApp().globalData.community = e;
-      this.$getApp().globalData.systemInfo = wx.getSystemInfoSync();
-      var o = this.$getApp().globalData.systemInfo ? this.$getApp().globalData.systemInfo.model : "";
-      this.$getApp().globalData.isIpx = -1 < o.indexOf("iPhone X") || -1 < o.indexOf("unknown<iPhone");
+      this.$getApp().globalData.hasDefaultCommunity = !!e
+      this.$getApp().globalData.community = e
+      this.$getApp().globalData.systemInfo = wx.getSystemInfoSync()
+      var o = this.$getApp().globalData.systemInfo ? this.$getApp().globalData.systemInfo.model : ''
+      this.$getApp().globalData.isIpx = -1 < o.indexOf('iPhone X') || -1 < o.indexOf('unknown<iPhone')
 
+    },
+    methods: {
 
+      setNavBgColor: function() {
+        const i = this;
+        i.$http({
+          controller: 'index.get_nav_bg_color'
+        }).then(a => {
+          console.log(a)
+          if (a.code === 0) {
+            const t = a.data || '#8ED9D1'
+            const e = a.nav_font_color || '#ffffff'
+            i.$wx.setNavigationBarColor({
+              frontColor: e,
+              backgroundColor: t
+            })
+            i.loadOver = true
+          }
+        })
+      }
     },
     computed: {
 
       getShowTabbar() {
         return this.$store.getters.showTabbar
-      },
+      }
+      ,
 
       getTabbarCurrentIdx() {
 
