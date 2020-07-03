@@ -19,8 +19,11 @@ export default {
 
   },
   getStorageSync: function(k) {
-    const v = window.localStorage.getItem(k) || '{}'
-    return JSON.parse(v)
+    const v = window.localStorage.getItem(k) || '{}';
+    if (v != '{}' && v != "undefined"){
+      return JSON.parse(v)
+    }
+    return ;
   },
   navigateTo: function(o) {
     router.push(o.url)
