@@ -1,5 +1,5 @@
 <template>
-  <i-modal @click="close" class="dialog" scrollUp="false" v-show="visible">
+  <i-modal @click.stop="close" class="dialog" scrollUp="false" v-show="visible">
     <div class="dialog-content">
       <div class="text i-class">{{text}}</div>
       <div class="button-group">
@@ -39,10 +39,10 @@
     },
     methods:{
       confirm: function() {
-        this.triggerEvent("confirm");
+        this.$emit("confirm");
       },
       cancel: function() {
-        this.triggerEvent("cancel");
+        this.$emit("cancel");
       },
       close: function() {
         this.visible = false
