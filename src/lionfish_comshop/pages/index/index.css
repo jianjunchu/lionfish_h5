@@ -475,26 +475,26 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding-bottom: 140px;
-  padding-top: 140px;
+  padding-bottom: 12vw;
+  padding-top: 12vw;
 }
 
 .none-rush-list .img-block {
-  width: 240px;
-  height: 240px;
-  margin-bottom: 30px;
+  width: 25vw;
+  height: 25vw;
+  margin-bottom: 5vw;
 }
 
 .none-rush-list .h1 {
-  font-size: 32px;
-  line-height: 32px;
+  font-size: 4vw;
+  line-height: 3vw;
   color: #444;
-  margin-bottom: 20px;
+  margin-bottom: 3vw;
 }
 
 .none-rush-list .h2 {
-  font-size: 24px;
-  line-height: 24px;
+  font-size: 2vw;
+  line-height: 4vw;
   color: #aaa;
 }
 
