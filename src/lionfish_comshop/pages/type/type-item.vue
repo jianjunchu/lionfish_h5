@@ -36,9 +36,6 @@
                       <i-addcart fontsize="28" class="img"></i-addcart>
                   </div>
               </div>
-              <!-- <div class="add-cart">
-                <img class="img" src="@/assets/images/icon-add-shopCart-disabled.png" >
-              </div> -->
               <!-- <i-input-number addImage="../../images/icon-add-2.png" bind:change="changeNumber" bind:outOfMax="outOfMax" iClass="index-input-number" iClassNumberspan="input-number-span" iNumberImg="iNumberImg" iNumberdiv="iNumberdiv" max="{{spuItem.spuCanBuyNum}}" min="0" reduceImage="../../images/icon-reduce-2.png" value="{{number}}" wx:else></i-input-number> -->
           </div>
           <!-- <div class="mask" v-if="isPast||disabled||spuItem.spuCanBuyNum==0?'disabled':''"></div>
