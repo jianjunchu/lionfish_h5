@@ -4,13 +4,13 @@
     <button hidden formType="submit" id="formId"></button>
   </form>
   <label class="spu" for="formId">
-      <i-router-link class="spu-content" :url="'/lionfish_comshop/pages/goods/goodsDetail?id='+spuItem.actId">
-          <div class="item-left">
+      <i-router-link class="spu-content" >
+          <div class="item-left" @click="gotoDetail">
               <!-- <i-img :defaultImage="spuItem.skuImage" height="170" iClass="img-class" lazyLoad="true" :loadImage="spuItem.skuImage" width="170"></i-img> -->
               <img class="img-class" :src="spuItem.skuImage"/>
               <!-- <div class="tag" v-if="reduction.is_open_fullreduction==1&&spuItem.is_take_fullreduction==1">满{{reduction.full_money}}减{{reduction.full_reducemoney}}</div> -->
           </div>
-          <div class="item-right">
+          <div class="item-right" @click="gotoDetail">
               <div class="item-right-top">
                   <div class="spu-title">
                       <span class="span">{{spuItem.spuName}}</span>
@@ -36,10 +36,7 @@
                       <i-addcart fontsize="28" class="img"></i-addcart>
                   </div>
               </div>
-              <!-- <div class="add-cart">
-                <img class="img" src="@/assets/images/icon-add-shopCart-disabled.png" >
-              </div> -->
-              <!-- <i-input-number addImage="../../images/icon-add-2.png" bind:change="changeNumber" bind:outOfMax="outOfMax" iClass="index-input-number" iClassNumberspan="input-number-span" iNumberImg="iNumberImg" iNumberdiv="iNumberdiv" max="{{spuItem.spuCanBuyNum}}" min="0" reduceImage="../../images/icon-reduce-2.png" value="{{number}}" wx:else></i-input-number> -->
+              <!-- <i-input-number addImage="@/assets/images/icon-add-2.png" bind:change="changeNumber" bind:outOfMax="outOfMax" class="index-input-number input-number-span iNumberImg iNumberdiv" max="100" min="0" reduceImage="@/assets/images/icon-reduce-2.png" value="number" wx:else></i-input-number> -->
           </div>
           <!-- <div class="mask" v-if="isPast||disabled||spuItem.spuCanBuyNum==0?'disabled':''"></div>
           <div class="act-end act-out" v-if="spuItem.spuCanBuyNum==0">已抢光</div>
@@ -50,12 +47,21 @@
 </template>
 
 <script>
+import GlobalMixin from '../../mixin/globalMixin.js'
+
+   import util from '../../utils';
+  import status from '../../utils/index.js'
+  import wcache from '../../utils/wcache.js';
+  import auth from '../../utils/auth';
+  import wx from '../../utils/wx';
+  import request from '../../utils/request';
   export default {
     name: 'i-type-item',
     components: {
       'i-type-item' : require('./type-item.vue').default,
       'i-img': require('../../components/img/index.vue').default,
-      'i-router-link': require('../../components/router-link/index.vue').default
+      'i-router-link': require('../../components/router-link/index.vue').default,
+       'i-input-number': require('../../components/input-number/index.vue').default,
     },
     props: {
       spuItem: {
@@ -130,7 +136,19 @@
     },
     methods: {
         openSku: function() {
-            console.log("判断是否登录")
+            console.log(this.$wx.getStorageSync("token"));
+            var token = this.$wx.getStorageSync("token");
+            if(JSON.stringify(token) === '{}'){
+                this.$wx.showToast({
+                    title: "请登录",
+                    icon: 'none'
+                })
+            }
+        },
+        gotoDetail: function(){
+            this.$wx.redirectTo({
+            url: '/lionfish_comshop/pages/goods/goodsDetail?id='+this.spuItem.actId
+          })
         }
     }
     
