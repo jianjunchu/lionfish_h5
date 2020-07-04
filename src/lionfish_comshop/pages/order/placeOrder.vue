@@ -1,29 +1,6 @@
 <template>
   <div class="page">
     <i-auth @authSuccess="authSuccess" :needAuth="needAuth">
-      <!--
-       <div class="mask" catchtouchmove="preventTouchMove" v-if="show_storefront_modal}}"> </div>
-       <div class="deliveryTimeDlg" v-if="show_storefront_modal}}">
-           <div style='width:100%;height:26px;border-bottom:1px solid #ccc;margin:0;padding:0;'>
-              <span style='text-align:center;font-size:14px;font-weight:600 ;margin-top:10vw' >选择取货店面</text>
-           </div>
-           <div style='width:100%;margin-top:48vw'>
-               <div class='storefront-item' @click="storefrontItemClick" data-item="{{item}}">
-                   <div class="storefront-item-name"><span>裕廊东店</text> </div>
-                   <div class="storefront-item-address">
-                      <span>Blk 134 Jurong Gateway Road #02-309H S600134</text>
-                   </div>
-               </div>
-               <div class='storefront-item' @click="storefrontItemClick" data-item="{{item}}">
-                   <div class="storefront-item-name"><span>裕廊东店</text> </div>
-                   <div class="storefront-item-address">
-                      <span>Blk 134 Jurong Gateway Road #02-309H S600134</text>
-                   </div>
-               </div>
-           </div>
-       </div>
-      -->
-
 
       <div class="mask" catchtouchmove="preventTouchMove" v-if="show_delivery_time_modal"></div>
       <div class="deliveryTimeDlg" v-if="show_delivery_time_modal">
@@ -262,8 +239,8 @@
 
           <div v-if="tabIdx != 2">
             <div class="receiver align-start">
-              <span>{{tabIdx ==0 ? '自提时间：' : '送货时间：'}}</span>
-              <input @click="showPickupTime"  :placeholder="'选择'+tabIdx ==0 ? '自提' : '送货'+'时间'" type="text"
+              <span>{{tabIdx ==0 ? $t('cart.zitishijian') : $t('cart.songhuoshijian') }}</span>
+              <input @click="showPickupTime"  :placeholder="'选择'+tabIdx ==0 ? $t('cart.xuanzeshijian') : $t('cart.xuanzeshijian')" type="text"
                      :value="tabAddress[tabIdx].delivery_date_str"></input>
             </div>
           </div>
@@ -279,7 +256,7 @@
                 <span>{{$t('order.qiehuantuanzhang')}} </span>
               </router-link>
             </p>
-       <p class="address">{{tabIdx==0?'提货地点':groupInfo.owner_name+'位置'}}：{{community.fullAddress}}</p>
+       <p class="address">{{tabIdx==0?$t('order.tihuodidian'):groupInfo.owner_name+'位置'}}：{{community.fullAddress}}</p>
 </div>
         </div>
         <div class="address-line">
@@ -479,7 +456,7 @@
             <div class="fixed-bar-btn bgDisabled" v-if="btnDisable">{{btnText?btnText:'立即支付'}}</div>
             <i-button @handleTap="goOrderfrom" iClass="fixed-bar-btn" :loading="btnLoading" v-else>
               <div :style="{background:skin.color}" v-if="buy_type=='integral'">立即兑换</div>
-              <div :style="{background:skin.color}" v-else>立即支付</div>
+              <div :style="{background:skin.color}" v-else>{{$t('cart.lijizhifu')}}</div>
             </i-button>
           </div>
         </i-fixed-bottom>
@@ -612,7 +589,7 @@
 
     <i-modal @cancel="closePickupTimeModal" iClass="confirm-modal-content" :is-show="showPickupTimeModal" scrollUp="true">
       <div class="confirm-order-modal">
-        <div class="title">选择{{tabIdx ==0 ? '提货时间' : '送货时间'}}</div>
+        <div class="title">{{tabIdx ==0 ? $t('order.xuanzetihuoshijian') : $t('order.xuanzesonghuoshijian')}}</div>
         <div class="line"></div>
         <div class="order-content" style="padding:0; border-radius:0vw; width: 100vw;margin-bottom: 0">
           <div class="page-content">
@@ -645,11 +622,11 @@
         </div>
 
         <div class="button-group">
-          <div @click="closePickupTimeModal" class="btn left-btn btn-content" iClass="btn left-btn">取消</div>
+          <div @click="closePickupTimeModal" class="btn left-btn btn-content" iClass="btn left-btn">{{$t('common.quxiao')}}</div>
           <div class="btn-content btn right-btn bgDisabled" v-if="btnDisable">{{btnText?btnText:'确认支付'}}</div>
           <div @click="changePickupDateTime" class="btn right-btn btn-content" iClass="btn right-btn"
                     :styleStr="'background:'+skin.color" v-else>
-            <div :style="{background:skin.color}">确定</div>
+            <div :style="{background:skin.color}">{{$t('common.queding')}}</div>
           </div>
         </div>
       </div>
@@ -1225,7 +1202,7 @@
             }), !1;
         }
          */
-        var ter = a == 0 ? '请选择自提时间' : '请选择配送时间'
+        var ter = a == 0 ? this.$t('order.xuanzezitishijian'): this.$t('order.xuanzepeisongshijian')
         if (2 != a && !dt || '' == dt) {
           return wx.showToast({
             title: ter,
@@ -1678,7 +1655,7 @@
       tabSwitch: function(e) {
         var t = 1 * e.currentTarget.dataset.idx
         0 != t && wx.showToast({
-          title: '配送变更，费用已变化',
+          title: 'Freight Changed',
           icon: 'none'
         })
         this.tabIdx =  t;
@@ -1889,7 +1866,7 @@
           this.closePickupTimeModal()
         } else {
           wx.showToast({
-            title: '请选择自提时间',
+            title: this.$t('order.xuanzezitishijian'),
             icon: 'none'
           })
         }

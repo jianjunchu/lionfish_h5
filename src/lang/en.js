@@ -2,6 +2,19 @@ export default {
   login: {
     title: 'login'
   },
+  me: {
+    wodedingdan: 'My Orders',
+    quanbudingdan: 'All Orders',
+    wodefensi: 'My Fans',
+    jinrixinzeng: 'New Fans Today',
+    zuorixinzeng: 'New Fans Yesterday',
+    youhuiquan: 'Coupons',
+    hexiaoguanli: 'Close Order Management',
+    shenhezhong: 'Pending Review',
+    shenqingchengwei: 'Apply for',
+    changjianbangzhu: 'FAQ',
+    tihuoma: 'Collection Code'
+  },
   common: {
     daifukuan: 'To Pay',
     daipeisong: 'To Ship',
@@ -20,6 +33,20 @@ export default {
     beizhu: 'Memo',
     youhuiquan: 'Coupon',
     xuanzeyouhuiquan: 'Choose Coupon',
+    quxiao: 'Cancel',
+    jujieshu: 'Time Left',
+    jukaishi: 'Time To Start',
+    jieshushijian: 'Finish Time',
+    buxianshijian: 'No Time Limit',
+    qiehuan: 'Change',
+    phone: 'Phone',
+    zhongxin: 'Center',
+    dianji: 'Click',
+    sousuo: 'Search',
+    sousuoshangpin: 'Search Products',
+    quanbu: 'All',
+    quanxuan: 'Choose All',
+    queding: 'OK',
     quxiao: 'Cancel'
   },
   host: {
@@ -36,7 +63,7 @@ export default {
     juli: 'Distance',
     xiuxi: 'In Rest'
   },
-  detail:{
+  detail: {
     huishouye: 'Home',
     gouwuche: 'Cart',
     jiarugouwuche: 'Add to Cart',
@@ -61,7 +88,7 @@ export default {
     tuanzhangxiuxi: 'Host in Rest',
     lijiduihuan: 'Exchange Now'
   },
-  order:{
+  order: {
     songhuoriqi: 'Choose Delivery Date',
     shouhuoren: 'Receiver',
     tihuoren: 'Collector',
@@ -84,6 +111,29 @@ export default {
     youhuijine: 'Discount Amount:',
     shouhuodizhi: 'Receive Address:',
     heji: 'Total:',
-    querenzhifu: 'Confirm Payment'
+    querenzhifu: 'Confirm Payment',
+    xuanzezitishijian: 'Please choose collection time',
+    xuanzepeisongshijian: 'Please choose delivery time',
+    xuanzetihuoshijian: 'Choose Collection Time',
+    xuanzesonghuoshijian: 'Choose Delivery Time'
+  },
+   cart: {
+    gouwuchekong: 'The cart is empty，to buy now~',
+    qugouwu: 'To Buy',
+    qudenglu: 'Login',
+    lijizhifu: 'Pay Now',
+    zitishijian: 'Collection Time:',
+    songhuoshijian: 'Ship Time:',
+    chakangouwuche: 'to check products in the cart',
+    xuanzeshijian: 'Choose collection or receive time',
+    qujiesuan: 'To Pay'
+  },
+  type: {
+    yijingdingbu: 'Already on the top～',
+    xialachakan: 'Pull down to check previous category',
+    zhanshimeiyou: 'No group buy now!',
+    zhengzaizhunbei: 'We are preparing group buy for you',
+    wodedixian: 'Its my bottom～',
+    shanglachakan: 'Pull up to check next category'
   }
 }

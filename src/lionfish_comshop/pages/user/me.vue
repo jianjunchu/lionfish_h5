@@ -34,7 +34,7 @@
             </div>
             <div @click="toggleFetchCoder" class="fetch-coder" :style="{color:user_top_font_color}" v-if="fetch_coder_type == 1||needAuth">
               <span class="iconfont icon-erweima1"></span>
-              <div class="fetch-coder-text">提货码</div>
+              <div class="fetch-coder-text">{{$t('me.tihuoma')}}</div>
             </div>
           </div>
           <div @click="goLink2" class="vip i-flex i-flex-spb"  v-if="is_open_vipcard_buy==1" data-link="/lionfish_comshop/moduleA/vip/upgrade">
@@ -57,10 +57,10 @@
       <div class="order">
         <div class="my-order">
           <div class="my-order-title">
-            <span>我的订单</span>
+            <span>{{$t('me.wodedingdan')}}</span>
           </div>
           <div @click="goLink2" class="to-order" data-link="/lionfish_comshop/pages/order/index">
-            <span>查看全部订单</span>
+            <span>{{$t('me.quanbudingdan')}}</span>
           </div>
           <div class="order-right">
             <img class="icon-right" src="@/assets/images/rightArrowImg.png"/>
@@ -107,7 +107,7 @@
           <div v-else>
             <div class="distribution-right">
               <a class="to-distribution" hoverClass="none" href="#/lionfish_comshop/pages/position/community">
-                <span>切换</span>
+                <span>{{$t('common.qiehuan')}}</span>
               </a>
               <img class="icon-right" src="@/assets/images/rightArrowImg.png"/>
             </div>
@@ -118,7 +118,7 @@
           <div class="fsz-30 text-gray mb5">{{community.fullAddress}}</div>
           <div class="i-flex" v-if="community.disUserMobile||community.head_mobile">
             <div>
-              <span class="iconfont icon-ziyuan fsz-30"></span> 电话：
+              <span class="iconfont icon-ziyuan fsz-30"></span> {{$t('common.phone')}}：
             </div>
             <div v-on:click="callTelphone" :data-phone="(community.disUserMobile||community.head_mobile)" style="color:#ee884a;">{{community.disUserMobile||community.head_mobile}}</div>
             <!--<div v-on:click="callTelphone" style="color:#ee884a;">{{community.disUserMobile||community.head_mobile}}</div>-->
@@ -200,7 +200,7 @@
           <div v-on:click="goDistribution">
             <div class="item-main">
               <div class="item-title">
-                <span>{{commiss_diy_name}}中心</span>
+                <span>{{commiss_diy_name}}{{$t('common.zhongxin')}}</span>
               </div>
               <div class="tool-right">
                 <img class="icon-right " src="@/assets/images/rightArrowImg.png"/>
@@ -271,7 +271,7 @@
               <div class="item-title">
                 <!--<img class="toolIcon" mode="widthFix" :src="user_tool_icons.i3?user_tool_icons.i3:'@/assets/images/coupon.png'"/>-->
                 <img class="toolIcon" mode="widthFix" src="@/assets/images/coupon.png"/>
-                <span>优惠券</span>
+                <span>{{$t('common.youhuiquan')}}</span>
               </div>
               <div class="tool-right">
                 <img class="icon-right " src="@/assets/images/rightArrowImg.png"/>
@@ -295,7 +295,7 @@
               <div class="item-title">
                 <!--<img class="toolIcon" mode="widthFix" :src="(user_tool_icons.i5?user_tool_icons.i5:'@/assets/images/groupCenterIcon.png')"/>-->
                 <img class="toolIcon" mode="widthFix" src="@/assets/images/groupCenterIcon.png"/>
-                <span>{{groupInfo.owner_name}}中心</span>
+                <span>{{groupInfo.owner_name}}&nbsp; {{$t('common.zhongxin')}}</span>
               </div>
               <div class="tool-right">
                 <img class="icon-right " src="@/assets/images/rightArrowImg.png"/>
@@ -372,7 +372,7 @@
               <div class="item-title">
                 <!--<img class="toolIcon" mode="widthFix" :src="user_tool_icons.i7?user_tool_icons.i7:'@/assets/images/protocolIcon.png'"/>-->
                 <img class="toolIcon" mode="widthFix" src="@/assets/images/protocolIcon.png"/>
-                <span>常见帮助</span>
+                <span>{{$t('me.changjianbangzhu')}}</span>
               </div>
               <div class="tool-right">
                 <img class="icon-right " src="@/assets/images/rightArrowImg.png"/>

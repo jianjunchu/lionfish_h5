@@ -29,7 +29,11 @@ export default {
     tuanzhang: '团长',
     zitidian: '自提点',
     tuangoujia: '团购价',
-    yijiagouwuche: '已加入购物车'
+    yijiagouwuche: '已加入购物车',
+    jujieshu: '距结束',
+    jukaishi: 'Time 距开始',
+    jieshushijian: '结束时间',
+    buxianshijian: '不限时间'
   },
   me: {
     wodedingdan: '我的订单',
@@ -37,7 +41,12 @@ export default {
     wodefensi: '我的粉丝',
     jinrixinzeng: '今日新增',
     zuorixinzeng: '昨日新增',
-    youhuiquan: '优惠券'
+    youhuiquan: '优惠券',
+    hexiaoguanli: '核销管理',
+    shenhezhong: '审核中',
+    shenqingchengwei: '申请成为',
+    changjianbangzhu: '常见帮助',
+    tihuoma: '提货码'
   },
   common: {
     daifukuan: '待付款',
@@ -57,6 +66,16 @@ export default {
     beizhu: '备注',
     youhuiquan: '优惠券',
     xuanzeyouhuiquan: '选择优惠券',
+    quxiao: '取消',
+    qiehuan: '切换',
+    phone: '电话',
+    zhongxin: '中心',
+    dianji: '点击',
+    sousuo: '搜索',
+    sousuoshangpin: '搜索商品',
+    quanbu: '全部',
+    quanxuan: '全选',
+    queding: '确定',
     quxiao: '取消'
   },
   host: {
@@ -73,7 +92,7 @@ export default {
     juli: '距离',
     xiuxi: '休息中'
   },
-  detail:{
+  detail: {
     huishouye: '回首页',
     gouwuche: '购物车',
     jiarugouwuche: '加入购物车',
@@ -98,9 +117,9 @@ export default {
     tuanzhangxiuxi: '团长休息中',
     lijiduihuan: '立即兑换'
   },
-  order:{
+  order: {
     songhuoriqi: '选择送货日期',
-    shouhuoren: '收 货 人', 
+    shouhuoren: '收 货 人',
     tihuoren: '提 货 人',
     shoujihaoma: '手机号码:',
     youbian: '邮 编:',
@@ -121,6 +140,29 @@ export default {
     youhuijine: '优惠金额:',
     shouhuodizhi: '收货地址:',
     heji: '合计:',
-    querenzhifu: '确认支付'
+    querenzhifu: '确认支付',
+    xuanzezitishijian: '请选择自提时间',
+    xuanzepeisongshijian: '请选择配送时间',
+    xuanzetihuoshijian: '选择提货时间',
+    xuanzesonghuoshijian: '选择送货时间'
+  },
+   cart: {
+    gouwuchekong: '购物车空空如也，赶紧去逛逛吧~',
+    qugouwu: '去购物',
+    qudenglu: '去登录',
+    lijizhifu: '立即支付',
+    zitishijian: '自提时间:',
+    songhuoshijian: '送货时间:',
+    chakangouwuche: '查看购物车商品',
+    xuanzeshijian: '选择适和的收货时间',
+    qujiesuan: '去结算'
+  },
+  type: {
+    yijingdingbu: '已经拉到最顶部啦～',
+    xialachakan: '下拉查看上一个分类',
+    zhanshimeiyou: '暂时没有团购',
+    zhengzaizhunbei: '我们正在为您准备更优惠的团购',
+    wodedixian: '看到我的底线了吗～',
+    shanglachakan: '上拉查看下一个分类'
   }
 }
