@@ -10,7 +10,7 @@
             <span>{{community_info.head_name}}</span>
             <div @click="goEdit" class="edit-name">
               <span class="iconfont icon-edit"></span>
-              <span>编辑</span>
+              <span>{{$t('host.bianji')}}</span>
             </div>
           </div>
           <div class="userId">
@@ -20,30 +20,30 @@
             </div>
           </div>
           <div @click="changeMycommunion" class="address text-overflow1" style="width:200px;">
-            绑定{{groupInfo.group_name}}：{{community_info.community_name}}<span class="iconfont icon-youjiantou"></span>
+            {{$t('host.bangding')}}&nbsp;{{groupInfo.group_name}}：{{community_info.community_name}}<span class="iconfont icon-youjiantou"></span>
           </div>
           <div class="address" v-if="community_info.is_show_head_level==1">
-            <span>{{groupInfo.owner_name}}等级：{{community_info.head_level_info.levelname}}(分佣比例:{{community_info.head_level_info.commission}}%)</span>
+            <span>{{groupInfo.owner_name}}{{$t('host.dengji')}}{{community_info.head_level_info.levelname}}(分佣比例:{{community_info.head_level_info.commission}}%)</span>
           </div>
         </div>
       </div>
       <div class="distributionCon">
         <div class="distribution">
           <div class="myDistribution">
-            <span>{{groupInfo.owner_name}}概况</span>
+            <span>{{groupInfo.owner_name}}&nbsp;{{$t('host.gaikuang')}}</span>
           </div>
           <div class="incomeCon">
             <div class="income">
               <span class="incomeTop">{{commission_info.mix_total_money}}</span>
-              <span class="incomeBottom">总收入(元)</span>
+              <span class="incomeBottom">{{$t('host.zongshouru')}}</span>
             </div>
             <div class="income">
               <span class="incomeTop">{{total_order_count}}</span>
-              <span class="incomeBottom">总订单</span>
+              <span class="incomeBottom">{{$t('host.zongdingdan')}}</span>
             </div>
             <div @click="goLink" class="income" data-url="/lionfish_comshop/pages/groupCenter/memberList">
               <span class="incomeTop">{{total_member_count}}</span>
-              <span class="incomeBottom">会员数</span>
+              <span class="incomeBottom">{{$t('host.huiyuanshu')}}</span>
             </div>
           </div>
         </div>
@@ -51,31 +51,31 @@
       <div class="effectData">
         <div class="effect">
           <div class="myEffect">
-            <span>今日详情</span>
+            <span>{{$t('host.jinrixiangqing')}}</span>
           </div>
           <div class="incomeCon">
             <div class="income">
               <span class="incomeTop">{{today_order_count}}</span>
               <div class="incomeBottom" data-type="1">
-                <span>订单总数(笔)</span>
+                <span>{{$t('host.dingdanzongshu')}}</span>
               </div>
             </div>
             <div class="income">
               <span class="incomeTop">{{today_effect_order_count}}</span>
               <div class="incomeBottom" data-type="2">
-                <span>有效订单(笔)</span>
+                <span>{{$t('host.youxiaodingdan')}}</span>
               </div>
             </div>
             <div class="income">
               <span class="incomeTop">{{today_pay_order_count}}</span>
               <div class="incomeBottom" data-type="3">
-                <span>付款人数</span>
+                <span>{{$t('host.fukuanrenshu')}}</span>
               </div>
             </div>
             <div class="income">
               <span class="incomeTop">{{head_today_pay_money}}</span>
               <div class="incomeBottom" data-type="3">
-                <span>销售额(元)</span>
+                <span>{{$t('host.xiaoshoue')}}</span>
               </div>
             </div>
           </div>
@@ -83,25 +83,25 @@
             <div class="income">
               <span class="incomeTop">{{today_add_head_member}}</span>
               <div class="incomeBottom" data-type="1">
-                <span>新增会员数</span>
+                <span>{{$t('host.xinzenghuiyuanshu')}}</span>
               </div>
             </div>
             <div class="income">
               <span class="incomeTop">{{today_after_sale_order_count}}</span>
               <div class="incomeBottom" data-type="2">
-                <span>售后订单(笔)</span>
+                <span>{{$t('host.shouhoudingdan')}}</span>
               </div>
             </div>
             <div class="income">
               <span class="incomeTop">{{today_pre_total_money}}</span>
               <div class="incomeBottom" data-type="3">
-                <span>预估收入</span>
+                <span>{{$t('host.yugushouru')}}</span>
               </div>
             </div>
             <div class="income">
               <span class="incomeTop">{{today_invite_head_member}}</span>
               <div class="incomeBottom" data-type="3">
-                <span>今日访客</span>
+                <span>{{$t('host.jinrifangke')}}</span>
               </div>
             </div>
           </div>
@@ -110,9 +110,9 @@
       <div class="groupCenterCon">
         <div class="order" v-if="isShow">
           <div class="myOrders">
-            <span>我的团单</span>
+            <span>{{$t('host.wodetuandan')}}</span>
             <div @click="goOrder" class="allGroupOrder" data-status="0">
-              <span>查看全部</span>
+              <span>{{$t('host.chakanquanbu')}}</span>
               <img class="rightArrowImg" src="@/assets/images/rightArrowImg.png"/>
             </div>
           </div>
@@ -120,26 +120,27 @@
             <div @click="goOrder" class="order_status" data-status="1">
               <span class="num" v-if="waitSendNum!=0">{{waitSendNum}}</span>
               <img class="distributionIcon" src="@/assets/images/distributionIcon-order.png"/>
-              <span>待配送</span>
+              <span>{{$t('common.daipeisong')}}</span>
             </div>
             <div @click="goOrder" class="order_status" data-status="2">
               <span class="num" v-if="waitSignNum!=0">{{waitSignNum}}</span>
               <img class="receiveIcon" src="@/assets/images/receiveIcon-order.png"/>
-              <span>待签收</span>
+              <span>{{$t('common.daiqianshou')}}</span>
             </div>
             <div @click="goOrder" class="order_status" data-status="3">
               <span class="num" v-if="waitPickNum!=0">{{waitPickNum}}</span>
               <img class="needPickIcon" src="@/assets/images/needPickIcon-order.png"/>
-              <span>待提货</span>
+              <span>{{$t('common.daitihuo')}}</span>
             </div>
             <div @click="goOrder" class="order_status" data-status="4">
               <span class="num" v-if="completeNum!=0">{{completeNum}}</span>
               <img class="completeIcon" src="@/assets/images/completeIcon-order.png"/>
-              <span>已完成</span>
+              <span>{{$t('common.yiwancheng')}}</span>
             </div>
           </div>
         </div>
         <div class="record">
+          <!--
           <s hoverClass="none" href="#/lionfish_comshop/pages/groupCenter/communityMembers" v-if="isShow">
             <div class="recordList">
               <span class="recordListTit">{{groupInfo.group_name}}用户</span>
@@ -147,6 +148,7 @@
               </div>
             </div>
           </s>
+          
           <a hoverClass="none" href="#/lionfish_comshop/moduleA/solitaire/groupIndex" v-if="is_open_solitaire==1">
             <div class="recordList">
               <span class="recordListTit">接龙中心</span>
@@ -155,25 +157,25 @@
           </a>
           <a hoverClass="none" href="#/lionfish_comshop/pages/groupCenter/distributionList">
             <div class="recordList">
-              <span class="recordListTit">结算记录</span>
+              <span class="recordListTit">{{$t('host.jiesuanjilu')}}</span>
               <img class="rightArrowImg" src="@/assets/images/rightArrowImg.png"/>
             </div>
           </a>
           <a hoverClass="none" href="#/lionfish_comshop/pages/groupCenter/wallet">
             <div class="recordList">
-              <span class="recordListTit">我的钱包</span>
+              <span class="recordListTit">{{$t('host.wodeqianbao')}}</span>
               <img class="rightArrowImg" src="@/assets/images/rightArrowImg.png"/>
             </div>
           </a>
           <a hoverClass="none" style="display:none;" href="#/lionfish_comshop/pages/groupCenter/settlementList">
             <div class="recordList borNone">
-              <span class="recordListTit">结算记录</span>
+              <span class="recordListTit">{{$t('host.jiesuanjilu')}}</span>
               <img class="rightArrowImg" src="@/assets/images/rightArrowImg.png"/>
             </div>
           </a>
           <a hoverClass="none" href="#/lionfish_comshop/pages/groupCenter/list">
             <div class="recordList">
-              <span class="recordListTit">清单列表</span>
+              <span class="recordListTit">{{$t('host.qingdanliebiao')}}</span>
               <img class="rightArrowImg" src="@/assets/images/rightArrowImg.png"/>
             </div>
           </a>
@@ -183,6 +185,8 @@
               <img class="rightArrowImg" src="@/assets/images/rightArrowImg.png"/>
             </div>
           </a>
+	  -->
+
           <a hoverClass="none" href="#/lionfish_comshop/pages/groupCenter/gruopInfo" v-if="open_community_head_leve>0">
             <div class="recordList borNone">
               <span class="recordListTit">{{groupInfo.owner_name}}{{commiss_diy_name}}</span>
@@ -273,7 +277,7 @@
           var e = t && t.owner_name || "团长";
 //          o.$store.state.app.toolbarTitle = e + "中心"
           o.$wx.setNavigationBarTitle({
-            title: e + "中心"
+            title: e + " Center"
           })
           , o.groupInfo= t;
         }), this.loadPage();

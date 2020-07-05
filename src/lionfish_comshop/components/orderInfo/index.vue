@@ -1,34 +1,34 @@
 <template>
   <i-card showModal="true">
     <div slot="header">
-      <div class="header">{{ordername}}信息</div>
+      <div class="header">{{ordername}} {{$t('order.xinxi')}}</div>
     </div>
     <div slot="content">
       <div class="content-wrap">
         <div class="item">
-          <div class="title">{{ordername}}编号</div>
+          <div class="title">{{ordername}}  {{$t('order.bianhao')}}</div>
           <div class="detail">{{orderInfo.order_num_alias}}</div>
         </div>
         <div class="item">
-          <div class="title">下单时间</div>
+          <div class="title"> {{$t('order.xiadanshijian')}}</div>
           <div class="detail">
             <span>{{orderInfo.date_added}}</span>
           </div>
         </div>
         <div class="item" v-if="orderInfo.pay_time>0">
-          <div class="title">支付时间</div>
+          <div class="title"> {{$t('order.zhifushijian')}}</div>
           <div class="detail">
             <span>{{orderInfo.pay_date}}</span>
           </div>
         </div>
         <div class="item" v-if="orderInfo.express_tuanz_time">
-          <div class="title">送达时间</div>
+          <div class="title"> {{$t('order.songdashijian')}}</div>
           <div class="detail">
             <span>{{orderInfo.express_tuanz_date}}</span>
           </div>
         </div>
         <div class="item" v-if="orderInfo.receive_time">
-          <div class="title">收货时间</div>
+          <div class="title"> {{$t('order.shouhuoshijian')}}</div>
           <div class="detail">
             <span>{{orderInfo.receive_date}}</span>
           </div>
@@ -79,7 +79,7 @@
           </div>
         </div>
         <div class="item">
-          <div class="title">商品金额</div>
+          <div class="title">{{$t('order.shangpinjine')}}</div>
           <div class="detail">
             +
             <div v-if="orderInfo.type!='integral'">$</div>

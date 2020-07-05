@@ -86,13 +86,13 @@
           </span>
         </div>
         <div class="time" v-if="is_close_details_time==0">
-          <div v-if="goods.over_type==1">距结束</div>
-          <div class="endAct" v-if="goods.over_type==0">距开始</div>
-          <div class="endAct" v-if="goods.over_type==2">结束时间</div>
+          <div v-if="goods.over_type==1">{{$t('common.jujieshu')}}</div>
+          <div class="endAct" v-if="goods.over_type==0">{{$t('common.jukaishi')}}</div>
+          <div class="endAct" v-if="goods.over_type==2">{{$t('common.jieshushijian')}}</div>
           <div class="endAct" v-if="goods.over_type==2">{{goods.end_date}}</div>
           <div class="countdown-class i-count-down" v-else>
 
-            <span v-if="goods.end_time==0" class="item-class">不限时间</span>
+            <span v-if="goods.end_time==0" class="item-class">{{$t('common.buxianshijian')}}</span>
 
             <em v-if="goods.end_time!=0 && endtime.days>0">{{endtime.days}}天</em>
             <span v-if="goods.end_time!=0" class="item-class">{{endtime.hours}} :</span>
@@ -393,7 +393,7 @@
         </div>
         <form @click="gocarfrom" reportSubmit="true">
           <button class="sku-confirm" :disabled="cur_sku_arr.stock==0?true:false" formType="submit">
-            <div>{{cur_sku_arr.stock==0?'已抢光':'确定'}}</div>
+            <div>{{cur_sku_arr.stock==0?$t('common.yiqiangguang'):$t('common.queding')}}</div>
           </button>
         </form>
       </div>
