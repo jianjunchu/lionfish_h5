@@ -134,11 +134,11 @@
             <img class="little-img" src="@/assets/images/img_delivery@2x.png"></img>
           </div>
           <div class="to-get-wrap" v-if="order.order_info.order_status_id==14">
-            <div class="font-bold-20">配送中</div>
+            <div class="font-bold-20">{{$t('order.peisongzhong')}}</div>
             <img class="little-img" src="@/assets/images/img_delivery@2x.png"></img>
           </div>
           <div class="to-get-wrap" v-if="order.order_info.order_status_id==16">
-            <div class="font-bold-20">支付待确认</div>
+            <div class="font-bold-20">{{$t('order.zhifudaiqueren')}}</div>
             <img class="little-img" src="@/assets/images/img_delivery@2x.png"></img>
           </div>
           <div class="to-get-wrap" v-if="order.order_info.order_status_id==4">
@@ -146,7 +146,7 @@
             <img class="little-img" src="@/assets/images/img_ready_to_get@2x.png"></img>
           </div>
           <div class="to-get-wrap" v-if="order.order_info.order_status_id==6">
-            <div class="font-bold-20">已签收</div>
+            <div class="font-bold-20">{{$t('order.yiqianshou')}}</div>
             <img class="little-img" src="@/assets/images/img_trade_succeed@2x.png"></img>
           </div>
           <div class="trade-cancel-wrap" v-if="order.order_info.order_status_id==10">
@@ -155,7 +155,7 @@
             </div>
           </div>
           <div class="to-get-wrap" v-if="order.order_info.order_status_id==11">
-            <div class="font-bold-20">交易完成</div>
+            <div class="font-bold-20">{{$t('order.jiaoyiwancheng')}}</div>
             <img class="little-img" src="@/assets/images/img_trade_succeed@2x.png"></img>
           </div>
           <div class="trade-cancel-wrap" v-if="order.order_info.order_status_id==12">
@@ -165,7 +165,7 @@
           </div>
           <div class="trade-cancel-wrap" v-if="order.order_info.order_status_id==5||changeState==1">
             <div class="font-bold-20 cancel-box">
-              <img class="cancel-img" src="@/assets/images/icon_exclamation@2x.png"></img>交易取消
+              <img class="cancel-img" src="@/assets/images/icon_exclamation@2x.png"></img>{{$t('order.jiaoyiquxiao')}}
             </div>
           </div>
           <div class="trade-cancel-wrap" v-if="order.order_info.order_status_id==7">
@@ -195,7 +195,7 @@
                 <div v-else>快递配送</div>
               </div>
               <div class="goods-done bold-text" v-if="order.order_info.order_status_id==6||order.order_info.order_status_id==11">{{showRealPickUpTime}}提货完成</div>
-              <div class="goods-num">{{order.goods_count}}件商品</div>
+              <div class="goods-num">{{order.goods_count}} {{$t('order.jianshangpin')}}</div>
             </div>
             <div class="middle" slot="content">
               <!--<div wx:for="{{order.order_goods_list}}" wx:for-item="goodsInfo" wx:key="id">-->
@@ -218,8 +218,8 @@
                   </div>
                   <div class="bottom-info">
                     <div class="bold-text">
-                      小计：<div v-if="order.order_info.type!='integral'">${{goodsInfo.real_total}}</div>
-                      <div v-if="order.order_info.type=='integral'">积分</div>
+                      {{$t(common.xiaoji)}}：<div v-if="order.order_info.type!='integral'">${{goodsInfo.real_total}}</div>
+                      <div v-if="order.order_info.type=='integral'">{{$t('common.point')}}</div>
                     </div>
                     <i-dialog bind:cancel="callDialog" bind:confirm="confirmGoods" :data-cancel="confirmGoodsVisible" text="确认该商品已经提货？" :visible="confirmGoodsVisible"></i-dialog>
                   </div>

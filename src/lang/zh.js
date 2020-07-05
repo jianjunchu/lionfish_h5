@@ -52,7 +52,9 @@ export default {
     daifukuan: '待付款',
     daipeisong: '待配送',
     daitihuo: '待提货',
+    daiqianshou: '待签收',
     yitihuo: '已提货',
+    yiwancheng: '已完成',
     shouhoufuwu: '售后服务',
     wodezitidian: '我的当前自提点',
     dengluchenggong: '登陆成功',
@@ -75,8 +77,11 @@ export default {
     sousuoshangpin: '搜索商品',
     quanbu: '全部',
     quanxuan: '全选',
+    yiqiangguang: '已抢光',
     queding: '确定',
-    quxiao: '取消'
+    quxiao: '取消',
+    zanwuneirong: '暂无内容～',
+    gong: '共'
   },
   host: {
     shuruxinxi: '请填写姓名、手机号等相关信息',
@@ -90,7 +95,28 @@ export default {
     kaiqiweizhi: '未获得您的位置信息，点击开启',
     meishijian: '没有可用时间',
     juli: '距离',
-    xiuxi: '休息中'
+    xiuxi: '休息中',
+    bianji: '编辑',
+    bangding: '绑定',
+    dengji: '等级:',
+    gaikuang: '概况',
+    zongshouru: '总收入(元)',
+    zongdingdan: '总订单',
+    huiyuanshu: '会员数',
+    jinrixiangqing: '今日详情',
+    dingdanzongshu: '订单总数(笔)',
+    youxiaodingdan: '有效订单(笔)',
+    fukuanrenshu: '付款人数',
+    xiaoshoue: '销售额(元)',
+    xinzenghuiyuanshu: '新增会员数',
+    shouhoudingdan: '售后订单(笔)',
+    yugushouru: '预估收入',
+    jinrifangke: '今日访客',
+    wodetuandan: '我的团单',
+    chakanquanbu: '查看全部',
+    jiesuanjilu: '结算记录',
+    wodeqianbao: '我的钱包',
+    qingdanliebiao: '清单列表'
   },
   detail: {
     huishouye: '回首页',
@@ -144,7 +170,23 @@ export default {
     xuanzezitishijian: '请选择自提时间',
     xuanzepeisongshijian: '请选择配送时间',
     xuanzetihuoshijian: '选择提货时间',
-    xuanzesonghuoshijian: '选择送货时间'
+    xuanzesonghuoshijian: '选择送货时间',
+    zhifudaiqueren: '支付待确认',
+    peisongzhong: '配送中',
+    yiqianshou: '已签收',
+    jiaoyiwancheng: '交易完成',
+    jiaoyiquxiao: '交易取消',
+    bianhao: '编号',
+    xiadanshijian: '下单时间',
+    zhifushijian: '支付时间',
+    songdashijian: '送达时间',
+    shouhuoshijian: '收货时间',
+    shangpinjine: '商品金额',
+    tianxieshouhuoren: '请填写收货人',
+    tianxietihuoren: '请填写提货人',
+    shoujihaomayouwu: '手机号码有误',
+    youbianyouwu: '邮编有误',
+    tianxiemenpai: '请填写门牌号'
   },
    cart: {
     gouwuchekong: '购物车空空如也，赶紧去逛逛吧~',
@@ -164,5 +206,17 @@ export default {
     zhengzaizhunbei: '我们正在为您准备更优惠的团购',
     wodedixian: '看到我的底线了吗～',
     shanglachakan: '上拉查看下一个分类'
+  },
+  goodsinfo: {
+    tihuoxinxi: '提货信息',
+    tihuoren: '提货人',
+    nicheng: '昵称',
+    tihuodidian: '提货地点',
+    peisongfangshi: '配送方式',
+    tihuoshijian: '提货时间:',
+    songhuoshijian: '送货时间:',
+    lianxi: '联系',
+    xinxi: '信息',
+    xiaoji: ' 小计'
   }
 }

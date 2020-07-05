@@ -1138,8 +1138,8 @@
           zc = t[a].zipCode, rn = t[a].roadName, bd = t[a].building
         if ('' == i) {
           e.focus_name = !0
-          var c = '请填写收货人'
-          return 0 == a && (c = '请填写提货人'), wx.showToast({
+          var c = this.$t('order.tianxieshouhuoren')
+          return 0 == a && (c = this.$t('order.tianxietihuoren')), wx.showToast({
             title: c,
             icon: 'none'
           }), !1
@@ -1147,14 +1147,14 @@
 
         if (!/^\d{8}$/.test(o) && !/^1(3|4|5|6|7|8|9)\d{9}$/.test(o)) {
           return wx.showToast({
-            title: '手机号码有误',
+            title: this.$t('order.shoujihaomayouwu'),
             icon: 'none'
           }), !1
         }
 
         if (0 != a && ('' == zc || !/^\d{6}$/.test(zc))) {
           return wx.showToast({
-            title: '邮编有误',
+            title:  this.$t('order.youbianyouwu'),
             icon: 'none'
           }), !1
         }
@@ -1175,7 +1175,7 @@
 
         if (0 != a && '' == d) {
           return wx.showToast({
-            title: '请填写门牌号',
+            title: this.$t('order.tianxiemenpai'),
             icon: 'none'
           }), !1
         }

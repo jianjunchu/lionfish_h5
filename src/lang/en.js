@@ -17,6 +17,8 @@ export default {
   },
   common: {
     daifukuan: 'To Pay',
+    daiqianshou: 'To Receive',
+    yiwancheng: 'Finished',
     daipeisong: 'To Ship',
     daitihuo: 'To Collection',
     yitihuo: 'Collected',
@@ -47,7 +49,10 @@ export default {
     quanbu: 'All',
     quanxuan: 'Choose All',
     queding: 'OK',
-    quxiao: 'Cancel'
+    quxiao: 'Cancel',
+    yiqiangguang: 'Sold Out',
+    zanwuneirong: 'Empty Now～',
+    gong: ''
   },
   host: {
     shuruxinxi: 'Input Name and Cell phone',
@@ -61,7 +66,28 @@ export default {
     kaiqiweizhi: 'Can\'t Locate your Position,Click to Open',
     meishijian: 'Not Available',
     juli: 'Distance',
-    xiuxi: 'In Rest'
+    xiuxi: 'In Rest',
+    bianji: 'Edit',
+    bangding: 'Bind',
+    dengji: 'Grade:',
+    gaikuang: 'Summary',
+    zongshouru: 'Total Income',
+    zongdingdan: 'Total Orders',
+    huiyuanshu: 'Members',
+    jinrixiangqing: 'Today Summary',
+    dingdanzongshu: 'Orders',
+    youxiaodingdan: 'Valid Orders',
+    fukuanrenshu: 'Members Paid',
+    xiaoshoue: 'Sales Amount',
+    xinzenghuiyuanshu: 'New Members',
+    shouhoudingdan: 'Returns',
+    yugushouru: 'Expected Income',
+    jinrifangke: 'Today Visitors',
+    wodetuandan: 'My Member Orders',
+    chakanquanbu: 'Check All',
+    jiesuanjilu: 'Settlement Records',
+    wodeqianbao: 'My Wallet',
+    qingdanliebiao: 'Shipment List'
   },
   detail: {
     huishouye: 'Home',
@@ -103,7 +129,7 @@ export default {
     qiehuantuanzhang: 'Change Host',
     tihuodidian: 'Collection Point',
     weizhi: 'Position:',
-    jianshangpin: 'Products',
+    jianshangpin: 'Product(s)',
     zonge: 'Total Amount:',
     zongyouhui: 'Total Discount:',
     querenshouhuoxinxi: 'Delivery to Home,Please Confirm the Receiver',
@@ -115,7 +141,23 @@ export default {
     xuanzezitishijian: 'Please choose collection time',
     xuanzepeisongshijian: 'Please choose delivery time',
     xuanzetihuoshijian: 'Choose Collection Time',
-    xuanzesonghuoshijian: 'Choose Delivery Time'
+    xuanzesonghuoshijian: 'Choose Delivery Time',
+    zhifudaiqueren: 'Payment to Confirm',
+    peisongzhong: 'In Shipment',
+    yiqianshou: 'Received',
+    jiaoyiwancheng: 'Order Finished',
+    jiaoyiquxiao: 'Order Canceled',
+    bianhao: 'NO.',
+    xiadanshijian: 'Order Time',
+    zhifushijian: 'Payment Time',
+    songdashijian: 'Delivery Time',
+    shouhuoshijian: 'Collection Time',
+    shangpinjine: 'Products Amount',
+    tianxieshouhuoren: 'Fill Out Receiver',
+    tianxietihuoren: 'Fill Out Collector',
+    shoujihaomayouwu: 'Wrong Cell Phone',
+    youbianyouwu: 'Wrong Post Code',
+    tianxiemenpai: 'Fill Out Unit NO.'
   },
    cart: {
     gouwuchekong: 'The cart is empty，to buy now~',
@@ -135,5 +177,17 @@ export default {
     zhengzaizhunbei: 'We are preparing group buy for you',
     wodedixian: 'Its my bottom～',
     shanglachakan: 'Pull up to check next category'
+  },
+  goodsinfo: {
+    tihuoxinxi: 'Collection Information',
+    tihuoren: 'Collector',
+    nicheng: 'Nick Name',
+    tihuodidian: 'Collection Point',
+    peisongfangshi: 'Shipment Type',
+    tihuoshijian: 'Collection Time:',
+    songhuoshijian: 'Delivery Time:',
+    lianxi: 'Contact ',
+    xinxi: ' Infomation',
+    xiaoji: '  Amount:'
   }
 }
