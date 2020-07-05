@@ -1595,7 +1595,7 @@
     position: fixed;
     left: 0;
     right: 0;
-    bottom: 40px;
+    bottom: 48px;
     background: #fff;
     z-index: 100;
   }
@@ -1662,10 +1662,10 @@
 
   .fixed-bar .fixed-bar-btn {
     width: 30vw;
-    height: 15vw;
+    height: 12vw;
 
     text-align: center;
-    line-height: 13vw;
+    line-height: 12vw;
     color: #fff;
     font-size: 4vw;
     background: #ff5344;

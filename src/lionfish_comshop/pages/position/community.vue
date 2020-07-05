@@ -105,12 +105,7 @@
     },
     created: function() {
 
-      this.$wx.setNavigationBarTitle({
-        title: "Order",
-        showLogo:false,
-        showMore:false,
-        showBack:true
-      })
+
 
       var i = this
       this.common_header_backgroundimage = this.$app.globalData.common_header_backgroundimage
@@ -146,6 +141,13 @@
         })
         this.load_gps_community_list()
       }
+
+      this.$wx.setNavigationBarTitle({
+        title: "Order",
+        showLogo:false,
+        showMore:false,
+        showBack:true
+      })
     },
     methods: {
       loadpage: function() {

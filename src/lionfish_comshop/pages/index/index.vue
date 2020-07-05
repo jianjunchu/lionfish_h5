@@ -966,7 +966,7 @@
                   showCancel: false,
                   confirmColor: '#8ED9D1',
                   success: function(t) {
-                    wx.redirectTo({
+                    wx.navigateTo({
                       url: "/lionfish_comshop/pages/position/community"
                     });
                   }

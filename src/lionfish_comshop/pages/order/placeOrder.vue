@@ -185,14 +185,14 @@
           </div>
           <div class="receiver">
             <span space="ensp">{{tabIdx==0? $t('order.tihuoren'): $t('order.shouhuoren') }}：</span>
-            <input @input="changeReceiverName" class="receive-name" placeholder=""
+            <input  class="receive-name" placeholder=""
                    type="text" v-model="tabAddress[tabIdx].name"></input>
           </div>
 
 
           <div class="receiver">
             <span>{{$t('order.shoujihaoma')}}</span>
-            <input @input="bindReceiverMobile"  class="mobile" placeholder="" type="text"
+            <input   class="mobile" placeholder="" type="text"
                    v-model="tabAddress[tabIdx].mobile"></input>
           </div>
 
@@ -205,24 +205,24 @@
             </div>
             <div class="receiver align-start">
               <span space="ensp">{{$t('order.dapaihao')}}</span>
-              <input @input="changeTuanBlkNo" class="receive-name" placeholder=""
+              <input  class="receive-name" placeholder=""
                      type="text" v-model="tabAddress[tabIdx].blk_no"></input>
             </div>
             <div class="receiver">
               <span space="ensp">{{$t('order.daoluming')}}</span>
-              <input @input="bindReceiverRoadName" class="receive-name" placeholder=""
+              <input  class="receive-name" placeholder=""
                      type="" v-model="tabAddress[tabIdx].roadName"></input>
             </div>
 
             <div class="receiver align-start">
               <span space="ensp">{{$t('order.menpaihao')}}</span>
-              <input @input="changeTuanAddress" class="receive-name" :placeholder="$t('order.liru106')"
+              <input  class="receive-name" :placeholder="$t('order.liru106')"
                      type="text" v-model="tabAddress[tabIdx].lou_meng_hao" v-if="!showConfirmModal"></input>
             </div>
 
             <div class="receiver">
               <span space="ensp">{{$t('order.jianzhuming')}}</span>
-              <input @input="bindReceiverBuilding" class="receive-name" placeholder=""
+              <input  class="receive-name" placeholder=""
                      type="" v-model="tabAddress[tabIdx].building "></input>
             </div>
 
@@ -485,7 +485,7 @@
         </i-fixed-bottom>
       </div>
     </i-auth>
-    <i-modal @cancel="closeConfirmModal" iClass="confirm-modal-content" v-show="showConfirmModal">
+    <i-modal @cancel="closeConfirmModal" iClass="confirm-modal-content" :is-show="showConfirmModal" scrollUp="true">
       <div class="confirm-order-modal">
         <div v-if="tabIdx==0">
           <div class="title">此商品需要您{{originTabList[tabIdx].name}}，请确认提货信息</div>
@@ -563,9 +563,9 @@
           </div>
         </div>
         <div class="button-group">
-          <i-button bind:click="closeConfirmModal" class="btn-content" iClass="btn left-btn">{{$t('common.quxiao')}}</i-button>
+          <i-button @handleTap="closeConfirmModal" class="btn-content" iClass="btn left-btn">{{$t('common.quxiao')}}</i-button>
           <div class="btn-content btn right-btn bgDisabled" v-if="btnDisable">{{btnText?btnText:$t('order.querenzhifu')}}</div>
-          <i-button bind:click="show_payment_modal" class="btn-content" iClass="btn right-btn" :loading="payBtnLoading"
+          <i-button @handleTap="showPaymentModal" class="btn-content" iClass="btn right-btn" :loading="payBtnLoading"
                     :styleStr="'background:'+skin.color" v-else>
             <div :style="{background:skin.color}">{{$t('order.querenzhifu')}}</div>
           </i-button>
@@ -764,7 +764,7 @@
         ck_yupay: 0,
         use_score: 0,
         commentArr: {},
-        community: '',
+        community: {},
         canPay: !0,
         canPreSub: !0,
         tabAddress: [{
@@ -828,10 +828,9 @@
 
       this.$store.dispatch('app/showToolbarBack')
       this.onLoad()
-    },
-    method: function() {
       this.onShow()
     },
+
     methods: {
       onLoad: function() {
 
@@ -1007,9 +1006,9 @@
       getCommunityInfo: function() {
         var t = this, e = wx.getStorageSync('community')
         e ? e.head_mobile ? (t.community = e) : util.getCommunityById(e.communityId).then(function(e) {
-          t.community = e
+          t.community = e.data
         }) : wx.getStorageSync('token') && util.getCommunityInfo().then(function(e) {
-          t.community = e
+          t.community = e.data
         })
       },
       getReceiveMobile: function(e) {
@@ -1156,6 +1155,7 @@
         this.show_storefront_modal = !1
       },
       goOrderfrom: function() {
+        debugger
         var e = this, t = e.tabAddress, a = e.tabIdx, i = t[a].name, o = t[a].mobile, s = t[a].receiverAddress,
           n = t[a].region, r = t[a].receiverAddress, d = t[a].lou_meng_hao, dt = t[a].delivery_date_str,
           zc = t[a].zipCode, rn = t[a].roadName, bd = t[a].building
@@ -2082,7 +2082,7 @@
   .sku-item-gift .sku-msg .sku-title {
     font-size: 2vw;
     color: #444;
-    line-height: 30vw;
+    line-height: 3vw;
     margin-bottom: 10vw;
     font-weight: 500;
     overflow: hidden;
@@ -2186,33 +2186,33 @@
     justify-content: center;
     align-items: center;
     color: #ff5344;
-    line-height: 26vw;
+    line-height: 2vw;
     font-size: 2vw;
-    margin-bottom: 48vw;
+    margin-bottom: 9vw;
     font-weight: 500;
   }
 
   .confirm-order-modal .sub-title img {
-    width: 28vw;
-    height: 28vw;
-    margin-right: 14vw;
+    width: 5vw;
+    height: 5vw;
+    margin-right: 3vw;
   }
 
   .confirm-order-modal .order-content {
-    width: 690vw;
-    border-radius: 20vw;
-    padding-top: 30vw;
+    width: 95vw;
+    border-radius: 5vw;
+    padding-top: 3vw;
     background: #f6f6f6;
-    margin-bottom: 136vw;
+    margin-bottom: 15vw;
   }
 
   .confirm-order-modal .order-content .msg-group {
-    width: 690vw;
-    padding: 0 30vw;
-    margin-bottom: 20vw;
+    width: 100vw;
+    padding: 0 3vw;
+    margin-bottom: 1vw;
     display: flex;
     font-size: 2vw;
-    line-height: 24vw;
+    line-height: 5vw;
     color: #444;
     box-sizing: border-box;
   }
@@ -2229,12 +2229,12 @@
   }
 
   .confirm-order-modal .order-content .total {
-    line-height: 86vw;
-    padding: 0 30vw;
+    line-height: 10vw;
+    padding: 0 2vw;
     text-align: right;
     color: #444;
-    font-size: 30vw;
-    border-top: 1vw solid #e2e2e2;
+    font-size: 4vw;
+    border-top: 0.1vw solid #e2e2e2;
   }
 
   .confirm-order-modal .order-content .total em {
@@ -2401,7 +2401,7 @@
     flex-direction: column;
     align-items: center;
     position: relative;
-    padding-bottom: 30vw;
+    padding-bottom: 3vw;
   }
 
   .confirm-coupon-modal .title {
@@ -2583,7 +2583,7 @@
     color: #000;
     font-size: 3vw;
     font-weight: bold;
-    padding-top: 30vw;
+    padding-top: 3vw;
   }
 
   .coupon .price .reduce-price span {
@@ -2596,7 +2596,7 @@
   }
 
   .coupon .info {
-    padding-left: 30vw;
+    padding-left: 3vw;
     flex: 1;
   }
 
