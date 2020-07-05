@@ -218,7 +218,7 @@
                   </div>
                   <div class="bottom-info">
                     <div class="bold-text">
-                      {{$t(common.xiaoji)}}：<div v-if="order.order_info.type!='integral'">${{goodsInfo.real_total}}</div>
+                      {{$t('common.xiaoji')}}：<div v-if="order.order_info.type!='integral'">${{goodsInfo.real_total}}</div>
                       <div v-if="order.order_info.type=='integral'">{{$t('common.point')}}</div>
                     </div>
                     <i-dialog bind:cancel="callDialog" bind:confirm="confirmGoods" :data-cancel="confirmGoodsVisible" text="确认该商品已经提货？" :visible="confirmGoodsVisible"></i-dialog>
