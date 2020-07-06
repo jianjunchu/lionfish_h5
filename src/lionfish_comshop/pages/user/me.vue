@@ -26,7 +26,7 @@
             </div>
             <div @click="authModal" class="userInfo" :style="{color:user_top_font_color}" v-else>
               <img class="userAvatarUrl" src="@/assets/images/head-bitmap.png"/>
-              <div class="user-name">点击登录账户</div>
+              <div class="user-name">{{$t('me.dianjidengluzhanghu')}}</div>
             </div>
             <div @click="goLink2" :class="['fetch-coder', ( fetch_coder_type == 1 || needAuth?'signIn':'')]"  :style="{color:user_top_font_color}" data-link="/lionfish_comshop/moduleA/score/signin" v-if="isopen_signinreward==1&&show_signinreward_icon==1">
               <span class="iconfont icon-qiandao"></span>

@@ -13,13 +13,15 @@ export default {
     shenhezhong: 'Pending Review',
     shenqingchengwei: 'Apply for',
     changjianbangzhu: 'FAQ',
-    tihuoma: 'Collection Code'
+    tihuoma: 'Collection Code',
+    dianjidengluzhanghu: 'Click to Login'
   },
   common: {
     daifukuan: 'To Pay',
     daiqianshou: 'To Receive',
     yiwancheng: 'Finished',
     daipeisong: 'To Ship',
+    peisongzhong: 'In Shipment',
     daitihuo: 'To Collection',
     yitihuo: 'Collected',
     shouhoufuwu: 'Returns',
@@ -157,7 +159,15 @@ export default {
     tianxietihuoren: 'Fill Out Collector',
     shoujihaomayouwu: 'Wrong Cell Phone',
     youbianyouwu: 'Wrong Post Code',
-    tianxiemenpai: 'Fill Out Unit NO.'
+    tianxiemenpai: 'Fill Out Unit NO.',
+    wurenhedingdan: 'No Order Now～',
+    chakanxiangqing: 'Deteil',
+    shifu: 'Paid',
+    quxiaodingdan: 'Cancel',
+    lijizhifu: 'Pay',
+    xiadanshijian: 'Order Time:',
+    tihuoshijian: 'Collection Time:',
+    songhuoshijian: 'Delivery Time:'
   },
    cart: {
     gouwuchekong: 'The cart is empty，to buy now~',
