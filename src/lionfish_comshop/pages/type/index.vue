@@ -2,7 +2,7 @@
   <div class="page-wrap">
     <div class="search-bar">
         <div class="search-box">
-            <input @keyup.enter="goResult" class="ipt" confirmType="搜索" placeholder="搜索商品" type="text" v-model="name" />
+            <input @keyup.enter="goResult" class="ipt" confirmType="搜索" :placeholder="$t('common.sousuoshangpin')" type="text" v-model="name" />
             <div class="search-icon">
                 <span class="iconfont icon-sousuo1"></span>
             </div>
@@ -19,7 +19,7 @@
         <div v-on:click="showDrop" class="mask" hidden="!showDrop"></div>
         <div class="sub-cate" v-if="rushCategoryData.tabs[rushCategoryData.activeIndex].sub.length">
             <div class="sub-cate-scroll scrollX">
-                <div v-on:click="change_sub_cate(rushCategoryData.tabs[rushCategoryData.activeIndex].id,0)" class="sub-cate-item" >全部</div>
+                <div v-on:click="change_sub_cate(rushCategoryData.tabs[rushCategoryData.activeIndex].id,0)" class="sub-cate-item" >{{$t('common.quanbu')}}</div>
                 <div v-on:click="change_sub_cate(item.id,index+1)" class="sub-cate-item"  v-for="(item,index) in rushCategoryData.tabs[rushCategoryData.activeIndex].sub" :key="item.id">{{item.name}}</div>
             </div>
             <!-- <div v-on:click="showDrop" class="icon-open">
@@ -27,13 +27,13 @@
             </div> -->
         </div>
         <!-- <div class="sub-cate-hide" v-if="rushCategoryData.tabs[rushCategoryData.activeIndex].sub.length&&showDrop">
-            <div v-on:click="change_sub_cate(rushCategoryData.tabs[rushCategoryData.activeIndex].id,0)" class="sub-cate-item" style="color:#fff">全部</div>
+            <div v-on:click="change_sub_cate(rushCategoryData.tabs[rushCategoryData.activeIndex].id,0)" class="sub-cate-item" style="color:#fff">{{$t('common.quanbu')}}</div>
             <div v-on:click="change_sub_cate(item.id,index+1)" class="sub-cate-item" style="color:#fff" v-for="(item,index) in rushCategoryData.tabs[rushCategoryData.activeIndex].sub" :key="item.id">{{item.name}}</div>
         </div> -->
         <div scrollWithAnimation bindscroll="scroll" bindscrolltolower="scrollBottom" bindtouchend="touchend" bindtouchstart="touchstart" class="page-list scrollY " lowerThreshold="200" scrollTop="resetScrollBarTop" upperThreshold="50">
             <div class="scroll-col-tip-top">
-                <span v-if="isFirstCategory">已经拉到最顶部啦～</span>
-                <span v-else>下拉查看上一个分类</span>
+                <span v-if="isFirstCategory">{{$t('type.yijingdingbu')}}</span>
+                <span v-else>{{$t('type.xialachakan')}}</span>
             </div>
             <div style="min-height: 100px;">
                 <div v-if="!pageEmpty">
@@ -41,15 +41,15 @@
                 </div>
                 <div class="none-rush-list" v-else-if="pageEmpty">
                     <img class="img-div" src="@/assets/images/icon-index-empty.png">
-                    <div class="h1">暂时没有团购</div>
-                    <div class="h2">我们正在为您准备更优惠的团购</div>
+                    <div class="h1">{{$t('type.zhanshimeiyou')}}</div>
+                    <div class="h2">{{$t('type.zhengzaizhunbei')}}</div>
                 </div>
                 <div v-if="loadMore">
                     <!-- <i-load-more loading="loadMore" tip="oadText"></i-load-more> -->
                 </div>
                 <!-- <div class="scroll-col-tip-bottom" v-else-if="canNext">
-                    <span v-if="isLastCategory">看到我的底线了吗～</span>
-                    <span wx:else>上拉查看下一个分类</span>
+                    <span v-if="isLastCategory">{{$t('type.wodedixian')}}</span>
+                    <span wx:else>{{$t('type.shanglachakan')}}</span>
                 </div> -->
                 <div style="height:50px"></div>
             </div>

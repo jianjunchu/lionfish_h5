@@ -8,7 +8,7 @@
 
   <div class="none-rush-list" v-else-if="noData">
     <img class="img-block" src="@/assets/images/icon-index-empty.png"></img>
-    <div class="h1">暂无内容~</div>
+    <div class="h1">{{$t('common.zanruneirong')}}</div>
   </div>
 </template>
 
@@ -32,7 +32,7 @@
     },
     created: function() {
       this.$wx.setNavigationBarTitle({
-        title: '常见帮助',
+        title: this.$t('me.changjianbangzhu'),
         showLogo:false,
         showMore:false,
         showBack:true

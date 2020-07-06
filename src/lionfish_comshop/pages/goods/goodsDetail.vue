@@ -1,5 +1,4 @@
 <template>
-  <div>
 
     <div class="goods-wrapper">
       <!--<div @click="hide_share_handler" class="ui-mask" :hidden="is_share_html"></div>-->
@@ -87,13 +86,13 @@
           </span>
         </div>
         <div class="time" v-if="is_close_details_time==0">
-          <div v-if="goods.over_type==1">距结束</div>
-          <div class="endAct" v-if="goods.over_type==0">距开始</div>
-          <div class="endAct" v-if="goods.over_type==2">结束时间</div>
+          <div v-if="goods.over_type==1">{{$t('common.jujieshu')}}</div>
+          <div class="endAct" v-if="goods.over_type==0">{{$t('common.jukaishi')}}</div>
+          <div class="endAct" v-if="goods.over_type==2">{{$t('common.jieshushijian')}}</div>
           <div class="endAct" v-if="goods.over_type==2">{{goods.end_date}}</div>
           <div class="countdown-class i-count-down" v-else>
 
-            <span v-if="goods.end_time==0" class="item-class">不限时间</span>
+            <span v-if="goods.end_time==0" class="item-class">{{$t('common.buxianshijian')}}</span>
 
             <em v-if="goods.end_time!=0 && endtime.days>0">{{endtime.days}}天</em>
             <span v-if="goods.end_time!=0" class="item-class">{{endtime.hours}} :</span>
@@ -108,7 +107,7 @@
         </div>
         <div class="fsz-22 i-flex mt10 i-aic" v-if="is_only_hexiao==1">
           <div class="hexiao text-6">
-            <div class="iconfont icon-gou red fsz-22"></div> 自提商品</div>
+            <div class="iconfont icon-gou red fsz-22"></div> {{$t('detail.zitishangpin')}}</div>
           <div @click="handleHexiaoModal" class="hexiao text-6">
             <div class="iconfont icon-gou red fsz-22" v-if="hx_len"></div> 支持多点自提
           </div>
@@ -131,19 +130,19 @@
         </div>
         <div class="preferential" v-if="goods.is_take_fullreduction==1">
           <div>
-            <div class="tit">满减</div>
+            <div class="tit">{{$t('common.manjian')}}</div>
             <div class="con">满{{goods.full_money}}元减{{goods.full_reducemoney}}元</div>
           </div>
         </div>
         <div class="purchasing pb10" v-if="goods.one_limit_count>0||goods.total_limit_count>0">
-          <div class="purTit">限购</div>
+          <div class="purTit">{{$t('common.xiangou')}}</div>
           <div v-if="goods.total_limit_count>0">每人限购{{goods.total_limit_count}}份</div>
           <div v-if="goods.one_limit_count>0"> 每单限购{{goods.one_limit_count}}份</div>
         </div>
         <div class="saleNum" v-if="is_hide_details_count!=1">
-          <span class="purTit">销量</span>
-          <span class="stock">已售
-            <span class="remaining"> {{goods.seller_count}} </span>件，仅剩
+          <span class="purTit">{{$t('detail.xiaoliang')}}</span>
+          <span class="stock">{{$t('detail.yishou')}}
+            <span class="remaining"> {{goods.seller_count}} </span>件，{{$t('detail.jinsheng')}}
             <span class="remaining"> {{goods.total}} </span>件</span>
         </div>
         <div @click="goLink" class="vip i-flex i-flex-spb" data-link="/lionfish_comshop/moduleA/vip/upgrade" v-if="goods.is_take_vipcard==1&&is_vip_card_member==1&&is_open_vipcard_buy==1">
@@ -176,7 +175,7 @@
         <div class="group-m">
           <div class="group-title">{{community.communityName}}</div>
           <div class="group-desc">
-            <div style="color:#333;">取货地址:</div>{{community.fullAddress}}</div>
+            <div style="color:#333;">{{$t('detail.quhuodizhi')}}:</div>{{community.fullAddress}}</div>
         </div>
         <div class="group-r" v-if="hide_community_change_btn==0">
           <img class="group-r-icon" src="@/assets/images/community-right-arrow.png"/>
@@ -191,13 +190,13 @@
           <div class="group-desc">{{group_share_info.share_desc}}</div>
         </div>
         <div class="group-r">
-          <div class="group-btn" :style="{color:skin.color,background:skin.light}">马上加群</div>
+          <div class="group-btn" :style="{color:skin.color,background:skin.light}">{{$t('detail.mashangjiaqun')}}</div>
         </div>
       </div>
       <div v-if="order_comment_count>0&&is_show_comment_list==1">
         <div class="straightInLive">
           <div class="title">
-            商品评价
+            {{$t('detail.shangpinpingjia')}}
             <div class="commentsNum">（{{order_comment_count}}）</div>
           </div>
           <div class="comments" v-for="(item,index) in comment_list" :key="item.comment_id" >
@@ -217,7 +216,7 @@
                 <img class="goodsImg img-class" :src="imgItem" style="width:75px;height:75px;"/>
               </div>
             </div>
-            <div class="checkComments" @click="goLink2" hoverClass="none" data-link="/lionfish_comshop/pages/goods/comment?id=" :data-id="item.goods_id">查看全部评论</div>
+            <div class="checkComments" @click="goLink2" hoverClass="none" data-link="/lionfish_comshop/pages/goods/comment?id=" :data-id="item.goods_id">{{$t('detail.quanbupinglun')}}</div>
           </div>
         </div>
       </div>
@@ -225,11 +224,12 @@
         <div class="buyRecords">
           <div class="moreBuyer" @click="goLink2" hoverClass="none" data-link="/lionfish_comshop/pages/goods/buyRecords?id=" :data-id="goods_id">
             <div class="title">
-              购买记录
-              <span class="buyNum">
-                已有
-                <span>{{buy_record_arr.count}}</span> 人购买，商品共销售
-                <span>{{goods.seller_count}}</span> 份
+              {{$t('detail.goumaijilu')}}
+              <div class="buyNum">
+              <span>
+                {{buy_record_arr.count}}
+                {{$t('detail.rengoumai')}},{{$t('detail.gongxiaoshou')}}
+                {{goods.seller_count}} 份
                 <img class="goBuyRecords" src="@/assets/images/community-right-arrow.png"/>
               </span>
             </div>
@@ -269,7 +269,7 @@
       <div class="cell" @click="goLink2" data-link="/lionfish_comshop/pages/goods/industrial?id=" :data-id="goods_id" v-if="goods_industrial_switch==1&&goods_industrial">
         <div class="cell-left">
           <img class="cell-icon" mode="widthFix" src="data:image/jpeg;base64,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"></img>
-          <div>工商资质</div>
+          <div>{{$t('detail.gongshangzizhi')}}</div>
         </div>
         <img class="icon-right" src="@/assets/images/rightArrowImg.png"/>
       </div>
@@ -285,7 +285,7 @@
             <div class="bar-item back-to-index">
               <!--<img class="icon" :src="iconArr.home"/>-->
               <img class="icon" src="@/assets/images/icon-tab-index.png"  height="27px" width="27px"/>
-              回首页
+              {{$t('detail.huishouye')}}
             </div>
           </a>
           <a hoverClass="none" openType="switchTab" href="#/lionfish_comshop/pages/order/shopCart">
@@ -295,26 +295,26 @@
                 <img src="@/assets/images/icon-tab-shop.png" height="27px" width="27px"/>
                 <div class="cart-num" v-if="cartNum">{{cartNum}}</div>
               </div>
-              购物车
+              {{$t('detail.gouwuche')}}
             </div>
           </a>
         </div>
-        <div class="goodsStatus" v-if="goods.over_type==0">即将开抢</div>
-        <div class="goodsStatus" v-else-if="goods.total<=0">已抢光</div>
-        <div class="goodsStatus" v-else-if="goods.total>0&&goods.over_type==2">团购已结束</div>
-        <div class="goodsStatus" v-else-if="goods.grounding!=1">已下架</div>
-        <div class="goodsStatus" v-else-if="is_comunity_rest==1">团长休息中</div>
+        <div class="goodsStatus" v-if="goods.over_type==0">{{$t('detail.jijiangkaiqiang')}}</div>
+        <div class="goodsStatus" v-else-if="goods.total<=0">{{$t('detail.yiqiangguang')}}</div>
+        <div class="goodsStatus" v-else-if="goods.total>0&&goods.over_type==2">{{$t('detail.tuangouyijieshu')}}</div>
+        <div class="goodsStatus" v-else-if="goods.grounding!=1">{{$t('detail.yixiajia')}}</div>
+        <div class="goodsStatus" v-else-if="is_comunity_rest==1">{{$t('detail.tuanzhangxiuxi')}}</div>
         <div class="gobuy" v-else-if="buy_type=='integral'">
           <form bindsubmit="submit" reportSubmit="true">
             <button hidden formType="submit" id="formId_"></button>
           </form>
           <label class="balanceBtn" for="formId">
-            <div @click="balance" class="bar-item balance" :style="{background: goodsdetails_buy_bg_color}">立即兑换</div>
+            <div @click="balance" class="bar-item balance" :style="{background: goodsdetails_buy_bg_color}">{{$t('detail.tuanzhangxiuxi')}}{{$t('detail.lijiduihuan')}}</div>
           </label>
         </div>
         <div class="gobuy" v-else>
           <form @click="addToCart" reportSubmit="true">
-            <div class="bar-item add-to-cart" :style="{background: goodsdetails_addcart_bg_color}">加入购物车</div>
+            <div class="bar-item add-to-cart" :style="{background: goodsdetails_addcart_bg_color}">{{$t('detail.jiarugouwuche')}}</div>
             <button class="btn" formType="submit"></button>
           </form>
           <form click="submit" reportSubmit="true">
@@ -322,7 +322,7 @@
           </form>
           <label class="balanceBtn" for="formId">
             <div @click="balance" class="bar-item balance" :style="{background: goodsdetails_buy_bg_color}">
-              {{goods.is_seckill==1?'马上抢购':'立即购买'}}
+              {{goods.is_seckill==1?$t('detail.mashangqianggou'):$t('detail.lijigoumai')}}
             </div>
           </label>
         </div>
@@ -347,13 +347,13 @@
             </div>
             <div class="sku-price">
               <div class="sale-price" v-if="buy_type=='integral'">
-                <span>{{cur_sku_arr.actPrice[0]}}</span>.{{cur_sku_arr.actPrice[1]}} 积分
+                <span>{{cur_sku_arr.actPrice[0]}}</span>.{{cur_sku_arr.actPrice[1]}} {{$t('common.jifen')}}
               </div>
               <div class="sale-price" v-else>
                 $ <span>{{cur_sku_arr.actPrice[0]}}</span>.{{cur_sku_arr.actPrice[1]}}
               </div>
               <div class="market-price">
-                <span v-if="buy_type!='integral'">$</span>{{cur_sku_arr.marketPrice[0]}}.{{cur_sku_arr.marketPrice[1]}}<span v-if="buy_type=='integral'">积分</span>
+                <span v-if="buy_type!='integral'">$</span>{{cur_sku_arr.marketPrice[0]}}.{{cur_sku_arr.marketPrice[1]}}<span v-if="buy_type=='integral'">{{$t('common.jifen')}}</span>
               </div>
               <i-vip-price :price="cur_sku_arr.card_price" v-if="is_open_vipcard_buy==1&&is_vip_card_member==1&&goods.is_take_vipcard==1"></i-vip-price>
               <div v-else-if="is_member_level_buy==1&&goods.is_mb_level_buy==1">
@@ -374,12 +374,12 @@
           </div>
         </div>
         <div class="sku-num-content">
-          <div class="title">数量</div>
+          <div class="title">{{$t('common.shuliang')}}</div>
           <div :class="['i-class', 'i-input-number', 'i-input-number-size-'+size]">
             <div @click="setNum" class="i-input-number-minus" data-type="decrease">
               <img src="@/assets/images/icon-input-reduce.png"/>
             </div>
-            <input bindblur="handleBlur" bindfocus="handleFocus" bindinput="changeNumber" class="i-input-number-text" type="number" :value="sku_val"></input>
+            <input bindblur="handleBlur" bindfocus="handleFocus" @input="changeNumber" class="i-input-number-text" type="number" :value="sku_val"></input>
             <div @click="setNum" class="i-input-number-plus" data-type="add">
               <img src="@/assets/images/icon-input-add.png"/>
             </div>
@@ -393,7 +393,7 @@
         </div>
         <form @click="gocarfrom" reportSubmit="true">
           <button class="sku-confirm" :disabled="cur_sku_arr.stock==0?true:false" formType="submit">
-            <div>{{cur_sku_arr.stock==0?'已抢光':'确定'}}</div>
+            <div>{{cur_sku_arr.stock==0?$t('common.yiqiangguang'):$t('common.queding')}}</div>
           </button>
         </form>
       </div>

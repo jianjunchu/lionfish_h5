@@ -1,34 +1,11 @@
 <template>
   <div class="page">
     <i-auth @authSuccess="authSuccess" :needAuth="needAuth">
-      <!--
-       <div class="mask" catchtouchmove="preventTouchMove" v-if="show_storefront_modal}}"> </div>
-       <div class="deliveryTimeDlg" v-if="show_storefront_modal}}">
-           <div style='width:100%;height:26px;border-bottom:1px solid #ccc;margin:0;padding:0;'>
-              <span style='text-align:center;font-size:14px;font-weight:600 ;margin-top:10vw' >选择取货店面</text>
-           </div>
-           <div style='width:100%;margin-top:48vw'>
-               <div class='storefront-item' @click="storefrontItemClick" data-item="{{item}}">
-                   <div class="storefront-item-name"><span>裕廊东店</text> </div>
-                   <div class="storefront-item-address">
-                      <span>Blk 134 Jurong Gateway Road #02-309H S600134</text>
-                   </div>
-               </div>
-               <div class='storefront-item' @click="storefrontItemClick" data-item="{{item}}">
-                   <div class="storefront-item-name"><span>裕廊东店</text> </div>
-                   <div class="storefront-item-address">
-                      <span>Blk 134 Jurong Gateway Road #02-309H S600134</text>
-                   </div>
-               </div>
-           </div>
-       </div>
-      -->
-
 
       <div class="mask" catchtouchmove="preventTouchMove" v-if="show_delivery_time_modal"></div>
       <div class="deliveryTimeDlg" v-if="show_delivery_time_modal">
         <div style='width:100%;height:26px;border-bottom:1px solid #ccc;margin:0;padding:0;'>
-          <span style='text-align:center;font-size:14px;font-weight:600 ;margin-top:10vw'>选择送货日期</span>
+          <span style='text-align:center;font-size:14px;font-weight:600 ;margin-top:10vw'>{{$t('order.songhuoriqi')}}</span>
         </div>
         <div style='width:100%;margin-top:48vw'>
           <div class='deliveryTimeItem' @click="deliveryTimeItemClick" data-item="item"
@@ -184,45 +161,45 @@
             </div>
           </div>
           <div class="receiver">
-            <span space="ensp">{{tabIdx==0?'提 货 人':'收 货 人'}}：</span>
-            <input bindinput="changeReceiverName" class="receive-name" placeholder="提货人"
+            <span space="ensp">{{tabIdx==0? $t('order.tihuoren'): $t('order.shouhuoren') }}：</span>
+            <input  class="receive-name" placeholder=""
                    type="text" v-model="tabAddress[tabIdx].name"></input>
           </div>
 
 
           <div class="receiver">
-            <span>手机号码：</span>
-            <input bindinput="bindReceiverMobile"  class="mobile" placeholder="手机号码" type="text"
+            <span>{{$t('order.shoujihaoma')}}</span>
+            <input   class="mobile" placeholder="" type="text"
                    v-model="tabAddress[tabIdx].mobile"></input>
           </div>
 
 
           <div class="address-box" v-if="tabIdx!=0">
             <div class="receiver">
-              <span space="ensp">邮 编：</span>
-              <input oninput="bindReceiverZipCode,inputZipCode" class="receive-name"
-                     placeholder="邮编" type="" v-model="tabAddress[tabIdx].zipCode"></input>
+              <span space="ensp">{{$t('order.youbian')}}</span>
+              <input @input="inputZipCode" class="receive-name"
+                     placeholder="" type="" v-model="tabAddress[tabIdx].zipCode"></input>
             </div>
             <div class="receiver align-start">
-              <span space="ensp">大 牌 号：</span>
-              <input bindinput="changeTuanBlkNo" class="receive-name" placeholder="大牌号"
+              <span space="ensp">{{$t('order.dapaihao')}}</span>
+              <input  class="receive-name" placeholder=""
                      type="text" v-model="tabAddress[tabIdx].blk_no"></input>
             </div>
             <div class="receiver">
-              <span space="ensp">道 路 名：</span>
-              <input bindinput="bindReceiverRoadName" class="receive-name" placeholder="道路名"
+              <span space="ensp">{{$t('order.daoluming')}}</span>
+              <input  class="receive-name" placeholder=""
                      type="" v-model="tabAddress[tabIdx].roadName"></input>
             </div>
 
             <div class="receiver align-start">
-              <span space="ensp">单元门牌：</span>
-              <input bindinput="changeTuanAddress" class="receive-name" placeholder="例如:106室"
+              <span space="ensp">{{$t('order.menpaihao')}}</span>
+              <input  class="receive-name" :placeholder="$t('order.liru106')"
                      type="text" v-model="tabAddress[tabIdx].lou_meng_hao" v-if="!showConfirmModal"></input>
             </div>
 
             <div class="receiver">
-              <span space="ensp">建 筑 名：</span>
-              <input bindinput="bindReceiverBuilding" class="receive-name" placeholder="建筑名称"
+              <span space="ensp">{{$t('order.jianzhuming')}}</span>
+              <input  class="receive-name" placeholder=""
                      type="" v-model="tabAddress[tabIdx].building "></input>
             </div>
 
@@ -237,7 +214,7 @@
                  </div>
                  <div class="receiver align-start">
                     <span>详细地址：</text>
-                    <spanarea bindinput="changeReceiverAddress" class="receive-name" focus="{{focus_addr}}" hidden="{{showConfirmModal}}" placeholder="详细地址" type="text" value="{{tabAddress[tabIdx].receiverAddress}}"></textarea>
+                    <spanarea @input="changeReceiverAddress" class="receive-name" focus="{{focus_addr}}" hidden="{{showConfirmModal}}" placeholder="详细地址" type="text" value="{{tabAddress[tabIdx].receiverAddress}}"></textarea>
                  </div>
 
             </block>
@@ -250,11 +227,11 @@
                  </div>
                  <div class="receiver align-start">
                     <span>楼号门牌：</text>
-                    <spanarea bindinput="changeTuanAddress" class="receive-name" focus="{{focus_addr}}" placeholder="例如:A座106室" type="text" value="{{tabAddress[tabIdx].lou_meng_hao}}" v-if="!showConfirmModal}}"></textarea>
+                    <spanarea @input="changeTuanAddress" class="receive-name" focus="{{focus_addr}}" placeholder="例如:A座106室" type="text" value="{{tabAddress[tabIdx].lou_meng_hao}}" v-if="!showConfirmModal}}"></textarea>
                  </div>
                  <div class="receiver align-start">
                     <span>送货时间：</text>
-                    <input bindinput="bindReceiverMobile" focus="{{focus_delivery_time}}" bindfocus="selectdeliveryTime" placeholder="送货时间" type="text" value="{{tabAddress[tabIdx].delivery_time}}"></input>
+                    <input @input="bindReceiverMobile" focus="{{focus_delivery_time}}" bindfocus="selectdeliveryTime" placeholder="送货时间" type="text" value="{{tabAddress[tabIdx].delivery_time}}"></input>
                  </div>
             </block>
             -->
@@ -262,9 +239,8 @@
 
           <div v-if="tabIdx != 2">
             <div class="receiver align-start">
-              <span>{{tabIdx ==0 ? '自提时间：' : '送货时间：'}}</span>
-              <input disabled="disabled" bindinput="bindReceiverMobile"
-                     @click="showPickupTime" :placeholder="'选择'+tabIdx ==0 ? '自提' : '送货'+'时间'" type="text"
+              <span>{{tabIdx ==0 ? $t('cart.zitishijian') : $t('cart.songhuoshijian') }}</span>
+              <input @click="showPickupTime"  :placeholder="'选择'+tabIdx ==0 ? $t('cart.xuanzeshijian') : $t('cart.xuanzeshijian')" type="text"
                      :value="tabAddress[tabIdx].delivery_date_str"></input>
             </div>
           </div>
@@ -273,15 +249,15 @@
            <div @click="getWxAddress" class="use-wx-address" :style="{color:skin.color}" v-if="tabIdx==2">+使用微信地址 </div>
           -->
           <div v-if="tabIdx!=2&&is_hexiao!=1">
-            <p class="address-red">{{groupInfo.owner_name}}信息：{{community.disUserName}} ({{community.communityName}})
+            <p class="address-red">{{groupInfo.owner_name}}{{$t('order.xinxi')}} {{community.disUserName}} ({{community.communityName}})
 
               <router-link style="display:inline;position: absolute;right: 10px;" class="to-distribution"
                          hoverClass="none" to="/lionfish_comshop/pages/position/community">
-                <span>切换团长</span>
+                <span>{{$t('order.qiehuantuanzhang')}} </span>
               </router-link>
             </p>
-            <p class="address">{{tabIdx==0?'提货地点':groupInfo.owner_name+'位置'}}：{{community.fullAddress}}</p>
-          </div>
+       <p class="address">{{tabIdx==0?$t('order.tihuodidian'):groupInfo.owner_name+'位置'}}：{{community.fullAddress}}</p>
+</div>
         </div>
         <div class="address-line">
           <img src="@/assets/images/icon-address-line.png"/>
@@ -306,7 +282,7 @@
                    <div class="cart-header-left" v-else>预计{{pick_up_time}}({{pick_up_weekday}}){{groupInfo.owner_name}}配送 </div>
               </block>
               -->
-              <div class="cart-header-right">{{value.goodsnum}}件商品</div>
+              <div class="cart-header-right">{{value.goodsnum}} {{$t('order.jianshangpin')}}</div>
             </div>
             <div class="cart-item" slot="content">
               <div class="sku-item" v-for="(item,index) in value.goods" :key="index">
@@ -322,29 +298,29 @@
                   <div class="sku-title">
                     {{item.name}}
                   </div>
-                  <div class="sku-spec" v-if="item.option.length>0">规格：
+                  <div class="sku-spec" v-if="item.option.length>0">{{$t('common.guige')}}
                     <span v-for="(option,index) in item.option " :key="option.option_id">{{option.value}}；</span>
                   </div>
                   <div class="original-price">
                     <span v-if="buy_type!='integral'">$</span>
                     {{item.price}} ×{{item.quantity}}
-                    <span v-if="buy_type=='integral'">积分</span>
+                    <span v-if="buy_type=='integral'">{{$t('common.jifen')}}</span>
                     <i-vip-price :price="item.card_price"
                                  v-if="is_open_vipcard_buy==1&&item.is_take_vipcard==1&&is_vip_card_member==1"></i-vip-price>
                     <i-vip-price :price="item.levelprice" type="1"
                                  v-else-if="canLevelBuy&&item.is_mb_level_buy"></i-vip-price>
                   </div>
-                  <div class="sku-price">小计：
+                  <div class="sku-price">{{$t('common.xiaoji')}}
                     <span>
                                     <span v-if="buy_type!='integral'">$</span>{{item.total}}
-                    <span v-if="buy_type=='integral'">积分</span>
+                    <span v-if="buy_type=='integral'">{{$t('common.jifen')}}</span>
                                 </span>
                   </div>
                 </div>
               </div>
             </div>
             <div class="cart-footer" slot="footer" v-if="is_open_order_message==1">
-              <input bindinput="bindInputMessage" class="order-message" :data-idx="key" placeholder="备注"
+              <input @input="bindInputMessage" class="order-message" :data-idx="key" placeholder={{$t('common.beizhu')}}
                      type="text"></input>
             </div>
           </i-card>
@@ -382,7 +358,7 @@
           </div>
           <div @click="showvoucher" class="cell" data-seller_id="0" v-if="seller_goodss[0] && seller_goodss[0].show_voucher==1">
             <div>
-              <span>优惠券</span>
+              <span>{{$t('common.youhuiquan')}}</span>
               <span class="cell-desc" v-if="sel_chose_vouche.limit_money>0">满{{sel_chose_vouche.limit_money}}元优惠{{sel_chose_vouche.credit}}元</span>
               <span class="cell-desc" v-else>优惠{{sel_chose_vouche.credit}}元</span>
             </div>
@@ -394,7 +370,7 @@
           <div @click="showvoucher" class="cell" :data-seller_id="seller_goodss[0] && seller_goodss[0].store_info.s_id"
                v-if="seller_goodss[0] && seller_goodss[0].show_voucher==0">
             <div>
-              <span>选择优惠券</span>
+              <span>{{$t('common.xuanzeyouhuiquan')}}</span>
             </div>
             <div>
               <img class="icon-right" src="@/assets/images/rightArrowImg.png"/>
@@ -473,20 +449,20 @@
                 合计：<span>${{tot_price}}</span>
               </div>
               <div class="h2" v-if="buy_type!='integral'">
-                <em>总额：${{total_all}}</em>
-                <em v-if="disAmount>0">总优惠：${{disAmount}}</em>
+                <em>{{$t('order.zonge')}}${{total_all}}</em>
+                <em v-if="disAmount>0">{{$t('order.zongyouhui')}}${{disAmount}}</em>
               </div>
             </div>
             <div class="fixed-bar-btn bgDisabled" v-if="btnDisable">{{btnText?btnText:'立即支付'}}</div>
             <i-button @handleTap="goOrderfrom" iClass="fixed-bar-btn" :loading="btnLoading" v-else>
               <div :style="{background:skin.color}" v-if="buy_type=='integral'">立即兑换</div>
-              <div :style="{background:skin.color}" v-else>立即支付</div>
+              <div :style="{background:skin.color}" v-else>{{$t('cart.lijizhifu')}}</div>
             </i-button>
           </div>
         </i-fixed-bottom>
       </div>
     </i-auth>
-    <i-modal bind:cancel="closeConfirmModal" iClass="confirm-modal-content" :visible="showConfirmModal">
+    <i-modal @cancel="closeConfirmModal" iClass="confirm-modal-content" :is-show="showConfirmModal" scrollUp="true">
       <div class="confirm-order-modal">
         <div v-if="tabIdx==0">
           <div class="title">此商品需要您{{originTabList[tabIdx].name}}，请确认提货信息</div>
@@ -514,10 +490,10 @@
              </div>
         </block>
         -->
-        <div class="title" v-else>需要快递配送，请确认收货信息</div>
+        <div class="title" v-else>{{$t('order.querenshouhuoxinxi')}}</div>
         <div class="order-content">
           <div class="msg-group">
-            <span>商品总额：</span>
+            <span>{{$t('order.shangpinzonge')}}</span>
             <em>+${{total_goods_price}}</em>
           </div>
           <div class="msg-group" v-if="tabIdx==1">
@@ -529,7 +505,7 @@
             <em>+${{trans_free_toal?trans_free_toal:0}}</em>
           </div>
           <div class="msg-group" v-if="disAmount>0">
-            <span>优惠金额：</span>
+            <span>{{$t('order.youhuijine')}}</span>
             <em>-${{disAmount}}</em>
           </div>
           <div class="msg-group">
@@ -539,43 +515,43 @@
             </em>
           </div>
           <div class="msg-group">
-            <span>{{tabIdx==0?'提 货 人':'收 货 人'}}：</span>
+            <span>{{tabIdx==0?$t('order.tihuoren'): $t('order.shouhuoren') }}：</span>
             <em>{{tabAddress[tabIdx].name}} {{tabAddress[tabIdx].mobile}}</em>
           </div>
           <div class="msg-group" v-if="tabIdx==0">
             <div v-if="index_hide_headdetail_address==0">
-              <span>提货地点：</span>
+              <span>{{$t('order.tihuodidian')}}</span>
               <em>{{pickUpAddress}}</em>
             </div>
           </div>
 
           <div class="msg-group" v-else-if="tabIdx==1">
-            <span>收货地址：</span>
+            <span>{{$t('order.shouhuodizhi')}}</span>
             <em>{{tabAddress[tabIdx].blk_no}} {{tabAddress[tabIdx].roadName}}{{tabAddress[tabIdx].building}}</em>
           </div>
           <div class="msg-group" v-else>
-            <span>收货地址：</span>
+            <span>{{$t('order.shouhuodizhi')}}</span>
             <em space="ensp">{{tabAddress[tabIdx].blk_no}}
               {{tabAddress[tabIdx].roadName}}{{tabAddress[tabIdx].building}}</em>
           </div>
           <div class="total">
-            合计:
+            {{$t('order.heji')}}
             <em>${{tot_price}}</em>
           </div>
         </div>
         <div class="button-group">
-          <i-button bind:click="closeConfirmModal" class="btn-content" iClass="btn left-btn">取消</i-button>
-          <div class="btn-content btn right-btn bgDisabled" v-if="btnDisable">{{btnText?btnText:'确认支付'}}</div>
-          <i-button bind:click="show_payment_modal" class="btn-content" iClass="btn right-btn" :loading="payBtnLoading"
+          <i-button @handleTap="closeConfirmModal" class="btn-content" iClass="btn left-btn">{{$t('common.quxiao')}}</i-button>
+          <div class="btn-content btn right-btn bgDisabled" v-if="btnDisable">{{btnText?btnText:$t('order.querenzhifu')}}</div>
+          <i-button @handleTap="showPaymentModal" class="btn-content" iClass="btn right-btn" :loading="payBtnLoading"
                     :styleStr="'background:'+skin.color" v-else>
-            <div :style="{background:skin.color}">确认支付</div>
+            <div :style="{background:skin.color}">{{$t('order.querenzhifu')}}</div>
           </i-button>
         </div>
       </div>
     </i-modal>
-    <i-dialog bind:cancel="delete" bind:confirm="continuePay" confirmText="确认" text="赠品已送完，确认支付？"
-              :visible="visible"></i-dialog>
-    <i-modal bind:cancel="closeCouponModal" iClass="confirm-modal-content" :visible="!hide_quan">
+    <!--<i-dialog @cancel="cancel" @confirm="continuePay" confirmText="确认" text="赠品已送完，确认支付？"
+              v-show="visible"></i-dialog>-->
+    <i-modal @cancel="closeCouponModal" iClass="confirm-modal-content" v-show="!hide_quan">
       <div class="confirm-coupon-modal">
         <div class="title">请选择优惠券</div>
         <div scrollY class="list">
@@ -611,21 +587,19 @@
       </div>
     </i-modal>
 
-
-    <i-modal bind:cancel="closePickupTimeModal" iClass="confirm-modal-content" :visible="showPickupTimeModal">
-      <div class="confirm-order-modal" style="padding:52vw 0vw">
-        <div class="title">选择{{tabIdx ==0 ? '提货时间' : '送货时间'}}</div>
+    <i-modal @cancel="closePickupTimeModal" iClass="confirm-modal-content" :is-show="showPickupTimeModal" scrollUp="true">
+      <div class="confirm-order-modal">
+        <div class="title">{{tabIdx ==0 ? $t('order.xuanzetihuoshijian') : $t('order.xuanzesonghuoshijian')}}</div>
         <div class="line"></div>
-        <div class="order-content" style="padding:0; border-radius:0vw; width: 750vw;margin-bottom: 0">
+        <div class="order-content" style="padding:0; border-radius:0vw; width: 100vw;margin-bottom: 0">
           <div class="page-content">
             <div scrollWithAnimation scrollY class="page-category" scrollTop="categoryScrollBarTop"
-                 style="min-height:600vw">
+                 style="min-height:50vw">
 
               <div @click="changePickupDate"
-                   :class="['category-item',rickupTimeData.activeDateIndex===index?'active':'']" :data-index="index"
+                   :class="['category-item',rickupTimeData.activeDateIndex == index?'active':'']" :data-index="index"
                    v-for="(item , index) in rickupTimeData.list" :key="index">
-                <div class="item-border" :style="{background:skin.color}"></div>
-                <div>{{item.date}}</div>
+                {{item.date}}
               </div>
 
 
@@ -638,9 +612,9 @@
 
               <div @click="changePickupTime" v-for="(item , index ) in rickupTimeData.currentTimes" :key="index"
                    :data-index="index">
-                <button style="width: 400vw" :type="rickupTimeData.activeTimeIndex===index?'warn':'primary'"
+                <el-button style="width: 50vw" :type="rickupTimeData.activeTimeIndex===index?'warn':'primary'"
                         plain="true" size="mini">{{item}}
-                </button>
+                </el-button>
               </div>
             </div>
           </div>
@@ -648,12 +622,12 @@
         </div>
 
         <div class="button-group">
-          <i-button bind:click="closePickupTimeModal" class="btn-content" iClass="btn left-btn">取消</i-button>
+          <div @click="closePickupTimeModal" class="btn left-btn btn-content" iClass="btn left-btn">{{$t('common.quxiao')}}</div>
           <div class="btn-content btn right-btn bgDisabled" v-if="btnDisable">{{btnText?btnText:'确认支付'}}</div>
-          <i-button bind:click="changePickupDateTime" class="btn-content" iClass="btn right-btn"
+          <div @click="changePickupDateTime" class="btn right-btn btn-content" iClass="btn right-btn"
                     :styleStr="'background:'+skin.color" v-else>
-            <div :style="{background:skin.color}">确定</div>
-          </i-button>
+            <div :style="{background:skin.color}">{{$t('common.queding')}}</div>
+          </div>
         </div>
       </div>
     </i-modal>
@@ -767,7 +741,7 @@
         ck_yupay: 0,
         use_score: 0,
         commentArr: {},
-        community: '',
+        community: {},
         canPay: !0,
         canPreSub: !0,
         tabAddress: [{
@@ -831,10 +805,9 @@
 
       this.$store.dispatch('app/showToolbarBack')
       this.onLoad()
-    },
-    method: function() {
       this.onShow()
     },
+
     methods: {
       onLoad: function() {
 
@@ -850,6 +823,7 @@
         })
 
         var o = e.is_limit || 0
+
 
         var fullAddress = a.fullAddress || ''
         fullAddress = fullAddress.replace('境外境外境外地区', '')
@@ -1009,9 +983,9 @@
       getCommunityInfo: function() {
         var t = this, e = wx.getStorageSync('community')
         e ? e.head_mobile ? (t.community = e) : util.getCommunityById(e.communityId).then(function(e) {
-          t.community = e
+          t.community = e.data
         }) : wx.getStorageSync('token') && util.getCommunityInfo().then(function(e) {
-          t.community = e
+          t.community = e.data
         })
       },
       getReceiveMobile: function(e) {
@@ -1158,13 +1132,14 @@
         this.show_storefront_modal = !1
       },
       goOrderfrom: function() {
+        debugger
         var e = this, t = e.tabAddress, a = e.tabIdx, i = t[a].name, o = t[a].mobile, s = t[a].receiverAddress,
           n = t[a].region, r = t[a].receiverAddress, d = t[a].lou_meng_hao, dt = t[a].delivery_date_str,
           zc = t[a].zipCode, rn = t[a].roadName, bd = t[a].building
         if ('' == i) {
           e.focus_name = !0
-          var c = '请填写收货人'
-          return 0 == a && (c = '请填写提货人'), wx.showToast({
+          var c = this.$t('order.tianxieshouhuoren')
+          return 0 == a && (c = this.$t('order.tianxietihuoren')), wx.showToast({
             title: c,
             icon: 'none'
           }), !1
@@ -1172,14 +1147,14 @@
 
         if (!/^\d{8}$/.test(o) && !/^1(3|4|5|6|7|8|9)\d{9}$/.test(o)) {
           return wx.showToast({
-            title: '手机号码有误',
+            title: this.$t('order.shoujihaomayouwu'),
             icon: 'none'
           }), !1
         }
 
         if (0 != a && ('' == zc || !/^\d{6}$/.test(zc))) {
           return wx.showToast({
-            title: '邮编有误',
+            title:  this.$t('order.youbianyouwu'),
             icon: 'none'
           }), !1
         }
@@ -1200,7 +1175,7 @@
 
         if (0 != a && '' == d) {
           return wx.showToast({
-            title: '请填写门牌号',
+            title: this.$t('order.tianxiemenpai'),
             icon: 'none'
           }), !1
         }
@@ -1227,7 +1202,7 @@
             }), !1;
         }
          */
-        var ter = a == 0 ? '请选择自提时间' : '请选择配送时间'
+        var ter = a == 0 ? this.$t('order.xuanzezitishijian'): this.$t('order.xuanzepeisongshijian')
         if (2 != a && !dt || '' == dt) {
           return wx.showToast({
             title: ter,
@@ -1465,11 +1440,7 @@
             icon: 'none'
           })
         }
-        return this.setData({
-          tabAddress: a
-        }), {
-          value: o
-        }
+        return false;
       },
       bindReceiverMobile: function(e) {
         var t = this, a = t.tabAddress, i = t.tabIdx, o = e.detail.value.trim()
@@ -1489,11 +1460,12 @@
         }
       },
       inputZipCode: function(e) {
-        var this_ = this
-        var t = this, a = t.tabAddress, i = t.tabIdx, o = e.detail.value.trim()
+
+        var t = this, a = t.tabAddress, i = t.tabIdx;
+        var o = a[i].zipCode;
+        console.log(o)
         var tk = wx.getStorageSync('token')
         if ('' != o && /^\d{6}$/.test(o)) {
-          a[i].zipCode = o
           app.util.request({
             url: 'entry/wxapp/user',
             data: {
@@ -1513,7 +1485,6 @@
                 a[i].building = result.BUILDING
                 a[i].roadName = result.ROAD_NAME
                 console.log(a)
-                this.tabAddress = a
 
               }
             }
@@ -1566,21 +1537,16 @@
         }
       },
       conformOrder: function() {
-        this.setData({
-          showConfirmModal: !0
-        })
+        this.showConfirmModal = !0
       },
       closeConfirmModal: function() {
-        this.canPay = !0, this.setData({
-          showConfirmModal: !1
-        })
+        this.canPay = !0, this.showConfirmModal = !1
       },
 
       bindRegionChange: function(e) {
         var t = e.detail.value
-        t && this.checkOut(t[1]), this.setData({
-          region: t
-        })
+        t && this.checkOut(t[1]), this.region =  t
+
       },
       checkOut: function(e) {
         var r = this, t = wx.getStorageSync('token'), a = wx.getStorageSync('community').communityId,
@@ -1689,7 +1655,7 @@
       tabSwitch: function(e) {
         var t = 1 * e.currentTarget.dataset.idx
         0 != t && wx.showToast({
-          title: '配送变更，费用已变化',
+          title: 'Freight Changed',
           icon: 'none'
         })
         this.tabIdx =  t;
@@ -1857,42 +1823,33 @@
           dataType: 'json',
           method: 'POST',
           success: function(e) {
-            console.log(e)
-            var list = e.data
-            r.setData({
-              'rickupTimeData.list': list,
-              'rickupTimeData.currentTimes': list[0].times
-            })
+            var list = e.data;
+            r.rickupTimeData.list = list
+            r.rickupTimeData.currentTimes = list[0].times
+
           }
         })
 
-        this.setData({
-          showPickupTimeModal: true
-        })
+        r.showPickupTimeModal = true
+
       },
       closePickupTimeModal: function() {
 
-        this.setData({
-          showPickupTimeModal: false
-        })
+        this.showPickupTimeModal =  false
+
       },
       changePickupDate: function(e) {
         var r = this, i = e.currentTarget.dataset.index
         var d = r.rickupTimeData.list[i]
-
         console.log(d)
-        r.setData({
-          'rickupTimeData.activeDateIndex': i,
-          'rickupTimeData.currentTimes': d.times
-        })
+          r.rickupTimeData.activeDateIndex= i,
+          r.rickupTimeData.currentTimes = d.times
 
       },
       changePickupTime: function(e) {
         var r = this, i = e.currentTarget.dataset.index
         var activeDateIndex = r.rickupTimeData.activeDateIndex
-        r.setData({
-          'rickupTimeData.activeTimeIndex': i
-        })
+        r.rickupTimeData.activeTimeIndex = i
       },
       changePickupDateTime: function() {
         var e = this, s = e.tabAddress, n = e.tabIdx, r = this
@@ -1905,13 +1862,11 @@
           s[n].delivery_date = d.str_date
           s[n].delivery_date_str = d.date + ' ' + t
           s[n].delivery_time = t
-          this.setData({
-            tabAddress: s
-          })
+
           this.closePickupTimeModal()
         } else {
           wx.showToast({
-            title: '请选择自提时间',
+            title: this.$t('order.xuanzezitishijian'),
             icon: 'none'
           })
         }
@@ -1956,6 +1911,7 @@
     font-weight: bold;
     background-color: #f7f7f7;
     outline :none;
+    font-size: 1vw;
   }
 
   .sel-btn {
@@ -2103,7 +2059,7 @@
   .sku-item-gift .sku-msg .sku-title {
     font-size: 2vw;
     color: #444;
-    line-height: 30vw;
+    line-height: 3vw;
     margin-bottom: 10vw;
     font-weight: 500;
     overflow: hidden;
@@ -2171,9 +2127,9 @@
 
   .fixed-content .fixed-bar-btn {
     width: 30vw;
-    height: 15vw;
+    height: 12vw;
     text-align: center;
-    line-height: 15vw;
+    line-height: 11vw;
     color: #fff;
     font-size: 4vw;
     background: #ff5344;
@@ -2184,20 +2140,21 @@
   }
 
   .confirm-order-modal {
-    border-radius: 30vw 30vw 0 0;
+    border-radius: 2vw 3vw 0 0;
     background: #fff;
-    padding: 52vw 30vw 0;
+    padding: 1vw 1vw 0;
     display: flex;
     flex-direction: column;
     align-items: center;
     position: relative;
+
   }
 
   .confirm-order-modal .title {
     font-size: 3vw;
     color: #444;
-    line-height: 32vw;
-    margin-bottom: 40vw;
+    line-height: 8.5vw;
+    margin-bottom:1vw;
     font-weight: 500;
   }
 
@@ -2206,33 +2163,33 @@
     justify-content: center;
     align-items: center;
     color: #ff5344;
-    line-height: 26vw;
+    line-height: 2vw;
     font-size: 2vw;
-    margin-bottom: 48vw;
+    margin-bottom: 9vw;
     font-weight: 500;
   }
 
   .confirm-order-modal .sub-title img {
-    width: 28vw;
-    height: 28vw;
-    margin-right: 14vw;
+    width: 5vw;
+    height: 5vw;
+    margin-right: 3vw;
   }
 
   .confirm-order-modal .order-content {
-    width: 690vw;
-    border-radius: 20vw;
-    padding-top: 30vw;
+    width: 95vw;
+    border-radius: 5vw;
+    padding-top: 3vw;
     background: #f6f6f6;
-    margin-bottom: 136vw;
+    margin-bottom: 15vw;
   }
 
   .confirm-order-modal .order-content .msg-group {
-    width: 690vw;
-    padding: 0 30vw;
-    margin-bottom: 20vw;
+    width: 100vw;
+    padding: 0 3vw;
+    margin-bottom: 1vw;
     display: flex;
     font-size: 2vw;
-    line-height: 24vw;
+    line-height: 5vw;
     color: #444;
     box-sizing: border-box;
   }
@@ -2249,12 +2206,12 @@
   }
 
   .confirm-order-modal .order-content .total {
-    line-height: 86vw;
-    padding: 0 30vw;
+    line-height: 10vw;
+    padding: 0 2vw;
     text-align: right;
     color: #444;
-    font-size: 30vw;
-    border-top: 1vw solid #e2e2e2;
+    font-size: 4vw;
+    border-top: 0.1vw solid #e2e2e2;
   }
 
   .confirm-order-modal .order-content .total em {
@@ -2264,7 +2221,7 @@
   .confirm-order-modal .button-group {
     display: flex;
     width: 100%;
-    border-top: 1vw solid rgba(0, 0, 0, 0.1);
+    border-top: 0.1vw solid rgba(0, 0, 0, 0.1);
     position: absolute;
     left: 0;
     bottom: 0;
@@ -2278,9 +2235,10 @@
     flex: 1;
     margin: 0;
     padding: 0;
-    font-size: 30vw;
-    line-height: 88vw;
+    font-size: 2vw;
+    line-height: 10vw;
     text-align: center;
+    width: 50vw;
     border-radius: 0;
     font-weight: bold;
   }
@@ -2420,7 +2378,7 @@
     flex-direction: column;
     align-items: center;
     position: relative;
-    padding-bottom: 30vw;
+    padding-bottom: 3vw;
   }
 
   .confirm-coupon-modal .title {
@@ -2602,7 +2560,7 @@
     color: #000;
     font-size: 3vw;
     font-weight: bold;
-    padding-top: 30vw;
+    padding-top: 3vw;
   }
 
   .coupon .price .reduce-price span {
@@ -2615,7 +2573,7 @@
   }
 
   .coupon .info {
-    padding-left: 30vw;
+    padding-left: 3vw;
     flex: 1;
   }
 
@@ -2809,19 +2767,19 @@
 
   .category-item {
     position: relative;
-    width: 220vw;
-    height: 50vw;
+    width: 26vw;
+    height: 12vw;
     display: flex;
     align-items: center;
     justify-content: center;
     font-size: 2vw;
     color: #787878;
-    line-height: 30vw;
+    line-height: 20vw;
   }
 
-  .category-item view {
-    padding-left: 20vw;
-    max-width: 240vw;
+  .category-item div {
+    padding-left: 3vw;
+    max-width: 100vw;
     text-align: center;
   }
 
@@ -2835,7 +2793,7 @@
     background: linear-gradient(#ff7955, #ff4242);
   }
 
-  .category-item.active {
+  .active {
     background: #fff;
     font-weight: 500;
     color: #333;
@@ -2843,21 +2801,20 @@
 
   .page-list {
     position: absolute;
-    top: 0;
-    left: 220vw;
-    width: 590vw;
-    height: 1000vw;
-    margin-top: 122vw;
+    top: 10vw;
+    left: 26vw;
+    width: 74.3vw;
+    height: 86vw;
     background: #fff;
-    padding: 32vw;
+    padding: 3vw;
     box-sizing: border-box;
   }
 
   .line {
     position: absolute;
-    margin-top: 75vw;
+    margin-top: 9vw;
     width: 100%;
-    height: 1vw;
+    height: 0.1vw;
     z-index: 9999;
     background: #efefef;
   }

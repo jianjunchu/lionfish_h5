@@ -26,15 +26,15 @@
       <div :class="['empty', is_show_guess_like==1?'':'pos-a']" v-if="isEmpty">
         <img src="@/assets/images/icon-index-empty.png"/>
         <div v-if="needAuth">
-          <div @click="authModal" class="h1">点击
-            <span :style="{color:skin.color}">“去登录”</span>
-            查看购物车商品
+          <div @click="authModal" class="h1">{{$t('common.dianji')}}
+            <span :style="{color:skin.color}">“{{$t('cart.qudenglu')}}”</span>
+            {{$t('cart.chakangouwuche')}}
           </div>
-          <div @click="authModal" class="btn" :style="{background:skin.color}">去登录</div>
+          <div @click="authModal" class="btn" :style="{background:skin.color}">{{$t('cart.qudenglu')}}</div>
         </div>
         <div v-else>
-          <div class="h1">购物车空空如也，赶紧去逛逛吧~</div>
-          <div @click="goindex" class="btn" :style="{background:skin.color}">去购物</div>
+          <div class="h1">{{$t('cart.gouwuchekong')}}</div>
+          <div @click="goindex" class="btn" :style="{background:skin.color}">{{$t('cart.qugouwu')}}</div>
         </div>
       </div>
       <div class="shop-cart-content" v-else>
@@ -299,7 +299,7 @@
                 <img class="checkbox-disabled" src="@/assets/images/checkbox-disabled.png" v-else/>
                 <checkbox  hidden :checked="allselect" :value="allselect"></checkbox >
               </div>
-            全选
+            {{$t('common.quanxuan')}}
           </label>
           <div class="fixed-bar-center" v-if="disAmount&&disAmount!='0.00'&&is_open_fullreduction==1">
             <div class="total">
@@ -326,14 +326,14 @@
           </div>
           <button class="fixed-bar-btn" style="background:#dcdcdc;" v-if="is_comunity_rest==1">团长休息中</button>
           <div v-else-if="open_man_orderbuy==1">
-            <button @click="toorder" class="fixed-bar-btn" v-if="canbuy_other>=0">去结算({{allnum}})</button>
+            <button @click="toorder" class="fixed-bar-btn" v-if="canbuy_other>=0">{{$t('cart.qujiesuan')}}({{allnum}})</button>
             <button disabled @click="toorder" class="fixed-bar-btn" v-else>
               <span> v-if="totalAmount!=0">差</span>
               <span> v-else>满</span>
               ${{-canbuy_other}}下单
             </button>
           </div>
-          <div @click="toorder" class="fixed-bar-btn" :style="{background:skin.color}" v-else>去结算({{allnum}})
+          <div @click="toorder" class="fixed-bar-btn" :style="{background:skin.color}" v-else>{{$t('cart.qujiesuan')}}({{allnum}})
           </div>
         </div>
       </div>
@@ -411,7 +411,7 @@
         </div>
         <form bindsubmit="gocarfrom" reportSubmit="true">
           <button class="sku-confirm" :disabled="cur_sku_arr.stock==0?true:false" formType="submit">
-            <div>{{cur_sku_arr.stock==0?'已抢光':'确定'}}</div>
+            <div>{{cur_sku_arr.stock==0?$t('common.yiqiangguang'): $t('common.queding')}}</div>
           </button>
         </form>
       </div>
@@ -526,7 +526,7 @@
       authModal: function() {
         this.needAuth && (this.showAuthModal = !this.showAuthModal)
         if(this.showAuthModal){
-          this.$router.push({path: '/login'});
+          this.$router.replace({path: '/login'});
         }
       },
       showCartGoods: function() {
@@ -1595,7 +1595,7 @@
     position: fixed;
     left: 0;
     right: 0;
-    bottom: 40px;
+    bottom: 48px;
     background: #fff;
     z-index: 100;
   }
@@ -1662,10 +1662,10 @@
 
   .fixed-bar .fixed-bar-btn {
     width: 30vw;
-    height: 15vw;
+    height: 12vw;
 
     text-align: center;
-    line-height: 13vw;
+    line-height: 12vw;
     color: #fff;
     font-size: 4vw;
     background: #ff5344;

@@ -55,7 +55,7 @@
                    data-type="decrease">
                 <img class="icon-btn" src="@/assets/images/icon-input-reduce.png"/>
               </div>
-              <input bindblur="handleBlur" bindfocus="handleFocus" bindinput="changeNumber"
+              <input bindblur="handleBlur" bindfocus="handleFocus" @input="changeNumber"
                      :class="['i-input-number-text', min>=max?'i-input-number-disabled':'']" type="number"
                      :value="sku_val"/>
               <div @click="setNum" class="i-input-number-plus num-btn {{value>=max?'i-input-number-disabled':''}}"

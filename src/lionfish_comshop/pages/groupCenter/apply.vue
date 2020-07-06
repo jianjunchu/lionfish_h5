@@ -8,26 +8,26 @@
             <!--<div :class="['form-item', (errors[3]===2?'error':'')]">-->
             <div class="form-item">
               <label class="form-item-control">{{$t('host.xingming')}}</label>
-              <!--<input bindinput="inputRealName" class="form-item-input" data-key="3" placeholder="{{$t(host.shuruxingming)}}" type="text"/>-->
+              <!--<input @input="inputRealName" class="form-item-input" data-key="3" placeholder="{{$t(host.shuruxingming)}}" type="text"/>-->
               <input v-model="head_name" class="form-item-input" placeholder="请输入姓名" type="text"/>
             </div>
             <!--<div class="['form-item', (errors[2]===2?'error':'')]">-->
             <div class="form-item">
               <label class="form-item-control">手机号</label>
-              <!--<input bindinput="inputMobile" class="form-item-input" data-key="2" :focus="focus_mobile" maxlength="11" placeholder="请输入手机号码" type="text" :value="mobile"/>-->
+              <!--<input @input="inputMobile" class="form-item-input" data-key="2" :focus="focus_mobile" maxlength="11" placeholder="请输入手机号码" type="text" :value="mobile"/>-->
               <input v-model="mobile_detail" class="form-item-input"  maxlength="11" placeholder="请输入手机号码" type="text" />
             </div>
             <div class="form-item">
               <div class="form-item">
               <label class="form-item-control">微信号</label>
-              <!--<input bindinput="inputWechat" class="form-item-input" :focus="focus_wechat" placeholder="请输入微信号" type="text" :value="wechat"/>-->
+              <!--<input @input="inputWechat" class="form-item-input" :focus="focus_wechat" placeholder="请输入微信号" type="text" :value="wechat"/>-->
               <input v-model="wechat"  class="form-item-input" placeholder="请输入微信号" type="text" />
               </div>
             </div>
             <!--<div class="['form-item', (errors[5]===2?'error':'')]" style="display:none;">-->
               <!--<label class="form-item-control">验证码</label>-->
-              <!--&lt;!&ndash;<input bindinput="inputCaptcha" class="form-item-input" data-key="5" maxlength="6" placeholder="请输入验证码" type="text"/>&ndash;&gt;-->
-              <!--<input bindinput="inputCaptcha"  maxlength="6" placeholder="请输入验证码" type="text"/>-->
+              <!--&lt;!&ndash;<input @input="inputCaptcha" class="form-item-input" data-key="5" maxlength="6" placeholder="请输入验证码" type="text"/>&ndash;&gt;-->
+              <!--<input @input="inputCaptcha"  maxlength="6" placeholder="请输入验证码" type="text"/>-->
               <!--&lt;!&ndash;<div @click="getCaptcha" class="captcha" :hidden="!showCountDown">获取验证码</div>&ndash;&gt;-->
               <!--<div class="captcha" :hidden="showCountDown">-->
                 <!--{{timeStamp}}s后重试-->
@@ -36,7 +36,7 @@
             <!--<div class="['form-item', (errors[1]===2?'error':'')]">-->
             <div class="form-item">
               <label class="form-item-control">{{groupInfo.group_name}}名称</label>
-              <!--<input bindinput="inputCommunity" class="form-item-input" data-key="1" placeholder="请输入社区名称" type="text"/>-->
+              <!--<input @input="inputCommunity" class="form-item-input" data-key="1" placeholder="请输入社区名称" type="text"/>-->
               <input v-model="community_name" class="form-item-input"  placeholder="请输入社区名称" type="text"/>
               </div>
             <!--<div @click="chose_location" class="['form-item', (errors[0]===2?'error':'')]">-->
@@ -47,7 +47,7 @@
             <!--<div class="['form-item', (errors[6]===2?'error':'')]">-->
             <div class="form-item">
               <label class="form-item-control">详细地址</label>
-              <!--<input bindinput="inputAddress" class="form-item-input" data-key="1" placeholder="请输入详细地址" type="text" :value="addr_detail"/>-->
+              <!--<input @input="inputAddress" class="form-item-input" data-key="1" placeholder="请输入详细地址" type="text" :value="addr_detail"/>-->
               <input v-model="addr_detail" class="form-item-input" placeholder="请输入详细地址" type="text" />
             </div>
             <div class="form-item">

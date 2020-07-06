@@ -16,7 +16,7 @@
         <i-img defaultImage="@/assets/images/placeholder-refund.png" height="230" iClass="new-img"
                :loadImage="spuItem.skuImage" width="180" v-if="width250"></i-img>
         <i-img defaultImage="@/assets/images/placeholder-refund.png" height="210" iClass="new-img"
-               :loadImage="spuItem.skuImage" width="180" wx:else></i-img>
+               :loadImage="spuItem.skuImage" width="180" v-else></i-img>
         <div class="spu-active" v-if="reduction.is_open_fullreduction==1&&spuItem.is_take_fullreduction==1">
           <span class="tag">满{{reduction.full_money}}减{{reduction.full_reducemoney}}</span>
           <span class="tag tag-green" v-if="spuItem.isLimit">限购</span>

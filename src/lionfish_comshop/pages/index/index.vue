@@ -531,7 +531,7 @@
                  data-type="decrease">
               <img src="@/assets/images/icon-input-reduce.png"></image>
             </div>
-            <input bindblur="handleBlur" bindfocus="handleFocus" bindinput="changeNumber"
+            <input bindblur="handleBlur" bindfocus="handleFocus" @input="changeNumber"
                    :class="['i-input-number-text']" type="number"
                    :value="sku_val"/>
             <div @click="setNum" :class="['i-input-number-plus']"
@@ -966,7 +966,7 @@
                   showCancel: false,
                   confirmColor: '#8ED9D1',
                   success: function(t) {
-                    wx.redirectTo({
+                    wx.navigateTo({
                       url: "/lionfish_comshop/pages/position/community"
                     });
                   }

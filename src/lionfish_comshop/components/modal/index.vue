@@ -1,13 +1,11 @@
 <template>
   <div>
-    <div @click="handleClickMask" catchtouchmove="stopMove"
+    <div @click.stop="handleClickMask" catchtouchmove="stopMove"
          :class="['i-as-mask', 'i-class-mask', (isShow ? 'i-as-mask-show':'')]"></div>
-    <div v-show="isShow" :class="['i-class', (isIpx?'ipx':''), (scrollUp ? 'i-as':'i-modal-content')]">
+    <div  :class="[iClass,(isIpx?'ipx':''), (scrollUp?'i-as':'i-modal-content') ,(isShow?scrollUp?'i-as-show':'i-modal-show':'')]">
       <slot></slot>
     </div>
   </div>
-
-
 </template>
 
 <script>
@@ -15,17 +13,12 @@
   export default {
     name: 'i-modal',
     props: {
-
+      iClass:'',
       isIpx: {
         default: !1
       },
-      isShow: {
-        type:Boolean,
-        default: !1
-      },
-      scrollUp: {
-        default: !1
-      }
+      isShow: false,
+      scrollUp:false
     },
     mounted: function() {
       this.isIpx = this.$app.globalData.isIpx

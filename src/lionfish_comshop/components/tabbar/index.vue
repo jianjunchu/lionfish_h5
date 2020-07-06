@@ -1,15 +1,15 @@
 <template>
   <div :class="['tabbar_box', isIpx?'pb20':'']" :style="{'background-color':tabbar.backgroundColor}">
-    <div v-for="(item ,index ) in tabbar.list" :key="item.id">
+    <div v-for="(item ,index ) in tabbar.list" :key="item.id" v-if="item.pagePath !=''">
       <router-link @click.native="switchTab(index)" class="tabbar_nav" hoverClass="none" openType="switchTab"
                    :style="{color:item.selected?tabbar.selectedColor:tabbar.color}" :to="item.pagePath" v-if="index!=2">
-        <div class="tabbar_icon" data-num="getCartNum">
+        <div class="tabbar_icon" data-num="getCartNum" >
           <img class="img" :src="item.selected?item.selectedIconPath:item.iconPath"/>
           <div class="cart-num" v-if="cartNum&&index==3">{{cartNum}}</div>
         </div>
         <span>{{item.text}}</span>
       </router-link>
-      <div @click="goWeapp" class="tabbar_nav" v-show="open_tabbar_out_weapp!=0&&index!=2"
+      <div @click="goWeapp" class="tabbar_nav" v-if="open_tabbar_out_weapp!=0&&index!=2"
            :style="{color:item.selected?tabbar.selectedColor:tabbar.color}" v-else>
         <div class="tabbar_icon">
           <img class="img" :src="item.selected?item.selectedIconPath:item.iconPath"/>
@@ -39,6 +39,7 @@
         default: !1
       }
     },
+
     watch: {
       currentIdx: (e) => {
 
@@ -53,6 +54,11 @@
     data() {
       return {
         isIpx: !1,
+        skin: {
+          color: '#8ED9D1',
+          subColor: '#ed7b3a',
+          lighter: '#fff9f4'
+        },
         tabbar: {
           backgroundColor: '#fff',
           color: '#707070',

@@ -2,37 +2,37 @@
 <i-card showModal="true">
   <!--<div>-->
     <div slot="header">
-        <div class="header">提货信息</div>
+        <div class="header">{{$t('goodsinfo.tihuoxinxi')}}</div>
     </div>
     <div slot="content">
         <div class="content-wrap">
             <div class="item">
-                <div class="title">提货人</div>
+                <div class="title">{{$t('goodsinfo.tihuoren')}}</div>
                 <div class="detail">{{order.order_info.shipping_name}} {{hideInfo?tel:order.order_info.shipping_tel}}</div>
             </div>
             <div class="item" v-if="order.order_info.name&&showNickname">
-                <div class="title">昵称</div>
+                <div class="title">{{$t('goodsinfo.nicheng')}}</div>
                 <div class="detail">{{order.order_info.name}}</div>
             </div>
             <div class="item">
-                <div class="title">提货地点</div>
+                <div class="title">{{$t('goodsinfo.tihuodidian')}}</div>
                 <div class="detail">{{order.order_info.shipping_address}}</div>
             </div>
             <div class="item" v-if="order.order_info.delivery_time && order.order_info.delivery_time!='' && order.order_info.delivery_date && order.order_info.delivery_date!=''">
-                <div class="title">{{order.order_info.delivery=='pickup'?'提货时间:':'送货时间:'}} </div>
+                <div class="title">{{order.order_info.delivery=='pickup'? $t('goodsinfo.tihuoshijian'): $t('goodsinfo.songhuoshijian')}} </div>
                 <div class="detail"> {{order.order_info.delivery_date}} [{{order.order_info.delivery_time}}]</div>
             </div>
             <div class="item">
-                <div class="title">配送方式</div>
+                <div class="title">{{$t('goodsinfo.peisongfangshi')}}</div>
                 <div class="detail">{{order.order_info.delivery_name}}</div>
             </div>
             <div class="item" v-if="order.order_info.type=='normal'">
-                <div class="title">{{groupInfo.owner_name}}信息</div>
+                <div class="title">{{groupInfo.owner_name}}{{$t('goodsinfo.xinxi')}}</div>
                 <div class="detail">
                     <text>{{order.order_info.ziti_name}}</text>
                     <div bindtap="callTelphone" class="phone" :data-phone="order.order_info.ziti_mobile" v-if="hidePhone==0">
                         <image class="icon-phone" src="@/assets/images/phone2.png"></image>
-                        <text>联系{{groupInfo.owner_name}}</text>
+                        <text>{{$t('goodsinfo.lianxi')}}{{groupInfo.owner_name}}</text>
                     </div>
                 </div>
             </div>
@@ -40,7 +40,7 @@
     </div>
     <div slot="footer">
         <div class="footer">
-      共{{order.goods_count}}件商品 小计：
+      {{$t('common.gong')}} {{order.goods_count}} {{$t('order.jianshangpin')}}  {{$t('goodsinfo.xiaoji')}}  
       <div class="money">
         <text>$</text>{{order.order_info.total}}
       </div>

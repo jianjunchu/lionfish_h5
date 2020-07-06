@@ -11,7 +11,7 @@ const state = {
   storageSync: {},
   showToolbarBack: true,
   showToolbarMore: true,
-  showToolbarLogo: false,
+  showToolbarLogo: true,
   showTabbar: true,
   navBgColor: '#F75451',
   navFontColor: '#ffffff',
@@ -122,10 +122,10 @@ const actions = {
     commit('TOGGLE_TOOLBAR_MORE', false)
   },
   showToolbarLogo({ commit }) {
-    commit('TOGGLE_TOOLBAR_MORE', true)
+    commit('TOGGLE_TOOLBAR_LOGO', true)
   },
   hideToolbarLogo({ commit }) {
-    commit('TOGGLE_TOOLBAR_MORE', false)
+    commit('TOGGLE_TOOLBAR_LOGO', false)
   },
   setToolbarTitle({ commit }, title) {
     commit('SET_APP_TITLE', title)

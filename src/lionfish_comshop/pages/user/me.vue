@@ -12,9 +12,9 @@
                 <div class="user-name-top">
                   <div>{{member_info.username}}</div>
                   <!--<button @click="bindGetUserInfo" class="modify" openType="getUserInfo" v-if="canIUse">-->
-                  <button @click="bindGetUserInfo" class="modify" openType="getUserInfo" >
-                    <span class="iconfont icon-shuaxin"></span>
-                  </button>
+                  <!--<button @click="bindGetUserInfo" class="modify" openType="getUserInfo" >-->
+                    <!--<span class="iconfont icon-shuaxin"></span>-->
+                  <!--</button>-->
                 </div>
                 <div class="userLevel" v-if="member_info.is_show_member_level==1">
                   <div class="userLevelName">
@@ -34,7 +34,7 @@
             </div>
             <div @click="toggleFetchCoder" class="fetch-coder" :style="{color:user_top_font_color}" v-if="fetch_coder_type == 1||needAuth">
               <span class="iconfont icon-erweima1"></span>
-              <div class="fetch-coder-text">提货码</div>
+              <div class="fetch-coder-text">{{$t('me.tihuoma')}}</div>
             </div>
           </div>
           <div @click="goLink2" class="vip i-flex i-flex-spb"  v-if="is_open_vipcard_buy==1" data-link="/lionfish_comshop/moduleA/vip/upgrade">
@@ -57,10 +57,10 @@
       <div class="order">
         <div class="my-order">
           <div class="my-order-title">
-            <span>我的订单</span>
+            <span>{{$t('me.wodedingdan')}}</span>
           </div>
           <div @click="goLink2" class="to-order" data-link="/lionfish_comshop/pages/order/index">
-            <span>查看全部订单</span>
+            <span>{{$t('me.quanbudingdan')}}</span>
           </div>
           <div class="order-right">
             <img class="icon-right" src="@/assets/images/rightArrowImg.png"/>
@@ -107,7 +107,7 @@
           <div v-else>
             <div class="distribution-right">
               <a class="to-distribution" hoverClass="none" href="#/lionfish_comshop/pages/position/community">
-                <span>切换</span>
+                <span>{{$t('common.qiehuan')}}</span>
               </a>
               <img class="icon-right" src="@/assets/images/rightArrowImg.png"/>
             </div>
@@ -118,7 +118,7 @@
           <div class="fsz-30 text-gray mb5">{{community.fullAddress}}</div>
           <div class="i-flex" v-if="community.disUserMobile||community.head_mobile">
             <div>
-              <span class="iconfont icon-ziyuan fsz-30"></span> 电话：
+              <span class="iconfont icon-ziyuan fsz-30"></span> {{$t('common.phone')}}：
             </div>
             <div v-on:click="callTelphone" :data-phone="(community.disUserMobile||community.head_mobile)" style="color:#ee884a;">{{community.disUserMobile||community.head_mobile}}</div>
             <!--<div v-on:click="callTelphone" style="color:#ee884a;">{{community.disUserMobile||community.head_mobile}}</div>-->
@@ -200,7 +200,7 @@
           <div v-on:click="goDistribution">
             <div class="item-main">
               <div class="item-title">
-                <span>{{commiss_diy_name}}中心</span>
+                <span>{{commiss_diy_name}}{{$t('common.zhongxin')}}</span>
               </div>
               <div class="tool-right">
                 <img class="icon-right " src="@/assets/images/rightArrowImg.png"/>
@@ -271,7 +271,7 @@
               <div class="item-title">
                 <!--<img class="toolIcon" mode="widthFix" :src="user_tool_icons.i3?user_tool_icons.i3:'@/assets/images/coupon.png'"/>-->
                 <img class="toolIcon" mode="widthFix" src="@/assets/images/coupon.png"/>
-                <span>优惠券</span>
+                <span>{{$t('common.youhuiquan')}}</span>
               </div>
               <div class="tool-right">
                 <img class="icon-right " src="@/assets/images/rightArrowImg.png"/>
@@ -295,7 +295,7 @@
               <div class="item-title">
                 <!--<img class="toolIcon" mode="widthFix" :src="(user_tool_icons.i5?user_tool_icons.i5:'@/assets/images/groupCenterIcon.png')"/>-->
                 <img class="toolIcon" mode="widthFix" src="@/assets/images/groupCenterIcon.png"/>
-                <span>{{groupInfo.owner_name}}中心</span>
+                <span>{{groupInfo.owner_name}}&nbsp; {{$t('common.zhongxin')}}</span>
               </div>
               <div class="tool-right">
                 <img class="icon-right " src="@/assets/images/rightArrowImg.png"/>
@@ -372,7 +372,7 @@
               <div class="item-title">
                 <!--<img class="toolIcon" mode="widthFix" :src="user_tool_icons.i7?user_tool_icons.i7:'@/assets/images/protocolIcon.png'"/>-->
                 <img class="toolIcon" mode="widthFix" src="@/assets/images/protocolIcon.png"/>
-                <span>常见帮助</span>
+                <span>{{$t('me.changjianbangzhu')}}</span>
               </div>
               <div class="tool-right">
                 <img class="icon-right " src="@/assets/images/rightArrowImg.png"/>
@@ -406,7 +406,7 @@
               </div>
             </div>
           </a>
-          <div v-on:click="loginOut" v-if="!needAuth&&ishow_user_loginout_btn==1">
+          <div @click="loginOut" v-if="!needAuth&&ishow_user_loginout_btn==1">
             <div class="item-main">
               <div class="item-title">
                 <img class="toolIcon" mode="widthFix" src="@/assets/images/loginOut.png"/>
@@ -453,7 +453,7 @@
 
 <script>
   import GlobalMixin from '../../mixin/globalMixin.js';
-  import util from '../../utils';
+  import util from '../../utils/index.js';
   import status from '../../utils/index.js'
   import wcache from '../../utils/wcache.js';
   import auth from '../../utils/auth';
@@ -617,6 +617,7 @@
             token:token
           }).then(res=> {
             console.log(res);
+
               this.$wx.hideLoading();
 //            setTimeout(function(){  this.$wx.hideLoading(); },1000);
             if (res.code == 0) {
@@ -626,6 +627,15 @@
               let params = {};
 
               if (member_info){
+                let userInfo = {
+                  avatar: member_info.avatar,
+                  username: member_info.username
+                };
+                this.$wx.setStorage({
+                  key: "userInfo",
+                  data: userInfo
+                });
+
                 member_info.member_level_info && (member_info.member_level_info.discount = (member_info.member_level_info.discount/10).toFixed(1));
                 //开启分销
                 if (res.commiss_level > 0) {
@@ -681,6 +691,7 @@
                 data: null
               })
             }
+            that.$forceUpdate();
         })
       },
       getCommunityInfo: function () {
@@ -755,6 +766,7 @@
                 this.close_community_apply_enter= close_community_apply_enter || 0;
                 this.user_tool_icons = user_tool_icons || {};
                 this.ishow_user_loginout_btn = ishow_user_loginout_btn || 0;
+//                this.ishow_user_loginout_btn = 1;
                 this.supply_diy_name = supply_diy_name;
                 this.user_service_switch = user_service_switch;
                 this.fetch_coder_type = fetch_coder_type || 0;
@@ -800,43 +812,43 @@
         });
       },
       bindGetUserInfo: function (e) {
+
         var that = this;
-        if ("getUserInfo:ok" === e.detail.errMsg) {
-          var userInfo = Object.assign({},  this.$wx.getStorageSync("userInfo"), {
-            avatarUrl: e.detail.userInfo.avatarUrl,
-            nickName: e.detail.userInfo.nickName
-          });
-          let { nickName, avatarUrl } = e.detail.userInfo;
-          this.$getApp().globalData.userInfo = userInfo,  this.$wx.setStorage({
+//        if ("getUserInfo:ok" === e.detail.errMsg) {
+          var userInfo = this.$wx.getStorageSync("userInfo");
+//          let { nickName, avatarUrl } = e.detail.userInfo;
+          this.$getApp().globalData.userInfo = userInfo;
+          this.$wx.setStorage({
             key: "userInfo",
             data: userInfo
-          }), this.userInfo = userInfo
-          ,  this.$wx.showToast({
+          }); this.userInfo = userInfo;
+          this.$wx.showToast({
             title: "资料已更新",
             icon: "none",
             duration: 2000
-          }), nickName && this.$http({
-              controller: 'user.update_user_info',
-              token:  this.$wx.getStorageSync("token"),
-              nickName,
-              avatarUrl
-            }).then(res=> {
-              if(res.code==0) {
-                let member_info = that.member_info;
-                let user_info = Object.assign({}, member_info, {
-                  avatar: e.detail.userInfo.avatarUrl,
-                  username: e.detail.userInfo.nickName
-                });
-
-                that.member_info = user_info;
-              }
-          })
-        } else {
-           this.$wx.showToast({
-            title: "资料更新失败。",
-            icon: "none"
           });
-        }
+//          nickName && this.$http({
+//              controller: 'user.update_user_info',
+//              token:  this.$wx.getStorageSync("token"),
+//              nickName,
+//              avatarUrl
+//            }).then(res=> {
+//              if(res.code==0) {
+//                let member_info = that.member_info;
+//                let user_info = Object.assign({}, member_info, {
+//                  avatar: e.detail.userInfo.avatarUrl,
+//                  username: e.detail.userInfo.nickName
+//                });
+//
+//                that.member_info = user_info;
+//              }
+//          })
+//        } else {
+//           this.$wx.showToast({
+//            title: "资料更新失败。",
+//            icon: "none"
+//          });
+//        }
       },
       previewImage: function (e) {
         var current = e.target.dataset.src;
@@ -981,15 +993,14 @@
         }
       },
       loginOut: function () {
+
          this.$wx.removeStorageSync('community');
-         this.$wx.removeStorage({
-          key: 'token',
-          success(res) {
-             this.$wx.navigateTo({
-              url: '/lionfish_comshop/pages/user/me',
-            })
-          }
-        })
+         this.$wx.removeStorageSync('token');
+        this.onLoad();
+        this.onShow();
+//         this.$wx.redirectTo({
+//           url: '/lionfish_comshop/pages/user/me',
+//         });
       },
       toggleFetchCoder: function () {
         if (!this.authModal()) return;
