@@ -53,7 +53,7 @@
         <div class="no-community" v-if="isEmpty">
           <div bindtap="openSetting" class="flex-align" v-if="!canGetGPS">
             <img src="@/assets/images/noData.png"/>
-            <div>{{$t(host.kaiqiweizhi)}}</div>
+            <div>{{$t('host.kaiqiweizhi')}}</div>
           </div>
           <block v-else>
             <img src="@/assets/images/noData.png"/>

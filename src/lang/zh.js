@@ -46,7 +46,8 @@ export default {
     shenhezhong: '审核中',
     shenqingchengwei: '申请成为',
     changjianbangzhu: '常见帮助',
-    tihuoma: '提货码'
+    tihuoma: '提货码',
+    dianjidengluzhanghu: '点击登录账户'
   },
   common: {
     daifukuan: '待付款',
@@ -186,7 +187,15 @@ export default {
     tianxietihuoren: '请填写提货人',
     shoujihaomayouwu: '手机号码有误',
     youbianyouwu: '邮编有误',
-    tianxiemenpai: '请填写门牌号'
+    tianxiemenpai: '请填写门牌号',
+    wurenhedingdan: '暂无任何订单记录～',
+    chakanxiangqing: '查看详情',
+    shifu: '实付',
+    quxiaodingdan: '取消订单',
+    lijizhifu: '立即支付',
+    xiadanshijian: '下单时间:',
+    tihuoshijian: '提货时间:',
+    songhuoshijian: '送货时间:'
   },
    cart: {
     gouwuchekong: '购物车空空如也，赶紧去逛逛吧~',

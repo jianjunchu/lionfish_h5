@@ -28,7 +28,7 @@
               </div>
           </div>
           <div v-if="!isPast">
-              <div>
+              <div v-show="!showAdd">
                   <div class="add-cart" v-if="number<=0">
                       <img class="img" src="@/assets/images/icon-add-shopCart-disabled.png" >
                   </div>
@@ -36,7 +36,7 @@
                       <i-addcart fontsize="28" class="img"></i-addcart>
                   </div>
               </div>
-              <!-- <i-input-number addImage="@/assets/images/icon-add-2.png" bind:change="changeNumber" bind:outOfMax="outOfMax" class="index-input-number input-number-span iNumberImg iNumberdiv" max="100" min="0" reduceImage="@/assets/images/icon-reduce-2.png" value="number" wx:else></i-input-number> -->
+              <i-input-number v-show="showAdd" addImage="@/assets/images/icon-add-2.png" @change="changeNumber" @outOfMax="outOfMax" class="index-input-number input-number-span iNumberImg iNumberdiv" :max="spuItem.spuCanBuyNum" min="0" reduceImage="@/assets/images/icon-reduce-2.png" :value="number"></i-input-number>
           </div>
           <!-- <div class="mask" v-if="isPast||disabled||spuItem.spuCanBuyNum==0?'disabled':''"></div>
           <div class="act-end act-out" v-if="spuItem.spuCanBuyNum==0">已抢光</div>
@@ -49,7 +49,7 @@
 <script>
 import GlobalMixin from '../../mixin/globalMixin.js'
 
-   import util from '../../utils';
+  import util from '../../utils';
   import status from '../../utils/index.js'
   import wcache from '../../utils/wcache.js';
   import auth from '../../utils/auth';
@@ -131,7 +131,8 @@ import GlobalMixin from '../../mixin/globalMixin.js'
       return{
         disabled: !1,
         placeholdeImg: "",
-        number: 0
+        number: 0,
+        showAdd: false
       }
     },
     methods: {
@@ -143,19 +144,112 @@ import GlobalMixin from '../../mixin/globalMixin.js'
                     title: "请登录",
                     icon: 'none'
                 })
+            }else{
+                this.showAdd = true;
+                this.addCart();
             }
         },
         gotoDetail: function(){
             this.$wx.redirectTo({
             url: '/lionfish_comshop/pages/goods/goodsDetail?id='+this.spuItem.actId
           })
+        },
+        changeNumber: function(t) {
+            console.log(t)
+            var a = t;
+            a && this.addCart(a);
+
+        },
+        outOfMax: function(t) {
+            t.detail;
+            var a =this.spuItem.spuCanBuyNum;
+        this.number >= a && this.$wx.showToast({
+            title: "不能购买更多啦",
+            icon: "none"
+            });
+        },
+        addCart: function(t) {
+            var a = this.$wx.getStorageSync("token"), e = this.$wx.getStorageSync("community"), i =this.spuItem.actId, s = e.communityId, u = this;
+            if ("plus" == t.type) {
+            var o = {
+                goods_id: i,
+                community_id: s,
+                quantity: 1,
+                sku_str: "",
+                buy_type: "dan",
+                pin_id: 0,
+                is_just_addcar: 1
+            };
+            util.addCart(o).then(function(t) {
+                if (1 == t.showVipModal) {
+                var a = t.pop_vipmember_buyimage;
+                u.$emit("vipModal", {
+                    pop_vipmember_buyimage: a,
+                    showVipModal: !0,
+                    visible: !1
+                });
+                } else {
+                if (3 == t.code) 0 < (t.max_quantity || "") && (
+                    u.number = u.number
+                ), this.$wx.showToast({
+                    title: t.msg,
+                    icon: "none",
+                    duration: 2e3
+                }); else if (4 == t.code) (
+                    u.needAuth = !0
+                ), u.$emit("authModal", !0); else if (6 == t.code || 7 == t.code) {
+                    0 < (t.max_quantity || "") && (u.number = u.data.number);
+                    var e = t.msg;
+                    this.$wx.showToast({
+                    title: e,
+                    icon: "none",
+                    duration: 2e3
+                    });
+                } else u.$emit("changeCartNum", t.total), (
+                    u.number = t.cur_count
+                ), u.$wx.showToast({
+                    title: "已加入购物车",
+                    image: "../../images/addShopCart.png"
+                }), status.indexListCarCount(i, t.cur_count);
+                }
+            });
+            } else {
+            this.$http({
+                controller: "car.reduce_car_goods",
+                token: a,
+                goods_id: i,
+                community_id: s,
+                quantity: 1,
+                sku_str: "",
+                buy_type: "dan",
+                pin_id: 0,
+                is_just_addcar: 1
+            }).then(t =>{
+
+                if (3 == t.code) this.$wx.showToast({
+                title: t.msg,
+                icon: "none",
+                duration: 2e3
+                }); else if (4 == t.code) {
+                if (u.needAuth) return u.setData({
+                    needAuth: !0
+                }), void u.$emit("authModal", !0);
+                } else{
+                u.$emit("changeCartNum", t.total);
+                u.number = t.cur_count
+                status.indexListCarCount(i, t.cur_count);
+                }
+            })
+
         }
+      }
     }
     
   }
 </script>
 
 <style scoped>
+
   .i-btn {
     text-align: center;
     vertical-align: middle;
@@ -358,7 +452,7 @@ import GlobalMixin from '../../mixin/globalMixin.js'
 
 .spu .index-input-number {
     position: absolute;
-    right: 0;
+    right: 15px;
     bottom: 10px;
     display: flex;
     justify-content: center;
