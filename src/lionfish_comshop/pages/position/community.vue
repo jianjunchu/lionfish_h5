@@ -1,5 +1,6 @@
 <template>
   <i-auth @authSuccess="authSuccess" :needAuth="needAuth">
+
     <div>
       <div class="header-content">
         <img class="header-bg"
@@ -76,9 +77,12 @@
 
   export default {
     name: '',
+
     mixins: [GlobalMixin],
     data() {
+
       return {
+
         loadMore: !0,
         canGetGPS: !0,
         tip: '加载中...',
@@ -100,22 +104,20 @@
           group_name: 'Estate',
           owner_name: 'Host'
         },
-        isEmpty: !1
+        isEmpty: !1,
+
       }
     },
     created: function() {
-
-
 
       var i = this
       this.common_header_backgroundimage = this.$app.globalData.common_header_backgroundimage
       status.setNavBgColor()
       status.setGroupInfo().then(function(t) {
-
         i.groupInfo = t
       })
 
-      this.loadpage()
+
 
     },
     mounted: function() {
@@ -139,14 +141,14 @@
           mask: !0,
           icon: 'none'
         })
-        this.load_gps_community_list()
+        this.loadpage()
       }
 
       this.$wx.setNavigationBarTitle({
-        title: "Order",
-        showLogo:false,
-        showMore:false,
-        showBack:true
+        title: 'Order',
+        showLogo: false,
+        showMore: false,
+        showBack: true
       })
     },
     methods: {
@@ -226,15 +228,16 @@
           }
         })
         var o = new QQMapWX({
-          key: e || ''
+          key: e || 'FRZBZ-EQZRX-P5T4L-ZUEOH-2ULW2-OABSV'
         })
         console.log('腾讯地图api key', e), i.$wx.getLocation({
           type: 'gcj02',
           success: function(t) {
+            debugger
             console.log('getLocation success')
-            var e = t.latitude, a = t.longitude
-            i.latitude = t.latitude,
-              i.longitude = t.longitude
+            var e = t.coords.latitude, a = t.coords.longitude
+            i.latitude = e,
+              i.longitude = a
 
             i.$wx.setStorage({
               key: 'latitude',
@@ -244,10 +247,11 @@
               key: 'longitude',
               data: a
             })
-            o.reverseGeocoder({
+            i.load_gps_community_list()
+            /*o.reverseGeocoder({
               location: {
-                latitude: t.latitude,
-                longitude: t.longitude
+                latitude: e,
+                longitude: a
               },
               success: function(t) {
                 var e = t.result.address_component.city
@@ -258,14 +262,14 @@
                   mask: !0,
                   icon: 'none'
                 })
-                i.load_gps_community_list()
+
               },
               fail: function(t) {
                 console.log('腾讯地图api error', t)
                 var e = t.message || ''
-                i.$app.util.message(e, '', 'error'), i.$wx.setStorageSync('tx_map_key', '')
+
               }
-            })
+            })*/
           },
           fail: function(t) {
             const app = this.$getApp()
@@ -344,9 +348,9 @@
             controller: 'index.load_gps_community',
             token: e,
             pageNum: a.pageNum,
-            longitude: '114.45646',
-            latitude: '22.78851',
-            city_id:  0
+            longitude: a.longitude,
+            latitude: a.latitude,
+            city_id: 0
           },
           dataType: 'json',
           success: function(t) {
@@ -376,7 +380,7 @@
 
             } else {
               console.log(a.needAuth)
-              1 == t.code ? ( a.loadMore = !1, a.tip = '^_^已经到底了') : 2 == t.code && (wx.hideLoading(), (a.needAuth = !0, a.hasRefeshin = !1))
+              1 == t.code ? (a.loadMore = !1, a.tip = '^_^已经到底了') : 2 == t.code && (wx.hideLoading(), (a.needAuth = !0, a.hasRefeshin = !1))
             }
           }
         }))
@@ -467,7 +471,7 @@
   .header-content .ipt-class {
     line-height: 10vw;
     height: 10vw;
-    font-size: 4vw;
+    font-size: 1vw;
     color: #999;
   }
 

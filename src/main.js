@@ -61,6 +61,16 @@ import App from './App'
 import '@/icons' // icon
 import '@/permission' // permission control
 
+import VueAMap from 'vue-amap'
+Vue.use(VueAMap)
+VueAMap.initAMapApiLoader({
+  // 高德的key
+  key: '0a0885f588aeb852302f18f8633eb61b',
+  // 插件集合
+  plugin: ['AMap.Geolocation'],
+  v: '1.4.15'
+})
+
 vantLocales(i18n.locale)
 
 Vue.use(vueSwiper)

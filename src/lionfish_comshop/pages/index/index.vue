@@ -1,5 +1,7 @@
 <template>
   <div class="page">
+    <el-amap vid="amap" :plugin="plugin" class="amap-demo" :center="center">
+    </el-amap>
     <div v-if="loadOver && isblack!=1">
 
       <div :class="['index-box', 'pb100', (showNewCoupon?'preventTouchMove':'')]">
@@ -640,7 +642,7 @@
     name: 'Index',
     components:{[Sticky.name]:Sticky ,[Swipe.name]:Swipe,[SwipeItem.name]:SwipeItem},
     data() {
-
+      let self = this;
       return {
         sliderSwiperOption: {
           //显示分页
@@ -798,7 +800,23 @@
           scrollHeight: 1300,
           stickyTop: 0,
           hasCommingGoods: !0
-        }
+        },
+        center: [121.59996, 31.197646],
+        plugin: [{
+          pName: 'Geolocation',
+          events: {
+            init(o) {
+              // o 是高德地图定位插件实例
+              o.getCurrentPosition((status, result) => {
+                console.log(result)
+                if (result && result.position) {
+                  self.$wx.setStorageSync('position',result.position);
+                  self.$nextTick();
+                }
+              });
+            }
+          }
+        }]
       }
     },
     watch: {
