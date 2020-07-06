@@ -124,6 +124,13 @@
 <style scoped>
   @import "../../../@feiying/1.less";
 
+  input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button{
+      -webkit-appearance: none !important;
+      margin: 0;
+  }
+  
+
   .i-input-number {
     color: #495060;
     display: flex;
