@@ -8,7 +8,7 @@
 
   <div class="none-rush-list" v-else-if="noData">
     <img class="img-block" src="@/assets/images/icon-index-empty.png"></img>
-    <div class="h1">{{$t('common.zanruneirong')}}</div>
+    <div class="h1">{{$t('common.zanwuneirong')}}</div>
   </div>
 </template>
 

@@ -3,7 +3,10 @@
     <el-form ref="loginForm" :model="loginForm" :rules="loginRules" class="login-form" auto-complete="on" label-position="left">
 
       <div class="title-container">
-        <h3 class="title">Hzmart Login</h3>
+        <!--<h3 class="title">Hzmart Login</h3>-->
+        <div style="width: 100px;height: 100px;margin: 0 auto;margin-bottom: 30px;">
+        <img src="../../../assets/images/logo.png" style="width: 100%;height: 100%;" />
+        </div>
       </div>
       
       

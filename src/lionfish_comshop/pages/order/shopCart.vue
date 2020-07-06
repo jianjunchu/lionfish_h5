@@ -1714,7 +1714,7 @@
   }
 
   .cart-item {
-    width: 90vw;
+    width: 100vw;
     display: flex;
     align-items: center;
     flex-wrap: wrap;

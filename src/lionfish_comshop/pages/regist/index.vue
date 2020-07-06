@@ -2,10 +2,13 @@
   <div class="phoneregist">
 	   <el-form >
         <slot name="header">
-            <h2 style="text-align: center;">Hzmart Register</h2>
+          <!--  <h2 style="text-align: center;">Hzmart Register</h2>-->
+           
         </slot><br>
 		
-		
+		 <div style="width: 100px;height: 100px;margin: 0 auto;margin-top: 30px;margin-bottom: 30px;">
+        <img src="../../../assets/images/logo.png" style="width: 100%;height: 100%;" />
+        </div>
        <!-- <div class="input_wrapper">
             <div class="inputItem" :class="{'focus':isFocus.phoneNum,'phone_empty':errorFlag.phone_empty}">
                 <span class="chooseArea" @click="chooseArea()">
@@ -48,12 +51,10 @@
 		
 		
 		<div style="height: 50px;">
-		 <!-- <div style="width: 100%;height:25px;border-bottom:1px solid #ccc;font-size: 16px;color: #939393;margin-top: 5px;"  @click="click_btn2()" >OTP code</div> -->
 		 <div style="width: 100%;height:28px;border-bottom:1px solid #ccc;font-size: 16px;color: #3D7BD0;" >
 		 <input style="width: 70%;height: 100%;border:none;outline: none;background: none;" v-model="input_info.code" id="input_code" @focus="focus('code')" @blur="blur('code')" @keyup="activeregist()" ref="code" placeholder="Code"/>
 		 <div style="float: right;background: #FDEACA;border-radius: 20px;color: #FDB56D;font-size: 13px;padding:5px;margin-bottom: 10px;" @click="getVerifyCode()" ref="getCode" :disabled="getCodeDisabled">{{getCodeBtnText}}</div>
 		 </div>
-		 <!-- <button @click="getVerifyCode()" ref="getCode" :disabled="getCodeDisabled" >{{getCodeBtnText}}</button> -->
 		 </div>
 	
 		
@@ -302,6 +303,9 @@
 	}
   $mainColor: #007cdc;
   
+  body{
+  	background: #fff;
+  }
     
     .gotoLogin{
 		font-size: 18px;
