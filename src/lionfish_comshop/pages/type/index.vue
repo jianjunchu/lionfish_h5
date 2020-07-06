@@ -167,6 +167,8 @@
           console.log(this.rushList);
           if(this.rushList == "" || this.rushList == undefined){
             this.pageEmpty = true;
+          }else{
+            this.pageEmpty = false;
           }
 
         })
@@ -183,6 +185,11 @@
           //this.$set(this.$data,"title",response.title);
           var a = response.list;
           this.rushList = a;
+           if(this.rushList == "" || this.rushList == undefined){
+            this.pageEmpty = true;
+          }else{
+            this.pageEmpty = false;
+          }
 
         })
       },
