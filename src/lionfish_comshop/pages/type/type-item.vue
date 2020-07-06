@@ -29,10 +29,10 @@
           </div>
           <div v-if="!isPast">
               <div v-show="!showAdd">
-                  <div class="add-cart" v-if="number<=0">
+                  <div class="add-cart" v-if="spuItem.spuCanBuyNum <= 0">
                       <img class="img" src="@/assets/images/icon-add-shopCart-disabled.png" >
                   </div>
-                  <div @click="openSku" class="add-cart" wx:else>
+                  <div @click="openSku" class="add-cart" v-else>
                       <i-addcart fontsize="28" class="img"></i-addcart>
                   </div>
               </div>
@@ -146,7 +146,13 @@ import GlobalMixin from '../../mixin/globalMixin.js'
                 })
             }else{
                 this.showAdd = true;
-                this.addCart();
+                console.log(this.spuItem.spuCanBuyNum);
+                var t = {
+                    idx: 0,
+                    type: "plus",
+                    value: 1
+                }
+                this.changeNumber(t);
             }
         },
         gotoDetail: function(){
@@ -158,12 +164,11 @@ import GlobalMixin from '../../mixin/globalMixin.js'
             console.log(t)
             var a = t;
             a && this.addCart(a);
-
         },
         outOfMax: function(t) {
             t.detail;
             var a =this.spuItem.spuCanBuyNum;
-        this.number >= a && this.$wx.showToast({
+            this.number >= a && this.$wx.showToast({
             title: "不能购买更多啦",
             icon: "none"
             });
