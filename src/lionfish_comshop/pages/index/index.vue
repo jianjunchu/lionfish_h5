@@ -811,6 +811,14 @@
                 console.log(result)
                 if (result && result.position) {
                   self.$wx.setStorageSync('position',result.position);
+                  i.$wx.setStorage({
+                    key: 'latitude',
+                    data: e
+                  })
+                  i.$wx.setStorage({
+                    key: 'longitude',
+                    data: a
+                  })
                   self.$nextTick();
                 }
               });

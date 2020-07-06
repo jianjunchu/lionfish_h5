@@ -107,8 +107,21 @@ export default {
     })
   },
   getLocation: function(option) {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(option.success, option.fail)
+    const position = this.getStorageSync('position')
+
+    if (position && position.lng && position.lat) {
+      const res = { 'longitude': position.lng, 'latitude': position.lat }
+      option.success(res)
+    } else if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(function(position) {
+        const res = { 'longitude': position.coords.longitude, 'latitude': position.coords.latitude }
+        option.success(res)
+      }, function(err) {
+        this.$wx.showToast({
+          title: 'Error',
+          icon: err
+        })
+      })
     } else {
       this.showModal({
         title: '提示',

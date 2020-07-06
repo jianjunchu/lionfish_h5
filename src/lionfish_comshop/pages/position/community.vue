@@ -220,7 +220,7 @@
           success: function(t) {
             if (0 == t.code) {
               var e = t.list, a = !1
-              0 != Object.keys(e).length && 0 != e.communityId || (a = !0), i.data.community && (app.globalData.community = e)
+              0 != Object.keys(e).length && 0 != e.communityId || (a = !0), i.community && (app.globalData.community = e)
               i.historyCommunity = e
               i.isNotHistory = a
 
@@ -235,7 +235,7 @@
           success: function(t) {
             debugger
             console.log('getLocation success')
-            var e = t.coords.latitude, a = t.coords.longitude
+            var e = t.latitude, a = t.longitude
             i.latitude = e,
               i.longitude = a
 
@@ -431,7 +431,7 @@
 
   .header-content .search-content {
     margin: 0 auto 5vw;
-    width: 80%;
+    width: 85vw;
     height: 10vw;
     border-radius: 10vw;
     background: #fff;
@@ -471,7 +471,7 @@
   .header-content .ipt-class {
     line-height: 10vw;
     height: 10vw;
-    font-size: 1vw;
+    font-size: 3vw;
     color: #999;
   }
 
