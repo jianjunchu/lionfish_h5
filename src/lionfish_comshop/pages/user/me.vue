@@ -116,13 +116,17 @@
         <div class="modal-body community fsz-30">
           <div class="weight red mb5">{{community.communityName}}</div>
           <div class="fsz-30 text-gray mb5">{{community.fullAddress}}</div>
-          <div class="i-flex" v-if="community.disUserMobile||community.head_mobile">
+          <div class="i-flex" style="vertical-align:middle;" v-if="community.disUserMobile||community.head_mobile">
             <div>
               <span class="iconfont icon-ziyuan fsz-30"></span> {{$t('common.phone')}}：
             </div>
             <div v-on:click="callTelphone" :data-phone="(community.disUserMobile||community.head_mobile)" style="color:#ee884a;">{{community.disUserMobile||community.head_mobile}}</div>
             <!--<div v-on:click="callTelphone" style="color:#ee884a;">{{community.disUserMobile||community.head_mobile}}</div>-->
+            <div @click="goLink" class="goods-sign-btn" :data-link="community.whatsapplink" v-show="community.whatsapplink != '' && community.whatsapplink != undefined && community.whatsapplink != null ">
+              <img src="@/assets/images/join-group.png" height="26px" width="26px"/> <span style="font-size:larger;float:right">Join Group</span>
+            </div>
           </div>
+
         </div>
       </div>
 
@@ -266,18 +270,18 @@
               </div>
             </div>
           </div>
-          <div v-on:click="goLink2" data-link="/lionfish_comshop/pages/user/coupon">
-            <div class="item-main">
-              <div class="item-title">
-                <!--<img class="toolIcon" mode="widthFix" :src="user_tool_icons.i3?user_tool_icons.i3:'@/assets/images/coupon.png'"/>-->
-                <img class="toolIcon" mode="widthFix" src="@/assets/images/coupon.png"/>
-                <span>{{$t('common.youhuiquan')}}</span>
-              </div>
-              <div class="tool-right">
-                <img class="icon-right " src="@/assets/images/rightArrowImg.png"/>
-              </div>
-            </div>
-          </div>
+          <!--<div v-on:click="goLink2" data-link="/lionfish_comshop/pages/user/coupon">-->
+            <!--<div class="item-main">-->
+              <!--<div class="item-title">-->
+                <!--&lt;!&ndash;<img class="toolIcon" mode="widthFix" :src="user_tool_icons.i3?user_tool_icons.i3:'@/assets/images/coupon.png'"/>&ndash;&gt;-->
+                <!--<img class="toolIcon" mode="widthFix" src="@/assets/images/coupon.png"/>-->
+                <!--<span>{{$t('common.youhuiquan')}}</span>-->
+              <!--</div>-->
+              <!--<div class="tool-right">-->
+                <!--<img class="icon-right " src="@/assets/images/rightArrowImg.png"/>-->
+              <!--</div>-->
+            <!--</div>-->
+          <!--</div>-->
           <a hoverClass="none" href="#/lionfish_comshop/pages/groupCenter/communityMembers" v-if="member_info.pickup_id>0">
             <div class="item-main">
               <div class="item-title">
@@ -549,7 +553,8 @@
         user_top_font_color:'',
         commiss_level:'',
         showAuthModal:false,
-        tabbarRefresh:false
+        tabbarRefresh:false,
+        whatsapplink:''
       }
     },
     created: function() {
@@ -572,6 +577,7 @@
         let that = this;
         this.setNavBgColor();
         this.setGroupInfo();
+//        this.load_community_data();
         this.$wx.showLoading();
       },
       setNavBgColor() {
@@ -701,6 +707,7 @@
           if(!community.head_mobile) {
             status.getCommunityById(community.communityId).then(res=>{
               this.community = res.data;
+//              this.community.whatsapplink = "http://www.baidu.com";
             })
           } else {
             this.community =community;
@@ -711,6 +718,7 @@
             this.community =res.data;
           })
         }
+        this.$forceUpdate();
       },
       getCopyright: function () {
         var that = this;
@@ -1019,7 +1027,31 @@
 //            })
 //          );
         }
-      }
+      },
+      load_community_data: function() {
+        var token = this.$wx.getStorageSync("token");
+        var c = this;
+        this.$http({
+          controller: "community.get_community_info",
+          token: token
+        }).then(t=> {
+          console.log(t);
+          if (0 == t.code && t.commission_info) {
+//            c.whatsapplink = "http://www.baidu.com";
+              if(t.commission_info.whatsapplink != null && t.commission_info.whatsapplink != 'null') {
+                  c.whatsapplink = t.commission_info.whatsapplink;
+              }
+          }
+
+        });
+      },
+      goLink: function(event) {
+        let link = event.currentTarget.dataset.link;
+//        this.$wx.redirectTo({
+//          url: link
+//        })
+        window.location.href=link;
+      },
     }
   }
 </script>
