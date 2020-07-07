@@ -524,11 +524,10 @@
         })
       },
       authModal: function() {
+
         this.needAuth && (this.showAuthModal = !this.showAuthModal)
         if(this.showAuthModal){
-          this.$wx.redirectTo({
-            url: "/login"
-          })
+          this.$router.replace({path: '/login'});
         }
       },
       showCartGoods: function() {
