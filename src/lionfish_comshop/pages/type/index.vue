@@ -2,7 +2,7 @@
   <div class="page-wrap">
     <div class="search-bar">
       <div class="search-box">
-        <input @keyup.enter="goResult" class="ipt" confirmType="搜索" :placeholder="$t('common.sousuoshangpin')"
+        <input @keypress="goResult" class="ipt" confirmType="搜索" :placeholder="$t('common.sousuoshangpin')"
                type="text" v-model="name"/>
         <div class="search-icon">
           <span class="iconfont icon-sousuo1"></span>
@@ -42,7 +42,7 @@
         </div>
         <div style="min-height: 100px;">
           <div v-if="!pageEmpty">
-            <i-type-item v-for="(item,actId) in rushList" :key="item.actId" :spuItem="item"></i-type-item>
+            <i-type-item v-for="(item,index) in rushList" :key="item.actId" :spuItem="item"></i-type-item>
           </div>
           <div class="none-rush-list" v-else-if="pageEmpty">
             <img class="img-div" src="@/assets/images/icon-index-empty.png">
@@ -527,15 +527,17 @@
       }
       ,
       goResult: function(t) {
-        var a = e.detail.value.replace(/\s+/g, '')
-        a ? wx.navigateTo({
-          url: '/lionfish_comshop/pages/type/result?keyword=' + a
-        }) : wx.showToast({
-          title: '请输入关键词',
-          icon: 'none'
-        })
-      }
-      ,
+        if (event.keyCode == 13) { //如果按的是enter键 13是enter
+          event.preventDefault(); //禁止默认事件（默认是换行）
+          var a = t.currentTarget.value.replace(/\s+/g, "");
+          a ? wx.navigateTo({
+            url: "/lionfish_comshop/pages/type/result?keyword=" + a
+          }) : wx.showToast({
+            title: "请输入关键词",
+            icon: "none"
+          });
+        }
+      },
       onHide: function() {
         this.tabbarRefresh = !1, this.changeCarCount = !1
       }
@@ -812,12 +814,16 @@
 
   .search-box .ipt {
     margin-left: 3vw;
+    background-color: #f0f0f0;
     padding: 0 15px 0 30px;
     line-height: 28px;
+    color: #acacac;
     height: 28px;
     border-radius: 14px;
     width: 100%;
     box-sizing: border-box;
+    border: none;
+    outline: none;
   }
 
   ::-webkit-scrollbar {
