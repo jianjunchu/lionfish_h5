@@ -1,254 +1,268 @@
 <template>
-<div>
-  <form bindsubmit="submit2" reportSubmit="true">
-    <button hidden formType="submit" id="formId"></button>
-  </form>
-  <label class="spu" for="formId">
-      <i-router-link class="spu-content" >
-          <div class="item-left" @click="gotoDetail">
-              <!-- <i-img :defaultImage="spuItem.skuImage" height="170" iClass="img-class" lazyLoad="true" :loadImage="spuItem.skuImage" width="170"></i-img> -->
-              <img class="img-class" :src="spuItem.skuImage"/>
-              <!-- <div class="tag" v-if="reduction.is_open_fullreduction==1&&spuItem.is_take_fullreduction==1">满{{reduction.full_money}}减{{reduction.full_reducemoney}}</div> -->
+  <div>
+    <form bindsubmit="submit2" reportSubmit="true">
+      <button hidden formType="submit" id="formId"></button>
+    </form>
+    <label class="spu" for="formId">
+      <i-router-link routerClass="spu-content" :url="'/lionfish_comshop/pages/goods/goodsDetail?&id='+spuItem.actId">
+        <div class="item-left">
+          <i-img :defaultImage="placeholdeImg?placeholdeImg:'@/assets/images/placeholder-refund.png'" height="170"
+                 iClass="img-class" lazyLoad="true" :loadImage="spuItem.skuImage" width="170"></i-img>
+          <div class="tag" v-if="reduction.is_open_fullreduction==1&&spuItem.is_take_fullreduction==1">
+            满{{reduction.full_money}}减{{reduction.full_reducemoney}}
           </div>
-          <div class="item-right" @click="gotoDetail">
-              <div class="item-right-top">
-                  <div class="spu-title">
-                      <span class="span">{{spuItem.spuName}}</span>
-                  </div>
-                  <div class="spu-desc" v-if="spuItem.spuDescribe">
-                      <span class="em">{{spuItem.spuDescribe}}</span>
-                  </div>
-                  <!-- <i-vip-price price="{{spuItem.card_price}}" v-if="is_open_vipcard_buy==1&&spuItem.is_take_vipcard==1"></i-vip-price> -->
-              </div>
-              <div class="spu-price">
-                  <div class="sale-price">
-                      <span class="span">${{spuItem.actPrice[0]}}</span>.{{spuItem.actPrice[1]}}
-                  </div>
-                  <div class="market-price" v-if="spuItem.show_productprice">${{spuItem.marketPrice[0]}}.{{spuItem.marketPrice[1]}}</div>
-              </div>
+        </div>
+        <div class="item-right">
+          <div class="item-right-top">
+            <div class="spu-title">
+              <span class="span">{{spuItem.spuName}} </span>
+            </div>
+            <div class="spu-desc" v-if="spuItem.spuDescribe">
+              <span class="em">{{spuItem.spuDescribe}}</span>
+            </div>
+            <i-vip-price :price="spuItem.card_price"
+                         v-if="s_open_vipcard_buy==1&&spuItem.is_take_vipcard==1"></i-vip-price>
           </div>
-          <div v-if="!isPast">
-              <div v-show="!showAdd">
-                  <div class="add-cart" v-if="number<=0">
-                      <img class="img" src="@/assets/images/icon-add-shopCart-disabled.png" >
-                  </div>
-                  <div @click="openSku" class="add-cart" wx:else>
-                      <i-addcart fontsize="28" class="img"></i-addcart>
-                  </div>
-              </div>
-              <i-input-number v-show="showAdd" addImage="@/assets/images/icon-add-2.png" @change="changeNumber" @outOfMax="outOfMax" class="index-input-number input-number-span iNumberImg iNumberdiv" :max="spuItem.spuCanBuyNum" min="0" reduceImage="@/assets/images/icon-reduce-2.png" :value="number"></i-input-number>
+          <div class="spu-price">
+            <span class="sale-price">
+              <span class="span">${{spuItem.actPrice[0]}}</span>
+              .{{spuItem.actPrice[1]}}
+            </span>
+            <div class="market-price" v-if="spuItem.show_productprice">
+              ${{spuItem.marketPrice[0]}}.{{spuItem.marketPrice[1]}}
+            </div>
           </div>
-          <!-- <div class="mask" v-if="isPast||disabled||spuItem.spuCanBuyNum==0?'disabled':''"></div>
-          <div class="act-end act-out" v-if="spuItem.spuCanBuyNum==0">已抢光</div>
-          <div class="act-end" v-else-if="actEnd">团购已结束</div> -->
+        </div>
+        <div v-if="!isPast">
+          <div v-if="number<=0">
+
+            <i-button iClass="add-cart" v-if="spuItem.spuCanBuyNum==0||actEnd">
+              <img class="img" src="@/assets/images/icon-add-shopCart-disabled.png"/>
+            </i-button>
+            <i-button @handleTap="openSku" iClass="add-cart" v-else>
+              <i-addcart fontsize="28" iClass="img"></i-addcart>
+            </i-button>
+          </div>
+          <i-input-number addImage="@/assets/images/icon-add-2.png" @change="changeNumber" @outOfMax="outOfMax" iClass="index-input-number" iClassNumberText="input-number-text" iNumberImg="iNumberImg" iNumberView="iNumberView" :max="spuItem.spuCanBuyNum" min="0" reduceImage="@/assets/images/icon-reduce-2.png" :value="number" v-else></i-input-number>
+        </div>
+        <span class="act-end act-out" v-if="spuItem.spuCanBuyNum==0">已抢光</span>
+        <span class="act-end" v-else-if="actEnd">团购已结束</span>
       </i-router-link>
-  </label>
-</div>
+    </label>
+
+  </div>
 </template>
 
 <script>
-import GlobalMixin from '../../mixin/globalMixin.js'
-
-  import util from '../../utils';
+  import util from '../../utils'
   import status from '../../utils/index.js'
-  import wcache from '../../utils/wcache.js';
-  import auth from '../../utils/auth';
-  import wx from '../../utils/wx';
-  import request from '../../utils/request';
+
+  var wx, app
+
   export default {
     name: 'i-type-item',
-    components: {
-      'i-type-item' : require('./type-item.vue').default,
-      'i-img': require('../../components/img/index.vue').default,
-      'i-router-link': require('../../components/router-link/index.vue').default,
-       'i-input-number': require('../../components/input-number/index.vue').default,
-    },
     props: {
       spuItem: {
-            type: Object,
-            value: {
-                spuId: "",
-                skuId: "",
-                skuImage: "",
-                spuName: "",
-                endTime: 0,
-                beginTime: "",
-                actPrice: [ "", "" ],
-                marketPrice: [ "", "" ],
-                spuCanBuyNum: "",
-                soldNum: "",
-                actId: "",
-                limitMemberNum: "",
-                limitOrderNum: "",
-                serverTime: "",
-                isLimit: !1,
-                skuList: [],
-                spuDescribe: "",
-                is_take_fullreduction: 0,
-                label_info: "",
-                car_count: 0
-            }
-        },
-        isPast: {
-            type: Boolean,
-            value: false
-        },
-        actEnd: {
-            type: Boolean,
-            value: !1
-        },
-        reduction: {
-            type: Object,
-            value: {
-                full_money: "",
-                full_reducemoney: "",
-                is_open_fullreduction: 0
-            }
-        },
-        changeCarCount: {
-            type: Boolean,
-            value: !1,
-            observer: function(t) {
-                t && this.setData({
-                    number: this.spuItem.car_count
-                });
-            }
-        },
-        needAuth: {
-            type: Boolean,
-            value: !1
-        },
-        is_open_vipcard_buy: {
-            type: Number,
-            value: 0
-        },
-        canLevelBuy: {
-            type: Boolean,
-            value: !1
+        default: {
+          spuId: '',
+          skuId: '',
+          skuImage: '',
+          spuName: '',
+          endTime: 0,
+          beginTime: '',
+          actPrice: ['', ''],
+          marketPrice: ['', ''],
+          spuCanBuyNum: '',
+          soldNum: '',
+          actId: '',
+          limitMemberNum: '',
+          limitOrderNum: '',
+          serverTime: '',
+          isLimit: !1,
+          skuList: [],
+          spuDescribe: '',
+          is_take_fullreduction: 0,
+          label_info: '',
+          car_count: 0
         }
+      },
+      isPast: {
+        default: false
+      },
+      actEnd: {
+        default: !1
+      },
+      reduction: {
+        default: {
+          full_money: '',
+          full_reducemoney: '',
+          is_open_fullreduction: 0
+        }
+      },
+      changeCarCount: {
+        default: !1
+
+      },
+      needAuth: {
+        default: !1
+      },
+      is_open_vipcard_buy: {
+        default: 0
+      },
+      canLevelBuy: {
+        default: !1
+      }
     },
     data() {
-      return{
+      return {
         disabled: !1,
-        placeholdeImg: "",
+        placeholdeImg: '',
         number: 0,
         showAdd: false
       }
     },
+    created: function() {
+
+      wx = this.$wx
+      app = this.$getApp()
+
+      this.placeholdeImg = app.globalData.placeholdeImg
+    },
+    mounted:function(){
+      this.number = this.spuItem.car_count || 0
+    },
     methods: {
-        openSku: function() {
-            console.log(this.$wx.getStorageSync("token"));
-            var token = this.$wx.getStorageSync("token");
-            if(JSON.stringify(token) === '{}'){
-                this.$wx.showToast({
-                    title: "请登录",
-                    icon: 'none'
-                })
-            }else{
-                this.showAdd = true;
-                this.addCart();
+      openSku: function() {
+        if (this.needAuth) {
+          this.$emit('authModal', !0)
+        } else {
+          console.log('step1'), (
+            this.stopClick = !0,
+              this.disabled = !1
+          )
+          var t = this.spuItem
+          void 0 === t.skuList.length ? this.$emit('openSku', {
+            actId: t.actId,
+            skuList: t.skuList,
+            promotionDTO: t.promotionDTO,
+            is_mb_level_buy: t.is_mb_level_buy,
+            is_take_vipcard: t.is_take_vipcard,
+            allData: {
+              spuName: t.spuName,
+              skuImage: t.skuImage,
+              actPrice: t.actPrice,
+              canBuyNum: t.spuCanBuyNum,
+              stock: t.spuCanBuyNum,
+              marketPrice: t.marketPrice
             }
-        },
-        gotoDetail: function(){
-            this.$wx.redirectTo({
-            url: '/lionfish_comshop/pages/goods/goodsDetail?id='+this.spuItem.actId
+          }) : this.addCart({
+            value: 1,
+            type: 'plus'
           })
-        },
-        changeNumber: function(t) {
-            console.log(t)
-            var a = t;
-            a && this.addCart(a);
-
-        },
-        outOfMax: function(t) {
-            t.detail;
-            var a =this.spuItem.spuCanBuyNum;
+        }
+      },
+      gotoDetail: function() {
+        this.$wx.redirectTo({
+          url: '/lionfish_comshop/pages/goods/goodsDetail?id=' + this.spuItem.actId
+        })
+      },
+      changeNumber: function(t) {
+        console.log(t)
+        var a = t
+        a && this.addCart(a)
+      },
+      outOfMax: function(t) {
+        t.detail
+        var a = this.spuItem.spuCanBuyNum
         this.number >= a && this.$wx.showToast({
-            title: "不能购买更多啦",
-            icon: "none"
-            });
-        },
-        addCart: function(t) {
-            var a = this.$wx.getStorageSync("token"), e = this.$wx.getStorageSync("community"), i =this.spuItem.actId, s = e.communityId, u = this;
-            if ("plus" == t.type) {
-            var o = {
-                goods_id: i,
-                community_id: s,
-                quantity: 1,
-                sku_str: "",
-                buy_type: "dan",
-                pin_id: 0,
-                is_just_addcar: 1
-            };
-            util.addCart(o).then(function(t) {
-                if (1 == t.showVipModal) {
-                var a = t.pop_vipmember_buyimage;
-                u.$emit("vipModal", {
-                    pop_vipmember_buyimage: a,
-                    showVipModal: !0,
-                    visible: !1
-                });
-                } else {
-                if (3 == t.code) 0 < (t.max_quantity || "") && (
-                    u.number = u.number
-                ), this.$wx.showToast({
-                    title: t.msg,
-                    icon: "none",
-                    duration: 2e3
-                }); else if (4 == t.code) (
-                    u.needAuth = !0
-                ), u.$emit("authModal", !0); else if (6 == t.code || 7 == t.code) {
-                    0 < (t.max_quantity || "") && (u.number = u.data.number);
-                    var e = t.msg;
-                    this.$wx.showToast({
-                    title: e,
-                    icon: "none",
-                    duration: 2e3
-                    });
-                } else u.$emit("changeCartNum", t.total), (
-                    u.number = t.cur_count
-                ), u.$wx.showToast({
-                    title: "已加入购物车",
-                    image: "../../images/addShopCart.png"
-                }), status.indexListCarCount(i, t.cur_count);
-                }
-            });
-            } else {
-            this.$http({
-                controller: "car.reduce_car_goods",
-                token: a,
-                goods_id: i,
-                community_id: s,
-                quantity: 1,
-                sku_str: "",
-                buy_type: "dan",
-                pin_id: 0,
-                is_just_addcar: 1
-            }).then(t =>{
-
-                if (3 == t.code) this.$wx.showToast({
+          title: '不能购买更多啦',
+          icon: 'none'
+        })
+      },
+      addCart: function(t) {
+        var e = wx.getStorageSync('token'), a = wx.getStorageSync('community'), u = this.spuItem.actId,
+          i = a.communityId, s = this
+        if ('plus' == t.type) {
+          var o = {
+            goods_id: u,
+            community_id: i,
+            quantity: 1,
+            sku_str: '',
+            buy_type: 'dan',
+            pin_id: 0,
+            is_just_addcar: 1
+          }
+          util.addCart(o).then(function(t) {
+            if (1 == t.showVipModal) {
+              var e = t.pop_vipmember_buyimage
+              s.$emit('vipModal', {
+                pop_vipmember_buyimage: e,
+                showVipModal: !0,
+                visible: !1
+              })
+            } else if (3 == t.code) {
+              wx.showToast({
                 title: t.msg,
-                icon: "none",
+                icon: 'none',
                 duration: 2e3
-                }); else if (4 == t.code) {
-                if (u.needAuth) return u.setData({
-                    needAuth: !0
-                }), void u.$emit("authModal", !0);
-                } else{
-                u.$emit("changeCartNum", t.total);
-                u.number = t.cur_count
-                status.indexListCarCount(i, t.cur_count);
-                }
-            })
-
+              })
+            } else {
+              if (4 == t.code) return void s.$emit('authModal', !0)
+              if (6 == t.code || 7 == t.code) {
+                var a = t.max_quantity || ''
+                0 < a && (
+                  s.number = a
+                )
+                var i = t.msg
+                wx.showToast({
+                  title: i,
+                  icon: 'none',
+                  duration: 2e3
+                })
+              } else {
+                s.$emit('changeCartNum', t.total), (
+                  s.number = t.cur_count
+                ), wx.showToast({
+                  title: '已加入购物车',
+                  image: '@/assets/images/addShopCart.png'
+                }), status.indexListCarCount(u, t.cur_count)
+              }
+            }
+          })
+        } else {
+          app.util.request({
+            url: 'entry/wxapp/user',
+            data: {
+              controller: 'car.reduce_car_goods',
+              token: e,
+              goods_id: u,
+              community_id: i,
+              quantity: 1,
+              sku_str: '',
+              buy_type: 'dan',
+              pin_id: 0,
+              is_just_addcar: 1
+            },
+            dataType: 'json',
+            method: 'POST',
+            success: function(t) {
+              3 == t.code ? wx.showToast({
+                title: t.msg,
+                icon: 'none',
+                duration: 2e3
+              }) : (s.$emit('changeCartNum', t.total), (
+                s.number = t.cur_count
+              ), status.indexListCarCount(u, t.cur_count))
+            }
+          })
         }
       }
     }
-    
+
   }
 </script>
 
-<style scoped>
+<style>
 
   .i-btn {
     text-align: center;
@@ -258,232 +272,240 @@ import GlobalMixin from '../../mixin/globalMixin.js'
     background-image: none;
     white-space: nowrap;
     user-select: none;
-    font-size: 28px;
+    font-size: 3vw;
     border: 0!important;
     position: relative;
     text-decoration: none;
-    height: 88px;
-    line-height: 88px;
+    height: 11vw;
+    line-height: 11vw;
     background: none;
     color: #495060;
     border-radius: 0;
     margin: 0;
     box-shadow: none;
-}
+  }
 
-.i-btn::after {
+  .i-btn::after {
     border: none;
-}
+  }
 
-.spu {
+  .spu {
     width: 100%;
     display: block;
-}
+  }
 
-.spu .img-class {
-    width: 90px;
-    height: 90px;
-    border-radius: 0;
-}
+  .spu .img-class {
+    width: 24vw;
+    height: 24vw;
+  }
 
-.spu .spu-content {
+  .spu .spu-content {
     background: #fff;
     overflow: hidden;
     position: relative;
     display: flex;
-    padding: 10px 10px 10px;
+    padding: 1vw 2vw 3vw;
     box-sizing: border-box;
-}
+  }
 
-.spu .spu-content::after {
+  .spu .spu-content::after {
     content: '';
     position: absolute;
     bottom: 0;
-    left: 18px;
-    right: 18px;
-    border-bottom: 1px solid #e5e5e5;
-}
+    left: 3vw;
+    right: 3vw;
+    border-bottom: 0.1vw solid #e5e5e5;
+  }
 
-.spu .spu-content.disabled {
+  .spu .spu-content.disabled {
     opacity: 0.6;
-}
+  }
 
-.spu .spu-content .item-left {
+  .spu .spu-content .item-left {
+    width: 24vw;
+    height: 24vw;
     position: relative;
-}
+  }
 
-.spu .spu-content .item-right {
+  .spu .spu-content .item-right {
     flex: 1;
     box-sizing: border-box;
-    margin-left: 16px;
+    margin-left: 4vw;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-}
+  }
 
-.spu .spu-content .item-right .spu-title {
+  .spu .spu-content .item-right .spu-title {
     color: #222;
-    font-size: 16px;
-    height: 20px;
-    /* margin-bottom: 12px; */
-    margin-top: 10px;
+    font-size: 4vw;
+    height: 5vw;
+    margin-bottom: 2vw;
+    margin-top: 2vw;
     font-weight: 500;
     position: relative;
-}
+  }
 
-.spu .spu-content .item-right .spu-title .span {
+  .spu .spu-content .item-right .spu-title .span {
     width: 100%;
-    height: 30px;
+    height: 9vw;
     position: absolute;
     left: 0;
+    top: -1vw;
+    line-height: 9vw;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-}
+    margin: 0;
+  }
 
-.spu .spu-content .item-right .spu-desc {
-    font-size: 14px;
+  .spu .spu-content .item-right .spu-desc {
+    font-size: 3vw;
+    line-height: 3vw;
     color: #999;
     position: relative;
-    width: 350px;
-    height: 26px;
-    margin-bottom: 12px;
-}
+    width: 30vw;
+    height: 4vw;
+    margin-bottom: 2vw;
+  }
 
-.spu .spu-content .item-right .spu-desc .em {
+  .spu .spu-content .item-right .spu-desc .em {
     width: 100%;
-    height: 32px;
+    height: 5vw;
     position: absolute;
     left: 0;
-    top: -2px;
-    /* line-height: 32px; */
+    top: -1vw;
+    line-height: 5vw;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-}
+  }
 
-.spu .spu-content .add-cart {
-    width: 28px;
-    height: 28px;
+  .spu .spu-content .add-cart {
     padding: 0;
     margin: 0;
     position: absolute;
-    right: 28px;
-    bottom: 8px;
+    right: 4vw;
+    bottom: 3vw;
     display: flex;
     align-items: center;
     justify-content: center;
-}
+    border-radius: 50%;
+    border: none;
+    outline: none;
+  }
 
-.spu .spu-content .add-cart .img {
-    width: 28px;
-    height: 28px;
+  .spu .spu-content .add-cart .img {
+    width: 7vw;
+    height: 7vw;
     display: block;
-}
+  }
 
-.spu .spu-content .item-right .spu-price {
+  .spu .spu-content .item-right .spu-price  {
     display: flex;
     align-items: flex-end;
-    font-size: 13px;
+    font-size: 3vw;
+    line-height: 4vw;
     overflow: hidden;
-}
+  }
 
-.spu .spu-content .item-right .spu-price .sale-price {
+  .spu .spu-content .item-right .spu-price .sale-price {
     color: #ff5344;
-    margin-right: 6px;
-}
+    margin-right: 1vw;
+  }
 
-.spu .spu-content .item-right .spu-price .sale-price .span {
-    font-size: 18px;
+  .spu .spu-content .item-right .spu-price .sale-price .span {
+    font-size: 4.5vw;
+    line-height: 4.5vw;
     margin: 0;
     font-weight: bold;
-}
+  }
 
-.spu .spu-content .item-right .spu-price .market-price {
+  .spu .spu-content .item-right .spu-price .market-price {
     text-decoration: line-through;
     color: #999;
-    margin-right: 30px;
-}
+    margin-right: 5vw;
+  }
 
-.spu .mask {
+  .spu .mask {
     background: rgba(255,255,255,0.5);
-    width: 170px;
-    height: 170px;
+    width: 24vw;
+    height: 24vw;
     position: absolute;
-    left: 24px;
-    top: 28px;
-}
+    left: 4vw;
+    top: 3vw;
+  }
 
-.spu .act-end {
+  .spu .act-end {
     position: absolute;
-    height: 60px;
-    border-radius: 10px;
+    height: 8vw;
+    border-radius: 2vw;
     background: rgba(0,0,0,0.5);
     color: #fff;
-    font-size: 28px;
+    font-size: 3vw;
     text-align: center;
-    line-height: 30px;
-    left: 110px;
-    top: 85px;
-    padding: 0 12px;
+    line-height: 8vw;
+    left: 12vw;
+    top: 11vw;
+    padding: 0 2vw;
     transform: translateX(-50%);
-}
+  }
 
-.spu .tag {
+  .spu .tag {
     position: absolute;
     left: 0;
     bottom: 0;
     background: linear-gradient(to right,#ff5041,#ff994b);
-    border-radius: 0 14px 14px 0;
-    padding: 0 12px;
-    height: 30px;
-    font-size: 22px;
-    line-height: 30px;
+    border-radius: 0 2vw 2vw 0;
+    padding: 0 2vw;
+    height: 5vw;
+    font-size: 2.3vw;
+    line-height: 5vw;
     color: #fff;
-    display: inline-div;
+    display: inline-block;
     align-items: center;
     justify-content: center;
     width: auto;
-    max-width: 180px;
+    max-width: 19vw;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-}
+  }
 
-.spu .index-input-number {
+  .spu .index-input-number {
     position: absolute;
-    right: 15px;
-    bottom: 10px;
+    right: 3vw;
+    bottom: 3vw;
     display: flex;
     justify-content: center;
     align-items: center;
-}
+  }
 
-.spu .index-input-number .iNumberdiv {
-    width: 80px;
-    height: 80px;
+  .spu .index-input-number .iNumberView {
+    width: 9vw;
+    height: 9vw;
     display: flex;
     justify-content: center;
     align-items: center;
-}
+  }
 
-.spu .index-input-number .iNumberdiv:first-child {
+  .spu .index-input-number .iNumberView:first-child {
     justify-content: flex-end;
-}
+  }
 
-.spu .index-input-number .iNumberdiv:last-child {
+  .spu .index-input-number .iNumberView:last-child {
     justify-content: flex-start;
-}
+  }
 
-.spu .index-input-number .iNumberImg {
-    font-size: 44px;
-}
+  .spu .index-input-number .iNumberImg {
+    font-size: 9vw;
+  }
 
-.spu .index-input-number .input-number-span {
-    height: 88px;
-    line-height: 88px;
-    font-size: 24px;
+  .spu .index-input-number .input-number-text {
+    height: 11vw;
+    line-height: 11vw;
+    font-size: 4vw;
     color: #333;
-    width: 58px;
-}
+    width: 8vw;
+  }
 </style>

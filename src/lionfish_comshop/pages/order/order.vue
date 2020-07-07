@@ -96,14 +96,14 @@
       </div>
 
 
-      <button @click="payWeixin" :data-type="order.order_info.order_id"  class="wux-button wux-button--block" type="warn">
-        微信支付</button>
+      <!--<button @click="payWeixin" :data-type="order.order_info.order_id"  class="wux-button wux-button&#45;&#45;block" type="warn">
+        微信支付</button>-->
 
       <!--
       <button class="wux-button wux-button--block" type="warn" style="margin-top=16px">到店付款</button>
       -->
       <button @click="payNow" class="wux-button wux-button--block" type="warn">PayNow支付</button>
-      <button @click="orderPayTransfer" data-type="banktransfer" class="wux-button wux-button--block" type="warn">公司转账</button>
+     <!-- <button @click="orderPayTransfer" data-type="banktransfer" class="wux-button wux-button&#45;&#45;block" type="warn">公司转账</button>-->
       <button @click="closePaymentModal"  class="wux-button wux-button--block" type="default">取消支付</button>
 
     </div>
@@ -739,23 +739,20 @@
       },
       payNow :function(){
         var this_ = this;
-        this.$wx.request({
-          // 请求地址
-          url: 'https://tuantuan.xx315.net/payment/paynow/paynow.json',
-          // 请求方式
-          method: "get",
-          dataType: 'json',
-          responseType: 'text',
-          // 方法
-          success: function(data) {
-            console.log(data);
-            this_.setData({
-              payNowQr: data.data.data.qr,
-              payNowNo: data.data.data.payNowNo,
-              payNowUen:data.data.data.uen
-            });
+
+        this.$app.util.request({
+          url: "entry/wxapp/user",
+          data: {
+            controller: "user.get_copyright",
+          },
+          dataType: "json",
+          method: "POST",
+          success: function(t) {
+            this_.payNowQr = t.paynow_qr
+            this_.payNowNo = t.paynow_no
+            this_.payNowUen = t.paynow_uen
           }
-        })
+        });
 
         this.doClosePaymentModal();
         this.doShowPayNowModal();

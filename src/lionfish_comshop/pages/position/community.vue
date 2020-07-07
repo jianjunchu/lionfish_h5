@@ -6,14 +6,10 @@
         <img class="header-bg"
              :src="common_header_backgroundimage?common_header_backgroundimage:require('@/assets/images/TOP_background@2x.png')"/>
         <div class="search-content">
-          <i-router-link openType="redirect" url="/lionfish_comshop/pages/position/cities">
-            <div class="city-content">
-              <img class="search-icon" src="@/assets/images/icon-search.png"/>
-              {{city.districtName}}
-              <img class="bottom-arrow" src="@/assets/images/icon-bottom-arrow.png"/>
-            </div>
-          </i-router-link>
-          <div bindtap="linkSearch" class="search-ipt">
+          <div class="city-content">
+            <img class="comm-search-icon" src="@/assets/images/icon-search.png"/>
+          </div>
+          <div @click.stop="linkSearch" class="search-ipt">
             <div class="ipt-class">{{$t('host.shurushequmingcheng')}}</div>
           </div>
         </div>
@@ -74,6 +70,12 @@
   import status from '../../utils/index.js'
   import QQMapWX from '../../utils/qqmap-wx-jssdk.min.js'
   import location from '../../utils/Location'
+
+  import VueAMap from 'vue-amap';
+  import {
+    AMapManager
+  } from 'vue-amap'
+  let amapManager = new AMapManager()
 
   export default {
     name: '',
@@ -145,7 +147,7 @@
       }
 
       this.$wx.setNavigationBarTitle({
-        title: 'Order',
+        title: 'Community',
         showLogo: false,
         showMore: false,
         showBack: true
@@ -192,6 +194,11 @@
                 data: t.tx_map_key
               })
 
+              let geocoder = new AMap.Geocoder({
+                radius: 1000,
+                extensions: 'all'
+              })
+
               e.tx_map_key = t.tx_map_key
               wx.setStorage({
                 key: 'shop_index_share_title',
@@ -233,7 +240,6 @@
         console.log('腾讯地图api key', e), i.$wx.getLocation({
           type: 'gcj02',
           success: function(t) {
-            debugger
             console.log('getLocation success')
             var e = t.latitude, a = t.longitude
             i.latitude = e,
@@ -247,8 +253,11 @@
               key: 'longitude',
               data: a
             })
+
+
+
             i.load_gps_community_list()
-            /*o.reverseGeocoder({
+            i.$wx.reverseGeocoder({
               location: {
                 latitude: e,
                 longitude: a
@@ -269,7 +278,7 @@
                 var e = t.message || ''
 
               }
-            })*/
+            })
           },
           fail: function(t) {
             const app = this.$getApp()
@@ -394,7 +403,12 @@
         t.tip = '加载中'
 
         t.load_gps_community()
-      }
+      },
+      linkSearch: function() {
+        this.$wx.navigateTo({
+          url: "/lionfish_comshop/pages/position/search"
+        });
+      },
     }
 
   }
@@ -441,7 +455,7 @@
 
   .header-content .search-content .city-content {
     height: 10vw;
-    padding: 0 3vw;
+    padding: 0 4vw;
     box-sizing: border-box;
     display: flex;
     align-items: center;
@@ -451,10 +465,9 @@
     font-weight: bold;
   }
 
-  .header-content .search-content .city-content .search-icon {
+  .header-content .search-content .city-content .comm-search-icon {
     width: 4vw;
     height: 4vw;
-    margin-right: 3vw;
     margin-top: -0.1vw;
   }
 

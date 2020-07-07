@@ -1,32 +1,43 @@
 <template>
-  <i-modal @click="close" :scrollUp="false" v-show="needAuth">
+  <i-modal @cancel="close" :scrollUp="false" :is-show="false">
     <div class="auth-content">
-      <img class="bg" mode="widthFix" :src="newauth_bg_image ? newauth_bg_image:require('@/assets/images/auth-bg.png')"/>
-      <div class="btn">
-        <div @click="close" class="close-img" v-if="newauth_cancel_image">
-          <img class="img" mode="widthFix" :src="newauth_cancel_image"/>
+      <img class="bg" mode="widthFix" :src="newauth_bg_image?newauth_bg_image:require('@/assets/images/auth-bg.png')"/>
+      <div class="btn" v-if="canIUse">
+        <div bindtap="close" class="close-img" v-if="newauth_cancel_image">
+          <img class="img" mode="widthFix" :src="newauth_cancel_image"></img>
         </div>
-        <div @click="close" class="close-btn" :style="{'border-color':skin.color,'color':skin.color}" v-else>暂不登录
-        </div>
-        <i-button bindgetuserinfo="bindGetUserInfo" iClass="confirm-img" openType="getUserInfo"
-                  v-if="newauth_confirm_image">
+        <div @click="close" class="close-btn" :style="{'border-color':skin.color,'color':skin.color}" v-else>暂不登录</div>
+        <i-button bindgetuserinfo="bindGetUserInfo" iClass="confirm-img" openType="getUserInfo" v-if="newauth_confirm_image">
           <img class="img" mode="widthFix" :src="newauth_confirm_image"/>
         </i-button>
-        <i-button @bindgetuserinfo="bindGetUserInfo" iClass="confirm" :loading="btnLoading" openType="getUserInfo"
-                  :styleStr="'background:'+skin.color" v-else>
+        <i-button bindgetuserinfo="bindGetUserInfo" iClass="confirm" :loading="btnLoading" openType="getUserInfo" :styleStr="'background:'+skin.color" v-else>
           立即登录
         </i-button>
       </div>
+      <div class="updateWx" v-else>请升级微信版本</div>
     </div>
   </i-modal>
+
 
 </template>
 
 <script>
 
   import util from '../../utils/index.js'
+
   export default {
     name: '',
+    props:{
+      needAuth: {
+        default: !1
+      },
+      needPosition: {
+        default: !0
+      },
+      navBackUrl: {
+        default: ''
+      }
+    },
     data() {
       return {
         btnLoading: !1,
@@ -34,26 +45,6 @@
         newauth_bg_image:require('@/assets/images/auth-bg.png'),
         newauth_cancel_image:null,
         newauth_confirm_image:null
-      }
-    },
-    props: {
-      needAuth: {
-        type: Boolean,
-        default: !1
-      },
-      needPosition: {
-        type: Boolean,
-        default: !0
-      },
-      navBackUrl: {
-        type: String,
-        default: ''
-
-      }
-    },
-    watch: {
-      navBackUrl: (newValue, oldValue) => {
-        this.$app.globalData.navBackUrl = newValue
       }
     },
     created: function() {
@@ -82,57 +73,107 @@
       },
       bindGetUserInfo: function(t) {
         var e = this;
-        if (!this.btnLoading) {
-          var n = t.detail;
-          this.btnLoading = !0
 
-           "getUserInfo:ok" === n.errMsg ? util.login_prosime(e.data.needPosition).then(function() {
-            console.log("授权成功"), e.setData({
-              btnLoading: !1
-            }), wx.showToast({
-              title: "登录成功",
-              icon: "success",
-              duration: 2e3
-            }), e.triggerEvent("authSuccess"), app.globalData.changedCommunity = !0, e.data.needPosition && location.getGps();
-          }).catch(function() {
-            e.triggerEvent("cancel"), console.log("授权失败");
-          }) : (wx.showToast({
-            title: "授权失败，为了完整体验，获取更多优惠活动，需要您的授权。",
-            icon: "none"
-          }), this.triggerEvent("cancel"), this.setData({
-            btnLoading: !1
-          }));
-        }
       },
       checkWxLogin: function() {
         return new Promise(function(a, i) {
-          wx.getSetting({
-            success: function(n) {
-              if (!n.authSetting["scope.userInfo"]) return i({
-                authSetting: !1
-              });
-              wx.getStorage({
-                key: "token",
-                success: function(e) {
-                  util.check_login_new().then(function(t) {
-                    return t ? a(!1) : (console.log("过期"), e ? a(e) : i(n));
-                  });
-                },
-                fail: function(t) {
-                  return i(t);
-                }
-              });
-            },
-            fail: function(t) {
-              return i(t);
-            }
-          });
+
         });
       }
     }
   }
 </script>
 
-<style scoped>
+<style>
+  .auth-content {
+    width: 75vw;
+    min-height: 50vw;
+    max-height: 66vw;
+    background: #fff;
+    border-radius: 2.4vw;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+  }
 
+  .auth-content .bg {
+    width: 75vw;
+  }
+
+  .auth-content .h1 {
+    color: #000;
+    font-size: 3.2vw;
+    margin-bottom: 2vw;
+    font-weight: bold;
+  }
+
+  .auth-content .h2 {
+    font-size: 2.4vw;
+    line-height: 3.6vw;
+    color: #999;
+    width: 40.8vw;
+    margin-bottom: 4.4vw;
+  }
+
+  .auth-content .btn {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 5vw;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    font-size: 3vw;
+  }
+
+  .auth-content .btn .close-btn {
+    width: 22vw;
+    color: #f45b56;
+    border: 0.1vw solid #f45b56;
+    border-radius: 3.6vw;
+    margin: 0 1.5vw;
+    padding: 0 15px;
+    height: 8vw;
+    line-height: 8vw;
+  }
+
+  .auth-content .btn .close-img {
+    margin: 0 1.5vw;
+  }
+
+  .auth-content .btn .img {
+    width: 18vw;
+  }
+
+  .auth-content .confirm {
+    width: 22vw;
+    height: 8vw;
+    line-height: 8vw;
+    color: #fff;
+    background: #f45b56;
+    border-radius: 3.6vw;
+    margin: 0 1.5vw;
+    font-size: 3vw;
+  }
+
+  .auth-content .confirm-img {
+    width: 18vw;
+    height: 8vw;
+    line-height: 8vw;
+    margin: 0 1.5vw;
+    padding: 0;
+  }
+
+  .updateWx {
+    width: 42.5vw;
+    height: 8vw;
+    line-height: 8vw;
+    color: #fff;
+    background: #f45b56;
+    border-radius: 3.6vw;
+    margin: 0 0 3vw;
+    text-align: center;
+  }
 </style>

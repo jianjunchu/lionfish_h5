@@ -67,7 +67,7 @@ VueAMap.initAMapApiLoader({
   // 高德的key
   key: '0a0885f588aeb852302f18f8633eb61b',
   // 插件集合
-  plugin: ['AMap.Geolocation'],
+  plugin: ['AMap.Geolocation', 'AMap.AMapManager', 'AMap.Geocoder'],
   v: '1.4.4'
 })
 

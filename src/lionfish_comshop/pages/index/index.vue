@@ -269,7 +269,7 @@
 
           <div class="search-bar" v-if="index_switch_search==1">
             <div class="search-box">
-              <input bindconfirm="goResult" class="ipt" confirmType="搜索" placeholder="搜索商品" type="search"></input>
+              <input @keypress="goResult" class="ipt" confirmType="搜索" placeholder="搜索商品" type="search"></input>
               <div class="search-icon">
                 <div class="iconfont icon-sousuo1"></div>
               </div>
@@ -612,7 +612,7 @@
 <script>
   import GlobalMixin from '../../mixin/globalMixin.js'
   import { Sticky } from 'vant';
-  import { Swipe, SwipeItem } from 'vant';
+  import { Swipe, SwipeItem,Search } from 'vant';
 
   var _Page, _extends = Object.assign || function(t) {
     for (var a = 1; a < arguments.length; a++) {
@@ -640,7 +640,7 @@
   export default {
     mixins: [countDownInit.default, GlobalMixin],
     name: 'Index',
-    components:{[Sticky.name]:Sticky ,[Swipe.name]:Swipe,[SwipeItem.name]:SwipeItem},
+    components:{[Sticky.name]:Sticky ,[Swipe.name]:Swipe,[SwipeItem.name]:SwipeItem,[Search.name]:Search},
     data() {
       let self = this;
       return {
@@ -811,11 +811,11 @@
                 console.log(result)
                 if (result && result.position) {
                   self.$wx.setStorageSync('position',result.position);
-                  i.$wx.setStorage({
+                  self.$wx.setStorage({
                     key: 'latitude',
                     data: e
                   })
-                  i.$wx.setStorage({
+                  self.$wx.setStorage({
                     key: 'longitude',
                     data: a
                   })
@@ -2017,6 +2017,19 @@
         this.secRushList = [],
         this.secKillActiveIdx = o
         a.getSecKillGoods(e);
+      },
+      goResult: function(t) {
+
+        if (event.keyCode == 13) { //如果按的是enter键 13是enter
+          event.preventDefault(); //禁止默认事件（默认是换行）
+          var a = t.currentTarget.value.replace(/\s+/g, "");
+          a ? wx.navigateTo({
+            url: "/lionfish_comshop/pages/type/result?keyword=" + a
+          }) : wx.showToast({
+            title: "请输入关键词",
+            icon: "none"
+          });
+        }
       },
     }
   }

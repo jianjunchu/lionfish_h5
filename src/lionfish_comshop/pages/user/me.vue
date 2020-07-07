@@ -385,7 +385,7 @@
           </div>
           <!--<button class="item-fav" openType="contact" sessionFrom="sobot|{{userInfo.nickName}}|{{userInfo.avatarUrl}}" v-if="user_service_switch!=0">-->
           <!--<button class="item-fav" openType="contact"  v-if="user_service_switch!=0">-->
-          <a hoverClass="none" href="" v-if="user_service_switch!=0">
+          <a hoverClass="none" :href="user_service_url" v-if="user_service_url != '' && user_service_switch!=0">
             <div class="item-main">
               <div class="item-title">
                 <!--<img class="toolIcon" mode="widthFix" :src="user_tool_icons.i8?user_tool_icons.i8:'@/assets/images/serviceIcon.png'"/>-->
@@ -554,7 +554,8 @@
         commiss_level:'',
         showAuthModal:false,
         tabbarRefresh:false,
-        whatsapplink:''
+        whatsapplink:'',
+        user_service_url:''
       }
     },
     created: function() {
@@ -727,7 +728,7 @@
             controller: 'user.get_copyright',
             token:token
           }).then(res=> {
-            console.log(res);
+            console.log(res,"get_copyright");
             if (res.code == 0) {
               let rdata = res;
               let {
@@ -749,7 +750,8 @@
                 open_danhead_model,
                 default_head_info,
                 is_open_solitaire,
-                user_top_font_color
+                user_top_font_color,
+                user_service_url
               } = rdata;
 
               let h = {};
@@ -777,12 +779,14 @@
 //                this.ishow_user_loginout_btn = 1;
                 this.supply_diy_name = supply_diy_name;
                 this.user_service_switch = user_service_switch;
+//                this.user_service_switch = 1;
                 this.fetch_coder_type = fetch_coder_type || 0;
                 this.show_user_pin = show_user_pin;
                 this.show_user_change_comunity = show_user_change_comunity;
                 this.open_danhead_model = open_danhead_model;
                 this.is_open_solitaire = is_open_solitaire;
                 that.user_top_font_color = user_top_font_color;
+                that.user_service_url = user_service_url;
                 this.community = h.community;
 
             }

@@ -524,6 +524,7 @@
         })
       },
       authModal: function() {
+
         this.needAuth && (this.showAuthModal = !this.showAuthModal)
         if(this.showAuthModal){
           this.$router.replace({path: '/login'});

@@ -112,7 +112,13 @@
               <span style='font-size: 18px;color: #c0c0c0'>注：转账支付为人工审核</span>
             </div>
           </div>
-          <div style='width: 60%;text-align: center;margin-top: 30px;margin-left: 20%;'>
+          <div class="receiver">
+
+            <span>交易流水</span>
+            <input v-model="transaction_id" class="mobile" placeholder="请输入PayNow支付交易流水" type="text"></input>
+
+          </div>
+          <div style='width: 60%;text-align: center;margin-top: 2vw;margin-left: 20%;'>
             <button @click="havePaid" data-type="paynow" class="wux-button wux-button--block" type="default">已支付，查看订单
             </button>
           </div>
@@ -140,8 +146,8 @@
                 -->
         <button @click="preSubscript" data-type="paynow" class="wux-button wux-button--block" :style="{background:skin.color,color:' #fff'}" type="warn">PayNow支付
         </button>
-        <button @click="preSubscript" data-type="banktransfer" class="wux-button wux-button--block" :style="{background:skin.color,color:' #fff'}" type="warn">公司转账
-        </button>
+        <!--<button @click="preSubscript" data-type="banktransfer" class="wux-button wux-button&#45;&#45;block" :style="{background:skin.color,color:' #fff'}" type="warn">公司转账
+        </button>-->
 
         <!--
         <button wx:if='{{tabIdx==0}}' @click="preSubscript" data-type="cash" class="wux-button wux-button--block" type="warn">货到付款</button>
@@ -251,7 +257,7 @@
           <div v-if="tabIdx!=2&&is_hexiao!=1">
             <p class="address-red">{{$t('order.xinxi')}} {{community.disUserName}} ({{community.communityName}})
 
-              <router-link style="display:inline;position: absolute;right: 10px;" class="to-distribution"
+              <router-link style="display:inline;right: 10px;" class="to-distribution"
                          hoverClass="none" to="/lionfish_comshop/pages/position/community">
                 <span>{{$t('order.qiehuantuanzhang')}} </span>
               </router-link>
@@ -368,7 +374,7 @@
             </div>
           </div>
           <div @click="showvoucher" class="cell" :data-seller_id="seller_goodss[0] && seller_goodss[0].store_info.s_id"
-               v-if="seller_goodss[0] && seller_goodss[0].show_voucher==0">
+               v-if="ssvoucher_list.length&&seller_goodss[0].show_voucher==0">
             <div>
               <span>{{$t('common.xuanzeyouhuiquan')}}</span>
             </div>
@@ -656,6 +662,7 @@
     components:{ITabs},
     data() {
       return {
+        transaction_id:'',
         order_id: '',
         order_num_alias: '',
         show_payment_modal: false,
@@ -1132,7 +1139,6 @@
         this.show_storefront_modal = !1
       },
       goOrderfrom: function() {
-        debugger
         var e = this, t = e.tabAddress, a = e.tabIdx, i = t[a].name, o = t[a].mobile, s = t[a].receiverAddress,
           n = t[a].region, r = t[a].receiverAddress, d = t[a].lou_meng_hao, dt = t[a].delivery_date_str,
           zc = t[a].zipCode, rn = t[a].roadName, bd = t[a].building
@@ -1224,6 +1230,13 @@
 
       },
       havePaid: function(t) {
+
+        if ( '' == this.transaction_id) {
+          return wx.showToast({
+            title: '请输入交易流水id',
+            icon: 'none'
+          }), !1
+        }
         var i= this
         var s = wx.getStorageSync('token')
         var type = t.currentTarget.dataset.type
@@ -1233,7 +1246,8 @@
             controller: 'order.pay_order',
             token: s,
             order_id: i.order_id,
-            payment_code: type
+            payment_code: type,
+            transaction_id:this.transaction_id
           },
           dataType: 'json',
           method: 'POST',
@@ -1343,21 +1357,21 @@
                   url: '/lionfish_comshop/pages/order/order?id=' + a + '&is_show=1'
                 })
               } else if (type == 'paynow') {
-                wx.request({
-                  // 请求地址
-                  url: 'https://hz.xx315.net/payment/paynow/paynow.json',
-                  // 请求方式
-                  method: 'get',
-                  dataType: 'json',
-                  responseType: 'text',
-                  // 方法
-                  success: function(data) {
-                    console.log(data)
-                    this_.payNowQr = data.data.data.qr
-                    this_.payNowNo = data.data.data.payNowNo
-                    this_.payNowUen = data.data.data.uen
+
+                app.util.request({
+                  url: "entry/wxapp/user",
+                  data: {
+                    controller: "user.get_copyright",
+                  },
+                  dataType: "json",
+                  method: "POST",
+                  success: function(t) {
+                    this_.payNowQr = t.paynow_qr
+                    this_.payNowNo = t.paynow_no
+                    this_.payNowUen = t.paynow_uen
                   }
-                })
+                });
+
                 this_.closePaymentModal()
                 this_.showPayNowModal()
               } else if ('banktransfer' == type) {
@@ -1910,8 +1924,9 @@
     box-sizing: border-box;
     font-weight: bold;
     background-color: #f7f7f7;
-    outline :none;
-    font-size: 1vw;
+    border: 0.1vw solid #ddd;
+    font-size: 3vw;
+    outline: none;
   }
 
   .sel-btn {
@@ -1924,7 +1939,7 @@
 
   .address-content p {
     color: #999;
-    font-size: 2vw;
+    font-size: 3vw;
     display: block;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -1966,12 +1981,12 @@
   }
 
   .card-header {
-    font-size: 2vw;
+    font-size: 3vw;
     color: #aaa;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0 5vw;
+    padding: 0 2vw;
     height: 10vw;
     border-bottom: 0.1vw solid #efefef;
   }
@@ -1998,7 +2013,7 @@
   }
 
   .sku-item .sku-msg .sku-title {
-    font-size: 2.5vw;
+    font-size: 3.5vw;
     color: #444;
     line-height: 3vw;
     margin-bottom: 1.2vw;
@@ -2016,7 +2031,7 @@
   }
 
   .sku-item .sku-msg .original-price {
-    font-size: 2vw;
+    font-size: 3vw;
     line-height: 5vw;
     color: #aaa;
     margin-bottom: 1vw;
@@ -2031,7 +2046,7 @@
 
   .sku-item .sku-msg .sku-price span {
     color: #ff5344;
-    font-size: 2vw;
+    font-size: 3vw;
     font-weight: 500;
   }
 
@@ -2116,7 +2131,7 @@
   }
 
   .fixed-content .fixed-left .h2 {
-    font-size: 2vw;
+    font-size: 3vw;
     line-height: 5vw;
     color: #666;
   }
@@ -2133,6 +2148,7 @@
     color: #fff;
     font-size: 4vw;
     background: #ff5344;
+    border-top: 0.1vw solid #efefef;
     border-radius: 0;
     padding: 0;
     margin: 0;
@@ -2151,7 +2167,7 @@
   }
 
   .confirm-order-modal .title {
-    font-size: 3vw;
+    font-size: 3.5vw;
     color: #444;
     line-height: 8.5vw;
     margin-bottom:1vw;
@@ -2164,7 +2180,7 @@
     align-items: center;
     color: #ff5344;
     line-height: 2vw;
-    font-size: 2vw;
+    font-size: 3vw;
     margin-bottom: 9vw;
     font-weight: 500;
   }
@@ -2177,7 +2193,7 @@
 
   .confirm-order-modal .order-content {
     width: 95vw;
-    border-radius: 5vw;
+    border-radius: 2vw;
     padding-top: 3vw;
     background: #f6f6f6;
     margin-bottom: 15vw;
@@ -2185,11 +2201,11 @@
 
   .confirm-order-modal .order-content .msg-group {
     width: 100vw;
-    padding: 0 3vw;
+    padding: 0 4vw;
     margin-bottom: 1vw;
     display: flex;
-    font-size: 2vw;
-    line-height: 5vw;
+    font-size: 3vw;
+    line-height: 4vw;
     color: #444;
     box-sizing: border-box;
   }
@@ -2235,7 +2251,7 @@
     flex: 1;
     margin: 0;
     padding: 0;
-    font-size: 2vw;
+    font-size: 3.5vw;
     line-height: 10vw;
     text-align: center;
     width: 50vw;
@@ -2263,7 +2279,7 @@
 
   .tab-nav .tab-nav-item {
     color: #6c6c6c;
-    font-size: 2vw;
+    font-size: 3vw;
     font-weight: bold;
     position: relative;
     z-index: 1;
@@ -2754,10 +2770,25 @@
     width: 100%;
     height: 99%;
     padding: 8vw;
+    font-size: 3vw;
     /* border: 8px solid #e8e9f7; */
     background-color: white;
     z-index: 9999;
     overflow: auto;
+  }
+  .paynow input{
+    border-radius: 1vw;
+    flex: 1;
+    height: 8vw;
+    line-height: 8vw;
+    padding: 1vw 1vw;
+    box-sizing: border-box;
+    font-weight: bold;
+    background-color: #f7f7f7;
+    border: 0.1vw solid #ddd;
+    font-size: 3vw;
+    outline: none;
+    width: 60vw;
   }
 
   .page-category {
@@ -2772,7 +2803,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 2vw;
+    font-size: 3vw;
     color: #787878;
     line-height: 20vw;
   }

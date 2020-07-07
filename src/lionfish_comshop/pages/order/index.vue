@@ -104,7 +104,7 @@
       <button class="wux-button wux-button--block" type="warn" style="margin-top=16px">到店付款</button>
       -->
       <button @click="payNow" class="wux-button wux-button--block" data-type="paynow" type="warn">PayNow支付</button>
-      <button @click="orderPayTransfer" data-type="banktransfer" class="wux-button wux-button--block" type="warn">公司转账</button>
+      <!--<button @click="orderPayTransfer" data-type="banktransfer" class="wux-button wux-button&#45;&#45;block" type="warn">公司转账</button>-->
 
       <!--
       <button wx:if='{{is_pickup}}' @click="havePaid" data-type="cash" class="wux-button wux-button--block" type="warn">货到付款</button>
