@@ -126,7 +126,7 @@
         <div @click="goOrder" class="card" :data-type="item.order_id"  v-for="(item,idx) in order" :key="item.id">
           <i-card :data-orderId="item.order_id" iClass="my-card" showModal="true">
             <div class="card-header" slot="header">
-              <div>下单时间：
+              <div>{{$t('order.xiadanshijian')}}
                 <span>{{item.createTime}}</span>
               </div>
 
@@ -162,15 +162,15 @@
               </div>
               <div class="content-wrap fsz-30" style="margin-top:12px" v-if="item.delivery_time && item.delivery_time!='' && item.delivery_date && item.delivery_date!=''">
 
-                {{item.delivery=='pickup'?'提货时间:':'送货时间:'}} {{item.delivery_date}} [{{item.delivery_time}}]
+                {{item.delivery=='pickup'?$t('order.tihuoshijian'):$t('order.songhuoshijian')}} {{item.delivery_date}} [{{item.delivery_time}}]
               </div>
             </div>
             <div class="card-footer" slot="footer">
-              <div>共
-                <span class="i-class">{{item.goods_list.length}}</span> 件商品
-                <div class="accual-pay" v-if="item.orderStatus!=3">实付：
+              <div>{{$t('common.gong')}}
+                <span class="i-class">{{item.goods_list.length}}</span>  {{$t('order.jianshangpin')}}
+                <div class="accual-pay" v-if="item.orderStatus!=3"> {{$t('order.shifu')}}：
                   <div class="money" v-if="item.type=='integral'">
-                    <div v-if="item.shipping_fare>0">${{item.shipping_fare}} + </div>{{item.score}}积分
+                    <div v-if="item.shipping_fare>0">${{item.shipping_fare}} + </div>{{item.score}}{{$t('common.jifen')}}
                   </div>
                   <div class="money" v-else>
                     ${{item.total}}
@@ -178,9 +178,9 @@
                 </div>
               </div>
               <div class="button-group" v-if="item.order_status_id==3">
-                <div @click="cancelOrder" class="my-button" data-show="cancelVisible" :data-type="item.order_id">取消订单</div>
+                <div @click="cancelOrder" class="my-button" data-show="cancelVisible" :data-type="item.order_id"> {{$t('order.quxiaodingdan')}}</div>
                 <!--<div  @click="showPaymentModal" class="my-button-pay padding-15" :data-type="item"  :style="{background: linear-gradient(90deg, skin.color 0%, skin.light 100%)}">立即支付</div>-->
-                <div  @click="toShowPaymentModal" class="my-button-pay padding-15" :data-type="item"  :style="{color:skin.color,background:skin.light}">立即支付</div>
+                <div  @click="toShowPaymentModal" class="my-button-pay padding-15" :data-type="item"  :style="{color:skin.color,background:skin.light}">{{$t('order.lijizhifu')}}</div>
               </div>
               <div v-if="item.order_status_id==4">
                 <div class="get-goods" :data-delivery="item.delivery" :data-type="item.order_id">
@@ -189,7 +189,7 @@
                 </div>
               </div>
               <div v-if="item.order_status_id==1||item.order_status_id==6||item.order_status_id==11||item.order_status_id==14||item.order_status_id==15||item.order_status_id==16">
-                <div class="my-button" :data-type="item.order_id" size="small">查看详情</div>
+                <div class="my-button" :data-type="item.order_id" size="small">{{$t('order.chakanxiangqing')}}</div>
               </div>
             </div>
           </i-card>
@@ -197,7 +197,7 @@
       </div>
       <div class="empty-wrap" v-else>
         <img class="empty-img" src="@/assets/images/noData.png"></img>
-        <div class="empty-txt">暂无任何订单记录～</div>
+        <div class="empty-txt">{{$t('order.wurenhedingdan')}}</div>
       </div>
       <i-loadMore :tip="tip" v-if="!isHideLoadMore"></i-loadMore>
     </div>
@@ -249,22 +249,22 @@
         is_empty: false,
         tabs: [ {
           id: -1,
-          name: "全部"
+          name: this.$t('common.quanbu')
         }, {
           id: 3,
-          name: "待付款"
+          name: this.$t('common.daifukuan')
         }, {
           id: 1,
-          name: "待配送"
+          name: this.$t('common.daipeisong')
         }, {
           id: 14,
-          name: "配送中"
+          name: this.$t('common.peisongzhong')
         }, {
           id: 4,
-          name: "待提货"
+          name: this.$t('common.daitihuo')
         }, {
           id: 6,
-          name: "已提货"
+          name: this.$t('common.yitihuo')
         } ],
         loadover:false,
 

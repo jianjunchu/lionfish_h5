@@ -5,6 +5,7 @@ import store from '../store/'
 import router from '../../router/'
 
 export default {
+
   showToast: function(option) {
     Toast(option.title)
   },
@@ -20,7 +21,7 @@ export default {
   },
   getStorageSync: function(k) {
     const v = window.localStorage.getItem(k) || '{}'
-    if (v != '{}' && v != 'undefined'){
+    if (v != '{}' && v != 'undefined') {
       return JSON.parse(v)
     }
     return {}
@@ -106,24 +107,30 @@ export default {
     })
   },
   getLocation: function(option) {
-    return new Promise((resolve, reject) => {
-      if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(function(position) {
-          const latitude = position.coords.latitude
-          const longitude = position.coords.longitude
-          const data = {
-            latitude: latitude,
-            longitude: longitude
-          }
-          resolve(data)
-        }, function() {
-          reject(arguments)
+    const position = this.getStorageSync('position')
+
+    if (position && position.lng && position.lat) {
+      const res = { 'longitude': position.lng, 'latitude': position.lat }
+      option.success(res)
+    } else if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(function(position) {
+        const res = { 'longitude': position.coords.longitude, 'latitude': position.coords.latitude }
+        option.success(res)
+      }, function(err) {
+        this.$wx.showToast({
+          title: 'Error',
+          icon: err
         })
-      } else {
-        reject('你的浏览器不支持当前地理位置信息获取')
-      }
-    })
+      })
+    } else {
+      this.showModal({
+        title: '提示',
+        content: '请开启地位权限',
+        showCancel: !1
+      })
+    }
   },
+
   navigateBack: function() {
     router.go(-1)
   }

@@ -249,7 +249,7 @@
            <div @click="getWxAddress" class="use-wx-address" :style="{color:skin.color}" v-if="tabIdx==2">+使用微信地址 </div>
           -->
           <div v-if="tabIdx!=2&&is_hexiao!=1">
-            <p class="address-red">{{groupInfo.owner_name}}{{$t('order.xinxi')}} {{community.disUserName}} ({{community.communityName}})
+            <p class="address-red">{{$t('order.xinxi')}} {{community.disUserName}} ({{community.communityName}})
 
               <router-link style="display:inline;position: absolute;right: 10px;" class="to-distribution"
                          hoverClass="none" to="/lionfish_comshop/pages/position/community">

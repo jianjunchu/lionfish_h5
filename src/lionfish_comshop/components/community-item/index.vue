@@ -9,7 +9,7 @@
     <div class="item-center">
       <div class="community-title">
         <span class="span">{{item.communityName}}</span>
-        <span class="em" :style="{'color':skin.color}" v-if="!isOld&&item.distance">{{$t('host.juli')}}{{item.distance}}</span>
+        <span class="em" :style="{'color':skin.color}" v-if="item.distance">{{$t('host.juli')}}{{item.distance}}</span>
       </div>
       <div class="group-master">
         {{groupInfo.owner_name}}：{{item.realName||item.disUserName}}
@@ -47,10 +47,7 @@
         }
       },
       city: Object,
-      isOld: {
-        type: Boolean,
-        default: !1
-      },
+      isOld: true,
       groupInfo: {
         type: Object,
         default: {
@@ -107,7 +104,6 @@
     font-size: 4vw;
     line-height: 4vw;
     height: 4vw;
-    width: 60vw;
     margin-bottom: 10px;
     display: flex;
     justify-content: space-between;
@@ -121,7 +117,7 @@
 
   .community-item .community-title .em {
     color: #ff5344;
-    font-size: 4vw;
+    font-size: 2vw;
     line-height: 4vw;
     white-space: nowrap;
   }
