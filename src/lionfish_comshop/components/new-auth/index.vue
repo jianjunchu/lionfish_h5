@@ -38,15 +38,12 @@
     },
     props: {
       needAuth: {
-        type: Boolean,
         default: !1
       },
       needPosition: {
-        type: Boolean,
         default: !0
       },
       navBackUrl: {
-        type: String,
         default: ''
 
       }

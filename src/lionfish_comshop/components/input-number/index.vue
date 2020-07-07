@@ -1,5 +1,5 @@
 <template>
-  <div :class="['i-class', 'i-input-number', 'i-input-number-size-'+size]">
+  <div :class="[iClass, 'i-input-number', 'i-input-number-size-'+size]">
     <div
       :class="['i-input-number-minus', 'i-input-number-div', 'i-number-div', (value <= min?'i-input-number-disabled':'')]"
       v-if="value==0">
@@ -54,6 +54,7 @@
       }
     },
     props:{
+      iClass:'',
       size: String,
       value: {
         default: 1
@@ -129,7 +130,7 @@
       -webkit-appearance: none !important;
       margin: 0;
   }
-  
+
 
   .i-input-number {
     color: #495060;
@@ -165,8 +166,8 @@
     position: relative;
     text-align: center;
     height: 5vw;
-    width: 5vw;
-    font-size: 1vw;
+    width: 6vw;
+    font-size: 3vw;
     line-height: 5vw;
     z-index: 0;
   }

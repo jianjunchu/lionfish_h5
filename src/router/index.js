@@ -83,49 +83,49 @@ export const constantRoutes = [
   },
   {
     path: '/lionfish_comshop/pages/goods/goodsDetail',
-      component: () => import('@/lionfish_comshop/pages/goods/goodsDetail'),
+    component: () => import('@/lionfish_comshop/pages/goods/goodsDetail'),
     hidden: true
   },
-{
+  {
     path: '/lionfish_comshop/pages/goods/comment',
-      component: () => import('@/lionfish_comshop/pages/goods/comment'),
+    component: () => import('@/lionfish_comshop/pages/goods/comment'),
     hidden: true
   },
-{
+  {
     path: '/lionfish_comshop/pages/goods/buyRecords',
-      component: () => import('@/lionfish_comshop/pages/goods/buyRecords'),
+    component: () => import('@/lionfish_comshop/pages/goods/buyRecords'),
     hidden: true
   },
-{
+  {
     path: '/lionfish_comshop/pages/groupCenter/index',
-      component: () => import('@/lionfish_comshop/pages/groupCenter/index'),
+    component: () => import('@/lionfish_comshop/pages/groupCenter/index'),
     hidden: true
   },
   {
     path: '/lionfish_comshop/pages/groupCenter/groupList',
-      component: () => import('@/lionfish_comshop/pages/groupCenter/groupList'),
+    component: () => import('@/lionfish_comshop/pages/groupCenter/groupList'),
     hidden: true
   },
-{
+  {
     path: '/lionfish_comshop/pages/groupCenter/groupDetail',
-      component: () => import('@/lionfish_comshop/pages/groupCenter/groupDetail'),
+    component: () => import('@/lionfish_comshop/pages/groupCenter/groupDetail'),
     hidden: true
   },
-{
+  {
     path: '/lionfish_comshop/pages/groupCenter/apply',
-      component: () => import('@/lionfish_comshop/pages/groupCenter/apply'),
+    component: () => import('@/lionfish_comshop/pages/groupCenter/apply'),
     hidden: true
   },
-{
+  {
     path: '/lionfish_comshop/pages/groupCenter/recruit',
-      component: () => import('@/lionfish_comshop/pages/groupCenter/recruit'),
+    component: () => import('@/lionfish_comshop/pages/groupCenter/recruit'),
     hidden: true
   },
-{
-  path: '/lionfish_comshop/pages/order/evaluate',
+  {
+    path: '/lionfish_comshop/pages/order/evaluate',
     component: () => import('@/lionfish_comshop/pages/order/evaluate'),
-  hidden: true
-},
+    hidden: true
+  },
   {
     path: '/lionfish_comshop/pages/order/shopCart',
     component: () => import('@/lionfish_comshop/pages/order/shopCart'),
@@ -148,8 +148,13 @@ export const constantRoutes = [
   },
 
   {
-    path: '/result',
+    path: '/lionfish_comshop/pages/type/result',
     component: () => import('@/lionfish_comshop/pages/type/result'),
+    hidden: true
+  },
+  {
+    path: '/lionfish_comshop/pages/position/search',
+    component: () => import('@/lionfish_comshop/pages/position/search'),
     hidden: true
   },
 
