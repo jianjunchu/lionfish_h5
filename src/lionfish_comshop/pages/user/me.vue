@@ -408,6 +408,7 @@
           </div>
           <!--<button class="item-fav" openType="contact" sessionFrom="sobot|{{userInfo.nickName}}|{{userInfo.avatarUrl}}" v-if="user_service_switch!=0">-->
           <!--<button class="item-fav" openType="contact"  v-if="user_service_switch!=0">-->
+
           <a hoverClass="none" :href="user_service_url" v-if="user_service_url != '' && user_service_switch!=0">
             <div class="item-main">
               <div class="item-title">
@@ -618,8 +619,8 @@
                 0 < e.commiss_level) {
                   var s = 1 * e.commiss_share_member_update, i = 1 * e.share_member_count, n = 1 * e.commiss_share_member_update - 1 * e.share_member_count, r = 0;
                   1 == o.is_writecommiss_form && (r = 1) == o.comsiss_flag && (r = 0 == o.comsiss_state ? 1 : 2),
-                      f.formStatus = r,
-                      f.commiss_level =  e.commiss_level,
+                    f.formStatus = r,
+                    f.commiss_level =  e.commiss_level,
                     f.commiss_sharemember_need =  e.commiss_sharemember_need,
                     f.commiss_share_member_update = s,
                     f.commiss_biaodan_need = e.commiss_biaodan_need,
@@ -630,7 +631,7 @@
                 }
               } else a.needAuth = !0;
               var u = e, _ = u.is_supply, c = u.is_open_vipcard_buy, m = u.modify_vipcard_name, d = u.is_vip_card_member, l = u.modify_vipcard_logo, h = u.isopen_signinreward, p = u.show_signinreward_icon, g = u.is_open_supplymobile;
-                f.member_info =  o,
+              f.member_info =  o,
                 f.is_supply = _ || 0,
                 f.showGetPhone = t,
                 f.is_open_vipcard_buy = c || 0,
@@ -701,7 +702,8 @@
                 C.open_danhead_model = f,
                 C.is_open_solitaire = b,
                 C.user_top_font_color = y,
-                C.excharge_nav_name = v || "查看"
+                C.excharge_nav_name = v || "查看",
+                C.user_service_url = t.user_service_url
             }
           }
         });
@@ -718,16 +720,19 @@
       },
       authModal: function() {
 
-        if (this.needAuth) {
-          this.showAuthModal = !this.showAuthModal
-//            return false;
-        }
-        if (this.showAuthModal) {
-          this.$wx.redirectTo({
-            url: '/login'
-          })
-        }
-        return true
+        var i = this;
+
+        util.check_login_new().then(function(e) {
+          if(e){
+            i.needAuth = !1
+          }else{
+            wx.redirectTo({
+              url: "/login"
+            })
+          }
+        })
+
+        return !i.needAuth
       },
       goToGroup: function() {
 
