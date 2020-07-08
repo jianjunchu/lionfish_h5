@@ -21,7 +21,7 @@
   import GlobalMixin from '../../mixin/globalMixin.js';
   import status from '../../utils/index.js'
   import util from '../../utils/index.js'
-
+  var app,wx
   export default {
     mixins: [GlobalMixin],
     name:'groupcenter-recruit',
@@ -34,6 +34,15 @@
       }
     },
     created: function() {
+      wx = this.$wx
+      app = this.$app
+
+      wx.setNavigationBarTitle({
+        title: 'Me',
+        showLogo: false,
+        showMore: false,
+        showBack: true
+      })
       this.onLoad();
       this.onShow();
     },
@@ -41,39 +50,51 @@
       onLoad: function(t) {
         status.setNavBgColor();
         var e = this;
-        this.$http({
+        app.util.request({
+          url: "entry/wxapp/index",
+          data: {
             controller: "community.get_apply_page"
-          }).then(t=> {
-              console.log(t);
+          },
+          dataType: "json",
+          success: function(t) {
             if (0 == t.code) {
+              console.log(t);
               var a = t.data || "";
-              e.article= a;
+              e.article = a
             }
-
+          }
         });
       },
       onShow: function() {
         var a = this;
         util.check_login_new().then(function(t) {
-          a.needAuth= !t;
+          a.needAuth = !t
         });
       },
       authModal: function() {
-        return !this.needAuth || (this.showAuthModal= !this.showAuthModal, !1);
+        if (this.needAuth) {
+          this.showAuthModal = !this.showAuthModal
+//            return false;
+        }
+        if (this.needAuth) {
+          this.$wx.redirectTo({
+            url: '/login'
+          })
+        }
+        return true
+
+
+
       },
       authSuccess: function() {
-        this.needAuth= !1,
-          this.showAuthModal= !1;
+        this.needAuth = !1, this.showAuthModal = !1
       },
       goLink: function(t) {
         if (this.authModal()) {
-          var a = t.currentTarget.dataset.link;
-//          3 < getCurrentPages().length ? this.$wx.redirectTo({
-//            url: a
-//          }) : this.$wx.navigateTo({
-//            url: a
-//          });
-          this.$wx.navigateTo({
+          var a = t.currentTargetset.link;
+          3 < getCurrentPages().length ? wx.redirectTo({
+            url: a
+          }) : wx.navigateTo({
             url: a
           });
         }
