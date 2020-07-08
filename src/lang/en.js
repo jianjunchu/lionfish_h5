@@ -62,7 +62,7 @@ export default {
     shuruxingming: 'Please Input Your Name',
     shurushequmingcheng: 'Enter your Postal Code or Estate name',
     dangqiandizhi: 'Current Location',
-    qingxuanze: 'Choose Your ',
+    qingxuanze: 'Select Your ',
     dangqian: 'Current ',
     fujin: 'Nearby',
     kaiqiweizhi: 'Can\'t Locate your Position,Click to Open',
