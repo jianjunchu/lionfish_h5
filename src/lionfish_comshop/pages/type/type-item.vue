@@ -25,9 +25,7 @@
           </div>
           <div class="spu-price">
             <span class="sale-price">
-              <span class="span">${{spuItem.actPrice[0]}}</span>
-              .{{spuItem.actPrice[1]}}
-            </span>
+              <span class="span">${{spuItem.actPrice[0]}}</span>.{{spuItem.actPrice[1]}}</span>
             <div class="market-price" v-if="spuItem.show_productprice">
               ${{spuItem.marketPrice[0]}}.{{spuItem.marketPrice[1]}}
             </div>
@@ -338,9 +336,9 @@
 
   .spu .spu-content .item-right .spu-title {
     color: #222;
-    font-size: 4vw;
-    height: 5vw;
-    margin-bottom: 2vw;
+    font-size: 3vw;
+    height: 4vw;
+    margin-bottom: 1vw;
     margin-top: 2vw;
     font-weight: 500;
     position: relative;

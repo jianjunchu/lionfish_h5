@@ -42,7 +42,7 @@
         </div>
         <div style="min-height: 100px;">
           <div v-if="!pageEmpty">
-            <i-type-item v-for="(item,index) in rushList" :key="item.actId" :spuItem="item"></i-type-item>
+            <i-type-item @authModal="authModal" @changeCartNum="changeCartNum" @openSku="openSku" @vipModal="vipModal" :canLevelBuy="canLevelBuy" :changeCarCount="changeCarCount" :is_open_vipcard_buy="is_open_vipcard_buy" :needAuth="needAuth" :reduction="reduction" :spuItem="item" :stopClick="stopClick" v-for="(item,index) in rushList" :key="item.actId"></i-type-item>
           </div>
           <div class="none-rush-list" v-else-if="pageEmpty">
             <img class="img-div" src="@/assets/images/icon-index-empty.png">
@@ -61,7 +61,7 @@
       </div>
     </div>
     <!-- <i-empty wx:else>暂无分类~</i-empty> -->
-    <i-tabbar @:authModal="authModal" :cartNum="cartNum" :class="['tabbar' ,isIpx?'pb20':'']" currentIdx="1"
+    <i-tabbar @authModal="authModal" :cartNum="cartNum" :class="['tabbar' ,isIpx?'pb20':'']" currentIdx="1"
               :needAuth="needAuth"></i-tabbar>
   </div>
   <!-- <i-new-auth bind:authSuccess="authSuccess" bind:cancel="authModal" navBackUrl="/lionfish_comshop/pages/type/index" needAuth="needAuth&&showAuthModal" needPosition="needPosition"></i-new-auth> -->
@@ -286,11 +286,16 @@
       }
       ,
       authModal: function(t) {
-        t.detail && (
+        t && (
           this.needAuth = !0
         ), this.needAuth && (
           this.showAuthModal = !this.showAuthModal
         )
+        if(this.needAuth){
+          wx.redirectTo({
+            url: "/login"
+          })
+        }
       }
       ,
       vipModal: function(t) {
