@@ -414,7 +414,7 @@
               <div class="item-title">
                 <img class="toolIcon" mode="widthFix"
                      :src="user_tool_icons.i8?user_tool_icons.i8:require('@/assets/images/serviceIcon.png')"/>
-                <span>联系客服</span>
+                <span>{{$t('me.lianxikefu')}}</span>
               </div>
               <div class="tool-right">
                 <img class="icon-right " src="@/assets/images/rightArrowImg.png"/>
@@ -428,7 +428,7 @@
               <div class="item-title">
                 <img class="toolIcon" mode="widthFix"
                      :src="(user_tool_icons && user_tool_icons.i9)?user_tool_icons.i9:require('@/assets/images/aboutUsIcon.png')"/>
-                <span>关于我们</span>
+                <span>{{$t('me.guanyuwomen')}}</span>
               </div>
               <div class="tool-right">
                 <img class="icon-right " src="@/assets/images/rightArrowImg.png"/>
@@ -439,7 +439,7 @@
             <div class="item-main">
               <div class="item-title">
                 <img class="toolIcon" mode="widthFix" src="@/assets/images/loginOut.png"/>
-                <span>退出登录</span>
+                <span>{{$t('me.tuichudenglu')}}</span>
               </div>
               <div class="tool-right">
                 <img class="icon-right " src="@/assets/images/rightArrowImg.png"/>

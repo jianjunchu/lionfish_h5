@@ -47,7 +47,10 @@ export default {
     shenqingchengwei: '申请成为',
     changjianbangzhu: '常见帮助',
     tihuoma: '提货码',
-    dianjidengluzhanghu: '点击登录账户'
+    dianjidengluzhanghu: '点击登录账户',
+    lianxikefu: '联系客服',
+    tuichudenglu: '退出登陆',
+    guanyuwomen: '关于我们'
   },
   common: {
     daifukuan: '待付款',
@@ -82,7 +85,8 @@ export default {
     queding: '确定',
     quxiao: '取消',
     zanwuneirong: '暂无内容～',
-    gong: '共'
+    gong: '共',
+    zhanshimeiyoutuangou: '暂时没有团购'
   },
   host: {
     shuruxinxi: '请填写姓名、手机号等相关信息',

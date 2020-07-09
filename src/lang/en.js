@@ -14,7 +14,10 @@ export default {
     shenqingchengwei: 'Apply for',
     changjianbangzhu: 'FAQ',
     tihuoma: 'Collection Code',
-    dianjidengluzhanghu: 'Click to Login'
+    dianjidengluzhanghu: 'Click to Login',
+    lianxikefu: 'Contact Us',
+    tuichudenglu: 'Logout',
+    guanyuwomen: 'About Us'
   },
   common: {
     daifukuan: 'To Pay',
@@ -54,7 +57,8 @@ export default {
     quxiao: 'Cancel',
     yiqiangguang: 'Sold Out',
     zanwuneirong: 'Empty Now～',
-    gong: ''
+    gong: '',
+    zhanshimeiyoutuangou: 'Product is not avaliable'
   },
   host: {
     shuruxinxi: 'Input Name and Cell phone',
@@ -64,7 +68,7 @@ export default {
     dangqiandizhi: 'Current Location',
     qingxuanze: 'Select Your ',
     dangqian: 'Current ',
-    fujin: 'Nearby',
+    fujin: 'Nearby ',
     kaiqiweizhi: 'Can\'t Locate your Position,Click to Open',
     meishijian: 'Not Available',
     juli: 'Distance',
