@@ -331,7 +331,7 @@
           </div>
 
 
-          <div class="rush-list-box">
+          <van-list v-model="$data.$data.isLoadData" :finished="!commigLoadMore" @load="load_goods_data" class="rush-list-box">
             <div v-if="rushList.length>0&&tabIdx==0">
 
               <div class="active-item" v-if="rushList.length>0&&theme==0" v-for="(item,index) in rushList"
@@ -349,12 +349,16 @@
                     <span class="item-class">{{countDownMap[item.end_time].second}}</span>
                   </div>
                 </div>
-                <i-new-rush-spu :actEnd="actEndMap[item.end_time]" @authModal="authModal" :changeCartNum="changeCartNum"
-                                @openSku="openSku" @vipModal="vipModal" :canLevelBuy="canLevelBuy"
-                                :changeCarCount="changeCarCount" :isShowListCount="isShowListCount"
-                                :isShowListTimer="isShowListTimer==1" :is_open_vipcard_buy="is_open_vipcard_buy"
-                                :needAuth="needAuth" :reduction="reduction" :showPickTime="(ishow_index_pickup_time==1)"
-                                :skin="skin" :spuItem="item" :stopClick="stopClick"></i-new-rush-spu>
+
+                <van-list v-model="loading" :finished="finished" finished-text="没有更多了" @load="onLoad">
+                  <i-new-rush-spu :actEnd="actEndMap[item.end_time]" @authModal="authModal" :changeCartNum="changeCartNum"
+                                  @openSku="openSku" @vipModal="vipModal" :canLevelBuy="canLevelBuy"
+                                  :changeCarCount="changeCarCount" :isShowListCount="isShowListCount"
+                                  :isShowListTimer="isShowListTimer==1" :is_open_vipcard_buy="is_open_vipcard_buy"
+                                  :needAuth="needAuth" :reduction="reduction" :showPickTime="(ishow_index_pickup_time==1)"
+                                  :skin="skin" :spuItem="item" :stopClick="stopClick"></i-new-rush-spu>
+                </van-list>
+
               </div>
               <div class="active-item-two" v-if="rushList.length>0&&theme==1" v-for="(item,index) in rushList"
                    :key="item.id">
@@ -379,11 +383,14 @@
                 <img @click="goLink" class="topic-img"
                      :data-link="'/lionfish_comshop/pages/type/details?id='+classificationId" mode="widthFix"
                      :src="cate_info.banner" v-if="cate_info.banner"/>
-                <i-rush-spu @authModal="authModal" @changeCartNum="changeCartNum" @openSku="openSku"
-                            @vipModal="vipModal" :canLevelBuy="canLevelBuy" :changeCarCount="changeCarCount"
-                            class="item" :is_open_vipcard_buy="is_open_vipcard_buy" :needAuth="needAuth"
-                            :reduction="reduction" :spuItem="item" :stopClick="stopClick"
-                            v-for="(item,index) in rushList" :key="item.actId"></i-rush-spu>
+
+
+                  <i-rush-spu @authModal="authModal" @changeCartNum="changeCartNum" @openSku="openSku"
+                              @vipModal="vipModal" :canLevelBuy="canLevelBuy" :changeCarCount="changeCarCount"
+                              class="item" :is_open_vipcard_buy="is_open_vipcard_buy" :needAuth="needAuth"
+                              :reduction="reduction" :spuItem="item" :stopClick="stopClick"
+                              v-for="(item,index) in rushList" :key="item.actId"></i-rush-spu>
+
               </div>
               <i-load-more iClass="loadMore" :loading="loadMore" :tip="loadText" v-if="loadMore"></i-load-more>
             </div>
@@ -414,7 +421,7 @@
                 <img :src="(indexBottomImage?indexBottomImage:require('@/assets/images/icon-index-slogan.png'))"/>
               </div>
             </div>
-          </div>
+          </van-list>
         </div>
         <div @click="showCopyTextHandle" class="copytext-btn" data-status="true" v-if="ishow_index_copy_text==1">
           一键复制拼团信息
@@ -612,7 +619,7 @@
 <script>
   import GlobalMixin from '../../mixin/globalMixin.js'
   import { Sticky } from 'vant';
-  import { Swipe, SwipeItem,Search } from 'vant';
+  import { Swipe, SwipeItem,Search,List } from 'vant';
 
   var _Page, _extends = Object.assign || function(t) {
     for (var a = 1; a < arguments.length; a++) {
@@ -640,7 +647,7 @@
   export default {
     mixins: [countDownInit, GlobalMixin],
     name: 'Index',
-    components:{[Sticky.name]:Sticky ,[Swipe.name]:Swipe,[SwipeItem.name]:SwipeItem,[Search.name]:Search},
+    components:{[Sticky.name]:Sticky ,[Swipe.name]:Swipe,[SwipeItem.name]:SwipeItem,[Search.name]:Search,[List.name]:List},
     data() {
       let self = this;
       return {
@@ -837,7 +844,7 @@
       }
     },
     created: function() {
-
+      window.addEventListener('scroll', this.scrollHandle, true)
       app = this.$getApp();
       wx = this.$wx;
 
@@ -989,7 +996,7 @@
 
                   wx.showModal({
                   title: '',
-                  content: 'Please select an ' + e.group_name +,
+                  content: 'Please select an ' + e.group_name ,
                   showCancel: false,
                   confirmColor: '#8ED9D1',
                   success: function(t) {
@@ -1270,7 +1277,6 @@
           })
       },
       load_goods_data: function() {
-
 
 
         var t = wx.getStorageSync('token'),
@@ -1894,6 +1900,7 @@
             head_id: a.communityId,
             gid: o
           }).then(t => {
+            e.$data.$data.isLoadData = !1
             wx.hideLoading()
             if ( 0 == t.code) {
               var a = t.list
@@ -2032,6 +2039,19 @@
           });
         }
       },
+      scrollHandle:function() {
+        const el = document.querySelector('.rush-list-box');
+        const offsetHeight = el.offsetHeight;
+        el.onscroll = () => {
+          const scrollTop = el.scrollTop;
+          const scrollHeight = el.scrollHeight;
+          if ((offsetHeight + scrollTop) - scrollHeight >= -1) {
+            console.log(11111111111111)
+          }
+        };
+
+
+      }
     }
   }
 

@@ -247,8 +247,8 @@
   z-index: 2;
   background: #f7f7f7;
   position: relative;
-  min-height: 800px;
-  padding: 10px;
+  min-height: 100vw;
+  padding: 1vw;
 }
 
 .first-screen {
