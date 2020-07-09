@@ -10,8 +10,8 @@
       </div>
       <div class="none-rush-list" v-if="showEmpty">
         <img class="img-block" src="@/assets/images/icon-index-empty.png"></img>
-        <div class="h1">暂时没有团购</div>
-        <div class="h2">我们正在为您准备更优惠的团购</div>
+        <div class="h1">{{$t('common.zanshimeiyoutuangou')}}</div>
+        <!-- <div class="h2">我们正在为您准备更优惠的团购</div> -->
       </div>
       <i-cart-btn :cartNum="cartNum "></i-cart-btn>
     </div>

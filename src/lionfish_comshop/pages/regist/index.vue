@@ -60,15 +60,19 @@
 		
 		
         <div>
-            <button class="registBtn" :disabled="!registFlag" @click="regist()" style="background: #F3F8FE;color: #387BFE;border-radius: 5px;font-weight: 600;margin-top: 30px;">
+         <!--注册按钮-->
+			    <el-button  type="primary" 
+			   	style="height: 40px;width:100%;margin-bottom:30px;border-radius: 20px;background: #FDEACA;border:none;color: #F7AC39;font-weight: 600;margin-top: 50px;" 
+			   	@click.native.prevent="regist">Register</el-button>
+            <!--<button class="registBtn" :disabled="!registFlag" @click="regist()" style="background: #F3F8FE;color: #387BFE;border-radius: 5px;font-weight: 600;margin-top: 30px;">
                 Register
-            </button>
+            </button>-->
         </div>
         <div class="gotoLogin">
-           <span style="color: #959595;"> Already hava an account? </span> <a href="javascript:void()" @click="gotoLogin" style="color: blue">Login</a>
+           <span style="color: #959595;"> Already have an account? </span> <a href="javascript:void()" @click="gotoLogin" style="color: blue">Login</a>
         </div>
 		<!-- <div class="gotoLogin">
-		 <span style="color: #959595;">Don't hava an account?</span>  <a href="javascript:void()" @click="gotoRegist" style="color: #568CE2;">Register</a>
+		 <span style="color: #959595;">Don't have an account?</span>  <a href="javascript:void()" @click="gotoRegist" style="color: #568CE2;">Register</a>
 		</div> -->
 		</el-form>
     </div>
