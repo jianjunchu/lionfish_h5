@@ -212,15 +212,15 @@
                     {{goodsInfo.name}}
                   </div>
                   <div class="mount">
-                    <div v-if="goodsInfo.option_str">{{goodsInfo.option_str}} </div>
-                    <div v-if="order.order_info.type!='integral'">${{goodsInfo.price}}</div>
-                    <div v-if="order.order_info.type=='integral'">积分</div> x {{goodsInfo.quantity}}
+                    <span v-if="goodsInfo.option_str">{{goodsInfo.option_str}} </span>
+                    <span v-if="order.order_info.type!='integral'">${{goodsInfo.price}}</span>
+                    <span v-if="order.order_info.type=='integral'">积分</span> x {{goodsInfo.quantity}}
                   </div>
                   <div class="bottom-info">
-                    <div class="bold-text">
-                      {{$t('common.xiaoji')}}：<div v-if="order.order_info.type!='integral'">${{goodsInfo.real_total}}</div>
-                      <div v-if="order.order_info.type=='integral'">{{$t('common.point')}}</div>
-                    </div>
+                    <span class="bold-text">
+                      {{$t('common.xiaoji')}} <span v-if="order.order_info.type!='integral'"> ${{goodsInfo.real_total}} </span>
+                      <span v-if="order.order_info.type=='integral'">{{$t('common.point')}}</span>
+                    </span>
                     <i-dialog bind:cancel="callDialog" bind:confirm="confirmGoods" :data-cancel="confirmGoodsVisible" text="确认该商品已经提货？" :visible="confirmGoodsVisible"></i-dialog>
                   </div>
                   <div class="card-btn">
@@ -933,6 +933,6 @@
   }
 </script>
 
-<style scoped>
-  @import "order.less";
+<style  src="@/lionfish_comshop/pages/order/order.css">
 </style>
+

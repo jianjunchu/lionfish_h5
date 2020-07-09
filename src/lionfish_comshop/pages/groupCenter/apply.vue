@@ -296,7 +296,10 @@
 //          });
 //          this.$store.state.app.toolbarTitle =e + "申请";
           a.$wx.setNavigationBarTitle({
-            title: e + "申请"
+            title: e + "申请",
+            showLogo: false,
+            showMore: false,
+            showBack: true
           })
         });
         var e = decodeURIComponent(query.scene);

@@ -5,7 +5,7 @@
         <scroll-view scrollX class="scroll-wrapper" scrollIntoView="item{{currentTab<4?0:currentTab-3}}" scrollWithAnimation="true" style="background:{{skin.color}}" wx:if="{{scekillTimeList.length}}">
           <view bindtap="handleClick" class="navigate-item {{currentTab===index?'active':''}}" data-index="{{index}}" id="item{{index}}" wx:for="{{scekillTimeList}}" wx:key="index">
             <view class="names">{{item.timeStr}}</view>
-            <text class="desc" style="{{currentTab==index?'color:'+skin.color:''}}">{{item.desc}}</text>
+            <span class="desc" style="{{currentTab==index?'color:'+skin.color:''}}">{{item.desc}}</span>
           </view>
         </scroll-view>
         <view class="counttime i-flex i-flex-spb">

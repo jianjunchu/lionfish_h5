@@ -6,8 +6,8 @@
         <div style='float:left;width: 40%;font-size: 22px;line-height: 50px;margin-left: 10%;'>
           转账支付
         </div>
-        <div style='float:right;width: 50%;text-align: right' @click='closeTransferModal'>
-          <image src='@/assets/images/img-close.png' style='width: 30px;height: 30px;margin-top: 10px;margin-right: 10%'></image>
+        <div style='float:right;width: 50%;text-align: right' @click.stop='closeTransferModal'>
+          <img src='@/assets/images/img-close.png' style='width: 30px;height: 30px;margin-top: 10px;margin-right: 10%'/>
         </div>
       </div>
       <div style='text-align: center'>
@@ -16,17 +16,17 @@
           <div style='margin-left: 5%;margin-top:10px;text-align:left;display: flex;justify-content: center;'>
             <span style='display: flex;justify-content: center;'>帐号：</span>
             <span style='text-align: left;'>{{bankInfo.account_no}}</span>
-            <button @click='copyText' size="mini" style="font-size: 8px;" :data-text="bankInfo.account_no">复制</button>
+            <button @click.stop='copyText' size="mini" style="font-size: 8px;" :data-text="bankInfo.account_no">复制</button>
           </div>
           <div style='margin-left: 5%;margin-top:10px;text-align:left;display: flex;justify-content: center;'>
             <span style='display: flex;justify-content: center;'>户名：</span>
             <span style='text-align: left;'>{{bankInfo.account_name}}</span>
-            <button @click='copyText' size="mini" style="font-size: 8px;" :data-text="bankInfo.account_name">复制</button>
+            <button @click.stop='copyText' size="mini" style="font-size: 8px;" :data-text="bankInfo.account_name">复制</button>
           </div>
           <div style='margin-left: 5%;margin-top:10px;text-align:left;display: flex;justify-content: center;'>
             <span style='display: flex;justify-content: center;'>银行：</span>
             <span style='text-align: left;'>{{bankInfo.bank_name}}</span>
-            <button @click='copyText' size="mini" style="font-size: 8px;" :data-text="bankInfo.bank_name">复制</button>
+            <button @click.stop='copyText' size="mini" style="font-size: 8px;" :data-text="bankInfo.bank_name">复制</button>
           </div>
 
           <div style='wid:200px;height:100px;text-align: center;margin-top: 30px;'>
@@ -35,7 +35,7 @@
           </div>
         </div>
         <div style='width: 60%;text-align: center;margin-top: 30px;margin-left: 20%;'>
-          <button @click="havePaid"  data-type="banktransfer"  class="wux-button wux-button--block" type="default">已支付，查看订单</button>
+          <button @click.stop="havePaid"  data-type="banktransfer"  class="wux-button wux-button--block" type="default">已支付，查看订单</button>
         </div>
       </div>
     </div>
@@ -47,7 +47,7 @@
           PayNow支付
         </div>
 
-        <div style='float:right;width: 50%;text-align: right' @click='toClosePayNowModal'>
+        <div style='float:right;width: 50%;text-align: right' @click.stop='toClosePayNowModal'>
           <img src=@/assets/images/img-close.png' style='width: 24px;height: 24px;margin-top: 10px;margin-right: 5%'></img>
         </div>
       </div>
@@ -79,7 +79,7 @@
           </div>
         </div>
         <div style='width: 60%;text-align: center;margin-top: 30px;margin-left: 20%;'>
-          <button @click="havePaid" data-type="paynow"   class="wux-button wux-button--block" type="default">已支付，查看订单</button>
+          <button @click.stop="havePaid" data-type="paynow"   class="wux-button wux-button--block" type="default">已支付，查看订单</button>
         </div>
       </div>
     </div>
@@ -97,33 +97,33 @@
       </div>
 
 
-      <button @click="orderPayWeixin" class="wux-button wux-button--block" type="warn">
+      <button @click.stop="orderPayWeixin" class="wux-button wux-button--block" type="warn">
         微信支付</button>
 
       <!--
       <button class="wux-button wux-button--block" type="warn" style="margin-top=16px">到店付款</button>
       -->
-      <button @click="payNow" class="wux-button wux-button--block" data-type="paynow" type="warn">PayNow支付</button>
-      <!--<button @click="orderPayTransfer" data-type="banktransfer" class="wux-button wux-button&#45;&#45;block" type="warn">公司转账</button>-->
+      <button @click.stop="payNow" class="wux-button wux-button--block" data-type="paynow" type="warn">PayNow支付</button>
+      <!--<button @click.stop="orderPayTransfer" data-type="banktransfer" class="wux-button wux-button&#45;&#45;block" type="warn">公司转账</button>-->
 
       <!--
-      <button wx:if='{{is_pickup}}' @click="havePaid" data-type="cash" class="wux-button wux-button--block" type="warn">货到付款</button>
+      <button wx:if='{{is_pickup}}' @click.stop="havePaid" data-type="cash" class="wux-button wux-button--block" type="warn">货到付款</button>
       -->
 
-      <button @click="closePaymentModal"  class="wux-button wux-button--block" type="default">取消支付</button>
+      <button @click.stop="closePaymentModal"  class="wux-button wux-button--block" type="default">取消支付</button>
 
 
     </div>
     <div class="nav-bar">
       <div class="nav-bar-inner">
-        <div @click="getOrder" :class="['nav-bar-item', (order_status==item.id?'current':'')]" :data-type="item.id" :style="(order_status==item.id?'border-color:'+skin.color:'')"  v-for="(item,idx) in tabs" :key="item.id">
+        <div @click.stop="getOrder" :class="['nav-bar-item', (order_status==item.id?'current':'')]" :data-type="item.id" :style="(order_status==item.id?'border-color:'+skin.color:'')"  v-for="(item,idx) in tabs" :key="item.id">
           {{item.name}}
         </div>
       </div>
     </div>
     <div class="nav-bar-content">
       <div v-if="!is_empty">
-        <div @click="goOrder" class="card" :data-type="item.order_id"  v-for="(item,idx) in order" :key="item.id">
+        <div @click.stop="goOrder" class="card" :data-type="item.order_id"  v-for="(item,idx) in order" :key="item.id">
           <i-card :data-orderId="item.order_id" iClass="my-card" showModal="true">
             <div class="card-header" slot="header">
               <div>{{$t('order.xiadanshijian')}}
@@ -135,7 +135,7 @@
               </div>
             </div>
             <div class="card-content" slot="content">
-              <div class="content-wrap" v-if="item.is_pin==1">
+              <div class="order-content-wrap" v-if="item.is_pin==1">
                 <i-img height="60" iClass="show-img mar-right-10" lazyLoad="true" loadImage="item.goods_list[0].goods_images" width="60"></i-img>
                 <div class="i-flex-item">
                   <div class="name bold">
@@ -147,7 +147,7 @@
                   </div>
                 </div>
               </div>
-              <div class="content-wrap" v-else>
+              <div class="order-content-wrap" v-else>
                 <div class="clearfix">
                   <!--<i-img height="60" iClass="['show-img', (idx<4?'mar-right-10':'')]" lazyLoad="true" :loadImage="img.goods_images" width="60" v-if="idx<4"    v-for="(img,idx) in item.goods_list" :key="img.id"></i-img>-->
                   <div height="60" class="show-img img-content" v-for="(img,idx) in item.goods_list" :key="img.order_goods_id">
@@ -160,7 +160,7 @@
                   <div class="dot-item"></div>
                 </div>
               </div>
-              <div class="content-wrap fsz-30" style="margin-top:12px" v-if="item.delivery_time && item.delivery_time!='' && item.delivery_date && item.delivery_date!=''">
+              <div class="order-content-wrap fsz-30" style="margin-top:12px" v-if="item.delivery_time && item.delivery_time!='' && item.delivery_date && item.delivery_date!=''">
 
                 {{item.delivery=='pickup'?$t('order.tihuoshijian'):$t('order.songhuoshijian')}} {{item.delivery_date}} [{{item.delivery_time}}]
               </div>
@@ -178,9 +178,9 @@
                 </div>
               </div>
               <div class="button-group" v-if="item.order_status_id==3">
-                <div @click="cancelOrder" class="my-button" data-show="cancelVisible" :data-type="item.order_id"> {{$t('order.quxiaodingdan')}}</div>
-                <!--<div  @click="showPaymentModal" class="my-button-pay padding-15" :data-type="item"  :style="{background: linear-gradient(90deg, skin.color 0%, skin.light 100%)}">立即支付</div>-->
-                <div  @click="toShowPaymentModal" class="my-button-pay padding-15" :data-type="item"  :style="{color:skin.color,background:skin.light}">{{$t('order.lijizhifu')}}</div>
+                <div @click.stop="cancelOrder" class="my-button" data-show="cancelVisible" :data-type="item.order_id"> {{$t('order.quxiaodingdan')}}</div>
+                <!--<div  @click.stop="showPaymentModal" class="my-button-pay padding-15" :data-type="item"  :style="{background: linear-gradient(90deg, skin.color 0%, skin.light 100%)}">立即支付</div>-->
+                <div  @click.stop="toShowPaymentModal" class="my-button-pay padding-15" :data-type="item"  :style="{color:skin.color,background:skin.light}">{{$t('order.lijizhifu')}}</div>
               </div>
               <div v-if="item.order_status_id==4">
                 <div class="get-goods" :data-delivery="item.delivery" :data-type="item.order_id">
@@ -446,7 +446,7 @@
       goOrder: function(event) {
         let id = event.currentTarget.dataset.type;
 
-        this.$wx.redirectTo({
+        this.$wx.navigateTo({
           url: '/lionfish_comshop/pages/order/order?id=' + id
         })
       },
@@ -483,28 +483,36 @@
         });
       },
       cancelOrder: function(t) {
-        let id = event.currentTarget.dataset.type;
+        let id = t.currentTarget.dataset.type;
         var token = this.$wx.getStorageSync("token");
         var that = this;
         this.$wx.showModal({
           title: '取消支付',
           content: '好不容易挑出来，确定要取消吗？',
           confirmColor: '#8ED9D1',
+          showCancelButton:true,
           success(res) {
+            console.log(res.confirm)
             if (res.confirm) {
-               this.$http({
-                   controller: 'order.cancel_order',
-                   token: token,
-                   order_id: id
-                 }).then(res=> {
-                   this.$wx.showToast({
-                     title: '取消成功',
-                     icon: 'success',
-                     duration: 1000
-                   })
-                   that.order_(that.order_status);
+              that.$app.util.request({
+                  url: "entry/wxapp/index",
+                  data: {
+                    controller: "order.cancel_order",
+                    token: token,
+                    order_id: id
+                  },
+                  dataType: "json",
+                  success: function(e) {
+                    that.$wx.showToast({
+                      title: "取消成功",
+                      icon: "success",
+                    });
 
-               })
+                    that.$wx.redirectTo({
+                      url: "/lionfish_comshop/pages/order/index"
+                    });
+                  }
+                });
             }
           }
         })
@@ -573,6 +581,6 @@
   }
 </script>
 
-<style scoped>
-  @import "index.less";
+
+<style  src="@/lionfish_comshop/pages/order/index.css">
 </style>

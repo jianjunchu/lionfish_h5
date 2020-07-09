@@ -1,6 +1,6 @@
 <template>
   <div class="page">
-    <el-amap vid="amap" :plugin="plugin" class="amap-demo" :center="center">
+    <el-amap style="display: none" vid="amap" :plugin="plugin" class="amap-demo" :center="center">
     </el-amap>
     <div v-if="loadOver && isblack!=1">
 
@@ -223,7 +223,7 @@
                 </div>
               </div>
               <div @click="goLink" class="more" :data-link="'/lionfish_comshop/moduleA/seckill/list?time='+scekillTimeList[secKillActiveIdx].seckillTime">
-                更多 <text class="iconfont icon-gengduo"></text>
+                更多 <span class="iconfont icon-gengduo"></span>
               </div>
             </div>
             <div class="seckill-list" v-if="secRushList.length">
@@ -633,12 +633,12 @@
   import util from '../../utils/index.js'
   import status from '../../utils/index.js'
   import a from '../../utils/public'
+  import countDownInit from '../../utils/countDown'
 
-  var wcache = require('../../utils/wcache.js'),
-    countDownInit = require('../../utils/countDown'),wx,app;
+  var wcache = require('../../utils/wcache.js'),wx,app;
 
   export default {
-    mixins: [countDownInit.default, GlobalMixin],
+    mixins: [countDownInit, GlobalMixin],
     name: 'Index',
     components:{[Sticky.name]:Sticky ,[Swipe.name]:Swipe,[SwipeItem.name]:SwipeItem,[Search.name]:Search},
     data() {
@@ -810,14 +810,15 @@
               o.getCurrentPosition((status, result) => {
                 console.log(result)
                 if (result && result.position) {
+
                   self.$wx.setStorageSync('position',result.position);
                   self.$wx.setStorage({
                     key: 'latitude',
-                    data: e
+                    data: result.position.lat
                   })
                   self.$wx.setStorage({
                     key: 'longitude',
-                    data: a
+                    data: result.position.lng
                   })
                   self.$nextTick();
                 }
@@ -1375,7 +1376,7 @@
           }).then(t => {
             if (0 == t.code) {
               var a = o.transTime(t.list)
-              for (var e in o.$data.$data.countDownMap) o.initCountDown(o.$data.$data.countDownMap[e])
+              for (var e in o.$data.$data.countDownMap) countDownInit.initCountDown(o.$data.$data.countDownMap[e])
               o.$data.$data.hasOverGoods = !1, o.$data.$data.overPageNum += 1, (
                 o.rushList = a,
                   o.loadMore = !1,

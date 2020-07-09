@@ -91,12 +91,10 @@
       },
       goLink: function(t) {
         if (this.authModal()) {
-          var a = t.currentTargetset.link;
-          3 < getCurrentPages().length ? wx.redirectTo({
+          var a = t.currentTarget.dataset.link;
+          wx.redirectTo({
             url: a
-          }) : wx.navigateTo({
-            url: a
-          });
+          })
         }
       },
       onShareAppMessage: function() {}

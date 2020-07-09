@@ -299,6 +299,6 @@
   }
 </script>
 
-<style scoped>
-  @import "evaluate.less";
+<style  src="@/lionfish_comshop/pages/order/evaluate.css">
 </style>
+

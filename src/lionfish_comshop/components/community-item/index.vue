@@ -50,9 +50,11 @@
       isOld: true,
       groupInfo: {
         type: Object,
-        default: {
-          group_name: "社区",
-          owner_name: "团长"
+        default:()=> {
+          return {
+            group_name: 'Estate',
+            owner_name: 'Host'
+          };
         }
       },
       hiddenDetails: {

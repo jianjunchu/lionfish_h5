@@ -46,7 +46,7 @@
           <div class="title">{{groupInfo.owner_name}}信息</div>
           <div class="detail">
             <span>{{order.order_info.ziti_name}}</span>
-            <div bindtap="callTelphone" class="phone" :data-phone="order.order_info.ziti_mobile"
+            <div @click="callTelphone" class="phone" :data-phone="order.order_info.ziti_mobile"
                   v-if="hidePhone==0">
               <img class="icon-phone" src="@/assets/images/phone2.png"/>
               <span>联系{{groupInfo.owner_name}}</span>

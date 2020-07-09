@@ -1,14 +1,14 @@
 <template>
   <div class="item">
     <div class="orderNum">
-      <text>团单日期：{{item.createTime}}</text>
-      <text :class="[(item.orderStatusName=='已完成'?'black':''), 'statusName']">{{item.orderStatusName}}</text>
+      <span>团单日期：{{item.createTime}}</span>
+      <span :class="[(item.orderStatusName=='已完成'?'black':''), 'statusName']">{{item.orderStatusName}}</span>
     </div>
     <div class="spu">
       <i-img class="goodsImg" defaultImage="@/assets/images/placeholder-refund.png" height="60" iClass="img-class" :loadImage="item.spuImage" width="60"></i-img>
       <div class="detail">
         <div class="spuName">
-          <text>{{item.spuName}}</text>
+          <span>{{item.spuName}}</span>
         </div>
         <div class="tips">
           <span>参团人数：{{item.joinMemberNum}}</span>
@@ -17,7 +17,7 @@
         <div class="tips">
           <span>商品金额：${{item.totalAmount?item.totalAmount/100:0}}</span>
           <span class="last">佣金:
-          <text class="price">${{item.commision?item.commision/100:0}}</text>
+          <span class="price">${{item.commision?item.commision/100:0}}</span>
                 </span>
         </div>
       </div>

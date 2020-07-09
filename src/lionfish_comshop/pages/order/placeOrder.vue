@@ -214,29 +214,29 @@
             <div v-if="tabIdx==2">
 
                  <div class="receiver">
-                    <span>所在地区： </text>
+                    <span>所在地区： </span>
                      <div @click="choseLocation" class="sel-btn">{{tabAddress[tabIdx].region[0]||'选择地址'}}{{tabAddress[tabIdx].region[1]}}{{tabAddress[tabIdx].region[2]}} </div>
                     <img class="icon-right" src="@/assets/images/rightArrowImg.png"></image>
                  </div>
                  <div class="receiver align-start">
-                    <span>详细地址：</text>
+                    <span>详细地址：</span>
                     <spanarea @input="changeReceiverAddress" class="receive-name" focus="{{focus_addr}}" hidden="{{showConfirmModal}}" placeholder="详细地址" type="text" value="{{tabAddress[tabIdx].receiverAddress}}"></textarea>
                  </div>
 
             </block>
             <div v-else>
                  <div @click="choseLocation" class="receiver align-start">
-                    <span>所在位置：</text>
+                    <span>所在位置：</span>
                      <div class="sel-btn tuan-pos">{{tabAddress[tabIdx].receiverAddress}}
                     <img class="icon-right" src="@/assets/images/rightArrowImg.png"></image>
                      </div>
                  </div>
                  <div class="receiver align-start">
-                    <span>楼号门牌：</text>
+                    <span>楼号门牌：</span>
                     <spanarea @input="changeTuanAddress" class="receive-name" focus="{{focus_addr}}" placeholder="例如:A座106室" type="text" value="{{tabAddress[tabIdx].lou_meng_hao}}" v-if="!showConfirmModal}}"></textarea>
                  </div>
                  <div class="receiver align-start">
-                    <span>送货时间：</text>
+                    <span>送货时间：</span>
                     <input @input="bindReceiverMobile" focus="{{focus_delivery_time}}" bindfocus="selectdeliveryTime" placeholder="送货时间" type="text" value="{{tabAddress[tabIdx].delivery_time}}"></input>
                  </div>
             </block>
@@ -491,8 +491,8 @@
              <div class="title">需要{{groupInfo.owner_name}}配送，请确认收货信息 </div>
              <div class="sub-title">
                 <img src="@/assets/images/icon-give.png"></image>
-                <span v-if="pick_up_type==3">预计{{pick_up_time}}{{groupInfo.owner_name}}配送</text>
-                <span v-else>预计{{pick_up_time}}({{pick_up_weekday}}){{groupInfo.owner_name}}配送</text>
+                <span v-if="pick_up_type==3">预计{{pick_up_time}}{{groupInfo.owner_name}}配送</span>
+                <span v-else>预计{{pick_up_time}}({{pick_up_weekday}}){{groupInfo.owner_name}}配送</span>
              </div>
         </block>
         -->

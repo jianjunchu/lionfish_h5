@@ -340,11 +340,11 @@
           </router-link>
 
           <div v-else>
-            <router-link hoverClass="none" to="/lionfish_comshop/pages/groupCenter/recruit" v-if="close_community_apply_enter==0">
+            <router-link  hoverClass="none" to="/lionfish_comshop/pages/groupCenter/recruit" v-if="close_community_apply_enter==0">
               <div class="item-main">
                 <div class="item-title">
                   <img class="toolIcon" mode="widthFix" :src="user_tool_icons.i5?user_tool_icons.i5:require('@/assets//images/groupCenterIcon.png')"/>
-                  <sapn>申请成为{{groupInfo.owner_name}}</sapn>
+                  <span>申请成为{{groupInfo.owner_name}}</span>
                 </div>
                 <div class="tool-right">
                   <img class="icon-right " src="@/assets/images/rightArrowImg.png"></img>
@@ -481,8 +481,8 @@
 
 <script>
   import GlobalMixin from '../../mixin/globalMixin.js'
-  import util from '../../utils/index.js'
-  import status from '../../utils/index.js'
+  import util from '../../utils'
+  import status from '../../utils'
   var wcache = require('../../utils/wcache.js')
   import auth from '../../utils/auth'
   var app,wx
@@ -805,7 +805,7 @@
 //          })
 //        }
 
-        this.$wx.redirectTo({
+        this.$wx.navigateTo({
           url: link
         })
       },
