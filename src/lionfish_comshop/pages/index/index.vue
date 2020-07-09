@@ -987,8 +987,8 @@
               }else{
 
                   wx.showModal({
-                  title: '提示',
-                  content: '请选择' + e.group_name,
+                  title: '',
+                  content: 'Please select an ' + e.group_name +,
                   showCancel: false,
                   confirmColor: '#8ED9D1',
                   success: function(t) {

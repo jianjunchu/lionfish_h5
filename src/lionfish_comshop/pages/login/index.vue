@@ -57,7 +57,7 @@
 
 
 	 	<div style="height: 50px;">
-		 <div style="width: 100%;height:28px;border-bottom:1px solid #ccc;font-size: 16px;color: #3D7BD0;" >
+		 <div style="width: 100%;height:28px;border-bottom:1px solid #ccc;font-size: 12px;color: #3D7BD0;" >
 		 <input style="width: 70%;height: 100%;border:none;outline: none;background: none;" v-model="logoCode" id="input_code"  @blur="blur('code')" @keyup="activeregist()" ref="code" placeholder="Code"/>
 		 <div style="float: right;background: #FDEACA;border-radius: 20px;color: #FDB56D;font-size: 13px;padding:5px;margin-bottom: 10px;" @click="getVerifyCode()" ref="getCode" :disabled="getCodeDisabled">{{getCodeBtnText}}</div>
 		 </div>
@@ -67,16 +67,16 @@
 	 
    </div>
    
-   <p style="color: #0076FF;font-size: 16px;" v-show="isShowLogin" @click="yanzhengma">Log in with OTP</p>
-   <p style="color: #0076FF;font-size: 16px;" v-show="isShowCode" @click="mima">Log in with password</p>
+   <p style="color: #0076FF;font-size: 16px;" v-show="isShowLogin" @click="yanzhengma">Login with OTP</p>
+   <p style="color: #0076FF;font-size: 16px;" v-show="isShowCode" @click="mima">Login with password</p>
    
 	
 	<!--密码登录按钮-->
-   <el-button v-show="isShowLogin"  :loading="loading" type="primary" style="height: 40px;width:100%;margin-bottom:30px;border-radius: 20px;background: #FDEACA;border:none;color: #F7AC39;font-weight: 600;margin-top: 50px;" @click.native.prevent="handleLogin">Log in</el-button>
+   <el-button v-show="isShowLogin"  :loading="loading" type="primary" style="height: 40px;width:100%;margin-bottom:30px;border-radius: 20px;background: #FDEACA;border:none;color: #F7AC39;font-weight: 600;margin-top: 50px;" @click.native.prevent="handleLogin">Login</el-button>
 
 
 <!--7验证码登陆按钮-->
-   <el-button v-show="isShowCode" :loading="loading" type="primary" style="height: 40px;width:100%;margin-bottom:30px;border-radius: 20px;background: #FDEACA;border:none;color: #F7AC39;font-weight: 600;margin-top: 50px;" @click.native.prevent="handleLogin2">Log in</el-button>
+   <el-button v-show="isShowCode" :loading="loading" type="primary" style="height: 40px;width:100%;margin-bottom:30px;border-radius: 20px;background: #FDEACA;border:none;color: #F7AC39;font-weight: 600;margin-top: 50px;" @click.native.prevent="handleLogin2">Login</el-button>
 
 
 
@@ -85,7 +85,7 @@
 
     </el-form>
     <div class="gotoRegist">
-     <span style="color: #959595;">Don't hava an account?</span>  <a href="javascript:void()" @click="gotoRegist" style="color: #568CE2;">Register</a>
+     <span style="color: #959595;">Don't have an account? Click </span>  <a href="javascript:void()" @click="gotoRegist" style="color: #568CE2;">here</a> <span style="color: #959595;"> to Register</span>
     </div>
   </div>
 </template>
@@ -273,14 +273,14 @@ export default {
 				console.log(response)
 				var result = response;
 				if(result != null && result.member_id != -1) {
-					alert('登录成功');
+					alert('Login Successful');
 					this.$wx.setStorageSync('token', response.token)
 					setToken(response.token);
 					this.$router.push({
 						path: '/lionfish_comshop/pages/index/index'
 					});
 				} else {
-					alert("登录失败");
+					alert("Login failed, please try again");
 				}
 			})
 		},
