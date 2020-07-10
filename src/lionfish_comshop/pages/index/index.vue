@@ -844,7 +844,6 @@
       }
     },
     created: function() {
-      window.addEventListener('scroll', this.scrollHandle, true)
       app = this.$getApp();
       wx = this.$wx;
 
@@ -2039,19 +2038,7 @@
           });
         }
       },
-      scrollHandle:function() {
-        const el = document.querySelector('.rush-list-box');
-        const offsetHeight = el.offsetHeight;
-        el.onscroll = () => {
-          const scrollTop = el.scrollTop;
-          const scrollHeight = el.scrollHeight;
-          if ((offsetHeight + scrollTop) - scrollHeight >= -1) {
-            console.log(11111111111111)
-          }
-        };
 
-
-      }
     }
   }
 

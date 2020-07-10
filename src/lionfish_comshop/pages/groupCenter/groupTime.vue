@@ -56,7 +56,13 @@
         this.save_select()
       },
       unselect: function(o) {
-        this.date.remove(o)
+
+        var index = this.date.indexOf(o);
+
+        if (index > -1) {
+          this.splice(index, 1);
+        }
+
         this.save_select()
       },
       save_select: function() {
