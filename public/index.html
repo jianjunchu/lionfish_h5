@@ -6,6 +6,14 @@
       <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
       <link rel="icon" href="<%= BASE_URL %>favicon.ico">
       <title><%= webpackConfig.name %></title>
+      <script language="JavaScript">
+        Array.prototype.remove = function(val) {
+          var index = this.indexOf(val);
+          if (index > -1) {
+            this.splice(index, 1);
+          }
+        };
+      </script>
     </head>
     <body>
       <noscript>

@@ -585,6 +585,7 @@
     },
     mounted: function() {
       this.onShow()
+      alert(this.needAuth)
     },
     methods: {
       onLoad: function(options) {
@@ -819,7 +820,7 @@
               t.cartNum = e.data
             );
           })) : ((
-            t.needAuth = !0
+            t.needAuth = true
           ), wx.hideLoading());
         }), t.getCopyright(), t.getMemberInfo();
       },

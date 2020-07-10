@@ -111,8 +111,7 @@
       <div class="head">
         <div class="head">
           <div class="back-img-wrap">
-            <!--<img class="back-img" :src="common_header_backgroundimage?common_header_backgroundimage:'@/assets/images/TOP_background@2x.png'"></img>-->
-            <img class="back-img" src="@/assets/images/TOP_background@2x.png"/>
+            <img class="back-img" :src="common_header_backgroundimage?common_header_backgroundimage:require('@/assets/images/TOP_background@2x.png')"/>
           </div>
           <div class="to-pay-wrap" v-if="order.order_info.order_status_id==3&&changeState!=1">
             <div class="font-bold-30" v-if="order.order_info.open_auto_delete==1">
@@ -374,19 +373,22 @@
 
   function count_down(e, t) {
     var o = Math.floor(t / 1e3), a = o / 3600 / 24, r = Math.floor(a), n = o / 3600 - 24 * r, i = Math.floor(n), s = o / 60 - 1440 * r - 60 * i, d = Math.floor(s), c = o - 86400 * r - 3600 * i - 60 * d;
-    e.endtime= {
+      e.endtime = {
         days: r,
         hours: fill_zero_prefix(i),
         minutes: fill_zero_prefix(d),
         seconds: fill_zero_prefix(c),
         show_detail: 1
-      }, t <= 0 ? (e.changeState= 1,
-      e.endtime= {
+      }
+
+      t <= 0 ? (
+        e.changeState = 1,
+        e.endtime = {
         days: "00",
         hours: "00",
         minutes: "00",
         seconds: "00"
-      }): setTimeout(function() {
+      }) : setTimeout(function() {
       count_down(e, t -= 1e3);
     }, 1e3);
   }
@@ -399,7 +401,7 @@
 
   import a from '../../utils/public'
    var wcache = require('../../utils/wcache.js'),
-    countDownInit = require('../../utils/countDown')
+    countDownInit = require('../../utils/countDown'),wx,app
 
   export default {
     mixins: [GlobalMixin],
@@ -465,14 +467,17 @@
       'i-goods-info': require('../../components/goodsInfo/index.vue').default
     },
     created: function() {
+      app = this.$getApp()
+      wx = this.$wx
 
-      this.$wx.setNavigationBarTitle({
+      wx.setNavigationBarTitle({
         title: "Order",
         showLogo:false,
         showMore:false,
         showBack:true
       })
-      this.onLoad();
+      const t = this.$route.query
+      this.onLoad(t);
     },
     methods: {
       doShowPaymentModal: function(){
@@ -515,114 +520,69 @@
 
         });
       },
-      onLoad: function() {
-        var that = this;
-        var options = this.$route.query;
+      onLoad: function(e) {
+        var u = this;
+        u.options = e;
+        var t = wx.getStorageSync("userInfo");
+        t && (t.shareNickName = 3 < t.username.length ? t.username.substr(0, 3) + "..." : t.username),
+          status.setGroupInfo().then(function(e) {
+            u.groupInfo =  e
+          }), util.check_login() ? (u.needAuth = !1) : (u.needAuth = !0), (
+          u.common_header_backgroundimage = app.globalData.common_header_backgroundimage,
+          u.userInfo = t
+        );
+        var o = wx.getStorageSync("token");
+         wx.showLoading();
+        var _ = e && e.is_show || 0, a = e && e.isfail || "";
+        null != (this.is_show_tip = _) && 1 == _ || wx.showLoading(), null != a && 1 == a && wx.showToast({
+          title: "支付失败",
+          icon: "none"
+        }), app.util.request({
+          url: "entry/wxapp/index",
+          data: {
+            controller: "order.order_info",
+            token: o,
+            id: e.id
+          },
+          dataType: "json",
+          method: "POST",
+          success: function(e) {
+            if (setTimeout(function() {
+              wx.hideLoading();
+            }, 1e3), 0 == e.code) {
+              var t = e.data.order_info;
 
-        that.options = options;
-
-        var userInfo = this.$wx.getStorageSync('userInfo');
-
-        if (userInfo && userInfo.nickName){
-            if (userInfo.nickName.length() > 3) {
-              userInfo.shareNickName = userInfo.nickName.substr(0, 3) + "...";
-            }else {
-              userInfo.shareNickName = userInfo.nickName;
-            }
-        }
-        status.setGroupInfo().then((groupInfo) => {
-          that.groupInfo=groupInfo;
+              if (null != _ && 1 == _ && "integral" == t.type) wx.showToast({
+                title: "兑换成功"
+              }); else if (null != _ && 1 == _) if (1 == e.order_pay_after_share) {
+                var o = e.data.share_img;
+                (u.share_img = o, u.isShowModal = !0);
+              } else wx.showToast({
+                title: "支付成功"
+              });
+              if (3 == t.order_status_id) {
+                var a = 1e3 * (t.over_buy_time - t.cur_time);
+                0 < a ? count_down(u, a) : 1 == t.open_auto_delete && (
+                  u.changeState = 1
+                );
+              }
+              var r = e, n = r.pingtai_deal, i = r.order_refund, s = r.order_can_del_cancle, d = r.is_hidden_orderlist_phone, c = r.is_show_guess_like, l = r.user_service_switch ,os = t.order_num_alias;
+              (
+                u.order = e.data,
+                u.order_num_alias_sub =os.substring(os.length-5),
+                u.pingtai_deal = n,
+                u.order_refund = i,
+                u.order_can_del_cancle = s,
+                u.loadover = !0,
+                u.is_show = 1,
+                u.hide_lding = !0,
+                u.is_hidden_orderlist_phone = d || 0,
+                u.is_show_guess_like = c || 0,
+                u.user_service_switch =  l || 1
+              ), u.do_hide_lding();
+            } else 2 == e.code && (u.needAuth = !0);
+          }
         });
-
-        util.check_login() ? this.needAuth= false: this.needAuth= true;
-
-        that.common_header_backgroundimage= this.$getApp().globalData.common_header_backgroundimage;
-          that.userInfo = userInfo;
-
-        var token = this.$wx.getStorageSync("token");
-//        this.$wx.hideShareMenu();
-//        this.$wx.showLoading();
-
-        var is_show_tip = options && options.is_show || 0;
-        let isfail = options && options.isfail || '';
-        this.is_show_tip = is_show_tip;
-        if (is_show_tip != undefined && is_show_tip == 1) {
-          //todo 弹出分享
-        } else {
-          this.$wx.showLoading();
-        }
-
-        if (isfail != undefined && isfail == 1) {
-          this.$wx.showToast({
-            title: '支付失败',
-            icon: 'none'
-          })
-        }
-
-         this.$http_post({
-             controller: 'order.order_info',
-             token,
-             id: options.id
-           }).then(res=> {
-              console.log(res);
-//             setTimeout(() => {
-//               this.$wx.hideLoading();
-//             }, 1000);
-
-             if(res.code==0){
-               let order_info = res.data.order_info;
-               if (is_show_tip != undefined && is_show_tip == 1 && order_info.type == 'integral') {
-                 this.$wx.showToast({
-                   title: '兑换成功'
-                 })
-               } else if (is_show_tip != undefined && is_show_tip == 1) {
-
-                 if (res.order_pay_after_share == 1) {
-                   let share_img = res.data.share_img;
-                   this.share_img = share_img;
-                   this.isShowModal = true;
-                 } else {
-                   this.$wx.showToast({
-                     title: '支付成功'
-                   })
-                 }
-               }
-
-               if (order_info.order_status_id == 3) {
-                 var seconds = (order_info.over_buy_time - order_info.cur_time) * 1000;
-                 if (seconds > 0) {
-                   count_down(that, seconds);
-                 } else {
-                   order_info.open_auto_delete = 1;
-                   this.changeState = 1;
-
-                 }
-               }
-               let {
-                 pingtai_deal,
-                 order_refund,
-                 order_can_del_cancle,
-                 is_hidden_orderlist_phone,
-                 is_show_guess_like,
-                 user_service_switch
-               } = res;
-
-               that.order= res.data,
-               that.pingtai_deal= pingtai_deal,
-               that.order_refund= order_refund,
-               that.order_can_del_cancle= order_can_del_cancle,
-               that.loadover= true,
-               that.is_show= 1,
-               that.hide_lding= true,
-               that.is_hidden_orderlist_phone= parseInt(is_hidden_orderlist_phone) || 0,
-               that.is_show_guess_like= is_show_guess_like || 0,
-               that.user_service_switch= user_service_switch || 1;
-
-               that.do_hide_lding();
-             } else if(res.code==2){
-               that.needAuth= true;
-             }
-         })
       },
       onShow: function() {
         console.log(this.isFirst, "onShow", this.options.id), 1 < this.isFirst && this.reload_data(),
@@ -650,14 +610,14 @@
             id: t
           }).then(e=> {
               console.log(e);
-            var t = e.data.order_info;
+            var t = e.order_info;
             if (3 == t.order_status_id) {
               var o = 1e3 * (t.over_buy_time - t.cur_time);
               0 < o ? count_down(a, o) : a.changeState= 1;
             }
-            a.order= e.data.data,
-            a.pingtai_deal= e.data.pingtai_deal,
-            a.order_refund= e.data.order_refund,
+            a.order= e.data,
+            a.pingtai_deal= e.pingtai_deal,
+            a.order_refund= e.order_refund,
             a.loadover= true,
             a.is_show= 1,
             a.hide_lding= true;
@@ -792,13 +752,13 @@
           dataType: "json",
           method: "POST",
           success: function(e) {
-            0 == e.data.code ? this.$wx.requestPayment({
-              appId: e.data.appId,
-              timeStamp: e.data.timeStamp,
-              nonceStr: e.data.nonceStr,
-              package: e.data.package,
-              signType: e.data.signType,
-              paySign: e.data.paySign,
+            0 == e.code ? this.$wx.requestPayment({
+              appId: e.appId,
+              timeStamp: e.timeStamp,
+              nonceStr: e.nonceStr,
+              package: e.package,
+              signType: e.signType,
+              paySign: e.paySign,
               success: function(e) {
                 this.$wx.redirectTo({
                   url: "/lionfish_comshop/pages/order/order?id=" + t + "&is_show=1"
@@ -807,8 +767,8 @@
               fail: function(e) {
                 console.log(e);
               }
-            }) : 2 == e.data.code && this.$wx.showToast({
-              title: e.data.msg,
+            }) : 2 == e.code && this.$wx.showToast({
+              title: e.msg,
               icon: "none"
             });
           }
@@ -885,7 +845,7 @@
                 dataType: "json",
                 method: "POST",
                 success: function(e) {
-                  0 == e.data.code ? this.$wx.showModal({
+                  0 == e.code ? this.$wx.showModal({
                     title: "提示",
                     content: "取消订单成功",
                     showCancel: false,
@@ -896,7 +856,7 @@
                       });
                     }
                   }) : (r.canCancel = true, this.$wx.showToast({
-                    title: e.data.msg || "取消订单失败",
+                    title: e.msg || "取消订单失败",
                     icon: "none"
                   }));
                 }

@@ -404,6 +404,25 @@ function getSign(e, t, n) {
   return 'c1b97ac15caab79ab4d10089cd6b82d0'
 }
 
+function getMemberInfo(o) {
+  var e = _this.$wx.getStorageSync('token')
+  request({
+    url: 'entry/wxapp/user',
+    data: {
+      controller: 'user.get_user_info',
+      token: e
+    },
+    dataType: 'json',
+    success: function(e) {
+      if (e.code === 0) {
+        o.success(e)
+      } else {
+        o.error(e)
+      }
+    }
+  })
+}
+
 export default {
   getLightColor: getLightColor,
   addCart: addCart,
@@ -428,7 +447,8 @@ export default {
   checkRedirectTo: checkRedirectTo,
   check_login_new: check_login_new,
   request: request,
-  url: url
+  url: url,
+  getMemberInfo: getMemberInfo
 
 }
 

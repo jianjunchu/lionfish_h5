@@ -1939,7 +1939,7 @@
               address: o[1]
             }), (
               d.community = a
-            ), wcache.put('community', a), d.$getApp().globalData.community = a, c && !e) {
+            ), wx.setStorageSync('community', a), d.$getApp().globalData.community = a, c && !e) {
               var i = wx.getStorageSync('lastCommunity'),
                 s = i.communityId || ''
               '' != s && s != a.communityId && (

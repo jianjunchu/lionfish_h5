@@ -8,8 +8,8 @@
         <img src="../../../assets/images/logo.png" style="width: 100%;height: 100%;" />
         </div>
       </div>
-      
-      
+
+
 <!--密码登陆-->
    <div v-show="isShowLogin">
 	  <div style="height: 50px;">
@@ -35,8 +35,8 @@
 	   </div>
 	   </div>
     </div>
-	
-	
+
+
 	   <!--验证码登陆-->
    <div v-show="isShowCode">
    	<div style="height: 50px;">
@@ -62,15 +62,15 @@
 		 <div style="float: right;background: #FDEACA;border-radius: 20px;color: #FDB56D;font-size: 13px;padding:5px;margin-bottom: 10px;" @click="getVerifyCode()" ref="getCode" :disabled="getCodeDisabled">{{getCodeBtnText}}</div>
 		 </div>
 		 </div>
-		 
-	 
-	 
+
+
+
    </div>
-   
+
    <p style="color: #0076FF;font-size: 16px;" v-show="isShowLogin" @click="yanzhengma">Login with OTP</p>
    <p style="color: #0076FF;font-size: 16px;" v-show="isShowCode" @click="mima">Login with password</p>
-   
-	
+
+
 	<!--密码登录按钮-->
    <el-button v-show="isShowLogin"  :loading="loading" type="primary" style="height: 40px;width:100%;margin-bottom:30px;border-radius: 20px;background: #FDEACA;border:none;color: #F7AC39;font-weight: 600;margin-top: 50px;" @click.native.prevent="handleLogin">Login</el-button>
 
@@ -94,9 +94,10 @@
 import GlobalMixin from '../../mixin/globalMixin.js'
 import { setToken } from '../../utils/auth.js'
 
-var util = require("../../utils"),
-	status = require("../../utils"),
-	wcache = require("../../utils/wcache.js")
+import util from "../../utils"
+import	status  from "../../utils"
+
+var	wcache = require("../../utils/wcache.js")
 export default {
 	name: 'Login',
 	data() {
@@ -257,6 +258,7 @@ export default {
 		},
 		//密码登陆
 		handleLogin() {
+       var i = this;
 			if(this.loginForm.username == '') {
 				alert("请填写登陆账号")
 				return
@@ -275,10 +277,19 @@ export default {
 				if(result != null && result.member_id != -1) {
 					alert('Login Successful');
 					this.$wx.setStorageSync('token', response.token)
-					setToken(response.token);
-					this.$router.push({
-						path: '/lionfish_comshop/pages/index/index'
-					});
+
+          util.getMemberInfo({success:function(e) {
+              i.$wx.setStorageSync('userInfo',e.data)
+              i.$router.push({
+                path: '/lionfish_comshop/pages/index/index'
+              });
+            },
+            error:function() {
+
+            }
+          });
+
+
 				} else {
 					alert("Login failed, please try again");
 				}
@@ -329,7 +340,7 @@ export default {
 }</script>
 
 <style lang="scss">
-	
+
 	       //弹窗
         .toast {
             position: fixed;
@@ -370,7 +381,7 @@ $cursor: rgba(122, 116, 116, 0.548);
 /* reset element-ui css */
 
 .login-container {
-	
+
 	.el-input {
 		display: inline-block;
 		height: 47px;
@@ -435,7 +446,7 @@ $light_gray:rgb(17, 123, 245);
 			}
 		}
 	}
-	
+
 	.svg-container {
 		padding: 6px 5px 6px 15px;
 		color: $dark_gray;

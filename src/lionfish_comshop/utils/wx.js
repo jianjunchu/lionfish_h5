@@ -117,10 +117,8 @@ export default {
         const res = { 'longitude': position.coords.longitude, 'latitude': position.coords.latitude }
         option.success(res)
       }, function(err) {
-        this.showToast({
-          title: 'Error',
-          icon: err
-        })
+        const res = { 'longitude': '103.863', 'latitude': '1.38814' }
+        option.success(res)
       })
     } else {
       this.showModal({
