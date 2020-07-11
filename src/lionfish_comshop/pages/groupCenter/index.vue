@@ -140,6 +140,14 @@
           </div>
         </div>
         <div class="record">
+
+          <router-link hoverClass="none" to="/lionfish_comshop/pages/groupCenter/groupTime" v-if="isShow">
+            <div class="recordList">
+              <span class="recordListTit">Set Work Time</span>
+              <img class="rightArrowImg" src="@/assets/images/rightArrowImg.png"/>
+            </div>
+          </router-link>
+
           <!--
           <s hoverClass="none" href="#/lionfish_comshop/pages/groupCenter/communityMembers" v-if="isShow">
             <div class="recordList">
@@ -148,7 +156,7 @@
               </div>
             </div>
           </s>
-          
+
           <a hoverClass="none" href="#/lionfish_comshop/moduleA/solitaire/groupIndex" v-if="is_open_solitaire==1">
             <div class="recordList">
               <span class="recordListTit">接龙中心</span>
