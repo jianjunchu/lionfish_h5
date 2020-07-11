@@ -359,7 +359,7 @@ export default {
             max-width: 150px;
         }
 	input::-webkit-input-placeholder {
-	font-size: 20px;
+	font-size: 15px;
 }
 
 
