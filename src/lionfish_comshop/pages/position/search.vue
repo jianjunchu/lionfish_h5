@@ -124,7 +124,7 @@
             } else {
               1 == t.code ? (
                 i.loadMore = !1,
-                  i.tip = '^_^已经到底了'
+                  i.tip = 'Please try again'
               ) : t.code
             }
           }

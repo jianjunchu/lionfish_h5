@@ -344,7 +344,7 @@
               <div class="item-main">
                 <div class="item-title">
                   <img class="toolIcon" mode="widthFix" :src="user_tool_icons.i5?user_tool_icons.i5:require('@/assets//images/groupCenterIcon.png')"/>
-                  <sapn>申请成为{{groupInfo.owner_name}}</sapn>
+                  <sapn>{{$t('me.shenqingchengwei')}}{{groupInfo.owner_name}}</sapn>
                 </div>
                 <div class="tool-right">
                   <img class="icon-right " src="@/assets/images/rightArrowImg.png"></img>
@@ -360,7 +360,7 @@
                 <div class="item-title">
                   <img aspectFit class="toolIcon supplier" mode="widthFix"
                        :src="user_tool_icons.i6?user_tool_icons.i6:require('@/assets/images/icon-supplier.png')"/>
-                  <span>申请成为{{supply_diy_name}}</span>
+                  <span>{{$t('me.shengqingchengwei')}}{{supply_diy_name}}</span>
                 </div>
                 <div class="tool-right">
                   <img class="icon-right " src="@/assets/images/rightArrowImg.png"/>

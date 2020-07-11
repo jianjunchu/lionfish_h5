@@ -2,10 +2,10 @@
   <div class="new-comers" v-if="list && list.length">
     <div class="new-comers-title">
         <span class="leftBorder" :style="{'border-color':skin.color}"></span>
-        限时秒杀
+        {{$t{'home.xianshimiaosha'}}}
       <i-count-down :clearTimer="clearTimer" countdownClass="count-down" itemClass="item-time" showDay="true"
                     :target="rushEndTime" v-if="rushEndTime">
-        <span class="count-down-left-text">仅剩</span>
+        <span class="count-down-left-text">{{$t('home.jinsheng')}}</span>
       </i-count-down>
     </div>
     <div bindscrolltolower="getMore" class="new-comers-scroll">
@@ -14,7 +14,7 @@
                        v-for="(item , index) in list" :key="item.id">
           <i-img defaultImage="@/assets/images/placeholder-refund.png" height="200" iClass="new-img"
                  :loadImage="item.skuImage" width="180"></i-img>
-          <div class="act-end" v-if="item.spuCanBuyNum==0">已抢光</div>
+          <div class="act-end" v-if="item.spuCanBuyNum==0">{{$t('home.yiqiangguang')}}</div>
           <div class="title">{{item.spuName}}</div>
           <div class="new-bot">
             <div class="price">${{item.actPrice[0]}}.{{item.actPrice[1]}}</div>

@@ -566,7 +566,7 @@
               o.$forceUpdate();
             } else if(1 == t.code)  {
               o.loadMore= !1,
-                o.tip= "^_^已经到底了";
+                o.tip= "Please try again";
             }
         });
 

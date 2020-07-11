@@ -446,13 +446,13 @@
           <div class="fixed-content">
             <div class="fixed-left">
               <div class="h1" v-if="buy_type=='integral'">
-                实付：
+                To Pay：
                 <span>
                             <div v-if="total_free>0">${{total_free}} + </div>{{total_integral}}积分
             </span>
               </div>
               <div class="h1" v-else>
-                合计：<span>${{tot_price}}</span>
+                Total：<span>${{tot_price}}</span>
               </div>
               <div class="h2" v-if="buy_type!='integral'">
                 <em>{{$t('order.zonge')}}${{total_all}}</em>

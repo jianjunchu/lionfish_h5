@@ -91,14 +91,14 @@
     </div>
     <div slot="footer">
       <div class="footer" v-if="orderInfo.type=='integral'">
-        <div>实付：</div>
+        <div>To Pay：</div>
         <div class="money">
           <div v-if="orderInfo.shipping_fare>0">${{orderInfo.shipping_fare}} +</div>
           {{orderInfo.score}}积分
         </div>
       </div>
       <div class="footer" v-else>
-        <div>合计：</div>
+        <div>Total：</div>
         <div class="money">
           ${{orderInfo.total}}
         </div>

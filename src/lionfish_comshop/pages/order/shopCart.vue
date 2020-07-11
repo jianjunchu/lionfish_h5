@@ -303,25 +303,25 @@
           </label>
           <div class="fixed-bar-center" v-if="disAmount&&disAmount!='0.00'&&is_open_fullreduction==1">
             <div class="total">
-              合计：
+              Total：
               <span>${{totalAmount}}</span>
             </div>
             <div class="total-detail">
-              <span>总额:${{allcount}}</span>
-              <span>优惠:${{disAmount}}</span>
+              <span>Amount:${{allcount}}</span>
+              <span>Discount:${{disAmount}}</span>
             </div>
           </div>
           <div class="fixed-bar-center" v-else>
             <div class="total">
-              合计：<span>${{allcount}}</span>
+              Total：<span>${{allcount}}</span>
             </div>
             <div class="total-detail" v-if="vipFee>0">
-              <span>总额:${{vipTotal}}</span>
-              <span>优惠:${{vipFee}}</span>
+              <span>Amount:${{vipTotal}}</span>
+              <span>Discount:${{vipFee}}</span>
             </div>
             <div class="total-detail" v-else-if="levelFee>0">
-              <span>总额:${{levelToTal}}</span>
-              <span>优惠:${{levelFee}}</span>
+              <span>Amount:${{levelToTal}}</span>
+              <span>Discount:${{levelFee}}</span>
             </div>
           </div>
           <button class="fixed-bar-btn" style="background:#dcdcdc;" v-if="is_comunity_rest==1">团长休息中</button>

@@ -397,8 +397,8 @@
               </div>
               <div class="none-rush-list" v-if="showCommingEmpty">
                 <img class="img-block" src="@/assets/images/icon-index-empty.png"/>
-                <div class="h1">暂时没有团购</div>
-                <div class="h2">我们正在为您准备更优惠的团购</div>
+                <div class="h1">Please try again</div>
+                <div class="h2"></div>
               </div>
               <div class="slogan" v-if="!commigLoadMore&&commingList.length">
                 <img :src="(indexBottomImage?indexBottomImage:require('@/assets/images/icon-index-slogan.png'))"/>
@@ -407,8 +407,8 @@
             <div v-if="tabIdx===0">
               <div class="none-rush-list" v-if="showEmpty">
                 <img class="img-block" src="@/assets/images/icon-index-empty.png"/>
-                <div class="h1">暂时没有团购</div>
-                <div class="h2">我们正在为您准备更优惠的团购</div>
+                <div class="h1">Please try again</div>
+                <!-- <div class="h2">我们正在为您准备更优惠的团购</div> -->
               </div>
               <div class="slogan" v-if="!loadMore&&rushList.length">
                 <img :src="(indexBottomImage?indexBottomImage:require('@/assets/images/icon-index-slogan.png'))"/>
@@ -551,20 +551,20 @@
           </div>&ndash;&gt;-->
         </div>
         <button @click="gocarfrom" class="sku-confirm" :disabled="(cur_sku_arr.stock==0?true:false)" formType="submit">
-          <div>{{cur_sku_arr.stock==0?'已抢光':'确定'}}</div>
+          <div>{{cur_sku_arr.stock==0?$t('home.yiqiangguang'):$t('home.queding')}}</div>
         </button>
       </div>
     </div>
     <div @click="hide_share_handler" class="ui-mask" v-show="is_share_html"></div>
     <div class="model-services show" v-show="is_share_html">
-      <div class="model-services-title">分享</div>
+      <div class="model-services-title">{{$t('common.fenxiang')}}</div>
       <div class="model-services-content">
         <div class="service-list">
           <div class="service-item">
             <button class="none_btn" openType="share" plain="true">
               <span class="iconfont icon-weixin2 service-icon"></span>
               <div class="cube-text">
-                <span>好友</span>
+                <span>{{$t('common.haoyou')}}</span>
               </div>
             </button>
           </div>
@@ -988,7 +988,7 @@
 
                   wx.showModal({
                   title: '',
-                  content: 'Please select an ' + e.group_name +,
+                  content: 'Please select an ' + e.group_name, 
                   showCancel: false,
                   confirmColor: '#8ED9D1',
                   success: function(t) {
@@ -1398,7 +1398,7 @@
                   if(1 == o.$data.$data.overPageNum && 0 == o.rushList.length){
                     o.showEmpty = !0;
                     o.loadMore = !1;
-                      o.tip = '^_^已经到底了'
+                      o.tip = 'Please try again'
                   }
               }else if(2 == t.code){
                 o.needAuth = !0,
@@ -1412,7 +1412,7 @@
         if(1 == o.$data.$data.overPageNum && 0 == o.rushList.length){
           o.showEmpty = !0;
           o.loadMore = !1;
-          o.tip = '^_^已经到底了'
+          o.tip = 'Please try again'
         }else{
           o.showEmpty = !1;
           o.loadMore = !1;

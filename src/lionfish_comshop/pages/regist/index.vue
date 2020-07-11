@@ -303,7 +303,7 @@
 
 <style lang="scss">
 	input::-webkit-input-placeholder{
-	       font-size: 20px;
+	       font-size: 15px;
 	}
   $mainColor: #007cdc;
   

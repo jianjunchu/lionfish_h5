@@ -2,6 +2,14 @@ export default {
   login: {
     title: '登录'
   },
+  home: {
+    xianshimiaosha: '限时秒杀',
+    jinsheng: '仅剩',
+    sousuoshangpin: '搜索商品',
+    quanbu: '全部',
+    yiqiangguang: '已抢光',
+    queding: '确定'
+  },
   index: {
     desktop: '添加到「桌面」团购更方便',
     change: '切换',
@@ -50,7 +58,8 @@ export default {
     dianjidengluzhanghu: '点击登录账户',
     lianxikefu: '联系客服',
     tuichudenglu: '退出登陆',
-    guanyuwomen: '关于我们'
+    guanyuwomen: '关于我们',
+    shenqingchengwei: '申请成为'
   },
   common: {
     daifukuan: '待付款',
@@ -121,7 +130,10 @@ export default {
     chakanquanbu: '查看全部',
     jiesuanjilu: '结算记录',
     wodeqianbao: '我的钱包',
-    qingdanliebiao: '清单列表'
+    qingdanliebiao: '清单列表',
+    shenqingshenhezhong: '申请审核中',
+    dengdaijieguo: '您的申请在处理中，请等待结果...',
+    gongli: '公里'
   },
   detail: {
     huishouye: '回首页',

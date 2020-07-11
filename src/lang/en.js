@@ -2,6 +2,14 @@ export default {
   login: {
     title: 'login'
   },
+  home: {
+    xianshimiaosha: 'Flash Deal',
+    jinsheng: 'Time Lef',
+    sousuoshangpin: 'Search',
+    quanbu: 'All',
+    yiqiangguang: 'Sold Out',
+    queding: 'OK'
+  },
   me: {
     wodedingdan: 'My Orders',
     quanbudingdan: 'All Orders',
@@ -17,7 +25,8 @@ export default {
     dianjidengluzhanghu: 'Click to Login',
     lianxikefu: 'Contact Us',
     tuichudenglu: 'Logout',
-    guanyuwomen: 'About Us'
+    guanyuwomen: 'About Us',
+    shenqingchengwei: 'Join Us as '
   },
   common: {
     daifukuan: 'To Pay',
@@ -58,10 +67,13 @@ export default {
     yiqiangguang: 'Sold Out',
     zanwuneirong: 'Empty Now～',
     gong: '',
-    zhanshimeiyoutuangou: 'Product is not avaliable'
+    zhanshimeiyoutuangou: 'Product is not avaliable',
+    fenxiang: 'Share',
+    haoyou: 'Friends',
+    fanhuishouye: 'Return to Homepage'
   },
   host: {
-    shuruxinxi: 'Input Name and Cell phone',
+    shuruxinxi: 'Your Details',
     xingming: 'Name',
     shuruxingming: 'Please Input Your Name',
     shurushequmingcheng: 'Enter your Postal Code or Estate name',
@@ -93,7 +105,10 @@ export default {
     chakanquanbu: 'Check All',
     jiesuanjilu: 'Settlement Records',
     wodeqianbao: 'My Wallet',
-    qingdanliebiao: 'Shipment List'
+    qingdanliebiao: 'Shipment List',
+    shenqingshenhezhong: 'Processing',
+    dengdaijieguo: 'We will be in contact via WhatsApp within 48 hrs',
+    gongli: 'km'
   },
   detail: {
     huishouye: 'Home',
@@ -124,7 +139,7 @@ export default {
     songhuoriqi: 'Choose Delivery Date',
     shouhuoren: 'Receiver',
     tihuoren: 'Name',
-    shoujihaoma: 'Handphone:',
+    shoujihaoma: 'Mobile:',
     youbian: 'Post Code:',
     dapaihao: 'Block NO.:',
     daoluming: 'Street:',
@@ -156,15 +171,15 @@ export default {
     bianhao: 'NO.',
     xiadanshijian: 'Order Time',
     zhifushijian: 'Payment Time',
-    songdashijian: 'Delivery Time',
-    shouhuoshijian: 'Collection Time',
+    songdashijian: 'Delivery Date',
+    shouhuoshijian: 'Collection Date',
     shangpinjine: 'Products Amount',
     tianxieshouhuoren: 'Fill Out Receiver',
     tianxietihuoren: 'Fill Out Collector',
     shoujihaomayouwu: 'Wrong Cell Phone',
     youbianyouwu: 'Wrong Post Code',
     tianxiemenpai: 'Fill Out Unit NO.',
-    wurenhedingdan: 'No Order Now～',
+    wurenhedingdan: 'No Orders',
     chakanxiangqing: 'Deteil',
     shifu: 'Paid',
     quxiaodingdan: 'Cancel',
@@ -174,7 +189,7 @@ export default {
     songhuoshijian: 'Delivery Time:'
   },
    cart: {
-    gouwuchekong: 'The cart is empty，to buy now~',
+    gouwuchekong: 'Back to Homepage',
     qugouwu: 'To Buy',
     qudenglu: 'Login',
     lijizhifu: 'Pay Now',
@@ -186,9 +201,9 @@ export default {
   },
   type: {
     yijingdingbu: 'Already on the top～',
-    xialachakan: 'Pull down to check previous category',
-    zhanshimeiyou: 'No group buy now!',
-    zhengzaizhunbei: 'We are preparing group buy for you',
+    xialachakan: '',
+    zhanshimeiyou: 'Please try again',
+    zhengzaizhunbei: '',
     wodedixian: 'Its my bottom～',
     shanglachakan: 'Pull up to check next category'
   },

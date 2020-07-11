@@ -9,19 +9,19 @@
             <div class="form-item">
               <label class="form-item-control">{{$t('host.xingming')}}</label>
               <!--<input @input="inputRealName" class="form-item-input" data-key="3" placeholder="{{$t(host.shuruxingming)}}" type="text"/>-->
-              <input v-model="head_name" class="form-item-input" placeholder="请输入姓名" type="text"/>
+              <input v-model="head_name" class="form-item-input" placeholder="" type="text"/>
             </div>
             <!--<div class="['form-item', (errors[2]===2?'error':'')]">-->
             <div class="form-item">
-              <label class="form-item-control">手机号</label>
+              <label class="form-item-control">Mobile</label>
               <!--<input @input="inputMobile" class="form-item-input" data-key="2" :focus="focus_mobile" maxlength="11" placeholder="请输入手机号码" type="text" :value="mobile"/>-->
-              <input v-model="mobile_detail" class="form-item-input"  maxlength="11" placeholder="请输入手机号码" type="text" />
+              <input v-model="mobile_detail" class="form-item-input"  maxlength="11" placeholder="" type="text" />
             </div>
             <div class="form-item">
               <div class="form-item">
-              <label class="form-item-control">微信号</label>
+              <!-- <label class="form-item-control">微信号</label>-->
               <!--<input @input="inputWechat" class="form-item-input" :focus="focus_wechat" placeholder="请输入微信号" type="text" :value="wechat"/>-->
-              <input v-model="wechat"  class="form-item-input" placeholder="请输入微信号" type="text" />
+              <input v-model="wechat"  class="form-item-input" placeholder="" type="text" />
               </div>
             </div>
             <!--<div class="['form-item', (errors[5]===2?'error':'')]" style="display:none;">-->
@@ -34,11 +34,13 @@
               <!--</div>-->
             <!--</div>-->
             <!--<div class="['form-item', (errors[1]===2?'error':'')]">-->
+            <!-- 
             <div class="form-item">
               <label class="form-item-control">{{groupInfo.group_name}}名称</label>
-              <!--<input @input="inputCommunity" class="form-item-input" data-key="1" placeholder="请输入社区名称" type="text"/>-->
-              <input v-model="community_name" class="form-item-input"  placeholder="请输入社区名称" type="text"/>
+              <input @input="inputCommunity" class="form-item-input" data-key="1" placeholder="请输入社区名称" type="text"/>
+              <input v-model="community_name" class="form-item-input"  placeholder="" type="text"/>
               </div>
+            -->
             <!--<div @click="chose_location" class="['form-item', (errors[0]===2?'error':'')]">-->
             <!--<label class="form-item-control">所在位置</label>-->
             <!--<div class="class='form-item-input'">{{region[0]||'选择地址'}}{{region[1]}}{{region[2]}}</div>-->
@@ -46,13 +48,13 @@
             <!--</div>-->
             <!--<div class="['form-item', (errors[6]===2?'error':'')]">-->
             <div class="form-item">
-              <label class="form-item-control">详细地址</label>
+              <label class="form-item-control">Address</label>
               <!--<input @input="inputAddress" class="form-item-input" data-key="1" placeholder="请输入详细地址" type="text" :value="addr_detail"/>-->
-              <input v-model="addr_detail" class="form-item-input" placeholder="请输入详细地址" type="text" />
+              <input v-model="addr_detail" class="form-item-input" placeholder="" type="text" />
             </div>
             <div class="form-item">
               <label class="submit">
-                提交申请
+                Send
                 <button hidden @click="submit"></button>
               </label>
             </div>
@@ -72,9 +74,9 @@
     </div>
     <div class="apply-pass" v-if="member_info.is_head==2||apply_complete">
       <img src="@/assets/images/auditing.png" width="78px" height="72px" />
-      <div class="h1">申请审核中</div>
-      <div class="p">您的申请在处理中，请等待结果…</div>
-      <a class="link-btn" openType="switchTab" href="#/lionfish_comshop/pages/index/index">返回首页</a>
+      <div class="h1">{{$t('host.shenqingshenhezhong')}}</div>
+      <div class="p">{{$t('host.dengdaijieguo')}}</div>
+      <a class="link-btn" openType="switchTab" href="#/lionfish_comshop/pages/index/index">{{$t('common.fanhuishouye')}}</a>
     </div>
     <!--</div>-->
     <!--<i-new-auth bind:authSuccess="authSuccess" bind:cancel="authModal" :needAuth="needAuth&&showAuthModal" needPosition="false"></i-new-auth>-->
@@ -296,7 +298,7 @@
 //          });
 //          this.$store.state.app.toolbarTitle =e + "申请";
           a.$wx.setNavigationBarTitle({
-            title: e + "申请"
+            title: e + " Application"
           })
         });
         var e = decodeURIComponent(query.scene);

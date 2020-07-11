@@ -389,7 +389,7 @@
 
             } else {
               console.log(a.needAuth)
-              1 == t.code ? (a.loadMore = !1, a.tip = '^_^已经到底了') : 2 == t.code && (wx.hideLoading(), (a.needAuth = !0, a.hasRefeshin = !1))
+              1 == t.code ? (a.loadMore = !1, a.tip = 'Please try again') : 2 == t.code && (wx.hideLoading(), (a.needAuth = !0, a.hasRefeshin = !1))
             }
           }
         }))
