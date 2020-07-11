@@ -2,7 +2,7 @@
   <div class="new-comers" v-if="list && list.length">
     <div class="new-comers-title">
         <span class="leftBorder" :style="{'border-color':skin.color}"></span>
-        {{$t{'home.xianshimiaosha'}}}
+        {{$t('home.xianshimiaosha')}}
       <i-count-down :clearTimer="clearTimer" countdownClass="count-down" itemClass="item-time" showDay="true"
                     :target="rushEndTime" v-if="rushEndTime">
         <span class="count-down-left-text">{{$t('home.jinsheng')}}</span>
