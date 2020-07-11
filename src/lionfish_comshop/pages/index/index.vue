@@ -1,6 +1,6 @@
 <template>
   <div class="page">
-    <el-amap vid="amap" :plugin="plugin" class="amap-demo" :center="center">
+    <el-amap style="display: none" vid="amap" :plugin="plugin" class="amap-demo" :center="center">
     </el-amap>
     <div v-if="loadOver && isblack!=1">
 
@@ -223,7 +223,7 @@
                 </div>
               </div>
               <div @click="goLink" class="more" :data-link="'/lionfish_comshop/moduleA/seckill/list?time='+scekillTimeList[secKillActiveIdx].seckillTime">
-                更多 <text class="iconfont icon-gengduo"></text>
+                更多 <span class="iconfont icon-gengduo"></span>
               </div>
             </div>
             <div class="seckill-list" v-if="secRushList.length">
@@ -331,7 +331,7 @@
           </div>
 
 
-          <div class="rush-list-box">
+          <van-list v-model="$data.$data.isLoadData" :finished="!commigLoadMore" @load="load_goods_data" class="rush-list-box">
             <div v-if="rushList.length>0&&tabIdx==0">
 
               <div class="active-item" v-if="rushList.length>0&&theme==0" v-for="(item,index) in rushList"
@@ -349,12 +349,16 @@
                     <span class="item-class">{{countDownMap[item.end_time].second}}</span>
                   </div>
                 </div>
-                <i-new-rush-spu :actEnd="actEndMap[item.end_time]" @authModal="authModal" :changeCartNum="changeCartNum"
-                                @openSku="openSku" @vipModal="vipModal" :canLevelBuy="canLevelBuy"
-                                :changeCarCount="changeCarCount" :isShowListCount="isShowListCount"
-                                :isShowListTimer="isShowListTimer==1" :is_open_vipcard_buy="is_open_vipcard_buy"
-                                :needAuth="needAuth" :reduction="reduction" :showPickTime="(ishow_index_pickup_time==1)"
-                                :skin="skin" :spuItem="item" :stopClick="stopClick"></i-new-rush-spu>
+
+                <van-list v-model="loading" :finished="finished" finished-text="没有更多了" @load="onLoad">
+                  <i-new-rush-spu :actEnd="actEndMap[item.end_time]" @authModal="authModal" :changeCartNum="changeCartNum"
+                                  @openSku="openSku" @vipModal="vipModal" :canLevelBuy="canLevelBuy"
+                                  :changeCarCount="changeCarCount" :isShowListCount="isShowListCount"
+                                  :isShowListTimer="isShowListTimer==1" :is_open_vipcard_buy="is_open_vipcard_buy"
+                                  :needAuth="needAuth" :reduction="reduction" :showPickTime="(ishow_index_pickup_time==1)"
+                                  :skin="skin" :spuItem="item" :stopClick="stopClick"></i-new-rush-spu>
+                </van-list>
+
               </div>
               <div class="active-item-two" v-if="rushList.length>0&&theme==1" v-for="(item,index) in rushList"
                    :key="item.id">
@@ -379,11 +383,14 @@
                 <img @click="goLink" class="topic-img"
                      :data-link="'/lionfish_comshop/pages/type/details?id='+classificationId" mode="widthFix"
                      :src="cate_info.banner" v-if="cate_info.banner"/>
-                <i-rush-spu @authModal="authModal" @changeCartNum="changeCartNum" @openSku="openSku"
-                            @vipModal="vipModal" :canLevelBuy="canLevelBuy" :changeCarCount="changeCarCount"
-                            class="item" :is_open_vipcard_buy="is_open_vipcard_buy" :needAuth="needAuth"
-                            :reduction="reduction" :spuItem="item" :stopClick="stopClick"
-                            v-for="(item,index) in rushList" :key="item.actId"></i-rush-spu>
+
+
+                  <i-rush-spu @authModal="authModal" @changeCartNum="changeCartNum" @openSku="openSku"
+                              @vipModal="vipModal" :canLevelBuy="canLevelBuy" :changeCarCount="changeCarCount"
+                              class="item" :is_open_vipcard_buy="is_open_vipcard_buy" :needAuth="needAuth"
+                              :reduction="reduction" :spuItem="item" :stopClick="stopClick"
+                              v-for="(item,index) in rushList" :key="item.actId"></i-rush-spu>
+
               </div>
               <i-load-more iClass="loadMore" :loading="loadMore" :tip="loadText" v-if="loadMore"></i-load-more>
             </div>
@@ -414,7 +421,7 @@
                 <img :src="(indexBottomImage?indexBottomImage:require('@/assets/images/icon-index-slogan.png'))"/>
               </div>
             </div>
-          </div>
+          </van-list>
         </div>
         <div @click="showCopyTextHandle" class="copytext-btn" data-status="true" v-if="ishow_index_copy_text==1">
           一键复制拼团信息
@@ -612,7 +619,7 @@
 <script>
   import GlobalMixin from '../../mixin/globalMixin.js'
   import { Sticky } from 'vant';
-  import { Swipe, SwipeItem,Search } from 'vant';
+  import { Swipe, SwipeItem,Search,List } from 'vant';
 
   var _Page, _extends = Object.assign || function(t) {
     for (var a = 1; a < arguments.length; a++) {
@@ -633,14 +640,14 @@
   import util from '../../utils/index.js'
   import status from '../../utils/index.js'
   import a from '../../utils/public'
+  import countDownInit from '../../utils/countDown'
 
-  var wcache = require('../../utils/wcache.js'),
-    countDownInit = require('../../utils/countDown'),wx,app;
+  var wcache = require('../../utils/wcache.js'),wx,app;
 
   export default {
-    mixins: [countDownInit.default, GlobalMixin],
+    mixins: [countDownInit, GlobalMixin],
     name: 'Index',
-    components:{[Sticky.name]:Sticky ,[Swipe.name]:Swipe,[SwipeItem.name]:SwipeItem,[Search.name]:Search},
+    components:{[Sticky.name]:Sticky ,[Swipe.name]:Swipe,[SwipeItem.name]:SwipeItem,[Search.name]:Search,[List.name]:List},
     data() {
       let self = this;
       return {
@@ -810,14 +817,15 @@
               o.getCurrentPosition((status, result) => {
                 console.log(result)
                 if (result && result.position) {
+
                   self.$wx.setStorageSync('position',result.position);
                   self.$wx.setStorage({
                     key: 'latitude',
-                    data: e
+                    data: result.position.lat
                   })
                   self.$wx.setStorage({
                     key: 'longitude',
-                    data: a
+                    data: result.position.lng
                   })
                   self.$nextTick();
                 }
@@ -836,7 +844,6 @@
       }
     },
     created: function() {
-
       app = this.$getApp();
       wx = this.$wx;
 
@@ -1271,7 +1278,6 @@
       load_goods_data: function() {
 
 
-
         var t = wx.getStorageSync('token'),
           m = this,
           a = wx.getStorageSync('community'),
@@ -1375,7 +1381,7 @@
           }).then(t => {
             if (0 == t.code) {
               var a = o.transTime(t.list)
-              for (var e in o.$data.$data.countDownMap) o.initCountDown(o.$data.$data.countDownMap[e])
+              for (var e in o.$data.$data.countDownMap) countDownInit.initCountDown(o.$data.$data.countDownMap[e])
               o.$data.$data.hasOverGoods = !1, o.$data.$data.overPageNum += 1, (
                 o.rushList = a,
                   o.loadMore = !1,
@@ -1893,6 +1899,7 @@
             head_id: a.communityId,
             gid: o
           }).then(t => {
+            e.$data.$data.isLoadData = !1
             wx.hideLoading()
             if ( 0 == t.code) {
               var a = t.list
@@ -1931,7 +1938,7 @@
               address: o[1]
             }), (
               d.community = a
-            ), wcache.put('community', a), d.$getApp().globalData.community = a, c && !e) {
+            ), wx.setStorageSync('community', a), d.$getApp().globalData.community = a, c && !e) {
               var i = wx.getStorageSync('lastCommunity'),
                 s = i.communityId || ''
               '' != s && s != a.communityId && (
@@ -2031,6 +2038,7 @@
           });
         }
       },
+
     }
   }
 

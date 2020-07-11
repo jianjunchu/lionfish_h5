@@ -686,7 +686,12 @@
       }
     },
     created: function() {
-      this.$store.dispatch('app/showToolbarBack')
+      this.$wx.setNavigationBarTitle({
+        title: 'Goods Detail',
+        showLogo:false,
+        showMore:false,
+        showBack:true
+      })
       this.onLoad();
       this.onShow();
     },

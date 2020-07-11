@@ -81,7 +81,6 @@ export default {
     beizhu: '备注',
     youhuiquan: '优惠券',
     xuanzeyouhuiquan: '选择优惠券',
-    quxiao: '取消',
     qiehuan: '切换',
     phone: '电话',
     zhongxin: '中心',
@@ -209,11 +208,10 @@ export default {
     shifu: '实付',
     quxiaodingdan: '取消订单',
     lijizhifu: '立即支付',
-    xiadanshijian: '下单时间:',
     tihuoshijian: '提货时间:',
     songhuoshijian: '送货时间:'
   },
-   cart: {
+  cart: {
     gouwuchekong: '购物车空空如也，赶紧去逛逛吧~',
     qugouwu: '去购物',
     qudenglu: '去登录',

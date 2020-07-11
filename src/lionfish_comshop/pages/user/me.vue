@@ -340,7 +340,7 @@
           </router-link>
 
           <div v-else>
-            <router-link hoverClass="none" to="/lionfish_comshop/pages/groupCenter/recruit" v-if="close_community_apply_enter==0">
+            <router-link  hoverClass="none" to="/lionfish_comshop/pages/groupCenter/recruit" v-if="close_community_apply_enter==0">
               <div class="item-main">
                 <div class="item-title">
                   <img class="toolIcon" mode="widthFix" :src="user_tool_icons.i5?user_tool_icons.i5:require('@/assets//images/groupCenterIcon.png')"/>
@@ -481,8 +481,8 @@
 
 <script>
   import GlobalMixin from '../../mixin/globalMixin.js'
-  import util from '../../utils/index.js'
-  import status from '../../utils/index.js'
+  import util from '../../utils'
+  import status from '../../utils'
   var wcache = require('../../utils/wcache.js')
   import auth from '../../utils/auth'
   var app,wx
@@ -585,6 +585,7 @@
     },
     mounted: function() {
       this.onShow()
+      alert(this.needAuth)
     },
     methods: {
       onLoad: function(options) {
@@ -805,7 +806,7 @@
 //          })
 //        }
 
-        this.$wx.redirectTo({
+        this.$wx.navigateTo({
           url: link
         })
       },
@@ -819,7 +820,7 @@
               t.cartNum = e.data
             );
           })) : ((
-            t.needAuth = !0
+            t.needAuth = true
           ), wx.hideLoading());
         }), t.getCopyright(), t.getMemberInfo();
       },

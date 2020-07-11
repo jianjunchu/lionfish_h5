@@ -122,6 +122,11 @@ export const constantRoutes = [
     hidden: true
   },
   {
+    path: '/lionfish_comshop/pages/groupCenter/groupTime',
+    component: () => import('@/lionfish_comshop/pages/groupCenter/groupTime'),
+    hidden: true
+  },
+  {
     path: '/lionfish_comshop/pages/order/evaluate',
     component: () => import('@/lionfish_comshop/pages/order/evaluate'),
     hidden: true

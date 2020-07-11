@@ -1,7 +1,7 @@
 <template>
   <div :class="['i-class', 'orderNotify', (hide?'ani-out':'ani-in')]" v-if="userInfo">
     <img class="orderNotifyAvatar" :src="userInfo.avatar"/>
-    <text class="orderNotifyName">{{userInfo.username}}</text>
+    <span class="orderNotifyName">{{userInfo.username}}</span>
     刚刚下单啦
   </div>
 

@@ -608,13 +608,16 @@
       sortCarts: function(a) {
         const wx = this.$wx, app = this.$getApp()
 
+
         var o = 0, r = 0, c = 0, i = 0, n = {}, d = 0, t = function(s) {
           r = a[s].is_open_fullreduction, c = a[s].full_reducemoney, i = a[s].full_money,
             n[s] = {
               id: a[s].id,
               shopcarts: []
             }
-          var t = a[s].shopcarts, e = []
+
+
+          var t = a[s].shopcarts || [], e = []
           t.forEach(function(t, a) {
             0 == t.can_buy || 0 == t.option_can_buy ? (n[s].shopcarts.push(t), d += 1) : (e.push(t),
             1 == t.can_man_jian && o++)

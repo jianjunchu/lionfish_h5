@@ -29,10 +29,10 @@
             <div class="item" v-if="order.order_info.type=='normal'">
                 <div class="title">{{groupInfo.owner_name}}{{$t('goodsinfo.xinxi')}}</div>
                 <div class="detail">
-                    <text>{{order.order_info.ziti_name}}</text>
-                    <div bindtap="callTelphone" class="phone" :data-phone="order.order_info.ziti_mobile" v-if="hidePhone==0">
-                        <image class="icon-phone" src="@/assets/images/phone2.png"></image>
-                        <text>{{$t('goodsinfo.lianxi')}}{{groupInfo.owner_name}}</text>
+                    <span>{{order.order_info.ziti_name}}</span>
+                    <div @click="callTelphone" class="phone" :data-phone="order.order_info.ziti_mobile" v-if="hidePhone==0">
+                        <img class="icon-phone" src="@/assets/images/phone2.png"/>
+                        <span>{{$t('goodsinfo.lianxi')}}{{groupInfo.owner_name}}</span>
                     </div>
                 </div>
             </div>
@@ -40,9 +40,9 @@
     </div>
     <div slot="footer">
         <div class="footer">
-      {{$t('common.gong')}} {{order.goods_count}} {{$t('order.jianshangpin')}}  {{$t('goodsinfo.xiaoji')}}  
+      {{$t('common.gong')}} {{order.goods_count}} {{$t('order.jianshangpin')}}  {{$t('goodsinfo.xiaoji')}}
       <div class="money">
-        <text>$</text>{{order.order_info.total}}
+        <span>$</span>{{order.order_info.total}}
       </div>
         </div>
     </div>
