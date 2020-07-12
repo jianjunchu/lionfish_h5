@@ -585,7 +585,6 @@
     },
     mounted: function() {
       this.onShow()
-      alert(this.needAuth)
     },
     methods: {
       onLoad: function(options) {

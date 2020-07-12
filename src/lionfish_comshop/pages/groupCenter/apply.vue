@@ -34,7 +34,7 @@
               <!--</div>-->
             <!--</div>-->
             <!--<div class="['form-item', (errors[1]===2?'error':'')]">-->
-            <!-- 
+            <!--
             <div class="form-item">
               <label class="form-item-control">{{groupInfo.group_name}}名称</label>
               <input @input="inputCommunity" class="form-item-input" data-key="1" placeholder="请输入社区名称" type="text"/>
