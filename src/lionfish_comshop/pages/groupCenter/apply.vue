@@ -298,7 +298,7 @@
 //          });
 //          this.$store.state.app.toolbarTitle =e + "申请";
           a.$wx.setNavigationBarTitle({
-            title: e + " Application"
+            title: e + " Application",
             showLogo: false,
             showMore: false,
             showBack: true

@@ -1045,7 +1045,7 @@
               showBack:false
             })
             var p = a.category_list || [],
-              _ = a.index_type_first_name || '全部'
+              _ = a.index_type_first_name || 'All'
             0 < p.length ? (p.unshift({
               name: _,
               id: 0
