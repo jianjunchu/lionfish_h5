@@ -96,7 +96,7 @@
         default: {
           group_name: "社区",
           owner_name: "团长",
-          diyshipname: "快递费",
+          diyshipname: "Freight",
           delivery_ziti_name: "到点自提",
           delivery_tuanzshipping_name: "团长配送",
           delivery_express_name: "快递配送"

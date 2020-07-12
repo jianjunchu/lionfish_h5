@@ -75,19 +75,19 @@
         </div>
         <div class="orderTab">
           <div @click="goLink2" class="order_status" data-link="/lionfish_comshop/pages/order/index?order_status=3">
-            <span class="num" :style="{background:skin.color}" v-show="member_info.wait_pay_count!=0">{{member_info.wait_pay_count}}</span>
+ <!--            <span class="num" :style="{background:skin.color}" v-show="member_info.wait_pay_count!=0">{{member_info.wait_pay_count}}</span> -->
             <img class="icon-img"
                  :src="user_order_menu_icons.i1?user_order_menu_icons.i1:require('@/assets/images/needPayIcon.png')"/>
             <span style="color: #444;">{{$t('common.daifukuan')}}</span>
           </div>
           <div @click="goLink2" class="order_status" data-link="/lionfish_comshop/pages/order/index?order_status=1">
-            <span class="num" :style="{background:skin.color}" v-show="member_info.wait_send_count!=0">{{member_info.wait_send_count}}</span>
+ <!--            <span class="num" :style="{background:skin.color}" v-show="member_info.wait_send_count!=0">{{member_info.wait_send_count}}</span>  -->
             <img class="icon-img"
                  :src="user_order_menu_icons.i2?user_order_menu_icons.i2:require('@/assets/images/undeli.png')"/>
             <span style="color: #444;">{{$t('common.daipeisong')}}</span>
           </div>
           <div @click="goLink2" class="order_status" data-link="/lionfish_comshop/pages/order/index?order_status=4">
-            <span class="num" :style="{background:skin.color}" v-show="member_info.wait_get_count!=0">{{member_info.wait_get_count}}</span>
+           <!-- <span class="num" :style="{background:skin.color}" v-show="member_info.wait_get_count!=0">{{member_info.wait_get_count}}</span>-->
             <img class="icon-img"
                  :src="user_order_menu_icons.i3?user_order_menu_icons.i3:require('@/assets/images/distributionIcon.png')"/>
             <span style="color: #444;">{{$t('common.daitihuo')}}</span>
@@ -124,12 +124,15 @@
           <div class="weight red mb5">{{community.communityName}}</div>
           <div class="fsz-30 text-gray mb5">{{community.fullAddress}}</div>
           <div class="i-flex" style="vertical-align:middle;" v-if="community.disUserMobile||community.head_mobile">
+<!--
             <div>
               <span class="iconfont icon-ziyuan fsz-30"></span> {{$t('common.phone')}}：
             </div>
+
             <div @click="callTelphone" :data-phone="(community.disUserMobile||community.head_mobile)"
                  style="color:#ee884a;">{{community.disUserMobile||community.head_mobile}}
             </div>
+-->
             <div @click="goLink" class="goods-sign-btn" :data-link="community.whatsapplink"
                  v-show="community.whatsapplink != '' && community.whatsapplink != undefined && community.whatsapplink != null ">
               <img src="@/assets/images/join-group.png" height="26px" width="26px"/> <span
@@ -300,7 +303,7 @@
               </div>
             </div>
           </div>
-
+<!--
           <router-link hoverClass="none" to="/lionfish_comshop/pages/groupCenter/communityMembers" v-if="member_info.pickup_id>0">
             <div class="item-main">
               <div class="item-title">
@@ -313,7 +316,7 @@
               </div>
             </div>
           </router-link>
-
+-->
           <div @click="goToGroup" v-if="member_info.is_head==1">
             <div class="item-main">
               <div class="item-title">

@@ -17,7 +17,7 @@
           <div class="item-tag"
                 :style="{'background':'url('+item.label_info.tagcontent+') no-repeat; left top;','background-size': '100%'}"
                 v-if="item.label_info&&item.label_info.type==1"></div>
-          <div class="act-end" v-if="item.spuCanBuyNum==0">已抢光</div>
+          <div class="act-end" v-if="item.spuCanBuyNum==0">{{$t('home.yiqiangguang')}}</div>
           <div class="title">{{item.spuName}}</div>
           <div class="new-bot">
             <div class="price">${{item.actPrice[0]}}.{{item.actPrice[1]}}</div>

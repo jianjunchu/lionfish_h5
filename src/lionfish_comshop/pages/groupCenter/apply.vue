@@ -21,7 +21,7 @@
               <div class="form-item">
               <!-- <label class="form-item-control">微信号</label>-->
               <!--<input @input="inputWechat" class="form-item-input" :focus="focus_wechat" placeholder="请输入微信号" type="text" :value="wechat"/>-->
-              <input v-model="wechat"  class="form-item-input" placeholder="" type="text" />
+              <!-- <input v-model="wechat"  class="form-item-input" placeholder="" type="text" />-->
               </div>
             </div>
             <!--<div class="['form-item', (errors[5]===2?'error':'')]" style="display:none;">-->
@@ -63,14 +63,14 @@
     </div>
     <div class="apply-pass" v-if="member_info.is_head==1">
       <img src="@/assets/images/auditSuccess.png" width="78px" height="72px" />
-      <div class="h1">申请通过</div>
-      <div class="p">恭喜您，您的申请已通过</div>
+      <div class="h1">Application Approved</div>
+      <div class="p">Congrats! Your application to be a Host is now approved</div>
     </div>
     <div class="apply-pass" v-if="member_info.is_head==3">
       <img src="@/assets/images/auditFail.png" width="78px" height="72px" />
-      <div class="h1">申请未通过</div>
-      <div class="p">很抱歉，您的申请未通过</div>
-      <div @click="applyAgain" class="link-btn">再次申请</div>
+      <div class="h1">Application Rejected</div>
+      <div class="p">Sorry, your application to be a Host is rejected</div>
+      <div @click="applyAgain" class="link-btn">Register Again</div>
     </div>
     <div class="apply-pass" v-if="member_info.is_head==2||apply_complete">
       <img src="@/assets/images/auditing.png" width="78px" height="72px" />
@@ -213,27 +213,27 @@
             o = this.addr_detail, s = this.community_name, c = this.mobile_detail, u = this.lon_lat,
             r = this.head_name, l = this.wechat;
           if ("" == r || void 0 === r) return this.$wx.showToast({
-            title: "请填写姓名",
+            title: "Name is not correct",
             icon: "none"
           }), !1;
 
           if ("" == c) return this.focus_mobile=!0, this.$wx.showToast({
-            title: "手机号码有误",
+            title: "Mobile is not correct",
             icon: "none"
           }), !1;
 
-          if (!/^\d{8}$/.test(c) && !/^1(3|4|5|6|7|8|9)\d{9}$/.test(c)) return this.focus_mobile= !0, this.$wx.showToast({
-            title: "手机号码有误",
+          if (!/^\d{8}$/.test(c) && !/\d{8}/.test(c)) return this.focus_mobile= !0, this.$wx.showToast({
+           title: "Mobile is not correct",
             icon: "none"
           }), !1;
-          if ("" == l || void 0 === l) return this.$wx.showToast({
-            title: "请填写微信号",
-            icon: "none"
-          }), !1;
-          if ("" == s || void 0 === s) return this.$wx.showToast({
-            title: "请填写小区名称",
-            icon: "none"
-          }), !1;
+//          if ("" == l || void 0 === l) return this.$wx.showToast({
+//            title: "请填写微信号",
+//            icon: "none"
+//          }), !1;
+//          if ("" == s || void 0 === s) return this.$wx.showToast({
+//            title: "请填写小区名称",
+//            icon: "none"
+//          }), !1;
 //          if ("省" == a && "市" == n && "区" == i) return this.$wx.showToast({
 //            title: "请选择地区",
 //            icon: "none"
@@ -243,7 +243,7 @@
 //            icon: "none"
 //          }), !1;
           if ("" == o || void 0 === o) return this.$wx.showToast({
-            title: "请填写详细地址",
+            title: "address is not correct",
             icon: "none"
           }), !1;
           var d = {

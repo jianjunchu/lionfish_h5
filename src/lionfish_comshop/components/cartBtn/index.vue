@@ -1,7 +1,7 @@
 <template>
   <div @click.stop="goCart" :class="['cart', iClass]">
     <img class="img" src="@/assets/images/icon-tab-shop.png"/>
-    <span>购物车</span>
+    <span>Cart</span>
     <span class="num" v-if="cartNum>0">{{cartNum}}</span>
   </div>
 
@@ -40,7 +40,7 @@
     align-items: center;
     line-height: 1;
     font-size: 2.4vw;
-    background: linear-gradient(45deg,#fdd225 0%,#feb600 100%);
+    background: linear-gradient(45deg,#fdd225 0%,#fe5e44 100%);
     color: #000;
   }
 

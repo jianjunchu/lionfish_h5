@@ -67,8 +67,8 @@
           <i-input-number addImage="@/assets/images/icon-add-2.png" @change="changeNumber" @outOfMax="outOfMax" iClass="index-input-number" iClassNumberText="input-number-span" :max="spuItem.spuCanBuyNum" min="0" reduceImage="@/assets/images/icon-reduce-2.png" :value="number" v-else></i-input-number>
         </div>
         <div class="mask" v-if="isPast||disabled||spuItem.spuCanBuyNum==0?'disabled':''"></div>
-        <div class="act-end act-out" v-if="spuItem.spuCanBuyNum==0">已抢光</div>
-        <div class="act-end" v-else-if="actEnd" v-show="false">团购已结束</div>
+        <div class="act-end act-out" v-if="spuItem.spuCanBuyNum==0">{{$t('home.yiqiangguang')}}</div>
+        <div class="act-end" v-else-if="actEnd" v-show="false">{{$t('home.tuangouyijieshu')}}</div>
       </i-router-link>
       <div class="picktime" v-if="showPickTime">
         <div>预售时间：{{spuItem.begin_time}}</div>
@@ -256,7 +256,7 @@
               } else u.$emit("changeCartNum", t.total), (
                 u.number = t.cur_count
               ), u.$wx.showToast({
-                title: "已加入购物车",
+                title: "Added to Cart",
                 image: "../../images/addShopCart.png"
               }), status.indexListCarCount(i, t.cur_count);
             }

@@ -271,16 +271,17 @@
         <div class="card-container" v-for="(value,key) in seller_goodss" :key="key">
           <i-card iClass="card-content">
             <div class="card-header" slot="header" :style="{color:skin.color}">
+
               <div v-if="tabIdx==0">
+<!--
                 <div v-if="tabAddress[tabIdx].delivery_date_str && tabAddress[tabIdx].delivery_date_str!=''">
                   <div class="cart-header-left">预计{{tabAddress[tabIdx].delivery_date_str}}可自提</div>
                 </div>
                 <div v-else>
                   <div class="cart-header-left" v-if="pick_up_type==3">预计{{pick_up_time}}可自提</div>
-
                   <div class="cart-header-left" v-else>预计{{pick_up_time}}({{pick_up_weekday}})可自提</div>
                 </div>
-
+-->
               </div>
               <!--
               <div v-else-if="tabIdx==1">
@@ -740,7 +741,7 @@
           group_name: '社区',
           owner_name: '团长',
           placeorder_tuan_name: '配送费',
-          placeorder_trans_name: '快递费'
+          placeorder_trans_name: 'Freight'
         },
         comment: '',
         is_yue_open: 0,

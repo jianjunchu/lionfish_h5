@@ -258,18 +258,20 @@
                         :stopClick="stopClick" v-if="typeItem.list.length"></i-rush-spu>
             <div @click="goLink" class="theme3-more"
                  :data-link="'/lionfish_comshop/pages/type/details?id='+typeItem.id" v-if="typeItem.list.length">
-              查看全部
+              All
               <span class="iconfont icon-youjiantou"></span>
             </div>
           </div>
           <template is="pinrow" :data="{pinList:pinList,skin:skin}"></template>
+<!--
           <img class="rush-list-title" id="rush-title" :src="shop_info.index_list_top_image"
                v-if="shop_info.index_list_top_image"/>
-          <img class="rush-list-title" id="rush-title" src="@/assets/images/rush-title.png" v-else/>
 
+          <img class="rush-list-title" id="rush-title" src="@/assets/images/rush-title.png" v-else/>
+-->
           <div class="search-bar" v-if="index_switch_search==1">
             <div class="search-box">
-              <input @keypress="goResult" class="ipt" confirmType="搜索" placeholder="搜索商品" type="search"></input>
+              <input @keypress="goResult" class="ipt" confirmType="搜索" placeholder="Search" type="search"></input>
               <div class="search-icon">
                 <div class="iconfont icon-sousuo1"></div>
               </div>
@@ -365,8 +367,8 @@
                 <div class="list-item-tag-content" v-if="isShowListTimer==1">
                   <div class="list-item-count-down type-two" :style="{color:skin.color}"
                        v-if="item.spuCanBuyNum!=0&&!actEndMap[item.end_time]">
-                    仅剩
-                    <em v-if="countDownMap[item.end_time].day>0">{{countDownMap[item.end_time].day}}天</em>
+                    Time Left
+                    <em v-if="countDownMap[item.end_time].day>0">{{countDownMap[item.end_time].day}}&nbsp;Day</em>
                     <span class="item-class">{{countDownMap[item.end_time].hour}}</span>:
                     <span class="item-class">{{countDownMap[item.end_time].minute}}</span>:
                     <span class="item-class">{{countDownMap[item.end_time].second}}</span>
@@ -407,9 +409,11 @@
                 <div class="h1">Please try again</div>
                 <div class="h2"></div>
               </div>
+<!--
               <div class="slogan" v-if="!commigLoadMore&&commingList.length">
                 <img :src="(indexBottomImage?indexBottomImage:require('@/assets/images/icon-index-slogan.png'))"/>
               </div>
+-->
             </div>
             <div v-if="tabIdx===0">
               <div class="none-rush-list" v-if="showEmpty">
@@ -417,9 +421,11 @@
                 <div class="h1">Please try again</div>
                 <!-- <div class="h2">我们正在为您准备更优惠的团购</div> -->
               </div>
+<!--
               <div class="slogan" v-if="!loadMore&&rushList.length">
                 <img :src="(indexBottomImage?indexBottomImage:require('@/assets/images/icon-index-slogan.png'))"/>
               </div>
+-->
             </div>
           </van-list>
         </div>
@@ -534,7 +540,7 @@
           </div>
         </div>
         <div class="sku-num-content">
-          <div class="title">数量</div>
+          <div class="title">Quantity</div>
           <div :class="['i-class', 'i-input-number', 'i-input-number-size-']">
             <div @click="setNum" :class="['i-input-number-minus']"
                  data-type="decrease">

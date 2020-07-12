@@ -4,10 +4,11 @@ export default {
   },
   home: {
     xianshimiaosha: 'Flash Deal',
-    jinsheng: 'Time Lef',
+    jinsheng: 'Time Left',
     sousuoshangpin: 'Search',
     quanbu: 'All',
     yiqiangguang: 'Sold Out',
+    tuangouyijieshu: 'Already Finished',
     queding: 'OK'
   },
   me: {
@@ -56,7 +57,7 @@ export default {
     buxianshijian: 'No Time Limit',
     qiehuan: 'Change',
     phone: 'Phone',
-    zhongxin: 'Center',
+    zhongxin: 'Centre',
     dianji: 'Click',
     sousuo: 'Search',
     sousuoshangpin: 'Search Products',
@@ -70,7 +71,7 @@ export default {
     zhanshimeiyoutuangou: 'Product is not avaliable',
     fenxiang: 'Share',
     haoyou: 'Friends',
-    fanhuishouye: 'Return to Homepage'
+    fanhuishouye: 'Back to Homepage'
   },
   host: {
     shuruxinxi: 'Your Details',
@@ -137,14 +138,14 @@ export default {
   },
   order: {
     songhuoriqi: 'Choose Delivery Date',
-    shouhuoren: 'Receiver',
+    shouhuoren: 'Name',
     tihuoren: 'Name',
     shoujihaoma: 'Mobile:',
-    youbian: 'Post Code:',
-    dapaihao: 'Block NO.:',
+    youbian: 'Postal Code:',
+    dapaihao: 'Block:',
     daoluming: 'Street:',
-    menpaihao: 'Unit NO.:',
-    liru106: 'Exam. #04-04',
+    menpaihao: 'Unit #:',
+    liru106: '#',
     jianzhuming: 'Building:',
     xinxi: 'Collection Point:',
     qiehuantuanzhang: 'Change Host',
@@ -185,7 +186,7 @@ export default {
     quxiaodingdan: 'Cancel',
     lijizhifu: 'Pay',
     xiadanshijian: 'Order Time:',
-    tihuoshijian: 'Collection Time:',
+    tihuoshijian: 'Collection Date:',
     songhuoshijian: 'Delivery Time:'
   },
    cart: {
@@ -193,7 +194,7 @@ export default {
     qugouwu: 'To Buy',
     qudenglu: 'Login',
     lijizhifu: 'Pay Now',
-    zitishijian: 'Collection Time:',
+    zitishijian: 'Collection Date:',
     songhuoshijian: 'Ship Time:',
     chakangouwuche: 'to check products in the cart',
     xuanzeshijian: 'Choose collection or receive time',

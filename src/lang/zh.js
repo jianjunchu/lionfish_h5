@@ -8,6 +8,7 @@ export default {
     sousuoshangpin: '搜索商品',
     quanbu: '全部',
     yiqiangguang: '已抢光',
+    tuangouyijieshu: '团购已结束',
     queding: '确定'
   },
   index: {

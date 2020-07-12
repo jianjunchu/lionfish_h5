@@ -7,7 +7,7 @@
           <p v-html="article"></p>
         </div>
         <div @click="goLink" class="apply-btn" data-link="/lionfish_comshop/pages/groupCenter/apply" :style="{color:skin.color,background:skin.light}">
-          点击申请
+          Apply Now
         </div>
       </div>
       <i-aside-btn showHome="true"></i-aside-btn>

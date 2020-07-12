@@ -91,19 +91,19 @@
           <div class="endAct" v-if="goods.over_type==2">{{$t('common.jieshushijian')}}</div>
           <div class="endAct" v-if="goods.over_type==2">{{goods.end_date}}</div>
           <div class="countdown-class i-count-down" v-else>
-
+<!--
             <span v-if="goods.end_time==0" class="item-class">{{$t('common.buxianshijian')}}</span>
-
-            <em v-if="goods.end_time!=0 && endtime.days>0">{{endtime.days}}天</em>
+            <em v-if="goods.end_time!=0 && endtime.days>0">{{endtime.days}} Days</em>
             <span v-if="goods.end_time!=0" class="item-class">{{endtime.hours}} :</span>
             <span v-if="goods.end_time!=0"class="item-class">{{endtime.minutes}}:</span>
             <span v-if="goods.end_time!=0"class="item-class">{{endtime.seconds}}</span>
+-->
           </div>
         </div>
       </div>
       <div class="spuDetailInfo">
         <div class="spuName">
-          <div class="red" style="font-size:15px;" v-if="goods.is_seckill==1">[秒杀] </div>{{goods.goodsname}}
+          <div class="red" style="font-size:15px;" v-if="goods.is_seckill==1">[Flash Deal] </div>{{goods.goodsname}}
         </div>
         <div class="fsz-22 i-flex mt10 i-aic" v-if="is_only_hexiao==1">
           <div class="hexiao text-6">
@@ -142,8 +142,8 @@
         <div class="saleNum" v-if="is_hide_details_count!=1">
           <span class="purTit">{{$t('detail.xiaoliang')}}</span>
           <span class="stock">{{$t('detail.yishou')}}
-            <span class="remaining"> {{goods.seller_count}} </span>件，{{$t('detail.jinsheng')}}
-            <span class="remaining"> {{goods.total}} </span>件</span>
+            <span class="remaining"> {{goods.seller_count}} </span>，{{$t('detail.jinsheng')}}
+            <span class="remaining"> {{goods.total}} </span></span>
         </div>
         <div @click="goLink" class="vip i-flex i-flex-spb" data-link="/lionfish_comshop/moduleA/vip/upgrade" v-if="goods.is_take_vipcard==1&&is_vip_card_member==1&&is_open_vipcard_buy==1">
           <div class="i-flex vip-name">
@@ -1228,7 +1228,7 @@
 
               i.closeSku();
               i.$wx.showToast({
-                title: "已加入购物车",
+                title: "Added to Cart",
                 image: "@/assets/images/addShopCart.png"
               });
             i.$app.globalData.cartNum = t.total;

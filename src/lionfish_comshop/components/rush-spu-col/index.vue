@@ -24,7 +24,7 @@
         <div class="spu-play" v-if="spuItem.is_video">
           <img class="img" src="@/assets/images/play.png"/>
         </div>
-        <div class="act-end" v-if="spuItem.spuCanBuyNum==0">已抢光</div>
+        <div class="act-end" v-if="spuItem.spuCanBuyNum==0">{{$t('home.yiqiangguang')}}</div>
         <div class="title">{{spuItem.spuName}}</div>
         <i-vip-price class="vip" :price="spuItem.card_price"
                      v-if="is_open_vipcard_buy==1&&spuItem.is_take_vipcard==1"></i-vip-price>
@@ -214,7 +214,7 @@
             } else status.indexListCarCount(u, t.cur_count), s.$emit("changeCartNum", t.total),
               s.number = t.cur_count
               wx.showToast({
-              title: "已加入购物车",
+              title: "Added to Cart",
               image: "../../images/addShopCart.png"
             });
           });
