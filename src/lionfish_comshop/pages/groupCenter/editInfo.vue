@@ -6,7 +6,7 @@
           <div class="li">
             <span class="left">提现金额</span>
             <div class="right">
-              <input @click="bindTixianMoneyInput" :max="commission_info.money" min="0" name="tixian_money" placeholder="请输入提现金额" placeholderStyle="color:#999999" type="digit" :value="tixian_money"></input>
+              <input v-on:input="bindTixianMoneyInput" :max="commission_info.money" min="0" name="tixian_money" placeholder="请输入提现金额" placeholderStyle="color:#999999" type="digit" v-model="tixian_money"></input>
             </div>
           </div>
           <div class="li-tip">
@@ -31,31 +31,31 @@
             </van-radio-group>
             <div class="form-box" v-if="payType==2">
               <div class="form-group">
-                <label>微信真实姓名：<input class="form-ipt" name="bankusername" type="text" :value="community_info.last_weixin_realname"></input>
+                <label>微信真实姓名：<input class="form-ipt" name="bankusername" type="text" v-model="community_info.last_weixin_realname"></input>
                 </label>
               </div>
             </div>
             <div class="form-box" v-if="payType==3">
               <div class="form-group" v-if="payType!=2">
-                <label>Paynow账号：<input class="form-ipt" name="bankaccount" type="text" :value="community_info.last_alipay_account"></input>
+                <label>Paynow账号：<input class="form-ipt" name="bankaccount" type="text" v-model="community_info.last_alipay_account"></input>
                 </label>
               </div>
               <div class="form-group">
-                <label>姓名：<input class="form-ipt" name="bankusername" type="text" :value="community_info.last_alipay_name"></input>
+                <label>姓名：<input class="form-ipt" name="bankusername" type="text" v-model="community_info.last_alipay_name"></input>
                 </label>
               </div>
             </div>
             <div class="form-box" v-if="payType==4">
               <div class="form-group">
-                <label>开户银行：<input class="form-ipt" name="bankname" type="text" :value="community_info.last_bank_bankname"></input>
+                <label>开户银行：<input class="form-ipt" name="bankname" type="text" v-model="community_info.last_bank_bankname"></input>
                 </label>
               </div>
               <div class="form-group">
-                <label>开户名：<input class="form-ipt" name="bankusername" type="text" :value="community_info.last_bank_name"></input>
+                <label>开户名：<input class="form-ipt" name="bankusername" type="text" v-model="community_info.last_bank_name"></input>
                 </label>
               </div>
               <div class="form-group" v-if="payType!=2">
-                <label>账号：<input class="form-ipt" name="bankaccount" type="text" :value="community_info.last_bank_account"></input>
+                <label>账号：<input class="form-ipt" name="bankaccount" type="text" v-model="community_info.last_bank_account"></input>
                 </label>
               </div>
             </div>
@@ -198,6 +198,12 @@
       }
     },
     created: function() {
+      this.$wx.setNavigationBarTitle({
+        title: '',
+        showLogo:false,
+        showMore:false,
+        showBack:true
+      })
       this.onLoad();
     },
     methods: {
@@ -327,24 +333,27 @@
               controller: "community.tixian_community_info",
               token: d
             });
-            debugger
+
             this.$http({
                 controller: "community.tixian_community_info",
-                token: d
+                token: d,
+                ...i
             }).then(e=> {
                 console.log(e,"tixian_community_info");
+
                 if(0 == e.code){
                   this.$wx.showToast({
                     title: "提现成功，等待审核",
                     icon: "none",
-                    duration: 2e3,
+                    duration: 2000,
                     mask: !0,
                     success: function() {
-                      this.$wx.redirectTo({
-                        url: "/lionfish_comshop/pages/groupCenter/cashList"
-                      });
                     }
                   })
+
+                  this.$wx.redirectTo({
+                    url: "/lionfish_comshop/pages/groupCenter/cashList"
+                  });
                 }else{
                   this.$wx.showToast({
                     title: "提现失败",
