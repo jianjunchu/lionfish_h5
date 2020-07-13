@@ -177,6 +177,11 @@ export const constantRoutes = [
     component: () => import('@/lionfish_comshop/pages/refund/refundList'),
     hidden: true
   },
+  {
+    path: '/lionfish_comshop/pages/order/refund',
+    component: () => import('@/lionfish_comshop/pages/order/refund'),
+    hidden: true
+  },
 
   // 404 page must be placed at the end !!!
   { path: '*', redirect: '/404', hidden: true }

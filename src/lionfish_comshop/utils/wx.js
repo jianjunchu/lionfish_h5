@@ -7,7 +7,10 @@ import _this from '../../main.js'
 export default {
 
   showToast: function(option) {
-    Toast(option.title)
+    const t = Toast(option.title)
+    if (option.hasOwnProperty('success')) {
+      option.success(t)
+    }
   },
   showLoading: function(option) {
     Toast.loading({
@@ -151,6 +154,15 @@ export default {
       responseType: 'text',
       // 方法
       success: option.success
+    })
+  },
+  uploadFile: function(option) {
+    axios.post(option.url, option.formFile, {
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      }
+    }).then(res => {
+      option.success(res)
     })
   }
 
