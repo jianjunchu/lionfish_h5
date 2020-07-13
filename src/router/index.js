@@ -127,6 +127,16 @@ export const constantRoutes = [
     hidden: true
   },
   {
+    path: '/lionfish_comshop/pages/groupCenter/wallet',
+    component: () => import('@/lionfish_comshop/pages/groupCenter/wallet'),
+    hidden: true
+  },
+  {
+    path: '/lionfish_comshop/pages/groupCenter/editInfo',
+    component: () => import('@/lionfish_comshop/pages/groupCenter/editInfo'),
+    hidden: true
+  },
+  {
     path: '/lionfish_comshop/pages/order/evaluate',
     component: () => import('@/lionfish_comshop/pages/order/evaluate'),
     hidden: true

@@ -262,10 +262,13 @@
 
       },
       callPhone: function(e) {
+
         var t = e.currentTarget.dataset.phone;
-        t && this.$wx.makePhoneCall({
-          phoneNumber: t
-        });
+//        t && this.$wx.makePhoneCall({
+//          phoneNumber: t
+//        });
+        var url = "tel:"+t;
+        window.location.href = url;
       },
       switchNav: function(e) {
         if (this.currentTab === 1 * e.currentTarget.dataset.id) return !1;
