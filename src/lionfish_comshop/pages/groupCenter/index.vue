@@ -148,52 +148,57 @@
             </div>
           </router-link>
 
-          <!--
-          <s hoverClass="none" href="#/lionfish_comshop/pages/groupCenter/communityMembers" v-if="isShow">
-            <div class="recordList">
-              <span class="recordListTit">{{groupInfo.group_name}}用户</span>
-              <div class="rightText">待核销 <img class="rightArrowImg" src="@/assets/images/rightArrowImg.png"/>
-              </div>
-            </div>
-          </s>
 
-          <a hoverClass="none" href="#/lionfish_comshop/moduleA/solitaire/groupIndex" v-if="is_open_solitaire==1">
-            <div class="recordList">
-              <span class="recordListTit">接龙中心</span>
-              <img class="rightArrowImg" src="@/assets/images/rightArrowImg.png"/>
-            </div>
-          </a>
-          <a hoverClass="none" href="#/lionfish_comshop/pages/groupCenter/distributionList">
-            <div class="recordList">
-              <span class="recordListTit">{{$t('host.jiesuanjilu')}}</span>
-              <img class="rightArrowImg" src="@/assets/images/rightArrowImg.png"/>
-            </div>
-          </a>
+          <!--<s hoverClass="none" href="#/lionfish_comshop/pages/groupCenter/communityMembers" v-if="isShow">-->
+            <!--<div class="recordList">-->
+              <!--<span class="recordListTit">{{groupInfo.group_name}}用户</span>-->
+              <!--<div class="rightText">待核销 <img class="rightArrowImg" src="@/assets/images/rightArrowImg.png"/>-->
+              <!--</div>-->
+            <!--</div>-->
+          <!--</s>-->
+
+          <!--<a hoverClass="none" href="#/lionfish_comshop/moduleA/solitaire/groupIndex" v-if="is_open_solitaire==1">-->
+            <!--<div class="recordList">-->
+              <!--<span class="recordListTit">接龙中心</span>-->
+              <!--<img class="rightArrowImg" src="@/assets/images/rightArrowImg.png"/>-->
+            <!--</div>-->
+          <!--</a>-->
+
+          <!--<a hoverClass="none" href="#/lionfish_comshop/pages/groupCenter/distributionList">-->
+            <!--<div class="recordList">-->
+              <!--<span class="recordListTit">{{$t('host.jiesuanjilu')}}</span>-->
+              <!--<img class="rightArrowImg" src="@/assets/images/rightArrowImg.png"/>-->
+            <!--</div>-->
+          <!--</a>-->
+
           <a hoverClass="none" href="#/lionfish_comshop/pages/groupCenter/wallet">
             <div class="recordList">
               <span class="recordListTit">{{$t('host.wodeqianbao')}}</span>
               <img class="rightArrowImg" src="@/assets/images/rightArrowImg.png"/>
             </div>
           </a>
-          <a hoverClass="none" style="display:none;" href="#/lionfish_comshop/pages/groupCenter/settlementList">
-            <div class="recordList borNone">
-              <span class="recordListTit">{{$t('host.jiesuanjilu')}}</span>
-              <img class="rightArrowImg" src="@/assets/images/rightArrowImg.png"/>
-            </div>
-          </a>
-          <a hoverClass="none" href="#/lionfish_comshop/pages/groupCenter/list">
-            <div class="recordList">
-              <span class="recordListTit">{{$t('host.qingdanliebiao')}}</span>
-              <img class="rightArrowImg" src="@/assets/images/rightArrowImg.png"/>
-            </div>
-          </a>
-          <a hoverClass="none" href="#/lionfish_comshop/pages/groupCenter/closure" v-if="open_community_addhexiaomember==1">
-            <div class="recordList">
-              <span class="recordListTit">核销管理</span>
-              <img class="rightArrowImg" src="@/assets/images/rightArrowImg.png"/>
-            </div>
-          </a>
-	  -->
+
+          <!--<a hoverClass="none" style="display:none;" href="#/lionfish_comshop/pages/groupCenter/settlementList">-->
+            <!--<div class="recordList borNone">-->
+              <!--<span class="recordListTit">{{$t('host.jiesuanjilu')}}</span>-->
+              <!--<img class="rightArrowImg" src="@/assets/images/rightArrowImg.png"/>-->
+            <!--</div>-->
+          <!--</a>-->
+
+          <!--<a hoverClass="none" href="#/lionfish_comshop/pages/groupCenter/list">-->
+            <!--<div class="recordList">-->
+              <!--<span class="recordListTit">{{$t('host.qingdanliebiao')}}</span>-->
+              <!--<img class="rightArrowImg" src="@/assets/images/rightArrowImg.png"/>-->
+            <!--</div>-->
+          <!--</a>-->
+
+          <!--<a hoverClass="none" href="#/lionfish_comshop/pages/groupCenter/closure" v-if="open_community_addhexiaomember==1">-->
+            <!--<div class="recordList">-->
+              <!--<span class="recordListTit">核销管理</span>-->
+              <!--<img class="rightArrowImg" src="@/assets/images/rightArrowImg.png"/>-->
+            <!--</div>-->
+          <!--</a>-->
+
 
           <a hoverClass="none" href="#/lionfish_comshop/pages/groupCenter/gruopInfo" v-if="open_community_head_leve>0">
             <div class="recordList borNone">
