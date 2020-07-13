@@ -13,7 +13,7 @@
         </div>
         <div class="goodsDetail">
           <div class="title">
-            <div>商品详情（共计<span class="red">{{order.goods_count?order.goods_count:0}}</span>件商品）</div>
+            <div>{{$t('order.shangpinxiangqing')}}（{{$t('order.gongji')}}<span class="red">{{order.goods_count?order.goods_count:0}}</span>{{$t('order.jianshangpin')}}）</div>
             <span :class="[(order.order_status_info.name=='已完成'?'black':''), 'text-right']">{{order.order_status_info.name}}</span>
           </div>
           <!--<div class="border-bottom" wx:for="{{order.order_goods_list}}" wx:for-item="goodsInfo" wx:key="key">-->
@@ -24,7 +24,7 @@
                 <div class="goodsTitle">{{goodsInfo.name}}</div>
                 <div class="attribute">
                  <span>
-                    <div v-if="goodsInfo.option_str">规格：{{goodsInfo.option_str}} </div>数量：{{goodsInfo.quantity}}
+                    <div v-if="goodsInfo.option_str">{{$t('order.guige')}}：{{goodsInfo.option_str}} </div>{{$t('order.shuliang')}}：{{goodsInfo.quantity}}
 								</span>
                 </div>
                 <div class="attribute">
@@ -34,17 +34,17 @@
             </div>
             <div class="px15 pb10 fsz-30 text-gray">
               <div class="tips i-flex i-flex-spb mb5">
-                <div>商品金额: <span class="red">${{goodsInfo.price}}</span>
+                <div>{{$t('order.shangpin')}}&nbsp;{{$t('order.jine')}}: <span class="red">${{goodsInfo.price}}</span>
                 </div>
-                <div>退款金额: <span class="red">${{goodsInfo.has_refund_money}}</span>
+                <div>{{$t('order.tuikuan')}}&nbsp;{{$t('order.jine')}}: <span class="red">${{goodsInfo.has_refund_money}}</span>
                 </div>
               </div>
               <div class="tips i-flex i-flex-spb">
-                <div>有效金额: <span class="red">${{goodsInfo.order_jishu}}</span>
+                <div>{{$t('order.youxiao')}}&nbsp;{{$t('order.jine')}}: <span class="red">${{goodsInfo.order_jishu}}</span>
                 </div>
-                <div v-if="goodsInfo.fen_type==0">佣金比例: <span class="red">{{goodsInfo.fen_bili}}%</span>
+                <div v-if="goodsInfo.fen_type==0">{{$t('order.yongjin')}}&nbsp;{{$t('order.bili')}}: <span class="red">{{goodsInfo.fen_bili}}%</span>
                 </div>
-                <div v-if="goodsInfo.fen_type==1">佣金固定金额: <span class="red">{{goodsInfo.fen_gumoney}}</span>
+                <div v-if="goodsInfo.fen_type==1">{{$t('order.yongjingudingjine')}}: <span class="red">{{goodsInfo.fen_gumoney}}</span>
                 </div>
               </div>
             </div>
@@ -55,9 +55,9 @@
               <span class="fsz-24 text-gray">(归团长收入)</span>
             </div>
             <div bindtap="handleTipDialog">
-              实际佣金:<span class="red weight">${{commision}} </span>
+                {{$t('order.shijiyongjin')}}:<span class="red weight">${{commision}} </span>
               <span class="iconfont icon-shuoming text-dark fsz-30"></span>
-              <span class="fsz-30 text-gray"> ({{is_statements_state==1?'已结算':'待结算'}}<span v-if="is_statements_state==1&&statements_end_date"> {{statements_end_date}}</span>)</span>
+              <span class="fsz-30 text-gray"> ({{is_statements_state==1?$t('order.yijiesuan'):$t('order.daijiesuan')}}<span v-if="is_statements_state==1&&statements_end_date"> {{statements_end_date}}</span>)</span>
             </div>
           </div>
         </div>
@@ -65,7 +65,7 @@
           <i-orderComment :comment="order.order_info.comment" v-if="order.order_info.comment"></i-orderComment>
         </div>
         <div class="orderInfor">
-          <i-order-info :orderInfo="order.order_info" :order_goods_list="order.order_goods_list" ordername="团单"></i-order-info>
+          <i-order-info :orderInfo="order.order_info" :order_goods_list="order.order_goods_list" ordername="Order"></i-order-info>
         </div>
       </div>
     </div>
