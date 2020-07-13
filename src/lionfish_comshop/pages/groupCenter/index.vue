@@ -285,7 +285,10 @@
           var e = t && t.owner_name || "团长";
 //          o.$store.state.app.toolbarTitle = e + "中心"
           o.$wx.setNavigationBarTitle({
-            title: e + " Center"
+            title: e + " Center",
+            showLogo: false,
+            showMore: false,
+            showBack: true
           })
           , o.groupInfo= t;
         }), this.loadPage();

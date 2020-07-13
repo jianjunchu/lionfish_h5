@@ -280,7 +280,7 @@ export default {
 
           util.getMemberInfo({success:function(e) {
               i.$wx.setStorageSync('userInfo',e.data)
-              i.$router.push({
+              i.$router.replace({
                 path: '/lionfish_comshop/pages/index/index'
               });
             },
