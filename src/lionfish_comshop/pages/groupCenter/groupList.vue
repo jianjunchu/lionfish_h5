@@ -21,23 +21,23 @@
           <div class="search">
             <!--<icon class="icon-search" size="14" type="search"></icon>-->
             <!--<input bindconfirm="searchByKey" confirmType="done" placeholder="请输入关键词" type="span" :value="keyword"></input>-->
-            <input @keyup.enter="searchByKey"  placeholder="请输入关键词"  v-model="keyword"></input>
+            <input @keyup.enter="searchByKey"  placeholder="Input Keywords"  v-model="keyword"></input>
           </div>
         </div>
       </div>
       <div class="content-list">
         <div class="noRecordCon" v-if="order.length<=0">
           <img class="noRecordImg" src="@/assets/images/noRecord.png"></img>
-          <div class="noRecord">您还没有相关的订单～</div>
+          <div class="noRecord">No Orders～</div>
           <a hoverClass="none" openType="switchTab" href="#/lionfish_comshop/pages/index/index">
-            <div class="goIndex">去购物</div>
+            <div class="goIndex">To Buy</div>
           </a>
         </div>
         <div v-else>
           <div class="item" v-for="(item,idx) in order" :key="item.order_id">
             <div class=""  v-for="(goods,idx) in item.goods_list" :key="goods.order_goods_id">
               <div class="orderNum">
-                <span>团单日期：{{item.createTime}}</span>
+                <span>Member Order Date：{{item.createTime}}</span>
                 <span :class="[(item.order_status_id==11?'black':''), 'statusName']">{{item.status_name}}</span>
               </div>
               <div class="spu">
@@ -47,25 +47,25 @@
                     <span>{{goods.name}}</span>
                   </div>
                   <div class="tips">
-                    <span>商品数量：{{goods.quantity}}</span>
-                    <span class="last" v-if="goods.option_str!=''">规格：{{goods.option_str}}</span>
+                    <span>Quantity：{{goods.quantity}}</span>
+                    <span class="last" v-if="goods.option_str!=''">Specification：{{goods.option_str}}</span>
                   </div>
                   <div class="tips">
-                    <span>商品金额：${{goods.total}}</span>
+                    <span>Amount：${{goods.total}}</span>
                   </div>
                   <div class="tips i-flex i-flex-spb">
-                    <div>有效金额: <span class="red">${{goods.order_jishu}}</span>
+                    <div>Valid Amount: <span class="red">${{goods.order_jishu}}</span>
                     </div>
-                    <div v-if="goods.fen_type==1">佣金固定金额: <span class="red">{{goods.fen_gumoney}}</span>
+                    <div v-if="goods.fen_type==1">Fixed Commission: <span class="red">{{goods.fen_gumoney}}</span>
                     </div>
-                    <div v-if="goods.fen_type==0">佣金比例: <span class="red">{{goods.fen_bili}}%</span>
+                    <div v-if="goods.fen_type==0">Commssion Rate: <span class="red">{{goods.fen_bili}}%</span>
                     </div>
                   </div>
                   <div class="tips i-flex i-flex-spb">
-                    <div>团长配送费: <span class="red">${{goods.head_shipping_fare||0}}</span>
+                    <div>Host Freight: <span class="red">${{goods.head_shipping_fare||0}}</span>
                     </div>
                     <div @click="handleTipDialog" :data-type="goods.fen_type==1">
-                      实际佣金: <span class="red">${{goods.commision}}</span>
+                      Real Commission: <span class="red">${{goods.commision}}</span>
                       <span class="iconfont icon-shuoming text-dark fsz-28" style="margin-left:5px;"></span>
                     </div>
                   </div>
@@ -86,10 +86,10 @@
               </div>
               <div class="song_button_item">
                 <div @click="sign_one" class="goods-sign-btn" :data-order_id="item.order_id" v-if="currentTab==2">
-                  <span style="font-size:medium">确认签收</span>
+                  <span style="font-size:medium">Confirm Received</span>
                 </div>
                 <div @click="goOrderDetail" class="goods-sign-btn gray" :data-order_id="item.order_id">
-                  <span style="font-size:medium">查看详情</span>
+                  <span style="font-size:medium">Detail</span>
                 </div>
               </div>
             </div>
@@ -162,19 +162,19 @@
         currentTab: 0,
         pageSize: 10,
         navList: [ {
-          name: "全部",
+          name: this.$t('common.quanbu'),
           id: "0"
         }, {
-          name: "待配送",
+          name: this.$t('common.daipeisong'),
           id: "1"
         }, {
-          name: "待签收",
+          name: this.$t('common.daiqianshou'),
           id: "2"
         }, {
-          name: "待提货",
+          name: this.$t('common.daitihuo'),
           id: "3"
         }, {
-          name: "已完成",
+          name: this.$t('common.yiwancheng'),
           id: "4"
         } ],
         loadText: "",
@@ -183,31 +183,31 @@
         page: 1,
         hide_tip: !0,
         order: [],
-        tip: "正在加载",
+        tip: "Loading",
         searchfield: [ {
           field: "ordersn",
-          name: "订单号"
+          name: "Order NO."
         }, {
           field: "member",
-          name: "会员昵称"
+          name: "Member"
         }, {
           field: "address",
-          name: "配送联系人"
+          name: "Contact"
         }, {
           field: "mobile",
-          name: "下单手机号"
+          name: "Mobile"
         }, {
           field: "location",
-          name: "配送地址"
+          name: "Address"
         }, {
           field: "goodstitle",
-          name: "商品标题"
+          name: "Product"
         } ],
         fieldIdx: 'ordersn',
         value:'',
         groupInfo: {
           group_name: "社区",
-          owner_name: "团长"
+          owner_name: "Host"
         },
         searchOBj: {},
         open_aftersale: 0,
@@ -262,10 +262,13 @@
 
       },
       callPhone: function(e) {
+
         var t = e.currentTarget.dataset.phone;
-        t && this.$wx.makePhoneCall({
-          phoneNumber: t
-        });
+//        t && this.$wx.makePhoneCall({
+//          phoneNumber: t
+//        });
+        var url = "tel:"+t;
+        window.location.href = url;
       },
       switchNav: function(e) {
         if (this.currentTab === 1 * e.currentTarget.dataset.id) return !1;

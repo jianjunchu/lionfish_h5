@@ -6,6 +6,7 @@ import ElementUI from 'element-ui'
 import { Image as VanImage } from 'vant'
 import { Loading } from 'vant'
 import { Uploader } from 'vant'
+import { RadioGroup, Radio } from 'vant'
 
 import 'element-ui/lib/theme-chalk/index.css'
 import 'mint-ui/lib/style.css'
@@ -77,6 +78,8 @@ Vue.use(vueSwiper)
 Vue.use(VanImage)
 Vue.use(Loading)
 Vue.use(Uploader)
+Vue.use(RadioGroup)
+Vue.use(Radio)
 
 Vue.component('i-tabbar', Tabbar)
 Vue.component('i-toolbar', Toolbar)
