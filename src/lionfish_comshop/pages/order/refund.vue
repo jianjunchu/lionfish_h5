@@ -231,7 +231,7 @@
               order_id: n,
               order_goods_id: i,
               complaint_type: o,
-              complaint_images: s,
+              complaint_images: s.join(','),
               complaint_desc: d,
               complaint_mobile: u,
               complaint_reason: p,
