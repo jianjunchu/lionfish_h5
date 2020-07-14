@@ -20,7 +20,7 @@ export default {
     })
   },
   hideLoading: function() {
-
+    Toast.clear()
   },
   getStorageSync: function(k) {
     const v = window.localStorage.getItem(k) || '{}'
@@ -99,11 +99,28 @@ export default {
     return GetSystemInfoSyncResult
   },
   showModal: function(option) {
-    Dialog.confirm({
+    const options = {
       title: option.title,
       message: option.content,
+      closeOnPopstate: true,
+      closeOnClickOverlay: true,
       showCancelButton: option.showCancelButton
-    }).then(() => {
+    }
+
+    if (option.hasOwnProperty('confirmText')) {
+      options.confirmButtonText = option.confirmText
+    }
+    if (option.hasOwnProperty('confirmColor')) {
+      options.confirmButtonColor = option.confirmColor
+    }
+    if (option.hasOwnProperty('cancelText')) {
+      options.cancelButtonText = option.cancelText
+    }
+    if (option.hasOwnProperty('cancelColor')) {
+      options.cancelButtonColor = option.cancelColor
+    }
+
+    Dialog.confirm(options).then(() => {
       option.success({ confirm: true })
     }).catch(() => {
       option.success({ confirm: false })

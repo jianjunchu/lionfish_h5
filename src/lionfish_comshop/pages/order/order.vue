@@ -532,7 +532,6 @@
           u.userInfo = t
         );
         var o = wx.getStorageSync("token");
-         wx.showLoading();
         var _ = e && e.is_show || 0, a = e && e.isfail || "";
         null != (this.is_show_tip = _) && 1 == _ || wx.showLoading(), null != a && 1 == a && wx.showToast({
           title: "支付失败",
@@ -547,9 +546,8 @@
           dataType: "json",
           method: "POST",
           success: function(e) {
-            if (setTimeout(function() {
-              wx.hideLoading();
-            }, 1e3), 0 == e.code) {
+            wx.hideLoading();
+            if ( 0 == e.code) {
               var t = e.data.order_info;
 
               if (null != _ && 1 == _ && "integral" == t.type) wx.showToast({
@@ -813,7 +811,7 @@
 //        }) : this.$wx.navigateTo({
 //          url: "/lionfish_comshop/pages/order/refunddetail?id=" + t
 //        }));
-        this.$wx.redirectTo({
+        this.$wx.navigateTo({
           url: "/lionfish_comshop/pages/order/refunddetail?id=" + t
         })
       },
