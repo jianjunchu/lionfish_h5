@@ -88,6 +88,9 @@
       }
     },
     created: function() {
+      wx = this.$wx;
+      app = this.$app;
+
       this.$wx.setNavigationBarTitle({
         title: '分销记录',
         showLogo:false,
