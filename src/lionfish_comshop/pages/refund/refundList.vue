@@ -4,12 +4,12 @@
 
       <van-tabs v-model="currentTab" @change="bindChange" offset-top="49px" sticky>
         <van-tab  icon="home-o" :title="refund.name" v-for="(refund,index) in navList" :key="refund.id" >
-          <div class="noRecordCon" v-if="refundList[index] && refundList[index].length===0">
+          <div class="noRecordCon" v-if="refundList.length>0 && refundList[index] && refundList[index].length===0">
             <img class="noRefundImg" src="@/assets/images/noData.png"></img>
             <div class="noRecord">暂无任何退款记录</div>
           </div>
           <div v-else>
-            <div bindtap="goRefund" class="card" :data-type="item.ref_id" v-for="item in order" :key="item.id">
+            <div @click.stop="goRefund" class="card" :data-type="item.ref_id" v-for="(item ,index) in order" :key="item.id">
               <div class="i-card my-card" :data-orderId="item.order_id" showModal="true">
                 <div class="card-header" slot="header">
                   <div>下单时间：
@@ -25,7 +25,7 @@
                       <div>
                         <img :class="['show-img',i_inx<4?'mar-right-10':'']" height="60" :src="img.goods_images" width="60" v-if="i_inx<4" v-for="(img,i_inx) in item.goods_list" :key="i_inx"></img>
                       </div>
-                      <div class="dot" v-if="item.orderSkuResps.length>=4">
+                      <div class="dot" v-if="item.orderSkuResps && item.orderSkuResps.length>=4">
                         <div class="dot-item"></div>
                         <div class="dot-item dot-middle"></div>
                         <div class="dot-item"></div>
@@ -47,18 +47,18 @@
                     <div catchtap="orderPay" class="my-button-pay padding-15" :data-type="item.order_id">立即支付</div>
                   </div>
                   <div v-if="item.order_status_id==4">
-                    <div bindtap="receivOrder" class="get-goods" :data-type="item.order_id">
+                    <div @click.stop="receivOrder" class="get-goods" :data-type="item.order_id">
                       <div class="sure-get">确认提货</div>
                       <img class="right-arrow" src="@/assets/images/rightArrowImg.png"></img>
                     </div>
                   </div>
                   <div v-if="item.order_status_id==1||item.order_status_id==6||item.order_status_id==11||item.order_status_id==14">
-                    <div bindtap="goOrder" class="my-button" :data-type="item.order_id" size="small">查看详情</div>
+                    <div @click.stop="goOrder" class="my-button" :data-type="item.order_id" size="small">查看详情</div>
                   </div>
                 </div>
               </div>
             </div>
-            <i-load-more :loading="LoadingComplete[currentTab]" tip="没有更多订单了~"></i-load-more>
+            <i-load-more v-show="no_order == 1" :loading="LoadingComplete[currentTab]" tip="没有更多订单了~"></i-load-more>
           </div>
         </van-tab>
 
@@ -151,10 +151,15 @@
           },
           dataType: "json",
           success: function(t) {
-            if (0 != t.code) return (e.isHideLoadMore = !0), !1;
+            if (0 != t.code){
+              return (e.isHideLoadMore = !0), !1;
+            }else{
+              var a = e.order.concat(t.data);
+              e.order = a, e.hide_tip = !0, e.no_order = 0;
+              console.log(e.order)
+            }
 
-            var a = e.order.concat(t.data);
-            e.order = a, e.hide_tip = !0, e.no_order = 0
+
           }
         });
       },
@@ -238,7 +243,33 @@
           isHideLoadMore: !1
         });
       },
-      onReachBottom: function() {}
+      onReachBottom: function() {},
+      receivOrder: function(e) {
+        var t = e.currentTarget.dataset.type || "", o = wx.getStorageSync("token"), a = this;
+        wx.showModal({
+          title: "提示",
+          content: "确认收到",
+          confirmColor: "#F75451",
+          success: function(e) {
+            e.confirm && app.util.request({
+              url: "entry/wxapp/index",
+              data: {
+                controller: "order.receive_order",
+                token: o,
+                order_id: t
+              },
+              dataType: "json",
+              success: function(e) {
+                0 == e.data.code && (wx.showToast({
+                  title: "收货成功",
+                  icon: "success",
+                  duration: 1e3
+                }), a.reload_data());
+              }
+            });
+          }
+        });
+      },
     }
   }
 </script>
@@ -339,7 +370,7 @@
   }
 
   .swiper-box .item {
-    width: 71vw;
+    width: 96vw;
     height: 26.6vw;
     box-shadow: 0 0 4vw 0 rgba(0,0,0,0.05);
     border-radius: 2vw;
@@ -543,7 +574,7 @@
   }
 
   .i-card {
-    width: 71vw;
+    width: 96vw;
     border-radius: 2vw;
     background: #fff;
     box-shadow: 0 0 4vw 0 rgba(0,0,0,0.05);
