@@ -83,16 +83,16 @@
 
 .new-comers-item .act-end {
   position: absolute;
-  height: 30px;
-  border-radius: 5px;
+  height: 8vw;
+  border-radius: 1vw;
   background: rgba(0, 0, 0, 0.5);
   color: #fff;
-  font-size: 14px;
+  font-size: 1.8vw;
   text-align: center;
-  line-height: 30px;
+  line-height: 8vw;
   left: 50%;
   top: 40px;
-  padding: 0 6px;
+  padding: 0 1vw;
   transform: translateX(-50%);
 }
 

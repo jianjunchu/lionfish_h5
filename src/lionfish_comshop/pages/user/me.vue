@@ -135,7 +135,7 @@
 -->
             <div @click="goLink" class="goods-sign-btn" :data-link="community.whatsapplink"
                  v-show="community.whatsapplink != '' && community.whatsapplink != undefined && community.whatsapplink != null ">
-              <img src="@/assets/images/join-group.png" height="26px" width="26px"/> <span
+              <img src="@/assets/images/join-group.png" height="20vw" width="20vw"/> <span
               style="font-size:larger;float:right">Join Group</span>
             </div>
           </div>
@@ -739,9 +739,9 @@
       },
       goToGroup: function() {
 
-        5 === this.auditStatus ? this.$wx.redirectTo({
+        5 === this.auditStatus ? this.$wx.navigateTo({
           url: '/lionfish_comshop/pages/groupCenter/index'
-        }) : this.$wx.redirectTo({
+        }) : this.$wx.navigateTo({
           url: '/lionfish_comshop/pages/groupCenter/apply'
         })
       },
