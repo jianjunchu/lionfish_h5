@@ -347,7 +347,7 @@
               <div class="item-main">
                 <div class="item-title">
                   <img class="toolIcon" mode="widthFix" :src="user_tool_icons.i5?user_tool_icons.i5:require('@/assets//images/groupCenterIcon.png')"/>
-                  <sapn>{{$t('me.shenqingchengwei')}}{{groupInfo.owner_name}}</sapn>
+                  <span>{{$t('me.shenqingchengwei')}}{{groupInfo.owner_name}}</span>
                 </div>
                 <div class="tool-right">
                   <img class="icon-right " src="@/assets/images/rightArrowImg.png"></img>

@@ -3,67 +3,80 @@
     <div class="section">
       <img class="groupDay" src="@/assets/images/groupDay.png"/>
       <div class="picker">
-        <picker bindchange="bindDateChange" fields="month" mode="date" value="{{date">
-          <div class="choose-day">
-            <text>{{chooseDate}}</text>
-            <text class="iconfont icon-xiatiao"></text>
-          </div>
-        </picker>
+        <!--<picker bindchange="bindDateChange" fields="month" mode="date" :value="date">-->
+          <!--<div class="choose-day">-->
+            <!--<span>{{chooseDate}}</span>-->
+            <!--<span class="iconfont icon-xiatiao"></span>-->
+          <!--</div>-->
+        <!--</picker>-->
+
+        <div class="picker" @click="showPicker = true">
+          {{selxarray}}
+        </div>
+        <van-popup v-model="showPicker" round position="bottom">
+          <van-picker
+            show-toolbar
+            :columns="xarray"
+            @cancel="showPicker = false"
+            @confirm="bindPickerChange"
+          />
+        </van-popup>
+
       </div>
       <div class="income">
-        <text>预计佣金：${{permoney}}</text>
+        <span>预计佣金：${{permoney}}</span>
       </div>
     </div>
     <div class="distributionList">
       <div class="nav">
-        <div bindtap="switchNav" class="orderList_item {{currentTab==item.status?'on':''}}" data-current="{{item.status}}" wx:for="{{navList}}" wx:key="id">{{item.name}}</div>
+        <div @click="switchNav" :class="['orderList_item', (currentTab==item.status?'on':'')]" :data-current="item.status"  v-for="(item,index) in navList" :key="item.id" >{{item.name}}</div>
       </div>
-      <swiper bindchange="bindChange" class="swiper-box" current="{{currentTab}}" duration="300" style="height:{{containerHeight}}px">
-        <swiper-item wx:for="{{navList}}" wx:for-item="navItem" wx:key="id">
-          <scroll-div scrollY bindscrolltolower="getCurrentList" class="order-scroll-div" scrollTop="{{scrollTop}}" style="height: {{containerHeight}}px">
-            <div class="noRecordCon" v-if="order.length===0">
+      <swiper bindchange="bindChange" class="swiper-box" :current="currentTab" duration="300" :style="{height:containerHeight + 'px'}">
+        <swiper-slide v-for="(navItem,index) in navList"  :key="navItem.id">
+          <div scrollY bindscrolltolower="getCurrentList" class="order-scroll-div" :scrollTop="scrollTop" :style="{height: containerHeight + 'px'}">
+            <div class="noRecordCon" v-if="order.length==0">
               <img class="noRecordImg" src="@/assets/images/noRecord.png"/>
               <div class="noRecord">还没有记录 快去分享吧～</div>
             </div>
-            <block v-else>
-              <div class="item" wx:for="{{order}}" wx:key="id">
+            <div v-else>
+              <div class="item" v-for="(item,index) in order" :key="item.id">
                 <div class="distributionNum">
-                  <text class="distributionTime">{{item.order_num_alias}}</text>
-                  <text class="statusName">{{item.status_name}}</text>
+                  <span class="distributionTime">{{item.order_num_alias}}</span>
+                  <span class="statusName">{{item.status_name}}</span>
                 </div>
-                <div class="spu" wx:for="{{item.goods_list}}" wx:for-item="goods" wx:key="order_goods_id">
-                  <img class="i-class goodsImg" mode="widthFix" src="{{goods.goods_images}}" style="width:60px;height:60px;"/>
+                <div class="spu" v-for="(goods,index) in item.goods_list"  :key="goods.order_goods_id">
+                  <img class="i-class goodsImg" mode="widthFix" :src="goods.goods_images" style="width:60px;height:60px;"/>
                   <div class="detail">
                     <div class="goodsName">{{goods.name}}</div>
                     <div class="commission text-right">团单金额 ${{goods.total}} |
-                      <text v-if="item.order_status_id!=11&&item.order_status_id!=6">预估</text>佣金 ${{goods.commision}}</div>
+                      <span v-if="item.order_status_id!=11&&item.order_status_id!=6">预估</span>佣金 ${{goods.commision}}</div>
                     <div class="i-flex i-flex-spb text-right text-gray fsz-26 mt5" v-if="goods.has_refund_quantity>0">
-                                        <span bindtap="handleTipDialog" class="i-flex-item">
-                      佣金变化:<text class="red">${{goods.del_commision}}</text>
-                                            <text class="iconfont icon-shuoming text-dark fsz-26" style="margin-left:10rpx;"></text>
+                                        <span @click="handleTipDialog" class="i-flex-item">
+                      佣金变化:<span class="red">${{goods.del_commision}}</span>
+                                            <span class="iconfont icon-shuoming text-dark fsz-26" style="margin-left:10rpx;"></span>
                                         </span>
                     </div>
                   </div>
                 </div>
                 <div class="distributionCommision" v-if="item.shipping_fare!='免运费'&&item.delivery=='tuanz_send'">
-                  <text class="fareCommision">配送收入: ${{item.shipping_fare}}</text>
-                  <text class="totalCommision">合计佣金: ${{item.total_commision}}（含配送）</text>
+                  <span class="fareCommision">配送收入: ${{item.shipping_fare}}</span>
+                  <span class="totalCommision">合计佣金: ${{item.total_commision}}（含配送）</span>
                 </div>
                 <div class="distributionCommision" v-else>
-                  <text class="totalCommision" v-if="item.order_status_id!=5&&item.order_status_id!=7">合计佣金: ${{item.total_commision}}</text>
+                  <span class="totalCommision" v-if="item.order_status_id!=5&&item.order_status_id!=7">合计佣金: ${{item.total_commision}}</span>
                 </div>
               </div>
-              <i-loadMore tip="{{tip}}" v-if="!isHideLoadMore"></i-loadMore>
-            </block>
-          </scroll-div>
-        </swiper-item>
+              <i-loadMore :tip="tip" v-if="!isHideLoadMore"></i-loadMore>
+            </div>
+          </div>
+        </swiper-slide>
       </swiper>
     </div>
-    <div bindtap="refresh" class="refresh">
-      <text class="iconfont icon-shuaxin refreshImg"></text>
+    <div @click="refresh" class="refresh">
+      <span class="iconfont icon-shuaxin refreshImg"></span>
       <span>刷新</span>
     </div>
-    <i-dialog bind:cancel="handleTipDialog" bind:confirm="handleTipDialog" confirmText="知道了" iBtn="dialogBtn" iClass="dialogText" showCancel="{{false}}" text="您的”粉丝“购买的商品进行了申请售后，售后成功部分商品进行退款佣金发生变化。" visible="{{showTipDialog"></i-dialog>
+    <i-dialog bind:cancel="handleTipDialog" bind:confirm="handleTipDialog" confirmText="知道了" iBtn="dialogBtn" iClass="dialogText" :showCancel="false" text="您的”粉丝“购买的商品进行了申请售后，售后成功部分商品进行退款佣金发生变化。" :visible="showTipDialog"></i-dialog>
   </div>
 
 </template>
@@ -83,432 +96,254 @@
   export default {
     name: '',
     data(){
-      return{
-
+      return {
+        selxarray:'',
+        showPicker: false,
+        currentTab: 0,
+        pageSize: 10,
+        navList: [{
+          name: "全部",
+          status: "0"
+        }, {
+          name: "待确认",
+          status: "1"
+        }, {
+          name: "已确认",
+          status: "2"
+        }, {
+          name: "无效",
+          status: "3"
+        }],
+        distributionList: [],
+        loadText: "没有更多记录了~",
+        containerHeight: 0,
+        chooseDate: "",
+        chooseDateTime: "",
+        data: "",
+        estimate: "",
+        permoney: 0,
+        communnityId: "",
+        no_order: 0,
+        page: 1,
+        order: [],
+        disUserId: '',
+        tip: "正在加载",
+        hide_tip: !0,
+        years:[],
+        months:[],
+        xarray: [],
+        index: '0,1',
+        showTipDialog:false,
+        scrollTop: 0,
       }
     },
     created: function() {
       wx = this.$wx;
       app = this.$app;
-
+      this.initYM();
       this.$wx.setNavigationBarTitle({
-        title: '分销记录',
+        title: '结算记录',
         showLogo:false,
         showMore:false,
         showBack:true
       })
       this.onLoad();
+      this.onShow();
     },
     methods: {
-      onLoad: function(t) {
+      initYM:function () {
+
+        var n = 10;
+        var m = 10;
+        var myDate= new Date();
+        var startYear=myDate.getFullYear()-n;//起始年份
+        var endYear=myDate.getFullYear()+m;//结束年份
+        for (var i=startYear;i<=endYear;i++) {
+          var obj = i+"年";
+          this.years.push(obj);
+        }
+        var tMonth = myDate.getMonth();
+        var curMonth = tMonth + 1;
+
+        this.months = ['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月'];
+        var defaultMonIdx = 1;
+        for(var j = 0,len=this.months.length; j < len; j++) {
+          if (this.months[j] == (curMonth+'月')){
+            defaultMonIdx = j;
+            break;
+          }
+        }
+        this.selxarray = myDate.getFullYear() +"年 "+curMonth+'月';
+
+        this.xarray = [
+          // 第一列
+          {
+            values: this.years,
+            defaultIndex: n,
+          },
+          // 第二列
+          {
+            values: this.months,
+            defaultIndex: defaultMonIdx,
+          },
+        ];
+
+      },
+      onLoad: function() {
         var e = wx.getSystemInfoSync();
-        this.setData({
-          containerHeight: e.windowHeight - Math.round(e.windowHeight / 375 * 55)
-        });
+        this.containerHeight= e.windowHeight - Math.round(e.windowHeight / 375 * 55);
       },
       onShow: function() {
         var t = new Date(), e = t.getFullYear(), a = t.getMonth() + 1, o = Date.parse(t);
-        this.setData({
-          page: 1,
-          order: [],
-          chooseDate: e + "年" + a + "月",
-          chooseDateTime: o
-        }), this.getData(), this.get_month_money();
+
+          this.page= 1;
+          this.order= [];
+          this.chooseDate= e + "年" + a + "月";
+          this.chooseDateTime= o;
+         this.getData();
+         this.get_month_money();
       },
       get_month_money: function() {
-        var t = this.data.chooseDate, e = this, a = wx.getStorageSync("token");
-        app.util.request({
-          url: "entry/wxapp/index",
-          data: {
+        var t = this.chooseDate, e = this, a = wx.getStorageSync("token");
+        this.$http_post({
             controller: "order.order_commission",
             token: a,
             chooseDate: t
-          },
-          method: "post",
-          dataType: "json",
-          success: function(t) {
-            0 == t.data.code ? e.setData({
-              permoney: t.data.money
-            }) : e.setData({
-              permoney: 0
-            });
-          }
+          }).then(t=> {
+              console.log(t,"order_commission");
+            if(0 == t.code){
+              e.permoney=t.money;
+            }else{
+              e.permoney= 0;
+            }
+
         });
       },
       getData: function() {
         wx.showLoading({
           title: "加载中...",
           mask: !0
-        }), this.setData({
-          isHideLoadMore: !0
-        }), this.data.no_order = 1;
-        var o = this, t = this.data.chooseDate, e = wx.getStorageSync("token"), a = this.data.currentTab, n = -1;
-        0 == a ? n = -1 : 1 == a ? n = 22 : 2 == a ? n = 6 : 3 == a && (n = 357), app.util.request({
-          url: "entry/wxapp/index",
-          data: {
+        });
+        this.isHideLoadMore= !0;
+        this.no_order = 1;
+        var o = this, t = this.chooseDate, e = wx.getStorageSync("token"), a = this.currentTab, n = -1;
+
+        var n = -1;
+        if (a == 0) {
+          n = -1;
+        } else if (a == 1) {
+          n = 22;
+        } else if (a == 2) {
+          n = 6;
+        } else if (a == 3) {
+          n = 357;
+        }
+        this.$http_post({
             controller: "order.orderlist",
             is_tuanz: 1,
             token: e,
             chooseDate: t,
-            page: o.data.page,
+            page: o.page,
             order_status: n
-          },
-          method: "post",
-          dataType: "json",
-          success: function(t) {
-            if (0 != t.data.code) return o.setData({
-              isHideLoadMore: !0
-            }), wx.hideLoading(), !1;
-            console.log(o.data.page);
-            var e = t.data.data, a = o.data.order.concat(e);
-            o.setData({
-              order: a,
-              hide_tip: !0,
-              no_order: 0
-            }), wx.hideLoading();
-          }
+          }).then(t=> {
+              console.log(t,"orderlist");
+            if (0 != t.code) {
+              o.isHideLoadMore= !0;
+              wx.hideLoading()
+              return !1;
+            }else{
+              console.log(o.page);
+              var e = t.data;
+              var a = o.order.concat(e);
+              o.order= a;
+              o.hide_tip= !0;
+              o.no_order= 0;
+              wx.hideLoading();
+            }
+
+
         });
       },
       refresh: function() {
         var t = this;
-        this.setData({
-          page: 1,
-          order: []
-        }, function() {
-          t.getData();
-        });
+        this.page= 1;
+        this.order= [];
+        t.getData();
       },
       onHide: function() {},
-      bindChange: function(t) {
+      bindChange: function() {
         var e = this;
-        this.setData({
-          currentTab: 1 * t.detail.current
-        }), this.setData({
-          order: [],
-          page: 1,
-          no_order: 0
-        }, function() {
-          console.log("我变啦"), e.getData();
-        });
+//        this.currentTab= 1 * t.detail.current;
+
+        this.order= [];
+        this.page= 1;
+        this.no_order= 0;
+        console.log("我变啦");
+        e.getData();
       },
       switchNav: function(t) {
-        if (this.data.currentTab === 1 * t.target.dataset.current) return !1;
-        this.setData({
-          currentTab: 1 * t.target.dataset.current
-        });
+
+        if (this.currentTab == 1 * t.target.dataset.current) return !1;
+        this.currentTab= 1 * t.target.dataset.current;
+        this.bindChange();
       },
       onUnload: function() {},
       onPullDownRefresh: function() {
         this.getData();
       },
-      bindDateChange: function(t) {
-        console.log("picker发送选择改变，携带值为", t.detail.value), this.setData({
-          date: t.detail.value
-        });
-        var e = this.data.date.split("-"), a = Date.parse(this.data.date);
-        this.setData({
-          chooseDate: e[0] + "年" + e[1] + "月",
-          chooseDateTime: a,
-          order: [],
-          page: 1,
-          no_order: 0
-        }), this.getData(), this.get_month_money();
+      bindDateChange: function() {
+//        console.log("picker发送选择改变，携带值为", t.detail.value);
+//        this.date= t.detail.value;
+//        var e = this.date.split("-"), a = Date.parse(this.date);
+        var e = this.date;
+
+//        this.chooseDate= e[0] + "年" + e[1] + "月";
+//        this.chooseDateTime= a;
+        this.order= [];
+        this.page= 1;
+        this.no_order= 0;
+         this.getData();
+         this.get_month_money();
+      },
+      bindPickerChange: function(v,idx) {
+
+        this.index =idx
+        this.selxarray = v[0]+" "+v[1];
+        this.chooseDate = v[0]+v[1];
+        this.showPicker = false;
+        this.bindDateChange();
       },
       getCurrentList: function() {
-        if (console.log(this.data.no_order), 1 == this.data.no_order) return !1;
-        this.data.page += 1, this.getData(), this.setData({
-          isHideLoadMore: !1
-        });
+        console.log(this.no_order);
+        if ( 1 == this.no_order) return !1;
+        this.page += 1;
+        this.getData();
+        this.isHideLoadMore= !1;
       },
       onReachBottom: function() {
-        if (console.log(this.data.no_order), 1 == this.data.no_order) return !1;
-        this.data.page += 1, this.getData(), this.setData({
-          isHideLoadMore: !1
-        });
+        console.log(this.no_order)
+        if ( 1 == this.no_order) return !1;
+        this.page += 1;
+        this.getData();
+        this.isHideLoadMore= !1;
       },
       handleTipDialog: function() {
-        this.setData({
-          showTipDialog: !this.data.showTipDialog
-        });
+        this.showTipDialog= !this.showTipDialog;
       },
-      onShareAppMessage: function() {}
+      onShareAppMessage: function() {},
+      formatter(type, val) {
+        if (type === 'year') {
+          return `${val}年`;
+        } else if (type === 'month') {
+          return `${val}月`;
+        }
+        return val;
+      },
     }
 
   }
 </script>
 
-<style scoped>
-  .nav {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    z-index: 10;
-    background: #fff;
-    height: 9.2vw;
-    border-top: 0.2vw solid #f2f2f2;
-    border-bottom: 0.2vw solid #f2f2f2;
-    padding: 0 6vw;
-    width: unset;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
-
-  .nav .orderList_item {
-    margin-bottom: 0.4vw;
-    font-size: 2.8vw;
-    font-family: PingFangSC-Medium;
-    font-weight: 500;
-    color: #666;
-    position: relative;
-    height: 9.6vw;
-    line-height: 9.6vw;
-  }
-
-  .nav .orderList_item .line {
-    position: absolute;
-    bottom: 0;
-    height: 0.6vw;
-    width: 100%;
-    background: linear-gradient(90deg,#ff4936 0%,#ff6e3c 100%);
-    box-shadow: 0 0.4vw 0.8vw 0 rgba(255,89,0,0.25);
-    border-radius: 2.4vw;
-  }
-
-  .nav .on {
-    color: #ff5344;
-  }
-
-  .swiper-box {
-    width: 100%;
-    margin-top: 9vw;
-  }
-
-  .swiper-box .order-scroll-div {
-    width: 100vw;
-    height: 100%;
-  }
-
-  .swiper-box .noRecordCon {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-  }
-
-  .swiper-box .noRecordCon .noRecordImg {
-    width: 13.2vw;
-    height: 13.8vw;
-    margin-top: 50%;
-  }
-
-  .swiper-box .noRecordCon .noRefundImg {
-    width: 21.8vw;
-    height: 21.8vw;
-    margin-top: 50%;
-  }
-
-  .swiper-box .noRecordCon .noRecord {
-    padding-top: 3.2vw;
-    font-size: 3vw;
-    font-family: PingFangSC-Light;
-    font-weight: 300;
-    color: #666;
-    line-height: 3vw;
-  }
-
-  .swiper-box .noRecordCon .goIndex {
-    width: 16vw;
-    height: 6vw;
-    background: #ff3432;
-    border-radius: 3vw;
-    font-size: 2.8vw;
-    color: #fff;
-    margin-top: 3vw;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-
-  .swiper-box .item {
-    width: 96vw;
-    box-shadow: 0 0 4vw 0 rgba(0,0,0,0.05);
-    border-radius: 2.0vw;
-    margin: 2.0vw auto 0;
-    background: #fff;
-  }
-
-  .swiper-box .item:last-of-type {
-    margin: 2.0vw auto;
-  }
-
-  .refresh {
-    width: 8vw;
-    height: 8vw;
-    border-radius: 50%;
-    border: 0.2vw solid #999;
-    box-shadow: 0.2vw 0.2vw 0.4vw #999;
-    position: fixed;
-    right: 5vw;
-    bottom: 20vw;
-    font-size: 2.0vw;
-    color: #666;
-    background: #fff;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-  }
-
-  .refresh .refreshImg {
-    font-size: 3.2vw;
-    color: #000;
-    margin-bottom: 0.4vw;
-  }
-
-  swiper-item {
-    height: auto;
-  }
-
-  .section {
-    position: fixed;
-    width: 80vw;
-    top: 0;
-    display: flex;
-    font-size: 2.8vw;
-    color: #666;
-    padding: 2.0vw 3vw;
-    background-color: #fff;
-  }
-
-  .section .groupDay {
-    width: 3.6vw;
-    height: 3.6vw;
-  }
-
-  .section .picker {
-    margin-left: 2.0vw;
-    display: flex;
-    flex: 1;
-  }
-
-  .section .picker .choose-day .iconfont {
-    font-size: 1.2vw;
-    margin-left: 0.6vw;
-    vertical-align: middle;
-    color: #999;
-  }
-
-  .distributionList {
-    width: 100%;
-  }
-
-  .distributionList .nav {
-    top: 8vw;
-  }
-
-  .distributionList .on {
-    color: #fe8464;
-    border-bottom: 0.4vw solid #fe8464;
-    margin: 0;
-  }
-
-  .distributionList .swiper-box {
-    margin-top: 17vw;
-  }
-
-  .item {
-    background: #fff;
-    overflow: hidden;
-    border-top-left-radius: 2.0vw;
-    border-top-right-radius: 2.0vw;
-  }
-
-  .distributionNum {
-    height: 8vw;
-    font-size: 2.6vw;
-    color: #333;
-    padding: 0 3vw;
-    border-top-left-radius: 2.0vw;
-    border-top-right-radius: 2.0vw;
-    border-bottom: 0.2vw solid #e4e4e4;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
-
-  .distributionNum .distributionTime {
-    font-size: 2.4vw;
-    color: #666;
-  }
-
-  .distributionNum .statusName {
-    font-size: 2.6vw;
-    color: #fe8464;
-  }
-
-  .spu {
-    padding: 2.0vw 3vw;
-    display: flex;
-    justify-content: flex-start;
-  }
-
-  .spu .goodsImg {
-    height: 12vw;
-    margin-right: 3vw;
-  }
-
-  .spu .detail {
-    font-size: 2.8vw;
-    color: #333;
-  }
-
-  .spu .detail .goodsName {
-    color: #333;
-    font-size: 2.8vw;
-    line-height: 4.0vw;
-    height: 8vw;
-    width: 54vw;
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: 2;
-    overflow: hidden;
-    text-overflow: initial;
-    white-space: normal;
-  }
-
-  .spu .detail .commission {
-    font-size: 2.4vw;
-    color: #999;
-    line-height: 4.0vw;
-  }
-
-  .distributionCommision {
-    border-top: 0.2vw solid #e4e4e4;
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    height: 8vw;
-    font-size: 2.6vw;
-    color: #777;
-    padding: 0 3vw;
-  }
-
-  .distributionCommision text {
-    margin-left: 3vw;
-  }
-
-  .dialogText {
-    box-sizing: border-box;
-    padding: 2.0vw;
-    height: 14vw!important;
-    text-align: justify;
-  }
-
-  .dialogBtn {
-    font-size: 3vw!important;
-    height: 6.8vw!important;
-    line-height: 6.8vw!important;
-  }
+<style>
+  @import "distributionList.less";
 </style>
