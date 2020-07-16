@@ -1246,15 +1246,15 @@ button[plain] {
 
 .promotion {
   box-sizing: border-box;
-  height: 126px;
-  padding: 0 20px 20px;
+  height: 12.6vw;
+  padding: 0 2vw 2vw;
   background-color: #fff;
 }
 
 .promotion .head {
-  font-size: 24px;
+  font-size: 2.4vw;
   color: #999;
-  margin-bottom: 16px;
+  margin-bottom: 1.6vw;
 }
 
 .promotion .slider {
@@ -1277,7 +1277,7 @@ button[plain] {
 }
 
 .promotion .list-item {
-  margin-right: 10px;
+  margin-right: 1vw;
 }
 
 .promotion .list-item:last-child {
@@ -1285,8 +1285,8 @@ button[plain] {
 }
 
 .promotion .card-content {
-  height: 106px;
-  border-radius: 3px;
+  height: 10.6vw;
+  border-radius: 0.3vw;
   position: relative;
   overflow: hidden;
   background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAALAAAAB0CAMAAAASEEjOAAAAn1BMVEX/Vnj/TYX/U3z/SYr/UYD/TIb//P3/Ro7/S4j/Un7/////SIz/UIH/VXr/T4P/R43/U33/Son/+Pv/ToL/9Pj/9vr/VHn/8vf/7vX/6vL/7PP33Ofoy9b95e7z1+H84+3u0dziw8/64Or66vH87/T45u395/D24+rt1d7jyNPy3OXu2uLz4Oj87PPo0dr/V5r/iLf/k6f/aYX/ZIL/aYb7eJ6vAAAEY0lEQVR42uzWS27jQAwE0JbjQKN4FMsQoIUvke/9zxayQ7MqKnWyNqAaedYPBTbD8nR9+yyUcVzGyGE8ZKbIMAz2sxyHI/L/ltm++TnSdXN3y6P/o/yLXC4X+z1wTg+nyPl09vTn/jsvr9encv1g7rKU9ILLZMeGGNwkzxYHz0HmMBepXv8gTq55Q5zka3lzJ4vHZVlQMLiHqoX4KA2nGFzSdsR9zH79F9wMFxwdZ17L+w9uiYGQiqvXyUhqj9SwiaNeKdg+bdi5SoYY3qi4rAr2BJornjASEyYCYvJC3DUngsXVzNjwouCexWWdytWCMRMoGGKYKzfFz1pwNIyZkIL10fVkVu/oYt0SlSuPLkIT7OIZXBLrDNsEp5fFDPb83vBCYHB9JNCwrLUVmQvmxSYVbz86kOFtgHmrBVcfHcTYahnn3sjMbQzxbSSIfJIZZvLKa59FyBPAIJsVZNlqUrFsCYAtDM7ollAwtFxxwwsx4o8uZ6Ll5ZH4ZaudjfznlhhlhkFurQmbCRSc4o7FdYC7FOua2K7YshLLkuCOiRuLWGcYBcMc/cqaQAis3mwYe60JDu4iBedIgAyvf+xNMokbBYPcWGvy6ETM1xpzD87liRi2jrUm1z5Ovjj7D1ydCGlYCuY9LEM8TOrFXzrcEvP2Ht5ew5FNcUXrDN/LPRzge7qHHXxf97CB7+se7vd7eL+H93t4v4f3e3i/h/d7+IvdOhAAAAAAAPJ/bYQKP/zDP/zDP/zDP/zDP/zDP/zDP/zDP/zDP/zDP/zD2LeDIgBAEABg5KAEiv27ecbgXIt9xsM8zMM8zMM8zMM8zMM8zMM8zMM8zMM8/JGHe5aHK/YsD6/IM8nDla8J9xQP3+btZadBKIrC8OwMOiQSehWl3CyF93889zpQVtMVw+hs+6PGSd1fVtqh8d+EdyigLMvy/KOo62vT3Yehn6bzz9K3S49r52nqh+HeNde6Lj7y3GABQfoCzgxc1CPENyP3k6Gdm0xr3Bu8Y10YGC4Bv0wMsZHNjL7c6tEALrxPAyuYEy/ipoMZfTqGe9B2zeLlwAQjgmfxaGQzW1V1OtmXR9W9qircbMAdZy/BuxUsE+N9bOTWXliWZfXUKck3s3N2tDUu3r86sIIxcQExyGZu24tVps2cCJfs4DVyayg4sIAXMTfeW8fj4djGLg61MTt5xG3uO3sJ1olNbM1kC+yDQ6CiyI2EXAcmeIlirEyzlVDNG/t1XXoVTDE3RiATnbzlGLR/ehUcN36MHGd2qljHjWAYwFUwks9dBvFq9lEXCFpkWvnECZgbc2SEP+MQ7iDOi30VrOK5nGbKU0QnteAiegkWMcnc2a2IJVe8AqYY4cUoPXw9g5vPXgWrmGQEMn6kbj7EgnoJpljJLBU7Y+Sql2Al0+xfoJZcAauY6BCf1IXHw8QrYCGLPtHDlKtgLbxJEaPgdyVTswEOu/DvaEEpWNH81cv+cnYLrGg8vulZBW8VnJ+NfgGoKlBWnDZmzQAAAABJRU5ErkJggg==) no-repeat;
@@ -1301,10 +1301,10 @@ button[plain] {
   align-items: center;
   justify-content: center;
   color: #fff;
-  border-radius: 4px;
-  height: 88px;
-  width: 180px;
-  padding: 8px;
+  border-radius: 0.4vw;
+  height: 8.8vw;
+  width: 18vw;
+  padding: 0.8vw;
 }
 
 .promotion .card-price {
@@ -1317,12 +1317,12 @@ button[plain] {
 }
 
 .promotion .card-price--unit {
-  font-size: 18px;
+  font-size: 1.8vw;
 }
 
 .promotion .card-price--num {
-  font-size: 48px;
-  line-height: 48px;
+  font-size: 4.8vw;
+  line-height: 4.8vw;
 }
 
 .promotion .card-desc,.card-price--num {
@@ -1330,27 +1330,27 @@ button[plain] {
 }
 
 .promotion .card-desc {
-  font-size: 20px;
+  font-size: 2vw;
 }
 
 .promotion .card-tag {
   display: none;
   justify-content: center;
   align-items: center;
-  width: 64px;
-  height: 64px;
+  width: 6.4vw;
+  height: 6.4vw;
   position: absolute;
-  bottom: -16px;
-  right: -10px;
+  bottom: -1.6vw;
+  right: -1vw;
   transform: rotate(-20deg);
   border: 1px solid #666;
   border-radius: 50%;
 }
 
 .promotion .card-tag--text {
-  font-size: 20px;
+  font-size: 2vw;
   color: #666;
-  margin-bottom: 10px;
+  margin-bottom: 1vw;
   text-align: center;
 }
 
