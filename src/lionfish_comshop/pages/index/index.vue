@@ -109,8 +109,8 @@
                        v-for="(item,index) in quan" :key="item.id">
                     <div class="card">
                       <div class="card-price span">
-                        <div class="card-price&#45;&#45;unit span">¥</div>
-                        <div class="card-price&#45;&#45;num span">{{item.credit}}</div>
+                        <div class="card-price unit span">¥</div>
+                        <div class="card-price num span">{{item.credit}}</div>
                       </div>
                       <div class="card-desc span" v-if="item.limit_money>0">
                         满{{item.limit_money}}元可用
@@ -119,7 +119,7 @@
                         全场通用
                       </div>
                       <div :class="[card-tag, span, {'card-tag&#45;&#45;get':item.is_get==1}]">
-                        <div class="card-tag&#45;&#45;text span">已领取</div>
+                        <div class="card-tag text span">已领取</div>
                       </div>
                     </div>
                   </div>
@@ -1001,7 +1001,7 @@
 
                   wx.showModal({
                   title: '',
-                  content: 'Please select an ' + e.group_name, 
+                  content: 'Please select an ' + e.group_name,
                   showCancel: false,
                   confirmColor: '#8ED9D1',
                   success: function(t) {
@@ -1371,6 +1371,7 @@
 
       },
       load_over_gps_goodslist: function() {
+
         console.log(this.$data)
         var t = wx.getStorageSync('token'),
           o = this,
@@ -1410,7 +1411,7 @@
                   if(1 == o.$data.$data.overPageNum && 0 == o.rushList.length){
                     o.showEmpty = !0;
                     o.loadMore = !1;
-                      o.tip = 'Please try again'
+                    o.tip = 'Please try again';
                   }
               }else if(2 == t.code){
                 o.needAuth = !0,
@@ -1424,7 +1425,7 @@
         if(1 == o.$data.$data.overPageNum && 0 == o.rushList.length){
           o.showEmpty = !0;
           o.loadMore = !1;
-          o.tip = 'Please try again'
+          o.tip = 'Please try again';
         }else{
           o.showEmpty = !1;
           o.loadMore = !1;
@@ -2041,6 +2042,58 @@
           }) : wx.showToast({
             title: "请输入关键词",
             icon: "none"
+          });
+        }
+      },
+      receiveCoupon: function(t) {
+        if (this.authModal()) {
+          var o = t.currentTarget.dataset.quan_id,
+            i = t.currentTarget.dataset.type || 0,
+            a = wx.getStorageSync("token"),
+            s = [];
+          s = 1 == i ? this.data.alert_quan_list : this.data.quan;
+          var n = this;
+          app.util.request({
+            url: "entry/wxapp/index",
+            data: {
+              controller: "goods.getQuan",
+              token: a,
+              quan_id: o
+            },
+            dataType: "json",
+            success: function(t) {
+              if (0 == t.code) wx.showToast({
+                title: t.msg || "被抢光了",
+                icon: "none"
+              });
+              else if (1 == t.code) wx.showToast({
+                title: "被抢光了",
+                icon: "none"
+              });
+              else if (2 == t.code) {
+                wx.showToast({
+                  title: "已领取",
+                  icon: "none"
+                });
+                var a = [];
+                for (var e in s) s[e].id == o && (s[e].is_get = 1), a.push(s[e]);
+                n.quan = a;
+              } else if (4 == t.code) wx.showToast({
+                title: "新人专享",
+                icon: "none"
+              });
+              else if (3 == t.code) {
+                a = [];
+                for (var e in s) s[e].id == o && (s[e].is_get = 1), a.push(s[e]);
+                1 == i ? (
+                  n.alert_quan_list = a
+                ) : (
+                  n.quan = a
+                ), wx.showToast({
+                  title: "领取成功"
+                });
+              } else t.code;
+            }
           });
         }
       },
