@@ -27,7 +27,7 @@ export default {
     lianxikefu: 'Contact Us',
     tuichudenglu: 'Logout',
     guanyuwomen: 'About Us',
-    shenqingchengwei: 'Join Us as '
+    shenqingchengwei1: 'Join Us as '
   },
   common: {
     daifukuan: 'To Pay',
@@ -270,6 +270,17 @@ export default {
     xinxi: ' Infomation',
     xiaoji: '  Amount:'
   },
+  coupon: {
+    weishiyong: 'Unused',
+    yishiyong: 'Used',
+    yiguoqi: 'Expired',
+    youxiaoqi: 'Valid Period',
+    qushiyong: 'To Use',
+    shiyongfanwei: 'Scope',
+    suoyoushangpin: 'All Products',
+    zhidingshangpin: 'Specified Products',
+    zhidingfenlei: 'Specified Category'
+  },  
   wallet: {
     jinrishouru: 'Today\'s Commission',
     benyueshouru: 'This Month',

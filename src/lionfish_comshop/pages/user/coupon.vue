@@ -8,11 +8,11 @@
               <div class="tabs-link-bar tabs-link-bar-animated"></div>
               <div @click="tabchange" :class="['tabs-tab', 'J-tabs-tab-key', (tab_index==1?'tabs-tab-active':'')]" data-index="1" :style="[{borderColor:(tab_index==1 ?skin.color:'')},{color:(tab_index==1 ?skin.color:'')}]">
               <!--<div @click="tabchange" :class="['tabs-tab', 'J-tabs-tab-key', (tab_index==1?'tabs-tab-active':'')]" data-index="1" :style="{borderColor:skin.color,color:skin.color}">-->
-                未使用
+                {{$t('coupon.weishiyong')}}
               </div>
               <div @click="tabchange" :class="['tabs-tab', 'J-tabs-tab-key', (tab_index==2?'tabs-tab-active':'')]" data-index="2" :style="[{borderColor:(tab_index==2 ?skin.color:'')},{color:(tab_index==2 ?skin.color:'')}]">
               <!--<div @click="tabchange" :class="['tabs-tab', 'J-tabs-tab-key', (tab_index==2?'tabs-tab-active':'')]" data-index="2" :style="{borderColor:skin.color,color:skin.color}">-->
-                已使用/已过期
+                {{$t('coupon.yishiyong')}}/{{$t('coupon.yiguoqi')}}
               </div>
             </div>
           </div>
@@ -30,17 +30,17 @@
             <div class="info">
               <div class="reduce-title">
                 <span class="reduce-type" v-if="item.tag">{{item.tag}}</span> {{item.voucher_title}}</div>
-              <div class="reduce-area"v-if="item.is_limit_goods_buy==0">使用范围：所有商品</div>
-              <div class="reduce-area" v-else-if="item.is_limit_goods_buy==1">使用范围：指定商品</div>
-              <div class="reduce-area" v-else-if="item.is_limit_goods_buy==2">使用范围：指定分类</div>
+              <div class="reduce-area"v-if="item.is_limit_goods_buy==0">{{$t('coupon.shiyongfanwei')}}：{{$t('coupon.suoyoushangpin')}}</div>
+              <div class="reduce-area" v-else-if="item.is_limit_goods_buy==1">{{$t('coupon.shiyongfanwei')}}：{{$t('coupon.zhidingshangpin')}}</div>
+              <div class="reduce-area" v-else-if="item.is_limit_goods_buy==2">{{$t('coupon.shiyongfanwei')}}：{{$t('coupon.zhidingfenlei')}}</div>
             </div>
             <div class="status">
-              <div @click="goUse" class="go-shop" :data-idx="index" v-if="item.is_over==0&&item.is_use==0">去使用</div>
+              <div @click="goUse" class="go-shop" :data-idx="index" v-if="item.is_over==0&&item.is_use==0">{{$t('coupon.qushiyong')}}</div>
               <image src="@/assets/images/expired.png" v-if="item.is_over==1&&item.is_use==0"></image>
               <image src="@/assets/images/used.png" v-if="item.is_use==1"></image>
             </div>
           </div>
-          <div class="footer">有效期：{{item.begin_time}}~{{item.end_time}}</div>
+          <div class="footer">{{$t('coupon.youxiaoqi')}}：{{item.begin_time}}~{{item.end_time}}</div>
         </div>
         <div class="empty-wrap" v-if="quan.length==0&&isHideLoadMore">
           <image class="empty-img" src="@/assets/images/noData.png"></image>
@@ -69,7 +69,7 @@
         isHideLoadMore: !0,
         no_order: 0,
         quan: [],
-        loadText: "加载中",
+        loadText: "Loading",
         page: 1,
         tabIdx1:'',
         tabIdx2:''
