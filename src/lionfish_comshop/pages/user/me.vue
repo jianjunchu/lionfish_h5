@@ -291,7 +291,7 @@
             </div>
           </div>
 
-          <div @click="goLink2" data-link="/lionfish_comshop/pages/user/coupon" v-if="false">
+          <div @click="goLink2" data-link="/lionfish_comshop/pages/user/coupon" >
             <div class="item-main">
               <div class="item-title">
                 <img class="toolIcon" mode="widthFix"
