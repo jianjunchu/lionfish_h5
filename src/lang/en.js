@@ -24,7 +24,7 @@ export default {
     changjianbangzhu: 'FAQ',
     tihuoma: 'Collection Code',
     dianjidengluzhanghu: 'Click to Login',
-   lianxikefu: 'Contact Us',
+    lianxikefu: 'Contact Us',
     tuichudenglu: 'Logout',
     guanyuwomen: 'About Us',
     shenqingchengwei: 'Join Us as '
@@ -235,7 +235,7 @@ export default {
     shuruliushuihao: 'Enter Reference No. of PayNow Transaction',
     yizhifu: 'Submit'
   },
-   cart: {
+  cart: {
     gouwuchekong: 'Back to Homepage',
     qugouwu: 'To Buy',
     qudenglu: 'Login',
@@ -303,7 +303,6 @@ export default {
     zhengqueneirong: ' all fields',
     zhengquejine: 'Please input correct amount',
     daiquerenshouru: 'Pending Commission',
-    ketixianjine: 'Confirmed Commission',
     dingdandanhao: 'Order No.',
     dingdanbiaoti: 'Order Products',
     dingdanjine: 'Order Amount',
@@ -317,5 +316,5 @@ export default {
     jujue: 'Reject',
     tixianjine: 'Withdraw Amount',
     shenqingriqi: 'Withdraw Date'
-}
+  }
 }
