@@ -8,6 +8,7 @@
     :class="[iClass, 'img-content']"
     :style="{'width': width, 'height': height}"
     fit="cover"
+    lazy-load
     :src="loadImage">
     <template v-slot:loading>
       <van-loading type="spinner" size="20" />
@@ -17,6 +18,7 @@
 </template>
 
 <script>
+  import { Lazyload } from 'vant';
   export default {
     name: 'i-img',
     props: {
