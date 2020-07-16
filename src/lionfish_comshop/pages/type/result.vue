@@ -324,13 +324,13 @@
             i.closeSku()
             cartNum: t.total
             wx.showToast({
-              title: '已加入购物车',
+              title: this.$t('cart.yijiarugouwuche'),
               image: '@/assets/images/addShopCart.png'
             })
           }
         }).catch(function(t) {
           wx.showToast({
-            title: '请求失败',
+            title: this.$t('common.qingqiushibai'),
             duration: 2e3,
             success: function() {
               i.needAuth = !0

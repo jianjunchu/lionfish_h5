@@ -40,7 +40,7 @@
                 </div>
               </div>
               <div class="tips i-flex i-flex-spb">
-                <div>{{$t('order.youxiao')}}&nbsp;{{$t('order.jine')}}: <span class="red">${{goodsInfo.order_jishu}}</span>
+                <div>{{$t('order.youxiaojine')}}: <span class="red">${{goodsInfo.order_jishu}}</span>
                 </div>
                 <div v-if="goodsInfo.fen_type==0">{{$t('order.yongjin')}}&nbsp;{{$t('order.bili')}}: <span class="red">{{goodsInfo.fen_bili}}%</span>
                 </div>

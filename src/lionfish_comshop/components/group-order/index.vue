@@ -1,7 +1,7 @@
 <template>
   <div class="item">
     <div class="orderNum">
-      <span>团单日期：{{item.createTime}}</span>
+      <span>{{$t(order.tuandanriqi)}}：{{item.createTime}}</span>
       <span :class="[(item.orderStatusName=='已完成'?'black':''), 'statusName']">{{item.orderStatusName}}</span>
     </div>
     <div class="spu">

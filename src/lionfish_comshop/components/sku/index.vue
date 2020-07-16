@@ -262,7 +262,7 @@
               t.data.total && r.$emit('changeCartNum', t.data.total)
             }
             this.$wx.showToast({
-              title: '已加入购物车',
+              title: this.$t('cart.yijiarugouwuche'),
               image: '@/assets/images/addShopCart.png'
             })
           }

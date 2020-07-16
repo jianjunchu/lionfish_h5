@@ -3,22 +3,22 @@
     <div class="cash-list">
       <div class="list-item"  v-for="(item,index) in order" :key="item.id" >
         <div class="title">
-          <span>提现单号（{{item.id}}）</span>
+          <span>{{$t('wallet.tixiandanhao')}}（{{item.id}}）</span>
         </div>
         <div class="main">
           <div class="left">
             <div class="per">
-              <span>提现状态：</span>
-              <span v-if="item.state==1">成功</span>
-              <span v-if="item.state==0">审核中</span>
-              <span v-if="item.state==2">拒绝</span>
+              <span>{{$t('wallet.tixianzhuangtai')}}：</span>
+              <span v-if="item.state==1">{{$t('wallet.chenggong')}}</span>
+              <span v-if="item.state==0">{{$t('wallet.shehezhong')}}</span>
+              <span v-if="item.state==2">{{$t('wallet.jujue')}}</span>
             </div>
             <div class="per">
-              <span>提现金额：</span>
+              <span>{{$t('wallet.tixianjine')}}：</span>
               <span>${{item.money}}</span>
             </div>
             <div class="per">
-              <span>申请日期：</span>
+              <span>{{$t('wallet.shenqingriqi')}}：</span>
               <span>{{item.addtime}}</span>
             </div>
           </div>

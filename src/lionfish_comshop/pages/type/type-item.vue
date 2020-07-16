@@ -221,7 +221,7 @@
                 s.$emit('changeCartNum', t.total), (
                   s.number = t.cur_count
                 ), wx.showToast({
-                  title: '已加入购物车',
+                  title: this.$t('cart.yijiarugouwuche'),
                   image: '@/assets/images/addShopCart.png'
                 }), status.indexListCarCount(u, t.cur_count)
               }

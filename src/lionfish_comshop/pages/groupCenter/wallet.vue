@@ -3,42 +3,42 @@
     <div>
       <div class="basicInForm">
         <div class="today-box">
-          <div class="today-income">今日收入（新币）</div>
+          <div class="today-income">{{$t('wallet.jinrishouru')}}</div>
           <div class="today-income-money">{{today_all_total_money}}</div>
         </div>
         <div class="flex other-income">
           <div class="flex-item other-item">
-            <div class="income-title">本月收入</div>
+            <div class="income-title">{{$t('wallet.benyueshouru')}}</div>
             <div class="income-money">{{month_pre_total_money}}</div>
           </div>
           <div class="flex-item other-item">
-            <div class="income-title">累计收入</div>
+            <div class="income-title">{{$t('wallet.leijishouru')}}</div>
             <div class="income-money">{{commission_info.mix_total_money}}</div>
           </div>
         </div>
       </div>
       <div class="income-data">
         <div class="common-title">
-          <span class="subtit">待确认收入</span>
-          <a class="common-nav" href="#/lionfish_comshop/pages/groupCenter/detailsList?type=1">订单明细</a>
+          <span class="subtit">{{$t('wallet.daiquerenshouru')}}</span>
+          <a class="common-nav" href="#/lionfish_comshop/pages/groupCenter/detailsList?type=1">{{$t('wallet.dingdanmingxi')}}</a>
         </div>
         <div class="common-money">{{wait_sub_total_money}}</div>
 
         <div class="common-title">
-          <span class="subtit">可提现金额</span>
-          <a class="common-nav" href="#/lionfish_comshop/pages/groupCenter/detailsList?type=2">订单明细</a>
+          <span class="subtit">{{$t('wallet.ketixianjine')}}</span>
+          <a class="common-nav" href="#/lionfish_comshop/pages/groupCenter/detailsList?type=2">{{$t('wallet.dingdanmingxi')}}</a>
         </div>
         <div class="common-money">{{commission_info.money}}</div>
 
         <div class="common-title">
-          <span class="subtit">已打款金额</span>
-          <a class="common-nav" href="#/lionfish_comshop/pages/groupCenter/cashList">提现记录</a>
+          <span class="subtit">{{$t('wallet.yidakuanjine')}}</span>
+          <a class="common-nav" href="#/lionfish_comshop/pages/groupCenter/cashList">{{$t('wallet.tixianjilu')}}</a>
         </div>
         <div class="common-money">{{tixian_sucess_money}}</div>
       </div>
-      <div @click="cashMoney" class="income-btn">提 现</div>
+      <div @click="cashMoney" class="income-btn">{{$t('wallet.tixian')}}</div>
     </div>
-    <i-dialog @cancel="cancel" @confirm="confirm" text="确认提现" :visible="showDialog"></i-dialog>
+    <i-dialog @cancel="cancel" @confirm="confirm" :text="$t('wallet.querentixian')" :visible="showDialog"></i-dialog>
   </div>
 
 </template>

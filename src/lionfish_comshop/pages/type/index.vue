@@ -714,7 +714,7 @@
             i.closeSku()
             i.cartNum = t.total
             wx.showToast({
-              title: '已加入购物车',
+              title: this.$t('cart.yijiarugouwuche'),
               image: '../../images/addShopCart.png'
             })
           }

@@ -88,7 +88,7 @@
     <div class="mask" catchtouchmove="preventTouchMove" v-if="showPaymentModal"></div>
     <div class="modalDlg" v-if="showPaymentModal">
       <div style='width:100%;height:26px;border-bottom:1px solid #ccc;margin:0;padding:0;'>
-        <span style='text-align:center;font-size:14px;font-weight:600 ;margin-top=5px' >支付方式</span>
+        <span style='text-align:center;font-size:14px;font-weight:600 ;margin-top=5px' >{{$t('cart.zhifufangshi')}}</span>
       </div>
 
       <!-- 总金额 -->
@@ -96,21 +96,21 @@
         <span style='font-size:30px;color:#f00'>${{tot_price}}</span>
       </div>
 
-
+<!--
       <button @click.stop="orderPayWeixin" class="wux-button wux-button--block" type="warn">
         微信支付</button>
-
+-->
       <!--
       <button class="wux-button wux-button--block" type="warn" style="margin-top=16px">到店付款</button>
       -->
-      <button @click.stop="payNow" class="wux-button wux-button--block" data-type="paynow" type="warn">PayNow支付</button>
+      <button @click.stop="payNow" class="wux-button wux-button--block" data-type="paynow" type="warn">PayNow</button>
       <!--<button @click.stop="orderPayTransfer" data-type="banktransfer" class="wux-button wux-button&#45;&#45;block" type="warn">公司转账</button>-->
 
       <!--
       <button wx:if='{{is_pickup}}' @click.stop="havePaid" data-type="cash" class="wux-button wux-button--block" type="warn">货到付款</button>
       -->
 
-      <button @click.stop="closePaymentModal"  class="wux-button wux-button--block" type="default">取消支付</button>
+      <button @click.stop="closePaymentModal"  class="wux-button wux-button--block" type="default">{{$t('cart.quxiaozhifu')}}</button>
 
 
     </div>

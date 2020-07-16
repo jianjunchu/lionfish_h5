@@ -842,8 +842,8 @@
         2 < arguments.length && void 0 !== arguments[2] && arguments[2]
         var h = this, p = this.updateCart
         wx.showModal({
-          title: '提示',
-          content: '确定删除这件商品吗？',
+          title: this.$t('cart.tishi'),
+          content: this.$t('cart.quedingshanchu'),
           showCancelButton:true,
           confirmColor: '#FF0000',
           success: function(t) {
@@ -1092,8 +1092,8 @@
 
         var d = parseInt(t.currentTarget.dataset.parentid), l = parseInt(t.currentTarget.dataset.index), u = this
         wx.showModal({
-          title: '提示',
-          content: '确定删除这件商品吗？',
+          title: this.$t('cart.tishi'),
+          content: this.$t('cart.quedingshanchu'),
           showCancel:false,
           confirmColor: '#FF0000',
           success: function(t) {
@@ -1157,8 +1157,8 @@
         var i = parseInt(t.currentTarget.dataset.parentid), n = parseInt(t.currentTarget.dataset.index),
           d = t.currentTarget.dataset.islost || 0, l = this
         wx.showModal({
-          title: '提示',
-          content: '确认删除这件商品吗？',
+          title: this.$t('cart.tishi'),
+          content: this.$t('cart.quedingshanchu'),
           confirmColor: '#FF0000',
           success: function(t) {
             if (t.confirm) {
@@ -1412,7 +1412,7 @@
           } else {
             o.closeSku(), o.showCartGoods(), status.indexListCarCount(r, t.cur_count),
               (0, status.cartNum)(t.total), (o.cartNum = t.total, o.updateCart = i + 1), wx.showToast({
-              title: '已加入购物车',
+              title: this.$t('cart.yijiarugouwuche'),
               image: require('@/assets/images/addShopCart.png')
             })
           }

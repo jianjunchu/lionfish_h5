@@ -34,17 +34,17 @@
                   </div>
                 </div>
                 <div class="card-footer" slot="footer">
-                  <div>共
-                    <span class="i-class">{{item.goods_list.length}}</span> 件商品
-                    <div class="accual-pay" v-if="item.orderStatus!=3">实付：
+                  <div>{{$t('order.gong')}}
+                    <span class="i-class">{{item.goods_list.length}}</span> {{$t('order.jianshangpin')}}
+                    <div class="accual-pay" v-if="item.orderStatus!=3">{{$t('order.paid')}}：
                       <div class="money">
                         ${{item.total}}
                       </div>
                     </div>
                   </div>
                   <div class="button-group" v-if="item.order_status_id==3">
-                    <div catchtap="cancelOrder" class="my-button" data-show="cancelVisible" :data-type="item.order_id">取消订单</div>
-                    <div catchtap="orderPay" class="my-button-pay padding-15" :data-type="item.order_id">立即支付</div>
+                    <div catchtap="cancelOrder" class="my-button" data-show="cancelVisible" :data-type="item.order_id">{{$t('order.quxiaodingdan')}}</div>
+                    <div catchtap="orderPay" class="my-button-pay padding-15" :data-type="item.order_id">{{$t('order.lijizhifu')}}</div>
                   </div>
                   <div v-if="item.order_status_id==4">
                     <div @click.stop="receivOrder" class="get-goods" :data-type="item.order_id">
@@ -53,12 +53,12 @@
                     </div>
                   </div>
                   <div v-if="item.order_status_id==1||item.order_status_id==6||item.order_status_id==11||item.order_status_id==14">
-                    <div @click.stop="goOrder" class="my-button" :data-type="item.order_id" size="small">查看详情</div>
+                    <div @click.stop="goOrder" class="my-button" :data-type="item.order_id" size="small">{{$t('order.chakanxiangqing')}}</div>
                   </div>
                 </div>
               </div>
             </div>
-            <i-load-more v-show="no_order == 1" :loading="LoadingComplete[currentTab]" tip="没有更多订单了~"></i-load-more>
+            <i-load-more v-show="no_order == 1" :loading="LoadingComplete[currentTab]" :tip="$t('order.meiyougengduodingdan')"></i-load-more>
           </div>
         </van-tab>
 
@@ -84,16 +84,16 @@
         scrollTop: 0,
         currentTab: 0,
         navList: [ {
-          name: "全部",
+          name: this.$t('common.quanbu'),
           status: "0"
         }, {
-          name: "处理中",
+          name: this.$t('order.chulizhong'),
           status: "1"
         }, {
-          name: "已退款",
+          name: this.$t('order.yituikuan'),
           status: "2"
         }, {
-          name: "已拒绝",
+          name: this.$t('order.yijujue'),
           status: "3"
         } ],
         refundList: [],
