@@ -164,12 +164,12 @@
             <!--</div>-->
           <!--</a>-->
 
-          <!--<a hoverClass="none" href="#/lionfish_comshop/pages/groupCenter/distributionList">-->
-            <!--<div class="recordList">-->
-              <!--<span class="recordListTit">{{$t('host.jiesuanjilu')}}</span>-->
-              <!--<img class="rightArrowImg" src="@/assets/images/rightArrowImg.png"/>-->
-            <!--</div>-->
-          <!--</a>-->
+          <a hoverClass="none" href="#/lionfish_comshop/pages/groupCenter/distributionList">
+            <div class="recordList">
+              <span class="recordListTit">{{$t('host.jiesuanjilu')}}</span>
+              <img class="rightArrowImg" src="@/assets/images/rightArrowImg.png"/>
+            </div>
+          </a>
 
           <a hoverClass="none" href="#/lionfish_comshop/pages/groupCenter/wallet">
             <div class="recordList">

@@ -75,19 +75,19 @@
         </div>
         <div class="orderTab">
           <div @click="goLink2" class="order_status" data-link="/lionfish_comshop/pages/order/index?order_status=3">
-             <span class="num" :style="{background:skin.color}" v-if="member_info.wait_pay_count!=0">{{member_info.wait_pay_count}}</span>
+             <span class="num" :style="{background:skin.color}" v-if="member_info.wait_pay_count && member_info.wait_pay_count!=0">{{member_info.wait_pay_count}}</span>
             <img class="icon-img"
                  :src="user_order_menu_icons.i1?user_order_menu_icons.i1:require('@/assets/images/needPayIcon.png')"/>
             <span style="color: #444;">{{$t('common.daifukuan')}}</span>
           </div>
           <div @click="goLink2" class="order_status" data-link="/lionfish_comshop/pages/order/index?order_status=1">
-             <span class="num" :style="{background:skin.color}" v-if="member_info.wait_send_count!=0">{{member_info.wait_send_count}}</span>
+             <span class="num" :style="{background:skin.color}" v-if="member_info.wait_send_count && member_info.wait_send_count!=0">{{member_info.wait_send_count}}</span>
             <img class="icon-img"
                  :src="user_order_menu_icons.i2?user_order_menu_icons.i2:require('@/assets/images/undeli.png')"/>
             <span style="color: #444;">{{$t('common.daipeisong')}}</span>
           </div>
           <div @click="goLink2" class="order_status" data-link="/lionfish_comshop/pages/order/index?order_status=4">
-           <span class="num" :style="{background:skin.color}" v-if="member_info.wait_get_count!=0">{{member_info.wait_get_count}}</span>
+           <span class="num" :style="{background:skin.color}" v-if="member_info.wait_get_count && member_info.wait_get_count!=0">{{member_info.wait_get_count}}</span>
             <img class="icon-img"
                  :src="user_order_menu_icons.i3?user_order_menu_icons.i3:require('@/assets/images/distributionIcon.png')"/>
             <span style="color: #444;">{{$t('common.daitihuo')}}</span>
@@ -135,7 +135,7 @@
 -->
             <div @click="goLink" class="goods-sign-btn" :data-link="community.whatsapplink"
                  v-show="community.whatsapplink != '' && community.whatsapplink != undefined && community.whatsapplink != null ">
-              <img src="@/assets/images/join-group.png" height="26px" width="26px"/> <span
+              <img src="@/assets/images/join-group.png" height="20vw" width="20vw"/> <span
               style="font-size:larger;float:right">Join Group</span>
             </div>
           </div>
@@ -291,7 +291,7 @@
             </div>
           </div>
 
-          <div @click="goLink2" data-link="/lionfish_comshop/pages/user/coupon" v-if="false">
+          <div @click="goLink2" data-link="/lionfish_comshop/pages/user/coupon" >
             <div class="item-main">
               <div class="item-title">
                 <img class="toolIcon" mode="widthFix"
@@ -347,7 +347,7 @@
               <div class="item-main">
                 <div class="item-title">
                   <img class="toolIcon" mode="widthFix" :src="user_tool_icons.i5?user_tool_icons.i5:require('@/assets//images/groupCenterIcon.png')"/>
-                  <sapn>{{$t('me.shenqingchengwei')}}{{groupInfo.owner_name}}</sapn>
+                  <span>{{$t('me.shenqingchengwei')}}{{groupInfo.owner_name}}</span>
                 </div>
                 <div class="tool-right">
                   <img class="icon-right " src="@/assets/images/rightArrowImg.png"></img>
@@ -739,9 +739,9 @@
       },
       goToGroup: function() {
 
-        5 === this.auditStatus ? this.$wx.redirectTo({
+        5 === this.auditStatus ? this.$wx.navigateTo({
           url: '/lionfish_comshop/pages/groupCenter/index'
-        }) : this.$wx.redirectTo({
+        }) : this.$wx.navigateTo({
           url: '/lionfish_comshop/pages/groupCenter/apply'
         })
       },

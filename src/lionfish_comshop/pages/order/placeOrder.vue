@@ -119,7 +119,7 @@
 
           </div>
           <div style='width: 60%;text-align: center;margin-top: 2vw;margin-left: 20%;'>
-            <button @click="havePaid" data-type="paynow" class="wux-button wux-button--block" type="default">{{$t('order.yizhifu')}}
+            <button @click="havePaid" :style="{background:skin.color,color:' #fff'}" data-type="paynow" class="wux-button wux-button--block" type="default">{{$t('order.yizhifu')}}
             </button>
           </div>
         </div>

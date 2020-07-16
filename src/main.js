@@ -7,6 +7,9 @@ import { Image as VanImage } from 'vant'
 import { Loading } from 'vant'
 import { Uploader } from 'vant'
 import { RadioGroup, Radio } from 'vant'
+import { DatetimePicker } from 'vant'
+import { Popup } from 'vant'
+import { Picker } from 'vant'
 
 import 'element-ui/lib/theme-chalk/index.css'
 import 'mint-ui/lib/style.css'
@@ -80,6 +83,9 @@ Vue.use(Loading)
 Vue.use(Uploader)
 Vue.use(RadioGroup)
 Vue.use(Radio)
+Vue.use(DatetimePicker)
+Vue.use(Popup)
+Vue.use(Picker)
 
 Vue.component('i-tabbar', Tabbar)
 Vue.component('i-toolbar', Toolbar)

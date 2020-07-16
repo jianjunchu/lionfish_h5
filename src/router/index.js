@@ -82,6 +82,11 @@ export const constantRoutes = [
     hidden: true
   },
   {
+    path: '/lionfish_comshop/pages/user/coupon',
+    component: () => import('@/lionfish_comshop/pages/user/coupon'),
+    hidden: true
+  },
+  {
     path: '/lionfish_comshop/pages/goods/goodsDetail',
     component: () => import('@/lionfish_comshop/pages/goods/goodsDetail'),
     hidden: true
@@ -124,6 +129,11 @@ export const constantRoutes = [
   {
     path: '/lionfish_comshop/pages/groupCenter/groupTime',
     component: () => import('@/lionfish_comshop/pages/groupCenter/groupTime'),
+    hidden: true
+  },
+  {
+    path: '/lionfish_comshop/pages/groupCenter/distributionList',
+    component: () => import('@/lionfish_comshop/pages/groupCenter/distributionList'),
     hidden: true
   },
   {

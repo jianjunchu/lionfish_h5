@@ -103,8 +103,14 @@ export default {
       title: option.title,
       message: option.content,
       closeOnPopstate: true,
-      closeOnClickOverlay: true,
-      showCancelButton: option.showCancelButton
+      closeOnClickOverlay: true
+
+    }
+
+    if (option.hasOwnProperty('showCancelButton')) {
+      options.showCancelButton = option.showCancelButton
+    } else {
+      options.showCancelButton = true
     }
 
     if (option.hasOwnProperty('confirmText')) {
