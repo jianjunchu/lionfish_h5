@@ -1568,12 +1568,12 @@
             i.cartNum = t.total
             i.closeSku()
             wx.showToast({
-              title: '已加入购物车',
+              title: this.$t('cart.yijiarugouwuche'),
               image: '../../images/addShopCart.png'
             })
           }
         }).catch(function(t) {
-          util.message(t || '请求失败', '', 'error')
+          util.message(t || this.$t('cart.qingqiushibai'), '', 'error')
         })
       },
       vipModal: function(t) {

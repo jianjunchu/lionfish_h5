@@ -6,7 +6,7 @@
           <img class="position-search-icon" src="@/assets//images/icon-search.png"/>
         </div>
         <input @keypress="subInput" v-model="inputValue" class="ipt-class"
-               :placeholder="'请输入'+groupInfo.group_name+'名或邮编'" type="search"/>
+               :placeholder="$t('host.shurushequming')" type="search"/>
       </div>
     </div>
     <i-community-item :city="city" class="item-border" :groupInfo="groupInfo" :item="item" :skin="skin"

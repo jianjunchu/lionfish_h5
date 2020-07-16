@@ -87,7 +87,7 @@
     <div class="mask" catchtouchmove="preventTouchMove" v-if="showPaymentModal"></div>
     <div class="modalDlg" v-if="showPaymentModal">
       <div style='width:100%;height:26px;border-bottom:1px solid #ccc;margin:0;padding:0;'>
-        <span style='text-align:center;font-size:14px;font-weight:600 ;margin-top:5px' >支付方式</span>
+        <span style='text-align:center;font-size:14px;font-weight:600 ;margin-top:5px' >{{$t('cart.zhifufangshi')}}</span>
       </div>
 
       <!-- 总金额 -->
@@ -104,7 +104,7 @@
       -->
       <button @click="payNow" class="wux-button wux-button--block" type="warn">PayNow支付</button>
      <!-- <button @click="orderPayTransfer" data-type="banktransfer" class="wux-button wux-button&#45;&#45;block" type="warn">公司转账</button>-->
-      <button @click="closePaymentModal"  class="wux-button wux-button--block" type="default">取消支付</button>
+      <button @click="closePaymentModal"  class="wux-button wux-button--block" type="default">{{$t('cart.quxiaozhifu')}}</button>
 
     </div>
     <div>
@@ -121,8 +121,10 @@
             <div class="font-bold-30" v-if="order.order_info.open_auto_delete==0">
               <div class="tradeStatus-index--count-down count-down">待付款</div>
             </div>
+	<!--
             <div class="font-12" v-if="order.order_info.open_auto_delete==1">请尽快付款，超时将被自动取消</div>
             <div class="font-12" v-else>请尽快付款，不然就被抢光了</div>
+	-->
           </div>
           <div class="to-get-wrap" v-if="order.order_info.order_status_id==1 || order.order_info.order_status_id==15">
             <div class="font-bold-20">备货中</div>
@@ -248,7 +250,7 @@
             </div>
           </div>
           <div class="footer">
-            <div @click="cancelOrder" class="btn-1 mar-left-8" data-order_goods_id="0" :data-type="order.order_info.order_id" v-if="order.order_info.order_status_id==1&&order_can_del_cancle==1&&order.order_info.is_pin!=1">取消订单</div>
+            <div @click="cancelOrder" class="btn-1 mar-left-8" data-order_goods_id="0" :data-type="order.order_info.order_id" v-if="order.order_info.order_status_id==1&&order_can_del_cancle==1&&order.order_info.is_pin!=1">{{$t('order.quxiaodingdan')}}</div>
             <div class="btn-1"  @click="goLink2" data-link="/lionfish_comshop/moduleA/pin/share?id=" :data-id="order.order_info.order_id" v-if="order.order_info.is_pin==1&&order.order_info.order_status_id!=3">拼团详情</div>
           </div>
         </div>
@@ -267,7 +269,7 @@
             <button hidden formType="submit" id="formId"></button>
           </form>
           <label class="cancelBtn" for="formId">
-            <div @click="callDialog" class="cancel-btn" data-show="cancelOrderVisible" :data-type="order.order_info.order_id">取消订单</div>
+            <div @click="callDialog" class="cancel-btn" data-show="cancelOrderVisible" :data-type="order.order_info.order_id">{{$t('order.quxiaodingdan')}}</div>
           </label>
           <form bindsubmit="payNowSubmit" reportSubmit="true">
             <button hidden formType="submit" id="formId2"></button>
@@ -275,7 +277,7 @@
           <label class="cancelBtn" for="formId2">
             <!--<div @click="showPaymentModal" class="pay-btn" style="background:{{skin.color}}">-->
             <div @click="showPaymentModal" class="pay-btn" :style="{color:skin.color,background:skin.light}">
-              立即付款
+              {{$t('order.lijifukuan')}}
             </div>
           </label>
         </div>
@@ -823,9 +825,9 @@
       cancelOrder: function(a) {
         var r = this;
         this.canCancel && this.$wx.showModal({
-          title: "取消订单并退款",
+          title: this.$t('cart.quxiaodingdantuikuan'),
           content: "取消订单后，款项将原路退回到您的支付账户；详情请查看退款进度。",
-          confirmText: "取消订单",
+          confirmText: this.$t('cart.quxiaodingdan'),
           confirmColor: "#ff5344",
           cancelText: "再等等",
           cancelColor: "#666666",

@@ -4,20 +4,22 @@
       <form @submit.prevent="formSubmit">
         <div class="main">
           <div class="li">
-            <span class="left">提现金额</span>
+            <span class="left">{{$t('wallet.tixianjine')}}</span>
             <div class="right">
-              <input v-on:input="bindTixianMoneyInput" :max="commission_info.money" min="0" name="tixian_money" placeholder="请输入提现金额" placeholderStyle="color:#999999" type="digit" v-model="tixian_money"></input>
+              <input v-on:input="bindTixianMoneyInput" :max="commission_info.money" min="0" name="tixian_money" :placeholder="$t('wallet.qingshurujine')" placeholderStyle="color:#999999" type="digit" v-model="tixian_money"></input>
             </div>
           </div>
           <div class="li-tip">
-            <div class="left">最多可提现{{commission_info.money}}新币，最小提现{{community_min_money}}新币</div>
-            <div @click="getAll" class="get-all">全部提现</div>
+            <div class="left">{{$t('wallet.zuiduoketixian')}}{{commission_info.money}}{{$t('wallet.xinbi')}}，{{$t('wallet.zuixiaotixian')}}{{community_min_money}}{{$t('wallet.xinbi')}}</div>
+            <div @click="getAll" class="get-all">{{$t('wallet.quanbutixian')}}</div>
           </div>
+<!--
           <div class="li">
-            <span class="left" style="width:200px;">提现手续费为：{{community_tixian_fee}}% ({{sxfee}}新币)</span>
+            <span class="left" style="width:200px;">{{$t('wallet.tixianshouxufei')}}：{{community_tixian_fee}}% ({{sxfee}}) {{$t('wallet.xinbi')}}</span>
           </div>
+-->
           <div class="li">
-            <span class="left" style="width:200px;">最终到账金额：{{final_money}}新币</span>
+            <span class="left" style="width:200px;">{{$t('wallet.zuizhongdaozhangjine')}}：{{final_money}}{{$t('wallet.xinbi')}}</span>
           </div>
           <div class="type-wrap">
             <!--<radio-group bindchange="radioChange" class="radio-group">-->
@@ -37,31 +39,31 @@
             </div>
             <div class="form-box" v-if="payType==3">
               <div class="form-group" v-if="payType!=2">
-                <label>Paynow账号：<input class="form-ipt" name="bankaccount" type="text" v-model="community_info.last_alipay_account"></input>
+                <label>{{$t('wallet.paynowzhanghao')}}：<input class="form-ipt" name="bankaccount" type="text" v-model="community_info.last_alipay_account"></input>
                 </label>
               </div>
               <div class="form-group">
-                <label>姓名：<input class="form-ipt" name="bankusername" type="text" v-model="community_info.last_alipay_name"></input>
+                <label>{{$t('wallet.xingming')}}：<input class="form-ipt" name="bankusername" type="text" v-model="community_info.last_alipay_name"></input>
                 </label>
               </div>
             </div>
             <div class="form-box" v-if="payType==4">
               <div class="form-group">
-                <label>开户银行：<input class="form-ipt" name="bankname" type="text" v-model="community_info.last_bank_bankname"></input>
+                <label>{{$t('wallet.kaihuyinhang')}}：<input class="form-ipt" name="bankname" type="text" v-model="community_info.last_bank_bankname"></input>
                 </label>
               </div>
               <div class="form-group">
-                <label>开户名：<input class="form-ipt" name="bankusername" type="text" v-model="community_info.last_bank_name"></input>
+                <label>{{$t('wallet.kaihuming')}}：<input class="form-ipt" name="bankusername" type="text" v-model="community_info.last_bank_name"></input>
                 </label>
               </div>
               <div class="form-group" v-if="payType!=2">
-                <label>账号：<input class="form-ipt" name="bankaccount" type="text" v-model="community_info.last_bank_account"></input>
+                <label>{{$t('wallet.zhanghao')}}：<input class="form-ipt" name="bankaccount" type="text" v-model="community_info.last_bank_account"></input>
                 </label>
               </div>
             </div>
           </div>
         </div>
-        <button class="btn-submit" formType="submit" >确认提现</button>
+        <button class="btn-submit" formType="submit" >{{$t('wallet.querentixian')}}</button>
       </form>
       <div class="desc" v-if="hasTixianPublish">
         <div class="h2">提现规则：</div>
@@ -164,7 +166,7 @@
         payType: 1,
         items: [ {
           name: "1",
-          value: "余额",
+          value: this.$t('wallet.yue'),
           show: !0,
           checked: !1
         }, {
@@ -179,7 +181,7 @@
           checked: !1
         }, {
           name: "4",
-          value: "银行卡",
+          value: this.$t('wallet.yinhangka'),
           show: !0,
           checked: !1
         } ],
@@ -272,26 +274,26 @@
         var n = 0, t = this.payType, a = [ {}, {}, {
           bankusername: "微信真实姓名"
         }, {
-          bankusername: "Paynow真实姓名",
-          bankaccount: "Paynow账户"
+          bankusername: "Paynow Account",
+          bankaccount: "Name"
         }, {
-          bankname: "银行卡名称",
-          bankusername: "持卡人姓名",
-          bankaccount: "银行卡账户"
+          bankname: this.$t('wallet.kaihuyinhang'),
+          bankusername: this.$t('wallet.kaihuming'),
+          bankaccount: this.$t('wallet.zhanghao')
         } ];
 
         for (var o in i) {
           if (i[o] = i[o].replace(/(^\s*)|(\s*$)/g, ""), !i[o]) {
             var s = a[t][o];
             this.$wx.showToast({
-              title: "请输入" + (s || "正确的表单内容"),
+              title: this.$t('wallet.qingshuru') + (s || this.$t('wallet.zhengqueneirong')),
               icon: "none"
             }), n = 1;
             break;
           }
           if ("money" == o && 1 * i[o] <= 0) {
             this.$wx.showToast({
-              title: "请输入正确的金额",
+              title: this.$t('wallet.zhengquejine'),
               icon: "none"
             });
             return ;
@@ -343,7 +345,7 @@
 
                 if(0 == e.code){
                   this.$wx.showToast({
-                    title: "提现成功，等待审核",
+                    title: this.$t('wallet.tixianchenggong'),
                     icon: "none",
                     duration: 2000,
                     mask: !0,
@@ -356,7 +358,7 @@
                   });
                 }else{
                   this.$wx.showToast({
-                    title: "提现失败",
+                    title: this.$t('wallet.tixianshibai'),
                     icon: "none",
                     duration: 2e3,
                     mask: !0

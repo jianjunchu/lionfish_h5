@@ -75,7 +75,7 @@
       <div class="paynow" v-if="show_paynow_modal">
         <div style='width: 100%;height: 10%;'>
           <div style='float:left;width: 40%;font-size: 18px;line-height: 50px;margin-left: 5%;'>
-            PayNow支付
+            PayNow
           </div>
 
           <div style='float:right;width: 50%;text-align: right' @click='closePayNowModal'>
@@ -84,18 +84,18 @@
           </div>
         </div>
         <div style='float:left;width: 100%;margin-left: 5%;'>
-          PayNow支付号码：{{payNowNo}}
+          PayNow No.：{{payNowNo}}
         </div>
         <div style='float:left;width: 100%;margin-left: 5%;margin-top:5px'>
-          支付金额：
+          {{$t('order.zhifujine')}}：
           <span style="color:red">${{tot_price}}</span>
         </div>
         <div style='float:left;width: 100%;margin-left: 5%;margin-top:5px'>
-          备注订单号：
+          {{$t('order.beizhudingdanhao')}}：
           <span style="color:red">{{order_num_alias}}</span>
         </div>
         <div style='float:left;width: 100%;margin-left: 5%;margin-top:5px'>
-          <span style="color:red">请在备注中写入该订单号，很重要！</span>
+          <span style="color:red">{{$t('order.xierugaidingdanhao')}}</span>
         </div>
 
         <div style='text-align: center'>
@@ -104,7 +104,7 @@
                  style='width: 160px;height: 160px;margin-top: 20px;border: 1px solid #000;'/>
             <div style='wid:200px;height:40px;margin-top:10px;'>
 
-              <span style='text-align: left;'>PayNow扫码支付 \n <!--或 uen: {{payNowUen}}--></span>
+              <span style='text-align: left'>{{$t('order.saomazhifu')}}  <!--或 uen: {{payNowUen}}--></span>
 
             </div>
             <div style='wid:200px;height:100px; margin-top:10px;'>
@@ -114,12 +114,12 @@
           </div>
           <div class="receiver">
 
-            <span>交易流水</span>
-            <input v-model="transaction_id" class="mobile" placeholder="请输入PayNow支付交易流水" type="text"></input>
+            <span>{{$t('order.jiaoyiliushui')}}</span>
+            <input v-model="transaction_id" class="mobile" placeholder="Paynow transaction No." type="text"></input>
 
           </div>
           <div style='width: 60%;text-align: center;margin-top: 2vw;margin-left: 20%;'>
-            <button @click="havePaid" data-type="paynow" class="wux-button wux-button--block" type="default">已支付，查看订单
+            <button @click="havePaid" data-type="paynow" class="wux-button wux-button--block" type="default">{{$t('order.yizhifu')}}
             </button>
           </div>
         </div>
@@ -128,7 +128,7 @@
       <div class="mask" catchtouchmove="preventTouchMove" v-if="show_payment_modal"></div>
       <div class="modalDlg" v-if="show_payment_modal">
         <div style='width:100%;height:40px;border-bottom:1px solid #ccc;margin:0;padding:0;'>
-          <span style='text-align:center;font-size:14px;font-weight:600 ;margin-top:10px'>支付方式</span>
+          <span style='text-align:center;font-size:14px;font-weight:600 ;margin-top:10px'>{{$t('cart.zhifufangshi')}}</span>
         </div>
 
         <!-- 总金额 -->
@@ -153,7 +153,7 @@
         <button wx:if='{{tabIdx==0}}' @click="preSubscript" data-type="cash" class="wux-button wux-button--block" type="warn">货到付款</button>
         -->
 
-        <button @click="closePaymentModal" class="wux-button wux-button--block" type="default">取消支付</button>
+        <button @click="closePaymentModal" class="wux-button wux-button--block" type="default">{{$t('cart.quxiaozhifu')}}</button>
 
       </div>
 
@@ -246,7 +246,7 @@
           <div v-if="tabIdx != 2">
             <div class="receiver align-start">
               <span>{{tabIdx ==0 ? $t('cart.zitishijian') : $t('cart.songhuoshijian') }}</span>
-              <input @click="showPickupTime"  :placeholder="'选择'+tabIdx ==0 ? $t('cart.xuanzeshijian') : $t('cart.xuanzeshijian')" type="text"
+              <input @click="showPickupTime"  :placeholder="'Choose'+tabIdx ==0 ? $t('cart.xuanzeshijian') : $t('cart.xuanzeshijian')" type="text"
                      :value="tabAddress[tabIdx].delivery_date_str"></input>
             </div>
           </div>
@@ -472,7 +472,7 @@
     <i-modal @cancel="closeConfirmModal" iClass="confirm-modal-content" :is-show="showConfirmModal" scrollUp="true">
       <div class="confirm-order-modal">
         <div v-if="tabIdx==0">
-          <div class="title">此商品需要您{{originTabList[tabIdx].name}}，请确认提货信息</div>
+          <div class="title">{{$t('order.cishangpinxuyao')}}{{originTabList[tabIdx].name}} {{$t('order.qingquerentihuo')}}</div>
           <div class="sub-title">
             <img src="@/assets/images/icon-give.png"/>
 
@@ -516,7 +516,7 @@
             <em>-${{disAmount}}</em>
           </div>
           <div class="msg-group">
-            <span>{{groupInfo.owner_name}}信息：</span>
+            <span>{{groupInfo.owner_name}}：</span>
             <em>{{disUserName}}
               <span class="distance" v-if="current_distance&&tabIdx==1">(距您{{current_distance}}m)</span>
             </em>

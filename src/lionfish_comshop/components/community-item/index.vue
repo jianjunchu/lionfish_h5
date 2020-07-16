@@ -4,12 +4,12 @@
       <img class="group-head" :src="item.headImg||item.disUserHeadImg"
            v-if="item.headImg||item.disUserHeadImg"/>
       <img class="group-head" src='@/assets/images/head-bitmap.png' v-else/>
-      <span class="rest" v-if="item.rest==1">{{$t('host.xiuxi')}}休息中</span>
+      <span class="rest" v-if="item.rest==1">{{$t('host.xiuxi')}}</span>
     </div>
     <div class="item-center">
       <div class="community-title">
         <span class="span">{{item.communityName}}</span>
-        <span class="em" :style="{'color':skin.color}" v-if="item.distance">{{$t('host.juli')}}{{item.distance}}</span>
+        <span class="em" :style="{'color':skin.color}" v-if="item.distance">{{$t('host.juli')}}&nbsp;{{item.distance}}</span>
       </div>
       <div class="group-master">
         {{groupInfo.owner_name}}：{{item.realName||item.disUserName}}

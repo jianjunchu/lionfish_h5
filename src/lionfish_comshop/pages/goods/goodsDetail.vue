@@ -687,7 +687,7 @@
     },
     created: function() {
       this.$wx.setNavigationBarTitle({
-        title: 'Goods Detail',
+        title: 'Product Details',
         showLogo:false,
         showMore:false,
         showBack:true

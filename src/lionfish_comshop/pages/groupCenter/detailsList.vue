@@ -4,34 +4,34 @@
       <div class="nav-bar">
         <div class="nav-bar-inner">
           <div @click="switchTab" :class="['nav-bar-item', (currentTab==1?'current':'')]" data-type="1">
-            <div class="nav-bar-item-inner">待确认收入</div>
+            <div class="nav-bar-item-inner">{{$t('wallet.daiquerenshouru')}}</div>
           </div>
           <div @click="switchTab" :class="['nav-bar-item', (currentTab==2?'current':'')]" data-type="2">
-            <div class="nav-bar-item-inner">可提现金额</div>
+            <div class="nav-bar-item-inner">{{$t('wallet.ketixianjine')}}</div>
           </div>
         </div>
       </div>
       <div class="cash-list">
         <div class="list-item" v-for="(item,index) in order" :key="item.id" >
           <div class="title">
-            <span>订单单号（{{item.order_num_alias}}）</span>
+            <span>{{$t('wallet.dingdandanhao')}}（{{item.order_num_alias}}）</span>
           </div>
           <div class="main">
             <div class="left">
               <div class="per">
-                <span>订单标题：</span>
+                <span>{{$t('wallet.dingdanbiaoti')}}：</span>
                 <span>{{item.name}}</span>
               </div>
               <div class="per">
-                <span>订单金额：</span>
+                <span>{{$t('wallet.dingdanjine')}}：</span>
                 <span>${{item.total}}</span>
               </div>
               <div class="per">
-                <span>佣金金额：</span>
+                <span>{{$t('wallet.yongjinjine')}}：</span>
                 <span>${{item.money}}</span>
               </div>
               <div class="per">
-                <span>下单日期：</span>
+                <span>{{$t('wallet.xiadanriqi')}}：</span>
                 <span>{{item.addtime}}</span>
               </div>
             </div>
@@ -54,14 +54,14 @@
     name:'groupcenter-wallet',
     data() {
       return {
-        loadText: "正在加载",
+        loadText: this.$t('wallet.zhengzaijiazai'),
         LoadingComplete: !0,
         currentTab: 1,
         no_order: 0,
         page: 1,
         hide_tip: !0,
         order: [],
-        tip: "正在加载",
+        tip:  this.$t('wallet.zhengzaijiazai'),
         chooseDate:''
       }
     },
