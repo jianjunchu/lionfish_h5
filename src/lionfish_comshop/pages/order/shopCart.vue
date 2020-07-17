@@ -1181,8 +1181,8 @@
         const wx = this.$wx, app = this.$getApp()
         var e = this
         wx.showModal({
-          title: '提示',
-          content: '确认清空失效商品吗？',
+          title: this.$t('cart.tishi'),
+          content: this.$t('cart.querenqingkongshixiao'),
           confirmColor: '#FF0000',
           success: function(t) {
             if (t.confirm) {

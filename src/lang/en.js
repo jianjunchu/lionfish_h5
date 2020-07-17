@@ -153,7 +153,7 @@ export default {
     jine: 'Amount',
     tuikuan: 'Refund',
     youxiao: 'Valid',
-    youxiaojine: 'Nett(After Redund)',
+    youxiaojine: 'Nett (After Refund)',
     yongjin: 'Commission',
     yongjingudingjine: 'Fixed Commission',
     shijiyongjin: 'Total Commission',
@@ -244,11 +244,12 @@ export default {
     chakangouwuche: 'to check products in the cart',
     xuanzeshijian: 'Choose collection or receive time',
     qujiesuan: 'To Pay',
-    tishi: 'Hint',
+    tishi: '',
     yijiarugouwuche: 'Added to cart',
     quedingshanchu: 'Are you sure you want to delete the item(s)?',
     zhifufangshi: 'Payment Method',
-    quxiaozhifu: 'Cancel'
+    quxiaozhifu: 'Cancel',
+    querenqingkongshixiao: 'Are you sure you want to delete the item(s)?'
   },
   type: {
     yijingdingbu: 'Already on the top～',
