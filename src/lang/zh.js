@@ -60,7 +60,7 @@ export default {
     lianxikefu: '联系客服',
     tuichudenglu: '退出登陆',
     guanyuwomen: '关于我们',
-    shenqingchengwei: '申请成为'
+    shenqingchengwei1: '申请成为'
   },
   common: {
     daifukuan: '待付款',
@@ -165,7 +165,7 @@ export default {
   order: {
     shouhuoxinxi: '收货信息',
     nicheng: '昵称',
-    shouhuoren1 : '收货人',
+    shouhuoren1: '收货人',
     shouhuodizhi: '收货地址',
     gong: '共',
     jianshangpin: '件商品',
@@ -203,13 +203,11 @@ export default {
     qiehuantuanzhang: '切换团长',
     tihuodidian: '提货地点',
     weizhi: '位置:',
-    jianshangpin: '件商品',
     zonge: '总额:',
     zongyouhui: '总优惠:',
     querenshouhuoxinxi: '需要快递配送，请确认收货信息',
     shangpinzonge: '商品总额:',
     youhuijine: '优惠金额:',
-    shouhuodizhi: '收货地址:',
     heji: '合计:',
     querenzhifu: '确认支付',
     xuanzezitishijian: '请选择自提时间',
@@ -233,10 +231,9 @@ export default {
     youbianyouwu: '邮编有误',
     tianxiemenpai: '请填写门牌号',
     wurenhedingdan: '暂无任何订单记录～',
-    chakanxiangqing: '查看详情',
     shifu: '实付',
     quxiaodingdan: '取消订单',
-    quxiaodingdantuikuan: "取消订单并退款",
+    quxiaodingdantuikuan: '取消订单并退款',
     lijizhifu: '立即支付',
     tihuoshijian: '提货时间:',
     songhuoshijian: '送货时间:',
@@ -293,6 +290,17 @@ export default {
     xinxi: '信息',
     xiaoji: ' 小计'
   },
+  coupon: {
+    weishiyong: '未使用',
+    yishiyong: '已使用',
+    yiguoqi: '已过期',
+    youxiaoqi: '有效期',
+    qushiyong: '去使用',
+    shiyongfanwei: '使用范围',
+    suoyoushangpin: '所有商品',
+    zhidingshangpin: '指定商品',
+    zhidingfenlei: '指定分类'
+  },
   wallet: {
     jinrishouru: '今日收入（新币）',
     benyueshouru: '本月收入',
@@ -324,8 +332,6 @@ export default {
     qingshuru: '请输入',
     zhengqueneirong: '正确的表单内容',
     zhengquejine: '请输入正确的金额',
-    daiquerenshouru: '待确认收入',
-    ketixianjine: '可提现金额',
     dingdandanhao: '订单单号',
     dingdanbiaoti: '订单标题',
     dingdanjine: '订单金额',
@@ -337,7 +343,6 @@ export default {
     chenggong: '成功',
     shenghezhong: '审核中',
     jujue: '拒绝',
-    tixianjine: '提现金额',
     shenqingriqi: '申请日期'
-}
+  }
 }
