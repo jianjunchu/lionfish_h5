@@ -595,7 +595,7 @@
           this.showAuthModal = !this.showAuthModal;
         }
         if(this.showAuthModal){
-          this.$wx.redirectTo({
+          this.$wx.navigateTo({
             url: "/login"
           })
         }

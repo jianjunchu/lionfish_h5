@@ -1013,7 +1013,7 @@
 //          return false;
         }
         if(this.showAuthModal){
-          this.$wx.redirectTo({
+          this.$wx.navigateTo({
             url: "/login"
           })
         }

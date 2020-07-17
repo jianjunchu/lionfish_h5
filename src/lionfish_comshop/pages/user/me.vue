@@ -729,7 +729,7 @@
           if(e){
             i.needAuth = !1
           }else{
-            wx.redirectTo({
+            wx.navigateTo({
               url: "/login"
             })
           }

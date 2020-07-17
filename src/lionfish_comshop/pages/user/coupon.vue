@@ -93,7 +93,7 @@
           if(e){
             i.is_login = !0
           }else{
-            wx.redirectTo({
+            i.$wx.navigateTo({
               url: "/login"
             })
           }
