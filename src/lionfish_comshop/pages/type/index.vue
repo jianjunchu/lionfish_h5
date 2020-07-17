@@ -292,7 +292,7 @@
           this.showAuthModal = !this.showAuthModal
         )
         if(this.needAuth){
-          wx.redirectTo({
+          wx.navigateTo({
             url: "/login"
           })
         }

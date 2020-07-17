@@ -527,7 +527,9 @@
 
         this.needAuth && (this.showAuthModal = !this.showAuthModal)
         if(this.showAuthModal){
-          this.$router.replace({path: '/login'});
+          this.$wx.navigateTo({
+            url: "/login"
+          })
         }
       },
       showCartGoods: function() {

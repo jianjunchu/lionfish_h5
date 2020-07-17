@@ -77,7 +77,7 @@
 //            return false;
         }
         if (this.needAuth) {
-          this.$wx.redirectTo({
+          this.$wx.navigateTo({
             url: '/login'
           })
         }
