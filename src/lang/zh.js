@@ -269,7 +269,8 @@ export default {
     quedingshanchu: '确定删除这件商品吗？',
     zhifufangshi: '支付方式',
     quxiaozhifu: '取消支付',
-    querenqingkongshixiao: '确认清空失效商品吗？'
+    querenqingkongshixiao: '确认清空失效商品吗？',
+    qingxuanzeninyaogoumai: '请选择您要购买的商品'
   },
   type: {
     yijingdingbu: '已经拉到最顶部啦～',

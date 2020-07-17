@@ -1275,8 +1275,8 @@
           })
         } else {
           wx.showModal({
-            title: '提示',
-            content: '请选择您要购买的商品',
+            title: this.$t('tishi'),
+            content: this.$t('cart.qingxuanzeninyaogoumai'),
             confirmColor: '#FF0000',
             success: function(t) {
               t.confirm

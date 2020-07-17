@@ -249,7 +249,8 @@ export default {
     quedingshanchu: 'Are you sure you want to delete the item(s)?',
     zhifufangshi: 'Payment Method',
     quxiaozhifu: 'Cancel',
-    querenqingkongshixiao: 'Are you sure you want to delete the item(s)?'
+    querenqingkongshixiao: 'Are you sure you want to delete the item(s)?',
+    qingxuanzeninyaogoumai: 'Please select the products you want to buy.'
   },
   type: {
     yijingdingbu: 'Already on the top～',
