@@ -11,6 +11,7 @@ import { DatetimePicker } from 'vant'
 import { Popup } from 'vant'
 import { Picker } from 'vant'
 import { Lazyload } from 'vant'
+import { Field } from 'vant';
 
 import 'element-ui/lib/theme-chalk/index.css'
 import 'mint-ui/lib/style.css'
@@ -88,6 +89,7 @@ Vue.use(DatetimePicker)
 Vue.use(Popup)
 Vue.use(Picker)
 Vue.use(Lazyload)
+Vue.use(Field)
 
 Vue.component('i-tabbar', Tabbar)
 Vue.component('i-toolbar', Toolbar)

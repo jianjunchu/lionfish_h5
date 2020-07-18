@@ -538,6 +538,7 @@
         });
       },
       onLoad: function(e) {
+
         var u = this;
         u.options = e;
         var t = wx.getStorageSync("userInfo");
@@ -564,6 +565,7 @@
           method: "POST",
           success: function(e) {
             wx.hideLoading();
+
             if ( 0 == e.code) {
               var t = e.data.order_info;
 
@@ -619,7 +621,6 @@
         console.log("reload_data--", this.options.id);
         var a = this, e = wx.getStorageSync("token"), t = this.options.id || "";
         t && this.$http_post({
-
             controller: "order.order_info",
             token: e,
             id: t
@@ -645,19 +646,25 @@
           title: "提示",
           content: "确认收到",
           confirmColor: "#8ED9D1",
-          success: function(e) {
-            e.confirm && this.$http({
+          success: function(res) {
+            if (res.confirm) {
+              a.$http({
                 controller: "order.receive_order",
                 token: o,
                 order_id: t
-              }).then(e=> {
-                0 == e.code && (wx.showToast({
-                  title: "收货成功",
-                  icon: "success",
-                  duration: 1e3
-                }), a.reload_data());
+              }).then(e => {
 
-            });
+                if (0 == e.code) {
+                  wx.showToast({
+                    title: "收货成功",
+                    icon: "success",
+                    duration: 1000
+                  });
+                  a.reload_data();
+                }
+
+              });
+            }
           }
         });
       },

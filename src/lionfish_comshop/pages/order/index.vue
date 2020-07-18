@@ -189,7 +189,7 @@
               </div>
               <div v-if="item.order_status_id==4">
                 <div class="get-goods" :data-delivery="item.delivery" :data-type="item.order_id">
-                  <div class="sure-get">{{item.delivery=='pickup'?'确认提货':'确认收货'}}</div>
+                  <div class="sure-get" @click.stop="receivOrder" :data-delivery="item.delivery" :data-type="item.order_id">{{item.delivery=='pickup'?'确认提货':'确认收货'}}</div>
                   <img class="right-arrow" src="@/assets/images/rightArrowImg.png"></img>
                 </div>
               </div>
@@ -481,6 +481,7 @@
         })
       },
       receivOrder: function(t) {
+
         let id = event.currentTarget.dataset.type;
         let delivery = event.currentTarget.dataset.delivery;
         var token = this.$wx.getStorageSync("token");
@@ -493,14 +494,16 @@
           content: "确认收到",
           confirmColor: "#8ED9D1",
           success: function(res) {
+
             if (res.confirm) {
-              this.$http({
+              that.$http({
                   controller: 'order.receive_order',
                   token: token,
                   order_id: id
-                }).then(res=> {
-                  if (res.code == 0) {
-                    this.$wx.showToast({
+                }).then(r=> {
+
+                  if (r.code == 0) {
+                    that.$wx.showToast({
                       title: '收货成功',
                       icon: 'success',
                       duration: 1000
