@@ -212,7 +212,7 @@
                   <div class="normal-item" v-for="(shopcarts,idx) in item.shopcarts">
                     <div class="cart-item" slot="content">
                       <label class="cart-item-checkbox">
-                        <span class="invalid-tip" v-if="shopcarts.can_buy==0">售罄</span>
+                        <span class="invalid-tip" v-if="shopcarts.can_buy==0">{{$t('cart.shouqin')}}</span>
                         <span class="invalid-tip" v-else-if="shopcarts.option_can_buy==0">失效</span>
                         <div class="checkbox" v-else>
                           <img class="checkbox-disabled" src="@/assets/images/checkbox-disabled.png"/>
@@ -235,7 +235,7 @@
                           <div class="spec">{{shopcarts.goodstype}}</div>
                         </div>
                         <div class="cart-item-content-bottom">
-                          <div v-if="shopcarts.can_buy==0">已售罄</div>
+                          <div v-if="shopcarts.can_buy==0">{{$t('cart.yishouqin')}}</div>
                           <div v-if="shopcarts.option_can_buy==0">规格失效</div>
                         </div>
                       </div>

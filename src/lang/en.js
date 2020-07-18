@@ -250,7 +250,9 @@ export default {
     zhifufangshi: 'Payment Method',
     quxiaozhifu: 'Cancel',
     querenqingkongshixiao: 'Are you sure you want to delete the item(s)?',
-    qingxuanzeninyaogoumai: 'Please select the products you want to buy.'
+    qingxuanzeninyaogoumai: 'Please select the products you want to buy.',
+    shouqin: 'Sold Out',
+    yishouqin: 'Sold Out'
   },
   type: {
     yijingdingbu: 'Already on the top～',

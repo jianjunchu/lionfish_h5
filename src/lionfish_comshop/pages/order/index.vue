@@ -44,7 +44,7 @@
     <div class="paynow" v-if="showPayNowModal">
       <div style='width: 100%;height: 10%;'>
         <div style='float:left;width: 40%;font-size: 18px;line-height: 50px;margin-left: 5%;'>
-          PayNow支付
+          PayNow
         </div>
 
         <div style='float:right;width: 50%;text-align: right' @click.stop='toClosePayNowModal'>

@@ -144,7 +144,7 @@
 
                 <button @click="preSubscript"  data-type="cashpay" class="wux-button wux-button--block" type="warn" style="margin-top=16px">到店付款</button>
                 -->
-        <button @click="preSubscript" data-type="paynow" class="wux-button wux-button--block" :style="{background:skin.color,color:' #fff'}" type="warn">PayNow支付
+        <button @click="preSubscript" data-type="paynow" class="wux-button wux-button--block" :style="{background:skin.color,color:' #fff'}" type="warn">PayNow
         </button>
         <!--<button @click="preSubscript" data-type="banktransfer" class="wux-button wux-button&#45;&#45;block" :style="{background:skin.color,color:' #fff'}" type="warn">公司转账
         </button>-->
@@ -399,7 +399,7 @@
               <div :class="['oc-payment-item',ck_yupay==0?'oc-payment-selected':'']"
                    :style="ck_yupay==0?'color:'+skin.color:''">
                 <span class="iconfont icon-weixinzhifu oc-payment-icon" style="color:#00c800;"></span>
-                <div class="oc-payment-method">PayNow支付</div>
+                <div class="oc-payment-method">PayNow</div>
                 <div class="oc-payment-recommend" :style="{color:skin.color,'border-color':skin.color}">推荐</div>
               </div>
             </div>
@@ -472,16 +472,19 @@
     <i-modal @cancel="closeConfirmModal" iClass="confirm-modal-content" :is-show="showConfirmModal" scrollUp="true">
       <div class="confirm-order-modal">
         <div v-if="tabIdx==0">
-          <div class="title">{{$t('order.cishangpinxuyao')}}{{originTabList[tabIdx].name}} {{$t('order.qingquerentihuo')}}</div>
-          <div class="sub-title">
+          <!-- <div class="title">{{$t('order.cishangpinxuyao')}}{{originTabList[tabIdx].name}} {{$t('order.qingquerentihuo')}}</div> -->
+          <div v-if="tabIdx==0" class="title"> This product requires you to pick up from the Collection Point. Please confirm the collection information. </div>
+          <div v-if="tabIdx==2" class="title"> This product is Direct Delivery. </div>
+	  <div class="sub-title">
             <img src="@/assets/images/icon-give.png"/>
 
             <div v-if="tabAddress[tabIdx].delivery_date_str && tabAddress[tabIdx].delivery_date_str!=''">
-              <div>预计{{tabAddress[tabIdx].delivery_date_str}}可自提</div>
+              <!-- <div>预计{{tabAddress[tabIdx].delivery_date_str}}可自提</div>  -->
+		<div>Estimated pick-up:{{tabAddress[tabIdx].delivery_date_str}}</div> 
             </div>
             <div v-else>
-              <span v-if="pick_up_type==3">预计{{pick_up_time}}可自提</span>
-              <span v-else>预计{{pick_up_time}}({{pick_up_weekday}})可自提</span>
+              <span v-if="pick_up_type==3">{{pick_up_time}}可自提</span>
+              <span v-else>{{pick_up_time}}({{pick_up_weekday}})可自提</span>
             </div>
 
 
