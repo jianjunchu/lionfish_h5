@@ -122,6 +122,7 @@ Vue.component('i-auth', auth)
 Vue.component('i-community-item', CommunityItem)
 Vue.component('i-rush-spu', RushSpu)
 Vue.component('i-fixed-bottom', FixedBottom)
+Vue.component('i-fixedBottom', FixedBottom)
 
 Vue.prototype.$getApp = function() {
   return App

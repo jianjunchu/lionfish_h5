@@ -47,22 +47,22 @@
         <div style='float:left;width: 40%;font-size: 18px;line-height: 50px;margin-left: 5%;'>
           PayNow
         </div>
-        <div style='float:right;width: 50%;text-align: right' @click='closePayNowModal'>
+        <div style='float:right;width: 50%;text-align: right' @click='doClosePayNowModal'>
           <img src='@/assets/images/img-close.png' style='width: 24px;height: 24px;margin-top: 10px;margin-right: 5%'></img>
         </div>
       </div>
 
       <div style='float:left;width: 100%;margin-left: 5%;'>
-        PayNow支付号码：{{payNowNo}}
+        PayNow No.：{{payNowNo}}
       </div>
       <div style='float:left;width: 100%;margin-left: 5%;margin-top:5px'>
-        支付金额：<span style="color:red">${{order.order_info.real_total}}</span>
+        {{$t('order.zhifujine')}}：<span style="color:red">${{order.order_info.real_total}}</span>
       </div>
       <div style='float:left;width: 100%;margin-left: 5%;margin-top:5px'>
-        备注订单号：<span style="color:red">{{order_num_alias_sub}}</span>
+        {{$t('order.beizhudingdanhao')}}：<span style="color:red">{{order_num_alias_sub}}</span>
       </div>
       <div style='float:left;width: 100%;margin-left: 5%;margin-top:5px'>
-        <span style="color:red">请在备注中写入该订单号，很重要！</span>
+        <span style="color:red">{{$t('order.xierugaidingdanhao')}}</span>
       </div>
 
       <div style='text-align: center'>
@@ -70,7 +70,7 @@
           <img :src='payNowQr' style='width: 160px;height: 160px;margin-top: 20px;border: 1px solid #000;'></img>
           <div style='wid:200px;height:40px;margin-top:10px;'>
 
-            <span style='text-align: left;'>PayNow扫码支付 \n <!--或 uen: {{payNowUen}}--></span>
+            <span style='text-align: left;'>{{$t('order.saomazhifu')}}<!--或 uen: {{payNowUen}}--></span>
 
           </div>
           <div style='wid:200px;height:100px; margin-top:10px;'>
@@ -78,8 +78,13 @@
             <span style='font-size: 18px;color: #c0c0c0'>注：转账支付为人工审核</span>
           </div>
         </div>
+        <div style="margin-top: 15px">
+          <span>{{$t('order.jiaoyiliushui')}}</span><br>
+          <input v-model="transaction_id" class="mobile" placeholder="Paynow transaction No." type="text"></input>
+        </div>
         <div style='width: 60%;text-align: center;margin-top: 30px;margin-left: 20%;'>
-          <button @click="havePaid" data-type="paynow"  class="wux-button wux-button--block" type="default">已支付，查看订单</button>
+          <!--<button @click="havePaid" data-type="paynow"  class="wux-button wux-button&#45;&#45;block" type="default">已支付，查看订单</button>-->
+          <button @click="havePaid" data-type="paynow" :style="{background:skin.color,color:' #fff'}" class="wux-button wux-button--block" type="default">{{$t('order.yizhifu')}}</button>
         </div>
       </div>
     </div>
@@ -102,9 +107,9 @@
       <!--
       <button class="wux-button wux-button--block" type="warn" style="margin-top=16px">到店付款</button>
       -->
-      <button @click="payNow" class="wux-button wux-button--block" type="warn">PayNow支付</button>
+      <button @click="payNow" class="wux-button wux-button--block" type="warn" :style="{background:skin.color,color:' #fff'}" >PayNow支付</button>
      <!-- <button @click="orderPayTransfer" data-type="banktransfer" class="wux-button wux-button&#45;&#45;block" type="warn">公司转账</button>-->
-      <button @click="closePaymentModal"  class="wux-button wux-button--block" type="default">{{$t('cart.quxiaozhifu')}}</button>
+      <button @click="doClosePaymentModal"  class="wux-button wux-button--block" type="default">{{$t('cart.quxiaozhifu')}}</button>
 
     </div>
     <div>
@@ -254,7 +259,8 @@
             <div class="btn-1"  @click="goLink2" data-link="/lionfish_comshop/moduleA/pin/share?id=" :data-id="order.order_info.order_id" v-if="order.order_info.is_pin==1&&order.order_info.order_status_id!=3">拼团详情</div>
           </div>
         </div>
-        <div class="space-between-card" v-if="index!==orderSkuResps.length-1"></div>
+        <!--<div class="space-between-card" v-if="index!==orderSkuResps.length-1"></div>-->
+        <div class="space-between-card"></div>
       </div>
       <i-orderComment :comment="order.order_info.comment" v-if="order.order_info.comment"></i-orderComment>
       <div class="order-info">
@@ -269,14 +275,14 @@
             <button hidden formType="submit" id="formId"></button>
           </form>
           <label class="cancelBtn" for="formId">
-            <div @click="callDialog" class="cancel-btn" data-show="cancelOrderVisible" :data-type="order.order_info.order_id">{{$t('order.quxiaodingdan')}}</div>
+            <div @click="callDialog" class="cancel-btn" :data-show="cancelOrderVisible" :data-type="order.order_info.order_id">{{$t('order.quxiaodingdan')}}</div>
           </label>
           <form bindsubmit="payNowSubmit" reportSubmit="true">
             <button hidden formType="submit" id="formId2"></button>
           </form>
           <label class="cancelBtn" for="formId2">
             <!--<div @click="showPaymentModal" class="pay-btn" style="background:{{skin.color}}">-->
-            <div @click="showPaymentModal" class="pay-btn" :style="{color:skin.color,background:skin.light}">
+            <div @click="doShowPaymentModal" class="pay-btn" :style="{color:skin.color,background:skin.light}">
               {{$t('order.lijifukuan')}}
             </div>
           </label>
@@ -287,7 +293,7 @@
     <!--<guess-like bind:openSku="openSku" bind:vipModal="vipModal" likeTitle="猜你喜欢" :updateCart="updateCart" v-if="is_show_guess_like==1"></guess-like>-->
   </div>
   <!--</i-auth>-->
-  <i-dialog bind:cancel="callDialog" bind:confirm="cancelOrder" data-cancel="cancelOrderVisible" text="好不容易挑出来，确定要取消吗？" :visible="cancelOrderVisible"></i-dialog>
+  <i-dialog bind:cancel="callDialog" bind:confirm="cancelOrder" :data-cancel="cancelOrderVisible" text="好不容易挑出来，确定要取消吗？" :visible="cancelOrderVisible"></i-dialog>
   <i-modal scrollUp="false" :visible="isShowModal">
     <div class="share-modal">
       <img @click="closeModal" class="close-modal" src="@/assets/images/img-close.png"></img>
@@ -372,6 +378,7 @@
 
 <script>
   import GlobalMixin from '../../mixin/globalMixin.js';
+  import { Dialog } from 'vant';
 
   function count_down(e, t) {
     var o = Math.floor(t / 1e3), a = o / 3600 / 24, r = Math.floor(a), n = o / 3600 - 24 * r, i = Math.floor(n), s = o / 60 - 1440 * r - 60 * i, d = Math.floor(s), c = o - 86400 * r - 3600 * i - 60 * d;
@@ -403,13 +410,15 @@
 
   import a from '../../utils/public'
    var wcache = require('../../utils/wcache.js'),
-    countDownInit = require('../../utils/countDown'),wx,app
+    countDownInit = require('../../utils/countDown');
+  var wx,app;
 
   export default {
     mixins: [GlobalMixin],
     name:'order-order',
     data() {
       return {
+        transaction_id:'',
         showPaymentModal:false,
         showPayNowModal: false,
         showTransferModal:false,
@@ -432,7 +441,11 @@
         loadover: false,
         pingtai_deal: 0,
         is_show: false,
-        order: {},
+        order: {
+          order_info:{
+              order_status_id:0
+          }
+        },
         common_header_backgroundimage: "",
         isShowModal: false,
         userInfo: {},
@@ -469,8 +482,8 @@
       'i-goods-info': require('../../components/goodsInfo/index.vue').default
     },
     created: function() {
-      app = this.$getApp()
-      wx = this.$wx
+      app = this.$getApp();
+      wx = this.$wx;
 
       wx.setNavigationBarTitle({
         title: "Order",
@@ -505,18 +518,20 @@
 
       },
       havePaid: function(t){
+
         var this_ = this;
-        var s = this.$wx.getStorageSync("token");
+        var s = wx.getStorageSync("token");
         var type = t.currentTarget.dataset.type
-        var id = this.data.order.order_info.order_id;
-//        this.$wx.showLoading();
+        var id = this.order.order_info.order_id;
+//        wx.showLoading();
           this.$http({
             controller: "order.pay_order",
             token: s,
             order_id: id,
             payment_code: type,
+            transaction_id:this.transaction_id
           }).then(t=> {
-            this.$wx.redirectTo({
+            this_.$wx.redirectTo({
               url: "/lionfish_comshop/pages/order/order?id=" + id + "&is_show=1"
             })
 
@@ -602,7 +617,7 @@
       },
       reload_data: function() {
         console.log("reload_data--", this.options.id);
-        var a = this, e = this.$wx.getStorageSync("token"), t = this.options.id || "";
+        var a = this, e = wx.getStorageSync("token"), t = this.options.id || "";
         t && this.$http_post({
 
             controller: "order.order_info",
@@ -625,8 +640,8 @@
         });
       },
       receivOrder: function(e) {
-        var t = e.currentTarget.dataset.type || "", o = this.$wx.getStorageSync("token"), a = this;
-        this.$wx.showModal({
+        var t = e.currentTarget.dataset.type || "", o = wx.getStorageSync("token"), a = this;
+        wx.showModal({
           title: "提示",
           content: "确认收到",
           confirmColor: "#8ED9D1",
@@ -636,7 +651,7 @@
                 token: o,
                 order_id: t
               }).then(e=> {
-                0 == e.code && (this.$wx.showToast({
+                0 == e.code && (wx.showToast({
                   title: "收货成功",
                   icon: "success",
                   duration: 1e3
@@ -647,7 +662,8 @@
         });
       },
       cancelSubmit: function(e) {
-        var t = e.detail.formId, o = this.$wx.getStorageSync("token");
+
+        var t = e.detail.formId, o = wx.getStorageSync("token");
         this.$http({
             controller: "user.get_member_form_id",
             token: o,
@@ -656,7 +672,7 @@
         });
       },
       payNowSubmit: function(e) {
-        var t = e.detail.formId, o = this.$wx.getStorageSync("token");
+        var t = e.detail.formId, o = wx.getStorageSync("token");
         this.$http({
 
             controller: "user.get_member_form_id",
@@ -665,35 +681,64 @@
           }).then(e=> {
         });
       },
-      callDialog: function(e) {
-        var t = e.currentTarget.dataset.type || "", o = this.$wx.getStorageSync("token");
-        this.$wx.showModal({
-          title: "取消支付",
-          content: "好不容易挑出来，确定要取消吗？",
-          confirmColor: "#8ED9D1",
-          success: function(e) {
-            e.confirm && this.$http({
-                controller: "order.cancel_order",
-                token: o,
-                order_id: t
-              }).then(e=> {
-                this.$wx.showToast({
-                  title: "取消成功",
-                  icon: "success",
-                  complete: function() {
-                    this.$wx.redirectTo({
-                      url: "/lionfish_comshop/pages/order/index"
-                    });
-                  }
-                });
+      callDialog: function(event) {
 
+        var t = event.currentTarget.dataset.type || "";
+        var o = wx.getStorageSync("token");
+        var that = this;
+//        this.$wx.showModal({
+//          title: '取消支付',
+//          content: '好不容易挑出来，确定要取消吗？',
+//          confirmColor: '#8ED9D1',
+//          showCancelButton:true,
+//          success(res_) {
+//
+//            if(res_.confirm){
+//              that.$http({
+//                controller: "order.cancel_order",
+//                token: o,
+//                order_id: t
+//              }).then(res=> {
+//
+//                wx.showToast({
+//                  title: "取消成功",
+//                  icon: "success",
+//                });
+//                wx.navigateTo({
+//                  url: "/lionfish_comshop/pages/order/index"
+//                });
+//              });
+//            }
+//          }
+//        })
+
+        Dialog.confirm({
+          title: '取消支付',
+          message: '好不容易挑出来，确定要取消吗？',
+        })
+          .then(() => {
+            that.$http({
+              controller: "order.cancel_order",
+              token: o,
+              order_id: t
+            }).then(res=> {
+
+              wx.showToast({
+                title: "取消成功",
+                icon: "success",
+              });
+              wx.navigateTo({
+                url: "/lionfish_comshop/pages/order/index"
+              });
             });
-          }
-        });
+          })
+          .catch(() => {
+            // on cancel
+          });
       },
       applyForService: function(e) {
         var t = e.currentTarget.dataset.type || "", o = e.currentTarget.dataset.order_goods_id;
-        t && this.$wx.redirectTo({
+        t && wx.redirectTo({
           url: "/lionfish_comshop/pages/order/refund?id=" + t + "&order_goods_id=" + o
         });
       },
@@ -720,7 +765,7 @@
 
       orderPayTransfer:function(){
         var this_ = this;
-        this.$wx.request({
+        wx.request({
           // 请求地址
           url: 'https://tuantuan.xx315.net/payment/transfer/bank.json',
           // 请求方式
@@ -741,7 +786,7 @@
 
       payWeixin: function(e) {
 
-        var t = e.currentTarget.dataset.type || "", o = this.$wx.getStorageSync("token");
+        var t = e.currentTarget.dataset.type || "", o = wx.getStorageSync("token");
         t && app.util.request({
           url: "entry/wxapp/index",
           data: {
@@ -752,7 +797,7 @@
           dataType: "json",
           method: "POST",
           success: function(e) {
-            0 == e.code ? this.$wx.requestPayment({
+            0 == e.code ? wx.requestPayment({
               appId: e.appId,
               timeStamp: e.timeStamp,
               nonceStr: e.nonceStr,
@@ -760,14 +805,14 @@
               signType: e.signType,
               paySign: e.paySign,
               success: function(e) {
-                this.$wx.redirectTo({
+                wx.redirectTo({
                   url: "/lionfish_comshop/pages/order/order?id=" + t + "&is_show=1"
                 });
               },
               fail: function(e) {
                 console.log(e);
               }
-            }) : 2 == e.code && this.$wx.showToast({
+            }) : 2 == e.code && wx.showToast({
               title: e.msg,
               icon: "none"
             });
@@ -775,45 +820,45 @@
         });
       },
       do_hide_lding: function() {
-//        this.$wx.hideLoading(),
+//        wx.hideLoading(),
           this.is_show= true;
       },
       call_mobile: function(e) {
         var t = e.currentTarget.dataset.mobile;
-        this.$wx.makePhoneCall({
+        wx.makePhoneCall({
           phoneNumber: t
         });
       },
       goComment: function(e) {
         var t = e.currentTarget.dataset.type, o = e.currentTarget.dataset.order_goods_id, a = e.currentTarget.dataset.goods_id;
-//        3 < getCurrentPages().length ? this.$wx.redirectTo({
+//        3 < getCurrentPages().length ? wx.redirectTo({
 //          url: "/lionfish_comshop/pages/order/evaluate?id=" + t + "&goods_id=" + a + "&order_goods_id=" + o
-//        }) : this.$wx.navigateTo({
+//        }) : wx.navigateTo({
 //          url: "/lionfish_comshop/pages/order/evaluate?id=" + t + "&goods_id=" + a + "&order_goods_id=" + o
 //        });
-        this.$wx.redirectTo({
+        wx.redirectTo({
           url: "/lionfish_comshop/pages/order/evaluate?id=" + t + "&goods_id=" + a + "&order_goods_id=" + o
         })
       },
       gokefu: function(e) {
         var t = e.currentTarget.dataset.s_id;
-//        3 < getCurrentPages().length ? this.$wx.redirectTo({
+//        3 < getCurrentPages().length ? wx.redirectTo({
 //          url: "/pages/im/index?id=" + t
-//        }) : this.$wx.navigateTo({
+//        }) : wx.navigateTo({
 //          url: "/pages/im/index?id=" + t
 //        });
-        this.$wx.redirectTo({
+        wx.redirectTo({
           url: "/pages/im/index?id=" + t
         })
       },
       goRefund: function(e) {
         var t = e.currentTarget.dataset.id || 0;
-//        t && (3 < getCurrentPages().length ? this.$wx.redirectTo({
+//        t && (3 < getCurrentPages().length ? wx.redirectTo({
 //          url: "/lionfish_comshop/pages/order/refunddetail?id=" + t
-//        }) : this.$wx.navigateTo({
+//        }) : wx.navigateTo({
 //          url: "/lionfish_comshop/pages/order/refunddetail?id=" + t
 //        }));
-        this.$wx.navigateTo({
+        wx.navigateTo({
           url: "/lionfish_comshop/pages/order/refunddetail?id=" + t
         })
       },
@@ -824,7 +869,7 @@
       },
       cancelOrder: function(a) {
         var r = this;
-        this.canCancel && this.$wx.showModal({
+        this.canCancel && wx.showModal({
           title: this.$t('cart.quxiaodingdantuikuan'),
           content: "取消订单后，款项将原路退回到您的支付账户；详情请查看退款进度。",
           confirmText: this.$t('cart.quxiaodingdan'),
@@ -834,7 +879,7 @@
           success: function(e) {
             if (e.confirm) {
               r.canCancel = false;
-              var t = a.currentTarget.dataset.type, o = this.$wx.getStorageSync("token");
+              var t = a.currentTarget.dataset.type, o = wx.getStorageSync("token");
               app.util.request({
                 url: "entry/wxapp/index",
                 data: {
@@ -845,17 +890,17 @@
                 dataType: "json",
                 method: "POST",
                 success: function(e) {
-                  0 == e.code ? this.$wx.showModal({
+                  0 == e.code ? wx.showModal({
                     title: "提示",
                     content: "取消订单成功",
                     showCancel: false,
                     confirmColor: "#ff5344",
                     success: function(e) {
-                      e.confirm && this.$wx.redirectTo({
+                      e.confirm && wx.redirectTo({
                         url: "/lionfish_comshop/pages/order/index"
                       });
                     }
-                  }) : (r.canCancel = true, this.$wx.showToast({
+                  }) : (r.canCancel = true, wx.showToast({
                     title: e.msg || "取消订单失败",
                     icon: "none"
                   }));
@@ -885,7 +930,7 @@
         let link = event.currentTarget.dataset.link;
         let id = event.currentTarget.dataset.id;
         link = link + id
-        this.$wx.redirectTo({
+        wx.redirectTo({
           url: link
         })
       },
