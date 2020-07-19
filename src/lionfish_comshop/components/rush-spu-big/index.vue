@@ -47,7 +47,7 @@
         <div v-if="!isPast">
           <div v-if="number<=0">
             <i-button :disabled="disabled||spuItem.spuCanBuyNum==0" iClass="add-cart-disabled" v-if="disabled||spuItem.spuCanBuyNum==0">
-              已抢光
+              {{$t('home.yiqiangguang')}}
             </i-button>
             <i-button :disabled="disabled||actEnd" iClass="add-cart-disabled" v-else-if="disabled||actEnd">
               已结束
@@ -59,7 +59,7 @@
           <i-input-number addimg="@/assets/images/icon-add-2.png" @change="changeNumber" @outOfMax="outOfMax" iClass="index-input-number" iClassNumberspan="input-number-span" :max="spuItem.spuCanBuyNum" min="0" reduceimg="@/assets/images/icon-reduce-2.png" :value="number" v-else></i-input-number>
         </div>
         <div class="mask" v-if="isPast||disabled||spuItem.spuCanBuyNum==0?'disabled':''"></div>
-        <div class="act-end act-out" v-if="spuItem.spuCanBuyNum==0">已抢光</div>
+        <div class="act-end act-out" v-if="spuItem.spuCanBuyNum==0">{{$t('home.yiqiangguang')}}</div>
         <div class="act-end" v-else-if="actEnd">团购已结束</div>
       </i-router-link>
     </label>
