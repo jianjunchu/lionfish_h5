@@ -11,6 +11,7 @@ import { DatetimePicker } from 'vant'
 import { Popup } from 'vant'
 import { Picker } from 'vant'
 import { Lazyload } from 'vant'
+import { Field } from 'vant';
 
 import 'element-ui/lib/theme-chalk/index.css'
 import 'mint-ui/lib/style.css'
@@ -53,6 +54,7 @@ import LoadMore from '@/lionfish_comshop/components/load-more'
 import auth from '@/lionfish_comshop/components/auth'
 import CommunityItem from '@/lionfish_comshop/components/community-item'
 import FixedBottom from '@/lionfish_comshop/components/fixed-bottom'
+import RushSpuGig from '@/lionfish_comshop/components/rush-spu-big'
 
 import '@/lionfish_comshop/styles/index.scss' // global css
 import qs from 'qs'
@@ -88,6 +90,7 @@ Vue.use(DatetimePicker)
 Vue.use(Popup)
 Vue.use(Picker)
 Vue.use(Lazyload)
+Vue.use(Field)
 
 Vue.component('i-tabbar', Tabbar)
 Vue.component('i-toolbar', Toolbar)
@@ -123,6 +126,7 @@ Vue.component('i-community-item', CommunityItem)
 Vue.component('i-rush-spu', RushSpu)
 Vue.component('i-fixed-bottom', FixedBottom)
 Vue.component('i-fixedBottom', FixedBottom)
+Vue.component('i-rush-spu-big', RushSpuGig)
 
 Vue.prototype.$getApp = function() {
   return App

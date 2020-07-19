@@ -243,12 +243,10 @@
             -->
           </div>
 
-          <div v-if="tabIdx != 2">
-            <div class="receiver align-start">
-              <span>{{tabIdx ==0 ? $t('cart.zitishijian') : $t('cart.songhuoshijian') }}</span>
-              <input @click="showPickupTime"  :placeholder="'Choose'+tabIdx ==0 ? $t('cart.xuanzeshijian') : $t('cart.xuanzeshijian')" type="text"
-                     :value="tabAddress[tabIdx].delivery_date_str"></input>
-            </div>
+          <div class="receiver align-start">
+            <span>{{tabIdx ==0 ? $t('cart.zitishijian') : $t('cart.songhuoshijian') }}</span>
+            <input @click="showPickupTime" readonly  :placeholder="'Choose'+tabIdx ==0 ? $t('cart.xuanzeshijian') : $t('cart.xuanzeshijian')" type="text"
+                   :value="tabAddress[tabIdx].delivery_date_str"></input>
           </div>
 
           <!--
@@ -394,51 +392,58 @@
           </div>
         </div>
         <div v-if="buy_type=='integral'">
-          <div class="act-content" v-if="is_yue_open==1&&total_free>0">
-            <div avalonctrl="oc_payment" @click="ck_wxpays" class="oc-payment">
-              <div :class="['oc-payment-item',ck_yupay==0?'oc-payment-selected':'']"
-                   :style="ck_yupay==0?'color:'+skin.color:''">
+          <div class="act-content" >
+            <div avalonctrl="oc_payment" @click="ck_paynowpays" class="oc-payment">
+              <div :class="['oc-payment-item',ck_yupay==2?'oc-payment-selected':'']"
+                   :style="ck_yupay==2?'color:'+skin.color:''">
                 <span class="iconfont icon-weixinzhifu oc-payment-icon" style="color:#00c800;"></span>
                 <div class="oc-payment-method">PayNow</div>
                 <div class="oc-payment-recommend" :style="{color:skin.color,'border-color':skin.color}">推荐</div>
               </div>
             </div>
-            <div avalonctrl="oc_payment" @click="ck_yupays" class="oc-payment" v-if="can_yupay">
-              <div :class="['oc-payment-item', ck_yupay>0?'oc-payment-selected':'']"
-                   :style="ck_yupay>0?'color:'+skin.color:''">
-                <span class="iconfont icon-balance oc-payment-icon" style="color:#ff5777;"></span>
-                <div class="oc-payment-method">余额支付（余额：{{yu_money}}）</div>
+
+            <div v-if="is_yue_open==1&&total_free>0">
+              <div avalonctrl="oc_payment" @click="ck_yupays" class="oc-payment" v-if="can_yupay">
+                <div :class="['oc-payment-item', ck_yupay ==1?'oc-payment-selected':'']"
+                     :style="ck_yupay ==1?'color:'+skin.color:''">
+                  <span class="iconfont icon-balance oc-payment-icon" style="color:#ff5777;"></span>
+                  <div class="oc-payment-method">余额支付（余额：{{yu_money}}）</div>
+                </div>
+              </div>
+              <div class="oc-payment" v-else>
+                <div class="oc-payment-item">
+                  <span class="iconfont icon-balance oc-payment-icon text-gray"></span>
+                  <div class="oc-payment-method">余额支付（余额：{{yu_money}}）</div>
+                </div>
               </div>
             </div>
-            <div class="oc-payment" v-else>
-              <div class="oc-payment-item">
-                <span class="iconfont icon-balance oc-payment-icon text-gray"></span>
-                <div class="oc-payment-method">余额支付（余额：{{yu_money}}）</div>
-              </div>
-            </div>
+
           </div>
         </div>
         <div v-else>
-          <div class="act-content" v-if="is_yue_open==1">
-            <div avalonctrl="oc_payment" @click="ck_wxpays" class="oc-payment">
-              <div :class="['oc-payment-item', ck_yupay==0?'oc-payment-selected':'']"
-                   :style="ck_yupay==0?'color:'+skin.color:''">
+          <div class="act-content" >
+            <div avalonctrl="oc_payment" @click="ck_paynowpays" class="oc-payment">
+              <div :class="['oc-payment-item', ck_yupay==2?'oc-payment-selected':'']"
+                   :style="ck_yupay==2?'color:'+skin.color:''">
                 <span class="iconfont icon-weixinzhifu oc-payment-icon" style="color:#00c800;"></span>
                 <div class="oc-payment-method">PayNow支付</div>
                 <div class="oc-payment-recommend" :style="{'color':skin.color , 'border-color':skin.color}">推荐</div>
               </div>
             </div>
-            <div avalonctrl="oc_payment" @click="ck_yupays" class="oc-payment" v-if="can_yupay">
-              <div :class="['oc-payment-item', ck_yupay>0?'oc-payment-selected':'']"
-                   :style="ck_yupay>0?'color:'+skin.color:''">
-                <span class="iconfont icon-balance oc-payment-icon" style="color:#ff5777;"></span>
-                <div class="oc-payment-method">余额支付（余额：{{yu_money}}）</div>
+
+            <div v-if="is_yue_open==1">
+              <div avalonctrl="oc_payment" @click="ck_yupays" class="oc-payment" v-if="can_yupay">
+                <div :class="['oc-payment-item', ck_yupay ==1?'oc-payment-selected':'']"
+                     :style="ck_yupay ==1?'color:'+skin.color:''">
+                  <span class="iconfont icon-balance oc-payment-icon" style="color:#ff5777;"></span>
+                  <div class="oc-payment-method">余额支付（余额：{{yu_money}}）</div>
+                </div>
               </div>
-            </div>
-            <div class="oc-payment" v-else>
-              <div class="oc-payment-item">
-                <span class="iconfont icon-balance oc-payment-icon text-gray"></span>
-                <div class="oc-payment-method">余额支付（余额：{{yu_money}}）</div>
+              <div class="oc-payment" v-else>
+                <div class="oc-payment-item">
+                  <span class="iconfont icon-balance oc-payment-icon text-gray"></span>
+                  <div class="oc-payment-method">余额支付（余额：{{yu_money}}）</div>
+                </div>
               </div>
             </div>
           </div>
@@ -480,7 +485,7 @@
 
             <div v-if="tabAddress[tabIdx].delivery_date_str && tabAddress[tabIdx].delivery_date_str!=''">
               <!-- <div>预计{{tabAddress[tabIdx].delivery_date_str}}可自提</div>  -->
-		<div>Estimated pick-up:{{tabAddress[tabIdx].delivery_date_str}}</div> 
+		<div>Estimated pick-up:{{tabAddress[tabIdx].delivery_date_str}}</div>
             </div>
             <div v-else>
               <span v-if="pick_up_type==3">{{pick_up_time}}可自提</span>
@@ -552,7 +557,7 @@
         <div class="button-group">
           <i-button @handleTap="closeConfirmModal" class="btn-content" iClass="btn left-btn">{{$t('common.quxiao')}}</i-button>
           <div class="btn-content btn right-btn bgDisabled" v-if="btnDisable">{{btnText?btnText:$t('order.querenzhifu')}}</div>
-          <i-button @handleTap="showPaymentModal" class="btn-content" iClass="btn right-btn" :loading="payBtnLoading"
+          <i-button @handleTap="preSubscript" class="btn-content" iClass="btn right-btn" :loading="payBtnLoading"
                     :styleStr="'background:'+skin.color" v-else>
             <div :style="{background:skin.color}">{{$t('order.querenzhifu')}}</div>
           </i-button>
@@ -749,7 +754,8 @@
         comment: '',
         is_yue_open: 0,
         can_yupay: 0,
-        ck_yupay: 0,
+        ck_yupay: 2,
+        pay_method:'paynow',
         use_score: 0,
         commentArr: {},
         community: {},
@@ -1004,9 +1010,7 @@
         this.t_ziti_mobile = t
         this.showGetPhone = !1
       },
-      ck_wxpays: function() {
-        this.ck_yupay = 0
-      },
+
       selectStorefront: function() {
         var this_ = this
         wx.request({
@@ -1088,9 +1092,21 @@
           }
         })
       },
+
+      ck_wxpays: function() {
+        this.ck_yupay = 0
+        this.pay_method ='wx'
+      },
+
       ck_yupays: function() {
         this.ck_yupay = 1
+        this.pay_method = 'yue'
       },
+      ck_paynowpays: function() {
+        this.ck_yupay = 2
+        this.pay_method='paynow'
+      },
+
       scoreChange: function(e) {
         console.log('是否使用', e.detail.value)
         var t = this, a = 1 * t.score_for_money, i = 1 * t.tot_price, o = 1 * t.disAmount
@@ -1220,17 +1236,17 @@
           }), !1
         }
         //原逻辑直接微信支付 改成先选择支付方式
-        //2 == a ? this.preSubscript() : this.conformOrder();
-        2 == a ? this.showPaymentModal() : this.conformOrder()
+        2 == a ? this.preSubscript() : this.conformOrder();
+        //2 == a ? this.showPaymentModal() : this.conformOrder()
       },
-      preSubscript: function(t) {
-        var type = t.currentTarget.dataset.type
+      preSubscript: function() {
+
         var e = this
         this.canPreSub && (this.canPreSub = !1, 1 == this.is_need_subscript ? this.subscriptionNotice().then(function() {
-          e.prepay(type)
+          e.prepay()
         }).catch(function() {
-          e.prepay(type)
-        }) : e.prepay(type))
+          e.prepay()
+        }) : e.prepay())
 
       },
       havePaid: function(t) {
@@ -1310,13 +1326,13 @@
             P = f[1], z = f[2])
           A = zip_code + ' ' + blk_no + ' ' + road_name + ' ' + x + ' ' + building
           var I = wx.getStorageSync('community').communityId, L = wx.getStorageSync('latitude2'),
-            O = wx.getStorageSync('longitude2'), j = this, N = j.use_score, q = j.buy_type, C = j.soli_id
+            O = wx.getStorageSync('longitude2'), j = this, N = j.use_score, q = j.buy_type, C = j.soli_id,pm = j.pay_method;
           wx.showLoading(), app.util.request({
             url: 'entry/wxapp/user',
             data: {
               controller: 'car.sub_order',
               token: s,
-              pay_method: type,
+              pay_method: pm,
               buy_type: q,
               pick_up_id: I,
               dispatching: l,
@@ -1356,11 +1372,11 @@
               this_.order_id = id
               this_.order_num_alias = ona.substring(ona.length - 5)
 
-              if (type == 'cash') {
+              if (pm == 'cash') {
                 wx.redirectTo({
                   url: '/lionfish_comshop/pages/order/order?id=' + a + '&is_show=1'
                 })
-              } else if (type == 'paynow') {
+              } else if (pm == 'paynow') {
 
                 app.util.request({
                   url: "entry/wxapp/user",
@@ -1378,7 +1394,7 @@
 
                 this_.closePaymentModal()
                 this_.showPayNowModal()
-              } else if ('banktransfer' == type) {
+              } else if ('banktransfer' == pm) {
                 wx.request({
                   // 请求地址
                   url: 'https://hz.xx315.net/payment/transfer/bank.json',
@@ -1829,12 +1845,20 @@
         })
       },
       showPickupTime: function() {
-        var r = this, t = wx.getStorageSync('token')
-        var I = wx.getStorageSync('community').communityId
+
+
+        var r = this,s = r.tabAddress, n = r.tabIdx, t = wx.getStorageSync("token");
+        var I = wx.getStorageSync("community").communityId;
+        var controller='';
+        if(n ==0){
+          controller = 'car.get_head_date_list'
+        }else{
+          controller = 'car.get_express_date_list'
+        }
         app.util.request({
           url: 'entry/wxapp/user',
           data: {
-            controller: 'car.get_head_date_list',
+            controller: controller,
             token: t,
             head_id: I
           },
@@ -2482,7 +2506,7 @@
   .oc-payment-item {
     position: relative;
     width: 100%;
-    line-height: 70vw;
+    line-height: 9vw;
     font-size: 0;
     display: flex;
     align-items: center;
@@ -2491,7 +2515,7 @@
   .oc-payment-method {
     position: relative;
     display: inline-block;
-    margin-left: 10vw;
+    margin-left: 1vw;
     font-size: 2px;
     color: #333;
   }
@@ -2520,7 +2544,7 @@
     position: absolute;
     top: 0;
     right: 0;
-    line-height: 70vw;
+    line-height: 9vw;
   }
 
   .oc-payment-icon {
@@ -2674,7 +2698,7 @@
     top: 0;
     left: 0;
     background: #000;
-    z-index: 9000;
+    z-index: 199;
     opacity: 0.7;
   }
 
@@ -2687,7 +2711,7 @@
     padding: 1px 8px 16px 8px;
     /* border: 8px solid #e8e9f7; */
     background-color: white;
-    z-index: 9100;
+    z-index: 200;
     border-radius: 10px;
     overflow: auto;
 
