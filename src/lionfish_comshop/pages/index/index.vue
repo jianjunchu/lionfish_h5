@@ -333,7 +333,7 @@
           </div>
 
 
-          <van-list v-model="$data.$data.isLoadData" :finished="!commigLoadMore" @load="load_goods_data" class="rush-list-box">
+          <van-list v-model="$data.$data.isLoadData" :finished="commigLoadMore" @load="load_goods_data" class="rush-list-box">
             <div v-if="rushList.length>0&&tabIdx==0">
 
               <div class="active-item" v-if="rushList.length>0&&theme==0" v-for="(item,index) in rushList"
@@ -352,14 +352,12 @@
                   </div>
                 </div>
 
-                <van-list v-model="loading" :finished="finished" finished-text="没有更多了" @load="onLoad">
                   <i-new-rush-spu :actEnd="actEndMap[item.end_time]" @authModal="authModal" :changeCartNum="changeCartNum"
                                   @openSku="openSku" @vipModal="vipModal" :canLevelBuy="canLevelBuy"
                                   :changeCarCount="changeCarCount" :isShowListCount="isShowListCount"
                                   :isShowListTimer="isShowListTimer==1" :is_open_vipcard_buy="is_open_vipcard_buy"
                                   :needAuth="needAuth" :reduction="reduction" :showPickTime="(ishow_index_pickup_time==1)"
                                   :skin="skin" :spuItem="item" :stopClick="stopClick"></i-new-rush-spu>
-                </van-list>
 
               </div>
               <div class="active-item-two" v-if="rushList.length>0&&theme==1" v-for="(item,index) in rushList"
@@ -374,7 +372,7 @@
                     <span class="item-class">{{countDownMap[item.end_time].second}}</span>
                   </div>
                 </div>
-                <i-rush-spu-big :actEnd="actEndMap[item.end_time]" :authModal="authModal" :changeCartNum="changeCartNum"
+                <i-rush-spu-big :actEnd="actEndMap[item.end_time]" @authModal="authModal" @changeCartNum="changeCartNum"
                                 @openSku="openSku" @vipModal="vipModal" :canLevelBuy="canLevelBuy"
                                 :changeCarCount="changeCarCount" :isShowListCount="isShowListCount"
                                 :is_open_vipcard_buy="is_open_vipcard_buy" :needAuth="needAuth" :reduction="reduction"
@@ -1282,93 +1280,89 @@
           })
       },
       load_goods_data: function() {
-
-
-        var t = wx.getStorageSync('token'),
+        var t = wx.getStorageSync("token"),
           m = this,
-          a = wx.getStorageSync('community'),
-          e = m.classificationId
-        m.$data.$data.isLoadData = !0
-        console.log('load_goods_begin');
+          a = wx.getStorageSync("community"),
+          e = m.classificationId;
+        this.$data.$data.isLoadData = !0, console.log("load_goods_begin "), m.hasRefeshin || m.$data.$data.loadOver ? m.load_over_gps_goodslist() : (console.log("load_goods_in "),
+          this.hasRefeshin = !0, (
+          m.loadMore = !0
+        ), app.util.request({
+          url: "entry/wxapp/index",
+          data: {
+            controller: "index.load_gps_goodslist",
+            token: t,
+            pageNum: m.pageNum,
+            head_id: a.communityId,
+            gid: e,
+            per_page: 12
+          },
+          dataType: "json",
+          success: function(t) {
 
-        (m.hasRefeshin || m.loadOver) ? m.load_over_gps_goodslist() : (console.log('load_goods_in '));
-        this.hasRefeshin = !0
-        this.$http({
-          controller: 'index.load_gps_goodslist',
-          token: t,
-          pageNum: m.pageNum,
-          head_id: a.communityId,
-          gid: e,
-          per_page: 12
-        }).then(t => {
+            m.$data.$data.isLoadData = !1, setTimeout(function() {
+              wx.hideLoading();
+            }, 1e3);
 
-          m.$data.isLoadData = !1, setTimeout(function() {
-            wx.hideLoading();
-          }, 1e3);
-
-          if (1 == m.pageNum && (this.cate_info = t.cate_info || {}), 0 == t.code) {
-            var a = ''
-            if (1 == t.is_show_list_timer) {
-              for (var e in a = m.transTime(t.list),
-                m.$data.$data.countDownMap) {
-                m.initCountDown(m.$data.$data.countDownMap[e])
+            if (1 == m.pageNum && (
+              m.cate_info = t.cate_info || {}
+            ), 0 == t.code) {
+              var a = "";
+              if (1 == t.is_show_list_timer)
+                for (var e in a = m.transTime(t.list),
+                  m.$data.$data.countDownMap) m.initCountDown(m.$data.$data.countDownMap[e]);
+              else {
+                var o = m.rushList;
+                a = o.concat(t.list);
               }
-            } else {
-              var o = m.rushList
-              a = o.concat(t.list)
-            }
-            var i = t,
-              s = i.full_money,
-              n = i.full_reducemoney,
-              d = i.is_open_fullreduction,
-              c = i.is_open_vipcard_buy,
-              l = i.is_vip_card_member,
-              r = i.is_member_level_buy,
-              u = {
-                full_money: s,
-                full_reducemoney: n,
-                is_open_fullreduction: d
-              },
-              h = !1
-            1 == c ? 1 != l && 1 == r && (h = !0) : 1 == r && (h = !0), 1 == m.pageNum &&
-            (m.copy_text_arr = i.copy_text_arr || []), m.hasRefeshin = !1, (
-              m.rushList = a,
+              var i = t,
+                s = i.full_money,
+                n = i.full_reducemoney,
+                d = i.is_open_fullreduction,
+                c = i.is_open_vipcard_buy,
+                l = i.is_vip_card_member,
+                r = i.is_member_level_buy,
+                u = {
+                  full_money: s,
+                  full_reducemoney: n,
+                  is_open_fullreduction: d
+                },
+                h = !1;
+              1 == c ? 1 != l && 1 == r && (h = !0) : 1 == r && (h = !0), 1 == m.pageNum && (
+                m.copy_text_arr = i.copy_text_arr || []
+              ), m.hasRefeshin = !1, (
+                m.rushList = a,
                 m.pageNum = m.pageNum + 1,
                 m.loadMore = !1,
                 m.reduction = u,
-                m.tip = '',
+                m.tip = "",
                 m.is_open_vipcard_buy = c || 0,
                 m.is_vip_card_member = l,
                 m.is_member_level_buy = r,
                 m.canLevelBuy = h
-            );
-
-
-            1 == m.isFirst && (m.isFirst++, a.length && !m.$data.$data.stickyTop && (wx.createSelectorQuery().select('.tab-nav-index-query').boundingClientRect(function(t) {
-              if (t && t.top) {
-                wcache.put('tabPos', t), m.$data.$data.stickyTop = t.top + t.height, m.$data.$data.stickyBackTop = t.top
-              } else {
-                var a = wcache.get('tabPos', !1)
-                a && (m.$data.$data.stickyTop = a.top + a.height, m.$data.$data.stickyBackTop = a.top)
-              }
-            }).exec(), m.$data.$data.scrollTop > m.$data.$data.stickyTop && wx.pageScrollTo({
-              duration: 0,
-              scrollTop: m.$data.$data.stickyTop + 4
-            }))), /*m.getScrollHeight(),*/ 2 == m.pageNum && t.list.length < 10 && (console.log('load_over_goods_list_begin'),
-              m.loadOver = !0, m.hasRefeshin = !0, (
-              m.loadMore = !0,
-                m.load_over_gps_goodslist()
-            ))
-
-          } else {
-            1 == t.code ? (m.loadOver = !0, m.load_over_gps_goodslist()) : 2 == t.code && (
+              /*}, function() {
+                1 == m.isFirst && (m.isFirst++, a.length && !m.$data.$data.stickyTop && (wx.createSelectorQuery().select(".tab-nav-query").boundingClientRect(function(t) {
+                  if (t && t.top) wcache.put("tabPos", t), m.$data.$data.stickyTop = t.top + t.height, m.$data.$data.stickyBackTop = t.top;
+                  else {
+                    var a = wcache.get("tabPos", !1);
+                    a && (m.$data.$data.stickyTop = a.top + a.height, m.$data.$data.stickyBackTop = a.top);
+                  }
+                }).exec(), m.$data.$data.scrollTop > m.$data.$data.stickyTop && wx.pageScrollTo({
+                  duration: 0,
+                  scrollTop: m.$data.$data.stickyTop + 4
+                }))), m.getScrollHeight(), 2 == m.pageNum && t.list.length < 10 && (console.log("load_over_goods_list_begin"),
+                  m.$data.$data.loadOver = !0, m.hasRefeshin = !0, m.setData({
+                  loadMore: !0
+                }, function() {
+                  m.load_over_gps_goodslist();
+                }));
+              }*/);
+            } else 1 == t.code ? (m.$data.$data.loadOver = !0, m.load_over_gps_goodslist()) : 2 == t.code && (
               m.needAuth = !0,
-                m.couponRefresh = !1
-            )
+              m.couponRefresh = !1
+            );
           }
-        })
-
-
+        }));
       },
       load_over_gps_goodslist: function() {
 
@@ -1574,7 +1568,7 @@
             })
           }
         }).catch(function(t) {
-          util.message(t || this.$t('cart.qingqiushibai'), '', 'error')
+          //util.message(t || this.$t('cart.qingqiushibai'), '', 'error')
         })
       },
       vipModal: function(t) {
@@ -1724,7 +1718,6 @@
       },
       authModal: function() {
         var i = this;
-
         var t = wx.getStorageSync('community');
         if(!t && !t.communityId){
           wx.redirectTo({

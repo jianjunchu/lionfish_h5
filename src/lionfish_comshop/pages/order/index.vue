@@ -109,11 +109,15 @@
       <button class="wux-button wux-button--block" type="warn" style="margin-top=16px">到店付款</button>
       -->
       <button @click.stop="payNow" class="wux-button wux-button--block" data-type="paynow" :style="{background:skin.color,color:' #fff'}" type="warn">PayNow支付</button>
+      <button @click="yuepay" v-if="is_open_yue_pay ==1" :style="{background:skin.color,color:' #fff','font-size':'2vw'}" class="wux-button wux-button--block" type="warn">余额支付（余额：${{accountMoney}}）</button>
+
       <!--<button @click.stop="orderPayTransfer" data-type="banktransfer" class="wux-button wux-button&#45;&#45;block" type="warn">公司转账</button>-->
 
       <!--
       <button wx:if='{{is_pickup}}' @click.stop="havePaid" data-type="cash" class="wux-button wux-button--block" type="warn">货到付款</button>
       -->
+
+
 
       <button @click.stop="toClosePaymentModal"  class="wux-button wux-button--block" type="default">{{$t('cart.quxiaozhifu')}}</button>
 
@@ -214,12 +218,19 @@
   import GlobalMixin from '../../mixin/globalMixin.js';
   //  import util from '../../utils/util.js';
   import status from '../../utils/index.js';
-  import wcache from '../../utils/wcache.js';
   import auth from '../../utils/auth';
-  import wx from '../../utils/wx';
   import request from '../../utils/request';
+  var wcache = require('../../utils/wcache.js');
 
-  var app;
+  var app
+  var wx;
+  var _extends = Object.assign || function(t) {
+    for (var a = 1; a < arguments.length; a++) {
+      var e = arguments[a];
+      for (var i in e) Object.prototype.hasOwnProperty.call(e, i) && (t[i] = e[i]);
+    }
+    return t;
+  };
 
   export default {
     mixins: [GlobalMixin],
@@ -279,6 +290,7 @@
     },
     created: function() {
       app = this.$getApp()
+      wx = this.$wx;
       this.$wx.setNavigationBarTitle({
         title: this.$wx.getStorageSync("shopname"),
         showLogo:false,
@@ -401,6 +413,40 @@
         this.toClosePaymentModal();
         this.toShowPayNowModal();
       },
+      yuepay:function(){
+        var t = wx.getStorageSync("token"), c = this;
+        var a = c.currentItem,b = c.accountMoney;
+
+        if(parseFloat(a.total) > parseFloat(b)){
+          wx.showToast({
+            title: "余额不足",
+            icon: "none"
+          });
+        }else{
+          wx.showLoading()
+          app.util.request({
+            url: "entry/wxapp/user",
+            data: {
+              controller: "order.yuepay",
+              order_id:a.order_id,
+              token: t
+            },
+            dataType: "json",
+            success: function(t) {
+              wx.hideLoading()
+              if (0 == t.data.code) {
+               c.getData();
+              }else{
+                wx.showToast({
+                  title: t.data.msg,
+                  icon: "none"
+                });
+              }
+            }
+          });
+        }
+
+      },
       havePaid: function(t){
         if ( '' == this.transaction_id) {
           return wx.showToast({
@@ -426,6 +472,8 @@
         });
       },
       onLoad: function(t) {
+        this.getCopyright();
+        this.getAccountMoney();
         var order_status = this.$route.query.order_status;
         var is_show_tip = this.$route.query.is_show;
         var isfail = this.$route.query.isfail;
@@ -610,7 +658,63 @@
         this.$wx.showLoading();
         this.getData();
         this.$wx.stopPullDownRefresh();
+      },getCopyright: function() {
+        var C = this;
+        C.$app.util.request({
+          url: "entry/wxapp/user",
+          data: {
+            controller: "user.get_copyright"
+          },
+          dataType: "json",
+          success: function(e) {
+            if (0 == e.code) {
+              var t = e, o = t.enabled_front_supply, a = t.is_open_yue_pay, s = t.is_show_score, i = t.user_order_menu_icons, n = t.close_community_apply_enter, r = t.user_tool_icons, u = t.ishow_user_loginout_btn, _ = t.commiss_diy_name, c = t.supply_diy_name, m = t.user_service_switch, d = t.fetch_coder_type, l = t.show_user_pin, h = t.common_header_backgroundimage, p = t.is_show_about_us, g = t.show_user_change_comunity, f = t.open_danhead_model, w = t.default_head_info, b = t.is_open_solitaire, y = t.user_top_font_color, v = t.excharge_nav_name, x = {};
+              1 == f && (x.community = w), _ = _ || "分销", c = c || "供应商", wcache.put("commiss_diy_name", _),
+                wcache.put("supply_diy_name", c),
+                C.copyright = t.data || "",
+                C.common_header_backgroundimage = h || require('@/assets/images/TOP_background@2x.png'),
+                C.is_show_about_us = p || 0,
+                C.enabled_front_supply = o,
+                C.is_open_yue_pay = a,
+                C.is_show_score = s,
+                C.user_order_menu_icons = i || {},
+                C.commiss_diy_name = _,
+                C.close_community_apply_enter = n || 0,
+                C.user_tool_icons = r || {},
+                C.ishow_user_loginout_btn = u || 0,
+                C.supply_diy_name = c,
+                C.user_service_switch = m,
+                C.fetch_coder_type = d || 0,
+                C.show_user_pin = l,
+                C.show_user_change_comunity = g,
+                C.open_danhead_model = f,
+                C.is_open_solitaire = b,
+                C.user_top_font_color = y,
+                C.excharge_nav_name = v || "查看",
+                C.user_service_url = t.user_service_url
+            }
+          }
+        });
+      },getAccountMoney: function() {
+        var t = wx.getStorageSync("token"), c = this;
+        app.util.request({
+          url: "entry/wxapp/user",
+          data: {
+            controller: "user.get_account_money",
+            token: t
+          },
+          dataType: "json",
+          success: function(t) {
+            if (0 == t.code) {
+              var e = t, a = e.member_charge_publish, n = e.chargetype_list;
+              c.accountMoney =  e.data,
+                c. chargetype_list = n,
+                c.member_charge_publish = a
+            }
+          }
+        });
       }
+
     }
   }
 </script>

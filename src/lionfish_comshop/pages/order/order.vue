@@ -108,7 +108,9 @@
       <button class="wux-button wux-button--block" type="warn" style="margin-top=16px">到店付款</button>
       -->
       <button @click="payNow" class="wux-button wux-button--block" type="warn" :style="{background:skin.color,color:' #fff'}" >PayNow支付</button>
-     <!-- <button @click="orderPayTransfer" data-type="banktransfer" class="wux-button wux-button&#45;&#45;block" type="warn">公司转账</button>-->
+      <button @click="yuepay" v-if="is_open_yue_pay ==1" :style="{background:skin.color,color:' #fff','font-size':'2vw'}" class="wux-button wux-button--block" type="warn">余额支付（余额：${{accountMoney}}）</button>
+
+      <!-- <button @click="orderPayTransfer" data-type="banktransfer" class="wux-button wux-button&#45;&#45;block" type="warn">公司转账</button>-->
       <button @click="doClosePaymentModal"  class="wux-button wux-button--block" type="default">{{$t('cart.quxiaozhifu')}}</button>
 
     </div>
@@ -538,7 +540,8 @@
         });
       },
       onLoad: function(e) {
-
+        this.getCopyright();
+        this.getAccountMoney();
         var u = this;
         u.options = e;
         var t = wx.getStorageSync("userInfo");
@@ -769,7 +772,43 @@
         this.doClosePaymentModal();
         this.doShowPayNowModal();
       },
+      yuepay:function(){
 
+        var t = wx.getStorageSync("token"), c = this;
+        var a = c.order.order_info,b = c.accountMoney;
+
+        if(parseFloat(a.total) > parseFloat(b)){
+          wx.showToast({
+            title: "余额不足",
+            icon: "none"
+          });
+        }else{
+          wx.showLoading()
+          app.util.request({
+            url: "entry/wxapp/user",
+            data: {
+              controller: "order.yuepay",
+              order_id:a.order_id,
+              token: t
+            },
+            dataType: "json",
+            success: function(t) {
+              wx.hideLoading()
+              if (0 == t.data.code) {
+                wx.redirectTo({
+                  url: "/lionfish_comshop/pages/order/order?id=" + a.order_id + "&is_show=1"
+                });
+              }else{
+                wx.showToast({
+                  title: t.data.msg,
+                  icon: "none"
+                });
+              }
+            }
+          });
+        }
+
+      },
       orderPayTransfer:function(){
         var this_ = this;
         wx.request({
@@ -941,6 +980,63 @@
           url: link
         })
       },
+      getCopyright: function() {
+        var C = this;
+        C.$app.util.request({
+          url: "entry/wxapp/user",
+          data: {
+            controller: "user.get_copyright"
+          },
+          dataType: "json",
+          success: function(e) {
+            if (0 == e.code) {
+              var t = e, o = t.enabled_front_supply, a = t.is_open_yue_pay, s = t.is_show_score, i = t.user_order_menu_icons, n = t.close_community_apply_enter, r = t.user_tool_icons, u = t.ishow_user_loginout_btn, _ = t.commiss_diy_name, c = t.supply_diy_name, m = t.user_service_switch, d = t.fetch_coder_type, l = t.show_user_pin, h = t.common_header_backgroundimage, p = t.is_show_about_us, g = t.show_user_change_comunity, f = t.open_danhead_model, w = t.default_head_info, b = t.is_open_solitaire, y = t.user_top_font_color, v = t.excharge_nav_name, x = {};
+              1 == f && (x.community = w), _ = _ || "分销", c = c || "供应商", wcache.put("commiss_diy_name", _),
+                wcache.put("supply_diy_name", c),
+                C.copyright = t.data || "",
+                C.common_header_backgroundimage = h || require('@/assets/images/TOP_background@2x.png'),
+                C.is_show_about_us = p || 0,
+                C.enabled_front_supply = o,
+                C.is_open_yue_pay = a,
+                C.is_show_score = s,
+                C.user_order_menu_icons = i || {},
+                C.commiss_diy_name = _,
+                C.close_community_apply_enter = n || 0,
+                C.user_tool_icons = r || {},
+                C.ishow_user_loginout_btn = u || 0,
+                C.supply_diy_name = c,
+                C.user_service_switch = m,
+                C.fetch_coder_type = d || 0,
+                C.show_user_pin = l,
+                C.show_user_change_comunity = g,
+                C.open_danhead_model = f,
+                C.is_open_solitaire = b,
+                C.user_top_font_color = y,
+                C.excharge_nav_name = v || "查看",
+                C.user_service_url = t.user_service_url
+            }
+          }
+        });
+      },
+      getAccountMoney: function() {
+        var t = wx.getStorageSync("token"), c = this;
+        app.util.request({
+          url: "entry/wxapp/user",
+          data: {
+            controller: "user.get_account_money",
+            token: t
+          },
+          dataType: "json",
+          success: function(t) {
+            if (0 == t.code) {
+              var e = t, a = e.member_charge_publish, n = e.chargetype_list;
+                c.accountMoney =  e.data,
+                c. chargetype_list = n,
+                c.member_charge_publish = a
+            }
+          }
+        });
+      }
     }
   }
 </script>

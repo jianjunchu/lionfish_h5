@@ -423,6 +423,10 @@ function getMemberInfo(o) {
   })
 }
 
+function message() {
+  
+}
+
 export default {
   getLightColor: getLightColor,
   addCart: addCart,
