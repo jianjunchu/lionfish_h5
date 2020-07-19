@@ -252,7 +252,8 @@ export default {
     querenqingkongshixiao: 'Are you sure you want to delete the item(s)?',
     qingxuanzeninyaogoumai: 'Please select the products you want to buy.',
     shouqin: 'Sold Out',
-    yishouqin: 'Sold Out'
+    yishouqin: 'Sold Out',
+    shanchu: 'Delete'
   },
   type: {
     yijingdingbu: 'Already on the top～',

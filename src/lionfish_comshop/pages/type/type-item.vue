@@ -43,7 +43,7 @@
           </div>
           <i-input-number addImage="@/assets/images/icon-add-2.png" @change="changeNumber" @outOfMax="outOfMax" iClass="index-input-number" iClassNumberText="input-number-text" iNumberImg="iNumberImg" iNumberView="iNumberView" :max="spuItem.spuCanBuyNum" min="0" reduceImage="@/assets/images/icon-reduce-2.png" :value="number" v-else></i-input-number>
         </div>
-        <span class="act-end act-out" v-if="spuItem.spuCanBuyNum==0">已抢光</span>
+        <span class="act-end act-out" v-if="spuItem.spuCanBuyNum==0">{{$t('common.yiqiangguang')}}</span>
         <span class="act-end" v-else-if="actEnd">团购已结束</span>
       </i-router-link>
     </label>

@@ -272,7 +272,8 @@ export default {
     querenqingkongshixiao: '确认清空失效商品吗？',
     qingxuanzeninyaogoumai: '请选择您要购买的商品',
     shouqin: '售罄',
-    yishouqin: '已售罄'
+    yishouqin: '已售罄',
+    shanchu: '删除'
   },
   type: {
     yijingdingbu: '已经拉到最顶部啦～',

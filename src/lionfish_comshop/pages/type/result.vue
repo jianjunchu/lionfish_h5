@@ -76,7 +76,7 @@
         </div>
         <form bindsubmit="gocarfrom" reportSubmit="true">
           <button class="sku-confirm" :disabled="cur_sku_arr.stock==0?true:false" formType="submit">
-            <div>{{cur_sku_arr.stock==0?'已抢光':'确定'}}</div>
+            <div>{{cur_sku_arr.stock==0?$t('common.yiqiangguang'):$t('common.queding')}}</div>
           </button>
         </form>
       </div>

@@ -104,7 +104,7 @@
                         </div>
                         <div @click="deleteGoods" class="delete-icon" :data-gid="shopcarts.id" :data-index="idx"
                              :data-parentid="index" v-else>
-                          <img src="@/assets/images/icon-shop-delete.png"/>删除
+                          <img src="@/assets/images/icon-shop-delete.png"/>{{$t('cart.shanchu')}}
                         </div>
                       </div>
                     </div>
@@ -117,7 +117,7 @@
                     </div>
                   </div>
                   <div class="swiper-out-button-content" slot="button" style="display:none;">
-                    <div @click="deleteGoods" class="delete-btn">删除</div>
+                    <div @click="deleteGoods" class="delete-btn">{{$t('cart.shanchu')}}</div>
                   </div>
                 </div>
                 <div class="normal-item" v-else>
@@ -176,7 +176,7 @@
                         </div>
                         <div @click="deleteGoods" class="delete-icon" :data-id="shopcarts.id" :data-index="idx"
                              :data-parentid="index" v-else>
-                          <img src="@/assets/images/icon-shop-delete.png"/>删除
+                          <img src="@/assets/images/icon-shop-delete.png"/>{{$t('cart.shanchu')}}
                         </div>
                       </div>
                     </div>
@@ -189,7 +189,7 @@
                     </div>
                   </div>
                   <div class="swiper-out-button-content" slot="button" style="display:none;">
-                    <div @click="deleteGoods" class="delete-btn">删除</div>
+                    <div @click="deleteGoods" class="delete-btn">{{$t('cart.shanchu')}}</div>
                   </div>
                 </div>
               </div>
