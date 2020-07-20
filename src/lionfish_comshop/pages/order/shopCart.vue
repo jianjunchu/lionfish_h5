@@ -95,7 +95,7 @@
                             <img src="@/assets/images/icon-input-reduce.png"/>
                           </div>
                           <input @change="changeNumber" class="i-input-number-text " :data-index="idx"
-                                 :data-parentid="index" :max="shopcarts.max_quantity" min="0" type="number"
+                                 :data-parentid="index" :max="shopcarts.max_quantity" min="0" readonly
                                  :value="shopcarts.goodsnum"></input>
                           <div @click.stop="addgoodsnum" class="i-input-number-plus " :data-gid="shopcarts.id"
                                :data-index="idx" :data-parentid="index" :id="'tapTest'+idx">
@@ -167,7 +167,7 @@
                             <img src="@/assets/images/icon-input-reduce.png"/>
                           </div>
                           <input @change="changeNumber" class="i-input-number-text " :data-index="idx"
-                                 :data-parentid="index" :max="shopcarts.max_quantity" min="0" type="number"
+                                 :data-parentid="index" :max="shopcarts.max_quantity" min="0" readonly
                                  :value="shopcarts.goodsnum"></input>
                           <div @click.stop="addgoodsnum" class="i-input-number-plus " :data-gid="shopcarts.id"
                                :data-index="idx" :data-parentid="index" :id="'tapTest'+idx">
@@ -391,8 +391,7 @@
               <img src="@/assets/images/icon-input-reduce.png"/>
             </div>
             <input bindblur="handleBlur" bindfocus="handleFocus"
-                   :class="['i-input-number-text'/*, min>=max?'i-input-number-disabled':''*/]" disabled="true"
-                   type="number"
+                   :class="['i-input-number-text'/*, min>=max?'i-input-number-disabled':''*/]" readonly
                    :value="sku_val"></input>
             <div @click="setNum" :class="['i-input-number-plus'/*, value>=max?'i-input-number-disabled':''*/]"
                  data-type="add">

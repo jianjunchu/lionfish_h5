@@ -93,12 +93,12 @@
   .community-item {
     box-sizing: border-box;
     display: flex;
-    padding: 2vw 5vw;
+    padding: 7vw 4vw;
   }
 
   .community-item .group-head {
-    width: 12vw;
-    height: 12vw;
+    width: 10vw;
+    height: 10vw;
     border-radius: 10vw;
   }
 
@@ -119,8 +119,8 @@
 
   .community-item .community-title .em {
     color: #ff5344;
-    font-size: 2vw;
-    line-height: 4vw;
+    font-size: 2.6vw;
+    line-height: 2.6vw;
     white-space: nowrap;
   }
 
