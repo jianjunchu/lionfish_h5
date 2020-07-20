@@ -15,7 +15,7 @@
             <span style="width:33%; text-align:right;">{{item.text}}</span>
           </div>
         </div>
-        <div style='margin-top: 12px;text-align:left;'>
+        <div style='margin-top: 1.2vw;text-align:left;'>
           <div>
             <span>注意：</span>
           </div>
@@ -28,42 +28,42 @@
       <div class="mask" catchtouchmove="preventTouchMove" v-if="show_transfer_modal"></div>
       <div class="paynow" v-if="show_transfer_modal">
         <div style='width: 100%;height: 10%;'>
-          <div style='float:left;width: 40%;font-size: 22px;line-height: 50px;margin-left: 10%;'>
+          <div style='float:left;width: 40%;font-size: 22px;line-height: 5vw;margin-left: 10%;'>
             转账支付
           </div>
           <div style='float:right;width: 50%;text-align: right' @click='closeTransferModal'>
             <img src='@/assets/images/img-close.png'
-                 style='width: 30px;height: 30px;margin-top: 10px;margin-right: 10%'/>
+                 style='width: 3vw;height: 3vw;margin-top: 1vw;margin-right: 10%'/>
           </div>
         </div>
         <div style='text-align: center'>
-          <div style='width: 100%;height: 350px;font-size: 12px;'>
+          <div style='width: 100%;height: 350px;font-size: 1.2vw;'>
 
-            <div style='margin-left: 5%;margin-top:10px;text-align:left;display: flex;justify-content: center;'>
+            <div style='margin-left: 5%;margin-top:1vw;text-align:left;display: flex;justify-content: center;'>
               <span style='display: flex;justify-content: center;'>帐号：</span>
               <span style='text-align: left;'>{{bankInfo.account_no}}</span>
               <button @click='copyText' size="mini" style="font-size: 8px;" :data-text="bankInfo.account_no">复制
               </button>
             </div>
-            <div style='margin-left: 5%;margin-top:10px;text-align:left;display: flex;justify-content: center;'>
+            <div style='margin-left: 5%;margin-top:1vw;text-align:left;display: flex;justify-content: center;'>
               <span style='display: flex;justify-content: center;'>户名：</span>
               <span style='text-align: left;'>{{bankInfo.account_name}}</span>
               <button @click='copyText' size="mini" style="font-size: 8px;" :data-text="bankInfo.account_name">复制
               </button>
             </div>
-            <div style='margin-left: 5%;margin-top:10px;text-align:left;display: flex;justify-content: center;'>
+            <div style='margin-left: 5%;margin-top:1vw;text-align:left;display: flex;justify-content: center;'>
               <span style='display: flex;justify-content: center;'>银行：</span>
               <span style='text-align: left;'>{{bankInfo.bank_name}}</span>
               <button @click='copyText' size="mini" style="font-size: 8px;" :data-text="bankInfo.bank_name">复制
               </button>
             </div>
 
-            <div style='wid:200px;height:100px;text-align: center;margin-top: 30px;'>
+            <div style='wid:200px;height:100px;text-align: center;margin-top: 3vw;'>
               <span style='font-size: 18px;'>请在支付时备注您订单内的联系号码 \n</span>
               <span style='font-size: 18px;color: #c0c0c0'>注：转账支付为人工审核</span>
             </div>
           </div>
-          <div style='width: 60%;text-align: center;margin-top: 30px;margin-left: 20%;'>
+          <div style='width: 60%;text-align: center;margin-top: 3vw;margin-left: 20%;'>
             <button @click="havePaid" data-type="banktransfer" class="wux-button wux-button--block" type="default">
               已支付，查看订单
             </button>
@@ -74,13 +74,13 @@
       <div class="mask" catchtouchmove="preventTouchMove" v-if="show_paynow_modal"></div>
       <div class="paynow" v-if="show_paynow_modal">
         <div style='width: 100%;height: 10%;'>
-          <div style='float:left;width: 40%;font-size: 18px;line-height: 50px;margin-left: 5%;'>
+          <div style='float:left;width: 40%;font-size: 18px;line-height: 5vw;margin-left: 5%;'>
             PayNow
           </div>
 
           <div style='float:right;width: 50%;text-align: right' @click='closePayNowModal'>
             <img src='@/assets/images/img-close.png'
-                 style='width: 24px;height: 24px;margin-top: 10px;margin-right: 5%'/>
+                 style='width: 24px;height: 24px;margin-top: 1vw;margin-right: 5%'/>
           </div>
         </div>
         <div style='float:left;width: 100%;margin-left: 5%;'>
@@ -102,12 +102,12 @@
           <div style='width: 100%;height: 350px;justify-content: center; '>
             <img :src='payNowQr'
                  style='width: 160px;height: 160px;margin-top: 20px;border: 1px solid #000;'/>
-            <div style='wid:200px;height:40px;margin-top:10px;'>
+            <div style='wid:200px;height:40px;margin-top:1vw;'>
 
               <span style='text-align: left'>{{$t('order.saomazhifu')}}  <!--或 uen: {{payNowUen}}--></span>
 
             </div>
-            <div style='wid:200px;height:100px; margin-top:10px;'>
+            <div style='wid:200px;height:100px; margin-top:1vw;'>
               <span style='font-size: 18px;'><!--请在支付时备注您订单内的联系号码 \n--></span>
               <span style='font-size: 18px;color: #c0c0c0'>注：转账支付为人工审核</span>
             </div>
@@ -128,12 +128,12 @@
       <div class="mask" catchtouchmove="preventTouchMove" v-if="show_payment_modal"></div>
       <div class="modalDlg" v-if="show_payment_modal">
         <div style='width:100%;height:40px;border-bottom:1px solid #ccc;margin:0;padding:0;'>
-          <span style='text-align:center;font-size:14px;font-weight:600 ;margin-top:10px'>{{$t('cart.zhifufangshi')}}</span>
+          <span style='text-align:center;font-size:14px;font-weight:600 ;margin-top:1vw'>{{$t('cart.zhifufangshi')}}</span>
         </div>
 
         <!-- 总金额 -->
-        <div style='height:50px;width:100%'>
-          <span style='font-size:30px;color:#f00'>${{tot_price}}</span>
+        <div style='height:5vw;width:100%'>
+          <span style='font-size:3vw;color:#f00'>${{tot_price}}</span>
         </div>
 
         <!--
@@ -255,7 +255,7 @@
           <div v-if="tabIdx!=2&&is_hexiao!=1">
             <p class="address-red">{{$t('order.xinxi')}} {{community.disUserName}} ({{community.communityName}})
 
-              <router-link style="display:inline;right: 10px;" class="to-distribution"
+              <router-link style="display:inline;right: 1vw;" class="to-distribution"
                          hoverClass="none" to="/lionfish_comshop/pages/position/community">
                 <span>{{$t('order.qiehuantuanzhang')}} </span>
               </router-link>
@@ -398,7 +398,7 @@
                    :style="ck_yupay==2?'color:'+skin.color:''">
                 <span class="iconfont icon-weixinzhifu oc-payment-icon" style="color:#00c800;"></span>
                 <div class="oc-payment-method">PayNow</div>
-                <div class="oc-payment-recommend" :style="{color:skin.color,'border-color':skin.color}">推荐</div>
+                <!--<div class="oc-payment-recommend" :style="{color:skin.color,'border-color':skin.color}">推荐</div>-->
               </div>
             </div>
 
@@ -427,7 +427,7 @@
                    :style="ck_yupay==2?'color:'+skin.color:''">
                 <span class="iconfont icon-weixinzhifu oc-payment-icon" style="color:#00c800;"></span>
                 <div class="oc-payment-method">PayNow支付</div>
-                <div class="oc-payment-recommend" :style="{'color':skin.color , 'border-color':skin.color}">推荐</div>
+                <!--<div class="oc-payment-recommend" :style="{'color':skin.color , 'border-color':skin.color}">推荐</div>-->
               </div>
             </div>
 
@@ -2499,7 +2499,7 @@
     position: relative;
     box-sizing: border-box;
     width: 100%;
-    padding: 0 10px;
+    padding: 0 1vw;
     background-color: #fff;
   }
 
@@ -2516,21 +2516,21 @@
     position: relative;
     display: inline-block;
     margin-left: 1vw;
-    font-size: 2px;
+    font-size: 3vw;
     color: #333;
   }
 
   .oc-payment-recommend {
     position: relative;
     display: inline-block;
-    width: 30px;
-    height: 17px;
-    margin-left: 10px;
-    line-height: 17px;
+    width: 7vw;
+    height: 4vw;
+    margin-left: 1vw;
+    line-height: 3vw;
     text-align: center;
-    font-size: 2px;
+    font-size: 3vw;
     color: #ee2e3a;
-    border-radius: 2px;
+    border-radius: 0.2vw;
     border: 1px solid #ee2e3a;
   }
 
@@ -2712,7 +2712,7 @@
     /* border: 8px solid #e8e9f7; */
     background-color: white;
     z-index: 200;
-    border-radius: 10px;
+    border-radius: 1vw;
     overflow: auto;
 
   }
@@ -2727,18 +2727,18 @@
     /* border: 8px solid #e8e9f7; */
     background-color: white;
     z-index: 9100;
-    border-radius: 2px;
+    border-radius: 0.2vw;
     overflow: auto;
   }
 
   .deliveryTimeItem {
     border: 1px solid #ccc;
-    height: 30px;
-    font-size: 1px;
+    height: 3vw;
+    font-size: 1.2vw;
     margin-bottom: 8px;
     padding-left: 8px;
     padding-right: 8px;
-    line-height: 30px;
+    line-height: 3vw;
     border-radius: 5px;
     display: flex;
     flex-direction: row;
@@ -2750,8 +2750,8 @@
 
   .storefront-item {
     border: 1px solid #ccc;
-    height: 50px;
-    font-size: 1px;
+    height: 5vw;
+    font-size: 1.2vw;
     margin-bottom: 8px;
     padding: 8px;
     border-radius: 5px;
