@@ -200,7 +200,7 @@
           <div slot="header">
             <div class="i-flex i-flex-spb invalid-head">
               <div></div>
-              <div @click="clearlose">清空
+              <div @click="clearlose">{{$t('cart.qingkong')}}
                 <span class="iconfont icon-shanchu1"></span>
               </div>
             </div>

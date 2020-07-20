@@ -273,7 +273,8 @@ export default {
     qingxuanzeninyaogoumai: '请选择您要购买的商品',
     shouqin: '售罄',
     yishouqin: '已售罄',
-    shanchu: '删除'
+    shanchu: '删除',
+    qingkong: '清空'
   },
   type: {
     yijingdingbu: '已经拉到最顶部啦～',
