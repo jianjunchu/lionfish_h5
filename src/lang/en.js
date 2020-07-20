@@ -253,7 +253,8 @@ export default {
     qingxuanzeninyaogoumai: 'Please select the products you want to buy.',
     shouqin: 'Sold Out',
     yishouqin: 'Sold Out',
-    shanchu: 'Delete'
+    shanchu: 'Delete',
+    qingkong: 'Delete'
   },
   type: {
     yijingdingbu: 'Already on the top～',
