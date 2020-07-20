@@ -40,7 +40,8 @@
         <i-community-item :city="city" class="item-border" :isOld="true"
                           :item="historyCommunity"></i-community-item>
       </div>
-      <div class="community-list around-communities">
+      <!--<div class="community-list around-communities">-->
+      <van-list v-model="hasRefeshin" :finished="!loadMore" @load="load_gps_community_list" class="community-list around-communities">
         <div class="title" :style="{'border-color':skin.color}">{{$t('host.fujin')}}{{groupInfo.group_name}}</div>
         <i-community-item :isOld="true" :city="city" class="item-border" :groupInfo="groupInfo"
                           :hiddenDetails="index_hide_headdetail_address" :item="item" :skin="skin"
@@ -58,8 +59,9 @@
             </div>
           </block>
         </div>
-        <i-load-more :loading="loadMore" :tip="tip"></i-load-more>
-      </div>
+        <!--<i-load-more :loading="loadMore" :tip="tip"></i-load-more>-->
+     <!-- </div>-->
+      </van-list>
     </div>
   </i-auth>
 
@@ -70,21 +72,18 @@
   import status from '../../utils/index.js'
   import QQMapWX from '../../utils/qqmap-wx-jssdk.min.js'
   import location from '../../utils/Location'
-
+  import { List } from 'vant';
   import VueAMap from 'vue-amap';
-  import {
-    AMapManager
-  } from 'vue-amap'
+  import { AMapManager } from 'vue-amap'
+
   let amapManager = new AMapManager()
 
   export default {
     name: '',
-
     mixins: [GlobalMixin],
+    components:{[List.name]:List},
     data() {
-
       return {
-
         loadMore: !0,
         canGetGPS: !0,
         tip: '加载中...',
