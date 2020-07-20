@@ -33,9 +33,7 @@
           <div @click="change_sub_cate(rushCategoryData.tabs[rushCategoryData.activeIndex].id,0)" class="sub-cate-item" style="color:#fff">{{$t('common.quanbu')}}</div>
           <div @click="change_sub_cate(item.id,index+1)" class="sub-cate-item" style="color:#fff" v-for="(item,index) in rushCategoryData.tabs[rushCategoryData.activeIndex].sub" :key="item.id">{{item.name}}</div>
       </div> -->
-      <div scrollWithAnimation bindscroll="scroll" bindscrolltolower="scrollBottom" bindtouchend="touchend"
-           bindtouchstart="touchstart" class="page-list scrollY " lowerThreshold="200" scrollTop="resetScrollBarTop"
-           upperThreshold="50">
+      <van-list v-model="$data.$data.loading" :finished="!loadMore" @load="getHotList" class="page-list scrollY">
         <div class="scroll-col-tip-top">
           <span v-if="isFirstCategory">{{$t('type.yijingdingbu')}}</span>
           <span v-else>{{$t('type.xialachakan')}}</span>
@@ -58,7 +56,7 @@
           </div> -->
           <div style="height:50px"></div>
         </div>
-      </div>
+      </van-list>
     </div>
     <!-- <i-empty wx:else>暂无分类~</i-empty> -->
     <i-tabbar @authModal="authModal" :cartNum="cartNum" :class="['tabbar' ,isIpx?'pb20':'']" currentIdx="1"
@@ -79,6 +77,7 @@
   import status from '../../utils/index.js'
   import util from '../../utils'
   import wcache from '../../utils/wcache.js'
+  import { List } from 'vant';
 
   var _extends = Object.assign || function(t) {
     for (var a = 1; a < arguments.length; a++) {
@@ -92,13 +91,8 @@
 
   export default {
     name: 'type',
-    mixins:
-      [GlobalMixin],
-    components:
-      {
-        [typeItem.name]:
-        typeItem
-      }
+    mixins: [GlobalMixin],
+    components: { [typeItem.name]: typeItem,[List.name]:List }
     ,
     data() {
 
