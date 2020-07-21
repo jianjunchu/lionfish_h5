@@ -30,10 +30,19 @@
                 <div class="title">{{groupInfo.owner_name}}{{$t('goodsinfo.xinxi')}}</div>
                 <div class="detail">
                     <span>{{order.order_info.ziti_name}}</span>
-                    <div @click="callTelphone" class="phone" :data-phone="order.order_info.ziti_mobile" v-if="hidePhone==0">
-                        <img class="icon-phone" src="@/assets/images/phone2.png"/>
-                        <span>{{$t('goodsinfo.lianxi')}}{{groupInfo.owner_name}}</span>
-                    </div>
+                    <!--<div @click="callTelphone" class="phone" :data-phone="order.order_info.ziti_mobile" v-if="hidePhone==0">-->
+                        <!--<img class="icon-phone" src="@/assets/images/phone2.png"/>-->
+                        <!--<span>{{$t('goodsinfo.lianxi')}}{{groupInfo.owner_name}}</span>-->
+                    <!--</div>-->
+                  <div @click="goLink" class="phone" :data-link="order.order_info.head_whatsapplink" v-if="order.order_info.head_whatsapplink != '' && order.order_info.head_whatsapplink != undefined && order.order_info.head_whatsapplink != null">
+                  <img class="icon-phone" src="@/assets/images/phone2.png"/>
+                  <span>{{$t('goodsinfo.lianxi')}}{{groupInfo.owner_name}}</span>
+                  </div>
+                  <!--<div @click="goLink" class="goods-sign-btn" :data-link="community.whatsapplink"-->
+                       <!--v-show="community.whatsapplink != '' && community.whatsapplink != undefined && community.whatsapplink != null ">-->
+                    <!--<img src="@/assets/images/join-group.png" height="20vw" width="20vw"/> <span-->
+                    <!--style="font-size:larger;float:right">Join Group</span>-->
+                  <!--</div>-->
                 </div>
             </div>
         </div>
@@ -52,6 +61,8 @@
 </template>
 
 <script>
+  import status from '../../utils'
+
   export default {
     name: 'i-goodsInfo',
     props: {
@@ -92,9 +103,13 @@
             var a = (t = "" + t).replace(/(\d{3})\d*(\d{4})/, "$1****$2");
             this.tel= a;
           }
+//          this.getCommunityInfo(order);
         },
         immediate: true
       }
+    },
+    created: function() {
+
     },
     methods:{
       callTelphone: function(e) {
@@ -105,11 +120,42 @@
             t.isCalling = !1;
           }
         }));
+      },
+      getCommunityInfo: function(order) {
+        var head_id = order.order_info.head_id;
+        status.getCommunityById(head_id).then(res => {
+            console.log(res.data,"community");
+            this.community = res.data
+        })
+//        let that = this
+//        let community = this.$wx.getStorageSync('community')
+//        if (community) {
+//          if (!community.head_mobile) {
+//            status.getCommunityById(community.communityId).then(res => {
+//                debugger
+//              this.community = res.data
+//            })
+//          } else {
+//            this.community = community
+//          }
+//        } else {
+//          var token = this.$wx.getStorageSync('token')
+//          token && status.getCommunityInfo().then(res => {
+//              debugger
+//            this.community = res.data
+//          })
+//        }
+//        this.$forceUpdate()
+      },
+      goLink: function(event) {
+        let link = event.currentTarget.dataset.link
+        window.location.href = link
       }
     },
     data(){
       return{
-        isCalling: !1
+        isCalling: !1,
+        community:{}
       }
     }
   }
@@ -179,5 +225,17 @@
     color: #ff5344;
     font-size: 20px;
   }
-
+  .goods-sign-btn {
+    display: inline-block;
+    height: 6vw;
+    padding: 0 2vw;
+    border: 1px solid #2ebc45;
+    border-radius: 3vw;
+    text-align: center;
+    font-size: 2vw;
+    line-height: 5.5vw;
+    color: #2ebc45;
+    margin-left: 1vw;
+    vertical-align:middle;
+  }
 </style>
