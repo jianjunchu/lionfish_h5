@@ -44,7 +44,7 @@
         </div>
         <div class="empty-wrap" v-if="quan.length==0&&isHideLoadMore">
           <image class="empty-img" src="@/assets/images/noData.png"></image>
-          <div class="empty-txt">暂无任何记录～</div>
+          <div class="empty-txt">{{$t('common.zanwurenhejilu')}}</div>
         </div>
         <i-load-more iClass="loadMore" :loading="!isHideLoadMore" :tip="loadText" v-if="!isHideLoadMore"></i-load-more>
       </div>

@@ -72,7 +72,8 @@ export default {
     fenxiang: 'Share',
     haoyou: 'Friends',
     fanhuishouye: 'Back to Homepage',
-    qingqiushibai: 'Request Failed'
+    qingqiushibai: 'Request Failed',
+    zanwurenhejilu: 'No Records'
   },
   host: {
     shuruxinxi: 'Your Details',
@@ -352,12 +353,12 @@ export default {
     shenqingriqi: 'Withdraw Date'
   },
   week: {
-    sunday: 'Sun.',
-    monday: 'Mon.',
-    tuesday: 'Tues.',
+    sunday: 'Sun',
+    monday: 'Mon',
+    tuesday: 'Tue.',
     wednesday: 'Wed.',
-    thursday: 'Thurs.',
-    friday: 'Fri.',
-    saturday: 'Sat.'
+    thursday: 'Thu',
+    friday: 'Fri',
+    saturday: 'Sat'
   }
 }
