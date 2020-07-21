@@ -355,8 +355,8 @@ export default {
   week: {
     sunday: 'Sun',
     monday: 'Mon',
-    tuesday: 'Tue.',
-    wednesday: 'Wed.',
+    tuesday: 'Tue',
+    wednesday: 'Wed',
     thursday: 'Thu',
     friday: 'Fri',
     saturday: 'Sat'
