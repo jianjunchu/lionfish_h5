@@ -614,7 +614,7 @@
               <div @click="changePickupDate"
                    :class="['category-item',rickupTimeData.activeDateIndex == index?'active':'']" :data-index="index"
                    v-for="(item , index) in rickupTimeData.list" :key="index">
-                {{item.date}}
+                {{item.md}}({{$t('week.'+item.week_key)}})
               </div>
 
 
@@ -1866,6 +1866,8 @@
           method: 'POST',
           success: function(e) {
             var list = e.data;
+
+
             r.rickupTimeData.list = list
             r.rickupTimeData.currentTimes = list[0].times
 
@@ -2831,7 +2833,7 @@
     height: 12vw;
     display: flex;
     align-items: center;
-    justify-content: center;
+    padding-left: 4vw;
     font-size: 3vw;
     color: #787878;
     line-height: 20vw;

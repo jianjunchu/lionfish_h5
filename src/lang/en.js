@@ -288,7 +288,7 @@ export default {
     suoyoushangpin: 'All Products',
     zhidingshangpin: 'Specified Products',
     zhidingfenlei: 'Specified Category'
-  },  
+  },
   wallet: {
     jinrishouru: 'Today\'s Commission',
     benyueshouru: 'This Month',
@@ -333,5 +333,14 @@ export default {
     jujue: 'Reject',
     tixianjine: 'Withdraw Amount',
     shenqingriqi: 'Withdraw Date'
+  },
+  week: {
+    sunday: 'Sun.',
+    monday: 'Mon.',
+    tuesday: 'Tues.',
+    wednesday: 'Wed.',
+    thursday: 'Thurs.',
+    friday: 'Fri.',
+    saturday: 'Sat.'
   }
 }
