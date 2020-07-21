@@ -107,7 +107,7 @@
       <!--
       <button class="wux-button wux-button--block" type="warn" style="margin-top=16px">到店付款</button>
       -->
-      <button @click="payNow" class="wux-button wux-button--block" type="warn" :style="{background:skin.color,color:' #fff'}" >PayNow支付</button>
+      <button @click="payNow" class="wux-button wux-button--block" type="warn" :style="{background:skin.color,color:' #fff'}" >PayNow</button>
       <button @click="yuepay" v-if="is_open_yue_pay ==1" :style="{background:skin.color,color:' #fff','font-size':'2vw'}" class="wux-button wux-button--block" type="warn">余额支付（余额：${{accountMoney}}）</button>
 
       <!-- <button @click="orderPayTransfer" data-type="banktransfer" class="wux-button wux-button&#45;&#45;block" type="warn">公司转账</button>-->

@@ -252,7 +252,9 @@ export default {
     saomazhifu: 'PayNow扫码支付',
     jiaoyiliushui: '交易流水',
     shuruliushuihao: '请输入PayNow支付交易流水',
-    yizhifu: '已支付，查看订单'
+    yizhifu: '已支付，查看订单',
+    haoburongyi: '好不容易挑出来，确定要取消吗？',
+    quxiaochenggong: '取消成功'
   },
   cart: {
     gouwuchekong: '购物车空空如也，赶紧去逛逛吧~',

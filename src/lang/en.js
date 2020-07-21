@@ -211,7 +211,7 @@ export default {
     wurenhedingdan: 'No Orders',
     chakanxiangqing: 'Deteil',
     shifu: 'Paid',
-    quxiaodingdan: 'Cancel',
+    quxiaodingdan: 'Cancel Order',
     quxiaodingdantuikuan: "Cancel and Refund",
     lijizhifu: 'Pay',
     xiadanshijian: 'Order Time:',
@@ -232,7 +232,9 @@ export default {
     saomazhifu: 'SCAN TO PAY',
     jiaoyiliushui: 'Enter Reference No.',
     shuruliushuihao: 'Enter Reference No. of PayNow Transaction',
-    yizhifu: 'Submit'
+    yizhifu: 'Submit',
+    haoburongyi: 'Are you sure?',
+    quxiaochengggong: 'Cancel Successful'
   },
   cart: {
     gouwuchekong: 'Back to Homepage',

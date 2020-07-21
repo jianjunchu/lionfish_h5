@@ -426,7 +426,7 @@
               <div :class="['oc-payment-item', ck_yupay==2?'oc-payment-selected':'']"
                    :style="ck_yupay==2?'color:'+skin.color:''">
                 <span class="iconfont icon-weixinzhifu oc-payment-icon" style="color:#00c800;"></span>
-                <div class="oc-payment-method">PayNow支付</div>
+                <div class="oc-payment-method">PayNow</div>
                 <!--<div class="oc-payment-recommend" :style="{'color':skin.color , 'border-color':skin.color}">推荐</div>-->
               </div>
             </div>
