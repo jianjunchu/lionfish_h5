@@ -134,7 +134,7 @@
 	-->
           </div>
           <div class="to-get-wrap" v-if="order.order_info.order_status_id==1 || order.order_info.order_status_id==15">
-            <div class="font-bold-20">{{$t('order.beihuozhong')}}}}</div>
+            <div class="font-bold-20">{{$t('order.beihuozhong')}}</div>
             <img class="little-img" src="@/assets/images/img_delivery@2x.png"/>
           </div>
           <div class="to-get-wrap" v-if="order.order_info.order_status_id==2">
