@@ -347,8 +347,8 @@
       sign_one: function(e) {
         var n = this, o = e.currentTarget.dataset.order_id, t = this.$wx.getStorageSync("token");
         this.$wx.showModal({
-          title: "提示",
-          content: "确认提货",
+          title: n.$t('cart.tishi'),
+          content: n.$t('order.querentihuo'),
           confirmColor: "#F75451",
           success: function(e) {
             e.confirm && this.$http({

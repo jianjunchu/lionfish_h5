@@ -271,11 +271,10 @@
     color: #666;
     text-align: center;
     padding: 0;
-    width: 68px;
-    height: 26px;
-    line-height: 26px;
-    font-size: 12px;
-    border-radius: 13px;
+    line-height: 6vw;
+    font-size: 1.8vw;
+    border-radius: 50%;
+    padding: 0vw 2vw;
     box-sizing: border-box;
 }
 
@@ -297,11 +296,10 @@
 .card-btn .btn-2 {
     text-align: center;
     padding: 0;
-    width: 68px;
-    height: 26px;
-    line-height: 26px;
-    font-size: 12px;
-    border-radius: 13px;
+    line-height: 6vw;
+    font-size: 1.5vw;
+    border-radius: 3vw;
+    padding: 0vw 2vw;
     box-sizing: border-box;
     color: #aaa;
     background-color: #f6f6f6;

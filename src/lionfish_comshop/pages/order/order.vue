@@ -8,7 +8,7 @@
           转账支付
         </div>
         <div style='float:right;width: 50%;text-align: right' @click='closeTransferModal'>
-          <img src='@/assets/images/img-close.png' style='width: 30px;height: 30px;margin-top: 10px;margin-right: 10%'></img>
+          <img src='@/assets/images/img-close.png' style='width: 30px;height: 30px;margin-top: 10px;margin-right: 10%'/>
         </div>
       </div>
       <div style='text-align: center'>
@@ -48,7 +48,7 @@
           PayNow
         </div>
         <div style='float:right;width: 50%;text-align: right' @click='doClosePayNowModal'>
-          <img src='@/assets/images/img-close.png' style='width: 24px;height: 24px;margin-top: 10px;margin-right: 5%'></img>
+          <img src='@/assets/images/img-close.png' style='width: 24px;height: 24px;margin-top: 10px;margin-right: 5%'/>
         </div>
       </div>
 
@@ -67,7 +67,7 @@
 
       <div style='text-align: center'>
         <div style='width: 100%;height: 350px;justify-content: center; '>
-          <img :src='payNowQr' style='width: 160px;height: 160px;margin-top: 20px;border: 1px solid #000;'></img>
+          <img :src='payNowQr' style='width: 160px;height: 160px;margin-top: 20px;border: 1px solid #000;'/>
           <div style='wid:200px;height:40px;margin-top:10px;'>
 
             <span style='text-align: left;'>{{$t('order.saomazhifu')}}<!--或 uen: {{payNowUen}}--></span>
@@ -134,51 +134,51 @@
 	-->
           </div>
           <div class="to-get-wrap" v-if="order.order_info.order_status_id==1 || order.order_info.order_status_id==15">
-            <div class="font-bold-20">备货中</div>
-            <img class="little-img" src="@/assets/images/img_delivery@2x.png"></img>
+            <div class="font-bold-20">{{$t('order.beihuozhong')}}}}</div>
+            <img class="little-img" src="@/assets/images/img_delivery@2x.png"/>
           </div>
           <div class="to-get-wrap" v-if="order.order_info.order_status_id==2">
             <div class="font-bold-20">拼团中，已付款</div>
-            <img class="little-img" src="@/assets/images/img_delivery@2x.png"></img>
+            <img class="little-img" src="@/assets/images/img_delivery@2x.png"/>
           </div>
           <div class="to-get-wrap" v-if="order.order_info.order_status_id==14">
             <div class="font-bold-20">{{$t('order.peisongzhong')}}</div>
-            <img class="little-img" src="@/assets/images/img_delivery@2x.png"></img>
+            <img class="little-img" src="@/assets/images/img_delivery@2x.png"/>
           </div>
           <div class="to-get-wrap" v-if="order.order_info.order_status_id==16">
             <div class="font-bold-20">{{$t('order.zhifudaiqueren')}}</div>
-            <img class="little-img" src="@/assets/images/img_delivery@2x.png"></img>
+            <img class="little-img" src="@/assets/images/img_delivery@2x.png"/>
           </div>
           <div class="to-get-wrap" v-if="order.order_info.order_status_id==4">
-            <div class="font-bold-20">{{order.order_status_info.name?order.order_status_info.name:'可提货'}}</div>
-            <img class="little-img" src="@/assets/images/img_ready_to_get@2x.png"></img>
+            <div class="font-bold-20">{{order.order_status_info.name?order.order_status_info.name: $t('order.ketihuo')}}</div>
+            <img class="little-img" src="@/assets/images/img_ready_to_get@2x.png"/>
           </div>
           <div class="to-get-wrap" v-if="order.order_info.order_status_id==6">
             <div class="font-bold-20">{{$t('order.yiqianshou')}}</div>
-            <img class="little-img" src="@/assets/images/img_trade_succeed@2x.png"></img>
+            <img class="little-img" src="@/assets/images/img_trade_succeed@2x.png"/>
           </div>
           <div class="trade-cancel-wrap" v-if="order.order_info.order_status_id==10">
             <div class="font-bold-20 cancel-box">
-              <img class="cancel-img" src="@/assets/images/icon_exclamation@2x.png"></img>等待退款
+              <img class="cancel-img" src="@/assets/images/icon_exclamation@2x.png"/>{{$t('order.dengdaituikuan')}}}
             </div>
           </div>
           <div class="to-get-wrap" v-if="order.order_info.order_status_id==11">
             <div class="font-bold-20">{{$t('order.jiaoyiwancheng')}}</div>
-            <img class="little-img" src="@/assets/images/img_trade_succeed@2x.png"></img>
+            <img class="little-img" src="@/assets/images/img_trade_succeed@2x.png"/>
           </div>
           <div class="trade-cancel-wrap" v-if="order.order_info.order_status_id==12">
             <div class="font-bold-20 cancel-box">
-              <img class="cancel-img" src="@/assets/images/icon_exclamation@2x.png"></img>售后中
+              <img class="cancel-img" src="@/assets/images/icon_exclamation@2x.png"/>{{$t('order.shouhouzhong')}}
             </div>
           </div>
           <div class="trade-cancel-wrap" v-if="order.order_info.order_status_id==5||changeState==1">
             <div class="font-bold-20 cancel-box">
-              <img class="cancel-img" src="@/assets/images/icon_exclamation@2x.png"></img>{{$t('order.jiaoyiquxiao')}}
+              <img class="cancel-img" src="@/assets/images/icon_exclamation@2x.png"/>{{$t('order.jiaoyiquxiao')}}
             </div>
           </div>
           <div class="trade-cancel-wrap" v-if="order.order_info.order_status_id==7">
             <div class="font-bold-20 cancel-box">
-              <img class="cancel-img" src="@/assets/images/icon_exclamation@2x.png"></img>已退款
+              <img class="cancel-img" src="@/assets/images/icon_exclamation@2x.png"/>{{$t('order.yituikuan')}}
             </div>
           </div>
         </div>
@@ -198,9 +198,9 @@
               <div class="goods-cancel bold-text" v-if="order.order_info.order_status_id==5">已取消</div>
               <!--<div class="goods-ready bold-text" style="color:{{skin.color}}" v-if="order.order_info.order_status_id==1||order.order_info.order_status_id==14">-->
               <div class="goods-ready bold-text" :style="{color:skin.color}" v-if="order.order_info.order_status_id==1||order.order_info.order_status_id==14">
-                <div v-if="order.order_info.delivery=='pickup'">预计{{order.order_info.pick_up_time}}可提货</div>
+                <!--<div v-if="order.order_info.delivery=='pickup'">预计{{order.order_info.pick_up_time}}可提货</div>
                 <div v-else-if="order.order_info.delivery=='tuanz_send'">预计{{order.order_info.pick_up_time}}{{groupInfo.owner_name}}配送</div>
-                <div v-else>快递配送</div>
+                <div v-else>快递配送</div>-->
               </div>
               <div class="goods-done bold-text" v-if="order.order_info.order_status_id==6||order.order_info.order_status_id==11">{{showRealPickUpTime}}提货完成</div>
               <div class="goods-num">{{order.goods_count}} {{$t('order.jianshangpin')}}</div>
@@ -249,7 +249,8 @@
                     <!--<button class="btn-1 mar-left-8" openType="contact" :sessionFrom="sobot|userInfo.nickName|userInfo.avatarUrl" v-if="user_service_switch==1">-->
                       <!--<span>联系客服</span>-->
                     <!--</button>-->
-                    <div class="btn-2 mar-left-8" v-if="goodsInfo.is_refund_state==0&&(order.order_info.order_status_id==1||order.order_info.order_status_id==14)">备货中</div>
+                   <!-- <div class="btn-2 mar-left-8" v-if="goodsInfo.is_refund_state==0&&(order.order_info.order_status_id==1||order.order_info.order_status_id==14)">备货中</div>-->
+                    <div class="btn-2 mar-left-8" v-if="goodsInfo.is_refund_state==0&&(order.order_info.order_status_id==1||order.order_info.order_status_id==14)">{{$t('order.beihuozhong')}}</div>
                     <div @click="receivOrder" class="btn-3 mar-left-8" :data-show="confirmGoodsVisible" :data-type="order.order_info.order_id" v-if="goodsInfo.is_refund_state==0&&order.order_info.order_status_id==4">{{order.order_info.delivery=='pickup'?'确认提货':'确认收货'}}</div>
                   </div>
                 </div>
@@ -298,10 +299,10 @@
   <i-dialog bind:cancel="callDialog" bind:confirm="cancelOrder" :data-cancel="cancelOrderVisible" text="好不容易挑出来，确定要取消吗？" :visible="cancelOrderVisible"></i-dialog>
   <i-modal scrollUp="false" :visible="isShowModal">
     <div class="share-modal">
-      <img @click="closeModal" class="close-modal" src="@/assets/images/img-close.png"></img>
+      <img @click="closeModal" class="close-modal" src="@/assets/images/img-close.png"/>
       <div class="share-modal-title">@{{order.order_info.ziti_name}}{{groupInfo.owner_name}}，我是{{userInfo.shareNickName}}，刚在你这里下单啦！！！</div>
       <div class="share-modal-img">
-        <img mode="widthFix" :src="share_img?share_img:order.order_goods_list[0].goods_share_image"></img>
+        <img mode="widthFix" :src="share_img?share_img:order.order_goods_list[0].goods_share_image"/>
       </div>
       <div class="share-modal-btn">
         <!--<button class="btn-item share-btn" hoverClass="none" openType="share" style="background:{{skin.color}}">-->

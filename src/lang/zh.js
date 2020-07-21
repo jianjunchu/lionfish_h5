@@ -261,7 +261,15 @@ export default {
     meirenxiangou1: '每人限购',
     meirenxiangou2: '份',
     meidanxiangou1: '每单限购',
-    meidanxiangou2: '份'
+    meidanxiangou2: '份',
+    dengdaituikuan: '等待退款',
+    daiziti: '待自提',
+    yiziti: '已自提',
+    querentihuo: '确认提货',
+    querenshouhuo: '确认收货',
+    beihuozhong: '备货中',
+    ketihuo: '可提货',
+    shouhouzhong: '售后中'
   },
   cart: {
     gouwuchekong: '购物车空空如也，赶紧去逛逛吧~',
@@ -360,6 +368,16 @@ export default {
     chenggong: '成功',
     shenghezhong: '审核中',
     jujue: '拒绝',
-    shenqingriqi: '申请日期'
+    shenqingriqi: '申请日期',
+    querentihuo: '确认提货'
+  },
+  week: {
+    sunday: '周日',
+    monday: '周一',
+    tuesday: '周二',
+    wednesday: '周三',
+    thursday: '周四',
+    friday: '周五',
+    saturday: '周六'
   }
 }

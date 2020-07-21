@@ -108,7 +108,7 @@
         pageNum: [ 1, 1, 1, 1 ],
         pageSize: 20,
         loadText: "没有更多订单了~",
-        LoadingComplete: [ "", "", "", "" ],
+        LoadingComplete: [ false, false, false, false ],
 
       }
 
@@ -151,8 +151,10 @@
           },
           dataType: "json",
           success: function(t) {
+            e.isHideLoadMore = !0
+            e.LoadingComplete[e.currentTab] = false;
             if (0 != t.code){
-              return (e.isHideLoadMore = !0), !1;
+              return !1;
             }else{
               var a = e.order.concat(t.data);
               e.order = a, e.hide_tip = !0, e.no_order = 0;
@@ -509,9 +511,9 @@
   .my-button {
     position: relative;
     color: #666;
-    width: 13.6vw;
+    padding: 2vw;
     height: 5.2vw;
-    line-height: 5.2vw;
+    line-height: 2vw;
     font-size: 2.4vw;
     text-align: center;
   }

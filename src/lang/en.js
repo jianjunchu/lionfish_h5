@@ -241,7 +241,15 @@ export default {
     meirenxiangou1: '',
     meirenxiangou2: ' per account',
     meidanxiangou1: '',
-    meidanxiangou2: ' per order' 
+    meidanxiangou2: ' per order', 
+    dengdaituikuan: 'Waiting Refund',
+    daiziti: 'Waiting Pickup',
+    yiziti: 'Already Pickup',
+    querentihuo: 'Confirm Delivery',
+    querenshouhuo: 'Confirm Receipt',
+    beihuozhong: 'Prepare Goods',
+    ketihuo: 'Can Pickup',
+    shouhouzhong: 'After Sales'
   },
   cart: {
     gouwuchekong: 'Back to Homepage',
@@ -297,7 +305,7 @@ export default {
     suoyoushangpin: 'All Products',
     zhidingshangpin: 'Specified Products',
     zhidingfenlei: 'Specified Category'
-  },  
+  },
   wallet: {
     jinrishouru: 'Today\'s Commission',
     benyueshouru: 'This Month',
@@ -342,5 +350,14 @@ export default {
     jujue: 'Reject',
     tixianjine: 'Withdraw Amount',
     shenqingriqi: 'Withdraw Date'
+  },
+  week: {
+    sunday: 'Sun.',
+    monday: 'Mon.',
+    tuesday: 'Tues.',
+    wednesday: 'Wed.',
+    thursday: 'Thurs.',
+    friday: 'Fri.',
+    saturday: 'Sat.'
   }
 }
