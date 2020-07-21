@@ -102,7 +102,7 @@
       },
       onLoad: function(t) {
 //        var loginStatus = util.check_login() ;
-//        debugger
+//
 //        if (loginStatus){
 //          this.is_login= !0
 //        }else {

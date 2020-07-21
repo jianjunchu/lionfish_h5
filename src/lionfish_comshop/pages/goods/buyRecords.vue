@@ -444,7 +444,7 @@
       i.is_comunity_rest= t.is_comunity_rest,
       i.goodsdetails_addcart_bg_color= t.goodsdetails_addcart_bg_color || "linear-gradient(270deg, #f9c706 0%, #feb600 100%)",
       i.goodsdetails_buy_bg_color= t.goodsdetails_buy_bg_color || "linear-gradient(90deg, #ff5041 0%, #ff695c 100%)";
-      debugger
+
       i.rushList = i.rushList || i.buy_record_arr.list || [];
       i.endtime= {
         days: "00",
@@ -551,10 +551,10 @@
             goods_id: goods_id,
             pageNum: o.pageNum
           }).then(t=> {
-              debugger
+
           console.log(t,"load_buy_recordlist");
             if (0 == t.code) {
-                debugger
+
               var a = o.rushList.concat(t.data);
 
                 o.rushList= a,

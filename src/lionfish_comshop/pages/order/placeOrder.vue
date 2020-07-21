@@ -1361,7 +1361,7 @@
             dataType: 'json',
             method: 'POST',
             success: function(t) {
-              debugger
+
               console.log(t)
               wx.hideLoading()
 
@@ -1971,7 +1971,8 @@
     display: block;
     overflow: hidden;
     text-overflow: ellipsis;
-    white-space: nowrap;
+    word-wrap:break-word;
+    word-break:normal;
   }
 
   .address-line {
@@ -2543,7 +2544,7 @@
     content: "\e650";
     position: absolute;
     top: 0;
-    right: 0;
+    right: 3vw;
     line-height: 9vw;
   }
 

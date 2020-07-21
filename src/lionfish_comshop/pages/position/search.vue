@@ -113,7 +113,7 @@
           },
           dataType: 'json',
           success: function(t) {
-            debugger
+
             if (0 == t.code) {
               var a = i.communities.concat(t.list)
               i.communities = a

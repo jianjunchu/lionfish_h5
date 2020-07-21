@@ -557,11 +557,12 @@
 
   .i-input-number-text {
     text-align: center;
-    height: 24px;
-    width: 33px;
-    font-size: 12px;
-    line-height: 24px;
+    width: 7vw;
+    font-size: 3.5vw;
+    line-height: 7vw;
     color: #495060;
     z-index: 0;
+    border: none;
+    outline: none;
   }
 </style>
