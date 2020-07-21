@@ -46,11 +46,15 @@
           <div class="title">{{groupInfo.owner_name}}</div>
           <div class="detail">
             <span>{{order.order_info.ziti_name}}</span>
-            <div @click="callTelphone" class="phone" :data-phone="order.order_info.ziti_mobile"
+
+            <div  class="phone" :data-url="order.order_info.head_whatsapplink" :data-phone="order.order_info.ziti_mobile"
                   v-if="hidePhone==0">
+              <a :href="order.order_info.head_whatsapplink">
               <img class="icon-phone" src="@/assets/images/phone2.png"/>
-              <span>Contact &nbsp;{{groupInfo.owner_name}}</span>
+              <span> Contact &nbsp;{{groupInfo.owner_name}}</span>
+              </a>
             </div>
+
           </div>
         </div>
       </div>
@@ -123,12 +127,16 @@
     },
     callTelphone: function(e) {
       var i = this;
-      this.isCalling || (this.isCalling = !0, wx.makePhoneCall({
+      var url = e.currentTarget.dataset.url;
+
+      window.location.href=url;
+
+      /*this.isCalling || (this.isCalling = !0, wx.makePhoneCall({
         phoneNumber: e.currentTarget.dataset.phone,
         complete: function() {
           i.data.isCalling = !1;
         }
-      }));
+      }));*/
     },
     goExpress: function() {
       var e = this.order.order_info.order_id;

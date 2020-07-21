@@ -73,7 +73,9 @@ export default {
     }).then(function(res) {
       option.success(res)
     }).catch(function(res) {
-      option.error(res)
+      if (option.hasOwnProperty('error')) {
+        option.error(res)
+      }
     })
   },
   setStorage: function(option) {

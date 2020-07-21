@@ -81,7 +81,7 @@
               </div>
             </div>
             <div class="song_button">
-              <div @click="callPhone" class="goods-sign-btn" :data-phone="item.shipping_tel">
+              <div @click="callPhone" class="goods-sign-btn" :data-phone="item.shipping_tel" >
                 <img src="@/assets/images/phone.png" /> <span style="font-size:medium">{{item.shipping_name}}</span>
               </div>
               <div class="song_button_item">
