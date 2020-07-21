@@ -568,7 +568,7 @@
         var token = this.$wx.getStorageSync("token");
         var that = this;
         this.$wx.showModal({
-          title: this.$t('order.quxiaozhifu'),
+          title: this.$t('order.quxiaodingdan1'),
           content: this.$t('order.haoburongyi'),
           confirmColor: '#8ED9D1',
           showCancelButton:true,

@@ -233,6 +233,7 @@ export default {
     wurenhedingdan: '暂无任何订单记录～',
     shifu: '实付',
     quxiaodingdan: '取消订单',
+    quxiaodingdan1: '取消订单',
     quxiaodingdantuikuan: '取消订单并退款',
     lijizhifu: '立即支付',
     tihuoshijian: '提货时间:',
@@ -254,7 +255,13 @@ export default {
     shuruliushuihao: '请输入PayNow支付交易流水',
     yizhifu: '已支付，查看订单',
     haoburongyi: '好不容易挑出来，确定要取消吗？',
-    quxiaochenggong: '取消成功'
+    quxiaochenggong: '取消成功',
+    manjinemian1: '满金额免',
+    manjinemian2: '',
+    meirenxiangou1: '每人限购',
+    meirenxiangou2: '份',
+    meidanxiangou1: '每单限购',
+    meidanxiangou2: '份'
   },
   cart: {
     gouwuchekong: '购物车空空如也，赶紧去逛逛吧~',
@@ -276,7 +283,9 @@ export default {
     shouqin: '售罄',
     yishouqin: '已售罄',
     shanchu: '删除',
-    qingkong: '清空'
+    qingkong: '清空',
+    haoburongyi: '好不容易挑出来，确定要取消吗？',
+    quxiaochenggong: '取消成功'
   },
   type: {
     yijingdingbu: '已经拉到最顶部啦～',

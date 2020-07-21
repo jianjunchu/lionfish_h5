@@ -723,8 +723,8 @@
 //        })
 
         Dialog.confirm({
-          title: '取消支付',
-          message: '好不容易挑出来，确定要取消吗？',
+          title: this.$t('cart.quxiaozhifu'),
+          message: this.$t('cart.haoburongyi'),
         })
           .then(() => {
             that.$http({
@@ -734,7 +734,7 @@
             }).then(res=> {
 
               wx.showToast({
-                title: "取消成功",
+                title: this.$t('order.quxiaochenggong'),
                 icon: "success",
               });
               wx.navigateTo({

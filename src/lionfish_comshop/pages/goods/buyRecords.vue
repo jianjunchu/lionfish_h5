@@ -8,8 +8,8 @@
           <div class="detailTopInfo">
             <div class="goodsName">{{goods.goodsname}}</div>
             <div class="purchasing" v-if="goods.one_limit_count>0||goods.total_limit_count>0">
-              <span v-if="goods.total_limit_count>0">每人限购{{goods.total_limit_count}}份</span>
-              <span v-if="goods.one_limit_count>0"> 每单限购{{goods.one_limit_count}}份</span>
+              <span v-if="goods.total_limit_count>0">{{$t('order.meirenxiangou1')}}{{goods.total_limit_count}}{{$('order.meirenxiangou2')}}</span>
+              <span v-if="goods.one_limit_count>0"> {{$t('order.meidanxiangou1')}}{{goods.one_limit_count}}{{$t('order.meidanxiangou2')}}</span>
             </div>
             <div class="saleNum">已售{{goods.seller_count}}份，剩余{{goods.total}}份</div>
           </div>

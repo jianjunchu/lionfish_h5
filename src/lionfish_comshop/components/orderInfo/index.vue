@@ -48,7 +48,7 @@
             </div>
           </div>
           <div class="item">
-            <div class="title">满金额免{{diyshipname}}</div>
+            <div class="title">{{$('order.manjinemian1')}}{{diyshipname}}{{$t('order.manjinemian2')}}</div>
             <div class="detail">
               - ${{orderInfo.fare_shipping_free}}
             </div>

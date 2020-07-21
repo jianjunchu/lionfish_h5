@@ -211,7 +211,8 @@ export default {
     wurenhedingdan: 'No Orders',
     chakanxiangqing: 'Deteil',
     shifu: 'Paid',
-    quxiaodingdan: 'Cancel Order',
+    quxiaodingdan: 'Cancel',
+    quxiaodingdan1: 'Cancel Order',
     quxiaodingdantuikuan: "Cancel and Refund",
     lijizhifu: 'Pay',
     xiadanshijian: 'Order Time:',
@@ -234,7 +235,13 @@ export default {
     shuruliushuihao: 'Enter Reference No. of PayNow Transaction',
     yizhifu: 'Submit',
     haoburongyi: 'Are you sure?',
-    quxiaochengggong: 'Cancel Successful'
+    quxiaochengggong: 'Cancel Successful',
+    manjinemian1: 'Free ',
+    manjinemian2: ' above $60',
+    meirenxiangou1: '',
+    meirenxiangou2: ' per account',
+    meidanxiangou1: '',
+    meidanxiangou2: ' per order' 
   },
   cart: {
     gouwuchekong: 'Back to Homepage',
@@ -256,7 +263,9 @@ export default {
     shouqin: 'Sold Out',
     yishouqin: 'Sold Out',
     shanchu: 'Delete',
-    qingkong: 'Delete'
+    qingkong: 'Delete',
+    haoburongyi: 'Are you sure?',
+    quxiaochengggong: 'Cancel Successful'
   },
   type: {
     yijingdingbu: 'Already on the top～',
