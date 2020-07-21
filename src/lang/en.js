@@ -72,7 +72,8 @@ export default {
     fenxiang: 'Share',
     haoyou: 'Friends',
     fanhuishouye: 'Back to Homepage',
-    qingqiushibai: 'Request Failed'
+    qingqiushibai: 'Request Failed',
+    zanwurenhejilu: 'No Records'
   },
   host: {
     shuruxinxi: 'Your Details',
@@ -244,12 +245,14 @@ export default {
     meidanxiangou2: ' per order',
     dengdaituikuan: 'Waiting Refund',
     daiziti: 'Waiting Pickup',
-    yiziti: 'Already Pickup',
+    yiziti: 'Received',
     querentihuo: 'Confirm Delivery',
     querenshouhuo: 'Confirm Receipt',
     beihuozhong: 'Prepare Goods',
     ketihuo: 'Can Pickup',
-    shouhouzhong: 'After Sales'
+    shouhouzhong: 'After Sales',
+    zhifuchenggong: 'Payment Confirmed',
+    zhifushibai: 'Payment Failed'
   },
   cart: {
     gouwuchekong: 'Back to Homepage',

@@ -96,7 +96,8 @@ export default {
     zanwuneirong: '暂无内容～',
     gong: '共',
     zhanshimeiyoutuangou: '暂时没有团购',
-    qingqiushibai: '请求失败'
+    qingqiushibai: '请求失败',
+    zanwurenhejilu: '暂无任何记录～'
   },
   host: {
     shuruxinxi: '请填写姓名、手机号等相关信息',
@@ -269,7 +270,9 @@ export default {
     querenshouhuo: '确认收货',
     beihuozhong: '备货中',
     ketihuo: '可提货',
-    shouhouzhong: '售后中'
+    shouhouzhong: '售后中',
+    zhifuchenggong: '支付成功',
+    zhifushibai: '支付失败'
   },
   cart: {
     gouwuchekong: '购物车空空如也，赶紧去逛逛吧~',
