@@ -234,7 +234,16 @@ export default {
     shuruliushuihao: 'Enter Reference No. of PayNow Transaction',
     yizhifu: 'Submit',
     haoburongyi: 'Are you sure?',
-    quxiaochengggong: 'Cancel Successful'
+    quxiaochengggong: 'Cancel Successful',
+
+    dengdaituikuan: 'Waiting Refund',
+    daiziti: 'Waiting Pickup',
+    yiziti: 'Already Pickup',
+    querentihuo: 'Confirm Delivery',
+    querenshouhuo: 'Confirm Receipt',
+    beihuozhong: 'Prepare Goods',
+    ketihuo: 'Can Pickup',
+    shouhouzhong: 'After Sales'
   },
   cart: {
     gouwuchekong: 'Back to Homepage',

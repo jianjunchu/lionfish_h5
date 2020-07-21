@@ -117,8 +117,6 @@
       <button wx:if='{{is_pickup}}' @click.stop="havePaid" data-type="cash" class="wux-button wux-button--block" type="warn">货到付款</button>
       -->
 
-
-
       <button @click.stop="toClosePaymentModal"  class="wux-button wux-button--block" type="default">{{$t('cart.quxiaozhifu')}}</button>
 
 
@@ -140,7 +138,11 @@
               </div>
 
               <div :class="['bold', (item.order_status_id==3?'red':'gray')]" :style="(item.order_status_id==3?'color:'+skin.color:'')">
-                {{item.status_name}}
+                <span v-if="item.order_status_id == 10"> {{ $t('order.dengdaituikuan') }}</span>
+                <span v-else-if="item.order_status_id == 4 && item.delivery=='pickup' "> {{ $t('order.daiziti') }}</span>
+                <span v-else-if="item.order_status_id == 6 && item.delivery=='pickup' "> {{ $t('order.yiziti') }}</span>
+                <span v-else> {{ item.status_name }}</span>
+
               </div>
             </div>
             <div class="card-content" slot="content">
@@ -193,7 +195,8 @@
               </div>
               <div v-if="item.order_status_id==4">
                 <div class="get-goods" :data-delivery="item.delivery" :data-type="item.order_id">
-                  <div class="sure-get" @click.stop="receivOrder" :data-delivery="item.delivery" :data-type="item.order_id">{{item.delivery=='pickup'?'确认提货':'确认收货'}}</div>
+                  <!--<div class="sure-get" @click.stop="receivOrder" :data-delivery="item.delivery" :data-type="item.order_id">{{item.delivery=='pickup'?'确认提货':'确认收货'}}</div>-->
+                  <div class="sure-get" @click.stop="receivOrder" :data-delivery="item.delivery" :data-type="item.order_id">{{item.delivery=='pickup'?$t('order.querentihuo'): $t('order.querenshouhuo')}}</div>
                   <img class="right-arrow" src="@/assets/images/rightArrowImg.png"></img>
                 </div>
               </div>

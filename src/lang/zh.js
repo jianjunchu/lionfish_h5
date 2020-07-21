@@ -254,7 +254,17 @@ export default {
     shuruliushuihao: '请输入PayNow支付交易流水',
     yizhifu: '已支付，查看订单',
     haoburongyi: '好不容易挑出来，确定要取消吗？',
-    quxiaochenggong: '取消成功'
+    quxiaochenggong: '取消成功',
+    dengdaituikuan: '等待退款',
+    daiziti: '待自提',
+    yiziti: '已自提',
+    querentihuo: '确认提货',
+    querenshouhuo: '确认收货',
+    beihuozhong: '备货中',
+    ketihuo: '可提货',
+    shouhouzhong: '售后中'
+
+
   },
   cart: {
     gouwuchekong: '购物车空空如也，赶紧去逛逛吧~',
@@ -351,7 +361,8 @@ export default {
     chenggong: '成功',
     shenghezhong: '审核中',
     jujue: '拒绝',
-    shenqingriqi: '申请日期'
+    shenqingriqi: '申请日期',
+    querentihuo: '确认提货'
   },
   week: {
     sunday: '周日',
