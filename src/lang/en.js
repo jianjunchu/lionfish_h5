@@ -250,7 +250,9 @@ export default {
     querenshouhuo: 'Confirm Receipt',
     beihuozhong: 'Prepare Goods',
     ketihuo: 'Can Pickup',
-    shouhouzhong: 'After Sales'
+    shouhouzhong: 'After Sales',
+    zhifuchenggong: 'Payment Confirmed',
+    zhifushibai: 'Payment Failed'
   },
   cart: {
     gouwuchekong: 'Back to Homepage',

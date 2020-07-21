@@ -270,7 +270,9 @@ export default {
     querenshouhuo: '确认收货',
     beihuozhong: '备货中',
     ketihuo: '可提货',
-    shouhouzhong: '售后中'
+    shouhouzhong: '售后中',
+    zhifuchenggong: '支付成功',
+    zhifushibai: '支付失败'
   },
   cart: {
     gouwuchekong: '购物车空空如也，赶紧去逛逛吧~',

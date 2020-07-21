@@ -488,11 +488,11 @@
         }
         if (is_show_tip && is_show_tip == 1) {
           this.$wx.showToast({
-            title: "支付成功"
+            title: this.$t('order.zhifuchenggong')
           })
         }else if (isfail && isfail == 1){
           this.$wx.showToast({
-            title: "支付失败",
+            title: this.$t('order.zhifushibai'),
             icon: "none"
           })
         }
