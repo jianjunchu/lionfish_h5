@@ -593,9 +593,7 @@
                       title: this.$t('order.quxiaochenggong'),
                       icon: "success",
                     });
-                    that.$wx.navigateTo({
-                      url: "/lionfish_comshop/pages/order/index"
-                    });
+                    location.reload()
                   }
                 });
             }

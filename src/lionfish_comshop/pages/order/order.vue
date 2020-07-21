@@ -159,7 +159,7 @@
           </div>
           <div class="trade-cancel-wrap" v-if="order.order_info.order_status_id==10">
             <div class="font-bold-20 cancel-box">
-              <img class="cancel-img" src="@/assets/images/icon_exclamation@2x.png"/>{{$t('order.dengdaituikuan')}}}
+              <img class="cancel-img" src="@/assets/images/icon_exclamation@2x.png"/>{{ $t('order.dengdaituikuan') }}
             </div>
           </div>
           <div class="to-get-wrap" v-if="order.order_info.order_status_id==11">

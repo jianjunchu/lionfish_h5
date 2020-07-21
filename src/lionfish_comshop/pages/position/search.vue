@@ -89,15 +89,47 @@
       },
       subInput: function() {
         if (event.keyCode == 13) { //如果按的是enter键 13是enter
+          this.communities = [];
           this.pageNum = 1
           this.hasRefeshin = !1
-          this.load_gps_community_list()
+          if (/^\d{6}$/.test(this.inputValue)) {
+            var t = wx.getStorageSync('token'),i = this, n = this.inputValue
+            app.util.request({
+              url: 'entry/wxapp/index',
+              data: {
+                controller: 'index.load_address',
+                token: t,
+                zipCode:n
+              },
+              dataType: 'json',
+              success: function(t) {
+                var data = t
+                console.log(data.results[0])
+                if (data.found > 0) {
+                  var result = data.results[0]
+                  i.load_gps_community_list('',result.LATITUDE,result.LONGITUDE)
+                }
+              }
+            })
+
+          }else{
+            this.load_gps_community_list()
+          }
         }
 
       },
-      load_gps_community_list: function() {
-        var t = wx.getStorageSync('token'), a = wx.getStorageSync('latitude'), e = wx.getStorageSync('longitude'),
-          i = this, n = this.inputValue
+      load_gps_community_list: function(n,a,e) {
+        if(a == null || a == undefined){
+          a = wx.getStorageSync('latitude');
+        }
+        if(e == null || e == undefined){
+          e = wx.getStorageSync('longitude')
+        }
+        if(n == null || n == undefined){
+          n = this.inputValue;
+        }
+
+        var t = wx.getStorageSync('token') , i = this
         i.hasRefeshin || ((
           i.hasRefeshin = !0,
             i.loadMore = !0
