@@ -1995,7 +1995,7 @@
         //location="whatsapp://send?text="+ encodeURIComponent('分享的内容') + encodeURIComponent("\n\n"+'https://hz.xx315.net/wap')+"&via=lopscoop";
       },
       share_whatsapp:function(){
-        location="whatsapp://send?text="+ encodeURIComponent('分享的内容') + encodeURIComponent("\n\n"+'https://hz.xx315.net/wap')+"&via=lopscoop";
+        location="whatsapp://send?text="+ encodeURIComponent(this.shop_info.title) + encodeURIComponent("\n\n"+'https://www.mart.com.sg')+"&via=lopscoop";
         this.is_share_html = false
       },
       confrimChangeCommunity: function() {

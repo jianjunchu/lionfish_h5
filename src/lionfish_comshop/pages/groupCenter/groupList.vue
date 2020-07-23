@@ -25,7 +25,8 @@
           </div>
         </div>
       </div>
-      <div class="content-list">
+      <!--<div class="content-list">-->
+      <van-list  @load="onReachBottom" class="content-list">
         <div class="noRecordCon" v-if="order.length<=0">
           <img class="noRecordImg" src="@/assets/images/noRecord.png"></img>
           <div class="noRecord">No Orders～</div>
@@ -96,7 +97,8 @@
           </div>
           <i-loadMore :tip="tip" v-if="!isHideLoadMore"></i-loadMore>
         </div>
-      </div>
+      <!--</div>-->
+      </van-list>
     </div>
     <i-modal scrollUp="false" :visible="showTipDialog">
       <div class="rule-modal bg-f w90p rounded">
@@ -386,7 +388,6 @@
       }
     }
   }
-</script>
-<style>
-  @import "groupList.less";
+</script >
+<style  src="@/lionfish_comshop/pages/groupCenter/groupList.css" scoped>
 </style>

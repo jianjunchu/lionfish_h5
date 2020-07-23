@@ -978,6 +978,5 @@
     }
   }
 </script>
-<style>
-  @import "me.less";
+<style  src="@/lionfish_comshop/pages/user/me.css" scoped>
 </style>

@@ -312,7 +312,6 @@
     bottom: 0;
     left: 3vw;
     right: 3vw;
-    border-bottom: 0.1vw solid #e5e5e5;
   }
 
   .spu .spu-content-type.disabled {

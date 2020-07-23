@@ -954,17 +954,21 @@ button[plain] {
 
 .fixed-service {
   display: inline-block;
-  width: 48px;
-  height: 48px;
+  bottom: 22%;
+  right: 15px;
+  width: 40px;
+  height: 40px;
+  position: fixed;
   background: rgba(0,0,0,0.5);
   border-radius: 50%;
   text-align: center;
   color: #fff;
+  -webkit-box-sizing: border-box;
   box-sizing: border-box;
-  font-size: 5px;
-  padding: 10px;
+  font-size: 10px;
+  padding: 5px;
   line-height: 1.2;
-  margin-bottom: 10px;
+  z-index: 100;
 }
 
 .fixed-service::after {
