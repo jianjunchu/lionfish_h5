@@ -8,7 +8,9 @@
             <img class="noRefundImg" src="@/assets/images/noData.png"></img>
             <div class="noRecord">暂无任何退款记录</div>
           </div>
-          <div v-else>
+          <van-list v-model="LoadingComplete[currentTab]" :finished="no_order == 1" @load="getCurrentList" class="rush-list-box" v-else>
+
+
             <div @click.stop="goRefund" class="card" :data-type="item.ref_id" v-for="(item ,index) in order" :key="item.id">
               <div class="i-card my-card" :data-orderId="item.order_id" showModal="true">
                 <div class="card-header" slot="header">
@@ -58,8 +60,10 @@
                 </div>
               </div>
             </div>
-            <i-load-more v-show="no_order == 1" :loading="LoadingComplete[currentTab]" :tip="$t('order.meiyougengduodingdan')"></i-load-more>
-          </div>
+            <i-load-more v-if="no_order == 1" :loading="false" :tip="$t('order.meiyougengduodingdan')"></i-load-more>
+
+          </van-list>
+
         </van-tab>
 
       </van-tabs>
@@ -151,13 +155,16 @@
           },
           dataType: "json",
           success: function(t) {
-            e.isHideLoadMore = !0
+            e.isHideLoadMore = !1
             e.LoadingComplete[e.currentTab] = false;
+
             if (0 != t.code){
               return !1;
             }else{
               var a = e.order.concat(t.data);
-              e.order = a, e.hide_tip = !0, e.no_order = 0;
+              e.order = a
+              e.hide_tip = !0
+              e.no_order = 0
               console.log(e.order)
             }
 
@@ -241,9 +248,8 @@
       onPullDownRefresh: function() {},
       getCurrentList: function() {
         if (1 == this.no_order) return !1;
-        this.page += 1, this.getData(), this.setData({
-          isHideLoadMore: !1
-        });
+        this.page += 1, this.getData(), this.isHideLoadMore = !1
+
       },
       onReachBottom: function() {},
       receivOrder: function(e) {

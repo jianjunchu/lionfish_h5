@@ -1048,6 +1048,6 @@
   }
 </script>
 
-<style  src="@/lionfish_comshop/pages/order/order.css">
+<style  src="@/lionfish_comshop/pages/order/order.css" scoped>
 </style>
 
