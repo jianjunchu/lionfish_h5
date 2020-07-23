@@ -310,11 +310,10 @@
     background: linear-gradient(90deg,#ff5041 0%,#ff877d 100%);
     text-align: center;
     padding: 0;
-    width: 68px;
-    height: 26px;
-    line-height: 26px;
-    font-size: 12px;
-    border-radius: 13px;
+    line-height: 6vw;
+    font-size: 1.8vw;
+    padding: 0vw 2vw;
+    border-radius: 10px;
     box-sizing: border-box;
 }
 

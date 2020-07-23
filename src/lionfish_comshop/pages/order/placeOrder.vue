@@ -820,7 +820,6 @@
         showBack:true
       })
 
-      this.$store.dispatch('app/showToolbarBack')
       this.onLoad()
       this.onShow()
     },
@@ -1904,7 +1903,7 @@
         var t = d.times[activeTimeIndex]
         if (d && d.date && t) {
           s[n].delivery_date = d.str_date
-          s[n].delivery_date_str = d.date + ' ' + t
+          s[n].delivery_date_str = d.md + '(' + e.$t('week.'+d.week_key) +') ' + t
           s[n].delivery_time = t
 
           this.closePickupTimeModal()
@@ -2126,8 +2125,8 @@
     font-size: 20vw;
     border-radius: 16vw;
     color: #ff5344;
-    height: 24vw;
-    line-height: 24vw;
+    height: 26vw;
+    line-height: 26vw;
     position: absolute;
   }
 
@@ -2559,7 +2558,7 @@
     position: relative;
     padding: 0 20vw;
     border-radius: 6vw;
-    margin-top: 24vw;
+    margin-top: 26vw;
     box-shadow: 0 0 6vw #ccc;
   }
 

@@ -72,7 +72,6 @@
   import status from '../../utils/index.js'
   import QQMapWX from '../../utils/qqmap-wx-jssdk.min.js'
   import location from '../../utils/Location'
-  import { List } from 'vant';
   import VueAMap from 'vue-amap';
   import { AMapManager } from 'vue-amap'
 
@@ -81,7 +80,6 @@
   export default {
     name: '',
     mixins: [GlobalMixin],
-    components:{[List.name]:List},
     data() {
       return {
         loadMore: !0,

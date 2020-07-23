@@ -77,7 +77,6 @@
   import status from '../../utils/index.js'
   import util from '../../utils'
   import wcache from '../../utils/wcache.js'
-  import { List } from 'vant';
 
   var _extends = Object.assign || function(t) {
     for (var a = 1; a < arguments.length; a++) {
@@ -92,7 +91,7 @@
   export default {
     name: 'type',
     mixins: [GlobalMixin],
-    components: { [typeItem.name]: typeItem,[List.name]:List }
+    components: { [typeItem.name]: typeItem }
     ,
     data() {
 

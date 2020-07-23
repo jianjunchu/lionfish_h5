@@ -128,7 +128,9 @@
         </div>
       </div>
     </div>
-    <div class="nav-bar-content">
+    <!--<div class="nav-bar-content">-->
+    <van-list  @load="onReachBottom" class="nav-bar-content">
+
       <div v-if="!is_empty">
         <div @click.stop="goOrder" class="card" :data-type="item.order_id"  v-for="(item,idx) in order" :key="item.id">
           <i-card :data-orderId="item.order_id" iClass="my-card" showModal="true">
@@ -211,8 +213,8 @@
         <img class="empty-img" src="@/assets/images/noData.png"></img>
         <div class="empty-txt">{{$t('order.wurenhedingdan')}}</div>
       </div>
-      <i-loadMore :tip="tip" v-if="!isHideLoadMore"></i-loadMore>
-    </div>
+    <!--</div>-->
+    </van-list>
   </div>
 
 </template>
@@ -570,6 +572,7 @@
         let id = t.currentTarget.dataset.type;
         var token = this.$wx.getStorageSync("token");
         var that = this;
+        const quxiaochenggong  = this.$t('order.quxiaochenggong')
         this.$wx.showModal({
           title: this.$t('order.quxiaodingdan1'),
           content: this.$t('order.haoburongyi'),
@@ -590,7 +593,7 @@
                   success: function(e) {
 
                     that.$wx.showToast({
-                      title: this.$t('order.quxiaochenggong'),
+                      title: quxiaochenggong,
                       icon: "success",
                     });
                     location.reload()

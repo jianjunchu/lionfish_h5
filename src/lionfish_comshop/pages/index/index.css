@@ -248,7 +248,7 @@
   background: #f7f7f7;
   position: relative;
   min-height: 100vw;
-  padding: 1vw;
+  padding: 2vw;
 }
 
 .first-screen {
@@ -703,7 +703,6 @@
 
 .sticky-content-index {
   background: #fff;
-  padding-bottom: 14px;
   position: sticky;
   z-index: 99;
   top: -80px;
@@ -802,7 +801,6 @@
 }
 
 .sticky-content-index .category-list {
-  margin-top: 20px;
   background-color: #fff;
 }
 
@@ -844,31 +842,31 @@
 }
 
 .model-services .model-services-title {
-  font-size: 36px;
+  font-size: 3.6vw;
   text-align: center;
-  height: 80px;
-  line-height: 80px;
+  height: 8vw;
+  line-height: 8vw;
   border-bottom: 1px solid #f2f5f8;
 }
 
 .model-services .model-services-content {
-  padding: 40px;
+  padding: 4vw;
 }
 
 .model-services .model-services-content .service-item {
-  margin-bottom: 20px;
+  margin-bottom: 2vw;
   width: 50%;
   float: left;
   text-align: center;
 }
 
 .model-services .model-services-content .service-icon {
-  font-size: 80px;
+  font-size: 8vw;
   color: #50b674;
 }
 
 .service-name {
-  padding-left: 10px;
+  padding-left: 1vw;
 }
 
 .cube-text {

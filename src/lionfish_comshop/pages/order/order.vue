@@ -126,7 +126,7 @@
                 <span v-if="endtime.days>0">{{endtime.days}}天</span>{{endtime.hours}}:{{endtime.minutes}}:{{endtime.seconds}}</div>
             </div>
             <div class="font-bold-30" v-if="order.order_info.open_auto_delete==0">
-              <div class="tradeStatus-index--count-down count-down">待付款</div>
+              <div class="tradeStatus-index--count-down count-down">{{$t('common.daifukuan')}}</div>
             </div>
 	<!--
             <div class="font-12" v-if="order.order_info.open_auto_delete==1">请尽快付款，超时将被自动取消</div>
@@ -149,10 +149,16 @@
             <div class="font-bold-20">{{$t('order.zhifudaiqueren')}}</div>
             <img class="little-img" src="@/assets/images/img_delivery@2x.png"/>
           </div>
-          <div class="to-get-wrap" v-if="order.order_info.order_status_id==4">
-            <div class="font-bold-20">{{order.order_status_info.name?order.order_status_info.name: $t('order.ketihuo')}}</div>
+
+          <div class="to-get-wrap" v-if="order.order_info.order_status_id==4 && order.order_info.delivery == 'pickup'">
+            <div class="font-bold-20">{{$t('order.ketihuo')}}</div>
             <img class="little-img" src="@/assets/images/img_ready_to_get@2x.png"/>
           </div>
+          <div class="to-get-wrap" v-if="order.order_info.order_status_id==4 && order.order_info.delivery != 'pickup'">
+            <div class="font-bold-20">{{$t('common.daiqianshou')}}</div>
+            <img class="little-img" src="@/assets/images/img_ready_to_get@2x.png"/>
+          </div>
+
           <div class="to-get-wrap" v-if="order.order_info.order_status_id==6">
             <div class="font-bold-20">{{$t('order.yiqianshou')}}</div>
             <img class="little-img" src="@/assets/images/img_trade_succeed@2x.png"/>
@@ -240,18 +246,18 @@
                     </div>
                     <div @click="goComment" class="btn-1" :data-goods_id="goodsInfo.goods_id" :data-order_goods_id="goodsInfo.order_goods_id" :data-type="order.order_info.order_id" v-if="goodsInfo.is_refund_state==0&&order.order_info.order_status_id==6&&goodsInfo.hascomment==0">去评价</div>
                     <div v-if="order_can_del_cancle==0">
-                      <div @click="applyForService" class="btn-1 mar-left-8" :data-order_goods_id="goodsInfo.order_goods_id" :data-type="order.order_info.order_id" v-if="goodsInfo.can_ti_refund!=0&&goodsInfo.is_refund_state==0&&order.order_info.order_status_id==4">申请售后</div>
+                      <div @click="applyForService" class="btn-1 mar-left-8" :data-order_goods_id="goodsInfo.order_goods_id" :data-type="order.order_info.order_id" v-if="goodsInfo.can_ti_refund!=0&&goodsInfo.is_refund_state==0&&order.order_info.order_status_id==4"><!--申请售后--> {{ $t('order.shenqingshouhou')}}</div>
                     </div>
                     <div v-else>
-                      <div @click="applyForService" class="btn-1 mar-left-8" :data-order_goods_id="goodsInfo.order_goods_id" :data-type="order.order_info.order_id" v-if="goodsInfo.can_ti_refund!=0&&goodsInfo.is_refund_state==0&&order.order_info.order_status_id==4">申请售后</div>
+                      <div @click="applyForService" class="btn-1 mar-left-8" :data-order_goods_id="goodsInfo.order_goods_id" :data-type="order.order_info.order_id" v-if="goodsInfo.can_ti_refund!=0&&goodsInfo.is_refund_state==0&&order.order_info.order_status_id==4"><!--申请售后--> {{ $t('order.shenqingshouhou')}}</div>
                     </div>
-                    <div @click="applyForService" class="btn-1 mar-left-8" :data-order_goods_id="goodsInfo.order_goods_id" :data-type="order.order_info.order_id" v-if="goodsInfo.is_statements_state==0&&goodsInfo.is_refund_state==0&&(order.order_info.order_status_id==6||order.order_info.order_status_id==11)">申请售后</div>
+                    <div @click="applyForService" class="btn-1 mar-left-8" :data-order_goods_id="goodsInfo.order_goods_id" :data-type="order.order_info.order_id" v-if="goodsInfo.is_statements_state==0&&goodsInfo.is_refund_state==0&&(order.order_info.order_status_id==6||order.order_info.order_status_id==11)"><!--申请售后--> {{ $t('order.shenqingshouhou')}}</div>
                     <!--<button class="btn-1 mar-left-8" openType="contact" :sessionFrom="sobot|userInfo.nickName|userInfo.avatarUrl" v-if="user_service_switch==1">-->
                       <!--<span>联系客服</span>-->
                     <!--</button>-->
                    <!-- <div class="btn-2 mar-left-8" v-if="goodsInfo.is_refund_state==0&&(order.order_info.order_status_id==1||order.order_info.order_status_id==14)">备货中</div>-->
                     <div class="btn-2 mar-left-8" v-if="goodsInfo.is_refund_state==0&&(order.order_info.order_status_id==1||order.order_info.order_status_id==14)">{{$t('order.beihuozhong')}}</div>
-                    <div @click="receivOrder" class="btn-3 mar-left-8" :data-show="confirmGoodsVisible" :data-type="order.order_info.order_id" v-if="goodsInfo.is_refund_state==0&&order.order_info.order_status_id==4">{{order.order_info.delivery=='pickup'?'确认提货':'确认收货'}}</div>
+                    <div @click="receivOrder" class="btn-3 mar-left-8" :data-show="confirmGoodsVisible" :data-type="order.order_info.order_id" v-if="goodsInfo.is_refund_state==0&&order.order_info.order_status_id==4"><!--{{order.order_info.delivery=='pickup'?'确认提货':'确认收货'}}--> {{order.order_info.delivery=='pickup'? $t('order.querentihuo'): $t('order.querenshouhuo') }}</div>
                   </div>
                 </div>
               </div>
