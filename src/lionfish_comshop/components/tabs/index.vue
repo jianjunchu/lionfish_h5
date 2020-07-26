@@ -120,9 +120,10 @@
 <style scoped>
 
   .tabs {
-    width: 100vw;
+    width: 98vw;
     position: relative;
     padding-right: 2vw;
+    overflow:scroll;
   }
 
   .tabs__nav {

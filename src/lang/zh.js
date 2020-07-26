@@ -272,7 +272,8 @@ export default {
     ketihuo: '可提货',
     shouhouzhong: '售后中',
     zhifuchenggong: '支付成功',
-    zhifushibai: '支付失败'
+    zhifushibai: '支付失败',
+    shenqingshouhou: '申请售后'
   },
   cart: {
     gouwuchekong: '购物车空空如也，赶紧去逛逛吧~',

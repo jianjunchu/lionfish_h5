@@ -236,7 +236,7 @@ export default {
     shuruliushuihao: 'Enter Reference No. of PayNow Transaction',
     yizhifu: 'Submit',
     haoburongyi: 'Are you sure?',
-    quxiaochengggong: 'Cancel Successful',
+    quxiaochenggong: 'Cancel Successful',
     manjinemian1: 'Free ',
     manjinemian2: ' above $60',
     meirenxiangou1: '',
@@ -252,7 +252,8 @@ export default {
     ketihuo: 'Can Pickup',
     shouhouzhong: 'After Sales',
     zhifuchenggong: 'Payment Confirmed',
-    zhifushibai: 'Payment Failed'
+    zhifushibai: 'Payment Failed',
+    shenqingshouhou: 'Apply Refund'
   },
   cart: {
     gouwuchekong: 'Back to Homepage',

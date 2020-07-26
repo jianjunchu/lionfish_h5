@@ -41,7 +41,7 @@
                           :item="historyCommunity"></i-community-item>
       </div>
       <!--<div class="community-list around-communities">-->
-      <van-list v-model="hasRefeshin" :finished="!loadMore" @load="load_gps_community_list" class="community-list around-communities">
+      <van-list  :finished="loadMore" @load="load_gps_community_list" class="community-list around-communities">
         <div class="title" :style="{'border-color':skin.color}">{{$t('host.fujin')}}{{groupInfo.group_name}}</div>
         <i-community-item :isOld="true" :city="city" class="item-border" :groupInfo="groupInfo"
                           :hiddenDetails="index_hide_headdetail_address" :item="item" :skin="skin"
@@ -72,7 +72,6 @@
   import status from '../../utils/index.js'
   import QQMapWX from '../../utils/qqmap-wx-jssdk.min.js'
   import location from '../../utils/Location'
-  import { List } from 'vant';
   import VueAMap from 'vue-amap';
   import { AMapManager } from 'vue-amap'
 
@@ -81,7 +80,6 @@
   export default {
     name: '',
     mixins: [GlobalMixin],
-    components:{[List.name]:List},
     data() {
       return {
         loadMore: !0,

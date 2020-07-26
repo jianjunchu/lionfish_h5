@@ -1,28 +1,30 @@
 <template>
 
     <div class="goods-wrapper">
-      <!--<div @click="hide_share_handler" class="ui-mask" :hidden="is_share_html"></div>-->
-      <!--<div class="model-services show" :hidden="is_share_html">-->
-        <!--<div class="model-services-title">分享</div>-->
-        <!--<div class="model-services-content">-->
-          <!--<div class="service-list">-->
-            <!--<div class="service-item">-->
-              <!--<button class="none_btn" openType="share" plain="true">-->
-                <!--<div class="iconfont icon-weixin2 service-icon"></div>-->
-                <!--<div class="cube-text">-->
-                  <!--<div>好友</div>-->
-                <!--</div>-->
-              <!--</button>-->
-            <!--</div>-->
-            <!--<div @click="get_share_img" class="service-item">-->
-              <!--<div class="iconfont icon-pengyouquan service-icon"></div>-->
-              <!--<div class="cube-text">-->
-                <!--<div>海报</div>-->
-              <!--</div>-->
-            <!--</div>-->
-          <!--</div>-->
-        <!--</div>-->
-      <!--</div>-->
+      <div @click="hide_share_handler" class="ui-mask" v-show="is_share_html"></div>
+      <div class="model-services show" v-show="is_share_html">
+        <div class="model-services-title">{{$t('common.fenxiang')}}</div>
+        <div class="model-services-content">
+          <div class="service-list">
+            <div class="service-item">
+              <div class="none_btn" @click="share_whatsapp" openType="share" plain="true">
+                <span>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="39" height="39" viewBox="0 0 39 39"><path fill="#00E676" d="M10.7 32.8l.6.3c2.5 1.5 5.3 2.2 8.1 2.2 8.8 0 16-7.2 16-16 0-4.2-1.7-8.3-4.7-11.3s-7-4.7-11.3-4.7c-8.8 0-16 7.2-15.9 16.1 0 3 .9 5.9 2.4 8.4l.4.6-1.6 5.9 6-1.5z"></path><path fill="#FFF" d="M32.4 6.4C29 2.9 24.3 1 19.5 1 9.3 1 1.1 9.3 1.2 19.4c0 3.2.9 6.3 2.4 9.1L1 38l9.7-2.5c2.7 1.5 5.7 2.2 8.7 2.2 10.1 0 18.3-8.3 18.3-18.4 0-4.9-1.9-9.5-5.3-12.9zM19.5 34.6c-2.7 0-5.4-.7-7.7-2.1l-.6-.3-5.8 1.5L6.9 28l-.4-.6c-4.4-7.1-2.3-16.5 4.9-20.9s16.5-2.3 20.9 4.9 2.3 16.5-4.9 20.9c-2.3 1.5-5.1 2.3-7.9 2.3zm8.8-11.1l-1.1-.5s-1.6-.7-2.6-1.2c-.1 0-.2-.1-.3-.1-.3 0-.5.1-.7.2 0 0-.1.1-1.5 1.7-.1.2-.3.3-.5.3h-.1c-.1 0-.3-.1-.4-.2l-.5-.2c-1.1-.5-2.1-1.1-2.9-1.9-.2-.2-.5-.4-.7-.6-.7-.7-1.4-1.5-1.9-2.4l-.1-.2c-.1-.1-.1-.2-.2-.4 0-.2 0-.4.1-.5 0 0 .4-.5.7-.8.2-.2.3-.5.5-.7.2-.3.3-.7.2-1-.1-.5-1.3-3.2-1.6-3.8-.2-.3-.4-.4-.7-.5h-1.1c-.2 0-.4.1-.6.1l-.1.1c-.2.1-.4.3-.6.4-.2.2-.3.4-.5.6-.7.9-1.1 2-1.1 3.1 0 .8.2 1.6.5 2.3l.1.3c.9 1.9 2.1 3.6 3.7 5.1l.4.4c.3.3.6.5.8.8 2.1 1.8 4.5 3.1 7.2 3.8.3.1.7.1 1 .2h1c.5 0 1.1-.2 1.5-.4.3-.2.5-.2.7-.4l.2-.2c.2-.2.4-.3.6-.5s.4-.4.5-.6c.2-.4.3-.9.4-1.4v-.7s-.1-.1-.3-.2z"></path></svg>
+                </span>
+                <div class="cube-text">
+                  <span>{{$t('common.haoyou')}}</span>
+                </div>
+              </div>
+            </div>
+            <!--<div @click="get_share_img" class="service-item">
+              <div class="iconfont icon-pengyouquan service-icon"></div>
+              <div class="cube-text">
+                <div>海报</div>
+              </div>
+            </div>-->
+          </div>
+        </div>
+      </div>
 
       <!--<div class="spuInfoImg" :style="height:(imageSize.imageHeight)px;background: url('/lionfish_comshop/images/index-comming-goods-bitmap.png)';background-size: 100% 100%;">-->
       <!--<div class="spuInfoImg" :style="{height:imageSize.imageHeight + 'px', background: 'url(' + indexcomminggoodsbitmap + ')',backgroundSize: '100% 100%'}">-->
@@ -401,39 +403,39 @@
     </div>
 
 
-    <!--<button @click="share_handler" class="fixed-share">-->
-      <!--<div class="iconfont icon-fenxiang"></div>-->
-      <!--<div>分享</div>-->
-    <!--</button>-->
-    <!--<button class="fixed-service" openType="contact" v-if="isShowContactBtn==1">-->
-      <!--<div class="iconfont icon-kefu"></div>-->
-      <!--<div>客服</div>-->
-    <!--</button>-->
-    <!--<i-order-notify iClass="order-notify" :stopNotify="stopNotify" v-if="order_notify_switch==1"></i-order-notify>-->
-    <!--<i-new-auth bind:authSuccess="authSuccess" bind:cancel="authModal" :needAuth="needAuth&&showAuthModal" :needPosition="needPosition"></i-new-auth>-->
-    <!--<div @click="closeShareModal" class="share-modal" :hidden="hideModal">-->
-      <!--<div class="share-modal-content">-->
-        <!--<div class="share-modal-img">-->
-          <!--<img mode="widthFix" :src="shareImgUrl"/>-->
-        <!--</div>-->
-        <!--<div class="share-modal-btn-list">-->
-          <!--<div class="share-modal-btn-item">-->
-            <!--<button class="none_btn" openType="share" plain="true">-->
-              <!--<div class="iconfont icon-weixin1 btn-icon"></div>-->
-              <!--<div class="btn-text">-->
-                <!--<div>分享好友</div>-->
-              <!--</div>-->
-            <!--</button>-->
-          <!--</div>-->
-          <!--<div @click="saveThumb" class="share-modal-btn-item">-->
-            <!--<div class="iconfont icon-zhaopian btn-icon"></div>-->
-            <!--<div class="btn-text">-->
-              <!--<div>保存相册</div>-->
-            <!--</div>-->
-          <!--</div>-->
-        <!--</div>-->
-      <!--</div>-->
-    <!--</div>-->
+    <button @click.stop="share_handler" class="fixed-share">
+      <div class="iconfont icon-fenxiang"></div>
+      <div>分享</div>
+    </button>
+    <!--<button class="fixed-service" openType="contact" v-if="isShowContactBtn==1">
+      <div class="iconfont icon-kefu"></div>
+      <div>客服</div>
+    </button>-->
+    <!--<i-order-notify iClass="order-notify" :stopNotify="stopNotify" v-if="order_notify_switch==1"></i-order-notify>
+    <i-new-auth bind:authSuccess="authSuccess" bind:cancel="authModal" :needAuth="needAuth&&showAuthModal" :needPosition="needPosition"></i-new-auth>
+    <div @click="closeShareModal" class="share-modal" :hidden="hideModal">
+      <div class="share-modal-content">
+        <div class="share-modal-img">
+          <img mode="widthFix" :src="shareImgUrl"/>
+        </div>
+        <div class="share-modal-btn-list">
+          <div class="share-modal-btn-item">
+            <button class="none_btn" openType="share" plain="true">
+              <div class="iconfont icon-weixin1 btn-icon"></div>
+              <div class="btn-text">
+                <div>分享好友</div>
+              </div>
+            </button>
+          </div>
+          <div @click="saveThumb" class="share-modal-btn-item">
+            <div class="iconfont icon-zhaopian btn-icon"></div>
+            <div class="btn-text">
+              <div>保存相册</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>-->
     <!--<i-change-community bind:changeComunity="confrimChangeCommunity" bind:noChange="cancelChangeCommunity" :canChange="hide_community_change_btn==0" cancelFn="true" :changeCommunity="changeCommunity" :community="community" :groupInfo="groupInfo" :visible="showChangeCommunity"></i-change-community>-->
     <!--<canvas canvasId="myCanvas" class="canvas-img" :style="width: (canvasWidth)px;height: (canvasHeight)px;"></canvas>-->
     <canvas canvasId="myCanvas" class="canvas-img" :style="{width:canvasWidth + 'px',height: canvasHeight + 'px'}"></canvas>
@@ -552,7 +554,7 @@
           minutes: "00",
           seconds: "00"
         },
-        is_share_html: true,
+        is_share_html: false,
         stickyFlag: false,
         showSkeleton: true,
         imageSize: {
@@ -1308,10 +1310,16 @@
           this.goodsIndex= t.detail.current + 1;
       },
       share_handler: function() {
-        this.is_share_html= false;
+        this.is_share_html = true
+      },
+      share_whatsapp:function(){
+        const text = this.goods.goodsname;
+        const url = 'https://hz.xx315.net/wap/#/lionfish_comshop/pages/goods/goodsDetail?id='+this.order.goods_id
+        location="whatsapp://send?text="+ encodeURIComponent(text) + encodeURIComponent("\n\n"+url)+"&via=lopscoop";
+        this.is_share_html = false
       },
       hide_share_handler: function() {
-        this.is_share_html= true;
+        this.is_share_html= false;
       },
       share_quan: function() {
         if (this.authModal()) {

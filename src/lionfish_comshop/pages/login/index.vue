@@ -31,7 +31,7 @@
 	  <div style="height: 50px;">
        <div style="width: 100%;height:25px;border-bottom:1px solid #ccc;font-size: 16px;color: #939393;margin-top: 5px;" @click="click_btn2()" v-show="this.isShow3">Password</div>
 	   <div style="width: 100%;height:28px;border-bottom:1px solid #3D7BD0;font-size: 16px;color: #3D7BD0;margin-top: 10px;" v-show="this.isShow4">
-	   <input style="width: 90%;height: 100%;border:none;outline: none;" v-model="loginForm.password"/>
+	   <input type="password" style="width: 90%;height: 100%;border:none;outline: none;" v-model="loginForm.password"/>
 	   </div>
 	   </div>
     </div>

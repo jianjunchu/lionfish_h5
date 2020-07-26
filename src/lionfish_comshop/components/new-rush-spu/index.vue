@@ -16,7 +16,7 @@
           <div class="item-tag" :style="'background:url('+spuItem.label_info.tagcontent+') no-repeat left top;background-size: 100%;'" v-if="spuItem.label_info&&spuItem.label_info.type==1"></div>
 
 
-          <van-image style="width: 90px; height: 90px" class="sku-img" :src="spuItem.skuImage">
+          <van-image style="width: 28vw; height: 28vw" class="sku-img" :src="spuItem.skuImage">
             <template v-slot:loading>
               <van-loading type="spinner" size="20" />
             </template>
@@ -57,7 +57,7 @@
         </div>
         <div v-if="!isPast">
           <div v-if="number<=0">
-            <i-button class="add-cart" v-if="disabled||spuItem.spuCanBuyNum==0||actEnd">
+            <i-button iClass="add-cart" class="add-cart" v-if="disabled||spuItem.spuCanBuyNum==0||actEnd">
               <img class="img" src="@/assets/images/icon-add-shopCart-disabled.png"></img>
             </i-button>
             <i-button @handleTap="openSku" iClass="add-cart" class="add-cart" v-else>
@@ -84,7 +84,7 @@
 
   import util from '../../utils/index.js'
   import status from '../../utils/index.js'
-
+  var app,wx
   export default {
     name: '',
     props: {
@@ -169,6 +169,8 @@
       }
     },
     created:function() {
+      wx = this.$wx;
+      app = this.$getApp()
       this.number =  this.spuItem.car_count || 0
       var a = "/lionfish_comshop/pages/goods/goodsDetail?&id=" + this.spuItem.actId;
       this.url = a
@@ -217,11 +219,11 @@
         });
       },
       addCart: function(t) {
-        var a = this.$wx.getStorageSync("token"), e = this.$wx.getStorageSync("community"), i =this.spuItem.actId, s = e.communityId, u = this;
+        var e = wx.getStorageSync("token"), a = wx.getStorageSync("community"), u = this.spuItem.actId, i = a.communityId, s = this;
         if ("plus" == t.type) {
           var o = {
-            goods_id: i,
-            community_id: s,
+            goods_id: u,
+            community_id: i,
             quantity: 1,
             sku_str: "",
             buy_type: "dan",
@@ -230,70 +232,420 @@
           };
           util.addCart(o).then(function(t) {
             if (1 == t.showVipModal) {
-              var a = t.pop_vipmember_buyimage;
-              u.$emit("vipModal", {
-                pop_vipmember_buyimage: a,
+              var e = t.pop_vipmember_buyimage;
+              s.$emit("vipModal", {
+                pop_vipmember_buyimage: e,
                 showVipModal: !0,
                 visible: !1
               });
-            } else {
-              if (3 == t.code) 0 < (t.max_quantity || "") && (
-                u.number = u.number
-              ), this.$wx.showToast({
-                title: t.msg,
+            } else if (3 == t.code) wx.showToast({
+              title: t.msg,
+              icon: "none",
+              duration: 2e3
+            }); else if (6 == t.code || 7 == t.code) {
+              var a = t.max_quantity || "";
+              0 < a && ( s.number = a);
+              var i = t.msg;
+              wx.showToast({
+                title: i,
                 icon: "none",
                 duration: 2e3
-              }); else if (4 == t.code) (
-                u.needAuth = !0
-              ), u.$emit("authModal", !0); else if (6 == t.code || 7 == t.code) {
-                0 < (t.max_quantity || "") && (u.number = u.data.number);
-                var e = t.msg;
-                this.$wx.showToast({
-                  title: e,
-                  icon: "none",
-                  duration: 2e3
-                });
-              } else u.$emit("changeCartNum", t.total), (
-                u.number = t.cur_count
-              ), u.$wx.showToast({
+              });
+            } else {
+              status.indexListCarCount(u, t.cur_count)
+              s.$emit("changeCartNum", t.total)
+              s.number = t.cur_count
+              wx.showToast({
                 title: "Added to Cart",
                 image: "../../images/addShopCart.png"
-              }), status.indexListCarCount(i, t.cur_count);
+              });
             }
           });
-        } else {
-          this.$http({
+        } else app.util.request({
+          url: "entry/wxapp/user",
+          data: {
             controller: "car.reduce_car_goods",
-            token: a,
-            goods_id: i,
-            community_id: s,
+            token: e,
+            goods_id: u,
+            community_id: i,
             quantity: 1,
             sku_str: "",
             buy_type: "dan",
             pin_id: 0,
             is_just_addcar: 1
-          }).then(t =>{
-
-            if (3 == t.code) this.$wx.showToast({
+          },
+          dataType: "json",
+          method: "POST",
+          success: function(t) {
+            3 == t.code ? wx.showToast({
               title: t.msg,
               icon: "none",
               duration: 2e3
-            }); else if (4 == t.code) {
-              if (u.needAuth) return u.setData({
-                needAuth: !0
-              }), void u.$emit("authModal", !0);
-            } else{
-              u.$emit("changeCartNum", t.total);
-              u.number = t.cur_count
-              status.indexListCarCount(i, t.cur_count);
-            }
-          })
-
-        }
+            }) : (status.indexListCarCount(u, t.cur_count), (
+              s.number = t.cur_count
+            ), s.$emit("changeCartNum", t.total));
+          }
+        });
       }
     }
   }
 </script>
 
-<style src="@/lionfish_comshop/components/new-rush-spu/index.css" scoped>
+
+<style  scoped>
+  .i-btn {
+    text-align: center;
+    vertical-align: middle;
+    touch-action: manipulation;
+    cursor: pointer;
+    background-image: none;
+    white-space: nowrap;
+    user-select: none;
+    font-size: 2.8vw;
+    border: 0!important;
+    position: relative;
+    text-decoration: none;
+    height: 8.8vw;
+    line-height: 8.8vw;
+    background: none;
+    color: #495060;
+    border-radius: 0;
+    margin: 0;
+    box-shadow: none;
+  }
+
+  .i-btn::after {
+    border: none;
+  }
+
+  .spu {
+    display: block;
+    background: #fff;
+    width: 96vw;
+    border-radius: 2vw;
+    overflow: hidden;
+    position: relative;
+    box-shadow: 0 0 4vw rgba(0,0,0,0.05);
+    margin: 0 auto 2vw;
+    padding: 2vw;
+    box-sizing: border-box;
+  }
+
+  .spu .img-class {
+    width: 28vw;
+    height: 28vw;
+    border-radius: 1vw;
+  }
+
+  .spu .mask {
+    background: rgba(255,255,255,0.5);
+    width: 28vw;
+    height: 28vw;
+    position: absolute;
+    left: 0;
+    top: 0;
+  }
+
+  .spu >>> .act-end {
+    position: absolute;
+    height: 6vw;
+    border-radius: 1vw;
+    background: rgba(0,0,0,0.5);
+    color: #fff;
+    font-size: 2.8vw;
+    text-align: center;
+    line-height: 6vw;
+    left: 14vw;
+    top: 10vw;
+    padding: 0 1.2vw;
+    transform: translateX(-50%);
+  }
+
+  .spu >>> .act-end.act-out {
+    left: 12vw;
+  }
+
+  .spu >>> .spu-content {
+    position: relative;
+    display: flex;
+  }
+
+  .spu .spu-content.disabled {
+    opacity: 0.6;
+  }
+
+  .spu >>> .spu-content .item-left {
+    width: 28vw;
+    height: 28vw;
+    position: relative;
+  }
+
+  .spu >>> .spu-content .item-right {
+    box-sizing: border-box;
+    margin-left: 6vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .spu >>> .spu-content .item-right .spu-title {
+    color: #333;
+    font-size: 4vw;
+    height: 4.2vw;
+    width: 60vw;
+    margin-bottom: 1.2vw;
+    font-weight: bold;
+    position: relative;
+  }
+
+  .spu >>> .spu-content .item-right .spu-title .span {
+    width: 100%;
+    height: 4vw;
+    position: absolute;
+    left: 0;
+    top: -0.4vw;
+    line-height: 4vw;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    margin: 0;
+  }
+
+  .spu >>> .spu-content .item-right .spu-tag {
+    padding-left: 20vw;
+    margin-bottom: 2vw;
+    display: flex;
+    height: 2.8vw;
+  }
+
+  .spu >>> .spu-content .item-right .spu-desc {
+    font-size: 3vw;
+    line-height: 3vw;
+    color: #999;
+    position: relative;
+    width: 60vw;
+    height: 3vw;
+    margin-bottom: 1.2vw;
+  }
+
+  .spu >>> .spu-content .item-right .spu-desc .em {
+    width: 100%;
+    height: 3.2vw;
+    position: absolute;
+    left: 0;
+    top: 1vw;
+    line-height: 3.2vw;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .spu >>> .spu-content .item-right .spu-price {
+    display: flex;
+    align-items: flex-end;
+    font-size: 3vw;
+    line-height: 3.6vw;
+    overflow: hidden;
+    margin-top: 1vw;
+  }
+
+  .spu >>> .spu-content .item-right .spu-price .sale-price {
+    color: #ff5344;
+    margin-right: 1.2vw;
+  }
+
+  .spu >>> .spu-content .item-right .spu-price .sale-price .span {
+    font-size: 5vw;
+    line-height: 5.2vw;
+    margin: 0;
+    font-weight: bold;
+  }
+
+  .spu >>>.spu-content .item-right .spu-price .market-price {
+    text-decoration: line-through;
+    color: #999;
+    margin-right: 2vw;
+  }
+
+  .spu >>>.spu-content .item-right .spu-count {
+    font-size: 2.4vw;
+    height: 2.4vw;
+    color: #999;
+    margin-bottom: 2vw;
+  }
+
+  .spu >>> .spu-content .item-right .spu-count .spu-count-border {
+    display: inline-flex;
+    border: 0.1vw solid #f78076;
+    border-radius: 2vw;
+    overflow: hidden;
+    height: 3vw;
+    line-height: 3vw;
+  }
+
+  .spu >>> .spu-content .item-right .spu-count .spu-count-border .txt {
+    padding: 0 1vw;
+    color: #f78076;
+    height: 3vw;
+    line-height: 3vw;
+  }
+
+  .spu >>> .spu-content .item-right .spu-count .spu-count-border .spu-count-num {
+    background-color: #f78076;
+    color: #fff;
+  }
+
+  .spu >>> .spu-content .add-cart {
+    width: 7vw;
+    height: 7vw;
+    padding: 0;
+    margin: 0;
+    position: absolute;
+    right: 0;
+    bottom: 0.1vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    outline: none;
+
+  }
+
+  .spu >>> .spu-content .add-cart .img {
+    width: 7vw;
+    height: 7vw;
+    display: block;
+  }
+
+  .spu >>> .spu-content .spu-active {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    z-index: 9;
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: flex-start;
+  }
+
+  .spu >>> .spu-content .spu-active .tag {
+    background: linear-gradient(to right,#ff5041,#ff994b);
+    border-radius: 0 1.4vw 1.4vw 0;
+    padding: 0 1.2vw;
+    height: 3vw;
+    font-size: 2.2vw;
+    line-height: 3vw;
+    color: #fff;
+    display: inline-block;
+    align-items: center;
+    justify-content: center;
+    width: auto;
+    max-width: 18vw;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .spu >>> .spu-content .spu-active .tag-green {
+    background: linear-gradient(to left,#46c8d0,#29ba9a);
+  }
+
+  .spu >>> .item-tag {
+    position: absolute;
+    left: -0.1vw;
+    top: 0;
+    width: 5.4vw;
+    height: 6.2vw;
+    z-index: 1;
+    color: #fff;
+    text-align: center;
+  }
+
+  .item-tag-bg {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 5.4vw;
+    height: 6.2vw;
+    z-index: 0;
+  }
+
+  .spu .item-tag .tag-name {
+    position: relative;
+    padding-top: 0.6vw;
+    font-size: 2vw;
+    line-height: 1;
+    font-weight: 600;
+    z-index: 1;
+  }
+
+  .spu .item-tag .tag-name.two-word {
+    font-size: 2.2vw;
+    padding-top: 1.4vw;
+  }
+
+  .spu .index-input-number {
+    position: absolute;
+    right: 0;
+    bottom: 1vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .spu .index-input-number .i-input-number-view {
+    width: 8vw;
+    height: 8vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .spu .index-input-number .i-input-number-view .img {
+    width: 4vw;
+    height: 4vw;
+  }
+
+  .spu .index-input-number .i-input-number-minus {
+    justify-content: flex-end;
+  }
+
+  .spu .index-input-number .i-input-number-plus {
+    justify-content: flex-start;
+  }
+
+  .spu .index-input-number .input-number-text {
+    height: 8.8vw;
+    line-height: 8.8vw;
+    font-size: 2.4vw;
+    color: #333;
+    width: 5.8vw;
+  }
+
+  .spu-play {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 10vw;
+    height: 10vw;
+    margin-top: -5vw;
+    margin-left: -5vw;
+  }
+
+  .spu-play .img {
+    width: 100%;
+    height: 100%;
+  }
+
+  .picktime {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 2.4vw;
+    font-weight: bold;
+    margin-top: 2vw;
+    color: #ed7b3a;
+    border-top: 0.1vw solid #e5e5e5;
+    padding-top: 2vw;
+  }
+
 </style>

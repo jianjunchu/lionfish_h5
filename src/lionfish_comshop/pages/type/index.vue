@@ -15,7 +15,7 @@
              :class="[rushCategoryData.activeIndex===index?'category-item active':'category-item']"
              v-for="(item,index) in rushCategoryData.tabs" :key="index">
           <div class="item-border"></div>
-          <div>{{item.name}}</div>
+          <span>{{item.name}}</span>
         </div>
         <div class="category-item"></div>
       </div>
@@ -77,7 +77,6 @@
   import status from '../../utils/index.js'
   import util from '../../utils'
   import wcache from '../../utils/wcache.js'
-  import { List } from 'vant';
 
   var _extends = Object.assign || function(t) {
     for (var a = 1; a < arguments.length; a++) {
@@ -92,7 +91,7 @@
   export default {
     name: 'type',
     mixins: [GlobalMixin],
-    components: { [typeItem.name]: typeItem,[List.name]:List }
+    components: { [typeItem.name]: typeItem }
     ,
     data() {
 
@@ -853,8 +852,8 @@
     height: 50px;
     display: flex;
     align-items: center;
-    justify-content: center;
-    font-size: 14px;
+    font-size: 12px;
+    padding-left: 3vw;
     color: #787878;
     line-height: 15px;
   }

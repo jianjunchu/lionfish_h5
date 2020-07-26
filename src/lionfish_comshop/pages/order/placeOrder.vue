@@ -820,7 +820,6 @@
         showBack:true
       })
 
-      this.$store.dispatch('app/showToolbarBack')
       this.onLoad()
       this.onShow()
     },
@@ -1164,8 +1163,8 @@
           zc = t[a].zipCode, rn = t[a].roadName, bd = t[a].building
         if ('' == i) {
           e.focus_name = !0
-          var c = this.$t('order.tianxieshouhuoren')
-          return 0 == a && (c = this.$t('order.tianxietihuoren')), wx.showToast({
+          var c = e.$t('order.tianxieshouhuoren')
+          return 0 == a && (c = e.$t('order.tianxietihuoren')), wx.showToast({
             title: c,
             icon: 'none'
           }), !1
@@ -1173,14 +1172,14 @@
 
         if (!/^\d{8}$/.test(o) && !/^1(3|4|5|6|7|8|9)\d{9}$/.test(o)) {
           return wx.showToast({
-            title: this.$t('order.shoujihaomayouwu'),
+            title: e.$t('order.shoujihaomayouwu'),
             icon: 'none'
           }), !1
         }
 
         if (0 != a && ('' == zc || !/^\d{6}$/.test(zc))) {
           return wx.showToast({
-            title:  this.$t('order.youbianyouwu'),
+            title:  e.$t('order.youbianyouwu'),
             icon: 'none'
           }), !1
         }
@@ -1904,7 +1903,7 @@
         var t = d.times[activeTimeIndex]
         if (d && d.date && t) {
           s[n].delivery_date = d.str_date
-          s[n].delivery_date_str = d.date + ' ' + t
+          s[n].delivery_date_str = d.md + '(' + e.$t('week.'+d.week_key) +') ' + t
           s[n].delivery_time = t
 
           this.closePickupTimeModal()
@@ -2126,8 +2125,8 @@
     font-size: 20vw;
     border-radius: 16vw;
     color: #ff5344;
-    height: 24vw;
-    line-height: 24vw;
+    height: 26vw;
+    line-height: 26vw;
     position: absolute;
   }
 
@@ -2559,7 +2558,7 @@
     position: relative;
     padding: 0 20vw;
     border-radius: 6vw;
-    margin-top: 24vw;
+    margin-top: 26vw;
     box-shadow: 0 0 6vw #ccc;
   }
 

@@ -4,7 +4,7 @@
       <button hidden formType="submit" id="formId"></button>
     </form>
     <label class="spu" for="formId">
-      <i-router-link routerClass="spu-content" :url="'/lionfish_comshop/pages/goods/goodsDetail?&id='+spuItem.actId">
+      <i-router-link routerClass="spu-content-type" :url="'/lionfish_comshop/pages/goods/goodsDetail?&id='+spuItem.actId">
         <div class="item-left">
           <i-img :defaultImage="placeholdeImg?placeholdeImg:'@/assets/images/placeholder-refund.png'" height="170"
                  iClass="img-class" lazyLoad="true" :loadImage="spuItem.skuImage" width="170"></i-img>
@@ -293,11 +293,11 @@
   }
 
   .spu .img-class {
-    width: 24vw;
-    height: 24vw;
+    width: 26vw;
+    height: 26vw;
   }
 
-  .spu .spu-content {
+  .spu .spu-content-type {
     background: #fff;
     overflow: hidden;
     position: relative;
@@ -306,26 +306,25 @@
     box-sizing: border-box;
   }
 
-  .spu .spu-content::after {
+  .spu .spu-content-type::after {
     content: '';
     position: absolute;
     bottom: 0;
     left: 3vw;
     right: 3vw;
-    border-bottom: 0.1vw solid #e5e5e5;
   }
 
-  .spu .spu-content.disabled {
+  .spu .spu-content-type.disabled {
     opacity: 0.6;
   }
 
-  .spu .spu-content .item-left {
-    width: 24vw;
-    height: 24vw;
+  .spu .spu-content-type .item-left {
+    width: 26vw;
+    height: 26vw;
     position: relative;
   }
 
-  .spu .spu-content .item-right {
+  .spu .spu-content-type .item-right {
     flex: 1;
     box-sizing: border-box;
     margin-left: 4vw;
@@ -334,17 +333,17 @@
     justify-content: space-between;
   }
 
-  .spu .spu-content .item-right .spu-title {
+  .spu .spu-content-type .item-right .spu-title {
     color: #222;
     font-size: 3vw;
-    height: 4vw;
+    height: 4.2vw;
     margin-bottom: 1vw;
     margin-top: 2vw;
     font-weight: 500;
     position: relative;
   }
 
-  .spu .spu-content .item-right .spu-title .span {
+  .spu .spu-content-type .item-right .spu-title .span {
     width: 100%;
     height: 9vw;
     position: absolute;
@@ -357,7 +356,7 @@
     margin: 0;
   }
 
-  .spu .spu-content .item-right .spu-desc {
+  .spu .spu-content-type .item-right .spu-desc {
     font-size: 3vw;
     line-height: 3vw;
     color: #999;
@@ -367,19 +366,19 @@
     margin-bottom: 2vw;
   }
 
-  .spu .spu-content .item-right .spu-desc .em {
+  .spu .spu-content-type .item-right .spu-desc .em {
     width: 100%;
     height: 5vw;
     position: absolute;
     left: 0;
-    top: -1vw;
+    top: 1vw;
     line-height: 5vw;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
   }
 
-  .spu .spu-content .add-cart {
+  .spu .spu-content-type .add-cart {
     padding: 0;
     margin: 0;
     position: absolute;
@@ -389,17 +388,19 @@
     align-items: center;
     justify-content: center;
     border-radius: 50%;
+    width: 7vw;
+    height: 7vw;
     border: none;
     outline: none;
   }
 
-  .spu .spu-content .add-cart .img {
+  .spu .spu-content-type .add-cart .img {
     width: 7vw;
     height: 7vw;
     display: block;
   }
 
-  .spu .spu-content .item-right .spu-price  {
+  .spu .spu-content-type .item-right .spu-price  {
     display: flex;
     align-items: flex-end;
     font-size: 3vw;
@@ -407,19 +408,19 @@
     overflow: hidden;
   }
 
-  .spu .spu-content .item-right .spu-price .sale-price {
+  .spu .spu-content-type .item-right .spu-price .sale-price {
     color: #ff5344;
     margin-right: 1vw;
   }
 
-  .spu .spu-content .item-right .spu-price .sale-price .span {
+  .spu .spu-content-type .item-right .spu-price .sale-price .span {
     font-size: 4.5vw;
     line-height: 4.5vw;
     margin: 0;
     font-weight: bold;
   }
 
-  .spu .spu-content .item-right .spu-price .market-price {
+  .spu .spu-content-type .item-right .spu-price .market-price {
     text-decoration: line-through;
     color: #999;
     margin-right: 5vw;
@@ -427,8 +428,8 @@
 
   .spu .mask {
     background: rgba(255,255,255,0.5);
-    width: 24vw;
-    height: 24vw;
+    width: 26vw;
+    height: 26vw;
     position: absolute;
     left: 4vw;
     top: 3vw;
