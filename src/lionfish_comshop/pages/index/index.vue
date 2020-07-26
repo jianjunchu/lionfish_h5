@@ -453,6 +453,7 @@
         <i-change-community @changeComunity="confrimChangeCommunity" :canChange="hide_community_change_btn==0"
                             :changeCommunity="changeCommunity" :community="community" :groupInfo="groupInfo"
                             :visible="showChangeCommunity"></i-change-community>
+
         <div class="new-coupou" v-if="showCouponModal&&hasAlertCoupon&&!showChangeCommunity">
           <div class="new-coupou-content">
             <div class="new-coupou-body">
@@ -964,7 +965,7 @@
           this.changeRushListNum()
         }
 
-        0 == e.isFirst ? a.couponRefresh = !0 : (this.getCoupon(), e.isFirst++)
+        0 == e.isFirst ? a.couponRefresh = !0 : (/*this.getCoupon(),*/ e.isFirst++)
       }
 
 
@@ -1171,6 +1172,29 @@
           }
         })
       },
+      goUse: function(t) {
+        this.showCouponModal = !1
+        this.hasAlertCoupon = !1
+        var a = t.currentTarget.dataset.idx,
+          e = this.alert_quan_list || [];
+        if (console.log(Object.keys(e).length), Object.keys(e).length >= a)
+          if (0 == e[a].is_limit_goods_buy) wx.switchTab({
+            url: "/lionfish_comshop/pages/index/index"
+          });
+          else if (1 == e[a].is_limit_goods_buy) {
+            var o = e[a].limit_goods_list,
+              i = "";
+            i = 1 < o.split(",").length ? "/lionfish_comshop/pages/type/result?type=2&good_ids=" + o : "/lionfish_comshop/pages/goods/goodsDetail?id=" + o,
+              wx.navigateTo({
+                url: i
+              });
+          } else if (2 == e[a].is_limit_goods_buy) {
+            var s = e[a].goodscates || 0;
+            wx.navigateTo({
+              url: "/lionfish_comshop/pages/type/result?type=1&gid=" + s
+            });
+          }
+      },
       get_type_topic: function() {
         var e = this,
           t = wx.getStorageSync('community') || {}
@@ -1185,36 +1209,50 @@
           }
         })
       },
+      toggleCoupon: function(t) {
+        var a = t.currentTarget.dataset.auth || "";
+        (this.needAuth || "") && a ? (
+          this.showAuthModal = !0,
+          this.showCouponModal = !1
+        ) : (
+          this.showCouponModal = !this.showCouponModal,
+          this.hasAlertCoupon = !1
+        );
+      },
       getCoupon: function() {
         var n = this,
-          t = wx.getStorageSync('token')
-        n.$http({
-          controller: 'goods.get_seller_quan',
-          token: t
-        }).then(t => {
-
-          var a = t.quan_list,
-            e = !1,
-            o = !1
-          '[object Object]' == Object.prototype.toString.call(a) && 0 < Object.keys(a).length && (e = !0),
-          '[object Array]' == Object.prototype.toString.call(a) && 0 < a.length && (e = !0)
-          var i = t.alert_quan_list || []
-          '[object Object]' == Object.prototype.toString.call(i) && 0 < Object.keys(i).length && (o = !0),
-          '[object Array]' == Object.prototype.toString.call(i) && 0 < i.length && (o = !0)
-          var s = 0
-          '[object Object]' == Object.prototype.toString.call(i) && 0 < Object.keys(i).length ? Object.keys(i).forEach(function(t) {
-            s += 1 * i[t].credit
-          }) : '[object Array]' == Object.prototype.toString.call(i) && 0 < i.length && i.forEach(function(t) {
-            s += 1 * t.credit
-          })
-
-          n.quan = t.quan_list || []
-          n.alert_quan_list = i
-          n.hasCoupon = e
-          n.hasAlertCoupon = o
-          n.showCouponModal = o
-          n.totalAlertMoney = s.toFixed(2)
-        })
+          t = wx.getStorageSync("token");
+        app.util.request({
+          url: "entry/wxapp/index",
+          data: {
+            controller: "goods.get_seller_quan",
+            token: t
+          },
+          dataType: "json",
+          success: function(t) {
+            var a = t.quan_list,
+              e = !1,
+              o = !1;
+            "[object Object]" == Object.prototype.toString.call(a) && 0 < Object.keys(a).length && (e = !0),
+            "[object Array]" == Object.prototype.toString.call(a) && 0 < a.length && (e = !0);
+            var i = t.alert_quan_list || [];
+            "[object Object]" == Object.prototype.toString.call(i) && 0 < Object.keys(i).length && (o = !0),
+            "[object Array]" == Object.prototype.toString.call(i) && 0 < i.length && (o = !0);
+            var s = 0;
+            "[object Object]" == Object.prototype.toString.call(i) && 0 < Object.keys(i).length ? Object.keys(i).forEach(function(t) {
+              s += 1 * i[t].credit;
+            }) : "[object Array]" == Object.prototype.toString.call(i) && 0 < i.length && i.forEach(function(t) {
+              s += 1 * t.credit;
+            }), (
+              n.quan = t.quan_list || [],
+              n.alert_quan_list = i,
+              n.hasCoupon = e,
+              n.hasAlertCoupon = o,
+              n.showCouponModal = o,
+              n.totalAlertMoney = s.toFixed(2)
+            );
+          }
+        });
 
       }, getPinList: function() {
         var d = this,
@@ -1566,7 +1604,7 @@
             i.cartNum = t.total
             i.closeSku()
             wx.showToast({
-              title: this.$t('cart.yijiarugouwuche'),
+              title: i.$t('cart.yijiarugouwuche'),
               image: '../../images/addShopCart.png'
             })
           }
@@ -1829,7 +1867,7 @@
               }
             });
           } else if (3 == d) {
-            var c = this.data.classification,
+            var c = this.classification,
               l = c && c.tabs,
               r = n,
               u = l.findIndex(function(t) {
@@ -2054,7 +2092,7 @@
             i = t.currentTarget.dataset.type || 0,
             a = wx.getStorageSync("token"),
             s = [];
-          s = 1 == i ? this.data.alert_quan_list : this.data.quan;
+          s = 1 == i ? this.alert_quan_list : this.quan;
           var n = this;
           app.util.request({
             url: "entry/wxapp/index",

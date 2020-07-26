@@ -925,7 +925,7 @@
         this.canCancel && wx.showModal({
           title: this.$t('cart.quxiaodingdantuikuan'),
           content: "取消订单后，款项将原路退回到您的支付账户；详情请查看退款进度。",
-          confirmText: this.$t('cart.quxiaodingdan'),
+          confirmText: r.$t('cart.quxiaodingdan'),
           confirmColor: "#ff5344",
           cancelText: "再等等",
           cancelColor: "#666666",

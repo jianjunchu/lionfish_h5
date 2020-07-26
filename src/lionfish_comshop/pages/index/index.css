@@ -1043,7 +1043,7 @@ button[plain] {
   position: absolute;
   left: 50%;
   top: 50%;
-  width: 600px;
+  width: 86vw;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -1055,31 +1055,31 @@ button[plain] {
   flex: 1;
   width: 100%;
   background: linear-gradient(to right,#fe655c,#fa875b);
-  border-radius: 20px;
+  border-radius: 2vw;
   box-sizing: border-box;
-  padding: 0 30px;
+  padding: 0 3vw;
 }
 
 .new-coupou-foot {
-  padding: 40px 0;
+  padding: 4vw 0;
 }
 
 .new-coupou-foot .iconfont {
-  font-size: 60px;
+  font-size: 6vw;
   color: #fff;
 }
 
 .new-coupou-body-head {
-  height: 108px;
-  line-height: 108px;
+  height: 10.8vw;
+  line-height: 10.8vw;
   text-align: center;
   color: #fff;
-  font-size: 40px;
+  font-size: 4vw;
   font-weight: bold;
 }
 
 .new-coupou-body-foot {
-  height: 122px;
+  height: 12vw;
 }
 
 .new-coupou-body-btn {
@@ -1087,11 +1087,11 @@ button[plain] {
   width: 100%;
   text-align: center;
   color: #c34f14;
-  font-size: 34px;
+  font-size: 3.4vw;
   font-weight: bold;
-  line-height: 78px;
-  border-radius: 39px;
-  margin-top: 20px;
+  line-height: 7.8vw;
+  border-radius: 3.9vw;
+  margin-top: 2vw;
 }
 
 .preventTouchMove {
@@ -1109,9 +1109,9 @@ button[plain] {
   justify-content: space-between;
   align-items: center;
   background: #fff;
-  border-radius: 10px;
-  padding: 20px;
-  margin-bottom: 20px;
+  border-radius: 1vw;
+  padding: 2vw;
+  margin-bottom: 2vw;
 }
 
 .new-coupou-title {
@@ -1144,10 +1144,10 @@ button[plain] {
 
 .new-coupou-use {
   background: #fe655c;
-  border-radius: 20px;
+  border-radius: 2vw;
   color: #fff;
-  font-size: 22px;
-  padding: 10px 20px;
+  font-size: 2.2vw;
+  padding: 1vw 2vw;
   line-height: 1;
 }
 
@@ -1372,25 +1372,25 @@ button[plain] {
 }
 
 .m-coupou-price {
-  font-size: 48px;
+  font-size: 4.8vw;
   font-weight: bold;
 }
 
-.m-coupou-price text {
-  font-size: 24px;
+.m-coupou-price span {
+  font-size: 2.4vw;
   font-weight: normal;
 }
 
 .m-coupou-name {
   width: 100%;
-  font-size: 28px;
+  font-size: 2.8vw;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
 
 .m-coupou-title {
-  font-size: 22px;
+  font-size: 2.2vw;
 }
 
 .m-coupou-r .new-coupou-use.kong {

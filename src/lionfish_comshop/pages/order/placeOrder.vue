@@ -1163,8 +1163,8 @@
           zc = t[a].zipCode, rn = t[a].roadName, bd = t[a].building
         if ('' == i) {
           e.focus_name = !0
-          var c = this.$t('order.tianxieshouhuoren')
-          return 0 == a && (c = this.$t('order.tianxietihuoren')), wx.showToast({
+          var c = e.$t('order.tianxieshouhuoren')
+          return 0 == a && (c = e.$t('order.tianxietihuoren')), wx.showToast({
             title: c,
             icon: 'none'
           }), !1
@@ -1172,14 +1172,14 @@
 
         if (!/^\d{8}$/.test(o) && !/^1(3|4|5|6|7|8|9)\d{9}$/.test(o)) {
           return wx.showToast({
-            title: this.$t('order.shoujihaomayouwu'),
+            title: e.$t('order.shoujihaomayouwu'),
             icon: 'none'
           }), !1
         }
 
         if (0 != a && ('' == zc || !/^\d{6}$/.test(zc))) {
           return wx.showToast({
-            title:  this.$t('order.youbianyouwu'),
+            title:  e.$t('order.youbianyouwu'),
             icon: 'none'
           }), !1
         }

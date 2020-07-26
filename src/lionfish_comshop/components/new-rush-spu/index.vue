@@ -291,7 +291,8 @@
   }
 </script>
 
-<style >
+
+<style  scoped>
   .i-btn {
     text-align: center;
     vertical-align: middle;
@@ -345,7 +346,7 @@
     top: 0;
   }
 
-  .spu .act-end {
+  .spu >>> .act-end {
     position: absolute;
     height: 6vw;
     border-radius: 1vw;
@@ -360,11 +361,11 @@
     transform: translateX(-50%);
   }
 
-  .spu .act-end.act-out {
+  .spu >>> .act-end.act-out {
     left: 12vw;
   }
 
-  .spu .spu-content {
+  .spu >>> .spu-content {
     position: relative;
     display: flex;
   }
@@ -373,13 +374,13 @@
     opacity: 0.6;
   }
 
-  .spu .spu-content .item-left {
+  .spu >>> .spu-content .item-left {
     width: 28vw;
     height: 28vw;
     position: relative;
   }
 
-  .spu .spu-content .item-right {
+  .spu >>> .spu-content .item-right {
     box-sizing: border-box;
     margin-left: 6vw;
     display: flex;
@@ -387,7 +388,7 @@
     justify-content: space-between;
   }
 
-  .spu .spu-content .item-right .spu-title {
+  .spu >>> .spu-content .item-right .spu-title {
     color: #333;
     font-size: 4vw;
     height: 4.2vw;
@@ -397,7 +398,7 @@
     position: relative;
   }
 
-  .spu .spu-content .item-right .spu-title .span {
+  .spu >>> .spu-content .item-right .spu-title .span {
     width: 100%;
     height: 4vw;
     position: absolute;
@@ -410,14 +411,14 @@
     margin: 0;
   }
 
-  .spu .spu-content .item-right .spu-tag {
+  .spu >>> .spu-content .item-right .spu-tag {
     padding-left: 20vw;
     margin-bottom: 2vw;
     display: flex;
     height: 2.8vw;
   }
 
-  .spu .spu-content .item-right .spu-desc {
+  .spu >>> .spu-content .item-right .spu-desc {
     font-size: 3vw;
     line-height: 3vw;
     color: #999;
@@ -427,7 +428,7 @@
     margin-bottom: 1.2vw;
   }
 
-  .spu .spu-content .item-right .spu-desc .em {
+  .spu >>> .spu-content .item-right .spu-desc .em {
     width: 100%;
     height: 3.2vw;
     position: absolute;
@@ -439,7 +440,7 @@
     white-space: nowrap;
   }
 
-  .spu .spu-content .item-right .spu-price {
+  .spu >>> .spu-content .item-right .spu-price {
     display: flex;
     align-items: flex-end;
     font-size: 3vw;
@@ -448,32 +449,32 @@
     margin-top: 1vw;
   }
 
-  .spu .spu-content .item-right .spu-price .sale-price {
+  .spu >>> .spu-content .item-right .spu-price .sale-price {
     color: #ff5344;
     margin-right: 1.2vw;
   }
 
-  .spu .spu-content .item-right .spu-price .sale-price .span {
+  .spu >>> .spu-content .item-right .spu-price .sale-price .span {
     font-size: 5vw;
     line-height: 5.2vw;
     margin: 0;
     font-weight: bold;
   }
 
-  .spu .spu-content .item-right .spu-price .market-price {
+  .spu >>>.spu-content .item-right .spu-price .market-price {
     text-decoration: line-through;
     color: #999;
     margin-right: 2vw;
   }
 
-  .spu .spu-content .item-right .spu-count {
+  .spu >>>.spu-content .item-right .spu-count {
     font-size: 2.4vw;
     height: 2.4vw;
     color: #999;
     margin-bottom: 2vw;
   }
 
-  .spu .spu-content .item-right .spu-count .spu-count-border {
+  .spu >>> .spu-content .item-right .spu-count .spu-count-border {
     display: inline-flex;
     border: 0.1vw solid #f78076;
     border-radius: 2vw;
@@ -482,19 +483,19 @@
     line-height: 3vw;
   }
 
-  .spu .spu-content .item-right .spu-count .spu-count-border .txt {
+  .spu >>> .spu-content .item-right .spu-count .spu-count-border .txt {
     padding: 0 1vw;
     color: #f78076;
     height: 3vw;
     line-height: 3vw;
   }
 
-  .spu .spu-content .item-right .spu-count .spu-count-border .spu-count-num {
+  .spu >>> .spu-content .item-right .spu-count .spu-count-border .spu-count-num {
     background-color: #f78076;
     color: #fff;
   }
 
-  .spu .spu-content .add-cart {
+  .spu >>> .spu-content .add-cart {
     width: 7vw;
     height: 7vw;
     padding: 0;
@@ -510,13 +511,13 @@
 
   }
 
-  .spu .spu-content .add-cart .img {
+  .spu >>> .spu-content .add-cart .img {
     width: 7vw;
     height: 7vw;
     display: block;
   }
 
-  .spu .spu-content .spu-active {
+  .spu >>> .spu-content .spu-active {
     position: absolute;
     left: 0;
     bottom: 0;
@@ -526,7 +527,7 @@
     align-items: flex-start;
   }
 
-  .spu .spu-content .spu-active .tag {
+  .spu >>> .spu-content .spu-active .tag {
     background: linear-gradient(to right,#ff5041,#ff994b);
     border-radius: 0 1.4vw 1.4vw 0;
     padding: 0 1.2vw;
@@ -544,11 +545,11 @@
     white-space: nowrap;
   }
 
-  .spu .spu-content .spu-active .tag-green {
+  .spu >>> .spu-content .spu-active .tag-green {
     background: linear-gradient(to left,#46c8d0,#29ba9a);
   }
 
-  .spu .item-tag {
+  .spu >>> .item-tag {
     position: absolute;
     left: -0.1vw;
     top: 0;

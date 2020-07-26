@@ -335,7 +335,7 @@
 
   .spu .spu-content-type .item-right .spu-title {
     color: #222;
-    font-size: 4vw;
+    font-size: 3vw;
     height: 4.2vw;
     margin-bottom: 1vw;
     margin-top: 2vw;

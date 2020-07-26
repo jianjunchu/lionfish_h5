@@ -376,12 +376,12 @@
       },
       goOrder: function(t) {
         var e = t.currentTarget.dataset.status;
-        this.$wx.redirectTo({
+        this.$wx.navigateTo({
           url: "/lionfish_comshop/pages/groupCenter/groupList?tab=" + e
         });
       },
       goEdit: function() {
-        this.$wx.redirectTo({
+        this.$wx.navigateTo({
           url: "/lionfish_comshop/pages/groupCenter/setting?id=" + this.data.community_info.id
         });
       },
@@ -432,7 +432,7 @@
       },
       goLink: function(event) {
         let link = event.currentTarget.dataset.link;
-        this.$wx.redirectTo({
+        this.$wx.navigateTo({
           url: link
         })
       },

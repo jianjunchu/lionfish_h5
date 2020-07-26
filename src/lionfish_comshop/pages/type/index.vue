@@ -15,7 +15,7 @@
              :class="[rushCategoryData.activeIndex===index?'category-item active':'category-item']"
              v-for="(item,index) in rushCategoryData.tabs" :key="index">
           <div class="item-border"></div>
-          <div>{{item.name}}</div>
+          <span>{{item.name}}</span>
         </div>
         <div class="category-item"></div>
       </div>
@@ -852,8 +852,8 @@
     height: 50px;
     display: flex;
     align-items: center;
-    justify-content: center;
-    font-size: 14px;
+    font-size: 12px;
+    padding-left: 3vw;
     color: #787878;
     line-height: 15px;
   }
