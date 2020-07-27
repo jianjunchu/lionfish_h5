@@ -309,14 +309,14 @@ export default {
 				console.log(response)
 				var result = response;
 				if(result != null && result.member_id != -1) {
-					alert('登录成功');
+					alert('Login Successful');
 					this.$wx.setStorageSync('token', response.token)
 					setToken(response.token);
 					this.$router.push({
 						path: '/lionfish_comshop/pages/index/index'
 					});
 				} else {
-					alert("登录失败");
+					alert("Login Failed");
 				}
 			})
 		},

@@ -446,15 +446,15 @@
         <div class="fixed-aside">
           <button @click="share_handler" class="fixed-service" v-if="isShowShareBtn==1">
             <span class="iconfont icon-fenxiang"></span>
-            <div>{{$t('index.fenxiang')}}</div>
+            <div>Share</div>
           </button>
           <button class="fixed-service" openType="contact" v-if="isShowContactBtn==1">
             <span class="iconfont icon-kefu"></span>
-            <div>{{$t('index.kefu')}}</div>
+            <div>Service</div>
           </button>
           <button @click="backTop" class="fixed-service" v-show="(!isSticky)" v-if="ishow_index_gotop==1">
             <span class="iconfont icon-fanhuidingbu"></span>
-            <div>{{$t('index.dingbu')}}</div>
+            <div>Top</div>
           </button>
         </div>
 
@@ -470,7 +470,7 @@
         <div class="new-coupou" v-if="showCouponModal&&hasAlertCoupon&&!showChangeCommunity">
           <div class="new-coupou-content">
             <div class="new-coupou-body">
-              <div class="new-coupou-body-head">恭喜你获得{{totalAlertMoney}}元红包券</div>
+              <div class="new-coupou-body-head">Welcome to H&Z Mart! Here's ${{totalAlertMoney}} for use on your first purchase.</div>
               <div class="new-coupou-body-scroll">
                 <div scrollY style="max-height:580px;">
                   <div class="new-coupou-item" v-for="(item ,index) in alert_quan_list" :key="item.id">
@@ -482,17 +482,17 @@
                     </div>
                     <div class="m-coupou-m">
                       <div class="m-coupou-name">{{item.voucher_title}}</div>
-                      <div class="m-coupou-title" v-if="item.limit_money>0">满{{item.limit_money}}元可用</div>
-                      <div class="m-coupou-title" v-else>全场通用</div>
+                      <div class="m-coupou-title" v-if="item.limit_money>0">min ${{item.limit_money}} purchase to use coupon</div>
+                      <div class="m-coupou-title" v-else>Useable for all products</div>
                     </div>
                     <div class="m-coupou-r">
-                      <div @click="goUse" class="new-coupou-use kong" :data-idx="index">去使用</div>
+                      <div @click="goUse" class="new-coupou-use kong" :data-idx="index">Use</div>
                     </div>
                   </div>
                 </div>
               </div>
               <div class="new-coupou-body-foot">
-                <div @click="toggleCoupon" class="new-coupou-body-btn" data-auth="true">立即使用</div>
+                <div @click="toggleCoupon" class="new-coupou-body-btn" data-auth="true">Use Now</div>
               </div>
             </div>
             <div class="new-coupou-foot">
