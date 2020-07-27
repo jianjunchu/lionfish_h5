@@ -446,15 +446,15 @@
         <div class="fixed-aside">
           <button @click="share_handler" class="fixed-service" v-if="isShowShareBtn==1">
             <span class="iconfont icon-fenxiang"></span>
-            <div>分享</div>
+            <div>{{$t('index.fenxiang')}}</div>
           </button>
           <button class="fixed-service" openType="contact" v-if="isShowContactBtn==1">
             <span class="iconfont icon-kefu"></span>
-            <div>客服</div>
+            <div>{{$t('index.kefu')}}</div>
           </button>
           <button @click="backTop" class="fixed-service" v-show="(!isSticky)" v-if="ishow_index_gotop==1">
             <span class="iconfont icon-fanhuidingbu"></span>
-            <div>顶部</div>
+            <div>{{$t('index.dingbu')}}</div>
           </button>
         </div>
 
