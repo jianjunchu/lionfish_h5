@@ -1,7 +1,7 @@
 <template>
   <van-calendar
     title="Set Working Time"
-    :color="skin.color"
+    color="#07c160"
     @select="select"
     @unselect="unselect"
     type="multiple"
@@ -35,11 +35,18 @@
       const minDate = new Date()
       minDate.setDate(minDate.getDate() + 1)
       this.minDate = minDate
+      this.date.push(minDate)
+
+      for(var i = 2 ;i < 30; i++){
+        const tp = new Date()
+        tp.setDate(tp.getDate() + i)
+        this.date.push(tp)
+      }
 
       const maxDate = new Date()
       maxDate.setDate(maxDate.getDate() + 30)
       this.maxDate = maxDate
-
+      this.date.push(maxDate)
       wx.setNavigationBarTitle({
         title: 'Working Time',
         showLogo: false,
@@ -98,8 +105,13 @@
           dataType: 'json',
           success: function(t) {
             if (t.code == 0) {
+
               const arr = t.data
+              if(arr.length>0){
+                c.date = [];
+              }
               for (var i = 0; i < arr.length; i++) {
+
                 const d = c.stringToDate(arr[i].work_date)
                 c.date.push(d)
               }
