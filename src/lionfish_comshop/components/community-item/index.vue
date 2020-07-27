@@ -18,7 +18,7 @@
       <div class="community-address" v-if="hiddenDetails==0">{{item.fullAddress||item.communityAddress}}</div>
 
       <div class="community-date" v-for="(item,index) in item.times">
-        {{item.date}} :
+        {{item.md}}({{ $t('week.'+item.week_key) }}) :
         <span class="span" v-if="item.times.length>0">
           <span class="span" v-if="item.times[0]"> {{item.times[0]}}</span>
           <span class="span" v-if="item.times[1]"> , {{item.times[1]}}</span>
@@ -139,7 +139,7 @@
 
   .community-item .community-date {
     margin-top: 0.5vw;
-    font-size: 2vw;
+    font-size: 3.8vw;
     line-height: 4.2vw;
     color: #aaa;
     width: 70vw;

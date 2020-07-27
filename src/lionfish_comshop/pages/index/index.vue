@@ -153,40 +153,40 @@
           <div class="cube" v-if="cube.length">
             <div v-for="(item,index) in cube" :key="item.id">
               <div class="cube-item" v-if="item.type==1">
-                <img @click="goCube" class="cube-one rounded" data-idx="0" :data-index="index" mode="widthFix" :src="item.thumb.cover[0]"></img>
+                <img @click.native="goCube" class="cube-one rounded" data-idx="0" :data-index="index" mode="widthFix" :src="item.thumb.cover[0]"></img>
               </div>
               <div class="cube-item" v-if="item.type==2">
-                <i-img @click="goCube" data-idx="0" :data-index="index" height="59vw" iClass="cube-left rounded" :loadImage="item.thumb.cover[0]" width="50vw"></i-img>
-                <i-img @click="goCube" data-idx="1" :data-index="index" height="59vw" iClass="cube-two rounded" :loadImage="item.thumb.cover[1]" width="59vw"></i-img>
+                <i-img @click.native="goCube" data-idx="0" :data-index="index" height="59vw" iClass="cube-left rounded" :loadImage="item.thumb.cover[0]" width="50vw"></i-img>
+                <i-img @click.native="goCube" data-idx="1" :data-index="index" height="59vw" iClass="cube-two rounded" :loadImage="item.thumb.cover[1]" width="59vw"></i-img>
               </div>
               <div class="cube-item" v-if="item.type==3">
-                <i-img @click="goCube" data-idx="0" :data-index="index" height="59vw" iClass="cube-left rounded" :loadImage="item.thumb.cover[0]" width="33vw"></i-img>
+                <i-img @click.native="goCube" data-idx="0" :data-index="index" height="59vw" iClass="cube-left rounded" :loadImage="item.thumb.cover[0]" width="33vw"></i-img>
                 <div class="i-flex-col i-flex-spb">
-                  <i-img @click="goCube" data-idx="1" :data-index="index" height="29vw" iClass="cube-three rounded" :loadImage="item.thumb.cover[1]" width="60vw"></i-img>
-                  <i-img @click="goCube" data-idx="2" :data-index="index" height="29vw" iClass="cube-three rounded" :loadImage="item.thumb.cover[2]" width="60vw"></i-img>
+                  <i-img @click.native="goCube" data-idx="1" :data-index="index" height="29vw" iClass="cube-three rounded" :loadImage="item.thumb.cover[1]" width="60vw"></i-img>
+                  <i-img @click.native="goCube" data-idx="2" :data-index="index" height="29vw" iClass="cube-three rounded" :loadImage="item.thumb.cover[2]" width="60vw"></i-img>
                 </div>
               </div>
               <div class="cube-item" v-if="item.type==4">
-                <i-img @click="goCube" data-idx="0" :data-index="index" height="59vw" iClass="cube-left rounded" :loadImage="item.thumb.cover[0]" width="33vw"></i-img>
+                <i-img @click.native="goCube" data-idx="0" :data-index="index" height="59vw" iClass="cube-left rounded" :loadImage="item.thumb.cover[0]" width="33vw"></i-img>
                 <div class="i-flex-col i-flex-spb">
-                  <i-img @click="goCube" data-idx="1" :data-index="index" height="29vw" iClass="cube-three rounded" :loadImage="item.thumb.cover[1]" width="60vw"></i-img>
+                  <i-img @click.native="goCube" data-idx="1" :data-index="index" height="29vw" iClass="cube-three rounded" :loadImage="item.thumb.cover[1]" width="60vw"></i-img>
                   <div class="i-flex i-flex-spb w450">
-                    <i-img @click="goCube" data-idx="2" :data-index="index" height="29vw" iClass="cube-four rounded" :loadImage="item.thumb.cover[2]" width="29.5vw"></i-img>
-                    <i-img @click="goCube" data-idx="3" :data-index="index" height="29vw" iClass="cube-four rounded" :loadImage="item.thumb.cover[3]" width="29.5vw"></i-img>
+                    <i-img @click.native="goCube" data-idx="2" :data-index="index" height="29vw" iClass="cube-four rounded" :loadImage="item.thumb.cover[2]" width="29.5vw"></i-img>
+                    <i-img @click.native="goCube" data-idx="3" :data-index="index" height="29vw" iClass="cube-four rounded" :loadImage="item.thumb.cover[3]" width="29.5vw"></i-img>
                   </div>
                 </div>
               </div>
               <div class="cube-item" v-if="item.type==5">
-                <img @click="goCube" class="cube-w" :data-idx="idx" :data-index="index" mode="widthFix" :src="imgItem" v-for="(imgItem,idx) in item.thumb.cover" :key="idx"></img>
+                <img @click.native="goCube" class="cube-w" :data-idx="idx" :data-index="index" mode="widthFix" :src="imgItem" v-for="(imgItem,idx) in item.thumb.cover" :key="idx"></img>
               </div>
               <div class="cube-item" v-if="item.type==6">
-                <img @click="goCube" class="cube-w" :data-idx="idx" :data-index="index" mode="widthFix" :src="imgItem" v-for="(imgItem,idx) in item.thumb.cover" :key="idx"></img>
+                <img @click.native="goCube" class="cube-w" :data-idx="idx" :data-index="index" mode="widthFix" :src="imgItem" v-for="(imgItem,idx) in item.thumb.cover" :key="idx"></img>
               </div>
               <div class="cube-item" v-if="item.type==7">
-                <img @click="goCube" class="cube-w" :data-idx="idx" :data-index="index" mode="widthFix" :src="imgItem" v-for="(imgItem,idx) in item.thumb.cover" :key="idx"></img>
+                <img @click.native="goCube" class="cube-w" :data-idx="idx" :data-index="index" mode="widthFix" :src="imgItem" v-for="(imgItem,idx) in item.thumb.cover" :key="idx"></img>
               </div>
               <div class="cube-item two-row" v-if="item.type==8">
-                <img @click="goCube" class="cube-w" :data-idx="idx" :data-index="index" mode="widthFix" :src="imgItem" v-for="(imgItem,idx) in item.thumb.cover" :key="idx"></img>
+                <img @click.native="goCube" class="cube-w" :data-idx="idx" :data-index="index" mode="widthFix" :src="imgItem" v-for="(imgItem,idx) in item.thumb.cover" :key="idx"></img>
               </div>
             </div>
           </div>
@@ -284,8 +284,13 @@
             <div class="sticky-cate_index" v-if="index_change_cate_btn==1">
               <div v-show="!isShowClassification||tabIdx!==0">
                 <van-sticky :offset-top="50">
-                <i-tabs :activeIndex="classification.activeIndex" @activeIndexChange="classificationChange"
-                        data-idx="1" fontColor="#000" iClass="category-list" :tabs="classification.tabs"></i-tabs>
+                <!--<i-tabs :activeIndex="classification.activeIndex" @activeIndexChange="classificationChange"
+                        data-idx="1" fontColor="#000" iClass="category-list" :tabs="classification.tabs"></i-tabs>-->
+
+                  <van-tabs v-model="commingClassification.activeIndex" @click="classificationChange">
+                    <van-tab v-for="(item , index) in classification.tabs" :title="item.name"  :title-style="{'flex-basis':'auto','padding': '0 10px'}">
+                    </van-tab>
+                  </van-tabs>
                 </van-sticky>
               </div>
               <div class="tab-nav-index-query"></div>
@@ -319,14 +324,22 @@
               </div>
               <div v-show="!isShowClassification||tabIdx!==0">
                 <van-sticky :offset-top="50">
-                <i-tabs :activeIndex="classification.activeIndex" @activeIndexChange="classificationChange"
-                        data-idx="1" fontColor="#000" class="category-list" :tabs="classification.tabs"></i-tabs>
+                <!--<i-tabs :activeIndex="classification.activeIndex" @activeIndexChange="classificationChange"
+                        data-idx="1" fontColor="#000" class="category-list" :tabs="classification.tabs"></i-tabs>-->
+                  <van-tabs v-model="commingClassification.activeIndex" @click="classificationChange">
+                    <van-tab v-for="(item , index) in classification.tabs" :title="item.name"  :title-style="{'flex-basis':'auto','padding': '0 10px'}">
+                    </van-tab>
+                  </van-tabs>
                 </van-sticky>
               </div>
               <div v-show="!isShowCommingClassification||tabIdx!==1">
                 <van-sticky :offset-top="50">
-                <i-tabs :activeIndex="commingClassification.activeIndex" @activeIndexChange="classificationChange" data-idx="2" fontColor="#000"
-                        iClass="category-list" :tabs="classification.tabs"></i-tabs>
+                <!--<i-tabs :activeIndex="commingClassification.activeIndex" @activeIndexChange="classificationChange" data-idx="2" fontColor="#000"
+                        iClass="category-list" :tabs="classification.tabs"></i-tabs>-->
+                  <van-tabs v-model="commingClassification.activeIndex" @click="classificationChange">
+                    <van-tab v-for="(item , index) in classification.tabs" :title="item.name"  :title-style="{'flex-basis':'auto','padding': '0 10px'}">
+                    </van-tab>
+                  </van-tabs>
                 </van-sticky>
               </div>
             </div>
@@ -1605,7 +1618,7 @@
             i.closeSku()
             wx.showToast({
               title: i.$t('cart.yijiarugouwuche'),
-              image: '../../images/addShopCart.png'
+              image: '@/assets/images/addShopCart.png'
             })
           }
         }).catch(function(t) {
@@ -1840,7 +1853,7 @@
       goCube: function(t) {
         var a = t.currentTarget.dataset.idx,
           e = t.currentTarget.dataset.index,
-          o = this.data,
+          o = this,
           i = o.cube,
           s = o.needAuth;
         if (console.log(i), 0 < i.length) {
@@ -1902,11 +1915,12 @@
         this.rushList = []
         this.showEmpty = !1,
           this.pageNum = 1,
-          this.classification.activeIndex = t.e
-        this.classificationId = t.a
+          //this.classification.activeIndex = t.e
+        //this.classificationId = t.a
 
-        a.$data.$data.stickyFlag || a.$data.$data.scrollTop == a.$data.$data.stickyTop + 5 || wx.pageScrollTo({
-          scrollTop: a.$data.$data.stickyTop - 30,
+          this.classificationId = this.classification.tabs[this.classification.activeIndex]
+         a.$data.$data.stickyFlag || a.$data.$data.scrollTop == a.$data.$data.stickyTop + 5 || wx.pageScrollTo({
+          scrollTop: a.$data.$data.stickyTop - 100,
           duration: 0
         })
         a.load_goods_data()

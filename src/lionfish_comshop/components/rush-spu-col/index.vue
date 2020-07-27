@@ -215,7 +215,7 @@
               s.number = t.cur_count
               wx.showToast({
               title: "Added to Cart",
-              image: "../../images/addShopCart.png"
+              image: "@/assets/images/addShopCart.png"
             });
           });
         } else app.util.request({

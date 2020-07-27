@@ -60,7 +60,7 @@
 
             <div style='wid:200px;height:100px;text-align: center;margin-top: 3vw;'>
               <span style='font-size: 18px;'>请在支付时备注您订单内的联系号码 \n</span>
-              <span style='font-size: 18px;color: #c0c0c0'>注：转账支付为人工审核</span>
+              <span style='font-size: 18px;color: #c0c0c0'>{{$t('order.zhuanzhangbeizhu')}}</span>
             </div>
           </div>
           <div style='width: 60%;text-align: center;margin-top: 3vw;margin-left: 20%;'>
@@ -99,7 +99,7 @@
         </div>
 
         <div style='text-align: center'>
-          <div style='width: 100%;height: 350px;justify-content: center; '>
+          <div style='width: 100%;height: 380px;justify-content: center; '>
             <img :src='payNowQr'
                  style='width: 160px;height: 160px;margin-top: 20px;border: 1px solid #000;'/>
             <div style='wid:200px;height:40px;margin-top:1vw;'>
@@ -109,7 +109,7 @@
             </div>
             <div style='wid:200px;height:100px; margin-top:1vw;'>
               <span style='font-size: 18px;'><!--请在支付时备注您订单内的联系号码 \n--></span>
-              <span style='font-size: 18px;color: #c0c0c0'>注：转账支付为人工审核</span>
+              <span style='font-size: 18px;color: #c0c0c0'>{{$t('order.zhuanzhangbeizhu')}}</span>
             </div>
           </div>
           <div class="receiver">
