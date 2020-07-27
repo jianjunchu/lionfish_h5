@@ -8,7 +8,7 @@
         <span class="count-down-left-text">{{$t('home.jinsheng')}}</span>
       </i-count-down>
     </div>
-    <div bindscrolltolower="getMore" class="new-comers-scroll">
+    <div ref="Box" @scroll="scrollEvent" class="new-comers-scroll">
       <div class="new-comers-wrap">
         <i-router-link routerClass="new-comers-item" :url="'/lionfish_comshop/pages/goods/goodsDetail?id='+item.actId"
                        v-for="(item , index) in list" :key="item.id">
@@ -97,6 +97,15 @@
             t.getData()
           })
         }
+      },
+      scrollEvent () {
+        let a = this.$refs.Box.scrollLeft
+        let b = this.$refs.Box.scrollWidth
+        let c = this.$refs.Box.scrollTop
+        console.log('滚动条'+a)
+        console.log('可视区'+b)
+        console.log('距离顶部'+c)
+
       },
       openSku: function(e) {
 

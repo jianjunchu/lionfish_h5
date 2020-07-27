@@ -24,12 +24,16 @@
 }
 
 .new-comers-scroll {
-  max-height: 310px;
+  width: 94vw;
+  height: auto;
+  overflow-y: hidden;
+  overflow-x: auto;
 }
 
 .new-comers-wrap {
   position: relative;
   display: flex;
+  height: auto;
   flex-direction: row;
   flex-wrap: nowrap;
 }
