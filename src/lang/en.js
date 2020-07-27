@@ -228,7 +228,7 @@ export default {
     yijujue: 'Rejected',
     cishangpinxuyao: 'This product requires ',
     qingquerentihuo: 'Please confirm the collection information.',
-    xierugaidingdanhao: 'Remember to record your order no., before scanning QR Code.',
+    xierugaidingdanhao: 'Please make your payment via PayNow and ensure that you enter your Order ID under the reference/comments area.',
     beizhudingdanhao: 'Order No.',
     zhifujine: 'Amount owned',
     saomazhifu: 'SCAN TO PAY',
@@ -253,7 +253,8 @@ export default {
     shouhouzhong: 'After Sales',
     zhifuchenggong: 'Payment Confirmed',
     zhifushibai: 'Payment Failed',
-    shenqingshouhou: 'Apply Refund'
+    shenqingshouhou: 'Apply Refund',
+    zhuanzhangbeizhu: 'Note: Order is pending until payment is confirmed'
   },
   cart: {
     gouwuchekong: 'Back to Homepage',

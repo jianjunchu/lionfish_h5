@@ -708,7 +708,7 @@
             i.cartNum = t.total
             wx.showToast({
               title: this.$t('cart.yijiarugouwuche'),
-              image: '../../images/addShopCart.png'
+              image: '@/assets/images/addShopCart.png'
             })
           }
         })
