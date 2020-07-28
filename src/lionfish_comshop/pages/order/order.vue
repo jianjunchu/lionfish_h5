@@ -1,6 +1,6 @@
 <template>
   <div>
-    <!--<i-auth bind:authSuccess="authSuccess" :needAuth="needAuth">-->
+    <!--<i-auth @authSuccess="authSuccess" :needAuth="needAuth">-->
     <div class="mask" catchtouchmove="preventTouchMove" v-if="showTransferModal"></div>
     <div class="paynow" v-if="showTransferModal">
       <div style='width: 100%;height: 10%;'>
@@ -235,7 +235,7 @@
                       {{$t('common.xiaoji')}} <span v-if="order.order_info.type!='integral'"> ${{goodsInfo.real_total}} </span>
                       <span v-if="order.order_info.type=='integral'">{{$t('common.point')}}</span>
                     </span>
-                    <i-dialog bind:cancel="callDialog" bind:confirm="confirmGoods" :data-cancel="confirmGoodsVisible" text="确认该商品已经提货？" :visible="confirmGoodsVisible"></i-dialog>
+                    <i-dialog @cancel="callDialog" @confirm="confirmGoods" :data-cancel="confirmGoodsVisible" text="确认该商品已经提货？" :visible="confirmGoodsVisible"></i-dialog>
                   </div>
                   <div class="card-btn">
                     <div @click="goRefund" class="btn-2 mar-left-8" :data-id="goodsInfo.order_refund_goods.ref_id" v-if="goodsInfo.is_refund_state>0&&goodsInfo.order_refund_goods.ref_id">
@@ -299,10 +299,10 @@
       </i-fixedBottom>
     </div>
     <!--<i-aside-btn iClass="home-btn" :showContact="user_service_switch==1" showHome="true"></i-aside-btn>-->
-    <!--<guess-like bind:openSku="openSku" bind:vipModal="vipModal" likeTitle="猜你喜欢" :updateCart="updateCart" v-if="is_show_guess_like==1"></guess-like>-->
+    <!--<guess-like @openSku="openSku" @vipModal="vipModal" likeTitle="猜你喜欢" :updateCart="updateCart" v-if="is_show_guess_like==1"></guess-like>-->
   </div>
   <!--</i-auth>-->
-  <i-dialog bind:cancel="callDialog" bind:confirm="cancelOrder" :data-cancel="cancelOrderVisible" text="好不容易挑出来，确定要取消吗？" :visible="cancelOrderVisible"></i-dialog>
+  <i-dialog @cancel="callDialog" @confirm="cancelOrder" :data-cancel="cancelOrderVisible" text="好不容易挑出来，确定要取消吗？" :visible="cancelOrderVisible"></i-dialog>
   <i-modal scrollUp="false" :visible="isShowModal">
     <div class="share-modal">
       <img @click="closeModal" class="close-modal" src="@/assets/images/img-close.png"/>
@@ -318,7 +318,7 @@
       </div>
     </div>
   </i-modal>
-  <!--<sku bind:cancel="closeSku" bind:changeCartNum="changeCartNum" bind:vipModal="vipModal" :cur_sku_arr="cur_sku_arr" :goodsid="addCar_goodsid" :sku="sku" :skuList="skuList" :sku_val="sku_val" :visible="visible"></sku>-->
+  <!--<sku @cancel="closeSku" @changeCartNum="changeCartNum" @vipModal="vipModal" :cur_sku_arr="cur_sku_arr" :goodsid="addCar_goodsid" :sku="sku" :skuList="skuList" :sku_val="sku_val" :visible="visible"></sku>-->
   <!--<i-vip-modal :imgUrl="pop_vipmember_buyimage" :visible="showVipModal"></i-vip-modal>-->
 
   <!--<i-modal scrollUp="false" :visible="showRefundModal&&refundGoodsInfo">-->

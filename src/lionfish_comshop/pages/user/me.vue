@@ -471,7 +471,7 @@
       </div>
 
     </div>
-    <i-tabbar @authModal="authModal" :cartNum="cartNum" currentIdx="4" :needAuth="needAuth"
+    <i-tabbar ref="tabbar" @authModal="authModal" :cartNum="cartNum" currentIdx="4" :needAuth="needAuth"
               :tabbarRefresh="tabbarRefresh"></i-tabbar>
   </div>
 
@@ -577,17 +577,20 @@
     created: function() {
       app = this.$getApp()
       wx = this.$wx
-      wx.setNavigationBarTitle({
-        title: 'Me',
-        showLogo: false,
-        showMore: false,
-        showBack: false
-      })
+
       this.onLoad()
 
     },
-    mounted: function() {
-      this.onShow()
+    activated:function(){
+
+      this.$wx.setNavigationBarTitle({
+        title: "Me",
+        showLogo:false,
+        showMore:false,
+        showBack:false
+      })
+      this.$refs.tabbar.getTabbar();
+      this.onShow();
     },
     methods: {
       onLoad: function(options) {

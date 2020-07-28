@@ -339,7 +339,7 @@
       </div>
       <guess-like @changeCartNum="showCartGoods" @openSku="openSku" @vipModal="vipModal" :updateCart="updateCart"
                   v-if="is_show_guess_like==1"></guess-like>
-      <i-tabbar @authModal="authModal" :cartNum="cartNum" currentIdx="3" :needAuth="needAuth"
+      <i-tabbar ref="tabbar" @authModal="authModal" :cartNum="cartNum" currentIdx="3" :needAuth="needAuth"
                 :tabbarRefresh="tabbarRefresh"></i-tabbar>
     </div>
     <i-new-auth @authSuccess="authSuccess" @cancel="authModal" :needAuth="needAuth&&showAuthModal"></i-new-auth>
@@ -481,41 +481,48 @@
     created: function() {
       const wx = this.$wx
       status.setNavBgColor()
+
+    },
+
+
+    activated:function(){
+
       this.$wx.setNavigationBarTitle({
         title: "Cart",
         showLogo:false,
         showMore:false,
         showBack:false
       })
-
-    },
-    mounted: function() {
-
-      const wx = this.$wx, app = this.$getApp()
-      var s = this
-
-      util.check_login_new().then(function(t) {
-        console.log(t)
-        if (t) {
-          var a = wx.getStorageSync('community').communityId || ''
-
-          s.needAuth = !1
-          s.isEmpty = !1
-          s.tabbarRefresh = !0
-          s.community_id = a
-          s.isIpx = app.globalData.isIpx
-          status.cartNum().then(function(t) {
-            s.cartNum = t.data
-          })
-          s.showCartGoods()
-        } else {
-          s.needAuth = !0
-          s.isEmpty = !0
-        }
-      })
-      wx.hideLoading()
+      this.$refs.tabbar.getTabbar();
+      this.onShow();
     },
     methods: {
+      onShow: function() {
+
+        const wx = this.$wx, app = this.$getApp()
+        var s = this
+
+        util.check_login_new().then(function(t) {
+          console.log(t)
+          if (t) {
+            var a = wx.getStorageSync('community').communityId || ''
+
+            s.needAuth = !1
+            s.isEmpty = !1
+            s.tabbarRefresh = !0
+            s.community_id = a
+            s.isIpx = app.globalData.isIpx
+            status.cartNum().then(function(t) {
+              s.cartNum = t.data
+            })
+            s.showCartGoods()
+          } else {
+            s.needAuth = !0
+            s.isEmpty = !0
+          }
+        })
+        wx.hideLoading()
+      },
       authSuccess: function() {
         const wx = this.$wx, app = this.$getApp()
         wx.reLaunch({

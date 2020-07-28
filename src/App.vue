@@ -1,7 +1,12 @@
 <template>
   <div id="app" style="overflow-x: hidden;">
     <i-toolbar v-if="loadOver" ref="toolbar"></i-toolbar>
-    <router-view style="margin-top: 49px"/>
+
+    <keep-alive>
+      <router-view style="margin-top: 49px" v-if='$route.meta.keepAlive'/>
+    </keep-alive>
+    <router-view style="margin-top: 49px" v-if='!$route.meta.keepAlive'/>
+
 
   </div>
 </template>

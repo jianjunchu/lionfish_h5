@@ -59,7 +59,7 @@
       </van-list>
     </div>
     <!-- <i-empty wx:else>暂无分类~</i-empty> -->
-    <i-tabbar @authModal="authModal" :cartNum="cartNum" :class="['tabbar' ,isIpx?'pb20':'']" currentIdx="1"
+    <i-tabbar ref="tabbar" @authModal="authModal" :cartNum="cartNum" :class="['tabbar' ,isIpx?'pb20':'']" currentIdx="1"
               :needAuth="needAuth"></i-tabbar>
   </div>
   <!-- <i-new-auth bind:authSuccess="authSuccess" bind:cancel="authModal" navBackUrl="/lionfish_comshop/pages/type/index" needAuth="needAuth&&showAuthModal" needPosition="needPosition"></i-new-auth> -->
@@ -144,8 +144,17 @@
       const t = this.$route.query
       this.onLoad(t)
     },
-    mounted:function(){
-      this.onShow()
+
+    activated:function(){
+
+      wx.setNavigationBarTitle({
+        title: 'Type',
+        showLogo:false,
+        showMore:false,
+        showBack:false
+      })
+      this.onShow();
+      this.$refs.tabbar.getTabbar();
     },
     methods: {
 

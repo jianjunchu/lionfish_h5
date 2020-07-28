@@ -82,9 +82,9 @@
           <div class="title">{{$t('order.shangpinjine')}}</div>
           <div class="detail">
             +
-            <div v-if="orderInfo.type!='integral'">$</div>
+            <span v-if="orderInfo.type!='integral'">$</span>
             {{goodsTotal}}
-            <div v-if="orderInfo.type=='integral'">积分</div>
+            <span v-if="orderInfo.type=='integral'">积分</span>
           </div>
         </div>
       </div>
@@ -93,15 +93,15 @@
       <div class="footer" v-if="orderInfo.type=='integral'">
         <div>To Pay：</div>
         <div class="money">
-          <div v-if="orderInfo.shipping_fare>0">${{orderInfo.shipping_fare}} +</div>
+          <span v-if="orderInfo.shipping_fare>0">${{orderInfo.shipping_fare}} +</span>
           {{orderInfo.score}}积分
         </div>
       </div>
       <div class="footer" v-else>
         <div>Total：</div>
-        <div class="money">
+        <span class="money">
           ${{orderInfo.total}}
-        </div>
+        </span>
       </div>
     </div>
   </i-card>

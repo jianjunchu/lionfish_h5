@@ -18,7 +18,7 @@
     </view>
     <i-cart-btn :cartNum="cartNum" iClass="{{is_show_cate_tabbar==1?'cartBtn':''" v-if="is_show_cate_tabbar!=1"></i-cart-btn>
     <i-aside-btn showContact="{{is_show_cate_tabbar==1" showHome="{{is_show_cate_tabbar!=1" showShare="{{true"></i-aside-btn>
-    <i-tabbar :cartNum="cartNum" class="tabbar {{isIpx?'pb20':''" currentIdx="-1" v-if="is_show_cate_tabbar==1"></i-tabbar>
+    <i-tabbar ref="tabbar" :cartNum="cartNum" class="tabbar {{isIpx?'pb20':''" currentIdx="-1" v-if="is_show_cate_tabbar==1"></i-tabbar>
   </view>
   <!--<i-new-auth @authSuccess="authSuccess" @cancel="authModal" :needAuth="needAuth&&showAuthModal"></i-new-auth>
   <sku @cancel="closeSku" @changeCartNum="changeCartNum" @vipModal="vipModal" :cur_sku_arr="cur_sku_arr" :goodsid="addCar_goodsid" :sku="sku" :skuList="skuList" :sku_val="sku_val" v-if="visible"></sku>

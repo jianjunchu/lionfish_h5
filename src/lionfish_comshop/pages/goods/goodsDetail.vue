@@ -277,7 +277,7 @@
       </div>
         <!--<i-relative-goods-list bind:authModal="authModal" bind:openSku="openSku" :list="relative_goods_list" :needAuth="needAuth"></i-relative-goods-list>-->
         <div class="spuDetail">
-          <img class="goodsDetailTitleImg" src="@/assets/images/goodsDetailTitle.png"/>
+          <!--<img class="goodsDetailTitleImg" src="@/assets/images/goodsDetailTitle.png"/>-->
           <div class="warmPrompt">
             <div class="wxParse">
               <!--<parser html="{{goods.description}}"></parser>-->
@@ -449,7 +449,7 @@
 
     <button @click.stop="share_handler" class="fixed-share">
       <div class="iconfont icon-fenxiang"></div>
-      <div>分享</div>
+      <div>Share</div>
     </button>
     <!--<button class="fixed-service" openType="contact" v-if="isShowContactBtn==1">
       <div class="iconfont icon-kefu"></div>

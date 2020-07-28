@@ -458,7 +458,7 @@
           </button>
         </div>
 
-        <i-tabbar @authModal="authModal" :cartNum="cartNum" currentIdx="0" :needAuth="needAuth"
+        <i-tabbar ref="tabbar" @authModal="authModal" :cartNum="cartNum" currentIdx="0" :needAuth="needAuth"
                   :tabbarRefresh="tabbarRefresh"></i-tabbar>
 
         <i-order-notify iClass="order-notify" :stopNotify="stopNotify"
@@ -983,6 +983,15 @@
 
 
 
+    },
+    activated:function(){
+      this.$refs.tabbar.getTabbar();
+      wx.setNavigationBarTitle({
+        title: this.shop_info.shoname,
+        showLogo:true,
+        showMore:false,
+        showBack:false
+      })
     },
     methods: {
       copyText: function(t) {
@@ -1772,13 +1781,6 @@
       },
       authModal: function() {
         var i = this;
-        var t = wx.getStorageSync('community');
-        if(!t && !t.communityId){
-          wx.redirectTo({
-            url: '/lionfish_comshop/pages/position/community'
-          })
-        }
-
         util.check_login_new().then(function(e) {
             if(e){
               i.needAuth = !1
