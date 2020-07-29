@@ -287,7 +287,7 @@
                 <!--<i-tabs :activeIndex="classification.activeIndex" @activeIndexChange="classificationChange"
                         data-idx="1" fontColor="#000" iClass="category-list" :tabs="classification.tabs"></i-tabs>-->
 
-                  <van-tabs v-model="commingClassification.activeIndex" @click="classificationChange">
+                  <van-tabs v-model="classification.activeIndex" @click="classificationChange">
                     <van-tab v-for="(item , index) in classification.tabs" :title="item.name"  :title-style="{'flex-basis':'auto','padding': '0 10px'}">
                     </van-tab>
                   </van-tabs>
@@ -326,7 +326,7 @@
                 <van-sticky :offset-top="50">
                 <!--<i-tabs :activeIndex="classification.activeIndex" @activeIndexChange="classificationChange"
                         data-idx="1" fontColor="#000" class="category-list" :tabs="classification.tabs"></i-tabs>-->
-                  <van-tabs v-model="commingClassification.activeIndex" @click="classificationChange">
+                  <van-tabs v-model="classification.activeIndex" @click="classificationChange">
                     <van-tab v-for="(item , index) in classification.tabs" :title="item.name"  :title-style="{'flex-basis':'auto','padding': '0 10px'}">
                     </van-tab>
                   </van-tabs>
@@ -336,7 +336,7 @@
                 <van-sticky :offset-top="50">
                 <!--<i-tabs :activeIndex="commingClassification.activeIndex" @activeIndexChange="classificationChange" data-idx="2" fontColor="#000"
                         iClass="category-list" :tabs="classification.tabs"></i-tabs>-->
-                  <van-tabs v-model="commingClassification.activeIndex" @click="classificationChange">
+                  <van-tabs v-model="classification.activeIndex" @click="classificationChange">
                     <van-tab v-for="(item , index) in classification.tabs" :title="item.name"  :title-style="{'flex-basis':'auto','padding': '0 10px'}">
                     </van-tab>
                   </van-tabs>
@@ -867,95 +867,137 @@
     created: function() {
       app = this.$getApp();
       wx = this.$wx;
+      const o = this.$route.query || {}
+      this.onLoad(o)
+    },
+    mounted:function(){
+      this.onShow();
+    },
 
-      var i = this, s = wx.getStorageSync('token')
-
-      wx.getLogManager(), console.log('options', o), wx.hideTabBar()
-      status.setNavBgColor(), status.setGroupInfo().then(function(t) {
-        i.groupInfo = t
-      }), console.log('step1')
-
-      const n = wx.getStorageSync('community'),
-        d = n && n.communityId ? n.communityId : ''
-      if (n && n.fullAddress && n.fullAddress.indexOf('境外') > -1) {
-        n.fullAddress = n.fullAddress.replace('境外境外境外地区', '')
+    activated:function(){
+      var i = this
+      wx.setNavigationBarTitle({
+        title: i.shop_info.shoname,
+        showLogo:true,
+        showMore:false,
+        showBack:false
+      })
+      if(this.$refs.tabbar){
+        i.$refs.tabbar.getTabbar();
       }
-
-      const o = i.$route.query
-
-      if (o && 0 != Object.keys(o).length) {
-        console.log('step2')
-        var t = decodeURIComponent(o.scene)
-        if ('undefined' != t) {
-          var a = t.split('_')
-          o.community_id = a[0], wcache.put('share_id', a[1])
+      util.check_login_new().then(function(e) {
+        if(e){
+          i.needAuth = !1
+          const n = wx.getStorageSync('community')
+          if(!n || !n.communityId){
+            wx.showModal({
+              title: '',
+              content: 'Please select an ' + e.group_name,
+              showCancel: false,
+              confirmColor: '#8ED9D1',
+              success: function(t) {
+                wx.navigateTo({
+                  url: "/lionfish_comshop/pages/position/community"
+                });
+              }
+            })
+          }
         }
-        'undefined' != (i.options = o).share_id && 0 < o.share_id && wcache.put('share_id', o.share_id),
-          'undefined' != o.community_id && 0 < o.community_id ? (console.log('step3'), util.getCommunityById(o.community_id).then(function(t) {
-            if (0 == t.code) {
-              console.log('step4')
-              var a = t.data
-              console.log('分享community_id', o.community_id), console.log('历史community_id', d)
-              var e = {}
-              1 == t.open_danhead_model ? (console.log('开启单社区' + t.default_head_info), this.community = t.default_head_info,
-                i.open_danhead_model = t.open_danhead_model, s && i.addhistory(t.default_head_info.communityId || '')) : a && (o.community_id != d ? d ? (i.showChangeCommunity = !0,
-                i.changeCommunity = a, this.community = n) : (i.community = a, i.shareCommunity = a,
-                wcache.put('community', a)) : i.community = n), i.hidetip = !1, i.token = s, i.showEmpty = !1,
-                e.needPosition = !1
-              i.loadPage()
-            } else {
-              console.log('step5')
-              i.loadPage()
-              i.hidetip = !1
-              i.token = s
-              i.showEmpty = !1
-              i.needPosition = !1
-              s && i.addhistory()
-            }
-          })) : util.getCommunityById(o.community_id).then(function(t) {
-            0 == t.code && (1 == t.open_danhead_model && (console.log('开启单社区step6'),
-              i.community = t.default_head_info, i.open_danhead_model = t.open_danhead_model, s && i.addhistory(t.default_head_info.communityId || '')), console.log('step6'),
-              i.loadPage())
-          }).catch(function() {
-            i.loadPage()
-          })
-      } else {
-        util.getCommunityById(o.community_id).then(function(t) {
-          0 == t.code && (1 == t.open_danhead_model && (console.log('开启单社区step7'), i.community = t.default_head_info, i.open_danhead_model = t.open_danhead_model
-            , s && i.addhistory(t.default_head_info.communityId || '')), i.loadPage())
-        }).catch(function() {
-          i.loadPage()
-        }), console.log('step7'), i.hidetip = !1, i.token = s, i.showEmpty = !1, i.community = n
-
-      }
+      })
 
     },
-    mounted: function() {
+    methods: {
+      copyText: function(t) {
 
-      var a = this,
-        e = this;
-      if ((a.stopNotify = !1, a.tabbarRefresh = !0, a.isblack = a.$app.globalData.isblack || 0), util.check_login_new().then(function(t) {
-        t ? ( a.needAuth = !1 , status.cartNum().then(t=>{a.cartNum = t.data})) : (a.needAuth = !0, a.couponRefresh = !1 );
-      }), a.$app.globalData.timer.start(), a.$app.globalData.changedCommunity) {
+      },
+      onLoad:function(o){
+        var i = this, s = wx.getStorageSync('token')
 
-         a.$app.globalData.goodsListCarCount = [];
-        var t = a.$app.globalData.community;
+        wx.getLogManager(), console.log('options', o), wx.hideTabBar()
+        status.setNavBgColor(), status.setGroupInfo().then(function(t) {
+          i.groupInfo = t
+        }), console.log('step1')
+
+        const n = wx.getStorageSync('community'),
+          d = n && n.communityId ? n.communityId : ''
+        if (n && n.fullAddress && n.fullAddress.indexOf('境外') > -1) {
+          n.fullAddress = n.fullAddress.replace('境外境外境外地区', '')
+        }
+
+
+
+        if (o && 0 != Object.keys(o).length) {
+          console.log('step2')
+          var t = decodeURIComponent(o.scene)
+          if ('undefined' != t) {
+            var a = t.split('_')
+            o.community_id = a[0], wcache.put('share_id', a[1])
+          }
+          'undefined' != (i.options = o).share_id && 0 < o.share_id && wcache.put('share_id', o.share_id),
+            'undefined' != o.community_id && 0 < o.community_id ? (console.log('step3'), util.getCommunityById(o.community_id).then(function(t) {
+              if (0 == t.code) {
+                console.log('step4')
+                var a = t.data
+                console.log('分享community_id', o.community_id), console.log('历史community_id', d)
+                var e = {}
+                1 == t.open_danhead_model ? (console.log('开启单社区' + t.default_head_info), this.community = t.default_head_info,
+                  i.open_danhead_model = t.open_danhead_model, s && i.addhistory(t.default_head_info.communityId || '')) : a && (o.community_id != d ? d ? (i.showChangeCommunity = !0,
+                  i.changeCommunity = a, this.community = n) : (i.community = a, i.shareCommunity = a,
+                  wcache.put('community', a)) : i.community = n), i.hidetip = !1, i.token = s, i.showEmpty = !1,
+                  e.needPosition = !1
+                i.loadPage()
+              } else {
+                console.log('step5')
+                i.loadPage()
+                i.hidetip = !1
+                i.token = s
+                i.showEmpty = !1
+                i.needPosition = !1
+                s && i.addhistory()
+              }
+            })) : util.getCommunityById(o.community_id).then(function(t) {
+              0 == t.code && (1 == t.open_danhead_model && (console.log('开启单社区step6'),
+                i.community = t.default_head_info, i.open_danhead_model = t.open_danhead_model, s && i.addhistory(t.default_head_info.communityId || '')), console.log('step6'),
+                i.loadPage())
+            }).catch(function() {
+              i.loadPage()
+            })
+        } else {
+          util.getCommunityById(o.community_id).then(function(t) {
+            0 == t.code && (1 == t.open_danhead_model && (console.log('开启单社区step7'), i.community = t.default_head_info, i.open_danhead_model = t.open_danhead_model
+              , s && i.addhistory(t.default_head_info.communityId || '')), i.loadPage())
+          }).catch(function() {
+            i.loadPage()
+          }), console.log('step7'), i.hidetip = !1, i.token = s, i.showEmpty = !1, i.community = n
+
+        }
+      },
+      onShow: function() {
+
+        var a = this,
+          e = this;
+        if ((a.stopNotify = !1, a.tabbarRefresh = !0, a.isblack = a.$app.globalData.isblack || 0), util.check_login_new().then(function(t) {
+          t ? ( a.needAuth = !1 , status.cartNum().then(t=>{a.cartNum = t.data})) : (a.needAuth = !0, a.couponRefresh = !1 );
+        }), a.$app.globalData.timer.start(), a.$app.globalData.changedCommunity) {
+
+          a.$app.globalData.goodsListCarCount = [];
+          var t = a.$app.globalData.community;
           a.community = e.fliterCommunity(t)
           a.newComerRefresh = !1
-        a.getCommunityPos(t.communityId)
-        a.hasRefeshin = !1
-        a.newComerRefresh = !0
+          a.getCommunityPos(t.communityId)
+          a.hasRefeshin = !1
+          a.newComerRefresh = !0
           a.rushList = []
           a.pageNum = 1
           a.classificationId = null
-        /*this.setData({
+          /*this.setData({
 
-          "classification.activeIndex": -1
-        }, function() {
-          a.setData({
-            "classification.activeIndex": 0
-          });
-        })*/
+            "classification.activeIndex": -1
+          }, function() {
+            a.setData({
+              "classification.activeIndex": 0
+            });
+          })*/
           a.$set(a.$data.$data,'overPageNum', 1)
           a.$set(a.$data.$data,'loadOver', !1)
           a.$set(a.$data.$data,'hasOverGoods', !1)
@@ -966,38 +1008,24 @@
           a.$set(a.$data.$data,'hasCommingGoods', !0)
 
 
-        a.$app.globalData.changedCommunity = !1
-        a.get_index_info()
-        a.addhistory()
-        a.load_goods_data()
-        a.get_type_topic();
-      } else {
-        console.log("nochange");
-        if(1 <= e.isFirst){
-          a.loadOver = !0
-          this.changeRushListNum()
+          a.$app.globalData.changedCommunity = !1
+          a.get_index_info()
+          a.addhistory()
+          a.load_goods_data()
+          a.get_type_topic();
+        } else {
+          console.log("nochange");
+          if(1 <= e.isFirst){
+            a.loadOver = !0
+            this.changeRushListNum()
+          }
+
+          0 == e.isFirst ? a.couponRefresh = !0 : (/*this.getCoupon(),*/ e.isFirst++)
         }
 
-        0 == e.isFirst ? a.couponRefresh = !0 : (/*this.getCoupon(),*/ e.isFirst++)
-      }
 
-
-
-    },
-    activated:function(){
-      this.$refs.tabbar.getTabbar();
-      wx.setNavigationBarTitle({
-        title: this.shop_info.shoname,
-        showLogo:true,
-        showMore:false,
-        showBack:false
-      })
-    },
-    methods: {
-      copyText: function(t) {
 
       },
-
       get_index_info() {
         var F = this,
           t = wx.getStorageSync('community'),
@@ -1920,7 +1948,8 @@
           //this.classification.activeIndex = t.e
         //this.classificationId = t.a
 
-          this.classificationId = this.classification.tabs[this.classification.activeIndex]
+
+          this.classificationId = this.classification.tabs[this.classification.activeIndex].id
          a.$data.$data.stickyFlag || a.$data.$data.scrollTop == a.$data.$data.stickyTop + 5 || wx.pageScrollTo({
           scrollTop: a.$data.$data.stickyTop - 100,
           duration: 0

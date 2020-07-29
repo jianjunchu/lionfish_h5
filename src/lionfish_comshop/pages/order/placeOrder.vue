@@ -566,7 +566,7 @@
     </i-modal>
     <!--<i-dialog @cancel="cancel" @confirm="continuePay" confirmText="确认" text="赠品已送完，确认支付？"
               v-show="visible"></i-dialog>-->
-    <i-modal @cancel="closeCouponModal" iClass="confirm-modal-content" v-show="!hide_quan">
+    <i-modal @cancel="closeCouponModal" iClass="confirm-modal-content" :is-show="!hide_quan" scrollUp="true">
       <div class="confirm-coupon-modal">
         <div class="title">请选择优惠券</div>
         <div scrollY class="list">
@@ -821,6 +821,9 @@
       })
 
       this.onLoad()
+
+    },
+    mounted:function(){
       this.onShow()
     },
 
@@ -2396,20 +2399,20 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-bottom: 1vw solid #efefef;
-    line-height: 10vw;
-    font-size: 3vw;
+    border-bottom: 0.1vw solid #efefef;
+    line-height: 8vw;
+    font-size: 2.4vw;
     color: #444;
     padding: 0 3vw;
   }
 
   .icon-right {
     position: absolute;
-    right: 3vw;
+    right: 1vw;
     top: 50%;
-    width: 3vw;
-    height: 4vw;
-    margin-top: -2vw;
+    width: 1.2vw;
+    height: 2.2vw;
+    margin-top: -1vw;
   }
 
   .cell-desc {
@@ -2421,6 +2424,7 @@
   .confirm-coupon-modal {
     background: #f6f6f6;
     display: flex;
+    width: 100vw;
     flex-direction: column;
     align-items: center;
     position: relative;
@@ -2429,44 +2433,44 @@
 
   .confirm-coupon-modal .title {
     width: 100%;
-    border-bottom: 1vw solid #efefef;
+    border-bottom: 1rpx solid #efefef;
     line-height: 2.5;
-    font-size: 3vw;
+    font-size: 3.2vw;
     text-align: center;
     background: #fff;
   }
 
   .confirm-coupon-modal .list {
     width: 100%;
-    max-height: 700vw;
+    max-height: 90vw;
     overflow-y: auto;
-    padding: 0 20vw;
+    padding: 0 2vw;
     box-sizing: border-box;
   }
 
   .confirm-coupon-modal .item {
     display: flex;
     box-sizing: border-box;
-    padding: 20vw 10vw 20vw 20vw;
+    padding: 2vw 1vw 2vw 2vw;
     justify-content: space-between;
     align-items: center;
-    margin: 20vw 0;
+    margin: 2vw 0;
     background: #fff;
-    border-radius: 10vw;
-    box-shadow: 0 0 6vw #ccc;
+    border-radius: 1vw;
+    box-shadow: 0 0 0.6vw #ccc;
   }
 
   .tag-img {
     position: absolute;
-    width: 48vw;
-    height: 48vw;
-    right: 10vw;
-    top: 15vw;
+    width: 4.8vw;
+    height: 4.8vw;
+    right: 1vw;
+    top: 1.5vw;
   }
 
   .no-tag-img {
-    width: 48vw;
-    height: 48vw;
+    width: 4.8vw;
+    height: 4.8vw;
   }
 
   .use-wx-address {
@@ -2556,50 +2560,50 @@
   .coupon {
     background-color: #fefefe;
     position: relative;
-    padding: 0 20vw;
-    border-radius: 6vw;
-    margin-top: 26vw;
-    box-shadow: 0 0 6vw #ccc;
+    padding: 0 2vw;
+    border-radius: 0.6vw;
+    margin-top: 2.6vw;
+    box-shadow: 0 0 0.6vw #ccc;
   }
 
   .coupon:before, .coupon:after {
     content: '';
     position: absolute;
-    width: 20vw;
-    height: 40vw;
+    width: 2vw;
+    height: 4vw;
     background: #f6f6f6;
-    top: 70vw;
+    top: 7vw;
     z-index: 1;
   }
 
   .coupon:before {
-    border-radius: 0 40vw 40vw 0;
+    border-radius: 0 4vw 4vw 0;
     left: 0;
   }
 
   .coupon:after {
-    border-radius: 40vw 0 0 40vw;
+    border-radius: 4vw 0 0 4vw;
     right: 0;
   }
 
   .coupon .header {
     display: flex;
-    padding: 15vw 0;
-    border-bottom: 2vw dashed #dbdbdb;
-    height: 140vw;
+    padding: 1.5vw 0;
+    border-bottom: 0.2vw dashed #dbdbdb;
+    height: 14vw;
   }
 
   .coupon .footer {
     color: #747474;
     font-size: 2vw;
-    padding: 22vw 0 20vw 35vw;
+    padding: 2.2vw 0 2vw 3.5vw;
   }
 
   .coupon .price {
     color: #333;
-    width: 175vw;
+    width: 22vw;
     text-align: center;
-    border-right: 2vw dashed #dbdbdb;
+    border-right: 0.2vw dashed #dbdbdb;
   }
 
   .coupon .price .reduce-price {
@@ -2610,7 +2614,7 @@
   }
 
   .coupon .price .reduce-price span {
-    font-size: 2vw;
+    font-size: 2.4vw;
   }
 
   .coupon .price .reduce-desc {
@@ -2625,9 +2629,9 @@
 
   .coupon .info .reduce-title {
     color: #000;
-    font-size: 2vw;
+    font-size: 2.8vw;
     font-weight: bold;
-    padding-top: 20vw;
+    padding-top: 2vw;
   }
 
   .coupon .info .reduce-type {
@@ -2635,19 +2639,19 @@
     font-weight: normal;
     font-size: 2vw;
     background: #ec6b5a;
-    padding: 2vw 8vw;
-    border-radius: 4vw;
-    margin-left: 10vw;
+    padding: 0.2vw 0.8vw;
+    border-radius: 0.4vw;
+    margin-left: 1vw;
   }
 
   .coupon .status {
-    width: 130vw;
+    width: 13vw;
     text-align: center;
   }
 
-  .coupon .status image {
-    width: 48vw;
-    height: 48vw;
+  .coupon .status img {
+    width: 4.8vw;
+    height: 4.8vw;
   }
 
   .coupon.used, .coupon.expired {

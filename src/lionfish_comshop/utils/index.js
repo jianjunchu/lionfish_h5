@@ -59,7 +59,13 @@ function changeCommunity(t, a) {
   const wx = _this.$wx
   const app = _this.$getApp()
   const e = wx.getStorageSync('token') || ''
-  if (t.communityId && t.communityId !== app.globalData.community.communityId) {
+  wx.setStorage({
+    key: 'community',
+    data: t
+  })
+  app.globalData.community = t
+  wx.navigateBack()
+  /*if (t.communityId && t.communityId !== app.globalData.community.communityId) {
     app.globalData.timer.del(), app.globalData.changedCommunity = !0, app.globalData.community = t, app.globalData.refresh = !0, app.globalData.hasDefaultCommunity = !0, wx.setStorage({
       key: 'community',
       data: t
@@ -77,7 +83,7 @@ function changeCommunity(t, a) {
       key: 'historyCommunity',
       data: n
     })), app.globalData.changedCommunity = !0, app.globalData.goodsListCarCount = {},
-    /*e ? (console.log('changeCommunity step2'), app.util.request({
+    e ? (console.log('changeCommunity step2'), app.util.request({
         url: 'entry/wxapp/index',
       data: {
         controller: 'index.switch_history_community',
@@ -88,7 +94,7 @@ function changeCommunity(t, a) {
         success: function(a) {
           swithNavBack(t)
         }
-      })) :*/ swithNavBack(t)
+      })) : swithNavBack(t)
   } else {
     app.globalData.community.disUserHeadImg || (app.globalData.community = t,
       wx.setStorage({
@@ -96,7 +102,7 @@ function changeCommunity(t, a) {
         data: t
       })), app.globalData.changedCommunity = !0, app.globalData.goodsListCarCount = {},
       wx.navigateBack()
-  }
+  }*/
 
 }
 

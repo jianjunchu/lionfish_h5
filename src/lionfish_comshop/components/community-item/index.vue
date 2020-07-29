@@ -70,20 +70,16 @@
         var app = this.$getApp();
         var t = this.item;
 
-        if ("火星社区" !== t.communityName || t.communityId) {
-          var i = t.disUserHeadImg || t.headImg || "", n = t.disUserName || t.realName || "", a = {
-            communityId: t.communityId,
-            communityName: t.communityName,
-            disUserName: n,
-            disUserHeadImg: i,
-            communityAddress: t.communityAddress,
-            distance: t.distance,
-            fullAddress: t.fullAddress || t.communityAddress
-          }, m = this.city;
-          utils.changeCommunity(a, m);
-        } else location.openSetting(app).then(function() {
-          location.checkGPS(app, function() {});
-        });
+        var i = t.disUserHeadImg || t.headImg || "", n = t.disUserName || t.realName || "", a = {
+          communityId: t.communityId,
+          communityName: t.communityName,
+          disUserName: n,
+          disUserHeadImg: i,
+          communityAddress: t.communityAddress,
+          distance: t.distance,
+          fullAddress: t.fullAddress || t.communityAddress
+        }, m = this.city;
+        utils.changeCommunity(a, m);
       }
     }
   }

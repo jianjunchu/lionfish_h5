@@ -582,7 +582,7 @@
 
     },
     activated:function(){
-
+      this.onShow();
       this.$wx.setNavigationBarTitle({
         title: "Me",
         showLogo:false,
@@ -590,7 +590,7 @@
         showBack:false
       })
       this.$refs.tabbar.getTabbar();
-      this.onShow();
+
     },
     methods: {
       onLoad: function(options) {
@@ -614,13 +614,13 @@
           },
           dataType: "json",
           success: function(e) {
-            if (setTimeout(function() {
-              wx.hideLoading();
-            }, 1e3), 0 == e.code) {
+            if (0 == e.code) {
               var t = !1;
+
               1 != e.is_show_auth_mobile || e.data.telephone || (t = !0);
-              var o = e.data || "", a = {};
+              var o = e.data;
               if (o) {
+                f.needAuth = !1;
                 if (o.member_level_info && (o.member_level_info.discount = (o.member_level_info.discount / 10).toFixed(1)),
                 0 < e.commiss_level) {
                   var s = 1 * e.commiss_share_member_update, i = 1 * e.share_member_count, n = 1 * e.commiss_share_member_update - 1 * e.share_member_count, r = 0;
@@ -635,7 +635,7 @@
                     f.yestoday_share_member_count = e.yestoday_share_member_count,
                     f.need_num_update = n
                 }
-              } else a.needAuth = !0;
+              } else f.needAuth = !0;
               var u = e, _ = u.is_supply, c = u.is_open_vipcard_buy, m = u.modify_vipcard_name, d = u.is_vip_card_member, l = u.modify_vipcard_logo, h = u.isopen_signinreward, p = u.show_signinreward_icon, g = u.is_open_supplymobile;
               f.member_info =  o,
                 f.is_supply = _ || 0,
