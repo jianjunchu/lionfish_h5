@@ -1389,7 +1389,7 @@
       },
       share_whatsapp: function() {
         const text = this.goods.goodsname
-        const url = 'https://hz.xx315.net/wap/#/lionfish_comshop/pages/goods/goodsDetail?id=' + this.order.goods_id
+        const url = 'https://www.mart.com.sg/#/lionfish_comshop/pages/goods/goodsDetail?id=' + this.order.goods_id
         location = 'whatsapp://send?text=' + encodeURIComponent(text) + encodeURIComponent('\n\n' + url) + '&via=lopscoop'
         this.is_share_html = false
       },

@@ -3,9 +3,9 @@
     <i-toolbar v-if="loadOver" ref="toolbar"></i-toolbar>
 
     <keep-alive>
-      <router-view style="margin-top: 49px" v-if='$route.meta.keepAlive'/>
+      <router-view style="margin-top: 48px" v-if='$route.meta.keepAlive'/>
     </keep-alive>
-    <router-view style="margin-top: 49px" v-if='!$route.meta.keepAlive'/>
+    <router-view style="margin-top: 48px" v-if='!$route.meta.keepAlive'/>
 
 
   </div>
