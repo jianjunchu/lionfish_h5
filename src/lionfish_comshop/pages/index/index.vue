@@ -876,6 +876,7 @@
 
     activated:function(){
       var i = this
+      var g = i.groupInfo
       wx.setNavigationBarTitle({
         title: i.shop_info.shoname,
         showLogo:true,
@@ -892,7 +893,7 @@
           if(!n || !n.communityId){
             wx.showModal({
               title: '',
-              content: 'Please select an ' + e.group_name,
+              content: 'Please select an ' + g.group_name,
               showCancel: false,
               confirmColor: '#8ED9D1',
               success: function(t) {
