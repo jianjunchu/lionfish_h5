@@ -538,13 +538,13 @@
         let id = event.currentTarget.dataset.type;
         let delivery = event.currentTarget.dataset.delivery;
         var token = this.$wx.getStorageSync("token");
-        let content = "确认收到";
-        if (delivery == "pickup") content = "确认提货";
+        let content = this.$t('order.querenshoudao');
+        if (delivery == "pickup") content = content;
         var that = this;
 
         this.$wx.showModal({
-          title: "提示",
-          content: "确认收到",
+          title: this.$t('cart.tishi'),
+          content: content,
           confirmColor: "#8ED9D1",
           success: function(res) {
 
@@ -557,7 +557,7 @@
 
                   if (r.code == 0) {
                     that.$wx.showToast({
-                      title: '收货成功',
+                      title: 'Success',
                       icon: 'success',
                       duration: 1000
                     })

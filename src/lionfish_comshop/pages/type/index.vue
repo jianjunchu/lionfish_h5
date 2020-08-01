@@ -154,7 +154,9 @@
         showBack:false
       })
       this.onShow();
-      this.$refs.tabbar.getTabbar();
+      if(this.$refs.tabbar){
+        i.$refs.tabbar.switchTab();
+      }
     },
     methods: {
 

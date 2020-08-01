@@ -214,7 +214,7 @@ export default {
     shifu: 'Paid',
     quxiaodingdan: 'Cancel',
     quxiaodingdan1: 'Cancel Order',
-    quxiaodingdantuikuan: "Cancel and Refund",
+    quxiaodingdantuikuan: 'Cancel and Refund',
     lijizhifu: 'Pay',
     xiadanshijian: 'Order Time:',
     tihuoshijian: 'Collection Date:',
@@ -254,7 +254,8 @@ export default {
     zhifuchenggong: 'Payment Confirmed',
     zhifushibai: 'Payment Failed',
     shenqingshouhou: 'Apply Refund',
-    zhuanzhangbeizhu: 'Note: Order is pending until payment is confirmed'
+    zhuanzhangbeizhu: 'Note: Order is pending until payment is confirmed',
+    querenshoudao: 'Please confirm receipt of your order?'
   },
   cart: {
     gouwuchekong: 'Back to Homepage',

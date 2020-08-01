@@ -179,19 +179,7 @@ function getInNum() {
 }
 
 function setNavBgColor() {
-  _this.$http({
-    controller: 'index.get_nav_bg_color'
-  }).then(a => {
-    console.log(a)
-    if (a.code === 0) {
-      const t = a.data || '#8ED9D1'
-      const e = a.nav_font_color || '#ffffff'
-      _this.$wx.setNavigationBarColor({
-        frontColor: e,
-        backgroundColor: t
-      })
-    }
-  })
+
 }
 
 function setGroupInfo() {

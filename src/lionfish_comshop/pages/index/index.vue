@@ -458,7 +458,7 @@
           </button>
         </div>
 
-        <i-tabbar ref="tabbar" @authModal="authModal" :cartNum="cartNum" currentIdx="0" :needAuth="needAuth"
+        <i-tabbar ref="tabbar" @authModal="authModal" :cartNum="cartNum" :currentIdx="0" :needAuth="needAuth"
                   :tabbarRefresh="tabbarRefresh"></i-tabbar>
 
         <i-order-notify iClass="order-notify" :stopNotify="stopNotify"
@@ -470,13 +470,13 @@
         <div class="new-coupou" v-if="showCouponModal&&hasAlertCoupon&&!showChangeCommunity">
           <div class="new-coupou-content">
             <div class="new-coupou-body">
-              <div class="new-coupou-body-head">Welcome to H&Z Mart! Here's ${{totalAlertMoney}} for use on your first purchase.</div>
+              <div class="new-coupou-body-head">Welcome to H&Z Mart! <!--Here's ${{totalAlertMoney}} for use on your first purchase.--></div>
               <div class="new-coupou-body-scroll">
                 <div scrollY style="max-height:580px;">
                   <div class="new-coupou-item" v-for="(item ,index) in alert_quan_list" :key="item.id">
                     <div class="m-coupon-l">
                       <div class="m-coupou-price">
-                        <span>¥</span>
+                        <span>$</span>
                         {{item.credit}}
                       </div>
                     </div>
@@ -870,9 +870,6 @@
       const o = this.$route.query || {}
       this.onLoad(o)
     },
-    mounted:function(){
-      this.onShow();
-    },
 
     activated:function(){
       var i = this
@@ -884,8 +881,11 @@
         showBack:false
       })
       if(this.$refs.tabbar){
-        i.$refs.tabbar.getTabbar();
+        i.$refs.tabbar.switchTab();
       }
+
+      this.onShow();
+
       util.check_login_new().then(function(e) {
         if(e){
           i.needAuth = !1

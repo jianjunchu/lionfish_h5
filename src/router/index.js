@@ -99,7 +99,7 @@ export const constantRoutes = [
     component: () => import('@/lionfish_comshop/pages/user/me'),
     hidden: true,
     meta: {
-      keepAlive: true
+      keepAlive: false
     }
   },
   {

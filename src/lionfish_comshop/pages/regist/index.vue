@@ -3,9 +3,9 @@
 	   <el-form >
         <slot name="header">
           <!--  <h2 style="text-align: center;">Hzmart Register</h2>-->
-           
+
         </slot><br>
-		
+
 		 <div style="width: 100px;height: 100px;margin: 0 auto;margin-top: 30px;margin-bottom: 30px;">
         <img src="../../../assets/images/logo.png" style="width: 100%;height: 100%;" />
         </div>
@@ -29,14 +29,14 @@
                 </div>
             </div>
         </div> -->
-		
-		
-		
-		
+
+
+
+
 		<div style="height: 50px;">
 		<div style="width: 100%;height:25px;border-bottom:1px solid #ccc;font-size: 16px;color: #939393;float: left;" @click="click_btn()" v-show="this.isShow">Phone</div>
 		<div style="width: 100%;height:41px;border-bottom:1px solid #3D7BD0;font-size: 16px;color: #3D7BD0;float: left;" v-show="this.isShow2">
-				 <span> 
+				 <span>
 		 <el-select v-model="cityCode" placeholder="请选择" style="width:70px;height:30px;float: left;color: #0076FF;border:none">
 				<el-option label="65" value="65">+65 Singapore</el-option>
 		        <el-option label="60" value="60">+60 Malaysia </el-option>
@@ -48,21 +48,21 @@
 		<input style="width: 60%;height: 100%;border:none;outline: none;height: 40px;background: none;"    v-model="input_info.phone"  @focus="focus('phoneNum')" @blur="blur('phoneNum')" ref="phoneNum" @keyup="inputPhone" maxlength="13" autofocus/>
 		</div>
 		</div>
-		
-		
+
+
 		<div style="height: 50px;">
 		 <div style="width: 100%;height:28px;border-bottom:1px solid #ccc;font-size: 16px;color: #3D7BD0;" >
 		 <input style="width: 70%;height: 100%;border:none;outline: none;background: none;" v-model="input_info.code" id="input_code" @focus="focus('code')" @blur="blur('code')" @keyup="activeregist()" ref="code" placeholder="Code"/>
 		 <div style="float: right;background: #FDEACA;border-radius: 20px;color: #FDB56D;font-size: 13px;padding:5px;margin-bottom: 10px;" @click="getVerifyCode()" ref="getCode" :disabled="getCodeDisabled">{{getCodeBtnText}}</div>
 		 </div>
 		 </div>
-	
-		
-		
+
+
+
         <div>
          <!--注册按钮-->
-			    <el-button  type="primary" 
-			   	style="height: 40px;width:100%;margin-bottom:30px;border-radius: 20px;background: #FDEACA;border:none;color: #F7AC39;font-weight: 600;margin-top: 50px;" 
+			    <el-button  type="primary"
+			   	style="height: 40px;width:100%;margin-bottom:30px;border-radius: 20px;background: #FDEACA;border:none;color: #F7AC39;font-weight: 600;margin-top: 50px;"
 			   	@click.native.prevent="regist">Register</el-button>
             <!--<button class="registBtn" :disabled="!registFlag" @click="regist()" style="background: #F3F8FE;color: #387BFE;border-radius: 5px;font-weight: 600;margin-top: 30px;">
                 Register
@@ -174,7 +174,7 @@
                         this.getCodeDisabled = true;
                     }
                 } else if (len >= 8) {
-                    value = value.replace(/^(\d{3})(\d{4})/g, '$1 $2 ')  
+                    value = value.replace(/^(\d{3})(\d{4})/g, '$1 $2 ')
                     if (!this.errorFlag.phone_empty && this.timeOut) {
                         //激活获取验证码按钮
                         this.getCodeDisabled = false;
@@ -186,11 +186,11 @@
             },
             hideTopAndFooter: function(){
             this.$store.dispatch('app/hideTabbar');
-            this.$store.dispatch('app/hideToolbarMore'); 
-            this.$store.dispatch('app/hideToolbarBack'); 
+            this.$store.dispatch('app/hideToolbarMore');
+            this.$store.dispatch('app/hideToolbarBack');
             },
             chooseArea(){
-                
+
             },
             gotoLogin: function(){
                 this.$router.push({path: '/login'});
@@ -264,7 +264,8 @@
 
             regist(){
               var code = this.input_info.code;
-              var phone = this.input_info.phone;
+              let phone = this.input_info.phone.replace(/\s*/g,"");      //去除空格
+              var country = this.cityCode
               if(phone == ""){
                 alert("Please Input Phone!");
                 return;
@@ -275,12 +276,14 @@
               this.$http({
                 controller : 'index.reg_check_sms',
                 i: 3,
-                code: code
+                country: country,
+                code: code,
+                phone: phone
               }).then(response => {
                 console.log(response)
                 var result = response;
                 	var a = this.input_info.phone;
-           	      var str   =   a.replace(/\s+/g,""); 
+           	      var str   =   a.replace(/\s+/g,"");
                  	console.log(str);
                 if(result.code == 0){
                   this.$router.push({path: '/userInfo?memberId='+result.member_id+'&country='+this.cityCode+'&phone='+str});
@@ -306,11 +309,11 @@
 	       font-size: 15px;
 	}
   $mainColor: #007cdc;
-  
+
   body{
   	background: #fff;
   }
-    
+
     .gotoLogin{
 		font-size: 18px;
 		text-align: center;
@@ -355,7 +358,7 @@
         }
         //用户名、密码输入框
         .input_wrapper{
-          
+
             /*.codeInput{*/
             /*    display: inline;*/
             /*}*/
@@ -483,5 +486,5 @@
             }
         }
     }
-    
+
 </style>

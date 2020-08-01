@@ -274,7 +274,8 @@ export default {
     zhifuchenggong: '支付成功',
     zhifushibai: '支付失败',
     shenqingshouhou: '申请售后',
-    zhuanzhangbeizhu: '注：转账支付为人工审核'
+    zhuanzhangbeizhu: '注：转账支付为人工审核',
+    querenshoudao: '确认收到货?'
   },
   cart: {
     gouwuchekong: '购物车空空如也，赶紧去逛逛吧~',

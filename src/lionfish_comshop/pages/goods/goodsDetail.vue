@@ -342,7 +342,7 @@
           <div class="goodsStatus" v-else-if="is_comunity_rest==1">{{$t('detail.tuanzhangxiuxi')}}</div>
           <div class="gobuy" v-else-if="buy_type=='integral'">
             <form bindsubmit="submit" reportSubmit="true">
-              <button hidden formType="submit" id="formId_"></button>
+              <button hidden type="button" id="formId_"></button>
             </form>
             <label class="balanceBtn" for="formId">
               <div @click="balance" class="bar-item balance" :style="{background: goodsdetails_buy_bg_color}">
@@ -355,10 +355,10 @@
               <div class="bar-item add-to-cart" :style="{background: goodsdetails_addcart_bg_color}">
                 {{$t('detail.jiarugouwuche')}}
               </div>
-              <button class="btn" formType="submit"></button>
+              <button class="btn" type="button"></button>
             </form>
             <form click="submit" reportSubmit="true">
-              <button hidden formType="submit" id="formId"></button>
+              <button hidden type="button" id="formId"></button>
             </form>
             <label class="balanceBtn" for="formId">
               <div @click="balance" class="bar-item balance" :style="{background: goodsdetails_buy_bg_color}">
@@ -438,7 +438,7 @@
             <!--<div class="even-num" v-else-if="!skuList[current].isLimit&&skuList[current].canBuyNum-value<=10&&skuList[current].canBuyNum-value>-1">还可以购买 {{skuList[current].canBuyNum-value}} 件</div>-->
           </div>
           <form @click="gocarfrom" reportSubmit="true">
-            <button class="sku-confirm" :disabled="cur_sku_arr.stock==0?true:false" formType="submit">
+            <button class="sku-confirm" :disabled="cur_sku_arr.stock==0?true:false" type="button">
               <div>{{cur_sku_arr.stock==0?$t('common.yiqiangguang'):$t('common.queding')}}</div>
             </button>
           </form>

@@ -75,19 +75,19 @@
         </div>
         <div class="orderTab">
           <div @click="goLink2" class="order_status" data-link="/lionfish_comshop/pages/order/index?order_status=3">
-             <span class="num" :style="{background:skin.color}" v-if="member_info.wait_pay_count && member_info.wait_pay_count!=0">{{member_info.wait_pay_count}}</span>
+            <span class="num" :style="{background:skin.color}" v-if="member_info.wait_pay_count && member_info.wait_pay_count!=0">{{member_info.wait_pay_count}}</span>
             <img class="icon-img"
                  :src="user_order_menu_icons.i1?user_order_menu_icons.i1:require('@/assets/images/needPayIcon.png')"/>
             <span style="color: #444;">{{$t('common.daifukuan')}}</span>
           </div>
           <div @click="goLink2" class="order_status" data-link="/lionfish_comshop/pages/order/index?order_status=1">
-             <span class="num" :style="{background:skin.color}" v-if="member_info.wait_send_count && member_info.wait_send_count!=0">{{member_info.wait_send_count}}</span>
+            <span class="num" :style="{background:skin.color}" v-if="member_info.wait_send_count && member_info.wait_send_count!=0">{{member_info.wait_send_count}}</span>
             <img class="icon-img"
                  :src="user_order_menu_icons.i2?user_order_menu_icons.i2:require('@/assets/images/undeli.png')"/>
             <span style="color: #444;">{{$t('common.daipeisong')}}</span>
           </div>
           <div @click="goLink2" class="order_status" data-link="/lionfish_comshop/pages/order/index?order_status=4">
-           <span class="num" :style="{background:skin.color}" v-if="member_info.wait_get_count && member_info.wait_get_count!=0">{{member_info.wait_get_count}}</span>
+            <span class="num" :style="{background:skin.color}" v-if="member_info.wait_get_count && member_info.wait_get_count!=0">{{member_info.wait_get_count}}</span>
             <img class="icon-img"
                  :src="user_order_menu_icons.i3?user_order_menu_icons.i3:require('@/assets/images/distributionIcon.png')"/>
             <span style="color: #444;">{{$t('common.daitihuo')}}</span>
@@ -124,15 +124,15 @@
           <div class="weight red mb5">{{community.communityName}}</div>
           <div class="fsz-30 text-gray mb5">{{community.fullAddress}}</div>
           <div class="i-flex" style="vertical-align:middle;" v-if="community.disUserMobile||community.head_mobile">
-<!--
-            <div>
-              <span class="iconfont icon-ziyuan fsz-30"></span> {{$t('common.phone')}}：
-            </div>
+            <!--
+                        <div>
+                          <span class="iconfont icon-ziyuan fsz-30"></span> {{$t('common.phone')}}：
+                        </div>
 
-            <div @click="callTelphone" :data-phone="(community.disUserMobile||community.head_mobile)"
-                 style="color:#ee884a;">{{community.disUserMobile||community.head_mobile}}
-            </div>
--->
+                        <div @click="callTelphone" :data-phone="(community.disUserMobile||community.head_mobile)"
+                             style="color:#ee884a;">{{community.disUserMobile||community.head_mobile}}
+                        </div>
+            -->
             <div @click="goLink" class="goods-sign-btn" :data-link="community.whatsapplink"
                  v-show="community.whatsapplink != '' && community.whatsapplink != undefined && community.whatsapplink != null ">
               <img src="@/assets/images/join-group.png" height="20vw" width="20vw"/> <span
@@ -303,20 +303,20 @@
               </div>
             </div>
           </div>
-<!--
-          <router-link hoverClass="none" to="/lionfish_comshop/pages/groupCenter/communityMembers" v-if="member_info.pickup_id>0">
-            <div class="item-main">
-              <div class="item-title">
-                <img class="toolIcon" mode="widthFix"
-                     :src="user_tool_icons.i4?user_tool_icons.i4:require('@/assets/images/groupCenterIcon.png')"/>
-                <span>核销管理</span>
-              </div>
-              <div class="tool-right">
-                <img class="icon-right " src="@/assets/images/rightArrowImg.png"/>
-              </div>
-            </div>
-          </router-link>
--->
+          <!--
+                    <router-link hoverClass="none" to="/lionfish_comshop/pages/groupCenter/communityMembers" v-if="member_info.pickup_id>0">
+                      <div class="item-main">
+                        <div class="item-title">
+                          <img class="toolIcon" mode="widthFix"
+                               :src="user_tool_icons.i4?user_tool_icons.i4:require('@/assets/images/groupCenterIcon.png')"/>
+                          <span>核销管理</span>
+                        </div>
+                        <div class="tool-right">
+                          <img class="icon-right " src="@/assets/images/rightArrowImg.png"/>
+                        </div>
+                      </div>
+                    </router-link>
+          -->
           <div @click="goToGroup" v-if="member_info.is_head==1">
             <div class="item-main">
               <div class="item-title">
@@ -471,7 +471,7 @@
       </div>
 
     </div>
-    <i-tabbar ref="tabbar" @authModal="authModal" :cartNum="cartNum" currentIdx="4" :needAuth="needAuth"
+    <i-tabbar @authModal="authModal" :cartNum="cartNum" currentIdx="4" :needAuth="needAuth"
               :tabbarRefresh="tabbarRefresh"></i-tabbar>
   </div>
 
@@ -577,20 +577,17 @@
     created: function() {
       app = this.$getApp()
       wx = this.$wx
-
+      wx.setNavigationBarTitle({
+        title: 'Me',
+        showLogo: false,
+        showMore: false,
+        showBack: false
+      })
       this.onLoad()
 
     },
-    activated:function(){
-      this.onShow();
-      this.$wx.setNavigationBarTitle({
-        title: "Me",
-        showLogo:false,
-        showMore:false,
-        showBack:false
-      })
-      this.$refs.tabbar.getTabbar();
-
+    mounted: function() {
+      this.onShow()
     },
     methods: {
       onLoad: function(options) {
@@ -614,13 +611,13 @@
           },
           dataType: "json",
           success: function(e) {
-            if (0 == e.code) {
+            if (setTimeout(function() {
+              wx.hideLoading();
+            }, 1e3), 0 == e.code) {
               var t = !1;
-
               1 != e.is_show_auth_mobile || e.data.telephone || (t = !0);
-              var o = e.data;
+              var o = e.data || "", a = {};
               if (o) {
-                f.needAuth = !1;
                 if (o.member_level_info && (o.member_level_info.discount = (o.member_level_info.discount / 10).toFixed(1)),
                 0 < e.commiss_level) {
                   var s = 1 * e.commiss_share_member_update, i = 1 * e.share_member_count, n = 1 * e.commiss_share_member_update - 1 * e.share_member_count, r = 0;
@@ -635,7 +632,7 @@
                     f.yestoday_share_member_count = e.yestoday_share_member_count,
                     f.need_num_update = n
                 }
-              } else f.needAuth = !0;
+              } else a.needAuth = !0;
               var u = e, _ = u.is_supply, c = u.is_open_vipcard_buy, m = u.modify_vipcard_name, d = u.is_vip_card_member, l = u.modify_vipcard_logo, h = u.isopen_signinreward, p = u.show_signinreward_icon, g = u.is_open_supplymobile;
               f.member_info =  o,
                 f.is_supply = _ || 0,
