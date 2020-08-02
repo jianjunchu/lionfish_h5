@@ -230,7 +230,7 @@ export default {
     qingquerentihuo: 'Please confirm the collection information.',
     xierugaidingdanhao: 'Please make your payment via PayNow and ensure that you enter your Order ID under the reference/comments area.',
     beizhudingdanhao: 'Order No.',
-    zhifujine: 'Amount owned',
+    zhifujine: 'Outstanding Amount',
     saomazhifu: 'SCAN TO PAY',
     jiaoyiliushui: 'Enter Reference No.',
     shuruliushuihao: 'Enter Reference No. of PayNow Transaction',
