@@ -38,7 +38,7 @@
           <span v-if="isFirstCategory">{{$t('type.yijingdingbu')}}</span>
           <span v-else>{{$t('type.xialachakan')}}</span>
         </div>
-        <div style="min-height: 100px;">
+        <div style="min-height: 80vh;">
           <div v-if="!pageEmpty">
             <i-type-item @authModal="authModal" @changeCartNum="changeCartNum" @openSku="openSku" @vipModal="vipModal" :canLevelBuy="canLevelBuy" :changeCarCount="changeCarCount" :is_open_vipcard_buy="is_open_vipcard_buy" :needAuth="needAuth" :reduction="reduction" :spuItem="item" :stopClick="stopClick" v-for="(item,index) in rushList" :key="item.actId"></i-type-item>
           </div>
@@ -141,11 +141,21 @@
     created: function() {
       app = this.$getApp()
       wx = this.$wx
+
+      wx.setNavigationBarTitle({
+        title: 'Type',
+        showLogo:false,
+        showMore:false,
+        showBack:false
+      })
+
       const t = this.$route.query
       this.onLoad(t)
     },
-
-    activated:function(){
+    mounted:function(){
+      this.onShow();
+    },
+    /*activated:function(){
 
       wx.setNavigationBarTitle({
         title: 'Type',
@@ -157,7 +167,7 @@
       if(this.$refs.tabbar){
         i.$refs.tabbar.switchTab();
       }
-    },
+    },*/
     methods: {
 
       onLoad: function(i) {
@@ -788,8 +798,10 @@
     justify-content: flex-start;
     align-items: center;
     width: 100vw;
+    height: 90vh;
     background: #fff;
   }
+
 
   .search-bar {
     padding: 6px 13px;
@@ -853,7 +865,7 @@
     top: 0;
     left: 0;
     width: 25vw;
-    height: 520px;
+    height: 85vh;
     background: #f8f8f7;
   }
 
@@ -899,7 +911,7 @@
     top: 0;
     left: 25vw;
     width: 75vw;
-    height: 520px;
+    height: 85vh;
     padding-top: 5px;
     box-sizing: border-box;
   }

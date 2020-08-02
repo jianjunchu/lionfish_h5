@@ -280,9 +280,10 @@ export default {
 
           util.getMemberInfo({success:function(e) {
               i.$wx.setStorageSync('userInfo',e.data)
-              i.$router.replace({
-                path: '/lionfish_comshop/pages/index/index'
-              });
+              if(e.data.community){
+                  i.$wx.setStorageSync('community',e.data.community)
+              }
+              i.$router.go(-1)
             },
             error:function() {
 
@@ -297,6 +298,7 @@ export default {
 		},
 			//验证码登陆
 		handleLogin2() {
+      var i = this;
 			this.$http({
 				controller: 'user.otplogin_do',
 				i: 3,
@@ -310,11 +312,20 @@ export default {
 				var result = response;
 				if(result != null && result.member_id != -1) {
 					alert('Login Successful');
-					this.$wx.setStorageSync('token', response.token)
-					setToken(response.token);
-					this.$router.push({
-						path: '/lionfish_comshop/pages/index/index'
-					});
+          i.$wx.setStorageSync('token', response.token)
+          util.getMemberInfo({success:function(e) {
+              i.$wx.setStorageSync('userInfo',e.data)
+              if(e.data.community){
+                i.$wx.setStorageSync('community',e.data.community)
+              }
+              i.$router.go(-1)
+            },
+            error:function() {
+
+            }
+          });
+
+
 				} else {
 					alert("Login Failed");
 				}
