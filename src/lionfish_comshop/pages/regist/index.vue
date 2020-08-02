@@ -193,7 +193,7 @@
 
             },
             gotoLogin: function(){
-                this.$router.push({path: '/login'});
+                this.$router.go(-1)
             },
             focus(type){
                 if (type === "phoneNum"){

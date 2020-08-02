@@ -480,12 +480,21 @@
     },
     created: function() {
       const wx = this.$wx
+      this.$wx.setNavigationBarTitle({
+        title: "Cart",
+        showLogo:false,
+        showMore:false,
+        showBack:false
+      })
       status.setNavBgColor()
 
     },
+    mounted:function(){
+      this.onShow();
+    },
 
 
-    activated:function(){
+    /*activated:function(){
 
       this.$wx.setNavigationBarTitle({
         title: "Cart",
@@ -495,7 +504,7 @@
       })
       this.$refs.tabbar.getTabbar();
       this.onShow();
-    },
+    },*/
     methods: {
       onShow: function() {
 

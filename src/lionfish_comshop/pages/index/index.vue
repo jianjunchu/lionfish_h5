@@ -867,19 +867,24 @@
     created: function() {
       app = this.$getApp();
       wx = this.$wx;
-      const o = this.$route.query || {}
-      this.onLoad(o)
-    },
 
-    activated:function(){
-      var i = this
-      var g = i.groupInfo
       wx.setNavigationBarTitle({
-        title: i.shop_info.shoname,
+        title: this.shop_info.shoname,
         showLogo:true,
         showMore:false,
         showBack:false
       })
+
+      const o = this.$route.query || {}
+      this.onLoad(o)
+    },
+    mounted:function(){
+      this.onShow();
+    },
+    /*activated:function(){
+      var i = this
+      var g = i.groupInfo
+
       if(this.$refs.tabbar){
         i.$refs.tabbar.switchTab();
       }
@@ -906,7 +911,7 @@
         }
       })
 
-    },
+    },*/
     methods: {
       copyText: function(t) {
 

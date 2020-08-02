@@ -68,7 +68,7 @@ export const constantRoutes = [
     component: () => import('@/lionfish_comshop/pages/index/index'),
     hidden: true,
     meta: {
-      keepAlive: true
+      keepAlive: false
     }
   },
   {
@@ -76,7 +76,7 @@ export const constantRoutes = [
     component: () => import('@/lionfish_comshop/pages/type/index'),
     hidden: true,
     meta: {
-      keepAlive: true
+      keepAlive: false
     }
   },
   {
@@ -251,7 +251,7 @@ export const constantRoutes = [
     component: () => import('@/lionfish_comshop/pages/order/shopCart'),
     hidden: true,
     meta: {
-      keepAlive: true
+      keepAlive: false
     }
   },
   {
