@@ -562,7 +562,7 @@
         var o = wx.getStorageSync("token");
         var _ = e && e.is_show || 0, a = e && e.isfail || "";
         null != (this.is_show_tip = _) && 1 == _ || wx.showLoading(), null != a && 1 == a && wx.showToast({
-          title: "支付失败",
+          title: "Payment Failed",
           icon: "none"
         }), app.util.request({
           url: "entry/wxapp/index",
@@ -580,12 +580,12 @@
               var t = e.data.order_info;
 
               if (null != _ && 1 == _ && "integral" == t.type) wx.showToast({
-                title: "兑换成功"
+                title: "Exchange Successful"
               }); else if (null != _ && 1 == _) if (1 == e.order_pay_after_share) {
                 var o = e.data.share_img;
                 (u.share_img = o, u.isShowModal = !0);
               } else wx.showToast({
-                title: "支付成功"
+                title: "Order Placed"
               });
               if (3 == t.order_status_id) {
                 var a = 1e3 * (t.over_buy_time - t.cur_time);
@@ -1050,4 +1050,3 @@
 
 <style  src="@/lionfish_comshop/pages/order/order.css" scoped>
 </style>
-

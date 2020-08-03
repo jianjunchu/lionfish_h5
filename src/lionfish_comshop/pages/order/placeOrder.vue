@@ -84,7 +84,7 @@
           </div>
         </div>
         <div style='float:left;width: 100%;margin-left: 5%;'>
-          PayNow No.：{{payNowNo}}
+          PayNow Account.：{{payNowNo}}
         </div>
         <div style='float:left;width: 100%;margin-left: 5%;margin-top:5px'>
           {{$t('order.zhifujine')}}：
@@ -99,7 +99,7 @@
         </div>
 
         <div style='text-align: center'>
-          <div style='width: 100%;height: 380px;justify-content: center; '>
+          <div style='width: 100%;height: 530px;justify-content: center; '>
             <img :src='payNowQr'
                  style='width: 160px;height: 160px;margin-top: 20px;border: 1px solid #000;'/>
             <div style='wid:200px;height:40px;margin-top:1vw;'>
@@ -107,17 +107,29 @@
               <span style='text-align: left'>{{$t('order.saomazhifu')}}  <!--或 uen: {{payNowUen}}--></span>
 
             </div>
-            <div style='wid:200px;height:100px; margin-top:1vw;'>
+            <div style='wid:200px;height:20px; text-align: left; margin-top:1vw;margin-left:1vw;'>
+              <span style='font-size: 15px;'>Step 1: Take a screenshot of the QR code</span>
+            </div>
+            <div style='wid:200px;height:40px; text-align: left; margin-top:1vw;margin-left:1vw;'>
+              <span style='font-size: 15px;'>Step 2: Proceed to make payment via PayNow by scanning the QR</span>
+            </div>
+            <div style='wid:200px;height:40px; text-align: left; margin-top:1vw;margin-left:1vw;'>
+              <span style='font-size: 15px;'>Step 3: On your PayNow account enter your mobile number under notes and click Submit</span>
+            </div>
+
+            <div style='wid:200px;height:100px; margin-top:3vw;'>
               <span style='font-size: 18px;'><!--请在支付时备注您订单内的联系号码 \n--></span>
               <span style='font-size: 18px;color: #c0c0c0'>{{$t('order.zhuanzhangbeizhu')}}</span>
             </div>
           </div>
+          <!--
           <div class="receiver">
 
             <span>{{$t('order.jiaoyiliushui')}}</span>
             <input v-model="transaction_id" class="mobile" placeholder="Paynow transaction No." type="text"></input>
 
           </div>
+          -->
           <div style='width: 60%;text-align: center;margin-top: 2vw;margin-left: 20%;'>
             <button @click="havePaid" :style="{background:skin.color,color:' #fff'}" data-type="paynow" class="wux-button wux-button--block" type="default">{{$t('order.yizhifu')}}
             </button>
@@ -1253,12 +1265,12 @@
       },
       havePaid: function(t) {
 
-        if ( '' == this.transaction_id) {
-          return wx.showToast({
-            title: '请输入交易流水id',
-            icon: 'none'
-          }), !1
-        }
+      //  if ( '' == this.transaction_id) {
+      //    return wx.showToast({
+      //      title: '请输入交易流水id',
+      //      icon: 'none'
+      //    }), !1
+      //  }
         var i= this
         var s = wx.getStorageSync('token')
         var type = t.currentTarget.dataset.type
@@ -1289,8 +1301,8 @@
         var e = this, t = e.tabAddress, a = e.tabIdx
         if (1 == e.is_limit_distance_buy && 1 == a) {
           return wx.showModal({
-            title: '提示',
-            content: '离团长太远了，暂不支持下单',
+            title: '',
+            content: 'Too far, Can not place order',
             showCancel: !1,
             confirmColor: '#F75451'
           }), !1

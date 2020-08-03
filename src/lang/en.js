@@ -229,12 +229,12 @@ export default {
     cishangpinxuyao: 'This product requires ',
     qingquerentihuo: 'Please confirm the collection information.',
     xierugaidingdanhao: 'Please make your payment via PayNow and ensure that you enter your Order ID under the reference/comments area.',
-    beizhudingdanhao: 'Order No.',
+    beizhudingdanhao: 'Order Number',
     zhifujine: 'Outstanding Amount',
     saomazhifu: 'SCAN TO PAY',
     jiaoyiliushui: 'Enter Reference No.',
     shuruliushuihao: 'Enter Reference No. of PayNow Transaction',
-    yizhifu: 'Submit',
+    yizhifu: 'OK',
     haoburongyi: 'Are you sure?',
     quxiaochenggong: 'Cancel Successful',
     manjinemian1: 'Free ',
@@ -254,7 +254,7 @@ export default {
     zhifuchenggong: 'Payment Confirmed',
     zhifushibai: 'Payment Failed',
     shenqingshouhou: 'Apply Refund',
-    zhuanzhangbeizhu: 'Note: Order is pending until payment is confirmed',
+    zhuanzhangbeizhu: 'Note: Payment is currently offline, please allow up to 48 hours for payment to be processed. Your order status will be updated accordingly. ',
     querenshoudao: 'Please confirm receipt of your order?'
   },
   cart: {
