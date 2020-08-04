@@ -23,11 +23,11 @@ export default {
     Toast.clear()
   },
   getStorageSync: function(k) {
-    const v = window.localStorage.getItem(k) || '{}'
-    if (v != '{}' && v != 'undefined') {
+    const v = window.localStorage.getItem(k) || ''
+    if (v !== '' && v !== 'undefined') {
       return JSON.parse(v)
     }
-    return {}
+    return ''
   },
   navigateTo: function(o) {
     _this.$router.push(o.url)

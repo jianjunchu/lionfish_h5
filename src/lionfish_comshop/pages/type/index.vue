@@ -228,20 +228,34 @@
             s.isFirstCategory = !0,
             s.isLastCategory = !1,
             s.pageEmpty = !1,
-            s.active_sub_index = 0,
             s.tabbarRefresh = !0,
 
-            console.log(s.isFirst), s.get_cate_list().then(function() {
+            console.log('s.isFirst'+s.isFirst), s.get_cate_list().then(function() {
+            if(app.globalData.typeCateId>0){
+              s.active_sub_index =0;
+            }
             if (1 <= s.isFirst && (s.$data.$data.rushCategoryId = app.globalData.typeCateId || s.$data.$data.rushCategoryId || 0,
               console.log('typeCateId', s.$data.$data.rushCategoryId), app.globalData.typeCateId = 0,
               s.$data.$data.rushCategoryId)) {
               var t = s.rushCategoryData, a = t.tabs, e = s.$data.$data.rushCategoryId
               t.activeIndex = a.findIndex(function(t) {
-                return t.id == e
-              }) || 0, (
-                s.rushCategoryData = t,
-                  s.setCategory(t.activeIndex)
-              )
+                if(t.id == e){
+                  return true;
+                }else{
+                  for(let inx in t.sub){
+                    if(t.sub[inx].id == e){
+                      return true;
+                    }
+                  }
+                }
+                return false;
+              }) || 0
+
+              s.rushCategoryData = t
+              console.log(t )
+
+              s.setCategory(t.activeIndex)
+
             }
           }), util.check_login_new().then(function(t) {
           if (t) {
@@ -456,7 +470,8 @@
       }
       ,
       setCategory: function(t) {
-        var a = this, e = this.rushCategoryData, o = e.tabs[t] || {}, i = this.scrollViewHeight
+        var activeactive_sub_idx = this.active_sub_index > 0 ? this.active_sub_index-1 : 0;
+        var a = this, e = this.rushCategoryData, o = e.tabs[t].sub[activeactive_sub_idx] || {}, i = this.scrollViewHeight
         this.$data.$data.rushCategoryId = o.id || null, this.$data.$data.pageNum = 1, this.$data.$data.isSetCategoryScrollBarTop = !1
         var s = !t, r = (t == (e.tabs.length - 1));
 
@@ -467,7 +482,6 @@
           a.canNext = !1,
           a.isFirstCategory = s,
           a.isLastCategory = r,
-          a.active_sub_index = 0,
           a.showDrop = !1,
           a.getHotList()
       }
@@ -524,10 +538,10 @@
                   is_vip_card_member: u,
                   is_member_level_buy: c
                 }, 1 == y.$data.$data.pageNum && (e.resetScrollBarTop = 51), e.loadText = y.loadMore ? '加载中...' : '没有更多商品了~',
-                y.$data.$data.isSetCategoryScrollBarTop && (e.categoryScrollBarTop = 50 * e.rushCategoryData.activeIndex - (y.scrollViewHeight - 50) / 2),
-                  (
+                y.$data.$data.isSetCategoryScrollBarTop && (e.categoryScrollBarTop = 50 * e.rushCategoryData.activeIndex - (y.scrollViewHeight - 50) / 2)
+                  /*(
                     y.$data.$data.loading = !1, y.$data.$data.pageNum += 1, !m && e.rushCategoryData.tabs && e.rushCategoryData.tabs[0] && (y.$data.$data.rushCategoryId = e.rushCategoryData.tabs[0].id)
-                  )
+                  )*/
               } else if (1 == t.code) {
 
                 1 == y.$data.$data.pageNum && (console.log('无数据'), y.pageEmpty = !0), (y.loadMore =  !1,
