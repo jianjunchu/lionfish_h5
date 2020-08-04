@@ -21,7 +21,7 @@
               <span class="em">{{spuItem.spuDescribe}}</span>
             </div>
             <i-vip-price :price="spuItem.card_price"
-                         v-if="s_open_vipcard_buy==1&&spuItem.is_take_vipcard==1"></i-vip-price>
+                         v-if="is_open_vipcard_buy==1&&spuItem.is_take_vipcard==1"></i-vip-price>
           </div>
           <div class="spu-price">
             <span class="sale-price">
@@ -113,6 +113,7 @@
     },
     data() {
       return {
+        stopClick:false,
         disabled: !1,
         placeholdeImg: '',
         number: 0,

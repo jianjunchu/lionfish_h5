@@ -816,6 +816,7 @@
         changeCommunity: {},
         loadOver:!1,
         loadText:'Loading...',
+        commigLoadMore:false,
         $data: {
           stickyFlag: !1,
           scrollTop: 0,
@@ -878,10 +879,8 @@
       const o = this.$route.query || {}
       this.onLoad(o)
     },
-    mounted:function(){
-      this.onShow();
-    },
-    /*activated:function(){
+
+    activated:function(){
       var i = this
       var g = i.groupInfo
 
@@ -891,27 +890,9 @@
 
       this.onShow();
 
-      util.check_login_new().then(function(e) {
-        if(e){
-          i.needAuth = !1
-          const n = wx.getStorageSync('community')
-          if(!n || !n.communityId){
-            wx.showModal({
-              title: '',
-              content: 'Please select an ' + g.group_name,
-              showCancel: false,
-              confirmColor: '#8ED9D1',
-              success: function(t) {
-                wx.navigateTo({
-                  url: "/lionfish_comshop/pages/position/community"
-                });
-              }
-            })
-          }
-        }
-      })
 
-    },*/
+
+    },
     methods: {
       copyText: function(t) {
 
@@ -929,8 +910,6 @@
         if (n && n.fullAddress && n.fullAddress.indexOf('境外') > -1) {
           n.fullAddress = n.fullAddress.replace('境外境外境外地区', '')
         }
-
-
 
         if (o && 0 != Object.keys(o).length) {
           console.log('step2')
@@ -982,9 +961,12 @@
 
         var a = this,
           e = this;
-        if ((a.stopNotify = !1, a.tabbarRefresh = !0, a.isblack = a.$app.globalData.isblack || 0), util.check_login_new().then(function(t) {
+        util.check_login_new().then(function(t) {
           t ? ( a.needAuth = !1 , status.cartNum().then(t=>{a.cartNum = t.data})) : (a.needAuth = !0, a.couponRefresh = !1 );
-        }), a.$app.globalData.timer.start(), a.$app.globalData.changedCommunity) {
+        })
+        a.get_index_info()
+        a.addhistory()
+        if ((a.stopNotify = !1, a.tabbarRefresh = !0, a.isblack = a.$app.globalData.isblack || 0), a.$app.globalData.timer.start(), a.$app.globalData.changedCommunity) {
 
           a.$app.globalData.goodsListCarCount = [];
           var t = a.$app.globalData.community;
@@ -1015,9 +997,8 @@
 
 
           a.$app.globalData.changedCommunity = !1
-          a.get_index_info()
-          a.addhistory()
-          a.load_goods_data()
+
+
           a.get_type_topic();
         } else {
           console.log("nochange");
@@ -1028,8 +1009,7 @@
 
           0 == e.isFirst ? a.couponRefresh = !0 : (/*this.getCoupon(),*/ e.isFirst++)
         }
-
-
+        a.load_goods_data()
 
       },
       get_index_info() {
@@ -1818,16 +1798,18 @@
         util.check_login_new().then(function(e) {
             if(e){
               i.needAuth = !1
+              return true;
             }else{
               wx.navigateTo({
                 url: "/login"
               })
 
+              return false
 
             }
         })
 
-        return !i.needAuth
+
 
 
       },

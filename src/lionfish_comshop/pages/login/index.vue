@@ -181,6 +181,9 @@ export default {
             getVerifyCode(){
                 let that = this;
                 let input_phone = this.loginForm.phone.replace(/\s*/g,"");      //去除空格
+                if(input_phone == '' || input_phone == undefined || input_phone == null){
+                    return false;
+                }
                 var phone = this.country + input_phone;
                 this.$http({
                   controller : 'index.send_sms_login',

@@ -118,6 +118,7 @@
     },
     data(){
       return{
+        stopClick:false,
         disabled: !1,
         placeholdeImg: "",
         number: 0

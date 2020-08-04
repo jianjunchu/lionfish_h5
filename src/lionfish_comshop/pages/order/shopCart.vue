@@ -425,7 +425,7 @@
   import status from '../../utils/index.js'
   import a from '../../utils/public'
   var addFlag = 1
-
+  var app,wx;
   export default {
     name: 'shopCart',
     mixins: [globalMixin],
@@ -479,7 +479,8 @@
       }
     },
     created: function() {
-      const wx = this.$wx
+      wx = this.$wx
+      app = this.$getApp()
       this.$wx.setNavigationBarTitle({
         title: "Cart",
         showLogo:false,
@@ -489,22 +490,23 @@
       status.setNavBgColor()
 
     },
-    mounted:function(){
+   /* mounted:function(){
       this.onShow();
-    },
+    },*/
+    activated:function(){
 
-
-    /*activated:function(){
-
-      this.$wx.setNavigationBarTitle({
-        title: "Cart",
+      var i = this;
+      wx.setNavigationBarTitle({
+        title: 'Cart',
         showLogo:false,
         showMore:false,
         showBack:false
       })
-      this.$refs.tabbar.getTabbar();
-      this.onShow();
-    },*/
+      i.onShow();
+      if(i.$refs.tabbar){
+        i.$refs.tabbar.switchTab();
+      }
+    },
     methods: {
       onShow: function() {
 

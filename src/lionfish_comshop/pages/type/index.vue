@@ -20,7 +20,7 @@
         <div class="category-item"></div>
       </div>
       <div @click="showDrop" class="mask" hidden="!showDrop"></div>
-      <div class="sub-cate" v-if="rushCategoryData.tabs[rushCategoryData.activeIndex].sub.length">
+      <div class="sub-cate" v-if="rushCategoryData.tabs[rushCategoryData.activeIndex] && rushCategoryData.tabs[rushCategoryData.activeIndex].sub.length">
         <div class="sub-cate-scroll scrollX">
           <div @click.stop="change_sub_cate" class="sub-cate-item" :data-id="rushCategoryData.tabs[rushCategoryData.activeIndex].id" :data-idx="0" :style="active_sub_index==0?'color:'+skin.color:''">All</div>
           <div @click.stop="change_sub_cate" class="sub-cate-item" :data-id="item.id" :data-idx="index+1" :style="active_sub_index==index+1?'color:'+skin.color:''" v-for="(item,index) in rushCategoryData.tabs[rushCategoryData.activeIndex].sub" :key="item.id">{{item.name}}</div>
@@ -120,6 +120,9 @@
         noCateList: 0,
         tabs: [],
         name: '',
+        needAuth:true,
+        changeCarCount:false,
+        s_open_vipcard_buy:0,
         $data: {
           options: {},
           rushCategoryId: '',
@@ -152,22 +155,22 @@
       const t = this.$route.query
       this.onLoad(t)
     },
-    mounted:function(){
+    /*mounted:function(){
       this.onShow();
-    },
-    /*activated:function(){
-
+    },*/
+    activated:function(){
+      var i = this;
       wx.setNavigationBarTitle({
         title: 'Type',
         showLogo:false,
         showMore:false,
         showBack:false
       })
-      this.onShow();
-      if(this.$refs.tabbar){
+      i.onShow();
+      if(i.$refs.tabbar){
         i.$refs.tabbar.switchTab();
       }
-    },*/
+    },
     methods: {
 
       onLoad: function(i) {
@@ -212,7 +215,7 @@
       ,
       onShow: function() {
         var s = this
-        s.$data.$data.pageNum = 1, (
+        s.$data.$data.pageNum = 1,
           s.rushCategoryData = {
             tabs: [],
             activeIndex: 0
@@ -240,8 +243,7 @@
                   s.setCategory(t.activeIndex)
               )
             }
-          })
-        ), util.check_login_new().then(function(t) {
+          }), util.check_login_new().then(function(t) {
           if (t) {
             if ((0, status.cartNum)('', !0).then(function(t) {
               0 == t.code && (s.cartNum = t.data)
@@ -261,6 +263,7 @@
               }
             }
           } else {
+            s.cartNum = 0
             s.needAuth = !0
           }
         }), s.isFirst++
@@ -455,19 +458,18 @@
       setCategory: function(t) {
         var a = this, e = this.rushCategoryData, o = e.tabs[t] || {}, i = this.scrollViewHeight
         this.$data.$data.rushCategoryId = o.id || null, this.$data.$data.pageNum = 1, this.$data.$data.isSetCategoryScrollBarTop = !1
-        var s = !t, r = t == (e.tabs.length - 1)
-        (
-          this.rushCategoryData.activeIndex = t,
-          this.resetScrollBarTop = 50,
-          this.categoryScrollBarTop = 50 * t - (i - 50) / 2,
-          this.rushList = [],
-          this.canNext = !1,
-          this.isFirstCategory = s,
-          this.isLastCategory = r,
-          this.active_sub_index = 0,
-          this.showDrop = !1,
+        var s = !t, r = (t == (e.tabs.length - 1));
+
+          a.rushCategoryData.activeIndex = t,
+          a.resetScrollBarTop = 50,
+          a.categoryScrollBarTop = 50 * t - (i - 50) / 2,
+          a.rushList = [],
+          a.canNext = !1,
+          a.isFirstCategory = s,
+          a.isLastCategory = r,
+          a.active_sub_index = 0,
+          a.showDrop = !1,
           a.getHotList()
-        )
       }
       ,
       getHotList: function() {

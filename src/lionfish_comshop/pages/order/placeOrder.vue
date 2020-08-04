@@ -95,7 +95,7 @@
           <span style="color:red">{{order_num_alias}}</span>
         </div>
         <div style='float:left;width: 100%;margin-left: 5%;margin-top:5px'>
-          <span style="color:red">{{$t('order.xierugaidingdanhao')}}</span>
+          <!--<span style="color:red">{{$t('order.xierugaidingdanhao')}}</span>-->
         </div>
 
         <div style='text-align: center'>
