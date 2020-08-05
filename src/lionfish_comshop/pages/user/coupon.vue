@@ -25,7 +25,7 @@
               <div class="reduce-price">
                 {{item.credit}}<span>元</span>
               </div>
-              <div class="reduce-desc">{{item.limit_money>0.01?'满'+item.limit_money+'元可用':'不限制'}}</div>
+              <div class="reduce-desc">{{item.limit_money>0.01?'min $'+item.limit_money+' purchase':'No Limit'}}</div>
             </div>
             <div class="info">
               <div class="reduce-title">
