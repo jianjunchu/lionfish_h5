@@ -259,6 +259,7 @@
             }
           }), util.check_login_new().then(function(t) {
           if (t) {
+            s.needAuth = !1
             if ((0, status.cartNum)('', !0).then(function(t) {
               0 == t.code && (s.cartNum = t.data)
             }), 1 <= s.isFirst) {
@@ -465,13 +466,21 @@
       }
       ,
       changeCategory: function(a) {
-
+        this.active_sub_index = 0;
         console.log(a), a !== this.rushCategoryData.activeIndex && this.setCategory(a)
       }
       ,
       setCategory: function(t) {
-        var activeactive_sub_idx = this.active_sub_index > 0 ? this.active_sub_index-1 : 0;
-        var a = this, e = this.rushCategoryData, o = e.tabs[t].sub[activeactive_sub_idx] || {}, i = this.scrollViewHeight
+        var activeactive_sub_idx = this.active_sub_index;
+
+        var a = this, e = this.rushCategoryData,  i = this.scrollViewHeight
+
+        if(this.active_sub_index > 0){
+          var o = e.tabs[t].sub[activeactive_sub_idx-1] || {}
+        }else{
+          var o = e.tabs[t];
+        }
+
         this.$data.$data.rushCategoryId = o.id || null, this.$data.$data.pageNum = 1, this.$data.$data.isSetCategoryScrollBarTop = !1
         var s = !t, r = (t == (e.tabs.length - 1));
 
@@ -564,7 +573,8 @@
       goResult: function(t) {
         if (event.keyCode == 13) { //如果按的是enter键 13是enter
           event.preventDefault(); //禁止默认事件（默认是换行）
-          var a = t.currentTarget.value.replace(/\s+/g, "");
+          //var a = t.currentTarget.value.replace(/\s+/g, "");
+          var a = t.currentTarget.value;
           a ? wx.navigateTo({
             url: "/lionfish_comshop/pages/type/result?keyword=" + a
           }) : wx.showToast({

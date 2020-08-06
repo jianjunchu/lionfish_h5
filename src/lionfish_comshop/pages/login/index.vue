@@ -51,7 +51,7 @@
 	    </el-select>
 	  <span style="margin-top: 12220px;">|</span>
 	  </span>
-	  <input style="width: 60%;height: 100%;border:none;outline: none;height: 40px;" v-model="input_phone"/>
+	  <input style="width: 60%;height: 100%;border:none;outline: none;height: 40px;" v-model="loginForm.username"/>
 	  </div>
 	  </div>
 
@@ -67,8 +67,9 @@
 
    </div>
 
-   <p style="color: #0076FF;font-size: 16px;" v-show="isShowLogin" @click="yanzhengma">Login with OTP</p>
-   <p style="color: #0076FF;font-size: 16px;" v-show="isShowCode" @click="mima">Login with password</p>
+   <span style="color: #0076FF;font-size: 16px;" v-show="isShowLogin" @click="yanzhengma">Login with OTP</span>
+
+   <span style="color: #0076FF;font-size: 16px;" v-show="isShowCode" @click="mima">Login with password</span>
 
 
 	<!--密码登录按钮-->
@@ -180,7 +181,11 @@ export default {
 		   /**************************************************************获取验证码**************************************************************/
             getVerifyCode(){
                 let that = this;
-                let input_phone = this.loginForm.phone.replace(/\s*/g,"");      //去除空格
+         console.log(this.loginForm)
+                let input_phone = this.loginForm.username.replace(/\s*/g,"");      //去除空格
+
+
+
                 if(input_phone == '' || input_phone == undefined || input_phone == null){
                     return false;
                 }
@@ -188,7 +193,7 @@ export default {
                 this.$http({
                   controller : 'index.send_sms_login',
                   country: this.country,
-                  phone: this.input_phone,
+                  phone: input_phone,
                   i: 3
                 }).then(response => {
                   console.log(response,",,,,,")
@@ -308,7 +313,7 @@ export default {
 //				user: this.loginForm.username,
 //				passwd: this.loginForm.password
         country:this.country,
-        user:this.input_phone,
+        user: this.loginForm.username,
         code:this.logoCode
 			}).then(response => {
 				console.log(response)

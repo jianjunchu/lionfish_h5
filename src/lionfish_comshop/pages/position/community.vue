@@ -76,7 +76,7 @@
   import { AMapManager } from 'vue-amap'
 
   let amapManager = new AMapManager()
-
+  var app,wx
   export default {
     name: '',
     mixins: [GlobalMixin],
@@ -110,6 +110,9 @@
     created: function() {
 
       var i = this
+      app = this.$getApp()
+      wx = this.$wx;
+
       this.common_header_backgroundimage = this.$app.globalData.common_header_backgroundimage
       status.setNavBgColor()
       status.setGroupInfo().then(function(t) {
