@@ -1795,19 +1795,15 @@
       },
       authModal: function() {
         var i = this;
-        util.check_login_new().then(function(e) {
-            if(e){
-              i.needAuth = !1
-              return true;
-            }else{
-              wx.navigateTo({
-                url: "/login"
-              })
+        if(i.needAuth){
+          wx.navigateTo({
+            url: "/login"
+          })
 
-              return false
-
-            }
-        })
+          return false
+        }else{
+          return !i.needAuth
+        }
 
 
 
@@ -2110,7 +2106,8 @@
 
         if (event.keyCode == 13) { //如果按的是enter键 13是enter
           event.preventDefault(); //禁止默认事件（默认是换行）
-          var a = t.currentTarget.value.replace(/\s+/g, "");
+          //var a = t.currentTarget.value.replace(/\s+/g, "");
+          var a = t.currentTarget.value;
           a ? wx.navigateTo({
             url: "/lionfish_comshop/pages/type/result?keyword=" + a
           }) : wx.showToast({
