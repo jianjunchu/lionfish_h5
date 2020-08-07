@@ -376,7 +376,7 @@
           <div @click="showvoucher" class="cell" data-seller_id="0" v-if="seller_goodss[0] && seller_goodss[0].show_voucher==1">
             <div>
               <span>{{$t('common.youhuiquan')}}</span>
-              <span class="cell-desc" v-if="sel_chose_vouche.limit_money>0">满{{sel_chose_vouche.limit_money}}元优惠{{sel_chose_vouche.credit}}元</span>
+              <span class="cell-desc" v-if="sel_chose_vouche.limit_money>0">min. ${{sel_chose_vouche.limit_money}} purchase to use ${{sel_chose_vouche.credit}} coupon</span>
               <span class="cell-desc" v-else>优惠{{sel_chose_vouche.credit}}元</span>
             </div>
             <div>
