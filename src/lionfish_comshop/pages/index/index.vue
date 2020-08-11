@@ -1007,7 +1007,7 @@
             this.changeRushListNum()
           }
 
-          0 == e.isFirst ? a.couponRefresh = !0 : (/*this.getCoupon(),*/ e.isFirst++)
+          0 == e.isFirst ? a.couponRefresh = !0 : (this.getCoupon(), e.isFirst++)
         }
         a.load_goods_data()
 
