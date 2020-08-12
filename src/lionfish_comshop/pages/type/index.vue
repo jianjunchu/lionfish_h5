@@ -38,7 +38,7 @@
           <span v-if="isFirstCategory">{{$t('type.yijingdingbu')}}</span>
           <span v-else>{{$t('type.xialachakan')}}</span>
         </div>-->
-        <div style="min-height: 80vh;">
+        <div>
             <van-list v-if="!pageEmpty" v-model="$data.$data.loading" :finished="!loadMore" @load="getHotList" class="van-clearfix page-list scrollY">
               <i-type-item @authModal="authModal" @changeCartNum="changeCartNum" @openSku="openSku" @vipModal="vipModal" :canLevelBuy="canLevelBuy" :changeCarCount="changeCarCount" :is_open_vipcard_buy="is_open_vipcard_buy" :needAuth="needAuth" :reduction="reduction" :spuItem="item" :stopClick="stopClick" v-for="(item,index) in rushList" :key="item.actId"></i-type-item>
             </van-list>
@@ -836,12 +836,10 @@
   }
 
   .page-wrap {
-    display: flex;
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
     width: 100vw;
-    height: 90vh;
     background: #fff;
   }
 
@@ -953,9 +951,8 @@
     position: absolute;
     left: 25vw;
     width: 75vw;
-    height: 85vh;
+    height: 70vh;
     padding-top: 5px;
-    padding-bottom: 50px;
     box-sizing: border-box;
   }
 

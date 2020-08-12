@@ -1,11 +1,14 @@
 <template>
-  <div>
-    <form bindsubmit="submit2" reportSubmit="true">
-      <button hidden formType="submit" id="formId"></button>
-    </form>
     <label class="spu" for="formId">
-      <i-router-link routerClass="spu-content-type" :url="'/lionfish_comshop/pages/goods/goodsDetail?&id='+spuItem.actId">
+      <router-link class="spu-content-type" :to="'/lionfish_comshop/pages/goods/goodsDetail?&id='+spuItem.actId">
         <div class="item-left">
+          <div class="item-tag" v-if="spuItem.label_info&&spuItem.label_info.type==0">
+            <img class="item-tag-bg" mode="widthFix" src="@/assets/images/tag.png"/>
+            <div :class="['tag-name',(spuItem.label_info.len==2?'two-word':'')]">{{spuItem.label_info.tagcontent}}</div>
+          </div>
+          <div class="item-tag" :style="'background:url('+spuItem.label_info.tagcontent+') no-repeat left top;background-size: 100%;'" v-if="spuItem.label_info&&spuItem.label_info.type==1"></div>
+
+
           <i-img :defaultImage="placeholdeImg?placeholdeImg:'@/assets/images/placeholder-refund.png'" height="170"
                  iClass="img-class" lazyLoad="true" :loadImage="spuItem.skuImage" width="170"></i-img>
           <div class="tag" v-if="reduction.is_open_fullreduction==1&&spuItem.is_take_fullreduction==1">
@@ -45,10 +48,9 @@
         </div>
         <span class="act-end act-out" v-if="spuItem.spuCanBuyNum==0">{{$t('common.yiqiangguang')}}</span>
         <span class="act-end" v-else-if="actEnd">团购已结束</span>
-      </i-router-link>
+      </router-link>
     </label>
 
-  </div>
 </template>
 
 <script>
@@ -346,14 +348,12 @@
 
   .spu .spu-content-type .item-right .spu-title .span {
     width: 100%;
-    height: 9vw;
     position: absolute;
     left: 0;
     top: -1vw;
-    line-height: 9vw;
     overflow: hidden;
     text-overflow: ellipsis;
-    white-space: nowrap;
+    white-space: normal;
     margin: 0;
   }
 
@@ -372,7 +372,7 @@
     height: 5vw;
     position: absolute;
     left: 0;
-    top: 1vw;
+    top: 7vw;
     line-height: 5vw;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -507,5 +507,40 @@
     font-size: 4vw;
     color: #333;
     width: 8vw;
+  }
+
+  .spu .item-tag {
+    position: absolute;
+    left: 1vw;
+    top: 1vw;
+    width: 5.4vw;
+    height: 6.2vw;
+    z-index: 1;
+    color: #fff;
+    text-align: center;
+  }
+
+  .item-tag-bg {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 5.4vw;
+    height: 6.2vw;
+    z-index: 0;
+  }
+
+  .spu .item-tag .tag-name {
+    position: relative;
+    padding-top: 0.6vw;
+    font-size: 3vw;
+    line-height: 1;
+    transform: scale(0.6);
+    font-weight: 600;
+    z-index: 1;
+  }
+
+  .spu .item-tag .tag-name.two-word {
+    font-size: 2.2vw;
+    padding-top: 1.4vw;
   }
 </style>

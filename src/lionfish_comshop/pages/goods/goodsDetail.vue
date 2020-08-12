@@ -43,7 +43,9 @@
       <!--<div class="item-tag" :style="background:url(goods.label_info.tagcontent) no-repeat left top;background-size: 100%;" v-if="goods.label_info&&goods.label_info.type==1"></div>-->
       <div class="item-tag"
            :style="{background:'url('+goods.label_info.tagcontent+ ') no-repeat left top',backgroundSize: '100%;'}"
-           v-if="goods.label_info&&goods.label_info.type==1"></div>
+           v-if="goods.label_info&&goods.label_info.type==1">
+        <img :src="goods.label_info.tagcontent"/>
+      </div>
       <!--<div class="current" v-if="fmShow==true">{{goodsIndex}}/{{goods_image_length}}</div>-->
       <!--<div class="current" v-if="fmShow">{{goodsIndex}}/{{goods_image_length}}</div>-->
       <!--<div class="current" >{{goodsIndex}}/{{goods_image_length}}</div>-->
@@ -160,8 +162,9 @@
         <div class="saleNum" v-if="is_hide_details_count!=1">
           <span class="purTit">{{$t('detail.xiaoliang')}}</span>
           <span class="stock">{{$t('detail.yishou')}}
-            <span class="remaining"> {{goods.seller_count}} </span>，{{$t('detail.jinsheng')}}
-            <span class="remaining"> {{goods.total}} </span></span>
+            <span class="remaining"> {{goods.seller_count}} </span><!--，{{$t('detail.jinsheng')}}
+            <span class="remaining"> {{goods.total}} </span>-->
+          </span>
         </div>
         <div @click="goLink" class="vip i-flex i-flex-spb" data-link="/lionfish_comshop/moduleA/vip/upgrade"
              v-if="goods.is_take_vipcard==1&&is_vip_card_member==1&&is_open_vipcard_buy==1">
@@ -673,7 +676,6 @@
         isopen_community_group_share: 0,
         group_share_info: {},
         relative_goods_list: [],
-        needPosition: !!A,
         is_close_details_time: 0,
         is_open_vipcard_buy: 0,
         modify_vipcard_name: '',
@@ -850,7 +852,7 @@
       },
       get_goods_details: function(t, a, A) {
 
-//        var a = 1 < arguments.length && void 0 !== arguments[1] ? arguments[1] : "", A = arguments[2],
+        var a = 1 < arguments.length && void 0 !== arguments[1] ? arguments[1] : "", A = arguments[2];
         var L = this
         if (!t) {
           //        this.$wx.hideLoading(),
@@ -2827,9 +2829,13 @@
     top: 10px;
     width: 40px;
     height: 46px;
-    z-index: 1;
+    z-index: 500;
     color: #fff;
     text-align: center;
+  }
+
+  .spuInfoImg .item-tag  img{
+    width: 40px;
   }
 
   .item-tag-bg {

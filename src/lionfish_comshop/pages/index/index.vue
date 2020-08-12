@@ -269,7 +269,7 @@
 
           <img class="rush-list-title" id="rush-title" src="@/assets/images/rush-title.png" v-else/>
 -->
-          <div class="search-bar" v-if="index_switch_search==1">
+          <div class="index-search-bar" v-if="index_switch_search==1">
             <div class="search-box">
               <input @keypress="goResult" class="ipt" confirmType="搜索" placeholder="Search" type="search"></input>
               <div class="search-icon">

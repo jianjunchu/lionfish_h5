@@ -1,13 +1,13 @@
 <template>
   <div>
     <div class="box">
-      <div class="list">
+      <van-list  @load="getData" class="list">
         <i-type-item :actEnd="item.actEnd" @authModal="authModal" @changeCartNum="changeCartNum"
                      @openSku="openSku" @vipModal="vipModal" :needAuth="needAuth" :reduction="reduction"
                      :spuItem="item" :stopClick="stopClick" v-for="(item , index ) in rushList" :key="item.actId"></i-type-item>
-        <i-load-more iClass="loadMore" :loading="loadMore" :tip="loadText"
-                     v-if="showLoadMore&&!showEmpty"></i-load-more>
-      </div>
+
+      </van-list>
+
       <div class="none-rush-list" v-if="showEmpty">
         <img class="img-block" src="@/assets/images/icon-index-empty.png"></img>
         <div class="h1">Please try again</div>
