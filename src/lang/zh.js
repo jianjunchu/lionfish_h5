@@ -178,6 +178,7 @@ export default {
     nicheng: '昵称',
     shouhuoren1: '收货人',
     shouhuodizhi: '收货地址',
+    tihuowancheng: '提货完成',
     gong: '共',
     jianshangpin: '件商品',
     xiaoji: '小计',
@@ -245,6 +246,7 @@ export default {
     shifu: '实付',
     quxiaodingdan: '取消订单',
     quxiaodingdan1: '取消订单',
+    yiquxiao: '已取消',
     quxiaodingdantuikuan: '取消订单并退款',
     lijizhifu: '立即支付',
     tihuoshijian: '提货时间:',
@@ -283,6 +285,7 @@ export default {
     shouhouzhong: '售后中',
     zhifuchenggong: '支付成功',
     zhifushibai: '支付失败',
+    qupingjia: '去评价',
     shenqingshouhou: '申请售后',
     zhuanzhangbeizhu: '注：转账支付为人工审核',
     querenshoudao: '确认收到货?'

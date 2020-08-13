@@ -201,14 +201,14 @@
         <div class="goods-card">
           <div class="i-card">
             <div class="header" slot="header">
-              <div class="goods-cancel bold-text" v-if="order.order_info.order_status_id==5">已取消</div>
+              <div class="goods-cancel bold-text" v-if="order.order_info.order_status_id==5"><!--已取消--> {{$t('order.yiquxiao')}}</div>
               <!--<div class="goods-ready bold-text" style="color:{{skin.color}}" v-if="order.order_info.order_status_id==1||order.order_info.order_status_id==14">-->
               <div class="goods-ready bold-text" :style="{color:skin.color}" v-if="order.order_info.order_status_id==1||order.order_info.order_status_id==14">
                 <!--<div v-if="order.order_info.delivery=='pickup'">预计{{order.order_info.pick_up_time}}可提货</div>
                 <div v-else-if="order.order_info.delivery=='tuanz_send'">预计{{order.order_info.pick_up_time}}{{groupInfo.owner_name}}配送</div>
                 <div v-else>快递配送</div>-->
               </div>
-              <div class="goods-done bold-text" v-if="order.order_info.order_status_id==6||order.order_info.order_status_id==11">{{showRealPickUpTime}}提货完成</div>
+              <div class="goods-done bold-text" v-if="order.order_info.order_status_id==6||order.order_info.order_status_id==11">{{showRealPickUpTime}}{{$t('order.tihuowancheng')}}</div>
               <div class="goods-num">{{order.goods_count}} {{$t('order.jianshangpin')}}</div>
             </div>
             <div class="middle" slot="content">
@@ -244,7 +244,7 @@
                       </div>
                       <div v-else>退款成功</div>
                     </div>
-                    <div @click="goComment" class="btn-1" :data-goods_id="goodsInfo.goods_id" :data-order_goods_id="goodsInfo.order_goods_id" :data-type="order.order_info.order_id" v-if="goodsInfo.is_refund_state==0&&order.order_info.order_status_id==6&&goodsInfo.hascomment==0">去评价</div>
+                    <div @click="goComment" class="btn-1" :data-goods_id="goodsInfo.goods_id" :data-order_goods_id="goodsInfo.order_goods_id" :data-type="order.order_info.order_id" v-if="goodsInfo.is_refund_state==0&&order.order_info.order_status_id==6&&goodsInfo.hascomment==0"><!--去评价-->  {{ $t('order.qupingjia')}}</div>
                     <div v-if="order_can_del_cancle==0">
                       <div @click="applyForService" class="btn-1 mar-left-8" :data-order_goods_id="goodsInfo.order_goods_id" :data-type="order.order_info.order_id" v-if="goodsInfo.can_ti_refund!=0&&goodsInfo.is_refund_state==0&&order.order_info.order_status_id==4"><!--申请售后--> {{ $t('order.shenqingshouhou')}}</div>
                     </div>
