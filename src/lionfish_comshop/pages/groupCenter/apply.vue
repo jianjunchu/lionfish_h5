@@ -13,33 +13,33 @@
             </div>
             <!--<div class="['form-item', (errors[2]===2?'error':'')]">-->
             <div class="form-item">
-              <label class="form-item-control">Mobile</label>
+              <label class="form-item-control">{{$t('host.shoujihao')}}</label>
               <!--<input @input="inputMobile" class="form-item-input" data-key="2" :focus="focus_mobile" maxlength="11" placeholder="请输入手机号码" type="text" :value="mobile"/>-->
-              <input v-model="mobile_detail" class="form-item-input"  maxlength="11" placeholder="请输入手机号码" type="text" />
+              <input v-model="mobile_detail" class="form-item-input"  maxlength="11" :placeholder="$t('host.shurushoujihao')" type="text" />
             </div>
 
             <div class="form-item">
-              <label class="form-item-control">邮编</label>
+              <label class="form-item-control">{{$t('host.youbian')}}</label>
               <!--<input bindinput="inputZipCode" class="form-item-input" focus="{{focus_zip_code}}" placeholder="请输入邮编" type="text" value="{{zip_code}}"></input>-->
-              <input v-model="zip_code" class="form-item-input"  placeholder="请输入邮编" type="text" />
+              <input v-model="zip_code" class="form-item-input"  :placeholder="$t('host.shuruyoubian')" type="text" />
             </div>
 
             <div class="form-item">
-              <label class="form-item-control">大牌</label>
+              <label class="form-item-control">{{$t('host.dapai')}}</label>
               <!--<input bindinput="inputBlkNo"   class="form-item-input" focus="{{focus_blk_no}}" placeholder="请输入大牌号" type="text" value="{{blk_no}}"></input>-->
-              <input v-model="blk_no"   class="form-item-input"  placeholder="请输入大牌号" type="text" />
+              <input v-model="blk_no"   class="form-item-input"  :placeholder="$t('host.shurudapai')" type="text" />
             </div>
 
             <div class="form-item">
-              <label class="form-item-control">路名</label>
+              <label class="form-item-control">{{$t('host.luming')}}</label>
               <!--<input bindinput="inputRoadName"   class="form-item-input" focus="{{focus_road_name}}" placeholder="请输入路名" type="text" value="{{road_name}}"></input>-->
-              <input v-model="road_name"   class="form-item-input"  placeholder="请输入路名" type="text" />
+              <input v-model="road_name"   class="form-item-input"  :placeholder="$t('host.shuruluming')" type="text" />
             </div>
 
             <div class="form-item">
-              <label class="form-item-control">门牌号</label>
+              <label class="form-item-control">{{$t('host.mengpaihao')}}</label>
               <!--<input bindinput="inputLouMengHao"   class="form-item-input" focus="{{focus_lou_meng_hao}}" placeholder="请输入门牌号" type="text" value="{{lou_meng_hao}}"></input>-->
-              <input v-model="lou_meng_hao"   class="form-item-input"  placeholder="请输入门牌号" type="text" />
+              <input v-model="lou_meng_hao"   class="form-item-input"  :placeholder="$t('host.shurumengpaihao')" type="text" />
             </div>
 
             <!--<div class="form-item">-->
@@ -311,7 +311,7 @@
 
           if ("" == this.zip_code) {
             this.$wx.showToast({
-              title: "请输入邮编",
+              title: "Postal Code is not correct",
               icon: "none"
             });
             return false;
@@ -319,7 +319,7 @@
 
           if ("" == this.blk_no) {
             this.$wx.showToast({
-              title: "请输入大牌号",
+              title: "Block No. is not correct",
               icon: "none"
             });
             return false;
@@ -328,7 +328,7 @@
 
           if ("" == this.road_name) {
             this.$wx.showToast({
-              title: "请输入路名",
+              title: "Street is not correct",
               icon: "none"
             });
             return false;
@@ -336,7 +336,7 @@
 
           if ("" == this.lou_meng_hao) {
             this.$wx.showToast({
-              title: "请输入单元门牌",
+              title: "Unit No. is not correct",
               icon: "none"
             });
             return false;
@@ -418,7 +418,7 @@
           success: function(t) {
             if(0 == t.code ){
               e.$wx.showToast({
-                title: "提交成功，等待审核",
+                title: "Send Success",
                 icon: "none"
               });
 
