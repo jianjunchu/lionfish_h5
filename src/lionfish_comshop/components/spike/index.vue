@@ -10,7 +10,7 @@
     </div>
     <div ref="Box" @scroll="scrollEvent" class="new-comers-scroll">
       <div class="new-comers-wrap">
-        <i-router-link routerClass="new-comers-item" :url="'/lionfish_comshop/pages/goods/goodsDetail?id='+item.actId"
+        <router-link class="new-comers-item" :to="'/lionfish_comshop/pages/goods/goodsDetail?id='+item.actId"
                        v-for="(item , index) in list" :key="item.id">
           <i-img defaultImage="@/assets/images/placeholder-refund.png" height="200" iClass="new-img"
                  :loadImage="item.skuImage" width="180"></i-img>
@@ -25,7 +25,7 @@
               <i-addcart iClass="img"></i-addcart>
             </i-button>
           </div>
-        </i-router-link>
+        </router-link>
       </div>
     </div>
   </div>

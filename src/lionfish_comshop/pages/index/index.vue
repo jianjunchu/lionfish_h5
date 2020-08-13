@@ -2,7 +2,7 @@
   <div class="page">
     <el-amap style="display: none" vid="amap" :plugin="plugin" class="amap-demo" :center="center">
     </el-amap>
-    <div v-if="loadOver && isblack!=1">
+    <div v-if="loadOver && isblack!=1" ref="ct">
 
       <div :class="['index-box', 'pb100', (showNewCoupon?'preventTouchMove':'')]">
         <div class="miniAppTip" v-if="isTipShow">
@@ -65,10 +65,10 @@
                 <div class="loc-m" v-else>{{community.communityName}}</div>
               </div>
               <div class="loc-l" v-else>
-                <i-router-link hoverClass="router-hover" url="/lionfish_comshop/pages/position/community">
+                <router-link class="router-hover" to="/lionfish_comshop/pages/position/community">
                   您还没有选择{{groupInfo.owner_name}}，轻触去选择
                   <span class="iconfont icon-weizhi-tianchong"></span>
-                </i-router-link>
+                </router-link>
               </div>
               <div @click="goLink" class="top-search" data-link="/lionfish_comshop/pages/type/search">
                 <span class="iconfont icon-sousuo1"></span>
@@ -76,7 +76,7 @@
               </div>
             </div>
           </div>
-          <div class="blank10"></div>
+
 
           <div class="swipe" v-if="slider_list.length>0">
             <swiper :options="sliderSwiperOption" class="swiper-content">
@@ -881,17 +881,23 @@
       this.onLoad(o)
     },
     mounted:function(){
-      window.addEventListener('scroll', this.handleScroll);
+      var i  = this;
+      i.$refs.ct.addEventListener('scroll', () => {
+        i.handleScroll();
+      }, false)
     },
     activated:function(){
-
-      if(this.pageScroll > 0){
-        window.scrollTo(0, this.pageScroll);
-        window.addEventListener('scroll', this.handleScroll);
-      }
-
       var i = this
       var g = i.groupInfo
+
+      if(i.pageScroll > 0){
+        i.$refs.ct.scrollTop = i.pageScroll;
+        i.$refs.ct.addEventListener('scroll', () => {
+          i.handleScroll();
+        }, false)
+      }
+
+
 
       if(this.$refs.tabbar){
         i.$refs.tabbar.switchTab();
@@ -900,11 +906,11 @@
       this.onShow();
     },
     deactivated(){
-      window.removeEventListener('scroll', this.handleScroll);
+      //this.$refs.ct.removeEventListener('scroll', this.handleScroll);
     },
     methods: {
-      handleScroll () {
-        this.pageScroll  = $(window).height()+ $(document).scrollTop()
+      handleScroll:function() {
+        this.pageScroll  =  this.$refs.ct.scrollTop;
         console.log(this.pageScroll)
       },
       copyText: function(t) {
