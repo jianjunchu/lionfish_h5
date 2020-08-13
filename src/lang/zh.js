@@ -136,7 +136,7 @@ export default {
     shenqingshenhezhong: '申请审核中',
     dengdaijieguo: '您的申请在处理中，请等待结果...',
     gongli: '公里',
-    shurushequming: '请输入社区名或邮编'
+    shurushequming: '请输入社区名或邮编',
   },
   detail: {
     huishouye: '回首页',

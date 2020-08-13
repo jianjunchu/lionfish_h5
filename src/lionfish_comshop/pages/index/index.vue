@@ -672,6 +672,7 @@
     data() {
       let self = this;
       return {
+        pageScroll: 0,
         sliderSwiperOption: {
           //显示分页
           pagination: {
@@ -879,8 +880,16 @@
       const o = this.$route.query || {}
       this.onLoad(o)
     },
-
+    mounted:function(){
+      window.addEventListener('scroll', this.handleScroll);
+    },
     activated:function(){
+
+      if(this.pageScroll > 0){
+        window.scrollTo(0, this.pageScroll);
+        window.addEventListener('scroll', this.handleScroll);
+      }
+
       var i = this
       var g = i.groupInfo
 
@@ -889,11 +898,15 @@
       }
 
       this.onShow();
-
-
-
+    },
+    deactivated(){
+      window.removeEventListener('scroll', this.handleScroll);
     },
     methods: {
+      handleScroll () {
+        this.pageScroll  = $(window).height()+ $(document).scrollTop()
+        console.log(this.pageScroll)
+      },
       copyText: function(t) {
 
       },
