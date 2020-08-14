@@ -501,8 +501,8 @@
     position: absolute;
     left: 2.2vw;
     top: 0;
-    width: 5.4vw;
-    height: 6.2vw;
+    width: 7vw;
+    height: 8vw;
     z-index: 1;
     color: #fff;
     span-align: center;
@@ -512,8 +512,8 @@
     position: absolute;
     left: 0;
     top: 0;
-    width: 5.4vw;
-    height: 6.2vw;
+    width: 7vw;
+    height: 8vw;
     z-index: 0;
   }
 

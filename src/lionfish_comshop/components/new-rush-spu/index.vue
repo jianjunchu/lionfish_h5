@@ -1,12 +1,8 @@
 <template>
   <div>
 
-
-    <form bindsubmit="submit2" reportSubmit="true">
-      <button hidden formType="submit" id="formId"></button>
-    </form>
     <div class="spu" for="formId">
-      <i-router-link class="spu-content" :url="url">
+      <router-link class="spu-content" :to="url">
         <div class="item-left">
 
           <div class="item-tag" v-if="spuItem.label_info&&spuItem.label_info.type==0">
@@ -69,7 +65,7 @@
         <div class="mask" v-if="isPast||disabled||spuItem.spuCanBuyNum==0?'disabled':''"></div>
         <div class="act-end act-out" v-if="spuItem.spuCanBuyNum==0">{{$t('home.yiqiangguang')}}</div>
         <div class="act-end" v-else-if="actEnd" v-show="false">{{$t('home.tuangouyijieshu')}}</div>
-      </i-router-link>
+      </router-link>
       <div class="picktime" v-if="showPickTime">
         <div>预售时间：{{spuItem.begin_time}}</div>
         <div>提货时间：{{spuItem.pick_up_modify}}</div>
@@ -382,7 +378,7 @@
 
   .spu >>> .spu-content .item-right {
     box-sizing: border-box;
-    margin-left: 6vw;
+    margin-left: 3vw;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -400,14 +396,12 @@
 
   .spu >>> .spu-content .item-right .spu-title .span {
     width: 100%;
-    height: 4vw;
     position: absolute;
     left: 0;
     top: -0.4vw;
-    line-height: 4vw;
     overflow: hidden;
     text-overflow: ellipsis;
-    white-space: nowrap;
+    white-space: normal;
     margin: 0;
   }
 
@@ -433,7 +427,7 @@
     height: 3.2vw;
     position: absolute;
     left: 0;
-    top: 1vw;
+    top: 9vw;
     line-height: 3.2vw;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -572,8 +566,9 @@
   .spu .item-tag .tag-name {
     position: relative;
     padding-top: 0.6vw;
-    font-size: 2vw;
+    font-size: 3vw;
     line-height: 1;
+    transform: scale(0.6);
     font-weight: 600;
     z-index: 1;
   }

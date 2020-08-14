@@ -249,7 +249,7 @@
   }
 </script>
 
-<style>
+<style scoped>
 
   .new-comers-item, .w250 {
     position: relative;
@@ -351,8 +351,8 @@
     position: absolute;
     right: 1vw;
     top: 2vw;
-    width: 7vw;
-    height: 8vw;
+    width: 5.4vw;
+    height: 6.2vw;
     z-index: 1;
     color: #fff;
     text-align: center;
@@ -362,15 +362,15 @@
     position: absolute;
     left: 0;
     top: 0;
-    width: 7vw;
-    height: 8vw;
+    width: 5.4vw;
+    height: 6.2vw;
     z-index: 0;
   }
 
   .spu .item-tag .tag-name {
     position: relative;
     padding-top: 0.5vw;
-    font-size: 0.5vw;
+    font-size: 2vw;
     line-height: 1;
     font-weight: 600;
     z-index: 1;

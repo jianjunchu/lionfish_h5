@@ -33,30 +33,33 @@
           <div @click="change_sub_cate(rushCategoryData.tabs[rushCategoryData.activeIndex].id,0)" class="sub-cate-item" style="color:#fff">{{$t('common.quanbu')}}</div>
           <div @click="change_sub_cate(item.id,index+1)" class="sub-cate-item" style="color:#fff" v-for="(item,index) in rushCategoryData.tabs[rushCategoryData.activeIndex].sub" :key="item.id">{{item.name}}</div>
       </div> -->
-      <van-list v-model="$data.$data.loading" :finished="!loadMore" @load="getHotList" class="page-list scrollY">
-        <div class="scroll-col-tip-top">
+
+        <!--<div class="scroll-col-tip-top">
           <span v-if="isFirstCategory">{{$t('type.yijingdingbu')}}</span>
           <span v-else>{{$t('type.xialachakan')}}</span>
-        </div>
-        <div style="min-height: 80vh;">
-          <div v-if="!pageEmpty">
-            <i-type-item @authModal="authModal" @changeCartNum="changeCartNum" @openSku="openSku" @vipModal="vipModal" :canLevelBuy="canLevelBuy" :changeCarCount="changeCarCount" :is_open_vipcard_buy="is_open_vipcard_buy" :needAuth="needAuth" :reduction="reduction" :spuItem="item" :stopClick="stopClick" v-for="(item,index) in rushList" :key="item.actId"></i-type-item>
-          </div>
+        </div>-->
+        <div>
+            <van-list v-if="!pageEmpty" v-model="$data.$data.loading" :finished="!loadMore" @load="getHotList" class="van-clearfix page-list scrollY">
+              <i-type-item @authModal="authModal" @changeCartNum="changeCartNum" @openSku="openSku" @vipModal="vipModal" :canLevelBuy="canLevelBuy" :changeCarCount="changeCarCount" :is_open_vipcard_buy="is_open_vipcard_buy" :needAuth="needAuth" :reduction="reduction" :spuItem="item" :stopClick="stopClick" v-for="(item,index) in rushList" :key="item.actId"></i-type-item>
+            </van-list>
           <div class="none-rush-list" v-else-if="pageEmpty">
             <img class="img-div" src="@/assets/images/icon-index-empty.png">
             <div class="h1">{{$t('type.zhanshimeiyou')}}</div>
             <div class="h2">{{$t('type.zhengzaizhunbei')}}</div>
           </div>
+          <!--
           <div v-if="loadMore">
-            <!-- <i-load-more loading="loadMore" tip="oadText"></i-load-more> -->
+          <i-load-more loading="loadMore" tip="oadText"></i-load-more>
           </div>
-          <!-- <div class="scroll-col-tip-bottom" v-else-if="canNext">
+           <div class="scroll-col-tip-bottom" v-else-if="canNext">
               <span v-if="isLastCategory">{{$t('type.wodedixian')}}</span>
               <span wx:else>{{$t('type.shanglachakan')}}</span>
-          </div> -->
+          </div>
           <div style="height:50px"></div>
+          -->
+
         </div>
-      </van-list>
+
     </div>
     <!-- <i-empty wx:else>暂无分类~</i-empty> -->
     <i-tabbar ref="tabbar" @authModal="authModal" :cartNum="cartNum" :class="['tabbar' ,isIpx?'pb20':'']" currentIdx="1"
@@ -128,7 +131,7 @@
           rushCategoryId: '',
           pageNum: 1,
           actIds: [],
-          loading: !0,
+          loading: false,
           isScrollTop: !0,
           isScrollBottom: !1,
           scrollInfo: null,
@@ -292,7 +295,7 @@
         t.$set(t.$data.$data, 'rushCategoryId', '')
         t.$set(t.$data.$data, 'pageNum', 1)
         t.$set(t.$data.$data, 'actIds', [])
-        t.$set(t.$data.$data, 'loading', !0)
+        t.$set(t.$data.$data, 'loading', false)
         t.$set(t.$data.$data, 'isScrollTop', !0)
         t.$set(t.$data.$data, 'isScrollBottom', !1)
         t.$set(t.$data.$data, 'scrollInfo', null)
@@ -498,15 +501,19 @@
       getHotList: function() {
         var a = this, e = this.$data.$data.rushCategoryId
         this.$data.$data.loading = !0, this.reqPromise().then(function() {
+          //wx.stopPullDownRefresh();
+          a.$data.$data.loading = !1
         }).catch(function() {
-          var t = {}
-          e || (t.pageEmpty = !0), a.$data.loading = !1, a.setData(t), wx.stopPullDownRefresh()
-        })
+          var t = {};
+          e || (t.pageEmpty = !0), a.$data.$data.loading = !1//, a.setData(t), wx.stopPullDownRefresh();
+        });
       }
       ,
       reqPromise: function() {
         var y = this
-        return new Promise(function(p, t) {
+
+        return new Promise((resolve, reject) => {
+
           var a = wx.getStorageSync('token'), e = wx.getStorageSync('community'), m = y.$data.$data.rushCategoryId
           app.util.request({
             url: 'entry/wxapp/index',
@@ -521,9 +528,15 @@
             dataType: 'json',
             success: function(t) {
               console.log(6)
+
               if (0 == t.code) {
                 var a = t.list, e = {}
-                a.length < 30 && (e.loadMore = !1, e.canNext = !0)
+                if(a.length < 30){
+                  e.loadMore = !1, e.canNext = !0,y.loadMore = false;
+                }else{
+                  y.$data.$data.pageNum++;
+                  y.loadMore = true
+                }
                 var o = y.rushList.concat(a), i = t, s = i.full_money, r = i.full_reducemoney,
                   n = i.is_open_fullreduction, d = i.is_open_vipcard_buy, u = i.is_vip_card_member,
                   c = i.is_member_level_buy, l = {
@@ -533,24 +546,25 @@
                   }, h = !1
                 1 == d ? 1 != u && 1 == c && (h = !0) : 1 == c && (h = !0), (
                   y.rushList = o,
-                  y.pageEmpty = !1,
-                  y.cur_time = t.cur_time,
-                  y.reduction = l,
-                  y.rushCategoryData = y.rushCategoryData,
-                  y.is_open_vipcard_buy = d || 0,
-                  y.is_vip_card_member = u,
-                  y.is_member_level_buy = c,
-                  y.canLevelBuy = h
+                    y.pageEmpty = !1,
+                    y.cur_time = t.cur_time,
+                    y.reduction = l,
+                    y.rushCategoryData = y.rushCategoryData,
+                    y.is_open_vipcard_buy = d || 0,
+                    y.is_vip_card_member = u,
+                    y.is_member_level_buy = c,
+                    y.canLevelBuy = h
                 ),
-                y.vipInfo = {
-                  is_open_vipcard_buy: d,
-                  is_vip_card_member: u,
-                  is_member_level_buy: c
-                }, 1 == y.$data.$data.pageNum && (e.resetScrollBarTop = 51), e.loadText = y.loadMore ? '加载中...' : '没有更多商品了~',
+                  y.vipInfo = {
+                    is_open_vipcard_buy: d,
+                    is_vip_card_member: u,
+                    is_member_level_buy: c
+                  }, 1 == y.$data.$data.pageNum && (e.resetScrollBarTop = 51), e.loadText = y.loadMore ? '加载中...' : '没有更多商品了~',
                 y.$data.$data.isSetCategoryScrollBarTop && (e.categoryScrollBarTop = 50 * e.rushCategoryData.activeIndex - (y.scrollViewHeight - 50) / 2)
-                  /*(
-                    y.$data.$data.loading = !1, y.$data.$data.pageNum += 1, !m && e.rushCategoryData.tabs && e.rushCategoryData.tabs[0] && (y.$data.$data.rushCategoryId = e.rushCategoryData.tabs[0].id)
-                  )*/
+                (
+
+                  !m && e.rushCategoryData.tabs && e.rushCategoryData.tabs[0] && (y.$data.$data.rushCategoryId = e.rushCategoryData.tabs[0].id)
+                )
               } else if (1 == t.code) {
 
                 1 == y.$data.$data.pageNum && (console.log('无数据'), y.pageEmpty = !0), (y.loadMore =  !1,
@@ -560,10 +574,13 @@
                   y.needAuth = !0
                 )
               }
-              p(t)
+              resolve(t)
             }
           })
+
+
         })
+
       }
       ,
       getPx: function(t) {
@@ -819,12 +836,10 @@
   }
 
   .page-wrap {
-    display: flex;
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
     width: 100vw;
-    height: 90vh;
     background: #fff;
   }
 
@@ -934,10 +949,9 @@
 
   .page-list {
     position: absolute;
-    top: 0;
     left: 25vw;
     width: 75vw;
-    height: 85vh;
+    height: 70vh;
     padding-top: 5px;
     box-sizing: border-box;
   }
