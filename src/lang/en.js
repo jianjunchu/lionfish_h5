@@ -365,5 +365,19 @@ export default {
     thursday: 'Thu',
     friday: 'Fri',
     saturday: 'Sat'
+  },
+  refund: {
+    tuikuanshuliang: 'Refund Amount',
+    shouhouleixing: 'Refund Type',
+    shenqingtuikuan: 'Apply for Refund',
+    wentileixing: 'Problem Type',
+    tuikuanjine: 'Refund Amount',
+    peisongfei: 'Freight Fee',
+    shangpinwentimiaoshu: 'Problem Description',
+    shangchuanpingzhengtupian: 'Upload Picture（most 3 Pics）',
+    lianxiren: 'Contact Person',
+    lianxifangshi: 'Contact Phone',
+    tijiaoshenqing: 'Submit',
+    tuikuanxuzhi: 'Refund Notes'
   }
 }
