@@ -154,6 +154,7 @@ export default {
     shouhuoren1: 'Name',
     nicheng: 'Member Name',
     shouhuodizhi: 'Address',
+    tihuowancheng: 'Completed',
     gong: 'Total ',
     xiaoji: ' Total Amount',
     shangpinxiangqing: 'Product Details',
@@ -224,6 +225,7 @@ export default {
     shifu: 'Paid',
     quxiaodingdan: 'Cancel',
     quxiaodingdan1: 'Cancel Order',
+    yiquxiao: 'Canceled',
     quxiaodingdantuikuan: 'Cancel and Refund',
     lijizhifu: 'Pay',
     xiadanshijian: 'Order Time:',
@@ -263,6 +265,7 @@ export default {
     shouhouzhong: 'After Sales',
     zhifuchenggong: 'Payment Confirmed',
     zhifushibai: 'Payment Failed',
+    qupingjia: 'To Review',
     shenqingshouhou: 'Apply Refund',
     zhuanzhangbeizhu: 'Note: Payment is currently offline, please allow up to 48 hours for payment to be processed. Your order status will be updated accordingly. ',
     querenshoudao: 'Please confirm receipt of your order?'
