@@ -56,11 +56,20 @@ export const constantRoutes = [
     }
   },
   {
+    path: '/privatepolic',
+    component: () => import('@/lionfish_comshop/pages/regist/privatepolic'),
+    hidden: true,
+    meta: {
+      keepAlive: false
+    }
+  },
+  {
     path: '',
     component: () => import('@/lionfish_comshop/pages/index/index'),
     hidden: true,
     meta: {
-      keepAlive: true
+      keepAlive: true,
+      scrollTop: 0
     }
   },
   {
@@ -68,7 +77,8 @@ export const constantRoutes = [
     component: () => import('@/lionfish_comshop/pages/index/index'),
     hidden: true,
     meta: {
-      keepAlive: true
+      keepAlive: true,
+      scrollTop: 0
     }
   },
   {
@@ -337,9 +347,10 @@ export const constantRoutes = [
 ]
 
 const createRouter = () => new Router({
-  // mode: 'history', // require service support
-  scrollBehavior: () => ({ y: 0 }),
+  //mode: 'history', // require service support
+  //scrollBehavior: () => ({ y: 100 }),
   routes: constantRoutes
+
 })
 
 const router = createRouter()

@@ -1,8 +1,8 @@
 <template>
-  <div class="page">
+  <div class="page" ref="ct" >
     <el-amap style="display: none" vid="amap" :plugin="plugin" class="amap-demo" :center="center">
     </el-amap>
-    <div v-if="loadOver && isblack!=1" ref="ct">
+    <div v-if="loadOver && isblack!=1" class="aaaa">
 
       <div :class="['index-box', 'pb100', (showNewCoupon?'preventTouchMove':'')]">
         <div class="miniAppTip" v-if="isTipShow">
@@ -882,37 +882,26 @@
     },
     mounted:function(){
       var i  = this;
-      i.$refs.ct.addEventListener('scroll', () => {
-        i.handleScroll();
-      }, false)
+      this.$nextTick(() => {
+        i.$root.$el.addEventListener('scroll', this.onScroll)
+      })
     },
     activated:function(){
       var i = this
       var g = i.groupInfo
-
-      if(i.pageScroll > 0){
-        i.$refs.ct.scrollTop = i.pageScroll;
-        i.$refs.ct.addEventListener('scroll', () => {
-          i.handleScroll();
-        }, false)
-      }
-
-
 
       if(this.$refs.tabbar){
         i.$refs.tabbar.switchTab();
       }
 
       this.onShow();
+
+
     },
-    deactivated(){
-      //this.$refs.ct.removeEventListener('scroll', this.handleScroll);
-    },
+
     methods: {
-      handleScroll:function() {
-        this.pageScroll  =  this.$refs.ct.scrollTop;
-        console.log(this.pageScroll)
-      },
+
+
       copyText: function(t) {
 
       },

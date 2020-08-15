@@ -60,14 +60,24 @@
 
 
         <div>
+
+          <el-checkbox v-model="privatepolic"><span style="color: red;font-weight:800">*</span>
+            <span style="font-weight:600;font-size: 4vw" > I agree with the Privacy Terms.</span> <br></el-checkbox>
+          <router-link style="font-size:3.4vw;padding-left: 6vw;text-decoration:underline;color: #4b4b4b" to="/privatepolic"> Please click here to view the Privacy Policy</router-link>
+
          <!--注册按钮-->
-			    <el-button  type="primary"
-			   	style="height: 40px;width:100%;margin-bottom:30px;border-radius: 20px;background: #FDEACA;border:none;color: #F7AC39;font-weight: 600;margin-top: 50px;"
-			   	@click.native.prevent="regist">Register</el-button>
+			    <el-button type="warning"
+			   	style="height: 40px;width:100%;margin-bottom:30px;border-radius: 20px;border:none;font-weight: 600;margin-top: 50px;"
+			   	@click.native.prevent="regist"  :disabled="!privatepolic">Register</el-button>
+
+
+
             <!--<button class="registBtn" :disabled="!registFlag" @click="regist()" style="background: #F3F8FE;color: #387BFE;border-radius: 5px;font-weight: 600;margin-top: 30px;">
                 Register
             </button>-->
         </div>
+
+
         <div class="gotoLogin">
            <span style="color: #959595;"> Already have an account? </span> <a href="javascript:void()" @click="gotoLogin" style="color: blue">Login</a>
         </div>
@@ -86,11 +96,12 @@
         name: "bm_phone_regist",
         data(){
             return{
-				isShow:true,
-				isShow2:false,
-				isShow3:true,
-				isShow4:false,
-				aa:'65',
+				      isShow:true,
+				      isShow2:false,
+				      isShow3:true,
+				      isShow4:false,
+              privatepolic:false,
+				      aa:'65',
                 //用户输入信息
                 input_info:{
                     phone:"",
@@ -166,7 +177,7 @@
                 //判断手机号格式是否正确
                 // this.errorFlag.phone_err = !(/^1[3456789]\d\s\d{4}\s\d{4}$/.test(phone_num)) && !this.errorFlag.phone_empty;
                 if (len > 3 && len < 8) {
-                    value = value.replace(/^(\d{3})/g, '$1 ');
+                    //value = value.replace(/^(\d{3})/g, '$1 ');
                     if (!this.errorFlag.phone_empty && this.timeOut) {
                         //激活获取验证码按钮
                         this.getCodeDisabled = false;
@@ -174,7 +185,7 @@
                         this.getCodeDisabled = true;
                     }
                 } else if (len >= 8) {
-                    value = value.replace(/^(\d{3})(\d{4})/g, '$1 $2 ')
+                    //value = value.replace(/^(\d{3})(\d{4})/g, '$1 $2 ')
                     if (!this.errorFlag.phone_empty && this.timeOut) {
                         //激活获取验证码按钮
                         this.getCodeDisabled = false;
@@ -185,9 +196,12 @@
                 this.input_info.phone = value;
             },
             hideTopAndFooter: function(){
-            this.$store.dispatch('app/hideTabbar');
-            this.$store.dispatch('app/hideToolbarMore');
-            this.$store.dispatch('app/hideToolbarBack');
+              this.$wx.setNavigationBarTitle({
+                title: 'Regist',
+                showLogo: false,
+                showMore: false,
+                showBack: true
+              })
             },
             chooseArea(){
 
@@ -216,6 +230,11 @@
             getVerifyCode(){
                 let that = this;
                 let input_phone = this.input_info.phone.replace(/\s*/g,"");      //去除空格
+              if ( !/^\d{8}$/.test(input_phone) && !/^1(3|4|5|6|7|8|9)\d{9}$/.test(input_phone)) return this.$wx.showToast({
+                title: "Wrong cell phone number",
+                icon: "none"
+              }), !1;
+
                 var phone = this.cityCode + input_phone;
                 this.$http({
                   controller : 'index.send_sms',
@@ -262,7 +281,16 @@
             },
             /***************************************************注册****************************************************/
 
-            regist(){
+              regist(){
+
+                if(!this.privatepolic){
+                  this.$wx.showToast({
+                    title: 'You must agree to private polic to register',
+                    icon: "none"
+                  });
+                  return;
+                }
+
               var code = this.input_info.code;
               let phone = this.input_info.phone.replace(/\s*/g,"");      //去除空格
               var country = this.cityCode
@@ -315,17 +343,13 @@
   }
 
     .gotoLogin{
-		font-size: 18px;
+		font-size: 5vw;
 		text-align: center;
-        // width: 100%;
-        // height: 50px;
-        // text-align: center;
+
         position: absolute;
-		margin-top: 200px;
+		margin-top: 15vw;
 		margin-left: 17px;
-        // bottom: 0;
-        // left: 0;
-        // line-height: 50px;
+
     }
     .phoneregist{
         width: 80%;
@@ -384,7 +408,7 @@
             border: none;
             outline: none;
             position: relative;
-            color: #2370e2;
+           /* color: #2370e2;*/
             border-radius: 1.2rem;
             padding-top: .42rem;
             padding-bottom: .42rem;
