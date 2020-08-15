@@ -268,10 +268,16 @@ export default {
 		handleLogin() {
        var i = this;
 			if(this.loginForm.username == '') {
-				alert("请填写登陆账号")
+        i.$wx.showToast({
+          title: "Please fill in the login account.",
+          icon: "none"
+        });
 				return
 			} else if(this.loginForm.password == '') {
-				alert("请填写密码")
+        i.$wx.showToast({
+          title: "Please fill in the password.",
+          icon: "none"
+        });
 				return
 			}
 			this.$http({
@@ -283,7 +289,10 @@ export default {
 				console.log(response)
 				var result = response;
 				if(result != null && result.member_id != -1) {
-					alert('Login Successful');
+          i.$wx.showToast({
+            title: "Login Successful.",
+            icon: "none"
+          });
 					this.$wx.setStorageSync('token', response.token)
 
           util.getMemberInfo({success:function(e) {
@@ -300,6 +309,7 @@ export default {
 
 
 				} else {
+
 					alert("Login failed, please try again");
 				}
 			})
