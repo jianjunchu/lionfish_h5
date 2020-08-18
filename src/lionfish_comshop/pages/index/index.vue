@@ -271,9 +271,12 @@
 -->
           <div class="index-search-bar" v-if="index_switch_search==1">
             <div class="search-box">
-              <input @keypress="goResult" class="ipt" confirmType="搜索" placeholder="Search" type="search"></input>
+              <input @keypress="goResult" class="ipt" confirmType="搜索" placeholder="Search" type="search" v-model="searchName"></input>
               <div class="search-icon">
                 <div class="iconfont icon-sousuo1"></div>
+              </div>
+              <div class="search-icon2" @click="clearSearch">
+                <span class="iconfont">x</span>
               </div>
             </div>
           </div>
@@ -673,6 +676,7 @@
       let self = this;
       return {
         pageScroll: 0,
+        searchName: "",
         sliderSwiperOption: {
           //显示分页
           pagination: {
@@ -2123,6 +2127,9 @@
             icon: "none"
           });
         }
+      },
+      clearSearch: function(t) {
+          this.searchName = "";
       },
       receiveCoupon: function(t) {
         if (this.authModal()) {
