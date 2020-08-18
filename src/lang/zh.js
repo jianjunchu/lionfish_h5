@@ -289,7 +289,8 @@ export default {
     shenqingshouhou: '申请售后',
     zhuanzhangbeizhu: '注：转账支付为人工审核',
     querenshoudao: '确认收到货?',
-    yuezhifu: '余额支付（余额：{p1})'
+    yuezhifu: '余额支付（余额：{p1})',
+    yuebuzhu: '余额不足'
   },
   cart: {
     gouwuchekong: '购物车空空如也，赶紧去逛逛吧~',

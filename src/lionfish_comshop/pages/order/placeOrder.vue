@@ -422,13 +422,13 @@
                 <div :class="['oc-payment-item', ck_yupay ==1?'oc-payment-selected':'']"
                      :style="ck_yupay ==1?'color:'+skin.color:''">
                   <span class="iconfont icon-balance oc-payment-icon" style="color:#ff5777;"></span>
-                  <div class="oc-payment-method">{{ $t('order.yuezhifu',{p1:yu_money}) }}1   </div>
+                  <div class="oc-payment-method">{{ $t('order.yuezhifu',{p1:yu_money}) }}   </div>
                 </div>
               </div>
               <div class="oc-payment" v-else>
                 <div class="oc-payment-item">
                   <span class="iconfont icon-balance oc-payment-icon text-gray"></span>
-                  <div class="oc-payment-method">{{ $t('order.yuezhifu',{p1:yu_money}) }}2</div>
+                  <div class="oc-payment-method">{{ $t('order.yuezhifu',{p1:yu_money}) }}</div>
                 </div>
               </div>
             </div>
@@ -451,13 +451,13 @@
                 <div :class="['oc-payment-item', ck_yupay ==1?'oc-payment-selected':'']"
                      :style="ck_yupay ==1?'color:'+skin.color:''">
                   <span class="iconfont icon-balance oc-payment-icon" style="color:#ff5777;"></span>
-                  <div class="oc-payment-method">{{ $t('order.yuezhifu',{p1:yu_money}) }}3</div>
+                  <div class="oc-payment-method">{{ $t('order.yuezhifu',{p1:yu_money}) }}</div>
                 </div>
               </div>
               <div class="oc-payment" v-else>
                 <div class="oc-payment-item">
                   <span class="iconfont icon-balance oc-payment-icon text-gray"></span>
-                  <div class="oc-payment-method">{{ $t('order.yuezhifu',{p1:yu_money}) }}4</div>
+                  <div class="oc-payment-method">{{ $t('order.yuezhifu',{p1:yu_money}) }}</div>
                 </div>
               </div>
             </div>
