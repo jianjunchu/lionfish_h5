@@ -268,7 +268,8 @@ export default {
     qupingjia: 'To Review',
     shenqingshouhou: 'Apply Refund',
     zhuanzhangbeizhu: 'Note: Payment is currently offline, please allow up to 48 hours for payment to be processed. Your order status will be updated accordingly. ',
-    querenshoudao: 'Please confirm receipt of your order?'
+    querenshoudao: 'Please confirm receipt of your order?',
+    yuezhifu: 'Balance Paid（Balance：{p1})'
   },
   cart: {
     gouwuchekong: 'Back to Homepage',
