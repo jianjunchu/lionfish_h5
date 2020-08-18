@@ -9,21 +9,53 @@
             <div class="form-item">
               <label class="form-item-control">{{$t('host.xingming')}}</label>
               <!--<input @input="inputRealName" class="form-item-input" data-key="3" placeholder="{{$t(host.shuruxingming)}}" type="text"/>-->
-              <input v-model="head_name" class="form-item-input" placeholder="请输入姓名" type="text"/>
+              <!--<input v-model="head_name" class="form-item-input" :placeholder="$t('host.shuruxingming')" type="text"/>-->
+              <input v-model="head_name" class="form-item-input" type="text"/>
             </div>
             <!--<div class="['form-item', (errors[2]===2?'error':'')]">-->
             <div class="form-item">
-              <label class="form-item-control">手机号</label>
+              <label class="form-item-control">{{$t('host.shoujihao')}}</label>
               <!--<input @input="inputMobile" class="form-item-input" data-key="2" :focus="focus_mobile" maxlength="11" placeholder="请输入手机号码" type="text" :value="mobile"/>-->
-              <input v-model="mobile_detail" class="form-item-input"  maxlength="11" placeholder="请输入手机号码" type="text" />
+              <!--<input v-model="mobile_detail" class="form-item-input"  maxlength="11" :placeholder="$t('host.shurushoujihao')" type="text" />-->
+              <input v-model="mobile_detail" class="form-item-input"  maxlength="11" type="text" />
             </div>
+
             <div class="form-item">
-              <div class="form-item">
-              <label class="form-item-control">微信号</label>
-              <!--<input @input="inputWechat" class="form-item-input" :focus="focus_wechat" placeholder="请输入微信号" type="text" :value="wechat"/>-->
-              <input v-model="wechat"  class="form-item-input" placeholder="请输入微信号" type="text" />
-              </div>
+              <label class="form-item-control">{{$t('host.youbian')}}</label>
+              <!--<input bindinput="inputZipCode" class="form-item-input" focus="{{focus_zip_code}}" placeholder="请输入邮编" type="text" value="{{zip_code}}"></input>-->
+              <!--<input v-model="zip_code" class="form-item-input"  :placeholder="$t('host.shuruyoubian')" type="text" />-->
+              <input v-model="zip_code" class="form-item-input"  type="text" />
             </div>
+
+            <div class="form-item">
+              <label class="form-item-control">{{$t('host.dapai')}}</label>
+              <!--<input bindinput="inputBlkNo"   class="form-item-input" focus="{{focus_blk_no}}" placeholder="请输入大牌号" type="text" value="{{blk_no}}"></input>-->
+              <!--<input v-model="blk_no"   class="form-item-input"  :placeholder="$t('host.shurudapai')" type="text" />-->
+              <input v-model="blk_no"   class="form-item-input"  type="text" />
+            </div>
+
+            <div class="form-item">
+              <label class="form-item-control">{{$t('host.luming')}}</label>
+              <!--<input bindinput="inputRoadName"   class="form-item-input" focus="{{focus_road_name}}" placeholder="请输入路名" type="text" value="{{road_name}}"></input>-->
+              <!--<input v-model="road_name"   class="form-item-input"  :placeholder="$t('host.shuruluming')" type="text" />-->
+              <input v-model="road_name"   class="form-item-input"  type="text" />
+            </div>
+
+            <div class="form-item">
+              <label class="form-item-control">{{$t('host.mengpaihao')}}</label>
+              <!--<input bindinput="inputLouMengHao"   class="form-item-input" focus="{{focus_lou_meng_hao}}" placeholder="请输入门牌号" type="text" value="{{lou_meng_hao}}"></input>-->
+              <!--<input v-model="lou_meng_hao"   class="form-item-input"  :placeholder="$t('host.shurumengpaihao')" type="text" />-->
+              <input v-model="lou_meng_hao"   class="form-item-input"  type="text" />
+            </div>
+
+            <!--<div class="form-item">-->
+              <!--<div class="form-item">-->
+              <!-- <label class="form-item-control">微信号</label>-->
+              <!--<input @input="inputWechat" class="form-item-input" :focus="focus_wechat" placeholder="请输入微信号" type="text" :value="wechat"/>-->
+              <!-- <input v-model="wechat"  class="form-item-input" placeholder="" type="text" />-->
+              <!--</div>-->
+            <!--</div>-->
+
             <!--<div class="['form-item', (errors[5]===2?'error':'')]" style="display:none;">-->
               <!--<label class="form-item-control">验证码</label>-->
               <!--&lt;!&ndash;<input @input="inputCaptcha" class="form-item-input" data-key="5" maxlength="6" placeholder="请输入验证码" type="text"/>&ndash;&gt;-->
@@ -34,25 +66,27 @@
               <!--</div>-->
             <!--</div>-->
             <!--<div class="['form-item', (errors[1]===2?'error':'')]">-->
+            <!--
             <div class="form-item">
               <label class="form-item-control">{{groupInfo.group_name}}名称</label>
-              <!--<input @input="inputCommunity" class="form-item-input" data-key="1" placeholder="请输入社区名称" type="text"/>-->
-              <input v-model="community_name" class="form-item-input"  placeholder="请输入社区名称" type="text"/>
+              <input @input="inputCommunity" class="form-item-input" data-key="1" placeholder="请输入社区名称" type="text"/>
+              <input v-model="community_name" class="form-item-input"  placeholder="" type="text"/>
               </div>
+            -->
             <!--<div @click="chose_location" class="['form-item', (errors[0]===2?'error':'')]">-->
             <!--<label class="form-item-control">所在位置</label>-->
             <!--<div class="class='form-item-input'">{{region[0]||'选择地址'}}{{region[1]}}{{region[2]}}</div>-->
             <!--<img class="icon-right" src="@/assets/images/rightArrowImg.png"/>-->
             <!--</div>-->
             <!--<div class="['form-item', (errors[6]===2?'error':'')]">-->
-            <div class="form-item">
-              <label class="form-item-control">详细地址</label>
-              <!--<input @input="inputAddress" class="form-item-input" data-key="1" placeholder="请输入详细地址" type="text" :value="addr_detail"/>-->
-              <input v-model="addr_detail" class="form-item-input" placeholder="请输入详细地址" type="text" />
-            </div>
+            <!--<div class="form-item">-->
+              <!--<label class="form-item-control">Address</label>-->
+              <!--&lt;!&ndash;<input @input="inputAddress" class="form-item-input" data-key="1" placeholder="请输入详细地址" type="text" :value="addr_detail"/>&ndash;&gt;-->
+              <!--<input v-model="addr_detail" class="form-item-input" placeholder="" type="text" />-->
+            <!--</div>-->
             <div class="form-item">
               <label class="submit">
-                提交申请
+                Send
                 <button hidden @click="submit"></button>
               </label>
             </div>
@@ -61,20 +95,20 @@
     </div>
     <div class="apply-pass" v-if="member_info.is_head==1">
       <img src="@/assets/images/auditSuccess.png" width="78px" height="72px" />
-      <div class="h1">申请通过</div>
-      <div class="p">恭喜您，您的申请已通过</div>
+      <div class="h1">Application Approved</div>
+      <div class="p">Congrats! Your application to be a Host is now approved</div>
     </div>
     <div class="apply-pass" v-if="member_info.is_head==3">
       <img src="@/assets/images/auditFail.png" width="78px" height="72px" />
-      <div class="h1">申请未通过</div>
-      <div class="p">很抱歉，您的申请未通过</div>
-      <div @click="applyAgain" class="link-btn">再次申请</div>
+      <div class="h1">Application Rejected</div>
+      <div class="p">Sorry, your application to be a Host is rejected</div>
+      <div @click="applyAgain" class="link-btn">Register Again</div>
     </div>
     <div class="apply-pass" v-if="member_info.is_head==2||apply_complete">
       <img src="@/assets/images/auditing.png" width="78px" height="72px" />
-      <div class="h1">申请审核中</div>
-      <div class="p">您的申请在处理中，请等待结果…</div>
-      <a class="link-btn" openType="switchTab" href="#/lionfish_comshop/pages/index/index">返回首页</a>
+      <div class="h1">{{$t('host.shenqingshenhezhong')}}</div>
+      <div class="p">{{$t('host.dengdaijieguo')}}</div>
+      <a class="link-btn" openType="switchTab" href="#/lionfish_comshop/pages/index/index">{{$t('common.fanhuishouye')}}</a>
     </div>
     <!--</div>-->
     <!--<i-new-auth bind:authSuccess="authSuccess" bind:cancel="authModal" :needAuth="needAuth&&showAuthModal" needPosition="false"></i-new-auth>-->
@@ -125,13 +159,59 @@
         token: '',
         community_id: '',
         is_need_subscript:false,
-        need_subscript_template:false
+        need_subscript_template:false,
+
+        lou_meng_hao:'',
+        road_name:'',
+        blk_no:'',
+        zip_code:'',
+        building:'',
+        lon:'',
+        lat:''
+      }
+    },
+    watch:{
+      zip_code: {
+        handler: function(zip_code) {
+          console.log(zip_code,'zip_code');
+
+          if("" != zip_code && /^\d{6}$/.test(zip_code)) {
+            this.load_address(zip_code);
+          }
+        },
+        immediate: true
       }
     },
     created: function() {
       this.onLoad();
     },
     methods: {
+      load_address:function(zipCode){
+        var tk = this.$wx.getStorageSync("token");
+        var that = this;
+
+        this.$http({
+            controller: "index.load_address",
+            token: tk,
+            zipCode: zipCode
+          }).then(e=> {
+            console.log(e);
+            var data = e;
+            console.log(data.results[0]);
+
+            if (data.found >0 ) {
+              var result =  data.results[0];
+
+              that.building = result.BUILDING;
+              that.blk_no = result.BLK_NO;
+              that.road_name = result.ROAD_NAME;
+              that.lon = result.LONGITUDE;
+              that.lat = result.LATITUDE;
+
+            }
+
+        });
+      },
       bindRegionChange: function(t) {
         this.region= t.detail.value.replace(/^\s*|\s*$/g, "");
       },
@@ -210,28 +290,73 @@
           var t = this, e = this.$wx.getStorageSync("token"), a = this.region[0], n = this.region[1], i = this.region[2],
             o = this.addr_detail, s = this.community_name, c = this.mobile_detail, u = this.lon_lat,
             r = this.head_name, l = this.wechat;
-          if ("" == r || void 0 === r) return this.$wx.showToast({
-            title: "请填写姓名",
-            icon: "none"
-          }), !1;
 
-          if ("" == c) return this.focus_mobile=!0, this.$wx.showToast({
-            title: "手机号码有误",
-            icon: "none"
-          }), !1;
+          if ("" == r || void 0 === r) {
+              this.$wx.showToast({
+              title: "Name is not correct",
+              icon: "none"
+            })
+            return false;
+          }
 
-          if (!/^\d{8}$/.test(c) && !/^1(3|4|5|6|7|8|9)\d{9}$/.test(c)) return this.focus_mobile= !0, this.$wx.showToast({
-            title: "手机号码有误",
-            icon: "none"
-          }), !1;
-          if ("" == l || void 0 === l) return this.$wx.showToast({
-            title: "请填写微信号",
-            icon: "none"
-          }), !1;
-          if ("" == s || void 0 === s) return this.$wx.showToast({
-            title: "请填写小区名称",
-            icon: "none"
-          }), !1;
+          if ("" == c)  {
+            this.$wx.showToast({
+              title: "Mobile is not correct",
+              icon: "none"
+            });
+              return false;
+          }
+
+          if (!/^\d{8}$/.test(c) && !/\d{8}/.test(c))  {
+            this.$wx.showToast({
+              title: "Mobile is not correct",
+              icon: "none"
+            });
+            return false;
+          }
+
+          if ("" == this.zip_code) {
+            this.$wx.showToast({
+              title: "Postal Code is not correct",
+              icon: "none"
+            });
+            return false;
+          }
+
+          if ("" == this.blk_no) {
+            this.$wx.showToast({
+              title: "Block No. is not correct",
+              icon: "none"
+            });
+            return false;
+          }
+
+
+          if ("" == this.road_name) {
+            this.$wx.showToast({
+              title: "Street is not correct",
+              icon: "none"
+            });
+            return false;
+          }
+
+          if ("" == this.lou_meng_hao) {
+            this.$wx.showToast({
+              title: "Unit No. is not correct",
+              icon: "none"
+            });
+            return false;
+          }
+
+
+//          if ("" == l || void 0 === l) return this.$wx.showToast({
+//            title: "请填写微信号",
+//            icon: "none"
+//          }), !1;
+//          if ("" == s || void 0 === s) return this.$wx.showToast({
+//            title: "请填写小区名称",
+//            icon: "none"
+//          }), !1;
 //          if ("省" == a && "市" == n && "区" == i) return this.$wx.showToast({
 //            title: "请选择地区",
 //            icon: "none"
@@ -240,10 +365,10 @@
 //            title: "请选择地图位置",
 //            icon: "none"
 //          }), !1;
-          if ("" == o || void 0 === o) return this.$wx.showToast({
-            title: "请填写详细地址",
-            icon: "none"
-          }), !1;
+//          if ("" == o || void 0 === o) return this.$wx.showToast({
+//            title: "address is not correct",
+//            icon: "none"
+//          }), !1;
           var d = {
             province_name: a,
             city_name: n,
@@ -253,6 +378,12 @@
             community_name: s,
             mobile: c,
             head_name: r,
+            zip_code:this.zip_code,
+            blk_no:this.blk_no,
+            road_name:this.road_name,
+            lou_meng_hao:this.lou_meng_hao,
+            lon:this.lon,
+            lat:this.lat,
             wechat: l,
             controller: "community.sub_community_head",
             token: e,
@@ -272,18 +403,37 @@
         e.apply_complete= !0 ;
         e.needAuth= !0;
 //        this.$http_post({
-//           t}).then(t=> {
+//          ...t}).then(t=> {
 //               console.log(t);
 //            if(0 == t.code ){
 //              this.$wx.showToast({
 //                title: "提交成功，等待审核",
 //                icon: "none",
-//                duration: 2e3
+//                duration: 2000
 //              });
 //              e.apply_complete= !0 ;
 //               e.needAuth= !0;
 //            }
 //        });
+
+        this.$app.util.request({
+          url: "entry/wxapp/user",
+          data: t,
+          method: "post",
+          dataType: "json",
+          success: function(t) {
+            if(0 == t.code ){
+              e.$wx.showToast({
+                title: "Send Success",
+                icon: "none"
+              });
+
+              e.apply_complete= !0 ;
+              e.needAuth= !0;
+            }
+          }
+        });
+
       },
       onLoad: function() {
         var a = this;
@@ -296,7 +446,10 @@
 //          });
 //          this.$store.state.app.toolbarTitle =e + "申请";
           a.$wx.setNavigationBarTitle({
-            title: e + "申请"
+            title: e + " Application",
+            showLogo: false,
+            showMore: false,
+            showBack: true
           })
         });
         var e = decodeURIComponent(query.scene);
@@ -368,6 +521,174 @@
     }
   }
 </script>
-<style>
-  @import "apply.less";
+
+<style scoped>
+  .header {
+    background: #f75451;
+    height: 80px;
+    color: #fff;
+    font-size: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .form-group {
+    padding: 6px 28px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .form-group .form-item {
+    width: 320px;
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #e4e4e4;
+    font-size: 15px;
+    transition: all 0.3s;
+    position: relative;
+  }
+
+  .form-group .form-item:last-child {
+    border: none;
+  }
+
+  .form-group .form-item.error {
+    border-color: #f75451;
+  }
+
+  .form-group .form-item .form-item-control {
+    width: 80px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+  }
+
+  .form-group .form-item .form-item-input {
+    flex: 1;
+    height: 50px;
+    line-height: 50px;
+  }
+
+  .weui-cell__hd {
+    position: relative;
+    font-size: 14px;
+    text-align: left;
+  }
+
+  .weui-pos {
+    width: 20px;
+    height: 25px;
+    background: url(https://mall.shiziyu888.com/dan/Common/image/order_checkout_icon.png) no-repeat;
+    background-position: 0px 0;
+    background-size: 66px 71px;
+  }
+
+  .form-group .form-item .form-item-input .picker {
+    height: 50px;
+    line-height: 50px;
+  }
+
+  .form-group .form-item .captcha {
+    color: #666;
+    border-left: 2px solid #ddd;
+    padding-left: 10px;
+    width: 80px;
+    height: 100%;
+    text-align: center;
+  }
+
+  .form-group .form-item .placeholder {
+    color: #ccc;
+  }
+
+  .form-group .form-item .input-placeholder {
+    color: #ccc;
+  }
+
+  .form-group .form-item .submit {
+    width: 320px;
+    height: 47px;
+    margin-top: 23px;
+    border-radius: 47px;
+    font-size: 18px;
+    background: #f75451;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .form-group .form-item .submit.disabled {
+    background: #dcdcdc;
+  }
+
+  .apply-pass {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: #fff;
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 9;
+    margin-top: 50px;
+  }
+
+  .apply-pass image {
+    width: 78px;
+    height: 72px;
+    padding-top: 75px;
+    margin-bottom: 14px;
+  }
+
+  .apply-pass .applyPassImg {
+    width: 93px;
+    height: 93px;
+    font-size: 115px;
+    color: #ef994c;
+    margin-bottom: 20px;
+    margin-top: 53px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .apply-pass .h1 {
+    font-size: 16px;
+    margin-bottom: 10px;
+    color: #555;
+  }
+
+  .apply-pass .p {
+    font-size: 14px;
+    color: #999;
+    margin-bottom: 15px;
+  }
+
+  .apply-pass .link-btn {
+    width: 155px;
+    height: 49px;
+    border-radius: 10px;
+    background: #fb5a50;
+    color: #fff;
+    font-size: 16px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+  }
+
+  .icon-right {
+    position: absolute;
+    right: 5px;
+    top: 50%;
+    width: 9px;
+    height: 14px;
+    margin-top: -6px;
+  }
+
 </style>

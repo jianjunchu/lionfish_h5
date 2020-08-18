@@ -6,6 +6,14 @@ import ElementUI from 'element-ui'
 import { Image as VanImage } from 'vant'
 import { Loading } from 'vant'
 import { Uploader } from 'vant'
+import { RadioGroup, Radio } from 'vant'
+import { DatetimePicker } from 'vant'
+import { Popup } from 'vant'
+import { Picker } from 'vant'
+import { Lazyload } from 'vant'
+import { Field } from 'vant'
+import { List } from 'vant'
+import { Tab, Tabs } from 'vant'
 
 import 'element-ui/lib/theme-chalk/index.css'
 import 'mint-ui/lib/style.css'
@@ -20,7 +28,7 @@ import Tabbar from '@/lionfish_comshop/components/tabbar'
 import Toolbar from '@/lionfish_comshop/components/toolbar'
 import Modal from '@/lionfish_comshop/components/modal'
 import Img from '@/lionfish_comshop/components/img'
-import Tabs from '@/lionfish_comshop/components/tabs'
+import ITabs from '@/lionfish_comshop/components/tabs'
 import NewRushSpu from '@/lionfish_comshop/components/new-rush-spu'
 import RushSpu from '@/lionfish_comshop/components/rush-spu-col'
 import Button from '@/lionfish_comshop/components/button'
@@ -48,6 +56,7 @@ import LoadMore from '@/lionfish_comshop/components/load-more'
 import auth from '@/lionfish_comshop/components/auth'
 import CommunityItem from '@/lionfish_comshop/components/community-item'
 import FixedBottom from '@/lionfish_comshop/components/fixed-bottom'
+import RushSpuGig from '@/lionfish_comshop/components/rush-spu-big'
 
 import '@/lionfish_comshop/styles/index.scss' // global css
 import qs from 'qs'
@@ -67,7 +76,7 @@ VueAMap.initAMapApiLoader({
   // 高德的key
   key: '0a0885f588aeb852302f18f8633eb61b',
   // 插件集合
-  plugin: ['AMap.Geolocation'],
+  plugin: ['AMap.Geolocation', 'AMap.AMapManager', 'AMap.Geocoder'],
   v: '1.4.4'
 })
 
@@ -77,12 +86,22 @@ Vue.use(vueSwiper)
 Vue.use(VanImage)
 Vue.use(Loading)
 Vue.use(Uploader)
+Vue.use(RadioGroup)
+Vue.use(Radio)
+Vue.use(DatetimePicker)
+Vue.use(Popup)
+Vue.use(Picker)
+Vue.use(Lazyload)
+Vue.use(Field)
+Vue.use(List)
+Vue.use(Tab)
+Vue.use(Tabs)
 
 Vue.component('i-tabbar', Tabbar)
 Vue.component('i-toolbar', Toolbar)
 Vue.component('i-modal', Modal)
 Vue.component('i-img', Img)
-Vue.component('i-tabs', Tabs)
+Vue.component('i-tabs', ITabs)
 Vue.component('i-new-rush-spu', NewRushSpu)
 Vue.component('i-button', Button)
 Vue.component('i-card', card)
@@ -111,6 +130,8 @@ Vue.component('i-auth', auth)
 Vue.component('i-community-item', CommunityItem)
 Vue.component('i-rush-spu', RushSpu)
 Vue.component('i-fixed-bottom', FixedBottom)
+Vue.component('i-fixedBottom', FixedBottom)
+Vue.component('i-rush-spu-big', RushSpuGig)
 
 Vue.prototype.$getApp = function() {
   return App

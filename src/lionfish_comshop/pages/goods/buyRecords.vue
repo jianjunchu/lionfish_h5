@@ -8,8 +8,8 @@
           <div class="detailTopInfo">
             <div class="goodsName">{{goods.goodsname}}</div>
             <div class="purchasing" v-if="goods.one_limit_count>0||goods.total_limit_count>0">
-              <span v-if="goods.total_limit_count>0">每人限购{{goods.total_limit_count}}份</span>
-              <span v-if="goods.one_limit_count>0"> 每单限购{{goods.one_limit_count}}份</span>
+              <span v-if="goods.total_limit_count>0">{{$t('order.meirenxiangou1')}}{{goods.total_limit_count}}{{$('order.meirenxiangou2')}}</span>
+              <span v-if="goods.one_limit_count>0"> {{$t('order.meidanxiangou1')}}{{goods.one_limit_count}}{{$t('order.meidanxiangou2')}}</span>
             </div>
             <div class="saleNum">已售{{goods.seller_count}}份，剩余{{goods.total}}份</div>
           </div>
@@ -444,7 +444,7 @@
       i.is_comunity_rest= t.is_comunity_rest,
       i.goodsdetails_addcart_bg_color= t.goodsdetails_addcart_bg_color || "linear-gradient(270deg, #f9c706 0%, #feb600 100%)",
       i.goodsdetails_buy_bg_color= t.goodsdetails_buy_bg_color || "linear-gradient(90deg, #ff5041 0%, #ff695c 100%)";
-      debugger
+
       i.rushList = i.rushList || i.buy_record_arr.list || [];
       i.endtime= {
         days: "00",
@@ -551,10 +551,10 @@
             goods_id: goods_id,
             pageNum: o.pageNum
           }).then(t=> {
-              debugger
+
           console.log(t,"load_buy_recordlist");
             if (0 == t.code) {
-                debugger
+
               var a = o.rushList.concat(t.data);
 
                 o.rushList= a,
@@ -566,7 +566,7 @@
               o.$forceUpdate();
             } else if(1 == t.code)  {
               o.loadMore= !1,
-                o.tip= "^_^已经到底了";
+                o.tip= "Please try again";
             }
         });
 
@@ -582,7 +582,7 @@
           this.showAuthModal = !this.showAuthModal;
         }
         if(this.showAuthModal){
-          this.$wx.redirectTo({
+          this.$wx.navigateTo({
             url: "/login"
           })
         }
@@ -737,7 +737,7 @@
 
               i.closeSku();
               i.$wx.showToast({
-                title: "已加入购物车",
+                title: this.$t('cart.yijiarugouwuche'),
                 image: "@/assets/images/addShopCart.png"
               });
               i.$app.globalData.cartNum = t.total;

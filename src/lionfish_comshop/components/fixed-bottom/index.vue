@@ -17,6 +17,7 @@
     bottom: 0;
     position: fixed;
     background: #fff;
+    border-top: 0.1vw solid #efefef;
     width: 100%;
     z-index: 2;
   }

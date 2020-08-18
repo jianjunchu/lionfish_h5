@@ -6,14 +6,10 @@
         <img class="header-bg"
              :src="common_header_backgroundimage?common_header_backgroundimage:require('@/assets/images/TOP_background@2x.png')"/>
         <div class="search-content">
-          <i-router-link openType="redirect" url="/lionfish_comshop/pages/position/cities">
-            <div class="city-content">
-              <img class="search-icon" src="@/assets/images/icon-search.png"/>
-              {{city.districtName}}
-              <img class="bottom-arrow" src="@/assets/images/icon-bottom-arrow.png"/>
-            </div>
-          </i-router-link>
-          <div bindtap="linkSearch" class="search-ipt">
+          <div class="city-content">
+            <img class="comm-search-icon" src="@/assets/images/icon-search.png"/>
+          </div>
+          <div @click.stop="linkSearch" class="search-ipt">
             <div class="ipt-class">{{$t('host.shurushequmingcheng')}}</div>
           </div>
         </div>
@@ -44,7 +40,8 @@
         <i-community-item :city="city" class="item-border" :isOld="true"
                           :item="historyCommunity"></i-community-item>
       </div>
-      <div class="community-list around-communities">
+      <!--<div class="community-list around-communities">-->
+      <van-list  :finished="loadMore" @load="load_gps_community_list" class="community-list around-communities">
         <div class="title" :style="{'border-color':skin.color}">{{$t('host.fujin')}}{{groupInfo.group_name}}</div>
         <i-community-item :isOld="true" :city="city" class="item-border" :groupInfo="groupInfo"
                           :hiddenDetails="index_hide_headdetail_address" :item="item" :skin="skin"
@@ -62,8 +59,9 @@
             </div>
           </block>
         </div>
-        <i-load-more :loading="loadMore" :tip="tip"></i-load-more>
-      </div>
+        <!--<i-load-more :loading="loadMore" :tip="tip"></i-load-more>-->
+     <!-- </div>-->
+      </van-list>
     </div>
   </i-auth>
 
@@ -74,15 +72,16 @@
   import status from '../../utils/index.js'
   import QQMapWX from '../../utils/qqmap-wx-jssdk.min.js'
   import location from '../../utils/Location'
+  import VueAMap from 'vue-amap';
+  import { AMapManager } from 'vue-amap'
 
+  let amapManager = new AMapManager()
+  var app,wx
   export default {
     name: '',
-
     mixins: [GlobalMixin],
     data() {
-
       return {
-
         loadMore: !0,
         canGetGPS: !0,
         tip: '加载中...',
@@ -111,6 +110,9 @@
     created: function() {
 
       var i = this
+      app = this.$getApp()
+      wx = this.$wx;
+
       this.common_header_backgroundimage = this.$app.globalData.common_header_backgroundimage
       status.setNavBgColor()
       status.setGroupInfo().then(function(t) {
@@ -145,7 +147,7 @@
       }
 
       this.$wx.setNavigationBarTitle({
-        title: 'Order',
+        title: 'Community',
         showLogo: false,
         showMore: false,
         showBack: true
@@ -192,6 +194,11 @@
                 data: t.tx_map_key
               })
 
+              let geocoder = new AMap.Geocoder({
+                radius: 1000,
+                extensions: 'all'
+              })
+
               e.tx_map_key = t.tx_map_key
               wx.setStorage({
                 key: 'shop_index_share_title',
@@ -233,7 +240,6 @@
         console.log('腾讯地图api key', e), i.$wx.getLocation({
           type: 'gcj02',
           success: function(t) {
-            debugger
             console.log('getLocation success')
             var e = t.latitude, a = t.longitude
             i.latitude = e,
@@ -247,8 +253,11 @@
               key: 'longitude',
               data: a
             })
+
+
+
             i.load_gps_community_list()
-            /*o.reverseGeocoder({
+            i.$wx.reverseGeocoder({
               location: {
                 latitude: e,
                 longitude: a
@@ -269,7 +278,7 @@
                 var e = t.message || ''
 
               }
-            })*/
+            })
           },
           fail: function(t) {
             const app = this.$getApp()
@@ -380,7 +389,7 @@
 
             } else {
               console.log(a.needAuth)
-              1 == t.code ? (a.loadMore = !1, a.tip = '^_^已经到底了') : 2 == t.code && (wx.hideLoading(), (a.needAuth = !0, a.hasRefeshin = !1))
+              1 == t.code ? (a.loadMore = !1, a.tip = 'Please try again') : 2 == t.code && (wx.hideLoading(), (a.needAuth = !0, a.hasRefeshin = !1))
             }
           }
         }))
@@ -394,7 +403,12 @@
         t.tip = '加载中'
 
         t.load_gps_community()
-      }
+      },
+      linkSearch: function() {
+        this.$wx.navigateTo({
+          url: "/lionfish_comshop/pages/position/search"
+        });
+      },
     }
 
   }
@@ -441,7 +455,7 @@
 
   .header-content .search-content .city-content {
     height: 10vw;
-    padding: 0 3vw;
+    padding: 0 4vw;
     box-sizing: border-box;
     display: flex;
     align-items: center;
@@ -451,10 +465,9 @@
     font-weight: bold;
   }
 
-  .header-content .search-content .city-content .search-icon {
+  .header-content .search-content .city-content .comm-search-icon {
     width: 4vw;
     height: 4vw;
-    margin-right: 3vw;
     margin-top: -0.1vw;
   }
 

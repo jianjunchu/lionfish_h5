@@ -7,7 +7,17 @@
         <span>{{order_goods.name+' '+order_goods.option_str}}</span>
       </div>
       <div class="evaluate-content">
-        <textarea Class="placeholder-class" @input="textinput" v-model="pinjia_text" :foucs="focus" maxlength="5000" :placeholder="placeholder"></textarea>
+        <!--<textarea Class="placeholder-class" @input="textinput" v-model="pinjia_text" :foucs="focus" maxlength="5000" :placeholder="placeholder"></textarea>-->
+        <van-field
+          v-model="pinjia_text"
+          rows="5"
+          autosize
+          label=""
+          type="textarea"
+          maxlength="5000"
+          :placeholder="placeholder"
+          show-word-limit
+        />
 
         <div class="img-group">
           <div class="img-item" v-if="imgGroup.length"  v-for="(item,index) in imgGroup" :key="item.id">
@@ -47,6 +57,7 @@
   import request from '../../utils/request';
   import axios from 'axios'
   import { Uploader } from 'vant';
+
 
   export default {
     mixins: [GlobalMixin],
@@ -235,6 +246,7 @@
 
       },
       textinput: function(t) {
+
         var a = t.detail.value;
         this.pinjia_text= a;
       },
@@ -299,6 +311,6 @@
   }
 </script>
 
-<style scoped>
-  @import "evaluate.less";
+<style  src="@/lionfish_comshop/pages/order/evaluate.css">
 </style>
+

@@ -95,7 +95,7 @@
                             <img src="@/assets/images/icon-input-reduce.png"/>
                           </div>
                           <input @change="changeNumber" class="i-input-number-text " :data-index="idx"
-                                 :data-parentid="index" :max="shopcarts.max_quantity" min="0" type="number"
+                                 :data-parentid="index" :max="shopcarts.max_quantity" min="0" readonly
                                  :value="shopcarts.goodsnum"></input>
                           <div @click.stop="addgoodsnum" class="i-input-number-plus " :data-gid="shopcarts.id"
                                :data-index="idx" :data-parentid="index" :id="'tapTest'+idx">
@@ -104,7 +104,7 @@
                         </div>
                         <div @click="deleteGoods" class="delete-icon" :data-gid="shopcarts.id" :data-index="idx"
                              :data-parentid="index" v-else>
-                          <img src="@/assets/images/icon-shop-delete.png"/>删除
+                          <img src="@/assets/images/icon-shop-delete.png"/>{{$t('cart.shanchu')}}
                         </div>
                       </div>
                     </div>
@@ -117,7 +117,7 @@
                     </div>
                   </div>
                   <div class="swiper-out-button-content" slot="button" style="display:none;">
-                    <div @click="deleteGoods" class="delete-btn">删除</div>
+                    <div @click="deleteGoods" class="delete-btn">{{$t('cart.shanchu')}}</div>
                   </div>
                 </div>
                 <div class="normal-item" v-else>
@@ -167,7 +167,7 @@
                             <img src="@/assets/images/icon-input-reduce.png"/>
                           </div>
                           <input @change="changeNumber" class="i-input-number-text " :data-index="idx"
-                                 :data-parentid="index" :max="shopcarts.max_quantity" min="0" type="number"
+                                 :data-parentid="index" :max="shopcarts.max_quantity" min="0" readonly
                                  :value="shopcarts.goodsnum"></input>
                           <div @click.stop="addgoodsnum" class="i-input-number-plus " :data-gid="shopcarts.id"
                                :data-index="idx" :data-parentid="index" :id="'tapTest'+idx">
@@ -176,7 +176,7 @@
                         </div>
                         <div @click="deleteGoods" class="delete-icon" :data-id="shopcarts.id" :data-index="idx"
                              :data-parentid="index" v-else>
-                          <img src="@/assets/images/icon-shop-delete.png"/>删除
+                          <img src="@/assets/images/icon-shop-delete.png"/>{{$t('cart.shanchu')}}
                         </div>
                       </div>
                     </div>
@@ -189,7 +189,7 @@
                     </div>
                   </div>
                   <div class="swiper-out-button-content" slot="button" style="display:none;">
-                    <div @click="deleteGoods" class="delete-btn">删除</div>
+                    <div @click="deleteGoods" class="delete-btn">{{$t('cart.shanchu')}}</div>
                   </div>
                 </div>
               </div>
@@ -200,7 +200,7 @@
           <div slot="header">
             <div class="i-flex i-flex-spb invalid-head">
               <div></div>
-              <div @click="clearlose">清空
+              <div @click="clearlose">{{$t('cart.qingkong')}}
                 <span class="iconfont icon-shanchu1"></span>
               </div>
             </div>
@@ -212,7 +212,7 @@
                   <div class="normal-item" v-for="(shopcarts,idx) in item.shopcarts">
                     <div class="cart-item" slot="content">
                       <label class="cart-item-checkbox">
-                        <span class="invalid-tip" v-if="shopcarts.can_buy==0">售罄</span>
+                        <span class="invalid-tip" v-if="shopcarts.can_buy==0">{{$t('cart.shouqin')}}</span>
                         <span class="invalid-tip" v-else-if="shopcarts.option_can_buy==0">失效</span>
                         <div class="checkbox" v-else>
                           <img class="checkbox-disabled" src="@/assets/images/checkbox-disabled.png"/>
@@ -235,7 +235,7 @@
                           <div class="spec">{{shopcarts.goodstype}}</div>
                         </div>
                         <div class="cart-item-content-bottom">
-                          <div v-if="shopcarts.can_buy==0">已售罄</div>
+                          <div v-if="shopcarts.can_buy==0">{{$t('cart.yishouqin')}}</div>
                           <div v-if="shopcarts.option_can_buy==0">规格失效</div>
                         </div>
                       </div>
@@ -303,25 +303,25 @@
           </label>
           <div class="fixed-bar-center" v-if="disAmount&&disAmount!='0.00'&&is_open_fullreduction==1">
             <div class="total">
-              合计：
+              Total：
               <span>${{totalAmount}}</span>
             </div>
             <div class="total-detail">
-              <span>总额:${{allcount}}</span>
-              <span>优惠:${{disAmount}}</span>
+              <span>Amount:${{allcount}}</span>
+              <span>Discount:${{disAmount}}</span>
             </div>
           </div>
           <div class="fixed-bar-center" v-else>
             <div class="total">
-              合计：<span>${{allcount}}</span>
+              Total：<span>${{allcount}}</span>
             </div>
             <div class="total-detail" v-if="vipFee>0">
-              <span>总额:${{vipTotal}}</span>
-              <span>优惠:${{vipFee}}</span>
+              <span>Amount:${{vipTotal}}</span>
+              <span>Discount:${{vipFee}}</span>
             </div>
             <div class="total-detail" v-else-if="levelFee>0">
-              <span>总额:${{levelToTal}}</span>
-              <span>优惠:${{levelFee}}</span>
+              <span>Amount:${{levelToTal}}</span>
+              <span>Discount:${{levelFee}}</span>
             </div>
           </div>
           <button class="fixed-bar-btn" style="background:#dcdcdc;" v-if="is_comunity_rest==1">团长休息中</button>
@@ -339,7 +339,7 @@
       </div>
       <guess-like @changeCartNum="showCartGoods" @openSku="openSku" @vipModal="vipModal" :updateCart="updateCart"
                   v-if="is_show_guess_like==1"></guess-like>
-      <i-tabbar @authModal="authModal" :cartNum="cartNum" currentIdx="3" :needAuth="needAuth"
+      <i-tabbar ref="tabbar" @authModal="authModal" :cartNum="cartNum" currentIdx="3" :needAuth="needAuth"
                 :tabbarRefresh="tabbarRefresh"></i-tabbar>
     </div>
     <i-new-auth @authSuccess="authSuccess" @cancel="authModal" :needAuth="needAuth&&showAuthModal"></i-new-auth>
@@ -391,8 +391,7 @@
               <img src="@/assets/images/icon-input-reduce.png"/>
             </div>
             <input bindblur="handleBlur" bindfocus="handleFocus"
-                   :class="['i-input-number-text'/*, min>=max?'i-input-number-disabled':''*/]" disabled="true"
-                   type="number"
+                   :class="['i-input-number-text'/*, min>=max?'i-input-number-disabled':''*/]" readonly
                    :value="sku_val"></input>
             <div @click="setNum" :class="['i-input-number-plus'/*, value>=max?'i-input-number-disabled':''*/]"
                  data-type="add">
@@ -426,7 +425,7 @@
   import status from '../../utils/index.js'
   import a from '../../utils/public'
   var addFlag = 1
-
+  var app,wx;
   export default {
     name: 'shopCart',
     mixins: [globalMixin],
@@ -480,43 +479,61 @@
       }
     },
     created: function() {
-      const wx = this.$wx
-      status.setNavBgColor()
+      wx = this.$wx
+      app = this.$getApp()
       this.$wx.setNavigationBarTitle({
         title: "Cart",
         showLogo:false,
         showMore:false,
         showBack:false
       })
+      status.setNavBgColor()
 
     },
-    mounted: function() {
+   /* mounted:function(){
+      this.onShow();
+    },*/
+    activated:function(){
 
-      const wx = this.$wx, app = this.$getApp()
-      var s = this
-
-      util.check_login_new().then(function(t) {
-        console.log(t)
-        if (t) {
-          var a = wx.getStorageSync('community').communityId || ''
-
-          s.needAuth = !1
-          s.isEmpty = !1
-          s.tabbarRefresh = !0
-          s.community_id = a
-          s.isIpx = app.globalData.isIpx
-          status.cartNum().then(function(t) {
-            s.cartNum = t.data
-          })
-          s.showCartGoods()
-        } else {
-          s.needAuth = !0
-          s.isEmpty = !0
-        }
+      var i = this;
+      wx.setNavigationBarTitle({
+        title: 'Cart',
+        showLogo:false,
+        showMore:false,
+        showBack:false
       })
-      wx.hideLoading()
+      i.onShow();
+      if(i.$refs.tabbar){
+        i.$refs.tabbar.switchTab();
+      }
     },
     methods: {
+      onShow: function() {
+
+        const wx = this.$wx, app = this.$getApp()
+        var s = this
+
+        util.check_login_new().then(function(t) {
+          console.log(t)
+          if (t) {
+            var a = wx.getStorageSync('community').communityId || ''
+
+            s.needAuth = !1
+            s.isEmpty = !1
+            s.tabbarRefresh = !0
+            s.community_id = a
+            s.isIpx = app.globalData.isIpx
+            status.cartNum().then(function(t) {
+              s.cartNum = t.data
+            })
+            s.showCartGoods()
+          } else {
+            s.needAuth = !0
+            s.isEmpty = !0
+          }
+        })
+        wx.hideLoading()
+      },
       authSuccess: function() {
         const wx = this.$wx, app = this.$getApp()
         wx.reLaunch({
@@ -524,9 +541,12 @@
         })
       },
       authModal: function() {
+
         this.needAuth && (this.showAuthModal = !this.showAuthModal)
         if(this.showAuthModal){
-          this.$router.replace({path: '/login'});
+          this.$wx.navigateTo({
+            url: "/login"
+          })
         }
       },
       showCartGoods: function() {
@@ -607,13 +627,16 @@
       sortCarts: function(a) {
         const wx = this.$wx, app = this.$getApp()
 
+
         var o = 0, r = 0, c = 0, i = 0, n = {}, d = 0, t = function(s) {
           r = a[s].is_open_fullreduction, c = a[s].full_reducemoney, i = a[s].full_money,
             n[s] = {
               id: a[s].id,
               shopcarts: []
             }
-          var t = a[s].shopcarts, e = []
+
+
+          var t = a[s].shopcarts || [], e = []
           t.forEach(function(t, a) {
             0 == t.can_buy || 0 == t.option_can_buy ? (n[s].shopcarts.push(t), d += 1) : (e.push(t),
             1 == t.can_man_jian && o++)
@@ -838,8 +861,8 @@
         2 < arguments.length && void 0 !== arguments[2] && arguments[2]
         var h = this, p = this.updateCart
         wx.showModal({
-          title: '提示',
-          content: '确定删除这件商品吗？',
+          title: this.$t('cart.tishi'),
+          content: this.$t('cart.quedingshanchu'),
           showCancelButton:true,
           confirmColor: '#FF0000',
           success: function(t) {
@@ -1088,8 +1111,8 @@
 
         var d = parseInt(t.currentTarget.dataset.parentid), l = parseInt(t.currentTarget.dataset.index), u = this
         wx.showModal({
-          title: '提示',
-          content: '确定删除这件商品吗？',
+          title: this.$t('cart.tishi'),
+          content: this.$t('cart.quedingshanchu'),
           showCancel:false,
           confirmColor: '#FF0000',
           success: function(t) {
@@ -1153,8 +1176,8 @@
         var i = parseInt(t.currentTarget.dataset.parentid), n = parseInt(t.currentTarget.dataset.index),
           d = t.currentTarget.dataset.islost || 0, l = this
         wx.showModal({
-          title: '提示',
-          content: '确认删除这件商品吗？',
+          title: this.$t('cart.tishi'),
+          content: this.$t('cart.quedingshanchu'),
           confirmColor: '#FF0000',
           success: function(t) {
             if (t.confirm) {
@@ -1177,8 +1200,8 @@
         const wx = this.$wx, app = this.$getApp()
         var e = this
         wx.showModal({
-          title: '提示',
-          content: '确认清空失效商品吗？',
+          title: this.$t('cart.tishi'),
+          content: this.$t('cart.querenqingkongshixiao'),
           confirmColor: '#FF0000',
           success: function(t) {
             if (t.confirm) {
@@ -1269,8 +1292,8 @@
           })
         } else {
           wx.showModal({
-            title: '提示',
-            content: '请选择您要购买的商品',
+            title: this.$t('tishi'),
+            content: this.$t('cart.qingxuanzeninyaogoumai'),
             confirmColor: '#FF0000',
             success: function(t) {
               t.confirm
@@ -1408,7 +1431,7 @@
           } else {
             o.closeSku(), o.showCartGoods(), status.indexListCarCount(r, t.cur_count),
               (0, status.cartNum)(t.total), (o.cartNum = t.total, o.updateCart = i + 1), wx.showToast({
-              title: '已加入购物车',
+              title: this.$t('cart.yijiarugouwuche'),
               image: require('@/assets/images/addShopCart.png')
             })
           }

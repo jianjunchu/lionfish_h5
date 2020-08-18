@@ -595,7 +595,7 @@
           this.showAuthModal = !this.showAuthModal;
         }
         if(this.showAuthModal){
-          this.$wx.redirectTo({
+          this.$wx.navigateTo({
             url: "/login"
           })
         }
@@ -749,7 +749,7 @@
 
               i.closeSku();
               i.$wx.showToast({
-                title: "已加入购物车",
+                title: this.$t('cart.yijiarugouwuche'),
                 image: "@/assets/images/addShopCart.png"
               });
               i.$app.globalData.cartNum = t.total;

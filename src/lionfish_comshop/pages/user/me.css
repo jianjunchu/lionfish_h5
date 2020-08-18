@@ -83,17 +83,17 @@
 }
 
 .personal .order .orderTab .order_status .num {
-    width: 14px;
-    height: 14px;
+    width: 5vw;
+    height: 5vw;
     background: #fff;
-    font-size: 10px;
+    font-size: 2vw;
     color: #fff;
-    border: 1px solid #fff;
+    border: 0.5vw solid #fff;
     background: #ff6557;
     border-radius: 50%;
     position: absolute;
     right: 0;
-    top: -5px;
+    top: -1.5vw;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -578,13 +578,14 @@
 
 .goods-sign-btn {
   display: inline-block;
-  height: 26px;
-  padding: 0 3px;
+  height: 6vw;
+  padding: 0 2vw;
   border: 1px solid #2ebc45;
-  border-radius: 26px;
+  border-radius: 3vw;
   text-align: center;
-  line-height: 26px;
+  font-size: 2vw;
+  line-height: 5.5vw;
   color: #2ebc45;
-  margin-left: 10px;
+  margin-left: 1vw;
   vertical-align:middle;
 }

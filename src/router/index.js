@@ -6,7 +6,10 @@ Vue.use(Router)
  * Note: sub-menu only appear when route children.length >= 1
  * Detail see: https://panjiachen.github.io/vue-element-admin-site/guide/essentials/router-and-nav.html
  *
- * hidden: true                   if set true, item will not show in the sidebar(default is false)
+ * hidden: true,
+ meta: {
+      keepAlive: false
+    }                   if set true, item will not show in the sidebar(default is false)
  * alwaysShow: true               if set true, will always show the root menu
  *                                if not set alwaysShow, when item has more than one children route,
  *                                it will becomes nested mode, otherwise not show the root menu
@@ -30,137 +33,324 @@ export const constantRoutes = [
   {
     path: '/login',
     component: () => import('@/lionfish_comshop/pages/login/index'),
-    hidden: true
+    hidden: true,
+    meta: {
+      keepAlive: false
+    }
+
   },
   {
     path: '/regist',
     component: () => import('@/lionfish_comshop/pages/regist/index'),
-    hidden: true
+    hidden: true,
+    meta: {
+      keepAlive: false
+    }
   },
   {
     path: '/userInfo',
     component: () => import('@/lionfish_comshop/pages/regist/userInfo'),
-    hidden: true
+    hidden: true,
+    meta: {
+      keepAlive: false
+    }
+  },
+  {
+    path: '/privatepolic',
+    component: () => import('@/lionfish_comshop/pages/regist/privatepolic'),
+    hidden: true,
+    meta: {
+      keepAlive: false
+    }
   },
   {
     path: '',
     component: () => import('@/lionfish_comshop/pages/index/index'),
-    hidden: true
+    hidden: true,
+    meta: {
+      keepAlive: true,
+      scrollTop: 0
+    }
   },
   {
     path: '/lionfish_comshop/pages/index/index',
     component: () => import('@/lionfish_comshop/pages/index/index'),
-    hidden: true
+    hidden: true,
+    meta: {
+      keepAlive: true,
+      scrollTop: 0
+    }
   },
   {
     path: '/lionfish_comshop/pages/type/index',
     component: () => import('@/lionfish_comshop/pages/type/index'),
-    hidden: true
+    hidden: true,
+    meta: {
+      keepAlive: true
+    }
   },
   {
     path: '/lionfish_comshop/pages/order/index',
     component: () => import('@/lionfish_comshop/pages/order/index'),
-    hidden: true
+    hidden: true,
+    meta: {
+      keepAlive: false
+    }
   }, {
     path: '/lionfish_comshop/pages/order/order',
     component: () => import('@/lionfish_comshop/pages/order/order'),
-    hidden: true
+    hidden: true,
+    meta: {
+      keepAlive: false
+    }
   },
   {
     path: '/lionfish_comshop/pages/user/me',
     component: () => import('@/lionfish_comshop/pages/user/me'),
-    hidden: true
+    hidden: true,
+    meta: {
+      keepAlive: false
+    }
   },
   {
     path: '/lionfish_comshop/pages/user/articleProtocol',
     component: () => import('@/lionfish_comshop/pages/user/articleProtocol'),
-    hidden: true
+    hidden: true,
+    meta: {
+      keepAlive: false
+    }
   },
   {
     path: '/lionfish_comshop/pages/user/protocol',
     component: () => import('@/lionfish_comshop/pages/user/protocol'),
-    hidden: true
+    hidden: true,
+    meta: {
+      keepAlive: false
+    }
+  },
+  {
+    path: '/lionfish_comshop/pages/user/coupon',
+    component: () => import('@/lionfish_comshop/pages/user/coupon'),
+    hidden: true,
+    meta: {
+      keepAlive: false
+    }
   },
   {
     path: '/lionfish_comshop/pages/goods/goodsDetail',
-      component: () => import('@/lionfish_comshop/pages/goods/goodsDetail'),
-    hidden: true
+    component: () => import('@/lionfish_comshop/pages/goods/goodsDetail'),
+    hidden: true,
+    meta: {
+      keepAlive: false
+    }
   },
-{
+  {
     path: '/lionfish_comshop/pages/goods/comment',
-      component: () => import('@/lionfish_comshop/pages/goods/comment'),
-    hidden: true
+    component: () => import('@/lionfish_comshop/pages/goods/comment'),
+    hidden: true,
+    meta: {
+      keepAlive: false
+    }
   },
-{
+  {
     path: '/lionfish_comshop/pages/goods/buyRecords',
-      component: () => import('@/lionfish_comshop/pages/goods/buyRecords'),
-    hidden: true
+    component: () => import('@/lionfish_comshop/pages/goods/buyRecords'),
+    hidden: true,
+    meta: {
+      keepAlive: false
+    }
   },
-{
+  {
     path: '/lionfish_comshop/pages/groupCenter/index',
-      component: () => import('@/lionfish_comshop/pages/groupCenter/index'),
-    hidden: true
+    component: () => import('@/lionfish_comshop/pages/groupCenter/index'),
+    hidden: true,
+    meta: {
+      keepAlive: false
+    }
   },
   {
     path: '/lionfish_comshop/pages/groupCenter/groupList',
-      component: () => import('@/lionfish_comshop/pages/groupCenter/groupList'),
-    hidden: true
+    component: () => import('@/lionfish_comshop/pages/groupCenter/groupList'),
+    hidden: true,
+    meta: {
+      keepAlive: false
+    }
   },
-{
+  {
     path: '/lionfish_comshop/pages/groupCenter/groupDetail',
-      component: () => import('@/lionfish_comshop/pages/groupCenter/groupDetail'),
-    hidden: true
+    component: () => import('@/lionfish_comshop/pages/groupCenter/groupDetail'),
+    hidden: true,
+    meta: {
+      keepAlive: false
+    }
   },
-{
+  {
     path: '/lionfish_comshop/pages/groupCenter/apply',
-      component: () => import('@/lionfish_comshop/pages/groupCenter/apply'),
-    hidden: true
+    component: () => import('@/lionfish_comshop/pages/groupCenter/apply'),
+    hidden: true,
+    meta: {
+      keepAlive: false
+    }
   },
-{
+  {
     path: '/lionfish_comshop/pages/groupCenter/recruit',
-      component: () => import('@/lionfish_comshop/pages/groupCenter/recruit'),
-    hidden: true
+    component: () => import('@/lionfish_comshop/pages/groupCenter/recruit'),
+    hidden: true,
+    meta: {
+      keepAlive: false
+    }
   },
-{
-  path: '/lionfish_comshop/pages/order/evaluate',
+  {
+    path: '/lionfish_comshop/pages/groupCenter/groupTime',
+    component: () => import('@/lionfish_comshop/pages/groupCenter/groupTime'),
+    hidden: true,
+    meta: {
+      keepAlive: false
+    }
+  },
+  {
+    path: '/lionfish_comshop/pages/groupCenter/distributionList',
+    component: () => import('@/lionfish_comshop/pages/groupCenter/distributionList'),
+    hidden: true,
+    meta: {
+      keepAlive: false
+    }
+  },
+  {
+    path: '/lionfish_comshop/pages/groupCenter/wallet',
+    component: () => import('@/lionfish_comshop/pages/groupCenter/wallet'),
+    hidden: true,
+    meta: {
+      keepAlive: false
+    }
+  },
+  {
+    path: '/lionfish_comshop/pages/groupCenter/editInfo',
+    component: () => import('@/lionfish_comshop/pages/groupCenter/editInfo'),
+    hidden: true,
+    meta: {
+      keepAlive: false
+    }
+  },
+  {
+    path: '/lionfish_comshop/pages/groupCenter/detailsList',
+    component: () => import('@/lionfish_comshop/pages/groupCenter/detailsList'),
+    hidden: true,
+    meta: {
+      keepAlive: false
+    }
+  },
+  {
+    path: '/lionfish_comshop/pages/groupCenter/cashList',
+    component: () => import('@/lionfish_comshop/pages/groupCenter/cashList'),
+    hidden: true,
+    meta: {
+      keepAlive: false
+    }
+  },
+  {
+    path: '/lionfish_comshop/pages/order/evaluate',
     component: () => import('@/lionfish_comshop/pages/order/evaluate'),
-  hidden: true
-},
+    hidden: true,
+    meta: {
+      keepAlive: false
+    }
+  },
   {
     path: '/lionfish_comshop/pages/order/shopCart',
     component: () => import('@/lionfish_comshop/pages/order/shopCart'),
-    hidden: true
+    hidden: true,
+    meta: {
+      keepAlive: true
+    }
   },
   {
     path: '/lionfish_comshop/pages/order/placeOrder',
     component: () => import('@/lionfish_comshop/pages/order/placeOrder'),
-    hidden: true
+    hidden: true,
+    meta: {
+      keepAlive: false
+    }
   },
   {
     path: '/lionfish_comshop/pages/position/community',
     component: () => import('@/lionfish_comshop/pages/position/community'),
-    hidden: true
+    hidden: true,
+    meta: {
+      keepAlive: false
+    }
   },
   {
     path: '/404',
     component: () => import('@/lionfish_comshop/pages/404'),
-    hidden: true
+    hidden: true,
+    meta: {
+      keepAlive: false
+    }
   },
 
   {
-    path: '/result',
+    path: '/lionfish_comshop/pages/type/result',
     component: () => import('@/lionfish_comshop/pages/type/result'),
-    hidden: true
+    hidden: true,
+    meta: {
+      keepAlive: false
+    }
   },
-
+  {
+    path: '/lionfish_comshop/pages/position/search',
+    component: () => import('@/lionfish_comshop/pages/position/search'),
+    hidden: true,
+    meta: {
+      keepAlive: false
+    }
+  },
+  {
+    path: '/lionfish_comshop/pages/refund/refundList',
+    component: () => import('@/lionfish_comshop/pages/refund/refundList'),
+    hidden: true,
+    meta: {
+      keepAlive: false
+    }
+  },
+  {
+    path: '/lionfish_comshop/pages/order/refund',
+    component: () => import('@/lionfish_comshop/pages/order/refund'),
+    hidden: true,
+    meta: {
+      keepAlive: false
+    }
+  },
+  {
+    path: '/lionfish_comshop/pages/order/refunddetail',
+    component: () => import('@/lionfish_comshop/pages/order/refunddetail'),
+    hidden: true,
+    meta: {
+      keepAlive: false
+    }
+  },
+  {
+    path: '/lionfish_comshop/pages/type/details',
+    component: () => import('@/lionfish_comshop/pages/type/details'),
+    hidden: true,
+    meta: {
+      keepAlive: false
+    }
+  },
   // 404 page must be placed at the end !!!
-  { path: '*', redirect: '/404', hidden: true }
+  {
+    path: '*', redirect: '/404', hidden: true,
+    meta: {
+      keepAlive: false
+    }
+  }
 ]
 
 const createRouter = () => new Router({
-  // mode: 'history', // require service support
-  scrollBehavior: () => ({ y: 0 }),
+  //mode: 'history', // require service support
+  //scrollBehavior: () => ({ y: 100 }),
   routes: constantRoutes
+
 })
 
 const router = createRouter()

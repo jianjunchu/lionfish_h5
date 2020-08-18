@@ -6,8 +6,8 @@
         <div style='float:left;width: 40%;font-size: 22px;line-height: 50px;margin-left: 10%;'>
           转账支付
         </div>
-        <div style='float:right;width: 50%;text-align: right' @click='closeTransferModal'>
-          <image src='@/assets/images/img-close.png' style='width: 30px;height: 30px;margin-top: 10px;margin-right: 10%'></image>
+        <div style='float:right;width: 50%;text-align: right' @click.stop='closeTransferModal'>
+          <img src='@/assets/images/img-close.png' style='width: 30px;height: 30px;margin-top: 10px;margin-right: 10%'/>
         </div>
       </div>
       <div style='text-align: center'>
@@ -16,26 +16,26 @@
           <div style='margin-left: 5%;margin-top:10px;text-align:left;display: flex;justify-content: center;'>
             <span style='display: flex;justify-content: center;'>帐号：</span>
             <span style='text-align: left;'>{{bankInfo.account_no}}</span>
-            <button @click='copyText' size="mini" style="font-size: 8px;" :data-text="bankInfo.account_no">复制</button>
+            <button @click.stop='copyText' size="mini" style="font-size: 8px;" :data-text="bankInfo.account_no">复制</button>
           </div>
           <div style='margin-left: 5%;margin-top:10px;text-align:left;display: flex;justify-content: center;'>
             <span style='display: flex;justify-content: center;'>户名：</span>
             <span style='text-align: left;'>{{bankInfo.account_name}}</span>
-            <button @click='copyText' size="mini" style="font-size: 8px;" :data-text="bankInfo.account_name">复制</button>
+            <button @click.stop='copyText' size="mini" style="font-size: 8px;" :data-text="bankInfo.account_name">复制</button>
           </div>
           <div style='margin-left: 5%;margin-top:10px;text-align:left;display: flex;justify-content: center;'>
             <span style='display: flex;justify-content: center;'>银行：</span>
             <span style='text-align: left;'>{{bankInfo.bank_name}}</span>
-            <button @click='copyText' size="mini" style="font-size: 8px;" :data-text="bankInfo.bank_name">复制</button>
+            <button @click.stop='copyText' size="mini" style="font-size: 8px;" :data-text="bankInfo.bank_name">复制</button>
           </div>
 
           <div style='wid:200px;height:100px;text-align: center;margin-top: 30px;'>
             <span style='font-size: 18px;'>请在支付时备注您订单内的联系号码 \n</span>
-            <span style='font-size: 18px;color: #c0c0c0'>注：转账支付为人工审核</span>
+            <span style='font-size: 18px;color: #c0c0c0'>{{$t('order.zhuanzhangbeizhu')}}</span>
           </div>
         </div>
         <div style='width: 60%;text-align: center;margin-top: 30px;margin-left: 20%;'>
-          <button @click="havePaid"  data-type="banktransfer"  class="wux-button wux-button--block" type="default">已支付，查看订单</button>
+          <button @click.stop="havePaid"  data-type="banktransfer"  class="wux-button wux-button--block" type="default">已支付，查看订单</button>
         </div>
       </div>
     </div>
@@ -44,25 +44,25 @@
     <div class="paynow" v-if="showPayNowModal">
       <div style='width: 100%;height: 10%;'>
         <div style='float:left;width: 40%;font-size: 18px;line-height: 50px;margin-left: 5%;'>
-          PayNow支付
+          PayNow
         </div>
 
-        <div style='float:right;width: 50%;text-align: right' @click='toClosePayNowModal'>
-          <img src=@/assets/images/img-close.png' style='width: 24px;height: 24px;margin-top: 10px;margin-right: 5%'></img>
+        <div style='float:right;width: 50%;text-align: right' @click.stop='toClosePayNowModal'>
+          <img src='@/assets/images/img-close.png' style='width: 24px;height: 24px;margin-top: 10px;margin-right: 5%'></img>
         </div>
       </div>
 
       <div style='float:left;width: 100%;margin-left: 5%;'>
-        PayNow支付号码：{{payNowNo}}
+        PayNow No.：{{payNowNo}}
       </div>
       <div style='float:left;width: 100%;margin-left: 5%;margin-top:5px'>
-        支付金额：<span style="color:red">${{tot_price}}</span>
+        {{$t('order.zhifujine')}}：<span style="color:red">${{tot_price}}</span>
       </div>
       <div style='float:left;width: 100%;margin-left: 5%;margin-top:5px'>
-        备注订单号：<span style="color:red">{{order_num_alias}}</span>
+        {{$t('order.beizhudingdanhao')}}：<span style="color:red">{{order_num_alias}}</span>
       </div>
       <div style='float:left;width: 100%;margin-left: 5%;margin-top:5px'>
-        <span style="color:red">请在备注中写入该订单号，很重要！</span>
+        <span style="color:red">{{$t('order.xierugaidingdanhao')}}</span>
       </div>
 
       <div style='text-align: center'>
@@ -70,16 +70,21 @@
           <img :src='payNowQr' style='width: 160px;height: 160px;margin-top: 20px;border: 1px solid #000;'></img>
           <div style='wid:200px;height:40px;margin-top:10px;'>
 
-            <span style='text-align: left;'>PayNow扫码支付 \n <!--或 uen: {{payNowUen}}--></span>
+            <span style='text-align: left;'>{{$t('order.saomazhifu')}} <!--或 uen: {{payNowUen}}--></span>
 
           </div>
           <div style='wid:200px;height:80px; '>
             <span style='font-size: 18px;'><!--请在支付时备注您订单内的联系号码 \n--></span>
-            <span style='font-size: 18px;color: #c0c0c0'>注：转账支付为人工审核</span>
+            <span style='font-size: 18px;color: #c0c0c0'>{{$t('order.zhuanzhangbeizhu')}}</span>
           </div>
         </div>
+        <div style="margin-top: 15px">
+          <span>{{$t('order.jiaoyiliushui')}}</span><br>
+          <input v-model="transaction_id" class="mobile" placeholder="Paynow transaction No." type="text"></input>
+        </div>
         <div style='width: 60%;text-align: center;margin-top: 30px;margin-left: 20%;'>
-          <button @click="havePaid" data-type="paynow"   class="wux-button wux-button--block" type="default">已支付，查看订单</button>
+          <!--<button @click.stop="havePaid" data-type="paynow"   class="wux-button wux-button&#45;&#45;block" type="default">已支付，查看订单</button>-->
+          <button @click.stop="havePaid" data-type="paynow" :style="{background:skin.color,color:' #fff'}"  class="wux-button wux-button--block" type="default">{{$t('order.yizhifu')}}</button>
         </div>
       </div>
     </div>
@@ -88,7 +93,7 @@
     <div class="mask" catchtouchmove="preventTouchMove" v-if="showPaymentModal"></div>
     <div class="modalDlg" v-if="showPaymentModal">
       <div style='width:100%;height:26px;border-bottom:1px solid #ccc;margin:0;padding:0;'>
-        <span style='text-align:center;font-size:14px;font-weight:600 ;margin-top=5px' >支付方式</span>
+        <span style='text-align:center;font-size:14px;font-weight:600 ;margin-top:5px' >{{$t('cart.zhifufangshi')}}</span>
       </div>
 
       <!-- 总金额 -->
@@ -96,34 +101,38 @@
         <span style='font-size:30px;color:#f00'>${{tot_price}}</span>
       </div>
 
-
-      <button @click="orderPayWeixin" class="wux-button wux-button--block" type="warn">
+<!--
+      <button @click.stop="orderPayWeixin" class="wux-button wux-button--block" type="warn">
         微信支付</button>
-
+-->
       <!--
       <button class="wux-button wux-button--block" type="warn" style="margin-top=16px">到店付款</button>
       -->
-      <button @click="payNow" class="wux-button wux-button--block" data-type="paynow" type="warn">PayNow支付</button>
-      <button @click="orderPayTransfer" data-type="banktransfer" class="wux-button wux-button--block" type="warn">公司转账</button>
+      <button @click.stop="payNow" class="wux-button wux-button--block" data-type="paynow" :style="{background:skin.color,color:' #fff'}" type="warn">PayNow</button>
+      <button @click.stop="yuepay" v-if="is_open_yue_pay ==1" :style="{background:skin.color,color:' #fff','font-size':'2vw'}" class="wux-button wux-button--block" type="warn"> {{ $t('order.yuezhifu',{p1:accountMoney}) }} </button>
+
+      <!--<button @click.stop="orderPayTransfer" data-type="banktransfer" class="wux-button wux-button&#45;&#45;block" type="warn">公司转账</button>-->
 
       <!--
-      <button wx:if='{{is_pickup}}' @click="havePaid" data-type="cash" class="wux-button wux-button--block" type="warn">货到付款</button>
+      <button wx:if='{{is_pickup}}' @click.stop="havePaid" data-type="cash" class="wux-button wux-button--block" type="warn">货到付款</button>
       -->
 
-      <button @click="closePaymentModal"  class="wux-button wux-button--block" type="default">取消支付</button>
+      <button @click.stop="toClosePaymentModal"  class="wux-button wux-button--block" type="default">{{$t('cart.quxiaozhifu')}}</button>
 
 
     </div>
     <div class="nav-bar">
       <div class="nav-bar-inner">
-        <div @click="getOrder" :class="['nav-bar-item', (order_status==item.id?'current':'')]" :data-type="item.id" :style="(order_status==item.id?'border-color:'+skin.color:'')"  v-for="(item,idx) in tabs" :key="item.id">
+        <div @click.stop="getOrder" :class="['nav-bar-item', (order_status==item.id?'current':'')]" :data-type="item.id" :style="(order_status==item.id?'border-color:'+skin.color:'')"  v-for="(item,idx) in tabs" :key="item.id">
           {{item.name}}
         </div>
       </div>
     </div>
-    <div class="nav-bar-content">
+    <!--<div class="nav-bar-content">-->
+    <van-list  @load="onReachBottom" class="nav-bar-content">
+
       <div v-if="!is_empty">
-        <div @click="goOrder" class="card" :data-type="item.order_id"  v-for="(item,idx) in order" :key="item.id">
+        <div @click.stop="goOrder" class="card" :data-type="item.order_id"  v-for="(item,idx) in order" :key="item.id">
           <i-card :data-orderId="item.order_id" iClass="my-card" showModal="true">
             <div class="card-header" slot="header">
               <div>{{$t('order.xiadanshijian')}}
@@ -131,11 +140,15 @@
               </div>
 
               <div :class="['bold', (item.order_status_id==3?'red':'gray')]" :style="(item.order_status_id==3?'color:'+skin.color:'')">
-                {{item.status_name}}
+                <span v-if="item.order_status_id == 10"> {{ $t('order.dengdaituikuan') }}</span>
+                <span v-else-if="item.order_status_id == 4 && item.delivery=='pickup' "> {{ $t('order.daiziti') }}</span>
+                <span v-else-if="item.order_status_id == 6 && item.delivery=='pickup' "> {{ $t('order.yiziti') }}</span>
+                <span v-else> {{ item.status_name }}</span>
+
               </div>
             </div>
             <div class="card-content" slot="content">
-              <div class="content-wrap" v-if="item.is_pin==1">
+              <div class="order-content-wrap" v-if="item.is_pin==1">
                 <i-img height="60" iClass="show-img mar-right-10" lazyLoad="true" loadImage="item.goods_list[0].goods_images" width="60"></i-img>
                 <div class="i-flex-item">
                   <div class="name bold">
@@ -147,7 +160,7 @@
                   </div>
                 </div>
               </div>
-              <div class="content-wrap" v-else>
+              <div class="order-content-wrap" v-else>
                 <div class="clearfix">
                   <!--<i-img height="60" iClass="['show-img', (idx<4?'mar-right-10':'')]" lazyLoad="true" :loadImage="img.goods_images" width="60" v-if="idx<4"    v-for="(img,idx) in item.goods_list" :key="img.id"></i-img>-->
                   <div height="60" class="show-img img-content" v-for="(img,idx) in item.goods_list" :key="img.order_goods_id">
@@ -160,7 +173,7 @@
                   <div class="dot-item"></div>
                 </div>
               </div>
-              <div class="content-wrap fsz-30" style="margin-top:12px" v-if="item.delivery_time && item.delivery_time!='' && item.delivery_date && item.delivery_date!=''">
+              <div class="order-content-wrap fsz-30" style="margin-top:12px" v-if="item.delivery_time && item.delivery_time!='' && item.delivery_date && item.delivery_date!=''">
 
                 {{item.delivery=='pickup'?$t('order.tihuoshijian'):$t('order.songhuoshijian')}} {{item.delivery_date}} [{{item.delivery_time}}]
               </div>
@@ -178,18 +191,19 @@
                 </div>
               </div>
               <div class="button-group" v-if="item.order_status_id==3">
-                <div @click="cancelOrder" class="my-button" data-show="cancelVisible" :data-type="item.order_id"> {{$t('order.quxiaodingdan')}}</div>
-                <!--<div  @click="showPaymentModal" class="my-button-pay padding-15" :data-type="item"  :style="{background: linear-gradient(90deg, skin.color 0%, skin.light 100%)}">立即支付</div>-->
-                <div  @click="toShowPaymentModal" class="my-button-pay padding-15" :data-type="item"  :style="{color:skin.color,background:skin.light}">{{$t('order.lijizhifu')}}</div>
+                <div @click.stop="cancelOrder" class="my-button" data-show="cancelVisible" :data-type="item.order_id"> {{$t('order.quxiaodingdan')}}</div>
+                <!--<div  @click.stop="showPaymentModal" class="my-button-pay padding-15" :data-type="item"  :style="{background: linear-gradient(90deg, skin.color 0%, skin.light 100%)}">立即支付</div>-->
+                <div  @click.stop="toShowPaymentModal(item)" class="my-button-pay padding-15" :data-type="{item}"  :style="{color:skin.color,background:skin.light}">{{$t('order.lijizhifu')}}</div>
               </div>
               <div v-if="item.order_status_id==4">
                 <div class="get-goods" :data-delivery="item.delivery" :data-type="item.order_id">
-                  <div class="sure-get">{{item.delivery=='pickup'?'确认提货':'确认收货'}}</div>
+                  <!--<div class="sure-get" @click.stop="receivOrder" :data-delivery="item.delivery" :data-type="item.order_id">{{item.delivery=='pickup'?'确认提货':'确认收货'}}</div>-->
+                  <div class="sure-get" @click.stop="receivOrder" :data-delivery="item.delivery" :data-type="item.order_id">{{item.delivery=='pickup'?$t('order.querentihuo'): $t('order.querenshouhuo')}}</div>
                   <img class="right-arrow" src="@/assets/images/rightArrowImg.png"></img>
                 </div>
               </div>
               <div v-if="item.order_status_id==1||item.order_status_id==6||item.order_status_id==11||item.order_status_id==14||item.order_status_id==15||item.order_status_id==16">
-                <div class="my-button" :data-type="item.order_id" size="small">{{$t('order.chakanxiangqing')}}</div>
+                <div class="my-button" style="width: 86px" :data-type="item.order_id" size="small">{{$t('order.chakanxiangqing')}}</div>
               </div>
             </div>
           </i-card>
@@ -199,8 +213,8 @@
         <img class="empty-img" src="@/assets/images/noData.png"></img>
         <div class="empty-txt">{{$t('order.wurenhedingdan')}}</div>
       </div>
-      <i-loadMore :tip="tip" v-if="!isHideLoadMore"></i-loadMore>
-    </div>
+    <!--</div>-->
+    </van-list>
   </div>
 
 </template>
@@ -209,11 +223,19 @@
   import GlobalMixin from '../../mixin/globalMixin.js';
   //  import util from '../../utils/util.js';
   import status from '../../utils/index.js';
-  import wcache from '../../utils/wcache.js';
   import auth from '../../utils/auth';
-  import wx from '../../utils/wx';
   import request from '../../utils/request';
+  var wcache = require('../../utils/wcache.js');
 
+  var app
+  var wx;
+  var _extends = Object.assign || function(t) {
+    for (var a = 1; a < arguments.length; a++) {
+      var e = arguments[a];
+      for (var i in e) Object.prototype.hasOwnProperty.call(e, i) && (t[i] = e[i]);
+    }
+    return t;
+  };
 
   export default {
     mixins: [GlobalMixin],
@@ -227,6 +249,7 @@
     },
     data() {
       return {
+        transaction_id:'',
         showPaymentModal:false,
         showPayNowModal: false,
         showTransferModal:false,
@@ -271,6 +294,8 @@
       }
     },
     created: function() {
+      app = this.$getApp()
+      wx = this.$wx;
       this.$wx.setNavigationBarTitle({
         title: this.$wx.getStorageSync("shopname"),
         showLogo:false,
@@ -282,7 +307,9 @@
     },
     methods: {
       toShowPaymentModal: function(t){
-        var b = t.currentTarget.dataset.type;
+
+//        var b = t.currentTarget.dataset.type;
+        var b = t;
         console.log(b);
         var a = b.total;
         var c = b.order_num_alias;
@@ -339,9 +366,9 @@
       },
       orderPayTransfer:function(){
         var this_ = this;
-        wx.request({
+        this.$wx.request({
           // 请求地址
-          url: 'https://tuantuan.xx315.net/payment/transfer/bank.json',
+          url: 'https://hz.xx315.net/payment/transfer/bank.json',
           // 请求方式
           method: "get",
           dataType: 'json',
@@ -349,9 +376,7 @@
           // 方法
           success: function(data) {
             console.log(data);
-            this_.setData({
-              bankInfo: data.data.data
-            });
+            this_.bankInfo= data.data;
           }
         })
         this_.toClosePaymentModal();
@@ -359,28 +384,83 @@
       },
       payNow :function(){
         var this_ = this;
-        wx.request({
-          // 请求地址
-          url: 'https://tuantuan.xx315.net/payment/paynow/paynow.json',
-          // 请求方式
-          method: "get",
-          dataType: 'json',
-          responseType: 'text',
-          // 方法
-          success: function(data) {
-            console.log(data);
-            this_.setData({
-              payNowQr: data.data.data.qr,
-              payNowNo: data.data.data.payNowNo,
-              payNowUen:data.data.data.uen
-            });
+//        wx.request({
+//          // 请求地址
+//          url: 'https://tuantuan.xx315.net/payment/paynow/paynow.json',
+//          // 请求方式
+//          method: "get",
+//          dataType: 'json',
+//          responseType: 'text',
+//          // 方法
+//          success: function(data) {
+//            console.log(data);
+//            this_.setData({
+//              payNowQr: data.data.data.qr,
+//              payNowNo: data.data.data.payNowNo,
+//              payNowUen:data.data.data.uen
+//            });
+//          }
+//        })
+        app.util.request({
+          url: "entry/wxapp/user",
+          data: {
+            controller: "user.get_copyright",
+          },
+          dataType: "json",
+          method: "POST",
+          success: function(t) {
+            this_.payNowQr = t.paynow_qr
+            this_.payNowNo = t.paynow_no
+            this_.payNowUen = t.paynow_uen
           }
-        })
+        });
+
         this.toClosePaymentModal();
         this.toShowPayNowModal();
       },
+      yuepay:function(){
+        var t = wx.getStorageSync("token"), c = this;
+        var a = c.currentItem,b = c.accountMoney;
+
+        if(parseFloat(a.total) > parseFloat(b)){
+          wx.showToast({
+            title: c.$t('order.yuebuzhu'),
+            icon: "none"
+          });
+        }else{
+          wx.showLoading()
+          app.util.request({
+            url: "entry/wxapp/user",
+            data: {
+              controller: "order.yuepay",
+              order_id:a.order_id,
+              token: t
+            },
+            dataType: "json",
+            success: function(t) {
+              wx.hideLoading()
+              if (0 == t.data.code) {
+               c.getData();
+              }else{
+                wx.showToast({
+                  title: t.data.msg,
+                  icon: "none"
+                });
+              }
+            }
+          });
+        }
+
+      },
       havePaid: function(t){
-        this.closePaymentModal();
+        if ( '' == this.transaction_id) {
+          return wx.showToast({
+            title: '请输入交易流水id',
+            icon: 'none'
+          }), !1
+        }
+
+        this.toClosePaymentModal();
         var this_ = this;
         var s = this.$wx.getStorageSync("token"),a = this.currentItem;
         var type = t.currentTarget.dataset.type
@@ -390,13 +470,15 @@
             token: s,
             order_id: a.order_id,
             payment_code: type,
+            transaction_id:this.transaction_id
           }).then(t=> {
             this.$wx.hideLoading();
             this_.getData();
-
         });
       },
       onLoad: function(t) {
+        this.getCopyright();
+        this.getAccountMoney();
         var order_status = this.$route.query.order_status;
         var is_show_tip = this.$route.query.is_show;
         var isfail = this.$route.query.isfail;
@@ -408,11 +490,11 @@
         }
         if (is_show_tip && is_show_tip == 1) {
           this.$wx.showToast({
-            title: "支付成功"
+            title: this.$t('order.zhifuchenggong')
           })
         }else if (isfail && isfail == 1){
           this.$wx.showToast({
-            title: "支付失败",
+            title: this.$t('order.zhifushibai'),
             icon: "none"
           })
         }
@@ -436,6 +518,7 @@
                  this.order = rushList;
                  this.hide_tip= true;
                  this.no_order= 0;
+                 this.$forceUpdate();
                } else {
                  if(that.page == 1 && that.order.length <= 0) this.is_empty = true;
                  that.isHideLoadMore = true;
@@ -446,32 +529,35 @@
       goOrder: function(event) {
         let id = event.currentTarget.dataset.type;
 
-        this.$wx.redirectTo({
+        this.$wx.navigateTo({
           url: '/lionfish_comshop/pages/order/order?id=' + id
         })
       },
       receivOrder: function(t) {
+
         let id = event.currentTarget.dataset.type;
         let delivery = event.currentTarget.dataset.delivery;
         var token = this.$wx.getStorageSync("token");
-        let content = "确认收到";
-        if (delivery == "pickup") content = "确认提货";
+        let content = this.$t('order.querenshoudao');
+        if (delivery == "pickup") content = content;
         var that = this;
 
         this.$wx.showModal({
-          title: "提示",
-          content: "确认收到",
+          title: this.$t('cart.tishi'),
+          content: content,
           confirmColor: "#8ED9D1",
           success: function(res) {
+
             if (res.confirm) {
-              this.$http({
+              that.$http({
                   controller: 'order.receive_order',
                   token: token,
                   order_id: id
-                }).then(res=> {
-                  if (res.code == 0) {
-                    this.$wx.showToast({
-                      title: '收货成功',
+                }).then(r=> {
+
+                  if (r.code == 0) {
+                    that.$wx.showToast({
+                      title: 'Success',
                       icon: 'success',
                       duration: 1000
                     })
@@ -483,28 +569,36 @@
         });
       },
       cancelOrder: function(t) {
-        let id = event.currentTarget.dataset.type;
+        let id = t.currentTarget.dataset.type;
         var token = this.$wx.getStorageSync("token");
         var that = this;
+        const quxiaochenggong  = this.$t('order.quxiaochenggong')
         this.$wx.showModal({
-          title: '取消支付',
-          content: '好不容易挑出来，确定要取消吗？',
+          title: this.$t('order.quxiaodingdan1'),
+          content: this.$t('order.haoburongyi'),
           confirmColor: '#8ED9D1',
+          showCancelButton:true,
           success(res) {
-            if (res.confirm) {
-               this.$http({
-                   controller: 'order.cancel_order',
-                   token: token,
-                   order_id: id
-                 }).then(res=> {
-                   this.$wx.showToast({
-                     title: '取消成功',
-                     icon: 'success',
-                     duration: 1000
-                   })
-                   that.order_(that.order_status);
 
-               })
+            console.log(res.confirm)
+            if (res.confirm) {
+              app.util.request({
+                  url: "entry/wxapp/index",
+                  data: {
+                    controller: "order.cancel_order",
+                    token: token,
+                    order_id: id
+                  },
+                  dataType: "json",
+                  success: function(e) {
+
+                    that.$wx.showToast({
+                      title: quxiaochenggong,
+                      icon: "success",
+                    });
+                    location.reload()
+                  }
+                });
             }
           }
         })
@@ -522,7 +616,7 @@
          this.getData();
       },
       orderPayWeixin: function() {
-        this.closePaymentModal();
+        this.toClosePaymentModal();
         var e = this.$wx.getStorageSync("token"), a = this.currentItem;
 
         this.$http_post({
@@ -568,11 +662,67 @@
         this.$wx.showLoading();
         this.getData();
         this.$wx.stopPullDownRefresh();
+      },getCopyright: function() {
+        var C = this;
+        C.$app.util.request({
+          url: "entry/wxapp/user",
+          data: {
+            controller: "user.get_copyright"
+          },
+          dataType: "json",
+          success: function(e) {
+            if (0 == e.code) {
+              var t = e, o = t.enabled_front_supply, a = t.is_open_yue_pay, s = t.is_show_score, i = t.user_order_menu_icons, n = t.close_community_apply_enter, r = t.user_tool_icons, u = t.ishow_user_loginout_btn, _ = t.commiss_diy_name, c = t.supply_diy_name, m = t.user_service_switch, d = t.fetch_coder_type, l = t.show_user_pin, h = t.common_header_backgroundimage, p = t.is_show_about_us, g = t.show_user_change_comunity, f = t.open_danhead_model, w = t.default_head_info, b = t.is_open_solitaire, y = t.user_top_font_color, v = t.excharge_nav_name, x = {};
+              1 == f && (x.community = w), _ = _ || "分销", c = c || "供应商", wcache.put("commiss_diy_name", _),
+                wcache.put("supply_diy_name", c),
+                C.copyright = t.data || "",
+                C.common_header_backgroundimage = h || require('@/assets/images/TOP_background@2x.png'),
+                C.is_show_about_us = p || 0,
+                C.enabled_front_supply = o,
+                C.is_open_yue_pay = a,
+                C.is_show_score = s,
+                C.user_order_menu_icons = i || {},
+                C.commiss_diy_name = _,
+                C.close_community_apply_enter = n || 0,
+                C.user_tool_icons = r || {},
+                C.ishow_user_loginout_btn = u || 0,
+                C.supply_diy_name = c,
+                C.user_service_switch = m,
+                C.fetch_coder_type = d || 0,
+                C.show_user_pin = l,
+                C.show_user_change_comunity = g,
+                C.open_danhead_model = f,
+                C.is_open_solitaire = b,
+                C.user_top_font_color = y,
+                C.excharge_nav_name = v || "查看",
+                C.user_service_url = t.user_service_url
+            }
+          }
+        });
+      },getAccountMoney: function() {
+        var t = wx.getStorageSync("token"), c = this;
+        app.util.request({
+          url: "entry/wxapp/user",
+          data: {
+            controller: "user.get_account_money",
+            token: t
+          },
+          dataType: "json",
+          success: function(t) {
+            if (0 == t.code) {
+              var e = t, a = e.member_charge_publish, n = e.chargetype_list;
+              c.accountMoney =  e.data,
+                c. chargetype_list = n,
+                c.member_charge_publish = a
+            }
+          }
+        });
       }
+
     }
   }
 </script>
 
-<style scoped>
-  @import "index.less";
+
+<style  src="@/lionfish_comshop/pages/order/index.css">
 </style>

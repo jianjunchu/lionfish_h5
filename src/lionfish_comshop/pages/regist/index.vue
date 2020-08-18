@@ -3,9 +3,9 @@
 	   <el-form >
         <slot name="header">
           <!--  <h2 style="text-align: center;">Hzmart Register</h2>-->
-           
+
         </slot><br>
-		
+
 		 <div style="width: 100px;height: 100px;margin: 0 auto;margin-top: 30px;margin-bottom: 30px;">
         <img src="../../../assets/images/logo.png" style="width: 100%;height: 100%;" />
         </div>
@@ -29,14 +29,14 @@
                 </div>
             </div>
         </div> -->
-		
-		
-		
-		
+
+
+
+
 		<div style="height: 50px;">
 		<div style="width: 100%;height:25px;border-bottom:1px solid #ccc;font-size: 16px;color: #939393;float: left;" @click="click_btn()" v-show="this.isShow">Phone</div>
 		<div style="width: 100%;height:41px;border-bottom:1px solid #3D7BD0;font-size: 16px;color: #3D7BD0;float: left;" v-show="this.isShow2">
-				 <span> 
+				 <span>
 		 <el-select v-model="cityCode" placeholder="请选择" style="width:70px;height:30px;float: left;color: #0076FF;border:none">
 				<el-option label="65" value="65">+65 Singapore</el-option>
 		        <el-option label="60" value="60">+60 Malaysia </el-option>
@@ -48,27 +48,41 @@
 		<input style="width: 60%;height: 100%;border:none;outline: none;height: 40px;background: none;"    v-model="input_info.phone"  @focus="focus('phoneNum')" @blur="blur('phoneNum')" ref="phoneNum" @keyup="inputPhone" maxlength="13" autofocus/>
 		</div>
 		</div>
-		
-		
+
+
 		<div style="height: 50px;">
 		 <div style="width: 100%;height:28px;border-bottom:1px solid #ccc;font-size: 16px;color: #3D7BD0;" >
 		 <input style="width: 70%;height: 100%;border:none;outline: none;background: none;" v-model="input_info.code" id="input_code" @focus="focus('code')" @blur="blur('code')" @keyup="activeregist()" ref="code" placeholder="Code"/>
 		 <div style="float: right;background: #FDEACA;border-radius: 20px;color: #FDB56D;font-size: 13px;padding:5px;margin-bottom: 10px;" @click="getVerifyCode()" ref="getCode" :disabled="getCodeDisabled">{{getCodeBtnText}}</div>
 		 </div>
 		 </div>
-	
-		
-		
+
+
+
         <div>
-            <button class="registBtn" :disabled="!registFlag" @click="regist()" style="background: #F3F8FE;color: #387BFE;border-radius: 5px;font-weight: 600;margin-top: 30px;">
+
+          <el-checkbox v-model="privatepolic"><span style="color: red;font-weight:800">*</span>
+            <span style="font-weight:600;font-size: 4vw" > I agree with the Privacy Terms.</span> <br></el-checkbox>
+          <router-link style="font-size:3.4vw;padding-left: 6vw;text-decoration:underline;color: #4b4b4b" to="/privatepolic"> Please click here to view the Privacy Policy</router-link>
+
+         <!--注册按钮-->
+			    <el-button type="warning"
+			   	style="height: 40px;width:100%;margin-bottom:30px;border-radius: 20px;border:none;font-weight: 600;margin-top: 50px;"
+			   	@click.native.prevent="regist"  :disabled="!privatepolic">Register</el-button>
+
+
+
+            <!--<button class="registBtn" :disabled="!registFlag" @click="regist()" style="background: #F3F8FE;color: #387BFE;border-radius: 5px;font-weight: 600;margin-top: 30px;">
                 Register
-            </button>
+            </button>-->
         </div>
+
+
         <div class="gotoLogin">
-           <span style="color: #959595;"> Already hava an account? </span> <a href="javascript:void()" @click="gotoLogin" style="color: blue">Login</a>
+           <span style="color: #959595;"> Already have an account? </span> <a href="javascript:void()" @click="gotoLogin" style="color: blue">Login</a>
         </div>
 		<!-- <div class="gotoLogin">
-		 <span style="color: #959595;">Don't hava an account?</span>  <a href="javascript:void()" @click="gotoRegist" style="color: #568CE2;">Register</a>
+		 <span style="color: #959595;">Don't have an account?</span>  <a href="javascript:void()" @click="gotoRegist" style="color: #568CE2;">Register</a>
 		</div> -->
 		</el-form>
     </div>
@@ -82,11 +96,12 @@
         name: "bm_phone_regist",
         data(){
             return{
-				isShow:true,
-				isShow2:false,
-				isShow3:true,
-				isShow4:false,
-				aa:'65',
+				      isShow:true,
+				      isShow2:false,
+				      isShow3:true,
+				      isShow4:false,
+              privatepolic:false,
+				      aa:'65',
                 //用户输入信息
                 input_info:{
                     phone:"",
@@ -162,7 +177,7 @@
                 //判断手机号格式是否正确
                 // this.errorFlag.phone_err = !(/^1[3456789]\d\s\d{4}\s\d{4}$/.test(phone_num)) && !this.errorFlag.phone_empty;
                 if (len > 3 && len < 8) {
-                    value = value.replace(/^(\d{3})/g, '$1 ');
+                    //value = value.replace(/^(\d{3})/g, '$1 ');
                     if (!this.errorFlag.phone_empty && this.timeOut) {
                         //激活获取验证码按钮
                         this.getCodeDisabled = false;
@@ -170,7 +185,7 @@
                         this.getCodeDisabled = true;
                     }
                 } else if (len >= 8) {
-                    value = value.replace(/^(\d{3})(\d{4})/g, '$1 $2 ')  
+                    //value = value.replace(/^(\d{3})(\d{4})/g, '$1 $2 ')
                     if (!this.errorFlag.phone_empty && this.timeOut) {
                         //激活获取验证码按钮
                         this.getCodeDisabled = false;
@@ -181,15 +196,18 @@
                 this.input_info.phone = value;
             },
             hideTopAndFooter: function(){
-            this.$store.dispatch('app/hideTabbar');
-            this.$store.dispatch('app/hideToolbarMore'); 
-            this.$store.dispatch('app/hideToolbarBack'); 
+              this.$wx.setNavigationBarTitle({
+                title: 'Regist',
+                showLogo: false,
+                showMore: false,
+                showBack: true
+              })
             },
             chooseArea(){
-                
+
             },
             gotoLogin: function(){
-                this.$router.push({path: '/login'});
+                this.$router.go(-1)
             },
             focus(type){
                 if (type === "phoneNum"){
@@ -212,6 +230,11 @@
             getVerifyCode(){
                 let that = this;
                 let input_phone = this.input_info.phone.replace(/\s*/g,"");      //去除空格
+              if ( !/^\d{8}$/.test(input_phone) && !/^1(3|4|5|6|7|8|9)\d{9}$/.test(input_phone)) return this.$wx.showToast({
+                title: "Wrong cell phone number",
+                icon: "none"
+              }), !1;
+
                 var phone = this.cityCode + input_phone;
                 this.$http({
                   controller : 'index.send_sms',
@@ -258,9 +281,19 @@
             },
             /***************************************************注册****************************************************/
 
-            regist(){
+              regist(){
+
+                if(!this.privatepolic){
+                  this.$wx.showToast({
+                    title: 'You must agree to private polic to register',
+                    icon: "none"
+                  });
+                  return;
+                }
+
               var code = this.input_info.code;
-              var phone = this.input_info.phone;
+              let phone = this.input_info.phone.replace(/\s*/g,"");      //去除空格
+              var country = this.cityCode
               if(phone == ""){
                 alert("Please Input Phone!");
                 return;
@@ -271,12 +304,14 @@
               this.$http({
                 controller : 'index.reg_check_sms',
                 i: 3,
-                code: code
+                country: country,
+                code: code,
+                phone: phone
               }).then(response => {
                 console.log(response)
                 var result = response;
                 	var a = this.input_info.phone;
-           	      var str   =   a.replace(/\s+/g,""); 
+           	      var str   =   a.replace(/\s+/g,"");
                  	console.log(str);
                 if(result.code == 0){
                   this.$router.push({path: '/userInfo?memberId='+result.member_id+'&country='+this.cityCode+'&phone='+str});
@@ -299,26 +334,22 @@
 
 <style lang="scss">
 	input::-webkit-input-placeholder{
-	       font-size: 20px;
+	       font-size: 15px;
 	}
   $mainColor: #007cdc;
-  
+
   body{
   	background: #fff;
   }
-    
+
     .gotoLogin{
-		font-size: 18px;
+		font-size: 5vw;
 		text-align: center;
-        // width: 100%;
-        // height: 50px;
-        // text-align: center;
+
         position: absolute;
-		margin-top: 200px;
+		margin-top: 15vw;
 		margin-left: 17px;
-        // bottom: 0;
-        // left: 0;
-        // line-height: 50px;
+
     }
     .phoneregist{
         width: 80%;
@@ -351,7 +382,7 @@
         }
         //用户名、密码输入框
         .input_wrapper{
-          
+
             /*.codeInput{*/
             /*    display: inline;*/
             /*}*/
@@ -377,7 +408,7 @@
             border: none;
             outline: none;
             position: relative;
-            color: #2370e2;
+           /* color: #2370e2;*/
             border-radius: 1.2rem;
             padding-top: .42rem;
             padding-bottom: .42rem;
@@ -479,5 +510,5 @@
             }
         }
     }
-    
+
 </style>

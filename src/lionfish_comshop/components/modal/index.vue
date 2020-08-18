@@ -1,4 +1,4 @@
-<template>
+  <template>
   <div>
     <div @click.stop="handleClickMask" catchtouchmove="stopMove"
          :class="['i-as-mask', 'i-class-mask', (isShow ? 'i-as-mask-show':'')]"></div>
@@ -18,7 +18,11 @@
         default: !1
       },
       isShow: false,
+      maskClosable:{
+        default: true
+      },
       scrollUp:false
+
     },
     mounted: function() {
       this.isIpx = this.$app.globalData.isIpx
@@ -27,6 +31,7 @@
       stopMove: function() {
       },
       handleClickMask: function() {
+
         this.maskClosable && this.handleClickCancel()
       },
       handleClickCancel: function() {

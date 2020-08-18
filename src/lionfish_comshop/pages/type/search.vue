@@ -4,14 +4,14 @@
           <div class="search-box">
               <input autoFocus v-on:click="goResult" class="ipt" confirmType="搜索" placeholder="搜索商品" type="text">
               <div class="search-icon">
-                  <text class="iconfont icon-sousuo1"></text>
+                  <span class="iconfont icon-sousuo1"></span>
               </div>
           </div>
       </div>
       <div class="tag-wrap" v-if="wxSearchData.length>0">
           <div class="tag-title">
-              <text>搜索历史</text>
-              <text @click="clearHis" class="iconfont icon-shanchu1 icon-del"></text>
+              <span>搜索历史</span>
+              <span @click="clearHis" class="iconfont icon-shanchu1 icon-del"></span>
           </div>
           <div class="tag-list">
               <div @click="goResultName(item.name)" class="item" v-for="(item,index) in wxSearchData" :key="index">{{item.name}}</div>
@@ -98,7 +98,7 @@
             var t = {}, a = this;
             if (t.name = e, void 0 !== t && 0 != t.length) {
                 var s = this.$wx.getStorageSync("wxSearchHisKeys");
-                s ? JSON.stringify(s).indexOf(JSON.stringify(t)) < 0 && (4 < s.length && s.pop(), 
+                s ? JSON.stringify(s).indexOf(JSON.stringify(t)) < 0 && (4 < s.length && s.pop(),
                 s.unshift(t)) : (s = []).push(t), this.$wx.setStorage({
                     key: "wxSearchHisKeys",
                     data: s,

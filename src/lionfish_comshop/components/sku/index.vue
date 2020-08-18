@@ -262,7 +262,7 @@
               t.data.total && r.$emit('changeCartNum', t.data.total)
             }
             this.$wx.showToast({
-              title: '已加入购物车',
+              title: this.$t('cart.yijiarugouwuche'),
               image: '@/assets/images/addShopCart.png'
             })
           }
@@ -557,11 +557,12 @@
 
   .i-input-number-text {
     text-align: center;
-    height: 24px;
-    width: 33px;
-    font-size: 12px;
-    line-height: 24px;
+    width: 7vw;
+    font-size: 3.5vw;
+    line-height: 7vw;
     color: #495060;
     z-index: 0;
+    border: none;
+    outline: none;
   }
 </style>

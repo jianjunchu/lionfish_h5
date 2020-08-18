@@ -4,7 +4,7 @@
       <div class="left-arrow"></div>
     </div>
     <div class="vux-header-left-logo" v-if="getShowToolbarLogo"><a class="vux-header-back"></a>
-      <img src="@/assets/images/logo.png" height="40px"/>
+      <img src="@/assets/images/toolbar_logo.png" height="32px"/>
     </div>
     <h2 class="vux-header-title"><span>{{getToolbarTitle}}</span></h2>
     <div class="vux-header-right" v-if="getShowToSolbarMore"><a class="vux-header-more"></a></div>
@@ -76,7 +76,7 @@
 
   .vux-header .vux-header-left-logo {
     position: absolute;
-    top: 6px;
+    top: 10px;
     display: block;
     font-size: 14px;
     color: #fff;

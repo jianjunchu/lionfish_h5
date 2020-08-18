@@ -105,6 +105,7 @@
 
     methods: {
       switchTab(e){
+        e = e || this.currentIdx
         const t = this.tabbar
         for (var a in t.list) t.list[a].selected = !1, a == e && (t.list[a].selected = !0)
         this.tabbar = t
@@ -113,6 +114,7 @@
       getTabbar() {
 
         const p = this
+
 
         this.$http({
           controller: 'index.get_tabbar'
@@ -171,27 +173,27 @@
             }
           })
         } else if (3 == a) {
-          this.$wx.redirectTo({
+          this.$wx.navigateTo({
             url: '/lionfish_comshop/moduleA/pin/index'
           })
         } else if (4 == a) {
-          this.$wx.redirectTo({
+          this.$wx.navigateTo({
             url: '/lionfish_comshop/moduleA/menu/index'
           })
         } else if (5 == a) {
-          this.$wx.redirectTo({
+          this.$wx.navigateTo({
             url: '/lionfish_comshop/moduleA/video/index'
           })
         } else if (6 == a) {
           if (this.needAuth) {
             this.triggerEvent('authModal', !0)
           } else {
-            this.$wx.redirectTo({
+            this.$wx.navigateTo({
               url: '/lionfish_comshop/moduleA/solitaire/index'
             })
           }
         } else if (7 == a) {
-          this.$wx.redirectTo({
+          this.$wx.navigateTo({
             url: '/lionfish_comshop/moduleB/live/index'
           })
         }

@@ -1,5 +1,5 @@
 <template>
-  <div class="['i-class', 'i-load-more', (loading?'':'i-load-more-line')]">
+  <div :class="['i-class', 'i-load-more', (loading?'':'i-load-more-line')]">
     <div class="i-load-more-loading" v-if="loading"></div>
     <div class="i-load-more-tip">
       <div v-if="tip!==''">{{tip}}</div>
@@ -29,23 +29,23 @@
 <style less>
   .i-load-more {
     width: 65%;
-    font-size: 12px;
+    font-size: 2.4vw;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 30px 0;
+    padding: 6vw 0;
     margin: 0 auto;
   }
 
   .i-load-more-loading {
     display: inline-block;
-    margin-right: 12px;
+    margin-right: 2.4vw;
     vertical-align: middle;
-    width: 14px;
-    height: 14px;
+    width: 3vw;
+    height: 3vw;
     background: 0 0;
     border-radius: 50%;
-    border: 2px solid #e9eaec;
+    border: 0.4vw solid #e9eaec;
     border-color: #e9eaec #e9eaec #e9eaec #2d8cf0;
     animation: btn-spin 0.6s linear;
     animation-iteration-count: infinite;

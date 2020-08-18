@@ -3,7 +3,7 @@ import _this from '../../main.js'
 
 function addToCart(o, a) {
   flag && (flag = !1, _this.$wx.hideLoading(), _this.$wx.showToast({
-    title: '已加入购物车',
+    title: this.$t('cart.yijiarugouwuche'),
     image: '@/assets/images/addShopCart.png'
   }), flag = !0, _this.$app.globalData.cartNum += o.goodsNum, a && a(), flag = !0, a && a())
 }

@@ -5,7 +5,7 @@ import Cookies from 'js-cookie'
 import vantEnUS from 'vant/lib/locale/lang/en-US'
 import vantZhCN from 'vant/lib/locale/lang/zh-CN'
 import elementEnLocale from 'element-ui/lib/locale/lang/en' // element-ui lang
-import elementZhLocale from 'element-ui/lib/locale/lang/zh-CN'// element-ui lang
+import elementZhLocale from 'element-ui/lib/locale/lang/zh-CN' // element-ui lang
 import enLocale from './en'
 import zhLocale from './zh'
 

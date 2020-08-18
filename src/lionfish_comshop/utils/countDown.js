@@ -13,14 +13,14 @@ const exp = {
   initCountDown: function(a) {
     var e
     var r = this
-    a - new Date().getTime() <= 0 ? this.setData((t(e = {}, 'countDownMap.' + a, {
+    /*a - new Date().getTime() <= 0 ? this.setData((t(e = {}, 'countDownMap.' + a, {
       day: '0',
       second: '00',
       minute: '00',
       hour: '00'
     }), t(e, 'actEndMap.' + a, !0), e)) : this.$data.timer[a] = this.$getApp().globalData.timer.add(function() {
       r.interval(a)
-    })
+    })*/
   },
   interval: function(t) {
     var a = {}

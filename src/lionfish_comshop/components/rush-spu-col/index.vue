@@ -24,7 +24,7 @@
         <div class="spu-play" v-if="spuItem.is_video">
           <img class="img" src="@/assets/images/play.png"/>
         </div>
-        <div class="act-end" v-if="spuItem.spuCanBuyNum==0">已抢光</div>
+        <div class="act-end" v-if="spuItem.spuCanBuyNum==0">{{$t('home.yiqiangguang')}}</div>
         <div class="title">{{spuItem.spuName}}</div>
         <i-vip-price class="vip" :price="spuItem.card_price"
                      v-if="is_open_vipcard_buy==1&&spuItem.is_take_vipcard==1"></i-vip-price>
@@ -118,6 +118,7 @@
     },
     data(){
       return{
+        stopClick:false,
         disabled: !1,
         placeholdeImg: "",
         number: 0
@@ -214,8 +215,8 @@
             } else status.indexListCarCount(u, t.cur_count), s.$emit("changeCartNum", t.total),
               s.number = t.cur_count
               wx.showToast({
-              title: "已加入购物车",
-              image: "../../images/addShopCart.png"
+              title: "Added to Cart",
+              image: "@/assets/images/addShopCart.png"
             });
           });
         } else app.util.request({
@@ -248,7 +249,7 @@
   }
 </script>
 
-<style>
+<style scoped>
 
   .new-comers-item, .w250 {
     position: relative;
@@ -350,8 +351,8 @@
     position: absolute;
     right: 1vw;
     top: 2vw;
-    width: 7vw;
-    height: 8vw;
+    width: 5.4vw;
+    height: 6.2vw;
     z-index: 1;
     color: #fff;
     text-align: center;
@@ -361,15 +362,15 @@
     position: absolute;
     left: 0;
     top: 0;
-    width: 7vw;
-    height: 8vw;
+    width: 5.4vw;
+    height: 6.2vw;
     z-index: 0;
   }
 
   .spu .item-tag .tag-name {
     position: relative;
     padding-top: 0.5vw;
-    font-size: 0.5vw;
+    font-size: 2vw;
     line-height: 1;
     font-weight: 600;
     z-index: 1;

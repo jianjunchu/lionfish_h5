@@ -4,12 +4,12 @@
 
       <div class="title-container">
         <!--<h3 class="title">Hzmart Login</h3>-->
-        <div style="width: 100px;height: 100px;margin: 0 auto;margin-bottom: 30px;">
+        <div style="width: 30vw;height: 30vw;margin: 0 auto;margin-bottom: 30px;">
         <img src="../../../assets/images/logo.png" style="width: 100%;height: 100%;" />
         </div>
       </div>
-      
-      
+
+
 <!--密码登陆-->
    <div v-show="isShowLogin">
 	  <div style="height: 50px;">
@@ -31,12 +31,12 @@
 	  <div style="height: 50px;">
        <div style="width: 100%;height:25px;border-bottom:1px solid #ccc;font-size: 16px;color: #939393;margin-top: 5px;" @click="click_btn2()" v-show="this.isShow3">Password</div>
 	   <div style="width: 100%;height:28px;border-bottom:1px solid #3D7BD0;font-size: 16px;color: #3D7BD0;margin-top: 10px;" v-show="this.isShow4">
-	   <input style="width: 90%;height: 100%;border:none;outline: none;" v-model="loginForm.password"/>
+	   <input type="password" style="width: 90%;height: 100%;border:none;outline: none;" v-model="loginForm.password"/>
 	   </div>
 	   </div>
     </div>
-	
-	
+
+
 	   <!--验证码登陆-->
    <div v-show="isShowCode">
    	<div style="height: 50px;">
@@ -51,32 +51,33 @@
 	    </el-select>
 	  <span style="margin-top: 12220px;">|</span>
 	  </span>
-	  <input style="width: 60%;height: 100%;border:none;outline: none;height: 40px;" v-model="input_phone"/>
+	  <input style="width: 60%;height: 100%;border:none;outline: none;height: 40px;" v-model="loginForm.username"/>
 	  </div>
 	  </div>
 
 
 	 	<div style="height: 50px;">
-		 <div style="width: 100%;height:28px;border-bottom:1px solid #ccc;font-size: 16px;color: #3D7BD0;" >
+		 <div style="width: 100%;height:28px;border-bottom:1px solid #ccc;font-size: 12px;color: #3D7BD0;" >
 		 <input style="width: 70%;height: 100%;border:none;outline: none;background: none;" v-model="logoCode" id="input_code"  @blur="blur('code')" @keyup="activeregist()" ref="code" placeholder="Code"/>
 		 <div style="float: right;background: #FDEACA;border-radius: 20px;color: #FDB56D;font-size: 13px;padding:5px;margin-bottom: 10px;" @click="getVerifyCode()" ref="getCode" :disabled="getCodeDisabled">{{getCodeBtnText}}</div>
 		 </div>
 		 </div>
-		 
-	 
-	 
+
+
+
    </div>
-   
-   <p style="color: #0076FF;font-size: 16px;" v-show="isShowLogin" @click="yanzhengma">Log in with OTP</p>
-   <p style="color: #0076FF;font-size: 16px;" v-show="isShowCode" @click="mima">Log in with password</p>
-   
-	
+
+   <span style="color: #0076FF;font-size: 16px;" v-show="isShowLogin" @click="yanzhengma">Login with OTP</span>
+
+   <span style="color: #0076FF;font-size: 16px;" v-show="isShowCode" @click="mima">Login with password</span>
+
+
 	<!--密码登录按钮-->
-   <el-button v-show="isShowLogin"  :loading="loading" type="primary" style="height: 40px;width:100%;margin-bottom:30px;border-radius: 20px;background: #FDEACA;border:none;color: #F7AC39;font-weight: 600;margin-top: 50px;" @click.native.prevent="handleLogin">Log in</el-button>
+   <el-button v-show="isShowLogin"  :loading="loading" type="primary" style="height: 40px;width:100%;margin-bottom:30px;border-radius: 20px;background: #FDEACA;border:none;color: #F7AC39;font-weight: 600;margin-top: 50px;" @click.native.prevent="handleLogin">Login</el-button>
 
 
 <!--7验证码登陆按钮-->
-   <el-button v-show="isShowCode" :loading="loading" type="primary" style="height: 40px;width:100%;margin-bottom:30px;border-radius: 20px;background: #FDEACA;border:none;color: #F7AC39;font-weight: 600;margin-top: 50px;" @click.native.prevent="handleLogin2">Log in</el-button>
+   <el-button v-show="isShowCode" :loading="loading" type="primary" style="height: 40px;width:100%;margin-bottom:30px;border-radius: 20px;background: #FDEACA;border:none;color: #F7AC39;font-weight: 600;margin-top: 50px;" @click.native.prevent="handleLogin2">Login</el-button>
 
 
 
@@ -85,7 +86,7 @@
 
     </el-form>
     <div class="gotoRegist">
-     <span style="color: #959595;">Don't hava an account?</span>  <a href="javascript:void()" @click="gotoRegist" style="color: #568CE2;">Register</a>
+     <span style="color: #959595;">Don't have an account? Click </span>  <a href="javascript:void()" @click="gotoRegist" style="color: #568CE2;">here</a> <span style="color: #959595;"> to Register</span>
     </div>
   </div>
 </template>
@@ -94,9 +95,10 @@
 import GlobalMixin from '../../mixin/globalMixin.js'
 import { setToken } from '../../utils/auth.js'
 
-var util = require("../../utils"),
-	status = require("../../utils"),
-	wcache = require("../../utils/wcache.js")
+import util from "../../utils"
+import	status  from "../../utils"
+
+var	wcache = require("../../utils/wcache.js")
 export default {
 	name: 'Login',
 	data() {
@@ -179,12 +181,19 @@ export default {
 		   /**************************************************************获取验证码**************************************************************/
             getVerifyCode(){
                 let that = this;
-                let input_phone = this.loginForm.phone.replace(/\s*/g,"");      //去除空格
+         console.log(this.loginForm)
+                let input_phone = this.loginForm.username.replace(/\s*/g,"");      //去除空格
+
+
+
+                if(input_phone == '' || input_phone == undefined || input_phone == null){
+                    return false;
+                }
                 var phone = this.country + input_phone;
                 this.$http({
                   controller : 'index.send_sms_login',
                   country: this.country,
-                  phone: this.input_phone,
+                  phone: input_phone,
                   i: 3
                 }).then(response => {
                   console.log(response,",,,,,")
@@ -257,11 +266,18 @@ export default {
 		},
 		//密码登陆
 		handleLogin() {
+       var i = this;
 			if(this.loginForm.username == '') {
-				alert("请填写登陆账号")
+        i.$wx.showToast({
+          title: "Please fill in the login account.",
+          icon: "none"
+        });
 				return
 			} else if(this.loginForm.password == '') {
-				alert("请填写密码")
+        i.$wx.showToast({
+          title: "Please fill in the password.",
+          icon: "none"
+        });
 				return
 			}
 			this.$http({
@@ -273,39 +289,63 @@ export default {
 				console.log(response)
 				var result = response;
 				if(result != null && result.member_id != -1) {
-					alert('登录成功');
+          i.$wx.showToast({
+            title: "Login Successful.",
+            icon: "none"
+          });
 					this.$wx.setStorageSync('token', response.token)
-					setToken(response.token);
-					this.$router.push({
-						path: '/lionfish_comshop/pages/index/index'
-					});
+
+          util.getMemberInfo({success:function(e) {
+              i.$wx.setStorageSync('userInfo',e.data)
+              if(e.data.community){
+                  i.$wx.setStorageSync('community',e.data.community)
+              }
+              i.$router.go(-1)
+            },
+            error:function() {
+
+            }
+          });
+
+
 				} else {
-					alert("登录失败");
+
+					alert("Login failed, please try again");
 				}
 			})
 		},
 			//验证码登陆
 		handleLogin2() {
+      var i = this;
 			this.$http({
 				controller: 'user.otplogin_do',
 				i: 3,
 //				user: this.loginForm.username,
 //				passwd: this.loginForm.password
         country:this.country,
-        user:this.input_phone,
+        user: this.loginForm.username,
         code:this.logoCode
 			}).then(response => {
 				console.log(response)
 				var result = response;
 				if(result != null && result.member_id != -1) {
-					alert('登录成功');
-					this.$wx.setStorageSync('token', response.token)
-					setToken(response.token);
-					this.$router.push({
-						path: '/lionfish_comshop/pages/index/index'
-					});
+					alert('Login Successful');
+          i.$wx.setStorageSync('token', response.token)
+          util.getMemberInfo({success:function(e) {
+              i.$wx.setStorageSync('userInfo',e.data)
+              if(e.data.community){
+                i.$wx.setStorageSync('community',e.data.community)
+              }
+              i.$router.go(-1)
+            },
+            error:function() {
+
+            }
+          });
+
+
 				} else {
-					alert("登录失败");
+					alert("Login Failed");
 				}
 			})
 		},
@@ -329,7 +369,7 @@ export default {
 }</script>
 
 <style lang="scss">
-	
+
 	       //弹窗
         .toast {
             position: fixed;
@@ -348,7 +388,7 @@ export default {
             max-width: 150px;
         }
 	input::-webkit-input-placeholder {
-	font-size: 20px;
+	font-size: 15px;
 }
 
 
@@ -370,7 +410,7 @@ $cursor: rgba(122, 116, 116, 0.548);
 /* reset element-ui css */
 
 .login-container {
-	
+
 	.el-input {
 		display: inline-block;
 		height: 47px;
@@ -392,14 +432,11 @@ $cursor: rgba(122, 116, 116, 0.548);
 	}
 	.gotoRegist {
 		width: 100%;
-		// height: 50px;
 		text-align: center;
-		// position: absolute;
 		bottom: 0px;
 		left: 0;
-		margin-top: 70px;
-		font-size: 16px;
-		// line-height: 50px;
+		margin-top: 10vw;
+		font-size: 4vw;
 	}
 	.el-form-item {
 		border: 1px solid rgba(255, 255, 255, 0.1);
@@ -413,7 +450,7 @@ $cursor: rgba(122, 116, 116, 0.548);
 $dark_gray:#889aa4;
 $light_gray:rgb(17, 123, 245);
 .login-container {
-	min-height: 94%;
+	min-height: 100%;
 	width: 100%;
 	background-color: $bg;
 	overflow: hidden;
@@ -421,7 +458,7 @@ $light_gray:rgb(17, 123, 245);
 		position: relative;
 		width: 520px;
 		max-width: 100%;
-		padding: 100px 35px 0;
+		padding: 20vw 10vw 0;
 		margin: 0 auto;
 		overflow: hidden;
 	}
@@ -435,7 +472,7 @@ $light_gray:rgb(17, 123, 245);
 			}
 		}
 	}
-	
+
 	.svg-container {
 		padding: 6px 5px 6px 15px;
 		color: $dark_gray;

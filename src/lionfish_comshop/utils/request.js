@@ -6,10 +6,9 @@ import { getToken } from '@/lionfish_comshop/utils/auth'
 const service = axios.create({
   baseURL: process.env.VUE_APP_BASE_API, // url = base url + request url
   // withCredentials: true, // send cookies when cross-domain requests
-  timeout: 5000 // request timeout
+  timeout: 17000 // request timeout
 
 })
-
 
 // request interceptor
 service.interceptors.request.use(
@@ -26,15 +25,7 @@ service.interceptors.request.use(
       do: 'index',
       m: 'lionfish_comshop',
       sign: '60dcd9b5925c119972907bbf22255441',
-      token: '78584c3f5c573fac6a47d3cb98ec7e04',
       ...config.params
-    }
-
-    if (store.getters.token) {
-      // let each request carry token
-      // ['X-Token'] is a custom headers key
-      // please modify it according to the actual situation
-      config.headers['X-Token'] = getToken()
     }
     return config
   },

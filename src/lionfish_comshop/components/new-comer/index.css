@@ -24,12 +24,16 @@
 }
 
 .new-comers-scroll {
-  max-height: 310px;
+  width: 94vw;
+  height: auto;
+  overflow-y: hidden;
+  overflow-x: auto;
 }
 
 .new-comers-wrap {
   position: relative;
   display: flex;
+  height: auto;
   flex-direction: row;
   flex-wrap: nowrap;
 }
@@ -37,8 +41,8 @@
 .new-comers-item {
   width: 31vw;
   box-sizing: border-box;
-  padding: 3vw;
-  font-size: 2vw;
+  padding: 1vw;
+  font-size: 3vw;
 }
 
 .new-comers-item .new-img {
@@ -83,16 +87,16 @@
 
 .new-comers-item .act-end {
   position: absolute;
-  height: 30px;
-  border-radius: 5px;
+  height: 8vw;
+  border-radius: 1vw;
   background: rgba(0, 0, 0, 0.5);
   color: #fff;
-  font-size: 14px;
+  font-size: 1.8vw;
   text-align: center;
-  line-height: 30px;
+  line-height: 8vw;
   left: 50%;
   top: 40px;
-  padding: 0 6px;
+  padding: 0 1vw;
   transform: translateX(-50%);
 }
 

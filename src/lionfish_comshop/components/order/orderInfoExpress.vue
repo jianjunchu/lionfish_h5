@@ -1,70 +1,74 @@
 <template>
   <i-card showModal="true">
     <div slot="header">
-      <div class="header">收货信息</div>
+      <div class="header">{{$t('order.shouhuoxinxi')}}</div>
     </div>
     <div slot="content">
       <div class="content-wrap">
         <div class="item">
-          <div class="title">收货人</div>
+          <div class="title">{{$t('order.shouhuoren1')}}</div>
           <div class="detail">{{order.order_info.shipping_name}} {{hideInfo?tel:order.order_info.shipping_tel}}</div>
         </div>
         <div class="item" v-if="order.order_info.name&&showNickname">
-          <div class="title">昵称</div>
+          <div class="title">{{$t('order.nicheng')}}</div>
           <div class="detail">{{order.order_info.name}}</div>
         </div>
         <div class="item" v-if="order.order_info.delivery=='express'">
-          <div class="title">收货地址</div>
+          <div class="title">{{$t('order.shouhuodizhi')}}</div>
           <div class="detail">
             {{order.shipping_province.name}}{{order.shipping_city.name}}{{order.shipping_country.name}}{{order.order_info.shipping_address}}
           </div>
         </div>
         <div class="item" v-else>
-          <div class="title">收货地址</div>
+          <div class="title">{{$t('order.shouhuodizhi')}}</div>
           <div class="detail">{{order.order_info.tuan_send_address}}</div>
         </div>
         <div v-if="order.order_info.delivery=='express'">
           <div class="item" v-if="order.order_info.dispatchname">
-            <div class="title">配送方式</div>
+            <div class="title">{{$t('order.peisongfangshi')}}</div>
             <div class="detail">{{groupInfo.delivery_express_name}}({{order.order_info.dispatchname}})
               <div bindtap="goExpress" class="phone">
-                <span>查看物流</span>
+                <span>{{$t('order.chakanwuliu')}}</span>
               </div>
             </div>
           </div>
           <div class="item" v-if="order.order_info.shipping_no!=0">
-            <div class="title">快递单号</div>
+            <div class="title">{{$t('order.kuaididanhao')}}</div>
             <div class="detail">{{order.order_info.shipping_no}}</div>
           </div>
         </div>
         <div class="item" v-else>
-          <div class="title">配送方式</div>
+          <div class="title">{{$t('order.peisongfangshi')}}</div>
           <div class="detail">{{groupInfo.delivery_tuanzshipping_name}}</div>
         </div>
 
         <div class="item" v-if="order.order_info.type=='normal'">
-          <div class="title">{{groupInfo.owner_name}}信息</div>
+          <div class="title">{{groupInfo.owner_name}}</div>
           <div class="detail">
             <span>{{order.order_info.ziti_name}}</span>
-            <div bindtap="callTelphone" class="phone" :data-phone="order.order_info.ziti_mobile"
+
+            <div  class="phone" :data-url="order.order_info.head_whatsapplink" :data-phone="order.order_info.ziti_mobile"
                   v-if="hidePhone==0">
+              <a :href="order.order_info.head_whatsapplink">
               <img class="icon-phone" src="@/assets/images/phone2.png"/>
-              <span>联系{{groupInfo.owner_name}}</span>
+              <span> Contact &nbsp;{{groupInfo.owner_name}}</span>
+              </a>
             </div>
+
           </div>
         </div>
       </div>
     </div>
     <div slot="footer">
       <div class="footer" v-if="order.order_info.type=='integral'">
-        <div>共{{order.goods_count}}件商品 实付：</div>
+        <div>{{$t('order.gong')}}{{order.goods_count}}{{$t('order.jianshangpin')}} $nbsp;{{$t('order.shifu')}}：</div>
         <div class="money">
           <div v-if="order.order_info.shipping_fare>0">${{order.order_info.shipping_fare}} +</div>
           {{order.order_info.score}}积分
         </div>
       </div>
       <div class="footer" v-else>
-        共{{order.goods_count}}件商品 小计：
+        {{$t('order.gong')}}{{order.goods_count}}{{$t('order.jianshangpin')}} {{$t('order.xiaoji')}}：
         <div class="money">
           <span>$</span>
           {{order.order_info.total}}
@@ -96,7 +100,7 @@
         default: {
           group_name: "社区",
           owner_name: "团长",
-          diyshipname: "快递费",
+          diyshipname: "Freight",
           delivery_ziti_name: "到点自提",
           delivery_tuanzshipping_name: "团长配送",
           delivery_express_name: "快递配送"
@@ -123,12 +127,16 @@
     },
     callTelphone: function(e) {
       var i = this;
-      this.isCalling || (this.isCalling = !0, wx.makePhoneCall({
+      var url = e.currentTarget.dataset.url;
+
+      window.location.href=url;
+
+      /*this.isCalling || (this.isCalling = !0, wx.makePhoneCall({
         phoneNumber: e.currentTarget.dataset.phone,
         complete: function() {
           i.data.isCalling = !1;
         }
-      }));
+      }));*/
     },
     goExpress: function() {
       var e = this.order.order_info.order_id;

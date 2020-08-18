@@ -48,7 +48,7 @@
             </div>
           </div>
           <div class="item">
-            <div class="title">满金额免{{diyshipname}}</div>
+            <div class="title">{{$('order.manjinemian1')}}{{diyshipname}}{{$t('order.manjinemian2')}}</div>
             <div class="detail">
               - ${{orderInfo.fare_shipping_free}}
             </div>
@@ -82,26 +82,26 @@
           <div class="title">{{$t('order.shangpinjine')}}</div>
           <div class="detail">
             +
-            <div v-if="orderInfo.type!='integral'">$</div>
+            <span v-if="orderInfo.type!='integral'">$</span>
             {{goodsTotal}}
-            <div v-if="orderInfo.type=='integral'">积分</div>
+            <span v-if="orderInfo.type=='integral'">积分</span>
           </div>
         </div>
       </div>
     </div>
     <div slot="footer">
       <div class="footer" v-if="orderInfo.type=='integral'">
-        <div>实付：</div>
+        <div>To Pay：</div>
         <div class="money">
-          <div v-if="orderInfo.shipping_fare>0">${{orderInfo.shipping_fare}} +</div>
+          <span v-if="orderInfo.shipping_fare>0">${{orderInfo.shipping_fare}} +</span>
           {{orderInfo.score}}积分
         </div>
       </div>
       <div class="footer" v-else>
-        <div>合计：</div>
-        <div class="money">
+        <div>Total：</div>
+        <span class="money">
           ${{orderInfo.total}}
-        </div>
+        </span>
       </div>
     </div>
   </i-card>

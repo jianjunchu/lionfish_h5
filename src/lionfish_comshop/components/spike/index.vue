@@ -2,19 +2,19 @@
   <div class="new-comers" v-if="list && list.length">
     <div class="new-comers-title">
         <span class="leftBorder" :style="{'border-color':skin.color}"></span>
-        限时秒杀
+        {{$t('home.xianshimiaosha')}}
       <i-count-down :clearTimer="clearTimer" countdownClass="count-down" itemClass="item-time" showDay="true"
                     :target="rushEndTime" v-if="rushEndTime">
-        <span class="count-down-left-text">仅剩</span>
+        <span class="count-down-left-text">{{$t('home.jinsheng')}}</span>
       </i-count-down>
     </div>
-    <div bindscrolltolower="getMore" class="new-comers-scroll">
+    <div ref="Box" @scroll="scrollEvent" class="new-comers-scroll">
       <div class="new-comers-wrap">
-        <i-router-link routerClass="new-comers-item" :url="'/lionfish_comshop/pages/goods/goodsDetail?id='+item.actId"
+        <router-link class="new-comers-item" :to="'/lionfish_comshop/pages/goods/goodsDetail?id='+item.actId"
                        v-for="(item , index) in list" :key="item.id">
           <i-img defaultImage="@/assets/images/placeholder-refund.png" height="200" iClass="new-img"
                  :loadImage="item.skuImage" width="180"></i-img>
-          <div class="act-end" v-if="item.spuCanBuyNum==0">已抢光</div>
+          <div class="act-end" v-if="item.spuCanBuyNum==0">{{$t('home.yiqiangguang')}}</div>
           <div class="title">{{item.spuName}}</div>
           <div class="new-bot">
             <div class="price">${{item.actPrice[0]}}.{{item.actPrice[1]}}</div>
@@ -25,7 +25,7 @@
               <i-addcart iClass="img"></i-addcart>
             </i-button>
           </div>
-        </i-router-link>
+        </router-link>
       </div>
     </div>
   </div>
@@ -98,6 +98,15 @@
           })
         }
       },
+      scrollEvent () {
+        let a = this.$refs.Box.scrollLeft
+        let b = this.$refs.Box.scrollWidth
+        let c = this.$refs.Box.scrollTop
+        console.log('滚动条'+a)
+        console.log('可视区'+b)
+        console.log('距离顶部'+c)
+
+      },
       openSku: function(e) {
 
         this.disabled = !1
@@ -130,7 +139,7 @@
   }
 </script>
 
-<style>
+<style scoped>
   .new-comers-title {
     display: flex;
     justify-content: space-between;

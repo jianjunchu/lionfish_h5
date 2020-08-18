@@ -19,25 +19,26 @@
             </select>
           </div>
           <div class="search">
-            <!--<icon class="icon-search" size="14" type="search"></icon>-->
+            <sapn class="iconfont icon-sousuo1 icon-search" size="14" type="search"></sapn>
             <!--<input bindconfirm="searchByKey" confirmType="done" placeholder="请输入关键词" type="span" :value="keyword"></input>-->
-            <input @keyup.enter="searchByKey"  placeholder="请输入关键词"  v-model="keyword"></input>
+            <input @keyup.enter="searchByKey"  placeholder="Input Keywords"  v-model="keyword"></input>
           </div>
         </div>
       </div>
-      <div class="content-list">
+      <!--<div class="content-list">-->
+      <van-list  @load="onReachBottom" class="content-list">
         <div class="noRecordCon" v-if="order.length<=0">
           <img class="noRecordImg" src="@/assets/images/noRecord.png"></img>
-          <div class="noRecord">您还没有相关的订单～</div>
+          <div class="noRecord">No Orders～</div>
           <a hoverClass="none" openType="switchTab" href="#/lionfish_comshop/pages/index/index">
-            <div class="goIndex">去购物</div>
+            <div class="goIndex">To Buy</div>
           </a>
         </div>
         <div v-else>
           <div class="item" v-for="(item,idx) in order" :key="item.order_id">
             <div class=""  v-for="(goods,idx) in item.goods_list" :key="goods.order_goods_id">
               <div class="orderNum">
-                <span>团单日期：{{item.createTime}}</span>
+                <span>Member Order Date：{{item.createTime}}</span>
                 <span :class="[(item.order_status_id==11?'black':''), 'statusName']">{{item.status_name}}</span>
               </div>
               <div class="spu">
@@ -47,25 +48,25 @@
                     <span>{{goods.name}}</span>
                   </div>
                   <div class="tips">
-                    <span>商品数量：{{goods.quantity}}</span>
-                    <span class="last" v-if="goods.option_str!=''">规格：{{goods.option_str}}</span>
+                    <span>Quantity：{{goods.quantity}}</span>
+                    <span class="last" v-if="goods.option_str!=''">Specification：{{goods.option_str}}</span>
                   </div>
                   <div class="tips">
-                    <span>商品金额：${{goods.total}}</span>
+                    <span>Amount：${{goods.total}}</span>
                   </div>
                   <div class="tips i-flex i-flex-spb">
-                    <div>有效金额: <span class="red">${{goods.order_jishu}}</span>
+                    <div>Valid Amount: <span class="red">${{goods.order_jishu}}</span>
                     </div>
-                    <div v-if="goods.fen_type==1">佣金固定金额: <span class="red">{{goods.fen_gumoney}}</span>
+                    <div v-if="goods.fen_type==1">Fixed Commission: <span class="red">{{goods.fen_gumoney}}</span>
                     </div>
-                    <div v-if="goods.fen_type==0">佣金比例: <span class="red">{{goods.fen_bili}}%</span>
+                    <div v-if="goods.fen_type==0">Commssion Rate: <span class="red">{{goods.fen_bili}}%</span>
                     </div>
                   </div>
                   <div class="tips i-flex i-flex-spb">
-                    <div>团长配送费: <span class="red">${{goods.head_shipping_fare||0}}</span>
+                    <div>Host Freight: <span class="red">${{goods.head_shipping_fare||0}}</span>
                     </div>
                     <div @click="handleTipDialog" :data-type="goods.fen_type==1">
-                      实际佣金: <span class="red">${{goods.commision}}</span>
+                      Real Commission: <span class="red">${{goods.commision}}</span>
                       <span class="iconfont icon-shuoming text-dark fsz-28" style="margin-left:5px;"></span>
                     </div>
                   </div>
@@ -81,22 +82,23 @@
               </div>
             </div>
             <div class="song_button">
-              <div @click="callPhone" class="goods-sign-btn" :data-phone="item.shipping_tel">
-                <img src="@/assets/images/phone.png" /> <span style="font-size:medium">{{item.shipping_name}}</span>
+              <div @click="callPhone" class="goods-sign-btn" :data-phone="item.shipping_tel" >
+                <img src="@/assets/images/phone.png" /> <span >{{item.shipping_name}}</span>
               </div>
               <div class="song_button_item">
                 <div @click="sign_one" class="goods-sign-btn" :data-order_id="item.order_id" v-if="currentTab==2">
-                  <span style="font-size:medium">确认签收</span>
+                  <span >Confirm Received</span>
                 </div>
                 <div @click="goOrderDetail" class="goods-sign-btn gray" :data-order_id="item.order_id">
-                  <span style="font-size:medium">查看详情</span>
+                  <span >Detail</span>
                 </div>
               </div>
             </div>
           </div>
           <i-loadMore :tip="tip" v-if="!isHideLoadMore"></i-loadMore>
         </div>
-      </div>
+      <!--</div>-->
+      </van-list>
     </div>
     <i-modal scrollUp="false" :visible="showTipDialog">
       <div class="rule-modal bg-f w90p rounded">
@@ -162,19 +164,19 @@
         currentTab: 0,
         pageSize: 10,
         navList: [ {
-          name: "全部",
+          name: this.$t('common.quanbu'),
           id: "0"
         }, {
-          name: "待配送",
+          name: this.$t('common.daipeisong'),
           id: "1"
         }, {
-          name: "待签收",
+          name: this.$t('common.daiqianshou'),
           id: "2"
         }, {
-          name: "待提货",
+          name: this.$t('common.daitihuo'),
           id: "3"
         }, {
-          name: "已完成",
+          name: this.$t('common.yiwancheng'),
           id: "4"
         } ],
         loadText: "",
@@ -183,31 +185,31 @@
         page: 1,
         hide_tip: !0,
         order: [],
-        tip: "正在加载",
+        tip: "Loading",
         searchfield: [ {
           field: "ordersn",
-          name: "订单号"
+          name: "Order NO."
         }, {
           field: "member",
-          name: "会员昵称"
+          name: "Member"
         }, {
           field: "address",
-          name: "配送联系人"
+          name: "Contact"
         }, {
           field: "mobile",
-          name: "下单手机号"
+          name: "Mobile"
         }, {
           field: "location",
-          name: "配送地址"
+          name: "Address"
         }, {
           field: "goodstitle",
-          name: "商品标题"
+          name: "Product"
         } ],
         fieldIdx: 'ordersn',
         value:'',
         groupInfo: {
           group_name: "社区",
-          owner_name: "团长"
+          owner_name: "Host"
         },
         searchOBj: {},
         open_aftersale: 0,
@@ -262,10 +264,13 @@
 
       },
       callPhone: function(e) {
+
         var t = e.currentTarget.dataset.phone;
-        t && this.$wx.makePhoneCall({
-          phoneNumber: t
-        });
+//        t && this.$wx.makePhoneCall({
+//          phoneNumber: t
+//        });
+        var url = "tel:"+t;
+        window.location.href = url;
       },
       switchNav: function(e) {
         if (this.currentTab === 1 * e.currentTarget.dataset.id) return !1;
@@ -344,25 +349,26 @@
       sign_one: function(e) {
         var n = this, o = e.currentTarget.dataset.order_id, t = this.$wx.getStorageSync("token");
         this.$wx.showModal({
-          title: "提示",
-          content: "确认提货",
+          title: n.$t('cart.tishi'),
+          content: n.$t('order.querentihuo'),
           confirmColor: "#F75451",
           success: function(e) {
-            e.confirm && this.$http({
-
+            if(e.confirm){
+              n.$http({
                 controller: "order.sign_dan_order",
                 token: t,
                 order_id: o
               }).then(e=> {
-                this.$wx.showToast({
-                  title: "签收成功",
+                n.$wx.showToast({
+                  title: "Success",
                   duration: 1e3
                 });
                 var t = n.order, a = [];
                 for (var r in t) t[r].order_id != o && a.push(t[r]);
                 n.order= a;
 
-            });
+              });
+            }
           }
         });
       },
@@ -383,7 +389,402 @@
       }
     }
   }
-</script>
-<style>
-  @import "groupList.less";
+</script >
+<style   scoped>
+  .fixed-top {
+    width: 100%;
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 10;
+  }
+
+  .nav-bar .nav-bar-inner {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 30px;
+    background-color: #fff;
+    margin-top:50px;
+  }
+
+  .nav-bar .nav-bar-item {
+    position: relative;
+    word-break: keep-all;
+    font-size: 14px;
+    font-weight:bold;
+    color: #666;
+    padding: 10px 0;
+  }
+
+  .nav-bar .current.nav-bar-item::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 3px;
+    background: linear-gradient(90deg,#ff4936 0%,#ff6e3c 100%);
+    box-shadow: 0px 2px 4px 0px rgba(255,89,0,0.25);
+    border-radius: 12px;
+  }
+
+  .content-list {
+    background-color: #f6f6f6;
+    padding-top: 100px;
+    height: 100%;
+  }
+
+  .order-scroll-view {
+    width: 375px;
+    height: 100%;
+  }
+
+  .noRecordCon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+
+  .noRecordCon .noRecordImg {
+    width: 66px;
+    height: 69px;
+    margin-top: 50%;
+  }
+
+  .noRecordCon .noRefundImg {
+    width: 109px;
+    height: 109px;
+    margin-top: 50%;
+  }
+
+  .noRecordCon .noRecord {
+    padding-top: 16px;
+    font-size: 15px;
+    font-family: PingFangSC-Light;
+    font-weight: 300;
+    color: #666;
+    line-height: 15px;
+  }
+
+  .noRecordCon .goIndex {
+    width: 82px;
+    height: 30px;
+    background: #ff3432;
+    border-radius: 15px;
+    font-size: 14px;
+    color: #fff;
+    margin-top: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .refresh {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 0.5px solid #999;
+    position: fixed;
+    right: 25px;
+    bottom: 100px;
+    font-size: 10px;
+    color: #fff;
+    background: #000;
+    opacity: 0.5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+
+  .refresh image {
+    width: 16px;
+    height: 16px;
+    margin-bottom: 2px;
+  }
+
+  .groupList {
+    width: 100%;
+  }
+
+  .groupList .nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 10;
+    background: #fff;
+    height: 45px;
+    border-top: 0.5px solid #f2f2f2;
+    border-bottom: 0.5px solid #f2f2f2;
+    padding: 0 50px;
+    width: unset;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .groupList .nav .on {
+    color: #be965a;
+  }
+
+  .groupList .nav .line {
+    background: linear-gradient(90deg,#ffd59a 0%,#e5b983 100%);
+    box-shadow: 0px 2px 4px 0px rgba(229,185,131,0.5);
+    border-radius: 12px;
+  }
+
+  .groupList .noRecordCon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+
+  .groupList .noRecordCon .noRecordImg {
+    width: 109px;
+    height: 109px;
+    margin-top: 100px;
+  }
+
+  .groupList .noRecordCon .noRefundImg {
+    width: 79px;
+    height: 70px;
+    margin-top: 100px;
+  }
+
+  .groupList .noRecordCon .noRecord {
+    padding-top: 9px;
+    font-size: 14px;
+    color: #999;
+  }
+
+  .groupList .noRecordCon .goIndex {
+    width: 82px;
+    height: 30px;
+    background: linear-gradient(90deg,#f0daad 0%,#e7c98f 100%);
+    border-radius: 15px;
+    font-size: 14px;
+    color: #fff;
+    margin-top: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .groupList .item {
+    margin-bottom: 10px;
+    overflow: hidden;
+  }
+
+  .song_button {
+    position: relative;
+    padding: 10px 15px;
+    display: flex;
+    justify-content: space-between;
+    border-top: 0.5px solid #efefef;
+  }
+
+  .goods-sign-btn {
+    display: inline-block;
+    height: 5.4vw;
+    padding: 0 2.4vw;
+    font-size: 3vw;
+    border: 0.2vw solid #f75451;
+    border-radius: 5.2vw;
+    text-align: center;
+    line-height: 5.2vw;
+    color: #f75451;
+
+  }
+
+  .goods-sign-btn.gray {
+    color: #666;
+    border: 1px solid #efefef;
+    margin-left: 7px;
+  }
+
+  .goods-sign-btn img {
+    width: 12px;
+    height: 12px;
+  }
+
+  swiper-item {
+    height: auto;
+  }
+
+  .item {
+    background: #fff;
+    overflow: hidden;
+    box-shadow: 0px 0px 20px 0px rgba(0,0,0,0.05);
+    border-radius: 10px;
+    margin: 0px 10px;
+  }
+
+  .orderNum {
+    height: 40px;
+    font-size: 13px;
+    color: #333;
+    padding: 0 15px;
+    border-bottom: 0.5px solid #efefef;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .orderNum .statusName {
+    color: #be965a;
+    font-weight: 500;
+  }
+
+  .orderNum .black {
+    color: #aaa;
+  }
+
+  .spu {
+    padding: 15px 15px 10px;
+    display: flex;
+    justify-content: flex-start;
+  }
+
+  .spu .goodsImg {
+    width: 60px;
+    height: 60px;
+    margin-right: 10px;
+  }
+
+  .spu .goodsImg .img-class {
+    width: 60px;
+    height: 60px;
+  }
+
+  .spu .detail {
+    margin-left: 10px;
+    font-size: 12px;
+    color: #aaa;
+  }
+
+  .spu .detail .spuName {
+    color: #444;
+    font-size: 14px;
+    font-weight: 500;
+    overflow: hidden;
+  }
+
+  .spu .detail .tips {
+    line-height: 1;
+    width: 265px;
+    margin-top: 8px;
+    position: relative;
+  }
+
+  .spu .detail .tips .last {
+    float: right;
+  }
+
+  .spu .detail .tips .price {
+    color: #ff5344;
+    font-size: 16px;
+  }
+
+  .gold {
+    color: gold;
+  }
+
+  .commision-box {
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 13px;
+    color: #777;
+    margin-bottom: 15px;
+    padding-left: 70px;
+    padding-right: 15px;
+  }
+
+  .search-box {
+    background: #fff;
+    padding: 10px 15px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    position: relative;
+    font-size: 14px;
+    font-family: PingFangSC-Regular;
+    font-weight: 400;
+  }
+
+  .filed {
+    width: 95px;
+    margin-right: 10px;
+    border: 0.5px solid #ececec;
+    box-sizing: border-box;
+    height: 28px;
+    line-height: 28px;
+    padding: 0 7.5px;
+    font-size: 12px;
+    border-radius: 3px;
+  }
+
+  .filed .picker {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .filed .iconfont {
+    font-size: 7px;
+    color: #ccc;
+  }
+
+  .filed select {
+    border: 0px;
+  }
+
+  .search {
+    position: relative;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex: 1;
+  }
+
+  .search .icon-search {
+    position: absolute;
+    color: #cccccc;
+    left: 10px;
+  }
+
+  .search input {
+    padding-left: 30px;
+    width: 100%;
+    height: 28px;
+    background: #f8f8f8;
+    border-radius: 3px;
+    color: #999;
+    box-sizing: border-box;
+    line-height: 20px;
+    border: 0px;
+  }
+
+  .search text {
+    color: #ff673f;
+    margin-left: 14px;
+  }
+
+  .dialogText {
+    box-sizing: border-box;
+    padding: 10px;
+    height: 70px!important;
+    text-align: justify;
+  }
+
+  .dialogBtn {
+    font-size: 15px!important;
+    height: 34px!important;
+    line-height: 34px!important;
+  }
+
 </style>

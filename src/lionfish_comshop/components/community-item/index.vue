@@ -4,12 +4,12 @@
       <img class="group-head" :src="item.headImg||item.disUserHeadImg"
            v-if="item.headImg||item.disUserHeadImg"/>
       <img class="group-head" src='@/assets/images/head-bitmap.png' v-else/>
-      <span class="rest" v-if="item.rest==1">{{$t('host.xiuxi')}}休息中</span>
+      <span class="rest" v-if="item.rest==1">{{$t('host.xiuxi')}}</span>
     </div>
     <div class="item-center">
       <div class="community-title">
         <span class="span">{{item.communityName}}</span>
-        <span class="em" :style="{'color':skin.color}" v-if="item.distance">{{$t('host.juli')}}{{item.distance}}</span>
+        <span class="em" :style="{'color':skin.color}" v-if="item.distance">{{$t('host.juli')}}&nbsp;{{item.distance}}</span>
       </div>
       <div class="group-master">
         {{groupInfo.owner_name}}：{{item.realName||item.disUserName}}
@@ -18,7 +18,7 @@
       <div class="community-address" v-if="hiddenDetails==0">{{item.fullAddress||item.communityAddress}}</div>
 
       <div class="community-date" v-for="(item,index) in item.times">
-        {{item.date}} :
+        {{item.md}}({{ $t('week.'+item.week_key) }}) :
         <span class="span" v-if="item.times.length>0">
           <span class="span" v-if="item.times[0]"> {{item.times[0]}}</span>
           <span class="span" v-if="item.times[1]"> , {{item.times[1]}}</span>
@@ -50,9 +50,11 @@
       isOld: true,
       groupInfo: {
         type: Object,
-        default: {
-          group_name: "社区",
-          owner_name: "团长"
+        default:()=> {
+          return {
+            group_name: 'Estate',
+            owner_name: 'Host'
+          };
         }
       },
       hiddenDetails: {
@@ -68,20 +70,16 @@
         var app = this.$getApp();
         var t = this.item;
 
-        if ("火星社区" !== t.communityName || t.communityId) {
-          var i = t.disUserHeadImg || t.headImg || "", n = t.disUserName || t.realName || "", a = {
-            communityId: t.communityId,
-            communityName: t.communityName,
-            disUserName: n,
-            disUserHeadImg: i,
-            communityAddress: t.communityAddress,
-            distance: t.distance,
-            fullAddress: t.fullAddress || t.communityAddress
-          }, m = this.city;
-          utils.changeCommunity(a, m);
-        } else location.openSetting(app).then(function() {
-          location.checkGPS(app, function() {});
-        });
+        var i = t.disUserHeadImg || t.headImg || "", n = t.disUserName || t.realName || "", a = {
+          communityId: t.communityId,
+          communityName: t.communityName,
+          disUserName: n,
+          disUserHeadImg: i,
+          communityAddress: t.communityAddress,
+          distance: t.distance,
+          fullAddress: t.fullAddress || t.communityAddress
+        }, m = this.city;
+        utils.changeCommunity(a, m);
       }
     }
   }
@@ -91,12 +89,12 @@
   .community-item {
     box-sizing: border-box;
     display: flex;
-    padding: 2vw 5vw;
+    padding: 7vw 4vw;
   }
 
   .community-item .group-head {
-    width: 12vw;
-    height: 12vw;
+    width: 10vw;
+    height: 10vw;
     border-radius: 10vw;
   }
 
@@ -117,8 +115,8 @@
 
   .community-item .community-title .em {
     color: #ff5344;
-    font-size: 2vw;
-    line-height: 4vw;
+    font-size: 2.6vw;
+    line-height: 2.6vw;
     white-space: nowrap;
   }
 
@@ -137,7 +135,7 @@
 
   .community-item .community-date {
     margin-top: 0.5vw;
-    font-size: 2vw;
+    font-size: 3.8vw;
     line-height: 4.2vw;
     color: #aaa;
     width: 70vw;

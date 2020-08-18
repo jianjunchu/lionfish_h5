@@ -1,8 +1,8 @@
 <template>
-  <div class="page">
-    <el-amap vid="amap" :plugin="plugin" class="amap-demo" :center="center">
+  <div class="page" ref="ct" >
+    <el-amap style="display: none" vid="amap" :plugin="plugin" class="amap-demo" :center="center">
     </el-amap>
-    <div v-if="loadOver && isblack!=1">
+    <div v-if="loadOver && isblack!=1" class="aaaa">
 
       <div :class="['index-box', 'pb100', (showNewCoupon?'preventTouchMove':'')]">
         <div class="miniAppTip" v-if="isTipShow">
@@ -65,10 +65,10 @@
                 <div class="loc-m" v-else>{{community.communityName}}</div>
               </div>
               <div class="loc-l" v-else>
-                <i-router-link hoverClass="router-hover" url="/lionfish_comshop/pages/position/community">
+                <router-link class="router-hover" to="/lionfish_comshop/pages/position/community">
                   您还没有选择{{groupInfo.owner_name}}，轻触去选择
                   <span class="iconfont icon-weizhi-tianchong"></span>
-                </i-router-link>
+                </router-link>
               </div>
               <div @click="goLink" class="top-search" data-link="/lionfish_comshop/pages/type/search">
                 <span class="iconfont icon-sousuo1"></span>
@@ -76,7 +76,7 @@
               </div>
             </div>
           </div>
-          <div class="blank10"></div>
+
 
           <div class="swipe" v-if="slider_list.length>0">
             <swiper :options="sliderSwiperOption" class="swiper-content">
@@ -109,8 +109,8 @@
                        v-for="(item,index) in quan" :key="item.id">
                     <div class="card">
                       <div class="card-price span">
-                        <div class="card-price&#45;&#45;unit span">¥</div>
-                        <div class="card-price&#45;&#45;num span">{{item.credit}}</div>
+                        <div class="card-price unit span">¥</div>
+                        <div class="card-price num span">{{item.credit}}</div>
                       </div>
                       <div class="card-desc span" v-if="item.limit_money>0">
                         满{{item.limit_money}}元可用
@@ -119,7 +119,7 @@
                         全场通用
                       </div>
                       <div :class="[card-tag, span, {'card-tag&#45;&#45;get':item.is_get==1}]">
-                        <div class="card-tag&#45;&#45;text span">已领取</div>
+                        <div class="card-tag text span">已领取</div>
                       </div>
                     </div>
                   </div>
@@ -153,40 +153,40 @@
           <div class="cube" v-if="cube.length">
             <div v-for="(item,index) in cube" :key="item.id">
               <div class="cube-item" v-if="item.type==1">
-                <img @click="goCube" class="cube-one rounded" data-idx="0" :data-index="index" mode="widthFix" :src="item.thumb.cover[0]"></img>
+                <img @click.native="goCube" class="cube-one rounded" data-idx="0" :data-index="index" mode="widthFix" :src="item.thumb.cover[0]"></img>
               </div>
               <div class="cube-item" v-if="item.type==2">
-                <i-img @click="goCube" data-idx="0" :data-index="index" height="59vw" iClass="cube-left rounded" :loadImage="item.thumb.cover[0]" width="50vw"></i-img>
-                <i-img @click="goCube" data-idx="1" :data-index="index" height="59vw" iClass="cube-two rounded" :loadImage="item.thumb.cover[1]" width="59vw"></i-img>
+                <i-img @click.native="goCube" data-idx="0" :data-index="index" height="59vw" iClass="cube-left rounded" :loadImage="item.thumb.cover[0]" width="50vw"></i-img>
+                <i-img @click.native="goCube" data-idx="1" :data-index="index" height="59vw" iClass="cube-two rounded" :loadImage="item.thumb.cover[1]" width="59vw"></i-img>
               </div>
               <div class="cube-item" v-if="item.type==3">
-                <i-img @click="goCube" data-idx="0" :data-index="index" height="59vw" iClass="cube-left rounded" :loadImage="item.thumb.cover[0]" width="33vw"></i-img>
+                <i-img @click.native="goCube" data-idx="0" :data-index="index" height="59vw" iClass="cube-left rounded" :loadImage="item.thumb.cover[0]" width="33vw"></i-img>
                 <div class="i-flex-col i-flex-spb">
-                  <i-img @click="goCube" data-idx="1" :data-index="index" height="29vw" iClass="cube-three rounded" :loadImage="item.thumb.cover[1]" width="60vw"></i-img>
-                  <i-img @click="goCube" data-idx="2" :data-index="index" height="29vw" iClass="cube-three rounded" :loadImage="item.thumb.cover[2]" width="60vw"></i-img>
+                  <i-img @click.native="goCube" data-idx="1" :data-index="index" height="29vw" iClass="cube-three rounded" :loadImage="item.thumb.cover[1]" width="60vw"></i-img>
+                  <i-img @click.native="goCube" data-idx="2" :data-index="index" height="29vw" iClass="cube-three rounded" :loadImage="item.thumb.cover[2]" width="60vw"></i-img>
                 </div>
               </div>
               <div class="cube-item" v-if="item.type==4">
-                <i-img @click="goCube" data-idx="0" :data-index="index" height="59vw" iClass="cube-left rounded" :loadImage="item.thumb.cover[0]" width="33vw"></i-img>
+                <i-img @click.native="goCube" data-idx="0" :data-index="index" height="59vw" iClass="cube-left rounded" :loadImage="item.thumb.cover[0]" width="33vw"></i-img>
                 <div class="i-flex-col i-flex-spb">
-                  <i-img @click="goCube" data-idx="1" :data-index="index" height="29vw" iClass="cube-three rounded" :loadImage="item.thumb.cover[1]" width="60vw"></i-img>
+                  <i-img @click.native="goCube" data-idx="1" :data-index="index" height="29vw" iClass="cube-three rounded" :loadImage="item.thumb.cover[1]" width="60vw"></i-img>
                   <div class="i-flex i-flex-spb w450">
-                    <i-img @click="goCube" data-idx="2" :data-index="index" height="29vw" iClass="cube-four rounded" :loadImage="item.thumb.cover[2]" width="29.5vw"></i-img>
-                    <i-img @click="goCube" data-idx="3" :data-index="index" height="29vw" iClass="cube-four rounded" :loadImage="item.thumb.cover[3]" width="29.5vw"></i-img>
+                    <i-img @click.native="goCube" data-idx="2" :data-index="index" height="29vw" iClass="cube-four rounded" :loadImage="item.thumb.cover[2]" width="29.5vw"></i-img>
+                    <i-img @click.native="goCube" data-idx="3" :data-index="index" height="29vw" iClass="cube-four rounded" :loadImage="item.thumb.cover[3]" width="29.5vw"></i-img>
                   </div>
                 </div>
               </div>
               <div class="cube-item" v-if="item.type==5">
-                <img @click="goCube" class="cube-w" :data-idx="idx" :data-index="index" mode="widthFix" :src="imgItem" v-for="(imgItem,idx) in item.thumb.cover" :key="idx"></img>
+                <img @click.native="goCube" class="cube-w" :data-idx="idx" :data-index="index" mode="widthFix" :src="imgItem" v-for="(imgItem,idx) in item.thumb.cover" :key="idx"></img>
               </div>
               <div class="cube-item" v-if="item.type==6">
-                <img @click="goCube" class="cube-w" :data-idx="idx" :data-index="index" mode="widthFix" :src="imgItem" v-for="(imgItem,idx) in item.thumb.cover" :key="idx"></img>
+                <img @click.native="goCube" class="cube-w" :data-idx="idx" :data-index="index" mode="widthFix" :src="imgItem" v-for="(imgItem,idx) in item.thumb.cover" :key="idx"></img>
               </div>
               <div class="cube-item" v-if="item.type==7">
-                <img @click="goCube" class="cube-w" :data-idx="idx" :data-index="index" mode="widthFix" :src="imgItem" v-for="(imgItem,idx) in item.thumb.cover" :key="idx"></img>
+                <img @click.native="goCube" class="cube-w" :data-idx="idx" :data-index="index" mode="widthFix" :src="imgItem" v-for="(imgItem,idx) in item.thumb.cover" :key="idx"></img>
               </div>
               <div class="cube-item two-row" v-if="item.type==8">
-                <img @click="goCube" class="cube-w" :data-idx="idx" :data-index="index" mode="widthFix" :src="imgItem" v-for="(imgItem,idx) in item.thumb.cover" :key="idx"></img>
+                <img @click.native="goCube" class="cube-w" :data-idx="idx" :data-index="index" mode="widthFix" :src="imgItem" v-for="(imgItem,idx) in item.thumb.cover" :key="idx"></img>
               </div>
             </div>
           </div>
@@ -223,7 +223,7 @@
                 </div>
               </div>
               <div @click="goLink" class="more" :data-link="'/lionfish_comshop/moduleA/seckill/list?time='+scekillTimeList[secKillActiveIdx].seckillTime">
-                更多 <text class="iconfont icon-gengduo"></text>
+                更多 <span class="iconfont icon-gengduo"></span>
               </div>
             </div>
             <div class="seckill-list" v-if="secRushList.length">
@@ -258,18 +258,20 @@
                         :stopClick="stopClick" v-if="typeItem.list.length"></i-rush-spu>
             <div @click="goLink" class="theme3-more"
                  :data-link="'/lionfish_comshop/pages/type/details?id='+typeItem.id" v-if="typeItem.list.length">
-              查看全部
+              All
               <span class="iconfont icon-youjiantou"></span>
             </div>
           </div>
           <template is="pinrow" :data="{pinList:pinList,skin:skin}"></template>
+<!--
           <img class="rush-list-title" id="rush-title" :src="shop_info.index_list_top_image"
                v-if="shop_info.index_list_top_image"/>
-          <img class="rush-list-title" id="rush-title" src="@/assets/images/rush-title.png" v-else/>
 
-          <div class="search-bar" v-if="index_switch_search==1">
+          <img class="rush-list-title" id="rush-title" src="@/assets/images/rush-title.png" v-else/>
+-->
+          <div class="index-search-bar" v-if="index_switch_search==1">
             <div class="search-box">
-              <input bindconfirm="goResult" class="ipt" confirmType="搜索" placeholder="搜索商品" type="search"></input>
+              <input @keypress="goResult" class="ipt" confirmType="搜索" placeholder="Search" type="search"></input>
               <div class="search-icon">
                 <div class="iconfont icon-sousuo1"></div>
               </div>
@@ -282,8 +284,13 @@
             <div class="sticky-cate_index" v-if="index_change_cate_btn==1">
               <div v-show="!isShowClassification||tabIdx!==0">
                 <van-sticky :offset-top="50">
-                <i-tabs :activeIndex="classification.activeIndex" @activeIndexChange="classificationChange"
-                        data-idx="1" fontColor="#000" iClass="category-list" :tabs="classification.tabs"></i-tabs>
+                <!--<i-tabs :activeIndex="classification.activeIndex" @activeIndexChange="classificationChange"
+                        data-idx="1" fontColor="#000" iClass="category-list" :tabs="classification.tabs"></i-tabs>-->
+
+                  <van-tabs v-model="classification.activeIndex" @click="classificationChange">
+                    <van-tab v-for="(item , index) in classification.tabs" :title="item.name"  :title-style="{'flex-basis':'auto','padding': '0 10px'}">
+                    </van-tab>
+                  </van-tabs>
                 </van-sticky>
               </div>
               <div class="tab-nav-index-query"></div>
@@ -317,21 +324,29 @@
               </div>
               <div v-show="!isShowClassification||tabIdx!==0">
                 <van-sticky :offset-top="50">
-                <i-tabs :activeIndex="classification.activeIndex" @activeIndexChange="classificationChange"
-                        data-idx="1" fontColor="#000" class="category-list" :tabs="classification.tabs"></i-tabs>
+                <!--<i-tabs :activeIndex="classification.activeIndex" @activeIndexChange="classificationChange"
+                        data-idx="1" fontColor="#000" class="category-list" :tabs="classification.tabs"></i-tabs>-->
+                  <van-tabs v-model="classification.activeIndex" @click="classificationChange">
+                    <van-tab v-for="(item , index) in classification.tabs" :title="item.name"  :title-style="{'flex-basis':'auto','padding': '0 10px'}">
+                    </van-tab>
+                  </van-tabs>
                 </van-sticky>
               </div>
               <div v-show="!isShowCommingClassification||tabIdx!==1">
                 <van-sticky :offset-top="50">
-                <i-tabs :activeIndex="commingClassification.activeIndex" @activeIndexChange="classificationChange" data-idx="2" fontColor="#000"
-                        iClass="category-list" :tabs="classification.tabs"></i-tabs>
+                <!--<i-tabs :activeIndex="commingClassification.activeIndex" @activeIndexChange="classificationChange" data-idx="2" fontColor="#000"
+                        iClass="category-list" :tabs="classification.tabs"></i-tabs>-->
+                  <van-tabs v-model="classification.activeIndex" @click="classificationChange">
+                    <van-tab v-for="(item , index) in classification.tabs" :title="item.name"  :title-style="{'flex-basis':'auto','padding': '0 10px'}">
+                    </van-tab>
+                  </van-tabs>
                 </van-sticky>
               </div>
             </div>
           </div>
 
 
-          <div class="rush-list-box">
+          <van-list v-model="$data.$data.isLoadData" :finished="commigLoadMore" @load="load_goods_data" class="rush-list-box">
             <div v-if="rushList.length>0&&tabIdx==0">
 
               <div class="active-item" v-if="rushList.length>0&&theme==0" v-for="(item,index) in rushList"
@@ -349,26 +364,28 @@
                     <span class="item-class">{{countDownMap[item.end_time].second}}</span>
                   </div>
                 </div>
-                <i-new-rush-spu :actEnd="actEndMap[item.end_time]" @authModal="authModal" :changeCartNum="changeCartNum"
-                                @openSku="openSku" @vipModal="vipModal" :canLevelBuy="canLevelBuy"
-                                :changeCarCount="changeCarCount" :isShowListCount="isShowListCount"
-                                :isShowListTimer="isShowListTimer==1" :is_open_vipcard_buy="is_open_vipcard_buy"
-                                :needAuth="needAuth" :reduction="reduction" :showPickTime="(ishow_index_pickup_time==1)"
-                                :skin="skin" :spuItem="item" :stopClick="stopClick"></i-new-rush-spu>
+
+                  <i-new-rush-spu :actEnd="actEndMap[item.end_time]" @authModal="authModal" @changeCartNum="changeCartNum"
+                                  @openSku="openSku" @vipModal="vipModal" :canLevelBuy="canLevelBuy"
+                                  :changeCarCount="changeCarCount" :isShowListCount="isShowListCount"
+                                  :isShowListTimer="isShowListTimer==1" :is_open_vipcard_buy="is_open_vipcard_buy"
+                                  :needAuth="needAuth" :reduction="reduction" :showPickTime="(ishow_index_pickup_time==1)"
+                                  :skin="skin" :spuItem="item" :stopClick="stopClick"></i-new-rush-spu>
+
               </div>
               <div class="active-item-two" v-if="rushList.length>0&&theme==1" v-for="(item,index) in rushList"
                    :key="item.id">
                 <div class="list-item-tag-content" v-if="isShowListTimer==1">
                   <div class="list-item-count-down type-two" :style="{color:skin.color}"
                        v-if="item.spuCanBuyNum!=0&&!actEndMap[item.end_time]">
-                    仅剩
-                    <em v-if="countDownMap[item.end_time].day>0">{{countDownMap[item.end_time].day}}天</em>
+                    Time Left
+                    <em v-if="countDownMap[item.end_time].day>0">{{countDownMap[item.end_time].day}}&nbsp;Day</em>
                     <span class="item-class">{{countDownMap[item.end_time].hour}}</span>:
                     <span class="item-class">{{countDownMap[item.end_time].minute}}</span>:
                     <span class="item-class">{{countDownMap[item.end_time].second}}</span>
                   </div>
                 </div>
-                <i-rush-spu-big :actEnd="actEndMap[item.end_time]" :authModal="authModal" :changeCartNum="changeCartNum"
+                <i-rush-spu-big :actEnd="actEndMap[item.end_time]" @authModal="authModal" @changeCartNum="changeCartNum"
                                 @openSku="openSku" @vipModal="vipModal" :canLevelBuy="canLevelBuy"
                                 :changeCarCount="changeCarCount" :isShowListCount="isShowListCount"
                                 :is_open_vipcard_buy="is_open_vipcard_buy" :needAuth="needAuth" :reduction="reduction"
@@ -379,11 +396,14 @@
                 <img @click="goLink" class="topic-img"
                      :data-link="'/lionfish_comshop/pages/type/details?id='+classificationId" mode="widthFix"
                      :src="cate_info.banner" v-if="cate_info.banner"/>
-                <i-rush-spu @authModal="authModal" @changeCartNum="changeCartNum" @openSku="openSku"
-                            @vipModal="vipModal" :canLevelBuy="canLevelBuy" :changeCarCount="changeCarCount"
-                            class="item" :is_open_vipcard_buy="is_open_vipcard_buy" :needAuth="needAuth"
-                            :reduction="reduction" :spuItem="item" :stopClick="stopClick"
-                            v-for="(item,index) in rushList" :key="item.actId"></i-rush-spu>
+
+
+                  <i-rush-spu @authModal="authModal" @changeCartNum="changeCartNum" @openSku="openSku"
+                              @vipModal="vipModal" :canLevelBuy="canLevelBuy" :changeCarCount="changeCarCount"
+                              class="item" :is_open_vipcard_buy="is_open_vipcard_buy" :needAuth="needAuth"
+                              :reduction="reduction" :spuItem="item" :stopClick="stopClick"
+                              v-for="(item,index) in rushList" :key="item.actId"></i-rush-spu>
+
               </div>
               <i-load-more iClass="loadMore" :loading="loadMore" :tip="loadText" v-if="loadMore"></i-load-more>
             </div>
@@ -397,24 +417,28 @@
               </div>
               <div class="none-rush-list" v-if="showCommingEmpty">
                 <img class="img-block" src="@/assets/images/icon-index-empty.png"/>
-                <div class="h1">暂时没有团购</div>
-                <div class="h2">我们正在为您准备更优惠的团购</div>
+                <div class="h1">Please try again</div>
+                <div class="h2"></div>
               </div>
+<!--
               <div class="slogan" v-if="!commigLoadMore&&commingList.length">
                 <img :src="(indexBottomImage?indexBottomImage:require('@/assets/images/icon-index-slogan.png'))"/>
               </div>
+-->
             </div>
             <div v-if="tabIdx===0">
               <div class="none-rush-list" v-if="showEmpty">
                 <img class="img-block" src="@/assets/images/icon-index-empty.png"/>
-                <div class="h1">暂时没有团购</div>
-                <div class="h2">我们正在为您准备更优惠的团购</div>
+                <div class="h1">Please try again</div>
+                <!-- <div class="h2">我们正在为您准备更优惠的团购</div> -->
               </div>
+<!--
               <div class="slogan" v-if="!loadMore&&rushList.length">
                 <img :src="(indexBottomImage?indexBottomImage:require('@/assets/images/icon-index-slogan.png'))"/>
               </div>
+-->
             </div>
-          </div>
+          </van-list>
         </div>
         <div @click="showCopyTextHandle" class="copytext-btn" data-status="true" v-if="ishow_index_copy_text==1">
           一键复制拼团信息
@@ -422,19 +446,19 @@
         <div class="fixed-aside">
           <button @click="share_handler" class="fixed-service" v-if="isShowShareBtn==1">
             <span class="iconfont icon-fenxiang"></span>
-            <div>分享</div>
+            <div>Share</div>
           </button>
           <button class="fixed-service" openType="contact" v-if="isShowContactBtn==1">
             <span class="iconfont icon-kefu"></span>
-            <div>客服</div>
+            <div>Service</div>
           </button>
           <button @click="backTop" class="fixed-service" v-show="(!isSticky)" v-if="ishow_index_gotop==1">
             <span class="iconfont icon-fanhuidingbu"></span>
-            <div>顶部</div>
+            <div>Top</div>
           </button>
         </div>
 
-        <i-tabbar @authModal="authModal" :cartNum="cartNum" currentIdx="0" :needAuth="needAuth"
+        <i-tabbar ref="tabbar" @authModal="authModal" :cartNum="cartNum" :currentIdx="0" :needAuth="needAuth"
                   :tabbarRefresh="tabbarRefresh"></i-tabbar>
 
         <i-order-notify iClass="order-notify" :stopNotify="stopNotify"
@@ -442,32 +466,33 @@
         <i-change-community @changeComunity="confrimChangeCommunity" :canChange="hide_community_change_btn==0"
                             :changeCommunity="changeCommunity" :community="community" :groupInfo="groupInfo"
                             :visible="showChangeCommunity"></i-change-community>
+
         <div class="new-coupou" v-if="showCouponModal&&hasAlertCoupon&&!showChangeCommunity">
           <div class="new-coupou-content">
             <div class="new-coupou-body">
-              <div class="new-coupou-body-head">恭喜你获得{{totalAlertMoney}}元红包券</div>
+              <div class="new-coupou-body-head">Welcome to H&Z Mart! <!--Here's ${{totalAlertMoney}} for use on your first purchase.--></div>
               <div class="new-coupou-body-scroll">
                 <div scrollY style="max-height:580px;">
                   <div class="new-coupou-item" v-for="(item ,index) in alert_quan_list" :key="item.id">
                     <div class="m-coupon-l">
                       <div class="m-coupou-price">
-                        <span>¥</span>
+                        <span>$</span>
                         {{item.credit}}
                       </div>
                     </div>
                     <div class="m-coupou-m">
                       <div class="m-coupou-name">{{item.voucher_title}}</div>
-                      <div class="m-coupou-title" v-if="item.limit_money>0">满{{item.limit_money}}元可用</div>
-                      <div class="m-coupou-title" v-else>全场通用</div>
+                      <div class="m-coupou-title" v-if="item.limit_money>0">min ${{item.limit_money}} purchase to use coupon</div>
+                      <div class="m-coupou-title" v-else>Useable for all products</div>
                     </div>
                     <div class="m-coupou-r">
-                      <div @click="goUse" class="new-coupou-use kong" :data-idx="index">去使用</div>
+                      <div @click="goUse" class="new-coupou-use kong" :data-idx="index">Use</div>
                     </div>
                   </div>
                 </div>
               </div>
               <div class="new-coupou-body-foot">
-                <div @click="toggleCoupon" class="new-coupou-body-btn" data-auth="true">立即使用</div>
+                <div @click="toggleCoupon" class="new-coupou-body-btn" data-auth="true">Use Now</div>
               </div>
             </div>
             <div class="new-coupou-foot">
@@ -527,7 +552,7 @@
           </div>
         </div>
         <div class="sku-num-content">
-          <div class="title">数量</div>
+          <div class="title">Quantity</div>
           <div :class="['i-class', 'i-input-number', 'i-input-number-size-']">
             <div @click="setNum" :class="['i-input-number-minus']"
                  data-type="decrease">
@@ -551,30 +576,33 @@
           </div>&ndash;&gt;-->
         </div>
         <button @click="gocarfrom" class="sku-confirm" :disabled="(cur_sku_arr.stock==0?true:false)" formType="submit">
-          <div>{{cur_sku_arr.stock==0?'已抢光':'确定'}}</div>
+          <div>{{cur_sku_arr.stock==0?$t('home.yiqiangguang'):$t('home.queding')}}</div>
         </button>
       </div>
     </div>
-    <div @click="hide_share_handler" class="ui-mask" v-show="is_share_html"></div>
+    <div @click="is_share_html = false" class="ui-mask" v-show="is_share_html"></div>
     <div class="model-services show" v-show="is_share_html">
-      <div class="model-services-title">分享</div>
+      <div class="model-services-title">{{$t('common.fenxiang')}}</div>
       <div class="model-services-content">
         <div class="service-list">
           <div class="service-item">
-            <button class="none_btn" openType="share" plain="true">
-              <span class="iconfont icon-weixin2 service-icon"></span>
+            <div class="none_btn" @click="share_whatsapp" openType="share" plain="true">
+              <span>
+                <svg xmlns="http://www.w3.org/2000/svg" width="39" height="39" viewBox="0 0 39 39"><path fill="#00E676" d="M10.7 32.8l.6.3c2.5 1.5 5.3 2.2 8.1 2.2 8.8 0 16-7.2 16-16 0-4.2-1.7-8.3-4.7-11.3s-7-4.7-11.3-4.7c-8.8 0-16 7.2-15.9 16.1 0 3 .9 5.9 2.4 8.4l.4.6-1.6 5.9 6-1.5z"></path><path fill="#FFF" d="M32.4 6.4C29 2.9 24.3 1 19.5 1 9.3 1 1.1 9.3 1.2 19.4c0 3.2.9 6.3 2.4 9.1L1 38l9.7-2.5c2.7 1.5 5.7 2.2 8.7 2.2 10.1 0 18.3-8.3 18.3-18.4 0-4.9-1.9-9.5-5.3-12.9zM19.5 34.6c-2.7 0-5.4-.7-7.7-2.1l-.6-.3-5.8 1.5L6.9 28l-.4-.6c-4.4-7.1-2.3-16.5 4.9-20.9s16.5-2.3 20.9 4.9 2.3 16.5-4.9 20.9c-2.3 1.5-5.1 2.3-7.9 2.3zm8.8-11.1l-1.1-.5s-1.6-.7-2.6-1.2c-.1 0-.2-.1-.3-.1-.3 0-.5.1-.7.2 0 0-.1.1-1.5 1.7-.1.2-.3.3-.5.3h-.1c-.1 0-.3-.1-.4-.2l-.5-.2c-1.1-.5-2.1-1.1-2.9-1.9-.2-.2-.5-.4-.7-.6-.7-.7-1.4-1.5-1.9-2.4l-.1-.2c-.1-.1-.1-.2-.2-.4 0-.2 0-.4.1-.5 0 0 .4-.5.7-.8.2-.2.3-.5.5-.7.2-.3.3-.7.2-1-.1-.5-1.3-3.2-1.6-3.8-.2-.3-.4-.4-.7-.5h-1.1c-.2 0-.4.1-.6.1l-.1.1c-.2.1-.4.3-.6.4-.2.2-.3.4-.5.6-.7.9-1.1 2-1.1 3.1 0 .8.2 1.6.5 2.3l.1.3c.9 1.9 2.1 3.6 3.7 5.1l.4.4c.3.3.6.5.8.8 2.1 1.8 4.5 3.1 7.2 3.8.3.1.7.1 1 .2h1c.5 0 1.1-.2 1.5-.4.3-.2.5-.2.7-.4l.2-.2c.2-.2.4-.3.6-.5s.4-.4.5-.6c.2-.4.3-.9.4-1.4v-.7s-.1-.1-.3-.2z"></path></svg>
+
+              </span>
               <div class="cube-text">
-                <span>好友</span>
+                <span>{{$t('common.haoyou')}}</span>
               </div>
-            </button>
+            </div>
           </div>
-          <div @click="goLink" class="service-item" data-link="/lionfish_comshop/pages/index/share"
+          <!--<div @click="goLink" class="service-item" data-link="/lionfish_comshop/pages/index/share"
                :data-needauth="true">
             <span class="iconfont icon-pengyouquan service-icon"></span>
             <div class="cube-text">
               <span>海报</span>
             </div>
-          </div>
+          </div>-->
         </div>
       </div>
     </div>
@@ -612,7 +640,7 @@
 <script>
   import GlobalMixin from '../../mixin/globalMixin.js'
   import { Sticky } from 'vant';
-  import { Swipe, SwipeItem } from 'vant';
+  import { Swipe, SwipeItem,Search } from 'vant';
 
   var _Page, _extends = Object.assign || function(t) {
     for (var a = 1; a < arguments.length; a++) {
@@ -633,17 +661,18 @@
   import util from '../../utils/index.js'
   import status from '../../utils/index.js'
   import a from '../../utils/public'
+  import countDownInit from '../../utils/countDown'
 
-  var wcache = require('../../utils/wcache.js'),
-    countDownInit = require('../../utils/countDown'),wx,app;
+  var wcache = require('../../utils/wcache.js'),wx,app;
 
   export default {
-    mixins: [countDownInit.default, GlobalMixin],
+    mixins: [countDownInit, GlobalMixin],
     name: 'Index',
-    components:{[Sticky.name]:Sticky ,[Swipe.name]:Swipe,[SwipeItem.name]:SwipeItem},
+    components:{[Sticky.name]:Sticky ,[Swipe.name]:Swipe,[SwipeItem.name]:SwipeItem,[Search.name]:Search},
     data() {
       let self = this;
       return {
+        pageScroll: 0,
         sliderSwiperOption: {
           //显示分页
           pagination: {
@@ -788,6 +817,7 @@
         changeCommunity: {},
         loadOver:!1,
         loadText:'Loading...',
+        commigLoadMore:false,
         $data: {
           stickyFlag: !1,
           scrollTop: 0,
@@ -810,14 +840,15 @@
               o.getCurrentPosition((status, result) => {
                 console.log(result)
                 if (result && result.position) {
+
                   self.$wx.setStorageSync('position',result.position);
-                  i.$wx.setStorage({
+                  self.$wx.setStorage({
                     key: 'latitude',
-                    data: e
+                    data: result.position.lat
                   })
-                  i.$wx.setStorage({
+                  self.$wx.setStorage({
                     key: 'longitude',
-                    data: a
+                    data: result.position.lng
                   })
                   self.$nextTick();
                 }
@@ -836,98 +867,133 @@
       }
     },
     created: function() {
-
       app = this.$getApp();
       wx = this.$wx;
 
-      var i = this, s = wx.getStorageSync('token')
+      wx.setNavigationBarTitle({
+        title: this.shop_info.shoname,
+        showLogo:true,
+        showMore:false,
+        showBack:false
+      })
 
-      wx.getLogManager(), console.log('options', o), wx.hideTabBar()
-      status.setNavBgColor(), status.setGroupInfo().then(function(t) {
-        i.groupInfo = t
-      }), console.log('step1')
+      const o = this.$route.query || {}
+      this.onLoad(o)
+    },
+    mounted:function(){
+      var i  = this;
+      this.$nextTick(() => {
+        i.$root.$el.addEventListener('scroll', this.onScroll)
+      })
+    },
+    activated:function(){
+      var i = this
+      var g = i.groupInfo
 
-      const n = wx.getStorageSync('community'),
-        d = n && n.communityId ? n.communityId : ''
-      if (n && n.fullAddress && n.fullAddress.indexOf('境外') > -1) {
-        n.fullAddress = n.fullAddress.replace('境外境外境外地区', '')
+      if(this.$refs.tabbar){
+        i.$refs.tabbar.switchTab();
       }
 
-      const o = i.$route.query
+      this.onShow();
 
-      if (o && 0 != Object.keys(o).length) {
-        console.log('step2')
-        var t = decodeURIComponent(o.scene)
-        if ('undefined' != t) {
-          var a = t.split('_')
-          o.community_id = a[0], wcache.put('share_id', a[1])
-        }
-        'undefined' != (i.options = o).share_id && 0 < o.share_id && wcache.put('share_id', o.share_id),
-          'undefined' != o.community_id && 0 < o.community_id ? (console.log('step3'), util.getCommunityById(o.community_id).then(function(t) {
-            if (0 == t.code) {
-              console.log('step4')
-              var a = t.data
-              console.log('分享community_id', o.community_id), console.log('历史community_id', d)
-              var e = {}
-              1 == t.open_danhead_model ? (console.log('开启单社区' + t.default_head_info), this.community = t.default_head_info,
-                i.open_danhead_model = t.open_danhead_model, s && i.addhistory(t.default_head_info.communityId || '')) : a && (o.community_id != d ? d ? (i.showChangeCommunity = !0,
-                i.changeCommunity = a, this.community = n) : (i.community = a, i.shareCommunity = a,
-                wcache.put('community', a)) : i.community = n), i.hidetip = !1, i.token = s, i.showEmpty = !1,
-                e.needPosition = !1
-              i.loadPage()
-            } else {
-              console.log('step5')
-              i.loadPage()
-              i.hidetip = !1
-              i.token = s
-              i.showEmpty = !1
-              i.needPosition = !1
-              s && i.addhistory()
-            }
-          })) : util.getCommunityById(o.community_id).then(function(t) {
-            0 == t.code && (1 == t.open_danhead_model && (console.log('开启单社区step6'),
-              i.community = t.default_head_info, i.open_danhead_model = t.open_danhead_model, s && i.addhistory(t.default_head_info.communityId || '')), console.log('step6'),
-              i.loadPage())
-          }).catch(function() {
-            i.loadPage()
-          })
-      } else {
-        util.getCommunityById(o.community_id).then(function(t) {
-          0 == t.code && (1 == t.open_danhead_model && (console.log('开启单社区step7'), i.community = t.default_head_info, i.open_danhead_model = t.open_danhead_model
-            , s && i.addhistory(t.default_head_info.communityId || '')), i.loadPage())
-        }).catch(function() {
-          i.loadPage()
-        }), console.log('step7'), i.hidetip = !1, i.token = s, i.showEmpty = !1, i.community = n
-
-      }
 
     },
-    mounted: function() {
 
-      var a = this,
-        e = this;
-      if ((a.stopNotify = !1, a.tabbarRefresh = !0, a.isblack = a.$app.globalData.isblack || 0), util.check_login_new().then(function(t) {
-        t ? ( a.needAuth = !1 , status.cartNum().then(t=>{a.cartNum = t.data})) : (a.needAuth = !0, a.couponRefresh = !1 );
-      }), a.$app.globalData.timer.start(), a.$app.globalData.changedCommunity) {
+    methods: {
 
-         a.$app.globalData.goodsListCarCount = [];
-        var t = a.$app.globalData.community;
+
+      copyText: function(t) {
+
+      },
+      onLoad:function(o){
+        var i = this, s = wx.getStorageSync('token')
+
+        wx.getLogManager(), console.log('options', o), wx.hideTabBar()
+        status.setNavBgColor(), status.setGroupInfo().then(function(t) {
+          i.groupInfo = t
+        }), console.log('step1')
+
+        const n = wx.getStorageSync('community'),
+          d = n && n.communityId ? n.communityId : ''
+        if (n && n.fullAddress && n.fullAddress.indexOf('境外') > -1) {
+          n.fullAddress = n.fullAddress.replace('境外境外境外地区', '')
+        }
+
+        if (o && 0 != Object.keys(o).length) {
+          console.log('step2')
+          var t = decodeURIComponent(o.scene)
+          if ('undefined' != t) {
+            var a = t.split('_')
+            o.community_id = a[0], wcache.put('share_id', a[1])
+          }
+          'undefined' != (i.options = o).share_id && 0 < o.share_id && wcache.put('share_id', o.share_id),
+            'undefined' != o.community_id && 0 < o.community_id ? (console.log('step3'), util.getCommunityById(o.community_id).then(function(t) {
+              if (0 == t.code) {
+                console.log('step4')
+                var a = t.data
+                console.log('分享community_id', o.community_id), console.log('历史community_id', d)
+                var e = {}
+                1 == t.open_danhead_model ? (console.log('开启单社区' + t.default_head_info), this.community = t.default_head_info,
+                  i.open_danhead_model = t.open_danhead_model, s && i.addhistory(t.default_head_info.communityId || '')) : a && (o.community_id != d ? d ? (i.showChangeCommunity = !0,
+                  i.changeCommunity = a, this.community = n) : (i.community = a, i.shareCommunity = a,
+                  wcache.put('community', a)) : i.community = n), i.hidetip = !1, i.token = s, i.showEmpty = !1,
+                  e.needPosition = !1
+                i.loadPage()
+              } else {
+                console.log('step5')
+                i.loadPage()
+                i.hidetip = !1
+                i.token = s
+                i.showEmpty = !1
+                i.needPosition = !1
+                s && i.addhistory()
+              }
+            })) : util.getCommunityById(o.community_id).then(function(t) {
+              0 == t.code && (1 == t.open_danhead_model && (console.log('开启单社区step6'),
+                i.community = t.default_head_info, i.open_danhead_model = t.open_danhead_model, s && i.addhistory(t.default_head_info.communityId || '')), console.log('step6'),
+                i.loadPage())
+            }).catch(function() {
+              i.loadPage()
+            })
+        } else {
+          util.getCommunityById(o.community_id).then(function(t) {
+            0 == t.code && (1 == t.open_danhead_model && (console.log('开启单社区step7'), i.community = t.default_head_info, i.open_danhead_model = t.open_danhead_model
+              , s && i.addhistory(t.default_head_info.communityId || '')), i.loadPage())
+          }).catch(function() {
+            i.loadPage()
+          }), console.log('step7'), i.hidetip = !1, i.token = s, i.showEmpty = !1, i.community = n
+
+        }
+      },
+      onShow: function() {
+
+        var a = this,
+          e = this;
+        util.check_login_new().then(function(t) {
+          t ? ( a.needAuth = !1 , status.cartNum().then(t=>{a.cartNum = t.data})) : (a.needAuth = !0, a.couponRefresh = !1 );
+        })
+        a.get_index_info()
+        a.addhistory()
+        if ((a.stopNotify = !1, a.tabbarRefresh = !0, a.isblack = a.$app.globalData.isblack || 0), a.$app.globalData.timer.start(), a.$app.globalData.changedCommunity) {
+
+          a.$app.globalData.goodsListCarCount = [];
+          var t = a.$app.globalData.community;
           a.community = e.fliterCommunity(t)
           a.newComerRefresh = !1
-        a.getCommunityPos(t.communityId)
-        a.hasRefeshin = !1
-        a.newComerRefresh = !0
+          a.getCommunityPos(t.communityId)
+          a.hasRefeshin = !1
+          a.newComerRefresh = !0
           a.rushList = []
           a.pageNum = 1
           a.classificationId = null
-        /*this.setData({
+          /*this.setData({
 
-          "classification.activeIndex": -1
-        }, function() {
-          a.setData({
-            "classification.activeIndex": 0
-          });
-        })*/
+            "classification.activeIndex": -1
+          }, function() {
+            a.setData({
+              "classification.activeIndex": 0
+            });
+          })*/
           a.$set(a.$data.$data,'overPageNum', 1)
           a.$set(a.$data.$data,'loadOver', !1)
           a.$set(a.$data.$data,'hasOverGoods', !1)
@@ -938,29 +1004,22 @@
           a.$set(a.$data.$data,'hasCommingGoods', !0)
 
 
-        a.$app.globalData.changedCommunity = !1
-        a.get_index_info()
-        a.addhistory()
-        a.load_goods_data()
-        a.get_type_topic();
-      } else {
-        console.log("nochange");
-        if(1 <= e.isFirst){
-          a.loadOver = !0
-          this.changeRushListNum()
+          a.$app.globalData.changedCommunity = !1
+
+
+          a.get_type_topic();
+        } else {
+          console.log("nochange");
+          if(1 <= e.isFirst){
+            a.loadOver = !0
+            this.changeRushListNum()
+          }
+
+          0 == e.isFirst ? a.couponRefresh = !0 : (this.getCoupon(), e.isFirst++)
         }
-
-        0 == e.isFirst ? a.couponRefresh = !0 : (this.getCoupon(), e.isFirst++)
-      }
-
-
-
-    },
-    methods: {
-      copyText: function(t) {
+        a.load_goods_data()
 
       },
-
       get_index_info() {
         var F = this,
           t = wx.getStorageSync('community'),
@@ -987,8 +1046,8 @@
               }else{
 
                   wx.showModal({
-                  title: '提示',
-                  content: '请选择' + e.group_name,
+                  title: '',
+                  content: 'Please select an ' + e.group_name,
                   showCancel: false,
                   confirmColor: '#8ED9D1',
                   success: function(t) {
@@ -1038,7 +1097,7 @@
               showBack:false
             })
             var p = a.category_list || [],
-              _ = a.index_type_first_name || '全部'
+              _ = a.index_type_first_name || 'All'
             0 < p.length ? (p.unshift({
               name: _,
               id: 0
@@ -1157,6 +1216,29 @@
           }
         })
       },
+      goUse: function(t) {
+        this.showCouponModal = !1
+        this.hasAlertCoupon = !1
+        var a = t.currentTarget.dataset.idx,
+          e = this.alert_quan_list || [];
+        if (console.log(Object.keys(e).length), Object.keys(e).length >= a)
+          if (0 == e[a].is_limit_goods_buy) wx.switchTab({
+            url: "/lionfish_comshop/pages/index/index"
+          });
+          else if (1 == e[a].is_limit_goods_buy) {
+            var o = e[a].limit_goods_list,
+              i = "";
+            i = 1 < o.split(",").length ? "/lionfish_comshop/pages/type/result?type=2&good_ids=" + o : "/lionfish_comshop/pages/goods/goodsDetail?id=" + o,
+              wx.navigateTo({
+                url: i
+              });
+          } else if (2 == e[a].is_limit_goods_buy) {
+            var s = e[a].goodscates || 0;
+            wx.navigateTo({
+              url: "/lionfish_comshop/pages/type/result?type=1&gid=" + s
+            });
+          }
+      },
       get_type_topic: function() {
         var e = this,
           t = wx.getStorageSync('community') || {}
@@ -1171,36 +1253,50 @@
           }
         })
       },
+      toggleCoupon: function(t) {
+        var a = t.currentTarget.dataset.auth || "";
+        (this.needAuth || "") && a ? (
+          this.showAuthModal = !0,
+          this.showCouponModal = !1
+        ) : (
+          this.showCouponModal = !this.showCouponModal,
+          this.hasAlertCoupon = !1
+        );
+      },
       getCoupon: function() {
         var n = this,
-          t = wx.getStorageSync('token')
-        n.$http({
-          controller: 'goods.get_seller_quan',
-          token: t
-        }).then(t => {
-
-          var a = t.quan_list,
-            e = !1,
-            o = !1
-          '[object Object]' == Object.prototype.toString.call(a) && 0 < Object.keys(a).length && (e = !0),
-          '[object Array]' == Object.prototype.toString.call(a) && 0 < a.length && (e = !0)
-          var i = t.alert_quan_list || []
-          '[object Object]' == Object.prototype.toString.call(i) && 0 < Object.keys(i).length && (o = !0),
-          '[object Array]' == Object.prototype.toString.call(i) && 0 < i.length && (o = !0)
-          var s = 0
-          '[object Object]' == Object.prototype.toString.call(i) && 0 < Object.keys(i).length ? Object.keys(i).forEach(function(t) {
-            s += 1 * i[t].credit
-          }) : '[object Array]' == Object.prototype.toString.call(i) && 0 < i.length && i.forEach(function(t) {
-            s += 1 * t.credit
-          })
-
-          n.quan = t.quan_list || []
-          n.alert_quan_list = i
-          n.hasCoupon = e
-          n.hasAlertCoupon = o
-          n.showCouponModal = o
-          n.totalAlertMoney = s.toFixed(2)
-        })
+          t = wx.getStorageSync("token");
+        app.util.request({
+          url: "entry/wxapp/index",
+          data: {
+            controller: "goods.get_seller_quan",
+            token: t
+          },
+          dataType: "json",
+          success: function(t) {
+            var a = t.quan_list,
+              e = !1,
+              o = !1;
+            "[object Object]" == Object.prototype.toString.call(a) && 0 < Object.keys(a).length && (e = !0),
+            "[object Array]" == Object.prototype.toString.call(a) && 0 < a.length && (e = !0);
+            var i = t.alert_quan_list || [];
+            "[object Object]" == Object.prototype.toString.call(i) && 0 < Object.keys(i).length && (o = !0),
+            "[object Array]" == Object.prototype.toString.call(i) && 0 < i.length && (o = !0);
+            var s = 0;
+            "[object Object]" == Object.prototype.toString.call(i) && 0 < Object.keys(i).length ? Object.keys(i).forEach(function(t) {
+              s += 1 * i[t].credit;
+            }) : "[object Array]" == Object.prototype.toString.call(i) && 0 < i.length && i.forEach(function(t) {
+              s += 1 * t.credit;
+            }), (
+              n.quan = t.quan_list || [],
+              n.alert_quan_list = i,
+              n.hasCoupon = e,
+              n.hasAlertCoupon = o,
+              n.showCouponModal = o,
+              n.totalAlertMoney = s.toFixed(2)
+            );
+          }
+        });
 
       }, getPinList: function() {
         var d = this,
@@ -1269,96 +1365,92 @@
           })
       },
       load_goods_data: function() {
-
-
-
-        var t = wx.getStorageSync('token'),
+        var t = wx.getStorageSync("token"),
           m = this,
-          a = wx.getStorageSync('community'),
-          e = m.classificationId
-        m.$data.$data.isLoadData = !0
-        console.log('load_goods_begin');
+          a = wx.getStorageSync("community"),
+          e = m.classificationId;
+        this.$data.$data.isLoadData = !0, console.log("load_goods_begin "), m.hasRefeshin || m.$data.$data.loadOver ? m.load_over_gps_goodslist() : (console.log("load_goods_in "),
+          this.hasRefeshin = !0, (
+          m.loadMore = !0
+        ), app.util.request({
+          url: "entry/wxapp/index",
+          data: {
+            controller: "index.load_gps_goodslist",
+            token: t,
+            pageNum: m.pageNum,
+            head_id: a.communityId,
+            gid: e,
+            per_page: 12
+          },
+          dataType: "json",
+          success: function(t) {
 
-        (m.hasRefeshin || m.loadOver) ? m.load_over_gps_goodslist() : (console.log('load_goods_in '));
-        this.hasRefeshin = !0
-        this.$http({
-          controller: 'index.load_gps_goodslist',
-          token: t,
-          pageNum: m.pageNum,
-          head_id: a.communityId,
-          gid: e,
-          per_page: 12
-        }).then(t => {
+            m.$data.$data.isLoadData = !1, setTimeout(function() {
+              wx.hideLoading();
+            }, 1e3);
 
-          m.$data.isLoadData = !1, setTimeout(function() {
-            wx.hideLoading();
-          }, 1e3);
-
-          if (1 == m.pageNum && (this.cate_info = t.cate_info || {}), 0 == t.code) {
-            var a = ''
-            if (1 == t.is_show_list_timer) {
-              for (var e in a = m.transTime(t.list),
-                m.$data.$data.countDownMap) {
-                m.initCountDown(m.$data.$data.countDownMap[e])
+            if (1 == m.pageNum && (
+              m.cate_info = t.cate_info || {}
+            ), 0 == t.code) {
+              var a = "";
+              if (1 == t.is_show_list_timer)
+                for (var e in a = m.transTime(t.list),
+                  m.$data.$data.countDownMap) m.initCountDown(m.$data.$data.countDownMap[e]);
+              else {
+                var o = m.rushList;
+                a = o.concat(t.list);
               }
-            } else {
-              var o = m.rushList
-              a = o.concat(t.list)
-            }
-            var i = t,
-              s = i.full_money,
-              n = i.full_reducemoney,
-              d = i.is_open_fullreduction,
-              c = i.is_open_vipcard_buy,
-              l = i.is_vip_card_member,
-              r = i.is_member_level_buy,
-              u = {
-                full_money: s,
-                full_reducemoney: n,
-                is_open_fullreduction: d
-              },
-              h = !1
-            1 == c ? 1 != l && 1 == r && (h = !0) : 1 == r && (h = !0), 1 == m.pageNum &&
-            (m.copy_text_arr = i.copy_text_arr || []), m.hasRefeshin = !1, (
-              m.rushList = a,
+              var i = t,
+                s = i.full_money,
+                n = i.full_reducemoney,
+                d = i.is_open_fullreduction,
+                c = i.is_open_vipcard_buy,
+                l = i.is_vip_card_member,
+                r = i.is_member_level_buy,
+                u = {
+                  full_money: s,
+                  full_reducemoney: n,
+                  is_open_fullreduction: d
+                },
+                h = !1;
+              1 == c ? 1 != l && 1 == r && (h = !0) : 1 == r && (h = !0), 1 == m.pageNum && (
+                m.copy_text_arr = i.copy_text_arr || []
+              ), m.hasRefeshin = !1, (
+                m.rushList = a,
                 m.pageNum = m.pageNum + 1,
                 m.loadMore = !1,
                 m.reduction = u,
-                m.tip = '',
+                m.tip = "",
                 m.is_open_vipcard_buy = c || 0,
                 m.is_vip_card_member = l,
                 m.is_member_level_buy = r,
                 m.canLevelBuy = h
-            );
-
-
-            1 == m.isFirst && (m.isFirst++, a.length && !m.$data.$data.stickyTop && (wx.createSelectorQuery().select('.tab-nav-index-query').boundingClientRect(function(t) {
-              if (t && t.top) {
-                wcache.put('tabPos', t), m.$data.$data.stickyTop = t.top + t.height, m.$data.$data.stickyBackTop = t.top
-              } else {
-                var a = wcache.get('tabPos', !1)
-                a && (m.$data.$data.stickyTop = a.top + a.height, m.$data.$data.stickyBackTop = a.top)
-              }
-            }).exec(), m.$data.$data.scrollTop > m.$data.$data.stickyTop && wx.pageScrollTo({
-              duration: 0,
-              scrollTop: m.$data.$data.stickyTop + 4
-            }))), /*m.getScrollHeight(),*/ 2 == m.pageNum && t.list.length < 10 && (console.log('load_over_goods_list_begin'),
-              m.loadOver = !0, m.hasRefeshin = !0, (
-              m.loadMore = !0,
-                m.load_over_gps_goodslist()
-            ))
-
-          } else {
-            1 == t.code ? (m.loadOver = !0, m.load_over_gps_goodslist()) : 2 == t.code && (
+              /*}, function() {
+                1 == m.isFirst && (m.isFirst++, a.length && !m.$data.$data.stickyTop && (wx.createSelectorQuery().select(".tab-nav-query").boundingClientRect(function(t) {
+                  if (t && t.top) wcache.put("tabPos", t), m.$data.$data.stickyTop = t.top + t.height, m.$data.$data.stickyBackTop = t.top;
+                  else {
+                    var a = wcache.get("tabPos", !1);
+                    a && (m.$data.$data.stickyTop = a.top + a.height, m.$data.$data.stickyBackTop = a.top);
+                  }
+                }).exec(), m.$data.$data.scrollTop > m.$data.$data.stickyTop && wx.pageScrollTo({
+                  duration: 0,
+                  scrollTop: m.$data.$data.stickyTop + 4
+                }))), m.getScrollHeight(), 2 == m.pageNum && t.list.length < 10 && (console.log("load_over_goods_list_begin"),
+                  m.$data.$data.loadOver = !0, m.hasRefeshin = !0, m.setData({
+                  loadMore: !0
+                }, function() {
+                  m.load_over_gps_goodslist();
+                }));
+              }*/);
+            } else 1 == t.code ? (m.$data.$data.loadOver = !0, m.load_over_gps_goodslist()) : 2 == t.code && (
               m.needAuth = !0,
-                m.couponRefresh = !1
-            )
+              m.couponRefresh = !1
+            );
           }
-        })
-
-
+        }));
       },
       load_over_gps_goodslist: function() {
+
         console.log(this.$data)
         var t = wx.getStorageSync('token'),
           o = this,
@@ -1375,7 +1467,7 @@
           }).then(t => {
             if (0 == t.code) {
               var a = o.transTime(t.list)
-              for (var e in o.$data.$data.countDownMap) o.initCountDown(o.$data.$data.countDownMap[e])
+              for (var e in o.$data.$data.countDownMap) countDownInit.initCountDown(o.$data.$data.countDownMap[e])
               o.$data.$data.hasOverGoods = !1, o.$data.$data.overPageNum += 1, (
                 o.rushList = a,
                   o.loadMore = !1,
@@ -1398,7 +1490,7 @@
                   if(1 == o.$data.$data.overPageNum && 0 == o.rushList.length){
                     o.showEmpty = !0;
                     o.loadMore = !1;
-                      o.tip = '^_^已经到底了'
+                    o.tip = 'Please try again';
                   }
               }else if(2 == t.code){
                 o.needAuth = !0,
@@ -1412,7 +1504,7 @@
         if(1 == o.$data.$data.overPageNum && 0 == o.rushList.length){
           o.showEmpty = !0;
           o.loadMore = !1;
-          o.tip = '^_^已经到底了'
+          o.tip = 'Please try again';
         }else{
           o.showEmpty = !1;
           o.loadMore = !1;
@@ -1556,12 +1648,12 @@
             i.cartNum = t.total
             i.closeSku()
             wx.showToast({
-              title: '已加入购物车',
-              image: '../../images/addShopCart.png'
+              title: i.$t('cart.yijiarugouwuche'),
+              image: '@/assets/images/addShopCart.png'
             })
           }
         }).catch(function(t) {
-          util.message(t || '请求失败', '', 'error')
+          //util.message(t || this.$t('cart.qingqiushibai'), '', 'error')
         })
       },
       vipModal: function(t) {
@@ -1711,25 +1803,17 @@
       },
       authModal: function() {
         var i = this;
-
-        var t = wx.getStorageSync('community');
-        if(!t && !t.communityId){
-          wx.redirectTo({
-            url: '/lionfish_comshop/pages/position/community'
+        if(i.needAuth){
+          wx.navigateTo({
+            url: "/login"
           })
+
+          return false
+        }else{
+          return !i.needAuth
         }
 
-        util.check_login_new().then(function(e) {
-            if(e){
-              i.needAuth = !1
-            }else{
-              wx.redirectTo({
-                url: "/login"
-              })
-            }
-        })
 
-        return !i.needAuth
 
 
       },
@@ -1791,7 +1875,7 @@
       goCube: function(t) {
         var a = t.currentTarget.dataset.idx,
           e = t.currentTarget.dataset.index,
-          o = this.data,
+          o = this,
           i = o.cube,
           s = o.needAuth;
         if (console.log(i), 0 < i.length) {
@@ -1818,7 +1902,7 @@
               }
             });
           } else if (3 == d) {
-            var c = this.data.classification,
+            var c = this.classification,
               l = c && c.tabs,
               r = n,
               u = l.findIndex(function(t) {
@@ -1853,11 +1937,13 @@
         this.rushList = []
         this.showEmpty = !1,
           this.pageNum = 1,
-          this.classification.activeIndex = t.e
-        this.classificationId = t.a
+          //this.classification.activeIndex = t.e
+        //this.classificationId = t.a
 
-        a.$data.$data.stickyFlag || a.$data.$data.scrollTop == a.$data.$data.stickyTop + 5 || wx.pageScrollTo({
-          scrollTop: a.$data.$data.stickyTop - 30,
+
+          this.classificationId = this.classification.tabs[this.classification.activeIndex].id
+         a.$data.$data.stickyFlag || a.$data.$data.scrollTop == a.$data.$data.stickyTop + 5 || wx.pageScrollTo({
+          scrollTop: a.$data.$data.stickyTop - 100,
           duration: 0
         })
         a.load_goods_data()
@@ -1893,6 +1979,7 @@
             head_id: a.communityId,
             gid: o
           }).then(t => {
+            e.$data.$data.isLoadData = !1
             wx.hideLoading()
             if ( 0 == t.code) {
               var a = t.list
@@ -1931,7 +2018,7 @@
               address: o[1]
             }), (
               d.community = a
-            ), wcache.put('community', a), d.$getApp().globalData.community = a, c && !e) {
+            ), wx.setStorageSync('community', a), d.$getApp().globalData.community = a, c && !e) {
               var i = wx.getStorageSync('lastCommunity'),
                 s = i.communityId || ''
               '' != s && s != a.communityId && (
@@ -1979,7 +2066,12 @@
         ))
       },
       share_handler: function() {
-        this.is_share_html = !1
+        this.is_share_html = true
+        //location="whatsapp://send?text="+ encodeURIComponent('分享的内容') + encodeURIComponent("\n\n"+'https://hz.xx315.net/wap')+"&via=lopscoop";
+      },
+      share_whatsapp:function(){
+        location="whatsapp://send?text="+ encodeURIComponent(this.shop_info.title) + encodeURIComponent("\n\n"+'https://www.mart.com.sg')+"&via=lopscoop";
+        this.is_share_html = false
       },
       confrimChangeCommunity: function() {
         var t = this,
@@ -2018,6 +2110,74 @@
         this.secKillActiveIdx = o
         a.getSecKillGoods(e);
       },
+      goResult: function(t) {
+
+        if (event.keyCode == 13) { //如果按的是enter键 13是enter
+          event.preventDefault(); //禁止默认事件（默认是换行）
+          //var a = t.currentTarget.value.replace(/\s+/g, "");
+          var a = t.currentTarget.value;
+          a ? wx.navigateTo({
+            url: "/lionfish_comshop/pages/type/result?keyword=" + a
+          }) : wx.showToast({
+            title: "请输入关键词",
+            icon: "none"
+          });
+        }
+      },
+      receiveCoupon: function(t) {
+        if (this.authModal()) {
+          var o = t.currentTarget.dataset.quan_id,
+            i = t.currentTarget.dataset.type || 0,
+            a = wx.getStorageSync("token"),
+            s = [];
+          s = 1 == i ? this.alert_quan_list : this.quan;
+          var n = this;
+          app.util.request({
+            url: "entry/wxapp/index",
+            data: {
+              controller: "goods.getQuan",
+              token: a,
+              quan_id: o
+            },
+            dataType: "json",
+            success: function(t) {
+              if (0 == t.code) wx.showToast({
+                title: t.msg || "被抢光了",
+                icon: "none"
+              });
+              else if (1 == t.code) wx.showToast({
+                title: "被抢光了",
+                icon: "none"
+              });
+              else if (2 == t.code) {
+                wx.showToast({
+                  title: "已领取",
+                  icon: "none"
+                });
+                var a = [];
+                for (var e in s) s[e].id == o && (s[e].is_get = 1), a.push(s[e]);
+                n.quan = a;
+              } else if (4 == t.code) wx.showToast({
+                title: "新人专享",
+                icon: "none"
+              });
+              else if (3 == t.code) {
+                a = [];
+                for (var e in s) s[e].id == o && (s[e].is_get = 1), a.push(s[e]);
+                1 == i ? (
+                  n.alert_quan_list = a
+                ) : (
+                  n.quan = a
+                ), wx.showToast({
+                  title: "领取成功"
+                });
+              } else t.code;
+            }
+          });
+        }
+      },
+
+
     }
   }
 

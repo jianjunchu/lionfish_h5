@@ -56,19 +56,20 @@ function getConfig() {
 }
 
 function changeCommunity(t, a) {
-  var e = _this.$wx.getStorageSync('token') || ''
-  if (t.communityId) {
-    _this.$app.globalData.timer.del()
-    _this.$app.globalData.changedCommunity = !0
-    _this.$app.globalData.community = t
-    _this.$app.globalData.refresh = !0
-    _this.$app.globalData.hasDefaultCommunity = !0
-    _this.$wx.setStorage({
+  const wx = _this.$wx
+  const app = _this.$getApp()
+  const e = wx.getStorageSync('token') || ''
+  wx.setStorage({
+    key: 'community',
+    data: t
+  })
+  app.globalData.community = t
+  wx.navigateBack()
+  /*if (t.communityId && t.communityId !== app.globalData.community.communityId) {
+    app.globalData.timer.del(), app.globalData.changedCommunity = !0, app.globalData.community = t, app.globalData.refresh = !0, app.globalData.hasDefaultCommunity = !0, wx.setStorage({
       key: 'community',
       data: t
-    })
-    _this.$app.globalData.city = a
-    _this.$wx.setStorage({
+    }), app.globalData.city = a, wx.setStorage({
       key: 'city',
       data: a
     })
@@ -76,23 +77,33 @@ function changeCommunity(t, a) {
       community: t,
       city: a
     }
-    var n = _this.$app.globalData.historyCommunity || [];
-    (n.length === 0 || n[0] && n[0].communityId !== t.communityId) && (n.length > 1 && n.shift(), n.push(o), _this.$app.globalData.historyCommunity = n, _this.$wx.setStorage({
+    var n = app.globalData.historyCommunity || [];
+    (n.length === 0 || n[0] && n[0].communityId !== t.communityId) && (n.length > 1 && n.shift(),
+    n.push(o), app.globalData.historyCommunity = n, wx.setStorage({
       key: 'historyCommunity',
       data: n
-    })), _this.$app.globalData.changedCommunity = !0, _this.$app.globalData.goodsListCarCount = {}, e ? (console.log('changeCommunity step2'), _this.$http({
-      controller: 'index.switch_history_community',
-      token: e,
-      head_id: t.communityId
-    }).then(a => {
-      swithNavBack(t)
-    })) : swithNavBack(t)
+    })), app.globalData.changedCommunity = !0, app.globalData.goodsListCarCount = {},
+    e ? (console.log('changeCommunity step2'), app.util.request({
+        url: 'entry/wxapp/index',
+      data: {
+        controller: 'index.switch_history_community',
+          token: e,
+          head_id: t.communityId
+        },
+        dataType: 'json',
+        success: function(a) {
+          swithNavBack(t)
+        }
+      })) : swithNavBack(t)
   } else {
-    _this.$app.globalData.community.disUserHeadImg || (_this.$app.globalData.community = t, _this.$wx.setStorage({
-      key: 'community',
-      data: t
-    })), _this.$app.globalData.changedCommunity = !0, _this.$app.globalData.goodsListCarCount = {}, _this.$wx.navigateBack()
-  }
+    app.globalData.community.disUserHeadImg || (app.globalData.community = t,
+      wx.setStorage({
+        key: 'community',
+        data: t
+      })), app.globalData.changedCommunity = !0, app.globalData.goodsListCarCount = {},
+      wx.navigateBack()
+  }*/
+
 }
 
 function swithNavBack(a) {
@@ -168,19 +179,7 @@ function getInNum() {
 }
 
 function setNavBgColor() {
-  _this.$http({
-    controller: 'index.get_nav_bg_color'
-  }).then(a => {
-    console.log(a)
-    if (a.code === 0) {
-      const t = a.data || '#8ED9D1'
-      const e = a.nav_font_color || '#ffffff'
-      _this.$wx.setNavigationBarColor({
-        frontColor: e,
-        backgroundColor: t
-      })
-    }
-  })
+
 }
 
 function setGroupInfo() {
@@ -404,6 +403,29 @@ function getSign(e, t, n) {
   return 'c1b97ac15caab79ab4d10089cd6b82d0'
 }
 
+function getMemberInfo(o) {
+  var e = _this.$wx.getStorageSync('token')
+  request({
+    url: 'entry/wxapp/user',
+    data: {
+      controller: 'user.get_user_info',
+      token: e
+    },
+    dataType: 'json',
+    success: function(e) {
+      if (e.code === 0) {
+        o.success(e)
+      } else {
+        o.error(e)
+      }
+    }
+  })
+}
+
+function message() {
+
+}
+
 export default {
   getLightColor: getLightColor,
   addCart: addCart,
@@ -428,7 +450,8 @@ export default {
   checkRedirectTo: checkRedirectTo,
   check_login_new: check_login_new,
   request: request,
-  url: url
+  url: url,
+  getMemberInfo: getMemberInfo
 
 }
 

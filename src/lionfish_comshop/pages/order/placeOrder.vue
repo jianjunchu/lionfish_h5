@@ -15,7 +15,7 @@
             <span style="width:33%; text-align:right;">{{item.text}}</span>
           </div>
         </div>
-        <div style='margin-top: 12px;text-align:left;'>
+        <div style='margin-top: 1.2vw;text-align:left;'>
           <div>
             <span>注意：</span>
           </div>
@@ -28,42 +28,42 @@
       <div class="mask" catchtouchmove="preventTouchMove" v-if="show_transfer_modal"></div>
       <div class="paynow" v-if="show_transfer_modal">
         <div style='width: 100%;height: 10%;'>
-          <div style='float:left;width: 40%;font-size: 22px;line-height: 50px;margin-left: 10%;'>
+          <div style='float:left;width: 40%;font-size: 22px;line-height: 5vw;margin-left: 10%;'>
             转账支付
           </div>
           <div style='float:right;width: 50%;text-align: right' @click='closeTransferModal'>
             <img src='@/assets/images/img-close.png'
-                 style='width: 30px;height: 30px;margin-top: 10px;margin-right: 10%'/>
+                 style='width: 3vw;height: 3vw;margin-top: 1vw;margin-right: 10%'/>
           </div>
         </div>
         <div style='text-align: center'>
-          <div style='width: 100%;height: 350px;font-size: 12px;'>
+          <div style='width: 100%;height: 350px;font-size: 1.2vw;'>
 
-            <div style='margin-left: 5%;margin-top:10px;text-align:left;display: flex;justify-content: center;'>
+            <div style='margin-left: 5%;margin-top:1vw;text-align:left;display: flex;justify-content: center;'>
               <span style='display: flex;justify-content: center;'>帐号：</span>
               <span style='text-align: left;'>{{bankInfo.account_no}}</span>
               <button @click='copyText' size="mini" style="font-size: 8px;" :data-text="bankInfo.account_no">复制
               </button>
             </div>
-            <div style='margin-left: 5%;margin-top:10px;text-align:left;display: flex;justify-content: center;'>
+            <div style='margin-left: 5%;margin-top:1vw;text-align:left;display: flex;justify-content: center;'>
               <span style='display: flex;justify-content: center;'>户名：</span>
               <span style='text-align: left;'>{{bankInfo.account_name}}</span>
               <button @click='copyText' size="mini" style="font-size: 8px;" :data-text="bankInfo.account_name">复制
               </button>
             </div>
-            <div style='margin-left: 5%;margin-top:10px;text-align:left;display: flex;justify-content: center;'>
+            <div style='margin-left: 5%;margin-top:1vw;text-align:left;display: flex;justify-content: center;'>
               <span style='display: flex;justify-content: center;'>银行：</span>
               <span style='text-align: left;'>{{bankInfo.bank_name}}</span>
               <button @click='copyText' size="mini" style="font-size: 8px;" :data-text="bankInfo.bank_name">复制
               </button>
             </div>
 
-            <div style='wid:200px;height:100px;text-align: center;margin-top: 30px;'>
+            <div style='wid:200px;height:100px;text-align: center;margin-top: 3vw;'>
               <span style='font-size: 18px;'>请在支付时备注您订单内的联系号码 \n</span>
-              <span style='font-size: 18px;color: #c0c0c0'>注：转账支付为人工审核</span>
+              <span style='font-size: 18px;color: #c0c0c0'>{{$t('order.zhuanzhangbeizhu')}}</span>
             </div>
           </div>
-          <div style='width: 60%;text-align: center;margin-top: 30px;margin-left: 20%;'>
+          <div style='width: 60%;text-align: center;margin-top: 3vw;margin-left: 20%;'>
             <button @click="havePaid" data-type="banktransfer" class="wux-button wux-button--block" type="default">
               已支付，查看订单
             </button>
@@ -74,46 +74,67 @@
       <div class="mask" catchtouchmove="preventTouchMove" v-if="show_paynow_modal"></div>
       <div class="paynow" v-if="show_paynow_modal">
         <div style='width: 100%;height: 10%;'>
-          <div style='float:left;width: 40%;font-size: 18px;line-height: 50px;margin-left: 5%;'>
-            PayNow支付
+          <div style='float:left;width: 40%;font-size: 18px;line-height: 5vw;margin-left: 5%;'>
+            PayNow
           </div>
 
           <div style='float:right;width: 50%;text-align: right' @click='closePayNowModal'>
             <img src='@/assets/images/img-close.png'
-                 style='width: 24px;height: 24px;margin-top: 10px;margin-right: 5%'/>
+                 style='width: 24px;height: 24px;margin-top: 1vw;margin-right: 5%'/>
           </div>
         </div>
         <div style='float:left;width: 100%;margin-left: 5%;'>
-          PayNow支付号码：{{payNowNo}}
+          UEN：{{payNowUen}}
         </div>
+        <!--<div style='float:left;width: 100%;margin-left: 5%;'>
+          PayNow Account.：{{payNowNo}}
+        </div>-->
         <div style='float:left;width: 100%;margin-left: 5%;margin-top:5px'>
-          支付金额：
+          {{$t('order.zhifujine')}}：
           <span style="color:red">${{tot_price}}</span>
         </div>
         <div style='float:left;width: 100%;margin-left: 5%;margin-top:5px'>
-          备注订单号：
+          {{$t('order.beizhudingdanhao')}}：
           <span style="color:red">{{order_num_alias}}</span>
         </div>
         <div style='float:left;width: 100%;margin-left: 5%;margin-top:5px'>
-          <span style="color:red">请在备注中写入该订单号，很重要！</span>
+          <!--<span style="color:red">{{$t('order.xierugaidingdanhao')}}</span>-->
         </div>
 
         <div style='text-align: center'>
-          <div style='width: 100%;height: 350px;justify-content: center; '>
+          <div style='width: 100%;height: 530px;justify-content: center; '>
             <img :src='payNowQr'
                  style='width: 160px;height: 160px;margin-top: 20px;border: 1px solid #000;'/>
-            <div style='wid:200px;height:40px;margin-top:10px;'>
+            <div style='wid:200px;height:40px;margin-top:1vw;'>
 
-              <span style='text-align: left;'>PayNow扫码支付 \n <!--或 uen: {{payNowUen}}--></span>
+              <span style='text-align: left'>{{$t('order.saomazhifu')}}  <!--或 uen: {{payNowUen}}--></span>
 
             </div>
-            <div style='wid:200px;height:100px; margin-top:10px;'>
+            <div style='wid:200px;height:20px; text-align: left; margin-top:1vw;margin-left:1vw;'>
+              <span style='font-size: 15px;'>Step 1: Take a screenshot of the QR code</span>
+            </div>
+            <div style='wid:200px;height:40px; text-align: left; margin-top:1vw;margin-left:1vw;'>
+              <span style='font-size: 15px;'>Step 2: Proceed to make payment via PayNow by scanning the QR</span>
+            </div>
+            <div style='wid:200px;height:40px; text-align: left; margin-top:1vw;margin-left:1vw;'>
+              <span style='font-size: 15px;'>Step 3: On your PayNow account enter your mobile number under notes and click Submit</span>
+            </div>
+
+            <div style='wid:200px;height:100px; margin-top:3vw;'>
               <span style='font-size: 18px;'><!--请在支付时备注您订单内的联系号码 \n--></span>
-              <span style='font-size: 18px;color: #c0c0c0'>注：转账支付为人工审核</span>
+              <span style='font-size: 18px;color: #c0c0c0'>{{$t('order.zhuanzhangbeizhu')}}</span>
             </div>
           </div>
-          <div style='width: 60%;text-align: center;margin-top: 30px;margin-left: 20%;'>
-            <button @click="havePaid" data-type="paynow" class="wux-button wux-button--block" type="default">已支付，查看订单
+          <!--
+          <div class="receiver">
+
+            <span>{{$t('order.jiaoyiliushui')}}</span>
+            <input v-model="transaction_id" class="mobile" placeholder="Paynow transaction No." type="text"></input>
+
+          </div>
+          -->
+          <div style='width: 60%;text-align: center;margin-top: 2vw;margin-left: 20%;'>
+            <button @click="havePaid" :style="{background:skin.color,color:' #fff'}" data-type="paynow" class="wux-button wux-button--block" type="default">{{$t('order.yizhifu')}}
             </button>
           </div>
         </div>
@@ -122,12 +143,12 @@
       <div class="mask" catchtouchmove="preventTouchMove" v-if="show_payment_modal"></div>
       <div class="modalDlg" v-if="show_payment_modal">
         <div style='width:100%;height:40px;border-bottom:1px solid #ccc;margin:0;padding:0;'>
-          <span style='text-align:center;font-size:14px;font-weight:600 ;margin-top:10px'>支付方式</span>
+          <span style='text-align:center;font-size:14px;font-weight:600 ;margin-top:1vw'>{{$t('cart.zhifufangshi')}}</span>
         </div>
 
         <!-- 总金额 -->
-        <div style='height:50px;width:100%'>
-          <span style='font-size:30px;color:#f00'>${{tot_price}}</span>
+        <div style='height:5vw;width:100%'>
+          <span style='font-size:3vw;color:#f00'>${{tot_price}}</span>
         </div>
 
         <!--
@@ -138,16 +159,16 @@
 
                 <button @click="preSubscript"  data-type="cashpay" class="wux-button wux-button--block" type="warn" style="margin-top=16px">到店付款</button>
                 -->
-        <button @click="preSubscript" data-type="paynow" class="wux-button wux-button--block" :style="{background:skin.color,color:' #fff'}" type="warn">PayNow支付
+        <button @click="preSubscript" data-type="paynow" class="wux-button wux-button--block" :style="{background:skin.color,color:' #fff'}" type="warn">PayNow
         </button>
-        <button @click="preSubscript" data-type="banktransfer" class="wux-button wux-button--block" :style="{background:skin.color,color:' #fff'}" type="warn">公司转账
-        </button>
+        <!--<button @click="preSubscript" data-type="banktransfer" class="wux-button wux-button&#45;&#45;block" :style="{background:skin.color,color:' #fff'}" type="warn">公司转账
+        </button>-->
 
         <!--
         <button wx:if='{{tabIdx==0}}' @click="preSubscript" data-type="cash" class="wux-button wux-button--block" type="warn">货到付款</button>
         -->
 
-        <button @click="closePaymentModal" class="wux-button wux-button--block" type="default">取消支付</button>
+        <button @click="closePaymentModal" class="wux-button wux-button--block" type="default">{{$t('cart.quxiaozhifu')}}</button>
 
       </div>
 
@@ -208,41 +229,39 @@
             <div v-if="tabIdx==2">
 
                  <div class="receiver">
-                    <span>所在地区： </text>
+                    <span>所在地区： </span>
                      <div @click="choseLocation" class="sel-btn">{{tabAddress[tabIdx].region[0]||'选择地址'}}{{tabAddress[tabIdx].region[1]}}{{tabAddress[tabIdx].region[2]}} </div>
                     <img class="icon-right" src="@/assets/images/rightArrowImg.png"></image>
                  </div>
                  <div class="receiver align-start">
-                    <span>详细地址：</text>
+                    <span>详细地址：</span>
                     <spanarea @input="changeReceiverAddress" class="receive-name" focus="{{focus_addr}}" hidden="{{showConfirmModal}}" placeholder="详细地址" type="text" value="{{tabAddress[tabIdx].receiverAddress}}"></textarea>
                  </div>
 
             </block>
             <div v-else>
                  <div @click="choseLocation" class="receiver align-start">
-                    <span>所在位置：</text>
+                    <span>所在位置：</span>
                      <div class="sel-btn tuan-pos">{{tabAddress[tabIdx].receiverAddress}}
                     <img class="icon-right" src="@/assets/images/rightArrowImg.png"></image>
                      </div>
                  </div>
                  <div class="receiver align-start">
-                    <span>楼号门牌：</text>
+                    <span>楼号门牌：</span>
                     <spanarea @input="changeTuanAddress" class="receive-name" focus="{{focus_addr}}" placeholder="例如:A座106室" type="text" value="{{tabAddress[tabIdx].lou_meng_hao}}" v-if="!showConfirmModal}}"></textarea>
                  </div>
                  <div class="receiver align-start">
-                    <span>送货时间：</text>
+                    <span>送货时间：</span>
                     <input @input="bindReceiverMobile" focus="{{focus_delivery_time}}" bindfocus="selectdeliveryTime" placeholder="送货时间" type="text" value="{{tabAddress[tabIdx].delivery_time}}"></input>
                  </div>
             </block>
             -->
           </div>
 
-          <div v-if="tabIdx != 2">
-            <div class="receiver align-start">
-              <span>{{tabIdx ==0 ? $t('cart.zitishijian') : $t('cart.songhuoshijian') }}</span>
-              <input @click="showPickupTime"  :placeholder="'选择'+tabIdx ==0 ? $t('cart.xuanzeshijian') : $t('cart.xuanzeshijian')" type="text"
-                     :value="tabAddress[tabIdx].delivery_date_str"></input>
-            </div>
+          <div class="receiver align-start">
+            <span>{{tabIdx ==0 ? $t('cart.zitishijian') : $t('cart.songhuoshijian') }}</span>
+            <input @click="showPickupTime" readonly  :placeholder="'Choose'+tabIdx ==0 ? $t('cart.xuanzeshijian') : $t('cart.xuanzeshijian')" type="text"
+                   :value="tabAddress[tabIdx].delivery_date_str"></input>
           </div>
 
           <!--
@@ -251,7 +270,7 @@
           <div v-if="tabIdx!=2&&is_hexiao!=1">
             <p class="address-red">{{$t('order.xinxi')}} {{community.disUserName}} ({{community.communityName}})
 
-              <router-link style="display:inline;position: absolute;right: 10px;" class="to-distribution"
+              <router-link style="display:inline;right: 1vw;" class="to-distribution"
                          hoverClass="none" to="/lionfish_comshop/pages/position/community">
                 <span>{{$t('order.qiehuantuanzhang')}} </span>
               </router-link>
@@ -265,16 +284,17 @@
         <div class="card-container" v-for="(value,key) in seller_goodss" :key="key">
           <i-card iClass="card-content">
             <div class="card-header" slot="header" :style="{color:skin.color}">
+
               <div v-if="tabIdx==0">
+<!--
                 <div v-if="tabAddress[tabIdx].delivery_date_str && tabAddress[tabIdx].delivery_date_str!=''">
                   <div class="cart-header-left">预计{{tabAddress[tabIdx].delivery_date_str}}可自提</div>
                 </div>
                 <div v-else>
                   <div class="cart-header-left" v-if="pick_up_type==3">预计{{pick_up_time}}可自提</div>
-
                   <div class="cart-header-left" v-else>预计{{pick_up_time}}({{pick_up_weekday}})可自提</div>
                 </div>
-
+-->
               </div>
               <!--
               <div v-else-if="tabIdx==1">
@@ -359,7 +379,7 @@
           <div @click="showvoucher" class="cell" data-seller_id="0" v-if="seller_goodss[0] && seller_goodss[0].show_voucher==1">
             <div>
               <span>{{$t('common.youhuiquan')}}</span>
-              <span class="cell-desc" v-if="sel_chose_vouche.limit_money>0">满{{sel_chose_vouche.limit_money}}元优惠{{sel_chose_vouche.credit}}元</span>
+              <span class="cell-desc" v-if="sel_chose_vouche.limit_money>0">min. ${{sel_chose_vouche.limit_money}} purchase to use ${{sel_chose_vouche.credit}} coupon</span>
               <span class="cell-desc" v-else>优惠{{sel_chose_vouche.credit}}元</span>
             </div>
             <div>
@@ -368,7 +388,7 @@
             </div>
           </div>
           <div @click="showvoucher" class="cell" :data-seller_id="seller_goodss[0] && seller_goodss[0].store_info.s_id"
-               v-if="seller_goodss[0] && seller_goodss[0].show_voucher==0">
+               v-if="ssvoucher_list.length&&seller_goodss[0].show_voucher==0">
             <div>
               <span>{{$t('common.xuanzeyouhuiquan')}}</span>
             </div>
@@ -387,51 +407,58 @@
           </div>
         </div>
         <div v-if="buy_type=='integral'">
-          <div class="act-content" v-if="is_yue_open==1&&total_free>0">
-            <div avalonctrl="oc_payment" @click="ck_wxpays" class="oc-payment">
-              <div :class="['oc-payment-item',ck_yupay==0?'oc-payment-selected':'']"
-                   :style="ck_yupay==0?'color:'+skin.color:''">
+          <div class="act-content" >
+            <div avalonctrl="oc_payment" @click="ck_paynowpays" class="oc-payment">
+              <div :class="['oc-payment-item',ck_yupay==2?'oc-payment-selected':'']"
+                   :style="ck_yupay==2?'color:'+skin.color:''">
                 <span class="iconfont icon-weixinzhifu oc-payment-icon" style="color:#00c800;"></span>
-                <div class="oc-payment-method">PayNow支付</div>
-                <div class="oc-payment-recommend" :style="{color:skin.color,'border-color':skin.color}">推荐</div>
+                <div class="oc-payment-method">PayNow</div>
+                <!--<div class="oc-payment-recommend" :style="{color:skin.color,'border-color':skin.color}">推荐</div>-->
               </div>
             </div>
-            <div avalonctrl="oc_payment" @click="ck_yupays" class="oc-payment" v-if="can_yupay">
-              <div :class="['oc-payment-item', ck_yupay>0?'oc-payment-selected':'']"
-                   :style="ck_yupay>0?'color:'+skin.color:''">
-                <span class="iconfont icon-balance oc-payment-icon" style="color:#ff5777;"></span>
-                <div class="oc-payment-method">余额支付（余额：{{yu_money}}）</div>
+
+            <div v-if="is_yue_open==1&&total_free>0">
+              <div avalonctrl="oc_payment" @click="ck_yupays" class="oc-payment" v-if="can_yupay">
+                <div :class="['oc-payment-item', ck_yupay ==1?'oc-payment-selected':'']"
+                     :style="ck_yupay ==1?'color:'+skin.color:''">
+                  <span class="iconfont icon-balance oc-payment-icon" style="color:#ff5777;"></span>
+                  <div class="oc-payment-method">{{ $t('order.yuezhifu',{p1:yu_money}) }}   </div>
+                </div>
+              </div>
+              <div class="oc-payment" v-else>
+                <div class="oc-payment-item">
+                  <span class="iconfont icon-balance oc-payment-icon text-gray"></span>
+                  <div class="oc-payment-method">{{ $t('order.yuezhifu',{p1:yu_money}) }}</div>
+                </div>
               </div>
             </div>
-            <div class="oc-payment" v-else>
-              <div class="oc-payment-item">
-                <span class="iconfont icon-balance oc-payment-icon text-gray"></span>
-                <div class="oc-payment-method">余额支付（余额：{{yu_money}}）</div>
-              </div>
-            </div>
+
           </div>
         </div>
         <div v-else>
-          <div class="act-content" v-if="is_yue_open==1">
-            <div avalonctrl="oc_payment" @click="ck_wxpays" class="oc-payment">
-              <div :class="['oc-payment-item', ck_yupay==0?'oc-payment-selected':'']"
-                   :style="ck_yupay==0?'color:'+skin.color:''">
+          <div class="act-content" >
+            <div avalonctrl="oc_payment" @click="ck_paynowpays" class="oc-payment">
+              <div :class="['oc-payment-item', ck_yupay==2?'oc-payment-selected':'']"
+                   :style="ck_yupay==2?'color:'+skin.color:''">
                 <span class="iconfont icon-weixinzhifu oc-payment-icon" style="color:#00c800;"></span>
-                <div class="oc-payment-method">PayNow支付</div>
-                <div class="oc-payment-recommend" :style="{'color':skin.color , 'border-color':skin.color}">推荐</div>
+                <div class="oc-payment-method">PayNow</div>
+                <!--<div class="oc-payment-recommend" :style="{'color':skin.color , 'border-color':skin.color}">推荐</div>-->
               </div>
             </div>
-            <div avalonctrl="oc_payment" @click="ck_yupays" class="oc-payment" v-if="can_yupay">
-              <div :class="['oc-payment-item', ck_yupay>0?'oc-payment-selected':'']"
-                   :style="ck_yupay>0?'color:'+skin.color:''">
-                <span class="iconfont icon-balance oc-payment-icon" style="color:#ff5777;"></span>
-                <div class="oc-payment-method">余额支付（余额：{{yu_money}}）</div>
+
+            <div v-if="is_yue_open==1">
+              <div avalonctrl="oc_payment" @click="ck_yupays" class="oc-payment" v-if="can_yupay">
+                <div :class="['oc-payment-item', ck_yupay ==1?'oc-payment-selected':'']"
+                     :style="ck_yupay ==1?'color:'+skin.color:''">
+                  <span class="iconfont icon-balance oc-payment-icon" style="color:#ff5777;"></span>
+                  <div class="oc-payment-method">{{ $t('order.yuezhifu',{p1:yu_money}) }}</div>
+                </div>
               </div>
-            </div>
-            <div class="oc-payment" v-else>
-              <div class="oc-payment-item">
-                <span class="iconfont icon-balance oc-payment-icon text-gray"></span>
-                <div class="oc-payment-method">余额支付（余额：{{yu_money}}）</div>
+              <div class="oc-payment" v-else>
+                <div class="oc-payment-item">
+                  <span class="iconfont icon-balance oc-payment-icon text-gray"></span>
+                  <div class="oc-payment-method">{{ $t('order.yuezhifu',{p1:yu_money}) }}</div>
+                </div>
               </div>
             </div>
           </div>
@@ -440,13 +467,13 @@
           <div class="fixed-content">
             <div class="fixed-left">
               <div class="h1" v-if="buy_type=='integral'">
-                实付：
+                To Pay：
                 <span>
                             <div v-if="total_free>0">${{total_free}} + </div>{{total_integral}}积分
             </span>
               </div>
               <div class="h1" v-else>
-                合计：<span>${{tot_price}}</span>
+                Total：<span>${{tot_price}}</span>
               </div>
               <div class="h2" v-if="buy_type!='integral'">
                 <em>{{$t('order.zonge')}}${{total_all}}</em>
@@ -465,16 +492,19 @@
     <i-modal @cancel="closeConfirmModal" iClass="confirm-modal-content" :is-show="showConfirmModal" scrollUp="true">
       <div class="confirm-order-modal">
         <div v-if="tabIdx==0">
-          <div class="title">此商品需要您{{originTabList[tabIdx].name}}，请确认提货信息</div>
-          <div class="sub-title">
+          <!-- <div class="title">{{$t('order.cishangpinxuyao')}}{{originTabList[tabIdx].name}} {{$t('order.qingquerentihuo')}}</div> -->
+          <div v-if="tabIdx==0" class="title"> This product requires you to pick up from the Collection Point. Please confirm the collection information. </div>
+          <div v-if="tabIdx==2" class="title"> This product is Direct Delivery. </div>
+	  <div class="sub-title">
             <img src="@/assets/images/icon-give.png"/>
 
             <div v-if="tabAddress[tabIdx].delivery_date_str && tabAddress[tabIdx].delivery_date_str!=''">
-              <div>预计{{tabAddress[tabIdx].delivery_date_str}}可自提</div>
+              <!-- <div>预计{{tabAddress[tabIdx].delivery_date_str}}可自提</div>  -->
+		<div>Estimated pick-up:{{tabAddress[tabIdx].delivery_date_str}}</div>
             </div>
             <div v-else>
-              <span v-if="pick_up_type==3">预计{{pick_up_time}}可自提</span>
-              <span v-else>预计{{pick_up_time}}({{pick_up_weekday}})可自提</span>
+              <span v-if="pick_up_type==3">{{pick_up_time}}可自提</span>
+              <span v-else>{{pick_up_time}}({{pick_up_weekday}})可自提</span>
             </div>
 
 
@@ -485,8 +515,8 @@
              <div class="title">需要{{groupInfo.owner_name}}配送，请确认收货信息 </div>
              <div class="sub-title">
                 <img src="@/assets/images/icon-give.png"></image>
-                <span v-if="pick_up_type==3">预计{{pick_up_time}}{{groupInfo.owner_name}}配送</text>
-                <span v-else>预计{{pick_up_time}}({{pick_up_weekday}}){{groupInfo.owner_name}}配送</text>
+                <span v-if="pick_up_type==3">预计{{pick_up_time}}{{groupInfo.owner_name}}配送</span>
+                <span v-else>预计{{pick_up_time}}({{pick_up_weekday}}){{groupInfo.owner_name}}配送</span>
              </div>
         </block>
         -->
@@ -509,7 +539,7 @@
             <em>-${{disAmount}}</em>
           </div>
           <div class="msg-group">
-            <span>{{groupInfo.owner_name}}信息：</span>
+            <span>{{groupInfo.owner_name}}：</span>
             <em>{{disUserName}}
               <span class="distance" v-if="current_distance&&tabIdx==1">(距您{{current_distance}}m)</span>
             </em>
@@ -542,7 +572,7 @@
         <div class="button-group">
           <i-button @handleTap="closeConfirmModal" class="btn-content" iClass="btn left-btn">{{$t('common.quxiao')}}</i-button>
           <div class="btn-content btn right-btn bgDisabled" v-if="btnDisable">{{btnText?btnText:$t('order.querenzhifu')}}</div>
-          <i-button @handleTap="showPaymentModal" class="btn-content" iClass="btn right-btn" :loading="payBtnLoading"
+          <i-button @handleTap="preSubscript" class="btn-content" iClass="btn right-btn" :loading="payBtnLoading"
                     :styleStr="'background:'+skin.color" v-else>
             <div :style="{background:skin.color}">{{$t('order.querenzhifu')}}</div>
           </i-button>
@@ -551,7 +581,7 @@
     </i-modal>
     <!--<i-dialog @cancel="cancel" @confirm="continuePay" confirmText="确认" text="赠品已送完，确认支付？"
               v-show="visible"></i-dialog>-->
-    <i-modal @cancel="closeCouponModal" iClass="confirm-modal-content" v-show="!hide_quan">
+    <i-modal @cancel="closeCouponModal" iClass="confirm-modal-content" :is-show="!hide_quan" scrollUp="true">
       <div class="confirm-coupon-modal">
         <div class="title">请选择优惠券</div>
         <div scrollY class="list">
@@ -599,7 +629,7 @@
               <div @click="changePickupDate"
                    :class="['category-item',rickupTimeData.activeDateIndex == index?'active':'']" :data-index="index"
                    v-for="(item , index) in rickupTimeData.list" :key="index">
-                {{item.date}}
+                {{item.md}}({{$t('week.'+item.week_key)}})
               </div>
 
 
@@ -656,6 +686,7 @@
     components:{ITabs},
     data() {
       return {
+        transaction_id:'',
         order_id: '',
         order_num_alias: '',
         show_payment_modal: false,
@@ -733,12 +764,13 @@
           group_name: '社区',
           owner_name: '团长',
           placeorder_tuan_name: '配送费',
-          placeorder_trans_name: '快递费'
+          placeorder_trans_name: 'Freight'
         },
         comment: '',
         is_yue_open: 0,
         can_yupay: 0,
-        ck_yupay: 0,
+        ck_yupay: 2,
+        pay_method:'paynow',
         use_score: 0,
         commentArr: {},
         community: {},
@@ -803,8 +835,10 @@
         showBack:true
       })
 
-      this.$store.dispatch('app/showToolbarBack')
       this.onLoad()
+
+    },
+    mounted:function(){
       this.onShow()
     },
 
@@ -993,9 +1027,7 @@
         this.t_ziti_mobile = t
         this.showGetPhone = !1
       },
-      ck_wxpays: function() {
-        this.ck_yupay = 0
-      },
+
       selectStorefront: function() {
         var this_ = this
         wx.request({
@@ -1077,9 +1109,21 @@
           }
         })
       },
+
+      ck_wxpays: function() {
+        this.ck_yupay = 0
+        this.pay_method ='wx'
+      },
+
       ck_yupays: function() {
         this.ck_yupay = 1
+        this.pay_method = 'yue'
       },
+      ck_paynowpays: function() {
+        this.ck_yupay = 2
+        this.pay_method='paynow'
+      },
+
       scoreChange: function(e) {
         console.log('是否使用', e.detail.value)
         var t = this, a = 1 * t.score_for_money, i = 1 * t.tot_price, o = 1 * t.disAmount
@@ -1132,14 +1176,13 @@
         this.show_storefront_modal = !1
       },
       goOrderfrom: function() {
-        debugger
         var e = this, t = e.tabAddress, a = e.tabIdx, i = t[a].name, o = t[a].mobile, s = t[a].receiverAddress,
           n = t[a].region, r = t[a].receiverAddress, d = t[a].lou_meng_hao, dt = t[a].delivery_date_str,
           zc = t[a].zipCode, rn = t[a].roadName, bd = t[a].building
         if ('' == i) {
           e.focus_name = !0
-          var c = this.$t('order.tianxieshouhuoren')
-          return 0 == a && (c = this.$t('order.tianxietihuoren')), wx.showToast({
+          var c = e.$t('order.tianxieshouhuoren')
+          return 0 == a && (c = e.$t('order.tianxietihuoren')), wx.showToast({
             title: c,
             icon: 'none'
           }), !1
@@ -1147,14 +1190,14 @@
 
         if (!/^\d{8}$/.test(o) && !/^1(3|4|5|6|7|8|9)\d{9}$/.test(o)) {
           return wx.showToast({
-            title: this.$t('order.shoujihaomayouwu'),
+            title: e.$t('order.shoujihaomayouwu'),
             icon: 'none'
           }), !1
         }
 
         if (0 != a && ('' == zc || !/^\d{6}$/.test(zc))) {
           return wx.showToast({
-            title:  this.$t('order.youbianyouwu'),
+            title:  e.$t('order.youbianyouwu'),
             icon: 'none'
           }), !1
         }
@@ -1210,20 +1253,27 @@
           }), !1
         }
         //原逻辑直接微信支付 改成先选择支付方式
-        //2 == a ? this.preSubscript() : this.conformOrder();
-        2 == a ? this.showPaymentModal() : this.conformOrder()
+        2 == a ? this.preSubscript() : this.conformOrder();
+        //2 == a ? this.showPaymentModal() : this.conformOrder()
       },
-      preSubscript: function(t) {
-        var type = t.currentTarget.dataset.type
+      preSubscript: function() {
+
         var e = this
         this.canPreSub && (this.canPreSub = !1, 1 == this.is_need_subscript ? this.subscriptionNotice().then(function() {
-          e.prepay(type)
+          e.prepay()
         }).catch(function() {
-          e.prepay(type)
-        }) : e.prepay(type))
+          e.prepay()
+        }) : e.prepay())
 
       },
       havePaid: function(t) {
+
+      //  if ( '' == this.transaction_id) {
+      //    return wx.showToast({
+      //      title: '请输入交易流水id',
+      //      icon: 'none'
+      //    }), !1
+      //  }
         var i= this
         var s = wx.getStorageSync('token')
         var type = t.currentTarget.dataset.type
@@ -1233,7 +1283,8 @@
             controller: 'order.pay_order',
             token: s,
             order_id: i.order_id,
-            payment_code: type
+            payment_code: type,
+            transaction_id:this.transaction_id
           },
           dataType: 'json',
           method: 'POST',
@@ -1253,8 +1304,8 @@
         var e = this, t = e.tabAddress, a = e.tabIdx
         if (1 == e.is_limit_distance_buy && 1 == a) {
           return wx.showModal({
-            title: '提示',
-            content: '离团长太远了，暂不支持下单',
+            title: '',
+            content: 'Too far, Can not place order',
             showCancel: !1,
             confirmColor: '#F75451'
           }), !1
@@ -1292,13 +1343,13 @@
             P = f[1], z = f[2])
           A = zip_code + ' ' + blk_no + ' ' + road_name + ' ' + x + ' ' + building
           var I = wx.getStorageSync('community').communityId, L = wx.getStorageSync('latitude2'),
-            O = wx.getStorageSync('longitude2'), j = this, N = j.use_score, q = j.buy_type, C = j.soli_id
+            O = wx.getStorageSync('longitude2'), j = this, N = j.use_score, q = j.buy_type, C = j.soli_id,pm = j.pay_method;
           wx.showLoading(), app.util.request({
             url: 'entry/wxapp/user',
             data: {
               controller: 'car.sub_order',
               token: s,
-              pay_method: type,
+              pay_method: pm,
               buy_type: q,
               pick_up_id: I,
               dispatching: l,
@@ -1327,7 +1378,7 @@
             dataType: 'json',
             method: 'POST',
             success: function(t) {
-              debugger
+
               console.log(t)
               wx.hideLoading()
 
@@ -1338,29 +1389,29 @@
               this_.order_id = id
               this_.order_num_alias = ona.substring(ona.length - 5)
 
-              if (type == 'cash') {
+              if (pm == 'cash') {
                 wx.redirectTo({
                   url: '/lionfish_comshop/pages/order/order?id=' + a + '&is_show=1'
                 })
-              } else if (type == 'paynow') {
-                wx.request({
-                  // 请求地址
-                  url: 'https://hz.xx315.net/payment/paynow/paynow.json',
-                  // 请求方式
-                  method: 'get',
-                  dataType: 'json',
-                  responseType: 'text',
-                  // 方法
-                  success: function(data) {
-                    console.log(data)
-                    this_.payNowQr = data.data.data.qr
-                    this_.payNowNo = data.data.data.payNowNo
-                    this_.payNowUen = data.data.data.uen
+              } else if (pm == 'paynow') {
+
+                app.util.request({
+                  url: "entry/wxapp/user",
+                  data: {
+                    controller: "user.get_copyright",
+                  },
+                  dataType: "json",
+                  method: "POST",
+                  success: function(t) {
+                    this_.payNowQr = t.paynow_qr
+                    this_.payNowNo = t.paynow_no
+                    this_.payNowUen = t.paynow_uen
                   }
-                })
+                });
+
                 this_.closePaymentModal()
                 this_.showPayNowModal()
-              } else if ('banktransfer' == type) {
+              } else if ('banktransfer' == pm) {
                 wx.request({
                   // 请求地址
                   url: 'https://hz.xx315.net/payment/transfer/bank.json',
@@ -1811,12 +1862,20 @@
         })
       },
       showPickupTime: function() {
-        var r = this, t = wx.getStorageSync('token')
-        var I = wx.getStorageSync('community').communityId
+
+
+        var r = this,s = r.tabAddress, n = r.tabIdx, t = wx.getStorageSync("token");
+        var I = wx.getStorageSync("community").communityId;
+        var controller='';
+        if(n ==0){
+          controller = 'car.get_head_date_list'
+        }else{
+          controller = 'car.get_express_date_list'
+        }
         app.util.request({
           url: 'entry/wxapp/user',
           data: {
-            controller: 'car.get_head_date_list',
+            controller: controller,
             token: t,
             head_id: I
           },
@@ -1824,6 +1883,8 @@
           method: 'POST',
           success: function(e) {
             var list = e.data;
+
+
             r.rickupTimeData.list = list
             r.rickupTimeData.currentTimes = list[0].times
 
@@ -1860,7 +1921,7 @@
         var t = d.times[activeTimeIndex]
         if (d && d.date && t) {
           s[n].delivery_date = d.str_date
-          s[n].delivery_date_str = d.date + ' ' + t
+          s[n].delivery_date_str = d.md + '(' + e.$t('week.'+d.week_key) +') ' + t
           s[n].delivery_time = t
 
           this.closePickupTimeModal()
@@ -1910,8 +1971,9 @@
     box-sizing: border-box;
     font-weight: bold;
     background-color: #f7f7f7;
-    outline :none;
-    font-size: 1vw;
+    border: 0.1vw solid #ddd;
+    font-size: 3vw;
+    outline: none;
   }
 
   .sel-btn {
@@ -1924,11 +1986,12 @@
 
   .address-content p {
     color: #999;
-    font-size: 2vw;
+    font-size: 3vw;
     display: block;
     overflow: hidden;
     text-overflow: ellipsis;
-    white-space: nowrap;
+    word-wrap:break-word;
+    word-break:normal;
   }
 
   .address-line {
@@ -1966,12 +2029,12 @@
   }
 
   .card-header {
-    font-size: 2vw;
+    font-size: 3vw;
     color: #aaa;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0 5vw;
+    padding: 0 2vw;
     height: 10vw;
     border-bottom: 0.1vw solid #efefef;
   }
@@ -1998,7 +2061,7 @@
   }
 
   .sku-item .sku-msg .sku-title {
-    font-size: 2.5vw;
+    font-size: 3.5vw;
     color: #444;
     line-height: 3vw;
     margin-bottom: 1.2vw;
@@ -2016,7 +2079,7 @@
   }
 
   .sku-item .sku-msg .original-price {
-    font-size: 2vw;
+    font-size: 3vw;
     line-height: 5vw;
     color: #aaa;
     margin-bottom: 1vw;
@@ -2031,7 +2094,7 @@
 
   .sku-item .sku-msg .sku-price span {
     color: #ff5344;
-    font-size: 2vw;
+    font-size: 3vw;
     font-weight: 500;
   }
 
@@ -2080,8 +2143,8 @@
     font-size: 20vw;
     border-radius: 16vw;
     color: #ff5344;
-    height: 24vw;
-    line-height: 24vw;
+    height: 26vw;
+    line-height: 26vw;
     position: absolute;
   }
 
@@ -2116,7 +2179,7 @@
   }
 
   .fixed-content .fixed-left .h2 {
-    font-size: 2vw;
+    font-size: 3vw;
     line-height: 5vw;
     color: #666;
   }
@@ -2133,6 +2196,7 @@
     color: #fff;
     font-size: 4vw;
     background: #ff5344;
+    border-top: 0.1vw solid #efefef;
     border-radius: 0;
     padding: 0;
     margin: 0;
@@ -2151,7 +2215,7 @@
   }
 
   .confirm-order-modal .title {
-    font-size: 3vw;
+    font-size: 3.5vw;
     color: #444;
     line-height: 8.5vw;
     margin-bottom:1vw;
@@ -2164,7 +2228,7 @@
     align-items: center;
     color: #ff5344;
     line-height: 2vw;
-    font-size: 2vw;
+    font-size: 3vw;
     margin-bottom: 9vw;
     font-weight: 500;
   }
@@ -2177,7 +2241,7 @@
 
   .confirm-order-modal .order-content {
     width: 95vw;
-    border-radius: 5vw;
+    border-radius: 2vw;
     padding-top: 3vw;
     background: #f6f6f6;
     margin-bottom: 15vw;
@@ -2185,11 +2249,11 @@
 
   .confirm-order-modal .order-content .msg-group {
     width: 100vw;
-    padding: 0 3vw;
+    padding: 0 4vw;
     margin-bottom: 1vw;
     display: flex;
-    font-size: 2vw;
-    line-height: 5vw;
+    font-size: 3vw;
+    line-height: 4vw;
     color: #444;
     box-sizing: border-box;
   }
@@ -2235,7 +2299,7 @@
     flex: 1;
     margin: 0;
     padding: 0;
-    font-size: 2vw;
+    font-size: 3.5vw;
     line-height: 10vw;
     text-align: center;
     width: 50vw;
@@ -2263,7 +2327,7 @@
 
   .tab-nav .tab-nav-item {
     color: #6c6c6c;
-    font-size: 2vw;
+    font-size: 3vw;
     font-weight: bold;
     position: relative;
     z-index: 1;
@@ -2350,20 +2414,20 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-bottom: 1vw solid #efefef;
-    line-height: 10vw;
-    font-size: 3vw;
+    border-bottom: 0.1vw solid #efefef;
+    line-height: 8vw;
+    font-size: 2.4vw;
     color: #444;
     padding: 0 3vw;
   }
 
   .icon-right {
     position: absolute;
-    right: 3vw;
+    right: 1vw;
     top: 50%;
-    width: 3vw;
-    height: 4vw;
-    margin-top: -2vw;
+    width: 1.2vw;
+    height: 2.2vw;
+    margin-top: -1vw;
   }
 
   .cell-desc {
@@ -2375,6 +2439,7 @@
   .confirm-coupon-modal {
     background: #f6f6f6;
     display: flex;
+    width: 100vw;
     flex-direction: column;
     align-items: center;
     position: relative;
@@ -2383,44 +2448,44 @@
 
   .confirm-coupon-modal .title {
     width: 100%;
-    border-bottom: 1vw solid #efefef;
+    border-bottom: 1rpx solid #efefef;
     line-height: 2.5;
-    font-size: 3vw;
+    font-size: 3.2vw;
     text-align: center;
     background: #fff;
   }
 
   .confirm-coupon-modal .list {
     width: 100%;
-    max-height: 700vw;
+    max-height: 90vw;
     overflow-y: auto;
-    padding: 0 20vw;
+    padding: 0 2vw;
     box-sizing: border-box;
   }
 
   .confirm-coupon-modal .item {
     display: flex;
     box-sizing: border-box;
-    padding: 20vw 10vw 20vw 20vw;
+    padding: 2vw 1vw 2vw 2vw;
     justify-content: space-between;
     align-items: center;
-    margin: 20vw 0;
+    margin: 2vw 0;
     background: #fff;
-    border-radius: 10vw;
-    box-shadow: 0 0 6vw #ccc;
+    border-radius: 1vw;
+    box-shadow: 0 0 0.6vw #ccc;
   }
 
   .tag-img {
     position: absolute;
-    width: 48vw;
-    height: 48vw;
-    right: 10vw;
-    top: 15vw;
+    width: 4.8vw;
+    height: 4.8vw;
+    right: 1vw;
+    top: 1.5vw;
   }
 
   .no-tag-img {
-    width: 48vw;
-    height: 48vw;
+    width: 4.8vw;
+    height: 4.8vw;
   }
 
   .use-wx-address {
@@ -2455,14 +2520,14 @@
     position: relative;
     box-sizing: border-box;
     width: 100%;
-    padding: 0 10px;
+    padding: 0 1vw;
     background-color: #fff;
   }
 
   .oc-payment-item {
     position: relative;
     width: 100%;
-    line-height: 70vw;
+    line-height: 9vw;
     font-size: 0;
     display: flex;
     align-items: center;
@@ -2471,22 +2536,22 @@
   .oc-payment-method {
     position: relative;
     display: inline-block;
-    margin-left: 10vw;
-    font-size: 2px;
+    margin-left: 1vw;
+    font-size: 3vw;
     color: #333;
   }
 
   .oc-payment-recommend {
     position: relative;
     display: inline-block;
-    width: 30px;
-    height: 17px;
-    margin-left: 10px;
-    line-height: 17px;
+    width: 7vw;
+    height: 4vw;
+    margin-left: 1vw;
+    line-height: 3vw;
     text-align: center;
-    font-size: 2px;
+    font-size: 3vw;
     color: #ee2e3a;
-    border-radius: 2px;
+    border-radius: 0.2vw;
     border: 1px solid #ee2e3a;
   }
 
@@ -2499,8 +2564,8 @@
     content: "\e650";
     position: absolute;
     top: 0;
-    right: 0;
-    line-height: 70vw;
+    right: 3vw;
+    line-height: 9vw;
   }
 
   .oc-payment-icon {
@@ -2510,50 +2575,50 @@
   .coupon {
     background-color: #fefefe;
     position: relative;
-    padding: 0 20vw;
-    border-radius: 6vw;
-    margin-top: 24vw;
-    box-shadow: 0 0 6vw #ccc;
+    padding: 0 2vw;
+    border-radius: 0.6vw;
+    margin-top: 2.6vw;
+    box-shadow: 0 0 0.6vw #ccc;
   }
 
   .coupon:before, .coupon:after {
     content: '';
     position: absolute;
-    width: 20vw;
-    height: 40vw;
+    width: 2vw;
+    height: 4vw;
     background: #f6f6f6;
-    top: 70vw;
+    top: 7vw;
     z-index: 1;
   }
 
   .coupon:before {
-    border-radius: 0 40vw 40vw 0;
+    border-radius: 0 4vw 4vw 0;
     left: 0;
   }
 
   .coupon:after {
-    border-radius: 40vw 0 0 40vw;
+    border-radius: 4vw 0 0 4vw;
     right: 0;
   }
 
   .coupon .header {
     display: flex;
-    padding: 15vw 0;
-    border-bottom: 2vw dashed #dbdbdb;
-    height: 140vw;
+    padding: 1.5vw 0;
+    border-bottom: 0.2vw dashed #dbdbdb;
+    height: 14vw;
   }
 
   .coupon .footer {
     color: #747474;
     font-size: 2vw;
-    padding: 22vw 0 20vw 35vw;
+    padding: 2.2vw 0 2vw 3.5vw;
   }
 
   .coupon .price {
     color: #333;
-    width: 175vw;
+    width: 22vw;
     text-align: center;
-    border-right: 2vw dashed #dbdbdb;
+    border-right: 0.2vw dashed #dbdbdb;
   }
 
   .coupon .price .reduce-price {
@@ -2564,7 +2629,7 @@
   }
 
   .coupon .price .reduce-price span {
-    font-size: 2vw;
+    font-size: 2.4vw;
   }
 
   .coupon .price .reduce-desc {
@@ -2579,9 +2644,9 @@
 
   .coupon .info .reduce-title {
     color: #000;
-    font-size: 2vw;
+    font-size: 2.8vw;
     font-weight: bold;
-    padding-top: 20vw;
+    padding-top: 2vw;
   }
 
   .coupon .info .reduce-type {
@@ -2589,19 +2654,19 @@
     font-weight: normal;
     font-size: 2vw;
     background: #ec6b5a;
-    padding: 2vw 8vw;
-    border-radius: 4vw;
-    margin-left: 10vw;
+    padding: 0.2vw 0.8vw;
+    border-radius: 0.4vw;
+    margin-left: 1vw;
   }
 
   .coupon .status {
-    width: 130vw;
+    width: 13vw;
     text-align: center;
   }
 
-  .coupon .status image {
-    width: 48vw;
-    height: 48vw;
+  .coupon .status img {
+    width: 4.8vw;
+    height: 4.8vw;
   }
 
   .coupon.used, .coupon.expired {
@@ -2654,7 +2719,7 @@
     top: 0;
     left: 0;
     background: #000;
-    z-index: 9000;
+    z-index: 199;
     opacity: 0.7;
   }
 
@@ -2667,8 +2732,8 @@
     padding: 1px 8px 16px 8px;
     /* border: 8px solid #e8e9f7; */
     background-color: white;
-    z-index: 9100;
-    border-radius: 10px;
+    z-index: 200;
+    border-radius: 1vw;
     overflow: auto;
 
   }
@@ -2683,18 +2748,18 @@
     /* border: 8px solid #e8e9f7; */
     background-color: white;
     z-index: 9100;
-    border-radius: 2px;
+    border-radius: 0.2vw;
     overflow: auto;
   }
 
   .deliveryTimeItem {
     border: 1px solid #ccc;
-    height: 30px;
-    font-size: 1px;
+    height: 3vw;
+    font-size: 1.2vw;
     margin-bottom: 8px;
     padding-left: 8px;
     padding-right: 8px;
-    line-height: 30px;
+    line-height: 3vw;
     border-radius: 5px;
     display: flex;
     flex-direction: row;
@@ -2706,8 +2771,8 @@
 
   .storefront-item {
     border: 1px solid #ccc;
-    height: 50px;
-    font-size: 1px;
+    height: 5vw;
+    font-size: 1.2vw;
     margin-bottom: 8px;
     padding: 8px;
     border-radius: 5px;
@@ -2754,10 +2819,25 @@
     width: 100%;
     height: 99%;
     padding: 8vw;
+    font-size: 3vw;
     /* border: 8px solid #e8e9f7; */
     background-color: white;
     z-index: 9999;
     overflow: auto;
+  }
+  .paynow input{
+    border-radius: 1vw;
+    flex: 1;
+    height: 8vw;
+    line-height: 8vw;
+    padding: 1vw 1vw;
+    box-sizing: border-box;
+    font-weight: bold;
+    background-color: #f7f7f7;
+    border: 0.1vw solid #ddd;
+    font-size: 3vw;
+    outline: none;
+    width: 60vw;
   }
 
   .page-category {
@@ -2771,8 +2851,8 @@
     height: 12vw;
     display: flex;
     align-items: center;
-    justify-content: center;
-    font-size: 2vw;
+    padding-left: 4vw;
+    font-size: 3vw;
     color: #787878;
     line-height: 20vw;
   }

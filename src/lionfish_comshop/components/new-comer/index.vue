@@ -6,7 +6,7 @@
     </div>
     <scroll-view scrollX bindscrolltolower="getMore" class="new-comers-scroll">
       <div class="new-comers-wrap">
-        <i-router-link routerClass="new-comers-item" :url="'/lionfish_comshop/pages/goods/goodsDetail?id='+item.actId"
+        <router-link class="new-comers-item" :to="'/lionfish_comshop/pages/goods/goodsDetail?id='+item.actId"
                        v-for="(item ,index ) in list" :key="id">
           <i-img defaultImage="@/assets/images/placeholder-refund.png" height="200" iClass="new-img"
                  :loadImage="item.skuImage" width="180"></i-img>
@@ -17,7 +17,7 @@
           <div class="item-tag"
                 :style="{'background':'url('+item.label_info.tagcontent+') no-repeat; left top;','background-size': '100%'}"
                 v-if="item.label_info&&item.label_info.type==1"></div>
-          <div class="act-end" v-if="item.spuCanBuyNum==0">已抢光</div>
+          <div class="act-end" v-if="item.spuCanBuyNum==0">{{$t('home.yiqiangguang')}}</div>
           <div class="title">{{item.spuName}}</div>
           <div class="new-bot">
             <div class="price">${{item.actPrice[0]}}.{{item.actPrice[1]}}</div>
@@ -28,7 +28,7 @@
               <i-addcart iClass="img"></i-addcart>
             </i-button>
           </div>
-        </i-router-link>
+        </router-link>
       </div>
     </scroll-view>
   </div>
