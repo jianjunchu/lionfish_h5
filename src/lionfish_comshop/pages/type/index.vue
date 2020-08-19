@@ -7,6 +7,9 @@
         <div class="search-icon">
           <span class="iconfont icon-sousuo1"></span>
         </div>
+        <div class="search-icon2" @click="clearSearch">
+             <span class="iconfont">x</span>
+        </div>
       </div>
     </div>
     <div class="page-content" v-if="!noCateList">
@@ -608,6 +611,9 @@
           });
         }
       },
+      clearSearch: function() {
+        this.name = "";
+      },
       onHide: function() {
         this.tabbarRefresh = !1, this.changeCarCount = !1
       }
@@ -880,6 +886,18 @@
   .search-icon .iconfont {
     font-size: 17px;
     padding-top: 5px;
+  }
+
+  .search-icon2 {
+    position: absolute;
+    right: 20px;
+    margin-left: 13px;
+    margin-right: 6px;
+  }
+
+  .search-icon2 .iconfont {
+    font-size: 18px;
+    line-height: 26px;
   }
 
   .search-box .ipt {

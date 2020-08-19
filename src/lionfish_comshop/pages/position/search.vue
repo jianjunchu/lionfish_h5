@@ -7,6 +7,10 @@
         </div>
         <input @keypress="subInput" v-model="inputValue" class="ipt-class"
                :placeholder="$t('host.shurushequming')" type="search"/>
+
+        <div class="search-icon2" @click="clearSearch">
+          <span class="iconfont">x</span>
+        </div>
       </div>
     </div>
     <i-community-item :city="city" class="item-border" :groupInfo="groupInfo" :item="item" :skin="skin"
@@ -118,6 +122,9 @@
         }
 
       },
+      clearSearch: function() {
+        this.inputValue = "";
+      },
       load_gps_community_list: function(n,a,e) {
         if(a == null || a == undefined){
           a = wx.getStorageSync('latitude');
@@ -180,6 +187,18 @@
 <style scoped>
   .page {
     background: #fff;
+  }
+
+.search-icon2 {
+    position: absolute;
+    right: 20px;
+    margin-left: 13px;
+    margin-right: 6px;
+  }
+
+  .search-icon2 .iconfont {
+    font-size: 3.5vw;
+    line-height: 7.5vw;
   }
 
   .no-result {
