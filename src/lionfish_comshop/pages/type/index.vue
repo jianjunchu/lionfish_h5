@@ -237,10 +237,13 @@
             if(app.globalData.typeCateId>0){
               s.active_sub_index =0;
             }
-            if (1 <= s.isFirst && (s.$data.$data.rushCategoryId = app.globalData.typeCateId || s.$data.$data.rushCategoryId || 0,
-              console.log('typeCateId', s.$data.$data.rushCategoryId), app.globalData.typeCateId = 0,
+            if (1 <= s.isFirst && (s.$data.$data.rushCategoryId = app.globalData.typeCateId  || 0,
+               app.globalData.typeCateId = 0,
               s.$data.$data.rushCategoryId)) {
+
+
               var t = s.rushCategoryData, a = t.tabs, e = s.$data.$data.rushCategoryId
+
               t.activeIndex = a.findIndex(function(t) {
                 if(t.id == e){
                   return true;
@@ -256,10 +259,9 @@
 
               s.rushCategoryData = t
               console.log(t )
-
-              s.setCategory(t.activeIndex)
-
             }
+          s.setCategory(s.rushCategoryData.activeIndex)
+
           }), util.check_login_new().then(function(t) {
           if (t) {
             s.needAuth = !1
@@ -285,6 +287,8 @@
             s.needAuth = !0
           }
         }), s.isFirst++
+
+
       }
       ,
       authSuccess: function() {
@@ -474,6 +478,7 @@
       }
       ,
       setCategory: function(t) {
+
         var activeactive_sub_idx = this.active_sub_index;
 
         var a = this, e = this.rushCategoryData,  i = this.scrollViewHeight
@@ -500,13 +505,16 @@
       ,
       getHotList: function() {
         var a = this, e = this.$data.$data.rushCategoryId
-        this.$data.$data.loading = !0, this.reqPromise().then(function() {
-          //wx.stopPullDownRefresh();
-          a.$data.$data.loading = !1
-        }).catch(function() {
-          var t = {};
-          e || (t.pageEmpty = !0), a.$data.$data.loading = !1//, a.setData(t), wx.stopPullDownRefresh();
-        });
+        if(e >0 ){
+          this.$data.$data.loading = !0, this.reqPromise().then(function() {
+            //wx.stopPullDownRefresh();
+            a.$data.$data.loading = !1
+          }).catch(function() {
+            var t = {};
+            e || (t.pageEmpty = !0), a.$data.$data.loading = !1//, a.setData(t), wx.stopPullDownRefresh();
+          });
+        }
+
       }
       ,
       reqPromise: function() {
@@ -653,7 +661,7 @@
       change_sub_cate: function(t) {
         var a = this.rushCategoryData, e = a.tabs, o = a.activeIndex, i = t.currentTarget.dataset.idx, s = e[o].id,
           r = t.currentTarget.dataset.id || s, n = this.getPx(64) * i
-        console.log(n)
+        console.log(i)
         var d = this
         d.$data.$data.pageNum = 1, d.$data.$data.rushCategoryId = r, (
           d.showDrop = !1,

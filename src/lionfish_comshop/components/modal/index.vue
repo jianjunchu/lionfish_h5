@@ -66,7 +66,7 @@
     right: 0;
     bottom: 0;
     background: rgba(0, 0, 0, 0.7);
-    z-index: 900;
+    z-index: 17;
     transition: all 0.2s ease-in-out;
     opacity: 0;
     visibility: hidden;
