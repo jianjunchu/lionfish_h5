@@ -14,6 +14,7 @@ import { Lazyload } from 'vant'
 import { Field } from 'vant'
 import { List } from 'vant'
 import { Tab, Tabs } from 'vant'
+import { ImagePreview } from 'vant'
 
 import 'element-ui/lib/theme-chalk/index.css'
 import 'mint-ui/lib/style.css'
@@ -96,6 +97,7 @@ Vue.use(Field)
 Vue.use(List)
 Vue.use(Tab)
 Vue.use(Tabs)
+Vue.use(ImagePreview)
 
 Vue.component('i-tabbar', Tabbar)
 Vue.component('i-toolbar', Toolbar)
