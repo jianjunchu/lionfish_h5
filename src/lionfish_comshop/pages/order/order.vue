@@ -108,7 +108,7 @@
       <button class="wux-button wux-button--block" type="warn" style="margin-top=16px">到店付款</button>
       -->
       <button @click="payNow" class="wux-button wux-button--block" type="warn" :style="{background:skin.color,color:' #fff'}" >PayNow</button>
-      <button @click="yuepay" v-if="is_open_yue_pay ==1" :style="{background:skin.color,color:' #fff','font-size':'2vw'}" class="wux-button wux-button--block" type="warn">余额支付（余额：${{accountMoney}}）</button>
+      <button @click="yuepay" v-if="is_open_yue_pay ==1" :style="{background:skin.color,color:' #fff','font-size':'2vw'}" class="wux-button wux-button--block" type="warn"> {{ $t('order.yuezhifu',{p1:accountMoney}) }} </button>
 
       <!-- <button @click="orderPayTransfer" data-type="banktransfer" class="wux-button wux-button&#45;&#45;block" type="warn">公司转账</button>-->
       <button @click="doClosePaymentModal"  class="wux-button wux-button--block" type="default">{{$t('cart.quxiaozhifu')}}</button>
@@ -128,10 +128,10 @@
             <div class="font-bold-30" v-if="order.order_info.open_auto_delete==0">
               <div class="tradeStatus-index--count-down count-down">{{$t('common.daifukuan')}}</div>
             </div>
-	<!--
-            <div class="font-12" v-if="order.order_info.open_auto_delete==1">请尽快付款，超时将被自动取消</div>
-            <div class="font-12" v-else>请尽快付款，不然就被抢光了</div>
-	-->
+
+           <!-- <div class="font-12" v-if="order.order_info.open_auto_delete==1">请尽快付款，超时将被自动取消</div>
+            <div class="font-12" v-else>请尽快付款，不然就被抢光了</div>-->
+
           </div>
           <div class="to-get-wrap" v-if="order.order_info.order_status_id==1 || order.order_info.order_status_id==15">
             <div class="font-bold-20">{{$t('order.beihuozhong')}}</div>
@@ -786,7 +786,7 @@
 
         if(parseFloat(a.total) > parseFloat(b)){
           wx.showToast({
-            title: "余额不足",
+            title:  c.$t('order.yuebuzhu'),
             icon: "none"
           });
         }else{

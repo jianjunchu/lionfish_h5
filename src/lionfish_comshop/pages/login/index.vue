@@ -4,7 +4,7 @@
 
       <div class="title-container">
         <!--<h3 class="title">Hzmart Login</h3>-->
-        <div style="width: 100px;height: 100px;margin: 0 auto;margin-bottom: 30px;">
+        <div style="width: 30vw;height: 30vw;margin: 0 auto;margin-bottom: 30px;">
         <img src="../../../assets/images/logo.png" style="width: 100%;height: 100%;" />
         </div>
       </div>
@@ -268,10 +268,16 @@ export default {
 		handleLogin() {
        var i = this;
 			if(this.loginForm.username == '') {
-				alert("请填写登陆账号")
+        i.$wx.showToast({
+          title: "Please fill in the login account.",
+          icon: "none"
+        });
 				return
 			} else if(this.loginForm.password == '') {
-				alert("请填写密码")
+        i.$wx.showToast({
+          title: "Please fill in the password.",
+          icon: "none"
+        });
 				return
 			}
 			this.$http({
@@ -283,7 +289,10 @@ export default {
 				console.log(response)
 				var result = response;
 				if(result != null && result.member_id != -1) {
-					alert('Login Successful');
+          i.$wx.showToast({
+            title: "Login Successful.",
+            icon: "none"
+          });
 					this.$wx.setStorageSync('token', response.token)
 
           util.getMemberInfo({success:function(e) {
@@ -300,6 +309,7 @@ export default {
 
 
 				} else {
+
 					alert("Login failed, please try again");
 				}
 			})
@@ -422,14 +432,11 @@ $cursor: rgba(122, 116, 116, 0.548);
 	}
 	.gotoRegist {
 		width: 100%;
-		// height: 50px;
 		text-align: center;
-		// position: absolute;
 		bottom: 0px;
 		left: 0;
-		margin-top: 70px;
-		font-size: 16px;
-		// line-height: 50px;
+		margin-top: 10vw;
+		font-size: 4vw;
 	}
 	.el-form-item {
 		border: 1px solid rgba(255, 255, 255, 0.1);
@@ -443,7 +450,7 @@ $cursor: rgba(122, 116, 116, 0.548);
 $dark_gray:#889aa4;
 $light_gray:rgb(17, 123, 245);
 .login-container {
-	min-height: 94%;
+	min-height: 100%;
 	width: 100%;
 	background-color: $bg;
 	overflow: hidden;
@@ -451,7 +458,7 @@ $light_gray:rgb(17, 123, 245);
 		position: relative;
 		width: 520px;
 		max-width: 100%;
-		padding: 100px 35px 0;
+		padding: 20vw 10vw 0;
 		margin: 0 auto;
 		overflow: hidden;
 	}

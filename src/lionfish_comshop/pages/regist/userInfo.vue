@@ -23,6 +23,22 @@
           auto-complete="on"
         />
       </el-form-item>
+      <el-form-item prop="email">
+        <span class="svg-container">
+          <svg-icon icon-class="email" style="color: red" />
+        </span>
+        <el-input
+          ref="password"
+          v-model="loginForm.email"
+          placeholder="E-Mail"
+          name="email"
+          type="email"
+          tabindex="1"
+          auto-complete="on"
+        />
+      </el-form-item>
+
+
 
       <el-form-item prop="password">
         <span class="svg-container">
@@ -39,7 +55,13 @@
         />
       </el-form-item>
 
-      <el-button :loading="loading" type="primary" round style="width:100%;margin-bottom:30px;" @click.native.prevent="handleSave">Save</el-button>
+      <el-form-item style="background: transparent">
+        <el-checkbox v-model="checked" > Yes, I would like to receive newsletters <br>and special offers by email.</el-checkbox>
+      </el-form-item>
+
+
+
+      <el-button :loading="loading" type="primary" round style="width:100%;margin-bottom:40px;" @click.native.prevent="handleSave">Save</el-button>
 
       <!-- <div class="tips">
         <span style="margin-right:20px;">username: admin</span>
@@ -65,8 +87,10 @@ export default {
     return {
       loginForm: {
         username: '',
-        password: ''
+        password: '',
+        email:''
       },
+      checked:true,
       loginRules: {
         password: [{ required: true, trigger: 'blur', validator: validatePassword }]
       },
@@ -76,7 +100,7 @@ export default {
       memberId: '',
       phone:'',
       country:'',
-      
+
 	  logoImg:'',
     }
   },
@@ -121,12 +145,17 @@ export default {
       this.$router.push({path: '/login'});
     },
     handleSave() {
+
+	    var accept_email = this.checked ? 1:0;
+
       this.$http({
         controller : 'index.reg_save_user',
         i: 3,
         member_id: this.memberId,
         user: this.loginForm.username,
+        email: this.loginForm.email,
         passwd: this.loginForm.password,
+        accept_email: accept_email,
         country:this.country,
         phone:this.phone,
         avatar:this.logoImg,
@@ -148,9 +177,12 @@ export default {
       // this.$router.push({path: '/login'});
     },
     hideTopAndFooter: function(){
-      this.$store.dispatch('app/hideTabbar');
-      this.$store.dispatch('app/hideToolbarMore'); 
-      this.$store.dispatch('app/hideToolbarBack'); 
+      this.$wx.setNavigationBarTitle({
+        title: 'Regist',
+        showLogo: false,
+        showMore: false,
+        showBack: true
+      })
     }
   },
   created: function(){
@@ -173,11 +205,13 @@ $cursor: rgba(122, 116, 116, 0.548);
 @supports (-webkit-mask: none) and (not (cater-color: $cursor)) {
   .login-container .el-input input {
     color: $cursor;
+
   }
 }
 
 /* reset element-ui css */
 .login-container {
+
   .el-input {
     display: inline-block;
     height: 47px;
@@ -221,16 +255,16 @@ $dark_gray:#889aa4;
 $light_gray:rgb(17, 123, 245);
 
 .login-container {
-  min-height: 80%;
+  min-height: 100%;
   width: 100%;
   background-color: $bg;
   overflow: hidden;
 
   .login-form {
     position: relative;
-    width: 520px;
     max-width: 100%;
-    padding: 50px 35px 0;
+    padding: 25px 35px 0;
+    min-height: 100%;
     margin: 0 auto;
     overflow: hidden;
   }
@@ -269,5 +303,8 @@ $light_gray:rgb(17, 123, 245);
     cursor: pointer;
     user-select: none;
   }
+}
+>>>.el-checkbox__inner{
+  margin-bottom: 20px;
 }
 </style>

@@ -1,8 +1,8 @@
 <template>
-  <div class="page">
+  <div class="page" ref="ct" >
     <el-amap style="display: none" vid="amap" :plugin="plugin" class="amap-demo" :center="center">
     </el-amap>
-    <div v-if="loadOver && isblack!=1" ref="ct">
+    <div v-if="loadOver && isblack!=1" class="aaaa">
 
       <div :class="['index-box', 'pb100', (showNewCoupon?'preventTouchMove':'')]">
         <div class="miniAppTip" v-if="isTipShow">
@@ -271,9 +271,12 @@
 -->
           <div class="index-search-bar" v-if="index_switch_search==1">
             <div class="search-box">
-              <input @keypress="goResult" class="ipt" confirmType="搜索" placeholder="Search" type="search"></input>
+              <input @keypress="goResult" class="ipt" confirmType="搜索" placeholder="Search" type="search" v-model="searchName"></input>
               <div class="search-icon">
                 <div class="iconfont icon-sousuo1"></div>
+              </div>
+              <div class="search-icon2" @click="clearSearch">
+                <span class="iconfont">x</span>
               </div>
             </div>
           </div>
@@ -673,6 +676,7 @@
       let self = this;
       return {
         pageScroll: 0,
+        searchName: "",
         sliderSwiperOption: {
           //显示分页
           pagination: {
@@ -882,37 +886,26 @@
     },
     mounted:function(){
       var i  = this;
-      i.$refs.ct.addEventListener('scroll', () => {
-        i.handleScroll();
-      }, false)
+      this.$nextTick(() => {
+        i.$root.$el.addEventListener('scroll', this.onScroll)
+      })
     },
     activated:function(){
       var i = this
       var g = i.groupInfo
-
-      if(i.pageScroll > 0){
-        i.$refs.ct.scrollTop = i.pageScroll;
-        i.$refs.ct.addEventListener('scroll', () => {
-          i.handleScroll();
-        }, false)
-      }
-
-
 
       if(this.$refs.tabbar){
         i.$refs.tabbar.switchTab();
       }
 
       this.onShow();
+
+
     },
-    deactivated(){
-      //this.$refs.ct.removeEventListener('scroll', this.handleScroll);
-    },
+
     methods: {
-      handleScroll:function() {
-        this.pageScroll  =  this.$refs.ct.scrollTop;
-        console.log(this.pageScroll)
-      },
+
+
       copyText: function(t) {
 
       },
@@ -2134,6 +2127,9 @@
             icon: "none"
           });
         }
+      },
+      clearSearch: function(t) {
+          this.searchName = "";
       },
       receiveCoupon: function(t) {
         if (this.authModal()) {

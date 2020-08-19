@@ -1002,9 +1002,21 @@ button[plain] {
   margin-right: 10px;
 }
 
+.search-icon2 {
+  position: absolute;
+  right: 20px;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
 .search-icon .iconfont {
   font-size: 5vw;
   padding-top:2.6vw;
+}
+
+.search-icon2 .iconfont {
+  font-size: 5vw;
+  line-height: 8vw;
 }
 
 .search-box .ipt {
@@ -1267,7 +1279,7 @@ button[plain] {
   width: 100%;
   height: 100%;
   display: flex;
-  overflow-y: auto;
+  /*overflow-y: auto;*/
   -webkit-overflow-scrolling: touch;
 }
 
