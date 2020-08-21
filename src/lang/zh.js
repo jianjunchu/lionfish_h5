@@ -400,5 +400,19 @@ export default {
     thursday: '周四',
     friday: '周五',
     saturday: '周六'
+  },
+  refund: {
+    tuikuanshuliang: '退款数量',
+    shouhouleixing: '售后类型',
+    shenqingtuikuan: '申请退款',
+    wentileixing: '问题类型',
+    tuikuanjine: '退款金额',
+    peisongfei: '配送费',
+    shangpinwentimiaoshu: '商品问题描述',
+    shangchuanpingzhengtupian: '上传凭证图片（最多三张）',
+    lianxiren: '联系人',
+    lianxifangshi: '联系方式',
+    tijiaoshenqing: '提交申请',
+    tuikuanxuzhi: '退款须知'
   }
 }
