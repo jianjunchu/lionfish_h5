@@ -1,25 +1,26 @@
 <template>
 
-  <view class="wrap">
-    <view class="cate-list" v-if="rushList.length" v-for="(item ,index) in rushList" :key="item.id">
+  <div class="wrap">
+    <div class="cate-list" v-if="rushList.length" v-for="(item ,index) in rushList" :key="item.id">
       <img class="topic-img" mode="widthFix" :src="item.cate_info.banner" v-if="index==0&&item.cate_info.banner"/>
-      <view class="cate-title">
+      <div class="cate-title">
         <img class="title-img" mode="widthFix" :src="item.cate_info.logo" v-if="item.cate_info.logo"/>
-      </view>
-      <view class="list">
-        <i-rush-spu @authModal="authModal" @changeCartNum="changeCartNum" @openSku="openSku" @vipModal="vipModal" class="item" needAuth="{{needAuth" reduction="{{reduction" spuItem="{{goodsItem" stopClick="{{stopClick" width250="{{true" v-if="item.list.length" wx:for="{{item.list" wx:for-index="idx" wx:for-item="goodsItem" wx:key="idx"></i-rush-spu>
-      </view>
+      </div>
+      <div class="list">
+        <i-rush-spu @authModal="authModal" @changeCartNum="changeCartNum" @openSku="openSku" @vipModal="vipModal" class="item" :needAuth="needAuth" :reduction="reduction" :spuItem="goodsItem" @stopClick="stopClick" width250="true" v-if="item.list.length" v-for="(goodsItem ,idx) in item.list" :key="idx"></i-rush-spu>
+      </div>
       <i-load-more iClass="loadMore" :loading="loadMore" :tip="loadText" v-if="!loadOver&&!showEmpty&&loadMore"></i-load-more>
-    </view>
-    <view class="none-rush-list" v-if="showEmpty">
+    </div>
+    <div class="none-rush-list" v-if="showEmpty">
       <img class="img-block" src="@/assets/images/icon-index-empty.png"/>
-      <view class="h1">暂时没有团购</view>
-      <view class="h2">我们正在为您准备更优惠的团购</view>
-    </view>
-    <i-cart-btn :cartNum="cartNum" iClass="{{is_show_cate_tabbar==1?'cartBtn':''" v-if="is_show_cate_tabbar!=1"></i-cart-btn>
-    <i-aside-btn showContact="{{is_show_cate_tabbar==1" showHome="{{is_show_cate_tabbar!=1" showShare="{{true"></i-aside-btn>
+      <div class="h1">暂时没有团购</div>
+      <div class="h2">我们正在为您准备更优惠的团购</div>
+    </div>
+   <!-- <i-cart-btn :cartNum="cartNum" :iClass="is_show_cate_tabbar == 1 ? 'cartBtn':''" v-if="is_show_cate_tabbar!=1"></i-cart-btn>
+    <i-aside-btn :showContact="is_show_cate_tabbar==1" :showHome="is_show_cate_tabbar!=1" showShare="{{true"></i-aside-btn>-->
+
     <i-tabbar ref="tabbar" :cartNum="cartNum" class="tabbar {{isIpx?'pb20':''" currentIdx="-1" v-if="is_show_cate_tabbar==1"></i-tabbar>
-  </view>
+  </div>
   <!--<i-new-auth @authSuccess="authSuccess" @cancel="authModal" :needAuth="needAuth&&showAuthModal"></i-new-auth>
   <sku @cancel="closeSku" @changeCartNum="changeCartNum" @vipModal="vipModal" :cur_sku_arr="cur_sku_arr" :goodsid="addCar_goodsid" :sku="sku" :skuList="skuList" :sku_val="sku_val" v-if="visible"></sku>
 
@@ -50,21 +51,18 @@
       id: 0,
       pageNum: 1
     },
+
+    created:function(){
+      app = this.$getApp();
+      wx = this.$wx;
+
+      const t = this.$route.query
+      this.onLoad(t);
+    },
+    mounted:function(){
+      this.onShow()
+    },
     methods: {
-      created:function(){
-        app = this.$getApp();
-        wx = this.$wx;
-
-        wx.setNavigationBarTitle({
-          title: "Order",
-          showLogo:false,
-          showMore:false,
-          showBack:true
-        })
-        const t = this.$route.query
-        this.onLoad(t);
-      },
-
       onLoad: function(t) {
         var a = t.id || "";
         (this.$data.id = a) ? this.getData() : wx.showToast({
@@ -80,12 +78,11 @@
         var e = this;
         util.check_login_new().then(function(t) {
           var a = !t;
-          e.setData({
-            needAuth: a
-          }), t && (0, status.cartNum)("", !0).then(function(t) {
-            0 == t.code && e.setData({
-              cartNum: t.data
-            });
+          (e.needAuth = a), t && (0, status.cartNum)("", !0).then(function(t) {
+            console.log(t)
+            0 == t.code && (
+              e.cartNum = t.data
+            );
           });
         });
       },
@@ -115,26 +112,28 @@
             },
             dataType: "json",
             success: function(t) {
-              if (wx.hideLoading(), 0 == t.data.code) {
-                var a = t.data, e = a.full_money, i = a.full_reducemoney, n = a.is_open_fullreduction, o = a.list, s = a.is_show_cate_tabbar, u = {
+              if (wx.hideLoading(), 0 == t.code) {
+                var a = t, e = a.full_money, i = a.full_reducemoney, n = a.is_open_fullreduction, o = a.list, s = a.is_show_cate_tabbar, u = {
                   full_money: e,
                   full_reducemoney: i,
                   is_open_fullreduction: n
-                }, c = {
-                  rushList: r.data.rushList.concat(o),
-                  pageEmpty: !1,
-                  reduction: u,
-                  loadOver: !0,
-                  is_show_cate_tabbar: s
-                };
-                0 == o.length && (c.showEmpty = !0), wx.setNavigationBarTitle({
-                  title: o.length && o[0].cate_info.name || ""
-                }), c.loadText = r.data.loadMore ? "加载中..." : "没有更多商品了~", r.setData(c, function() {
-                  r.$data.pageNum += 1;
-                });
-              } else 1 == t.data.code && wx.showModal({
+                }
+
+                r.rushList = r.rushList.concat(o),
+                  r.pageEmpty = !1,
+                  r.reduction = u,
+                  r.loadOver = !0,
+                  r.is_show_cate_tabbar = s
+
+                0 == o.length && (r.showEmpty = !0), wx.setNavigationBarTitle({
+                  title: o.length && o[0].cate_info.name || "",
+                  showLogo:false,
+                  showMore:false,
+                  showBack:true
+                }), r.loadText = r.loadMore ? "加载中..." : ("没有更多商品了~", r.$data.pageNum += 1);
+              } else 1 == t.code && wx.showModal({
                 title: "提示",
-                content: t.data.msg || "无数据",
+                content: t.msg || "无数据",
                 showCancel: !1,
                 success: function() {
                   wx.navigateBack();

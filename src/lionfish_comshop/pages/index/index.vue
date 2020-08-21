@@ -79,9 +79,9 @@
 
 
           <div class="swipe" v-if="slider_list.length>0">
-            <swiper :options="sliderSwiperOption" class="swiper-content">
-              <swiper-slide class="swiper-slide" v-for="(item,index) in slider_list" :key="index">
-                <img :src="item.image" class="show-img-index" width="100%" height="140px" style="border-radius: 12px"/>
+            <swiper  :options="sliderSwiperOption" class="swiper-content">
+              <swiper-slide  class="swiper-slide" v-for="(item,index) in slider_list" :key="index">
+                <img @click.stop.prevent="swiperClick(item)" :src="item.image" class="show-img-index" width="100%" height="140px" style="border-radius: 12px"/>
               </swiper-slide>
               <!-- 分页器 -->
               <div class="swiper-pagination" slot="pagination"></div>
@@ -2184,6 +2184,9 @@
         }
       },
 
+      swiperClick:function(item) {
+        this.$router.push(item.link)
+      }
 
     }
   }

@@ -260,7 +260,7 @@
   }
 
   .w250 {
-    width: 30vw;
+    width: 33.33vw;
   }
 
   .new-comers-item .new-img {
@@ -271,8 +271,8 @@
   }
 
   .w250 .new-img {
-    width: 27vw;
-    height: 30vw;
+    width: 30vw;
+    height: 33vw;
     margin-bottom: 2vw;
     overflow: hidden;
   }

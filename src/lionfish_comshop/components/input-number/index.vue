@@ -5,7 +5,7 @@
       v-if="value==0">
       <img class="img i-number-img" src="@/assets/images/icon-spu-reduce-disabled.png"/>
     </div>
-    <div @click.stop="handleMinus"
+    <div @click.stop.prevent="handleMinus"
          :class="['i-input-number-minus', 'i-input-number-div', 'i-number-div', (value<=min?'i-input-number-disabled':'')]"
          v-else>
       <span class="iconfont icon-jian img i-number-img" :style="{color:getSkin.color}"></span>
@@ -17,7 +17,7 @@
          v-if="max==0">
       <img class="img i-number-img" src="@/assets/images/icon-spu-add-disabled.png"/>
     </div>
-    <div @click.stop="handlePlus"
+    <div @click.stop.prevent="handlePlus"
          :class="['i-input-number-plus', 'i-input-number-div', 'i-number-div', (value>=max?'i-input-number-disabled':'')]" v-else>
       <span class="iconfont icon-jia img i-number-img" :style="{color:getSkin.color}"></span>
     </div>
@@ -140,16 +140,16 @@
   }
 
   .i-input-number .i-input-number-div {
-    width: 5vw;
-    height: 5vw;
+    width: 6vw;
+    height: 6vw;
     display: inline-block;
     vertical-align: middle;
   }
 
   .i-input-number .i-input-number-div .img {
-    width: 5vw;
-    height: 5vw;
-    font-size: 5vw;
+    width: 6vw;
+    height: 6vw;
+    font-size: 6vw;
   }
 
   .i-input-number-minus {

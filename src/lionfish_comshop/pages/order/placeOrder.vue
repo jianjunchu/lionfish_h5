@@ -190,7 +190,7 @@
 
           <div class="receiver">
             <span>{{$t('order.shoujihaoma')}}</span>
-            <input   class="mobile" placeholder="" type="text"
+            <input   class="mobile" placeholder="" type="number"
                    v-model="tabAddress[tabIdx].mobile"></input>
           </div>
 
