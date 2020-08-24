@@ -328,10 +328,10 @@ export default {
     zhidingfenlei: 'Specified Category'
   },
   wallet: {
-    jinrishouru: 'Today\'s Commission',
-    benyueshouru: 'This Month',
+    jinrishouru: 'Today\'s Expected Commission',
+    benyueshouru: 'Expected This Month',
     leijishouru: 'Total',
-    daiquerenshouru: 'Pending',
+    daiquerenshouru: 'Pending Commission',
     dingdanmingxi: 'Order Details',
     ketixianjine: 'Available Commission',
     yidakuanjine: 'Commission Disbursed',
