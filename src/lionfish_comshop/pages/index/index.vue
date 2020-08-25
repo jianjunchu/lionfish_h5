@@ -276,7 +276,8 @@
                 <div class="iconfont icon-sousuo1"></div>
               </div>
               <div class="search-icon2" @click="clearSearch">
-                <span class="iconfont">x</span>
+                <img style="width: 5vw;height: 5vw;margin-top: 2vw"
+                 src="@/assets/images/img-close.png"/>
               </div>
             </div>
           </div>
