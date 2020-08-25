@@ -245,7 +245,7 @@
   z-index: 2;
   background: #f7f7f7;
   position: relative;
-  min-height: 100vw;
+  min-height: 70vh;
   padding: 2vw;
 }
 
@@ -404,7 +404,7 @@
 }
 
 .comming-list {
-  padding: 20px 24px;
+  /*padding: 20px 24px;*/
 }
 
 .comming-list .comming-spu-item {
@@ -1012,11 +1012,6 @@ button[plain] {
 .search-icon .iconfont {
   font-size: 5vw;
   padding-top:2.6vw;
-}
-
-.search-icon2 .iconfont {
-  font-size: 5vw;
-  line-height: 8vw;
 }
 
 .search-box .ipt {

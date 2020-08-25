@@ -78,6 +78,7 @@
                     <div class="cart-item-content">
                       <div>
                         <div class="title">{{shopcarts.title}}</div>
+
                         <div class="spec">{{shopcarts.goodstype}}</div>
                       </div>
                       <i-vip-price :price="shopcarts.card_price"
@@ -180,6 +181,12 @@
                         </div>
                       </div>
                     </div>
+                    <div class="piece-reduce" v-if="shopcarts.is_show_presell">
+                      <div class="tag-content">
+                        <div class="tag">Pre-sale</div>
+                      </div>
+                      Delivery date:{{shopcarts.begin_time_str}}
+                    </div>
                     <div class="piece-reduce" style="display:none;"
                          v-if="shopcarts.can_man_jian&&item.is_open_fullreduction==1">
                       <div class="tag-content">
@@ -222,7 +229,7 @@
 
 
 
-                        <van-image style="width: 90px; height: 90px" :src="shopcarts.imgurl">
+                        <van-image style="width: 25vw; height: 24vw" :src="shopcarts.imgurl">
                           <template v-slot:loading>
                             <van-loading type="spinner" size="20" />
                           </template>
@@ -1746,7 +1753,7 @@
   }
 
   .cart-item .cart-item-checkbox {
-    width: 45px;
+    width: 10vw;
     height: 100%;
     display: flex;
     align-items: center;
@@ -1857,37 +1864,37 @@
   }
 
   .cart-item .piece-reduce {
-    width: 300px;
+    width: 80vw;
     display: flex;
     align-items: flex-start;
-    padding: 10px;
+    padding: 2vw;
     box-sizing: border-box;
     background: #f9f9f9;
-    border-radius: 30px;
-    margin: 15px auto 0;
-    font-size: 12px;
-    line-height: 15px;
+    border-radius: 6.4vw;
+    margin: 3vw auto 0;
+    font-size: 2.4vw;
+    line-height: 3.2vw;
     color: #666;
     white-space: normal;
   }
 
   .cart-item .piece-reduce .tag-content {
-    height: 15px;
+    height: 3.2vw;
     display: flex;
     align-items: center;
   }
 
   .cart-item .piece-reduce .tag {
-    border-radius: 13px;
-    height: 10px;
-    padding: 0 4px;
-    border: 1px solid #ffa49c;
-    font-size: 10px;
-    line-height: 10px;
+    border-radius: 2.6vw;
+    height: 2.2vw;
+    padding: 0 8rpx;
+    border: 1rpx solid #ffa49c;
+    font-size: 2vw;
+    line-height: 2.2vw;
     color: #ff5344;
-    margin-right: 8px;
+    margin-right: 1.6vw;
     white-space: nowrap;
-    margin-top: 1px;
+    margin-top: 0.3vw;
     font-weight: bold;
   }
 
@@ -2056,9 +2063,9 @@
 
   .invalid-head {
     padding: 0 15px;
-    line-height: 45px;
+    line-height: 10vw;
     color: #999;
-    border-bottom: 1px solid #efefef;
+    border-bottom: 0.1vw solid #efefef;
     font-size: 13px;
   }
 

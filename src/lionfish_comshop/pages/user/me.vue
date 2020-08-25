@@ -235,7 +235,7 @@
 
       <div class="tool">
         <div class="toolList">
-          <div @click="goLink2" class="yuenav" data-link="/lionfish_comshop/pages/user/charge"
+          <div  class="yuenav" data-link="/lionfish_comshop/pages/user/charge"
                v-if="is_open_yue_pay==1">
             <div class="item-main">
               <div class="item-title">
