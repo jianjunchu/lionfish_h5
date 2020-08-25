@@ -9,7 +9,8 @@
                :placeholder="$t('host.shurushequming')" type="search"/>
 
         <div class="search-icon2" @click="clearSearch">
-          <span class="iconfont">x</span>
+          <img style="width: 4vw;height: 4vw;margin-top: 2vw"
+                 src="@/assets/images/img-close.png"/>
         </div>
       </div>
     </div>
@@ -189,17 +190,13 @@
     background: #fff;
   }
 
-.search-icon2 {
+  .search-icon2 {
     position: absolute;
     right: 20px;
     margin-left: 13px;
     margin-right: 6px;
   }
 
-  .search-icon2 .iconfont {
-    font-size: 3.5vw;
-    line-height: 7.5vw;
-  }
 
   .no-result {
     display: flex;

@@ -8,7 +8,8 @@
           <span class="iconfont icon-sousuo1"></span>
         </div>
         <div class="search-icon2" @click="clearSearch">
-             <span class="iconfont">x</span>
+             <img style="width: 4vw;height: 4vw;margin-top: 1vw"
+                 src="@/assets/images/img-close.png"/>
         </div>
       </div>
     </div>
@@ -893,11 +894,6 @@
     right: 20px;
     margin-left: 13px;
     margin-right: 6px;
-  }
-
-  .search-icon2 .iconfont {
-    font-size: 18px;
-    line-height: 26px;
   }
 
   .search-box .ipt {
