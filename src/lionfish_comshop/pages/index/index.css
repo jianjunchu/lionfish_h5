@@ -245,7 +245,7 @@
   z-index: 2;
   background: #f7f7f7;
   position: relative;
-  min-height: 100vw;
+  min-height: 70vh;
   padding: 2vw;
 }
 
@@ -404,7 +404,7 @@
 }
 
 .comming-list {
-  padding: 20px 24px;
+  /*padding: 20px 24px;*/
 }
 
 .comming-list .comming-spu-item {

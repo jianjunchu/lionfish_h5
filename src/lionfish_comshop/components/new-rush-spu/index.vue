@@ -31,10 +31,14 @@
             <div class="spu-title">
               <span class="span">{{spuItem.spuName}}</span>
             </div>
+            <div class="spu-title-tag" v-if="spuItem.is_presell && spuItem.is_presell ==1">
+              <span class="span">[Pre]Shipment of {{spuItem.begin_time_str}} is expected</span>
+            </div>
             <div class="spu-desc" v-if="spuItem.spuDescribe">
               <span class="em">{{spuItem.spuDescribe}}</span>
             </div>
             <div class="spu-tag" v-if="isShowListTimer"></div>
+
             <div class="spu-count" v-if="isShowListCount==1">
               <div class="spu-count-border" :style="{'border-color':skin.color}">
                 <span class="txt" :style="{color:skin.color}">已售{{spuItem.soldNum}}件</span>
@@ -391,6 +395,16 @@
     width: 60vw;
     margin-bottom: 1.2vw;
     font-weight: bold;
+    position: relative;
+  }
+
+  .spu >>> .spu-content .item-right .spu-title-tag {
+    color: red;
+    font-size: 1.8vw;
+    height: 3vw;
+    width: 60vw;
+
+    margin-bottom: 1.2vw;
     position: relative;
   }
 

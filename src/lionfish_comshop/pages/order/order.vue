@@ -1,93 +1,11 @@
 <template>
   <div>
-    <!--<i-auth @authSuccess="authSuccess" :needAuth="needAuth">-->
-    <div class="mask" catchtouchmove="preventTouchMove" v-if="showTransferModal"></div>
-    <div class="paynow" v-if="showTransferModal">
-      <div style='width: 100%;height: 10%;'>
-        <div style='float:left;width: 40%;font-size: 22px;line-height: 50px;margin-left: 10%;'>
-          转账支付
-        </div>
-        <div style='float:right;width: 50%;text-align: right' @click='closeTransferModal'>
-          <img src='@/assets/images/img-close.png' style='width: 30px;height: 30px;margin-top: 10px;margin-right: 10%'/>
-        </div>
-      </div>
-      <div style='text-align: center'>
-        <div style='width: 100%;height: 350px;font-size: 12px;'>
 
-          <div style='margin-left: 5%;margin-top:10px;text-align:left;display: flex;justify-content: center;'>
-            <span style='display: flex;justify-content: center;'>帐号：</span>
-            <span style='text-align: left;'>{{bankInfo.account_no}}</span>
-            <button @click='copyText' size="mini" style="font-size: 8px;" :data-text="bankInfo.account_no">复制</button>
-          </div>
-          <div style='margin-left: 5%;margin-top:10px;text-align:left;display: flex;justify-content: center;'>
-            <span style='display: flex;justify-content: center;'>户名：</span>
-            <span style='text-align: left;'>{{bankInfo.account_name}}</span>
-            <button @click='copyText' size="mini" style="font-size: 8px;" :data-text="bankInfo.account_name">复制</button>
-          </div>
-          <div style='margin-left: 5%;margin-top:10px;text-align:left;display: flex;justify-content: center;'>
-            <span style='display: flex;justify-content: center;'>银行：</span>
-            <span style='text-align: left;'>{{bankInfo.bank_name}}</span>
-            <button @click='copyText' size="mini" style="font-size: 8px;" :data-text="bankInfo.bank_name">复制</button>
-          </div>
 
-          <div style='wid:200px;height:100px;text-align: center;margin-top: 30px;'>
-            <span style='font-size: 18px;'>请在支付时备注您订单内的联系号码 \n</span>
-            <span style='font-size: 18px;color: #c0c0c0'>{{$t('order.zhuanzhangbeizhu')}}</span>
-          </div>
-        </div>
-        <div style='width: 60%;text-align: center;margin-top: 30px;margin-left: 20%;'>
-          <button @click="havePaid"  data-type="banktransfer"  class="wux-button wux-button--block" type="default">已支付，查看订单</button>
-        </div>
-      </div>
-    </div>
+    <i-bank-modal :visible="showTransferModal" :skin="skin" :tot_price="order.order_info.real_total"  :bankInfo="bankInfo" @close="doCloseTransferModal" @havePaid="havePaid"></i-bank-modal>
 
-    <div class="mask" catchtouchmove="preventTouchMove" v-if="showPayNowModal"></div>
-    <div class="paynow" v-if="showPayNowModal">
-      <div style='width: 100%;height: 10%;'>
-        <div style='float:left;width: 40%;font-size: 18px;line-height: 50px;margin-left: 5%;'>
-          PayNow
-        </div>
-        <div style='float:right;width: 50%;text-align: right' @click='doClosePayNowModal'>
-          <img src='@/assets/images/img-close.png' style='width: 24px;height: 24px;margin-top: 10px;margin-right: 5%'/>
-        </div>
-      </div>
+    <i-paynow-modal :visible="showPayNowModal" :skin="skin" :tot_price="order.order_info.real_total" :payNowInfo="payNowInfo" @close="doClosePayNowModal" @havePaid="havePaid"></i-paynow-modal>
 
-      <div style='float:left;width: 100%;margin-left: 5%;'>
-        PayNow No.：{{payNowNo}}
-      </div>
-      <div style='float:left;width: 100%;margin-left: 5%;margin-top:5px'>
-        {{$t('order.zhifujine')}}：<span style="color:red">${{order.order_info.real_total}}</span>
-      </div>
-      <div style='float:left;width: 100%;margin-left: 5%;margin-top:5px'>
-        {{$t('order.beizhudingdanhao')}}：<span style="color:red">{{order_num_alias_sub}}</span>
-      </div>
-      <div style='float:left;width: 100%;margin-left: 5%;margin-top:5px'>
-        <span style="color:red">{{$t('order.xierugaidingdanhao')}}</span>
-      </div>
-
-      <div style='text-align: center'>
-        <div style='width: 100%;height: 350px;justify-content: center; '>
-          <img :src='payNowQr' style='width: 160px;height: 160px;margin-top: 20px;border: 1px solid #000;'/>
-          <div style='wid:200px;height:40px;margin-top:10px;'>
-
-            <span style='text-align: left;'>{{$t('order.saomazhifu')}}<!--或 uen: {{payNowUen}}--></span>
-
-          </div>
-          <div style='wid:200px;height:100px; margin-top:10px;'>
-            <span style='font-size: 18px;'><!--请在支付时备注您订单内的联系号码 \n--></span>
-            <span style='font-size: 18px;color: #c0c0c0'>{{$t('order.zhuanzhangbeizhu')}}</span>
-          </div>
-        </div>
-        <div style="margin-top: 15px">
-          <span>{{$t('order.jiaoyiliushui')}}</span><br>
-          <input v-model="transaction_id" class="mobile" placeholder="Paynow transaction No." type="text"></input>
-        </div>
-        <div style='width: 60%;text-align: center;margin-top: 30px;margin-left: 20%;'>
-          <!--<button @click="havePaid" data-type="paynow"  class="wux-button wux-button&#45;&#45;block" type="default">已支付，查看订单</button>-->
-          <button @click="havePaid" data-type="paynow" :style="{background:skin.color,color:' #fff'}" class="wux-button wux-button--block" type="default">{{$t('order.yizhifu')}}</button>
-        </div>
-      </div>
-    </div>
 
     <div class="mask" catchtouchmove="preventTouchMove" v-if="showPaymentModal"></div>
     <div class="modalDlg" v-if="showPaymentModal">
@@ -432,6 +350,7 @@
         showPayNowModal: false,
         showTransferModal:false,
         bankInfo:{},
+        payNowInfo:{},
         payNowQr:'',
         payNowNo:'',
         order_num_alias_sub:'',
@@ -502,6 +421,7 @@
       })
       const t = this.$route.query
       this.onLoad(t);
+      this.getPayInfo();
     },
     methods: {
       doShowPaymentModal: function(){
@@ -526,11 +446,11 @@
         this.showTransferModal= false;
 
       },
-      havePaid: function(t){
+      havePaid: function(type){
 
         var this_ = this;
         var s = wx.getStorageSync("token");
-        var type = t.currentTarget.dataset.type
+        //var type = t.currentTarget.dataset.type
         var id = this.order.order_info.order_id;
 //        wx.showLoading();
           this.$http({
@@ -540,11 +460,9 @@
             payment_code: type,
             transaction_id:this.transaction_id
           }).then(t=> {
-            this_.$wx.redirectTo({
-              url: "/lionfish_comshop/pages/order/order?id=" + id + "&is_show=1"
-            })
-
+            this_.$router.go(0);
         });
+
       },
       onLoad: function(e) {
         this.getCopyright();
@@ -760,21 +678,6 @@
         });
       },
       payNow :function(){
-        var this_ = this;
-
-        this.$app.util.request({
-          url: "entry/wxapp/user",
-          data: {
-            controller: "user.get_copyright",
-          },
-          dataType: "json",
-          method: "POST",
-          success: function(t) {
-            this_.payNowQr = t.paynow_qr
-            this_.payNowNo = t.paynow_no
-            this_.payNowUen = t.paynow_uen
-          }
-        });
 
         this.doClosePaymentModal();
         this.doShowPayNowModal();
@@ -1043,7 +946,23 @@
             }
           }
         });
-      }
+      },
+      getPayInfo :function(){
+        var this_ = this;
+        app.util.request({
+          url: "entry/wxapp/user",
+          data: {
+            controller: "user.get_copyright",
+          },
+          dataType: "json",
+          method: "POST",
+          success: function(t) {
+            this_.payNowInfo.payNowQr = t.paynow_qr
+            this_.payNowInfo.payNowNo = t.paynow_no
+            this_.payNowInfo.payNowUen = t.paynow_uen
+          }
+        });
+      },
     }
   }
 </script>
