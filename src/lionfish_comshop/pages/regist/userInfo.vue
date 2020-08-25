@@ -4,7 +4,7 @@
         <div style="width: 70%;float:left;line-height: 50px;font-size: 18px;font-weight: 600">&nbsp;&nbsp;&nbsp;Complete your profile</div>
         <!-- <div style="width: 20%;float:right;line-height: 50px;text-align: center;color: blue;font-weight: 400" @click="turnToLogin">Skip</div> -->
     </div>
-    <el-form ref="loginForm" :model="loginForm" class="login-form" auto-complete="on" label-position="left">
+    <el-form ref="loginForm" :model="loginForm" :rules="rules" class="login-form" auto-complete="on" label-position="left">
       <div class="title-container">
         <img :src="this.logoImg" style="width: 100px;height: 100px">
       </div><br><br>
@@ -84,6 +84,19 @@ export default {
         callback()
       }
     }
+    const isEmail = (rule, value, callback) => {
+      if (!value) {
+        callback(); 
+      } else {
+        const reg = /^[a-z0-9]+([._\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*[a-z0-9]+.){1,63}[a-z0-9]+$/;
+        const email = reg.test(value);
+        if (!email) {
+          callback(new Error("Input error! For example:admin@163.com"));
+        } else {
+          callback();
+        }
+      }
+    };
     return {
       loginForm: {
         username: '',
@@ -91,8 +104,12 @@ export default {
         email:''
       },
       checked:true,
-      loginRules: {
-        password: [{ required: true, trigger: 'blur', validator: validatePassword }]
+      rules: {
+        password: [{ required: true, trigger: 'blur', validator: validatePassword }],
+        email: [
+          { required: true, message: "请输入邮箱", trigger: "blur" },
+          { validator: isEmail, trigger: "blur" }
+        ]
       },
       loading: false,
       passwordType: 'password',
