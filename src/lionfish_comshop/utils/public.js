@@ -19,7 +19,7 @@ function collectFormIds(o) {
   var a = _this.$app.globalData.formIds
   a || (a = []); a.push(o); _this.$app.globalData.formIds = a
   var e = _this.$wx.getStorageSync('token')
-  _this .$http({
+  _this.$http({
     controller: 'user.get_member_form_id',
     token: e,
     from_id: o

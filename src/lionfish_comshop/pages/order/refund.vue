@@ -15,7 +15,7 @@
       </div>
     </div>
     <div class="cell-col">
-      <div class="tit">退款数量：</div>
+      <div class="tit">{{$t('refund.tuikuanshuliang')}}：</div>
       <div class="ll">
         <label :class="['i-flex', 'i-flex-alc', 'fsz-26', 'mb10', item.isrefund?'isrefund':'']" v-if="selArr&&selArr.length" v-for="(item ,index) in selArr" :key="index">
           <div class="checkbox" v-if="item.isrefund">
@@ -33,11 +33,11 @@
       </div>
     </div>
     <div class="cell">
-      <div class="cell-hd">售后类型：</div>
-      <div class="cell-bd">申请退款</div>
+      <div class="cell-hd">{{$t('refund.shouhouleixing')}}：</div>
+      <div class="cell-bd">{{$t('refund.shenqingtuikuan')}}</div>
     </div>
     <div class="cell">
-      <div class="cell-hd">问题类型：</div>
+      <div class="cell-hd">{{$t('refund.wentileixing')}}：</div>
       <div class="cell-bd">
         <div class="picker" @click="showPicker = true">
           {{xarray[index]}}
@@ -58,45 +58,45 @@
       </div>
     </div>
     <div class="cell">
-      <div class="cell-hd">退款金额：</div>
+      <div class="cell-hd">{{$t('refund.tuikuanjine')}}：</div>
       <div class="cell-bd">
         <input bindinput="refund_money_input" class="cell-ipt" :placeholder="'最高可退款 $'+total" type="text" :value="refund_money"></input>
       </div>
     </div>
     <div class="cell">
-      <div class="cell-hd">配送费：</div>
+      <div class="cell-hd">{{$t('refund.peisongfei')}}：</div>
       <div class="cell-bd">
         <div>${{order_goods.shipping_fare}}</div>
-        <div class="fsz-22 text-gray" v-if="order_goods.shipping_fare==0">无配送费</div>
+        <div class="fsz-22 text-gray" v-if="order_goods.shipping_fare==0">{{$t('refund.wupeisongfei')}}无配送费</div>
       </div>
     </div>
     <div class="cell-col">
-      <div class="tit">商品问题描述：</div>
+      <div class="tit">{{$t('refund.shangpinwentimiaoshu')}}：</div>
       <textarea v-model="complaint_desc" class="cell-textarea" maxlength="1000" placeholder="问题描述越详细,可以提高您的申请成功率哦~" ></textarea>
     </div>
     <div class="cell-col">
-      <div class="tit">上传凭证图片（最多三张）</div>
+      <div class="tit">{{$t('refund.shangchuanpingzhengtupian')}}</div>
       <div class="img-wrap">
         <van-uploader preview-size="18vw" :after-read="afterRead" v-model="uploader_file" multiple :max-count="3" />
       </div>
     </div>
     <div class="cell">
-      <div class="cell-hd">联系人：</div>
+      <div class="cell-hd">{{$t('refund.lianxiren')}}：</div>
       <div class="cell-bd">
         <input  v-model="complaint_name" class="cell-ipt" maxlength="20" placeholder="请输入联系人" type="text" />
       </div>
     </div>
     <div class="cell">
-      <div class="cell-hd">联系方式：</div>
+      <div class="cell-hd">{{$t('refund.lianxifangshi')}}：</div>
       <div class="cell-bd">
         <input  v-model="complaint_mobile" class="cell-ipt" maxlength="20" placeholder="请输入手机号" type="number" />
       </div>
     </div>
     <div class="submit_button">
-      <div @click="sub_refund" class="span">提交申请</div>
+      <div @click="sub_refund" class="span">{{$t('refund.tijiaoshenqing')}}</div>
     </div>
     <div class="note">
-      <div class="note-tit">退款须知</div>
+      <div class="note-tit">{{$t('refund.tuikuanxuzhi')}}</div>
       <div class="article">
         <div class="p">请按照提示关注维权进度和超时提醒并提供相应凭证。</div>
       </div>

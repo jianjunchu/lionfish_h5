@@ -2,7 +2,8 @@ import a from '../utils/public'
 import status from '../utils/index.js'
 import util from '../utils/index.js'
 import _this from '../../main.js'
-var wx,app
+
+var wx, app
 
 export default {
   data: {
@@ -11,7 +12,7 @@ export default {
     updateCart: 0
   },
   created: function() {
-    wx = _this.$wx;
+    wx = _this.$wx
     app = _this.$getApp()
   },
   authModal: function() {
@@ -26,14 +27,19 @@ export default {
   },
   openSku: function(t) {
     if (this.authModal()) {
-      var a = this, i = t.detail, o = i.actId, s = i.skuList
+      var a = this
+      var i = t.detail
+      var o = i.actId
+      var s = i.skuList
       a.setData({
         addCar_goodsid: o
       })
-      var e = s.list || [], d = []
-      if (0 < e.length) {
+      var e = s.list || []
+      var d = []
+      if (e.length > 0) {
         for (var u = 0; u < e.length; u++) {
-          var n = e[u].option_value[0], r = {
+          var n = e[u].option_value[0]
+          var r = {
             name: n.name,
             id: n.option_value_id,
             index: u,
@@ -41,6 +47,7 @@ export default {
           }
           d.push(r)
         }
+        // eslint-disable-next-line eqeqeq
         for (var c = '', l = 0; l < d.length; l++) l == d.length - 1 ? c += d[l].id : c = c + d[l].id + '_'
         var _ = s.sku_mu_list[c]
         a.setData({
@@ -139,7 +146,7 @@ export default {
     this.cartNum = a
   },
   closeSku: function() {
-      this.visible = !1,
+    this.visible = !1,
       this.stopClick = !1
   },
   changeNumber: function(t) {
@@ -155,9 +162,16 @@ export default {
     })
   },
   addCart: function(t) {
-    var d = t.idx; var u = this.list; var a = wx.getStorageSync('token'); var i = wx.getStorageSync('community');
-    var n = u[d].actId; var o = i.communityId; var s = this.soli_info || ''; var r = s && s.id || '';
-    var e = this.buy_type || 'dan'; var c = this
+    var d = t.idx
+    var u = this.list
+    var a = wx.getStorageSync('token')
+    var i = wx.getStorageSync('community')
+    var n = u[d].actId
+    var o = i.communityId
+    var s = this.soli_info || ''
+    var r = s && s.id || ''
+    var e = this.buy_type || 'dan'
+    var c = this
     if (t.type == 'plus') {
       var l = {
         goods_id: n,
@@ -229,7 +243,7 @@ export default {
         dataType: 'json',
         method: 'POST',
         success: function(t) {
-          if (3 == t.code) {
+          if (t.code == 3) {
             wx.showToast({
               title: t.msg,
               icon: 'none',
@@ -237,14 +251,10 @@ export default {
             })
           } else {
             var a = t.total || 0
-            0 < r && (a = t.goods_total_count || 0), u[d].car_count = t.cur_count,
-              c.setData({
-                list: u,
-                cartNum: a
-              }), status.indexListCarCount(n, t.cur_count);
+            r > 0 && (a = t.goods_total_count || 0), u[d].car_count = t.cur_count, (c.list = u, c. cartNum = a), status.indexListCarCount(n, t.cur_count)
           }
         }
-      });
+      })
     }
   }
-};
+}

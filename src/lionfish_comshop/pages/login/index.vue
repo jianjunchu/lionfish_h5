@@ -1,11 +1,11 @@
 <template>
-  <div class="login-container">
+  <div class="login-container" :style="{background:navBgColor}">
     <el-form ref="loginForm" :model="loginForm" :rules="loginRules" class="login-form" auto-complete="on" label-position="left">
 
       <div class="title-container">
         <!--<h3 class="title">Hzmart Login</h3>-->
-        <div style="width: 30vw;height: 30vw;margin: 0 auto;margin-bottom: 30px;">
-        <img src="../../../assets/images/logo.png" style="width: 100%;height: 100%;" />
+        <div style="width: 24vw;height: 24vw;margin: 0 auto;margin-bottom: 30px;">
+        <img src="@/assets/images/logo.png" style="width: 100%;height: 100%;" />
         </div>
       </div>
 
@@ -24,7 +24,7 @@
 	    </el-select>
 	  <span style="margin-top: 12220px;">|</span>
 	  </span>
-	  <input style="width: 60%;height: 100%;border:none;outline: none;height: 40px;" v-model="loginForm.username"/>
+	  <input type="number" style="width: 60%;height: 100%;border:none;outline: none;height: 40px;" v-model="loginForm.username"/>
 	  </div>
 	  </div>
 
@@ -51,14 +51,14 @@
 	    </el-select>
 	  <span style="margin-top: 12220px;">|</span>
 	  </span>
-	  <input style="width: 60%;height: 100%;border:none;outline: none;height: 40px;" v-model="loginForm.username"/>
+	  <input type="number" style="width: 60%;height: 100%;border:none;outline: none;height: 40px;" v-model="loginForm.username"/>
 	  </div>
 	  </div>
 
 
 	 	<div style="height: 50px;">
 		 <div style="width: 100%;height:28px;border-bottom:1px solid #ccc;font-size: 12px;color: #3D7BD0;" >
-		 <input style="width: 70%;height: 100%;border:none;outline: none;background: none;" v-model="logoCode" id="input_code"  @blur="blur('code')" @keyup="activeregist()" ref="code" placeholder="Code"/>
+		 <input type="number" style="width: 70%;height: 100%;border:none;outline: none;background: none;" v-model="logoCode" id="input_code"  @blur="blur('code')" @keyup="activeregist()" ref="code" placeholder="Code"/>
 		 <div style="float: right;background: #FDEACA;border-radius: 20px;color: #FDB56D;font-size: 13px;padding:5px;margin-bottom: 10px;" @click="getVerifyCode()" ref="getCode" :disabled="getCodeDisabled">{{getCodeBtnText}}</div>
 		 </div>
 		 </div>
@@ -86,21 +86,28 @@
 
     </el-form>
     <div class="gotoRegist">
-     <span style="color: #959595;">Don't have an account? Click </span>  <a href="javascript:void()" @click="gotoRegist" style="color: #568CE2;">here</a> <span style="color: #959595;"> to Register</span>
+     <span style="color: #959595;">Don't have an account?  </span>  <router-link to="/regist" style="color: #007cdc;font-weight:600">Sign Up</router-link> </a>
     </div>
   </div>
 </template>
 
-<script>import { validUsername } from '../../utils/validate'
-import GlobalMixin from '../../mixin/globalMixin.js'
-import { setToken } from '../../utils/auth.js'
+<script>
+  import { validUsername } from '../../utils/validate'
+  import GlobalMixin from '../../mixin/globalMixin.js'
+  import { setToken } from '../../utils/auth.js'
 
 import util from "../../utils"
 import	status  from "../../utils"
 
 var	wcache = require("../../utils/wcache.js")
 export default {
+  mixins: [GlobalMixin],
 	name: 'Login',
+  computed: {
+    navBgColor(){
+      return this.$store.getters.navBgColor
+    }
+  },
 	data() {
 		const validatePassword = (rule, value, callback) => {
 			if(value.length < 6) {
@@ -431,12 +438,15 @@ $cursor: rgba(122, 116, 116, 0.548);
 		}
 	}
 	.gotoRegist {
-		width: 100%;
 		text-align: center;
+    max-width: 100%;
 		bottom: 0px;
+    background-color: white;
 		left: 0;
-		margin-top: 10vw;
+		padding: 5vw;
+    margin: 5vw;
 		font-size: 4vw;
+    border-radius:2.5vw
 	}
 	.el-form-item {
 		border: 1px solid rgba(255, 255, 255, 0.1);
@@ -450,17 +460,19 @@ $cursor: rgba(122, 116, 116, 0.548);
 $dark_gray:#889aa4;
 $light_gray:rgb(17, 123, 245);
 .login-container {
+
 	min-height: 100%;
 	width: 100%;
 	background-color: $bg;
 	overflow: hidden;
 	.login-form {
 		position: relative;
-		width: 520px;
 		max-width: 100%;
-		padding: 20vw 10vw 0;
-		margin: 0 auto;
+		padding: 5vw;
+		margin: 5vw;
+    background-color: white;
 		overflow: hidden;
+    border-radius:2.5vw
 	}
 	.tips {
 		font-size: 14px;

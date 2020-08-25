@@ -73,7 +73,7 @@
 
       <div class="mask" catchtouchmove="preventTouchMove" v-if="show_paynow_modal"></div>
       <div class="paynow" v-if="show_paynow_modal">
-        <div style='width: 100%;height: 10%;'>
+        <div style='width: 100%;height: 5%;'>
           <div style='float:left;width: 40%;font-size: 18px;line-height: 5vw;margin-left: 5%;'>
             PayNow
           </div>
@@ -101,10 +101,10 @@
           <!--<span style="color:red">{{$t('order.xierugaidingdanhao')}}</span>-->
         </div>
 
-        <div style='text-align: center'>
-          <div style='width: 100%;height: 530px;justify-content: center; '>
-            <img :src='payNowQr'
-                 style='width: 160px;height: 160px;margin-top: 20px;border: 1px solid #000;'/>
+        <div style='text-align: center; font-size: 3vw' >
+          <div style='width: 100%;justify-content: center; '>
+            <img :src='payNowQr' @click="imagePreview"
+                 style='width: 200px;height: 200px;margin-top: 10px;border: 1px solid #000;'/>
             <div style='wid:200px;height:40px;margin-top:1vw;'>
 
               <span style='text-align: left'>{{$t('order.saomazhifu')}}  <!--或 uen: {{payNowUen}}--></span>
@@ -190,7 +190,7 @@
 
           <div class="receiver">
             <span>{{$t('order.shoujihaoma')}}</span>
-            <input   class="mobile" placeholder="" type="text"
+            <input   class="mobile" placeholder="" type="number"
                    v-model="tabAddress[tabIdx].mobile"></input>
           </div>
 
@@ -671,6 +671,8 @@
   import ITabs from '@/lionfish_comshop/components/tabs'
   import status from '../../utils/index.js'
   import util from '../../utils/index.js'
+  import { ImagePreview } from 'vant';
+
   var app, wx
   var _extends = Object.assign || function(e) {
       for (var t = 1; t < arguments.length; t++) {
@@ -1009,6 +1011,7 @@
         1 == o && s && n && console.log('---------is here ?-----------'), r()
       },
       onShow: function(e) {
+        this.getPayInfo();
         this.getCommunityInfo()
       },
       authSuccess: function() {
@@ -1246,7 +1249,7 @@
         }
          */
         var ter = a == 0 ? this.$t('order.xuanzezitishijian'): this.$t('order.xuanzepeisongshijian')
-        if (2 != a && !dt || '' == dt) {
+        if ( !dt || '' == dt) {
           return wx.showToast({
             title: ter,
             icon: 'none'
@@ -1395,19 +1398,7 @@
                 })
               } else if (pm == 'paynow') {
 
-                app.util.request({
-                  url: "entry/wxapp/user",
-                  data: {
-                    controller: "user.get_copyright",
-                  },
-                  dataType: "json",
-                  method: "POST",
-                  success: function(t) {
-                    this_.payNowQr = t.paynow_qr
-                    this_.payNowNo = t.paynow_no
-                    this_.payNowUen = t.paynow_uen
-                  }
-                });
+
 
                 this_.closePaymentModal()
                 this_.showPayNowModal()
@@ -1932,7 +1923,33 @@
           })
         }
 
+      },
+      getPayInfo :function(){
+        var this_ = this;
+        app.util.request({
+          url: "entry/wxapp/user",
+          data: {
+            controller: "user.get_copyright",
+          },
+          dataType: "json",
+          method: "POST",
+          success: function(t) {
+            this_.payNowQr = t.paynow_qr
+            this_.payNowNo = t.paynow_no
+            this_.payNowUen = t.paynow_uen
+          }
+        });
+      },
+      imagePreview:function() {
+        ImagePreview({
+          images: [
+            this.payNowQr
+          ],
+          closeable: true,
+        });
       }
+
+
     }
   }
 </script>
@@ -2818,11 +2835,11 @@
     top: 1%;
     width: 100%;
     height: 99%;
-    padding: 8vw;
+    padding: 5vw;
     font-size: 3vw;
     /* border: 8px solid #e8e9f7; */
     background-color: white;
-    z-index: 9999;
+    z-index: 901;
     overflow: auto;
   }
   .paynow input{

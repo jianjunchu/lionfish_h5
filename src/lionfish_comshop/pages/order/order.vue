@@ -923,11 +923,11 @@
       cancelOrder: function(a) {
         var r = this;
         this.canCancel && wx.showModal({
-          title: this.$t('cart.quxiaodingdantuikuan'),
-          content: "取消订单后，款项将原路退回到您的支付账户；详情请查看退款进度。",
-          confirmText: r.$t('cart.quxiaodingdan'),
+          title: this.$t('order.quxiaodingdantuikuan'),
+          content: "After refund, your money will be retuen back to the balance。",
+          confirmText: r.$t('order.quxiaodingdan'),
           confirmColor: "#ff5344",
-          cancelText: "再等等",
+          cancelText: "Cancel",
           cancelColor: "#666666",
           success: function(e) {
             if (e.confirm) {
@@ -944,8 +944,8 @@
                 method: "POST",
                 success: function(e) {
                   0 == e.code ? wx.showModal({
-                    title: "提示",
-                    content: "取消订单成功",
+                    title: "",
+                    content: "Refund Successful",
                     showCancel: false,
                     confirmColor: "#ff5344",
                     success: function(e) {

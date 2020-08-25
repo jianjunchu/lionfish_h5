@@ -45,14 +45,14 @@
 		  </el-select>
 		<span style="margin-top: 12220px;">|</span>
 		</span>
-		<input style="width: 60%;height: 100%;border:none;outline: none;height: 40px;background: none;"    v-model="input_info.phone"  @focus="focus('phoneNum')" @blur="blur('phoneNum')" ref="phoneNum" @keyup="inputPhone" maxlength="13" autofocus/>
+		<input type="number" style="width: 60%;height: 100%;border:none;outline: none;height: 40px;background: none;"    v-model="input_info.phone"  @focus="focus('phoneNum')" @blur="blur('phoneNum')" ref="phoneNum" @keyup="inputPhone" maxlength="13" autofocus/>
 		</div>
 		</div>
 
 
 		<div style="height: 50px;">
 		 <div style="width: 100%;height:28px;border-bottom:1px solid #ccc;font-size: 16px;color: #3D7BD0;" >
-		 <input style="width: 70%;height: 100%;border:none;outline: none;background: none;" v-model="input_info.code" id="input_code" @focus="focus('code')" @blur="blur('code')" @keyup="activeregist()" ref="code" placeholder="Code"/>
+		 <input type="number" style="width: 70%;height: 100%;border:none;outline: none;background: none;" v-model="input_info.code" id="input_code" @focus="focus('code')" @blur="blur('code')" @keyup="activeregist()" ref="code" placeholder="Code"/>
 		 <div style="float: right;background: #FDEACA;border-radius: 20px;color: #FDB56D;font-size: 13px;padding:5px;margin-bottom: 10px;" @click="getVerifyCode()" ref="getCode" :disabled="getCodeDisabled">{{getCodeBtnText}}</div>
 		 </div>
 		 </div>
@@ -149,6 +149,9 @@
             }
         },
         props:['baseConfig'],
+      created() {
+        this.hideTopAndFooter();
+      },
         mounted() {
             //监听事件
             window.onresize = ()=>{
