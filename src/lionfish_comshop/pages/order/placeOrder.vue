@@ -562,8 +562,8 @@
   import ITabs from '@/lionfish_comshop/components/tabs'
   import status from '../../utils/index.js'
   import util from '../../utils/index.js'
-  import timeFormat from '../../utils/timeFormat.js'
   import { ImagePreview } from 'vant';
+  import exp from "../../utils/timeFormat.js";
 
   var app, wx
   var _extends = Object.assign || function(e) {
@@ -577,7 +577,6 @@
 
   export default {
     name: 'placeOrder',
-    timeFormat: [timeFormat],
     mixins: [GlobalMixin],
     components:{ITabs},
     data() {
@@ -1747,9 +1746,9 @@
         })
       },
       showPickupTime: function() {
-          console.log("showPickupTime");
+        console.log("showPickupTime");
         var isPresell = this.isPresell();
-        debugger
+
           var that = this;
           if(!isPresell){
             that.doShowPickupTime();
@@ -1766,7 +1765,7 @@
           content: "是否选择预售时间" ,
           confirmColor: "#F75451",
           success: function (t) {
-            debugger
+
             if (confirm || t.confirm) {
                 confirm = t.confirm;
               console.log("用户点击确定");
@@ -1797,14 +1796,13 @@
       doShowPreTime:function () {
           var isPreTime = false;
           var beginTime = 0;
-          var endTime = "";
 
         for (var i in this.seller_goodss) {
             var goods = this.seller_goodss[i].goods;
             for (var j in goods){
               var is_presell = goods[j].is_presell;
               console.log(is_presell,"is_presell");
-//              if (is_presell != "0") {
+              if (is_presell != "0") {
                 isPreTime = true;
                 var temp_beginTime = goods[j].begin_time;
                 var temp_endTime = goods[j].end_time;
@@ -1814,24 +1812,38 @@
                   beginTime = parseInt(temp_beginTime);
                 }
 
-//              }
+              }
             }
 
         }
-        debugger
-        beginTime = beginTime * 1000;
-//        var str_date1 = timeFormat.formatTime(beginTime);
-//        var str_date = timeFormat.formatYMD(beginTime);
-//        var md = timeFormat.formatDM(beginTime);
-//        var tempDate = timeFormat.formatMD2(beginTime);
-//        var chinaWeek = timeFormat.formatWeekday(beginTime);
-//        var date = tempDate+"("+chinaWeek+")";
-//        var englishWeek = timeFormat.formatWeekdayEnglish(beginTime);
 
-        if (!isPreTime){
-            console.log("not exist pre goods");
+        if (isPreTime && beginTime > 0){
+          var list = new Array();
+          var days = 7;
+          for(var i=0;i<days;i++){
+            var bgDate = new Date(beginTime*1000+i*86400*1000);
+            var str_date = exp.formatYMD(bgDate);
+            var md = exp.formatDM(bgDate);
+            var tempDate = exp.formatMD2(bgDate);
+            var chinaWeek = exp.formatWeekday(bgDate);
+            var date = tempDate+"("+chinaWeek.weekday+")";
+            var week_key = exp.formatWeekdayEnglish(bgDate).weekday;
+            var data = {
+              "date": date,
+              "week_key": week_key,
+              "md": md,
+              "str_date": str_date,
+              "times": ["09:00 - 18:00"]
+            };
+            console.log(data);
+            list.push(data);
+          }
+
+          this.rickupTimeData.list = list;
+          this.rickupTimeData.currentTimes = list[0].times;
+          this.showPickupTimeModal = true;
         }
-        this.doShowPickupTime();
+        //this.doShowPickupTime();
       },
       doShowPickupTime: function() {
 
@@ -1856,7 +1868,6 @@
           success: function(e) {
             var list = e.data;
             console.log(e,"date_list");
-            debugger
 
             r.rickupTimeData.list = list
             r.rickupTimeData.currentTimes = list[0].times
