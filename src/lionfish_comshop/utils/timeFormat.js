@@ -32,6 +32,12 @@ var e = exp.formatTime = function(e) {
 }, exp.formatMD = function(r) {
     var n = e(r);
     return [ n.month ].map(t) + "月" + [ n.day ].map(t) + "日";
+}, exp.formatMD2 = function(r) {
+  var n = e(r);
+  return [ n.month ].map(t) + "-" + [ n.day ].map(t) ;
+},exp.formatDM = function(r) {
+  var n = e(r);
+  return [   n.day, n.month].map(t).join("-");
 }, exp.formatYMDPoint = function(r) {
     var n = e(r);
     return [ n.year, n.month, n.day ].map(t).join(".");
@@ -72,7 +78,38 @@ var e = exp.formatTime = function(e) {
         n = "周六";
     }
     return r.weekday = n, r;
-}, exp.formatNumber = function(e) {
+}, exp.formatWeekdayEnglish = function(t) {
+  var r = e(t), n = "";
+  switch (r.weekday) {
+    case 0:
+      n = "sunday";
+      break;
+
+    case 1:
+      n = "monday";
+      break;
+
+    case 2:
+      n = "tuesday";
+      break;
+
+    case 3:
+      n = "wednesday";
+      break;
+
+    case 4:
+      n = "thursday";
+      break;
+
+    case 5:
+      n = "friday";
+      break;
+
+    case 6:
+      n = "saturday";
+  }
+  return r.weekday = n, r;
+},exp.formatNumber = function(e) {
     return (e = e.toString())[1] ? e : "0" + e;
 });
 

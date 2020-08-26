@@ -562,6 +562,7 @@
   import ITabs from '@/lionfish_comshop/components/tabs'
   import status from '../../utils/index.js'
   import util from '../../utils/index.js'
+  import timeFormat from '../../utils/timeFormat.js'
   import { ImagePreview } from 'vant';
 
   var app, wx
@@ -572,9 +573,11 @@
       }
       return e
     }, locat = require('../../utils/Location.js')
-    ,wcache = require('../../utils/wcache.js')
+    ,wcache = require('../../utils/wcache.js');
+
   export default {
     name: 'placeOrder',
+    timeFormat: [timeFormat],
     mixins: [GlobalMixin],
     components:{ITabs},
     data() {
@@ -1744,6 +1747,93 @@
         })
       },
       showPickupTime: function() {
+          console.log("showPickupTime");
+        var isPresell = this.isPresell();
+        debugger
+          var that = this;
+          if(!isPresell){
+            that.doShowPickupTime();
+          }else{
+            that.showSelectDialog();
+          }
+
+      },
+      showSelectDialog:function () {
+          var that = this;
+          var confirm = false;
+        this.$wx.showModal({
+          title: "选择收货时间",
+          content: "是否选择预售时间" ,
+          confirmColor: "#F75451",
+          success: function (t) {
+            debugger
+            if (confirm || t.confirm) {
+                confirm = t.confirm;
+              console.log("用户点击确定");
+              that.doShowPreTime();
+            } else {
+              console.log("用户点击取消");
+              that.doShowPickupTime();
+            }
+          }
+        });
+      },
+      isPresell:function(){
+        var isPreTime = false;
+
+        for (var i in this.seller_goodss) {
+          var goods = this.seller_goodss[i].goods;
+          for (var j in goods){
+            var is_presell = goods[j].is_presell;
+            console.log(is_presell,"is_presell");
+            if (is_presell != "0") {
+                isPreTime = true;
+                break;
+            }
+          }
+        }
+        return isPreTime;
+      },
+      doShowPreTime:function () {
+          var isPreTime = false;
+          var beginTime = 0;
+          var endTime = "";
+
+        for (var i in this.seller_goodss) {
+            var goods = this.seller_goodss[i].goods;
+            for (var j in goods){
+              var is_presell = goods[j].is_presell;
+              console.log(is_presell,"is_presell");
+//              if (is_presell != "0") {
+                isPreTime = true;
+                var temp_beginTime = goods[j].begin_time;
+                var temp_endTime = goods[j].end_time;
+                console.log(temp_beginTime,"temp_beginTime");
+                var diff = parseInt(temp_beginTime) - beginTime;
+                if (diff > 0) {
+                  beginTime = parseInt(temp_beginTime);
+                }
+
+//              }
+            }
+
+        }
+        debugger
+        beginTime = beginTime * 1000;
+//        var str_date1 = timeFormat.formatTime(beginTime);
+//        var str_date = timeFormat.formatYMD(beginTime);
+//        var md = timeFormat.formatDM(beginTime);
+//        var tempDate = timeFormat.formatMD2(beginTime);
+//        var chinaWeek = timeFormat.formatWeekday(beginTime);
+//        var date = tempDate+"("+chinaWeek+")";
+//        var englishWeek = timeFormat.formatWeekdayEnglish(beginTime);
+
+        if (!isPreTime){
+            console.log("not exist pre goods");
+        }
+        this.doShowPickupTime();
+      },
+      doShowPickupTime: function() {
 
 
         var r = this,s = r.tabAddress, n = r.tabIdx, t = wx.getStorageSync("token");
@@ -1765,7 +1855,8 @@
           method: 'POST',
           success: function(e) {
             var list = e.data;
-
+            console.log(e,"date_list");
+            debugger
 
             r.rickupTimeData.list = list
             r.rickupTimeData.currentTimes = list[0].times
@@ -1838,7 +1929,7 @@
           ],
           closeable: true,
         });
-      }
+      },
 
 
     }
