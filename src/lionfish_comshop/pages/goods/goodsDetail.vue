@@ -52,15 +52,14 @@
       <!--<swiper circular :autoplay="!goods.video" bindchange="scrollImagesChange" duration="300" interval="5000" :style="height:(imageSize.imageHeight)px">-->
       <!--<swiper circular :autoplay="!goods.video" bindchange="scrollImagesChange" duration="300" interval="5000" :style="{height:imageSize.imageHeight+'px'}">-->
       <!--<swiper circular :autoplay="!goods.video" bindchange="scrollImagesChange" duration="300" interval="5000" style="height:100%">-->
-      <swiper style="height:100%">
-        <!--<swiper-item v-for="(item,index) in goods_image" :key="item.id">-->
+      <div class="wrapper">
+      <swiper  style="height:100%" :options="swiperOption">
         <swiper-slide v-for="(item,index) in goods_image" :key="item.id">
           <div v-if="goods.video!=''&&goods.video!=null">
             <img bindload="imageLoad" @click="predivImg" width="100%" :data-idx="index" lazyLoad="true" mode="widthFix"
                  :src="item.image" v-if="index!=0"/>
             <div class="video-wrap" v-else>
               <div v-if="fmShow">
-                <!--<div v-if="false">-->
                 <div class="btn_div centerboth" v-if="item.video==''"></div>
                 <div @click="btnPlay" class="btn_div centerboth" v-else>
                   <img src="@/assets/images/play.png"/>
@@ -68,7 +67,6 @@
                 <img bindload="imageLoad" @click="predivImg" :data-idx="index" lazyLoad="true" mode="widthFix"
                      :src="item.image"/>
               </div>
-              <!--<video bindended="videEnd" class="swiper-video" :hidden="fmShow" id="myVideo" objectFit="contain" :src="goods.video"></video>-->
               <video bindended="videEnd" class="swiper-video" v-show="fmShow" id="myVideo" objectFit="contain"
                      :src="goods.video"></video>
 
@@ -77,8 +75,9 @@
           <img bindload="imageLoad" @click="predivImg" width="100%" :data-idx="index" lazyLoad="true" mode="widthFix"
                :src="item.image" v-else/>
         </swiper-slide>
-        <!--</swiper-item>-->
+        <div class="swiper-pagination"  slot="pagination" style="padding-bottom: 50px;"></div>   
       </swiper>
+      </div>
     </div>
 
 
@@ -587,6 +586,26 @@
           hours: '00',
           minutes: '00',
           seconds: '00'
+        },
+        swiperOption:{
+            //显示分页
+            pagination: {
+              el: '.swiper-pagination',
+              clickable:true
+            },
+            //设置点击箭头
+            // navigation: {
+            //   nextEl: '.swiper-button-next', 
+            //   prevEl: '.swiper-button-prev'
+            // },
+            //自动轮播
+            // autoplay: {
+            //   delay: 2000,
+            //   //当用户滑动图片后继续自动轮播
+            //   disableOnInteraction: false,
+            // },
+            //开启循环模式
+            // loop: true
         },
         goods_id: 0,
         size: 1,
@@ -1755,6 +1774,11 @@
   page {
     background: #f6f6f6;
   }
+
+  .wrapper >>> .swiper-pagination-bullet-active{
+    background: #e95d2e
+  }
+   
 
   .goods-wrapper {
     position: relative;
