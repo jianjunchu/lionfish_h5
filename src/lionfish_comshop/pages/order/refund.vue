@@ -37,9 +37,9 @@
       <div class="cell-bd">{{$t('refund.shenqingtuikuan')}}</div>
     </div>
     <div class="cell">
-      <div class="cell-hd">{{$t('refund.wentileixing')}}：</div>
+      <div class="cell-hd">{{$t('refund.tuikuanyuanyin')}}：</div>
       <div class="cell-bd">
-        <div class="picker" @click="showPicker = true">
+        <div class="picker" @click="showPicker = true" style="width: 50vw;height: 5vw;text-align: right">
           {{xarray[index]}}
         </div>
 
@@ -63,16 +63,16 @@
         <input bindinput="refund_money_input" class="cell-ipt" :placeholder="'最高可退款 $'+total" type="text" :value="refund_money"></input>
       </div>
     </div>
-    <div class="cell">
+    <!-- <div class="cell">
       <div class="cell-hd">{{$t('refund.peisongfei')}}：</div>
       <div class="cell-bd">
         <div>${{order_goods.shipping_fare}}</div>
         <div class="fsz-22 text-gray" v-if="order_goods.shipping_fare==0">{{$t('refund.wupeisongfei')}}无配送费</div>
       </div>
-    </div>
+    </div> -->
     <div class="cell-col">
       <div class="tit">{{$t('refund.shangpinwentimiaoshu')}}：</div>
-      <textarea v-model="complaint_desc" class="cell-textarea" maxlength="1000" placeholder="问题描述越详细,可以提高您的申请成功率哦~" ></textarea>
+      <textarea v-model="complaint_desc" class="cell-textarea" maxlength="1000" placeholder="" ></textarea>
     </div>
     <div class="cell-col">
       <div class="tit">{{$t('refund.shangchuanpingzhengtupian')}}</div>
@@ -95,12 +95,12 @@
     <div class="submit_button">
       <div @click="sub_refund" class="span">{{$t('refund.tijiaoshenqing')}}</div>
     </div>
-    <div class="note">
+    <!-- <div class="note">
       <div class="note-tit">{{$t('refund.tuikuanxuzhi')}}</div>
       <div class="article">
         <div class="p">请按照提示关注维权进度和超时提醒并提供相应凭证。</div>
       </div>
-    </div>
+    </div> -->
   </div>
 
 </template>
@@ -113,7 +113,7 @@
     components:{[Checkbox.name]:Checkbox,[CheckboxGroup.name]:CheckboxGroup,[Picker.name]:Picker,[Popup.name]:Popup,[Uploader.name]:Uploader},
     data(){
       return{
-        xarray: [ "点击选择退款理由", "商品有质量问题", "没有收到货", "商品少发漏发发错", "商品与描述不一致", "收到商品时有划痕或破损", "质疑假货", "其他" ],
+        xarray: [ "", "商品有质量问题", "没有收到货", "商品少发漏发发错", "商品与描述不一致", "收到商品时有划痕或破损", "质疑假货", "其他" ],
         index: 0,
         uploader_file:[],
         refund_type: 1,
