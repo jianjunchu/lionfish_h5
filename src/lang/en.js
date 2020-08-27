@@ -388,11 +388,12 @@ export default {
     wentileixing: 'Problem Type',
     tuikuanjine: 'Refund Amount',
     peisongfei: 'Freight Fee',
-    shangpinwentimiaoshu: 'Problem Description',
-    shangchuanpingzhengtupian: 'Upload Picture（most 3 Pics）',
+    shangpinwentimiaoshu: 'Description',
+    shangchuanpingzhengtupian: 'Upload Picture（up to 3）',
     lianxiren: 'Contact Person',
-    lianxifangshi: 'Contact Phone',
+    lianxifangshi: 'Contact Number',
     tijiaoshenqing: 'Submit',
-    tuikuanxuzhi: 'Refund Notes'
+    tuikuanxuzhi: 'Refund Notes',
+    tuikuanyuanyin: 'Refund Reason'
   }
 }

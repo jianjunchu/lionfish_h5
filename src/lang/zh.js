@@ -413,6 +413,7 @@ export default {
     lianxiren: '联系人',
     lianxifangshi: '联系方式',
     tijiaoshenqing: '提交申请',
-    tuikuanxuzhi: '退款须知'
+    tuikuanxuzhi: '退款须知',
+    tuikuanyuanyin: '退款原因'
   }
 }
