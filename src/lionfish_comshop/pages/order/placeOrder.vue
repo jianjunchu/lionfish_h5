@@ -1785,7 +1785,7 @@
           for (var j in goods){
             var is_presell = goods[j].is_presell;
             console.log(is_presell,"is_presell");
-            if (is_presell != "0") {
+            if (is_presell == "1") {//1 是预售商品
                 isPreTime = true;
                 break;
             }
@@ -1802,7 +1802,7 @@
             for (var j in goods){
               var is_presell = goods[j].is_presell;
               console.log(is_presell,"is_presell");
-              if (is_presell != "0") {
+              if (is_presell == "1") {//1 是预售商品
                 isPreTime = true;
                 var temp_beginTime = goods[j].begin_time;
                 var temp_endTime = goods[j].end_time;
