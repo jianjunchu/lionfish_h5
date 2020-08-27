@@ -331,16 +331,16 @@
               <span>Discount:${{levelFee}}</span>
             </div>
           </div>
-          <button class="fixed-bar-btn" style="background:#dcdcdc;" v-if="is_comunity_rest==1">团长休息中</button>
+          <button class="cart-fixed-bar-btn" style="background:#dcdcdc;" v-if="is_comunity_rest==1">团长休息中</button>
           <div v-else-if="open_man_orderbuy==1">
-            <button @click="toorder" class="fixed-bar-btn" v-if="canbuy_other>=0">{{$t('cart.qujiesuan')}}({{allnum}})</button>
-            <button disabled @click="toorder" class="fixed-bar-btn" v-else>
+            <button @click="toorder" class="cart-fixed-bar-btn" v-if="canbuy_other>=0">{{$t('cart.qujiesuan')}}({{allnum}})</button>
+            <button disabled @click="toorder" class="cart-fixed-bar-btn" v-else>
               <span> v-if="totalAmount!=0">差</span>
               <span> v-else>满</span>
               ${{-canbuy_other}}下单
             </button>
           </div>
-          <div @click="toorder" class="fixed-bar-btn" :style="{background:skin.color}" v-else>{{$t('cart.qujiesuan')}}({{allnum}})
+          <div @click="toorder" class="cart-fixed-bar-btn" :style="{background:skin.color}" v-else>{{$t('cart.qujiesuan')}}({{allnum}})
           </div>
         </div>
       </div>
@@ -1690,7 +1690,7 @@
     margin-left: 10px;
   }
 
-  .fixed-bar .fixed-bar-btn {
+  .fixed-bar .cart-fixed-bar-btn {
     width: 30vw;
     height: 12vw;
 
@@ -1705,11 +1705,11 @@
     font-weight: bold;
   }
 
-  .fixed-bar button.fixed-bar-btn::after {
+  .fixed-bar button.cart-fixed-bar-btn::after {
     border: none;
   }
 
-  .fixed-bar button[disabled].fixed-bar-btn {
+  .fixed-bar button[disabled].cart-fixed-bar-btn {
     background: #ececec;
     color: #666;
     font-size: 14px;
