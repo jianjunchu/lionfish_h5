@@ -200,8 +200,8 @@ export default {
                 this.$http({
                   controller : 'index.send_sms_login',
                   country: this.country,
-                  phone: input_phone,
-                  i: 3
+                  phone: input_phone
+//                  , i: 3
                 }).then(response => {
                   console.log(response,",,,,,")
 							  if(response.code ==-1){
@@ -289,7 +289,7 @@ export default {
 			}
 			this.$http({
 				controller: 'user.weblogin_do',
-				i: 3,
+//				i: 3,
 				user: this.loginForm.username,
 				passwd: this.loginForm.password
 			}).then(response => {
@@ -326,7 +326,7 @@ export default {
       var i = this;
 			this.$http({
 				controller: 'user.otplogin_do',
-				i: 3,
+//				i: 3,
 //				user: this.loginForm.username,
 //				passwd: this.loginForm.password
         country:this.country,

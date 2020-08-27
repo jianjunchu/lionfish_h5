@@ -512,7 +512,7 @@
     overflow: auto;
 
 }
-.wux-button {
+>>>.wux-button {
     display: inline-block;
     box-sizing: border-box;
     margin: 0;
@@ -529,7 +529,7 @@
     cursor: pointer;
 
 }
-.wux-button--block{
+>>>.wux-button--block{
     width: 100%;
     margin-top: 10px;
 }

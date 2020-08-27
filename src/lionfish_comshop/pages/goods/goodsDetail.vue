@@ -154,9 +154,9 @@
           </div>
         </div>
         <div class="purchasing pb10" v-if="goods.one_limit_count>0||goods.total_limit_count>0">
-          <div class="purTit">{{$t('common.xiangou')}}</div>
-          <div v-if="goods.total_limit_count>0">每人限购{{goods.total_limit_count}}份</div>
-          <div v-if="goods.one_limit_count>0"> 每单限购{{goods.one_limit_count}}份</div>
+          <!-- <div class="purTit">{{$t('common.xiangou')}}</div> -->
+          <div class="purTit" v-if="goods.total_limit_count>0">Limit {{goods.total_limit_count}} Per Person</div>
+          <div class="purTit" v-if="goods.one_limit_count>0">Limit {{goods.one_limit_count}} Per Order</div>
         </div>
         <div class="saleNum" v-if="is_hide_details_count!=1">
           <span class="purTit">{{$t('detail.xiaoliang')}}</span>

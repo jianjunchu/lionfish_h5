@@ -58,6 +58,8 @@ import auth from '@/lionfish_comshop/components/auth'
 import CommunityItem from '@/lionfish_comshop/components/community-item'
 import FixedBottom from '@/lionfish_comshop/components/fixed-bottom'
 import RushSpuGig from '@/lionfish_comshop/components/rush-spu-big'
+import PaynowModal from '@/lionfish_comshop/components/paynow-modal'
+import PayBankModal from '@/lionfish_comshop/components/pay-bank-modal'
 
 import '@/lionfish_comshop/styles/index.scss' // global css
 import qs from 'qs'
@@ -134,6 +136,8 @@ Vue.component('i-rush-spu', RushSpu)
 Vue.component('i-fixed-bottom', FixedBottom)
 Vue.component('i-fixedBottom', FixedBottom)
 Vue.component('i-rush-spu-big', RushSpuGig)
+Vue.component('i-paynow-modal', PaynowModal)
+Vue.component('i-bank-modal', PayBankModal)
 
 Vue.prototype.$getApp = function() {
   return App

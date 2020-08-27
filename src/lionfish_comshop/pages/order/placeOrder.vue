@@ -25,120 +25,11 @@
         </div>
       </div>
 
-      <div class="mask" catchtouchmove="preventTouchMove" v-if="show_transfer_modal"></div>
-      <div class="paynow" v-if="show_transfer_modal">
-        <div style='width: 100%;height: 10%;'>
-          <div style='float:left;width: 40%;font-size: 22px;line-height: 5vw;margin-left: 10%;'>
-            转账支付
-          </div>
-          <div style='float:right;width: 50%;text-align: right' @click='closeTransferModal'>
-            <img src='@/assets/images/img-close.png'
-                 style='width: 3vw;height: 3vw;margin-top: 1vw;margin-right: 10%'/>
-          </div>
-        </div>
-        <div style='text-align: center'>
-          <div style='width: 100%;height: 350px;font-size: 1.2vw;'>
+      <i-bank-modal :visible="show_transfer_modal" :skin="skin" :tot_price="tot_price"  :bankInfo="bankInfo" @close="closeTransferModal" @havePaid="havePaid"></i-bank-modal>
 
-            <div style='margin-left: 5%;margin-top:1vw;text-align:left;display: flex;justify-content: center;'>
-              <span style='display: flex;justify-content: center;'>帐号：</span>
-              <span style='text-align: left;'>{{bankInfo.account_no}}</span>
-              <button @click='copyText' size="mini" style="font-size: 8px;" :data-text="bankInfo.account_no">复制
-              </button>
-            </div>
-            <div style='margin-left: 5%;margin-top:1vw;text-align:left;display: flex;justify-content: center;'>
-              <span style='display: flex;justify-content: center;'>户名：</span>
-              <span style='text-align: left;'>{{bankInfo.account_name}}</span>
-              <button @click='copyText' size="mini" style="font-size: 8px;" :data-text="bankInfo.account_name">复制
-              </button>
-            </div>
-            <div style='margin-left: 5%;margin-top:1vw;text-align:left;display: flex;justify-content: center;'>
-              <span style='display: flex;justify-content: center;'>银行：</span>
-              <span style='text-align: left;'>{{bankInfo.bank_name}}</span>
-              <button @click='copyText' size="mini" style="font-size: 8px;" :data-text="bankInfo.bank_name">复制
-              </button>
-            </div>
+      <i-paynow-modal :visible="show_paynow_modal" :skin="skin" :tot_price="tot_price" :payNowInfo="payNowInfo" @close="closePayNowModal" @havePaid="havePaid"></i-paynow-modal>
 
-            <div style='wid:200px;height:100px;text-align: center;margin-top: 3vw;'>
-              <span style='font-size: 18px;'>请在支付时备注您订单内的联系号码 \n</span>
-              <span style='font-size: 18px;color: #c0c0c0'>{{$t('order.zhuanzhangbeizhu')}}</span>
-            </div>
-          </div>
-          <div style='width: 60%;text-align: center;margin-top: 3vw;margin-left: 20%;'>
-            <button @click="havePaid" data-type="banktransfer" class="wux-button wux-button--block" type="default">
-              已支付，查看订单
-            </button>
-          </div>
-        </div>
-      </div>
 
-      <div class="mask" catchtouchmove="preventTouchMove" v-if="show_paynow_modal"></div>
-      <div class="paynow" v-if="show_paynow_modal">
-        <div style='width: 100%;height: 5%;'>
-          <div style='float:left;width: 40%;font-size: 18px;line-height: 5vw;margin-left: 5%;'>
-            PayNow
-          </div>
-
-          <div style='float:right;width: 50%;text-align: right' @click='closePayNowModal'>
-            <img src='@/assets/images/img-close.png'
-                 style='width: 24px;height: 24px;margin-top: 1vw;margin-right: 5%'/>
-          </div>
-        </div>
-        <div style='float:left;width: 100%;margin-left: 5%;'>
-          UEN：{{payNowUen}}
-        </div>
-        <!--<div style='float:left;width: 100%;margin-left: 5%;'>
-          PayNow Account.：{{payNowNo}}
-        </div>-->
-        <div style='float:left;width: 100%;margin-left: 5%;margin-top:5px'>
-          {{$t('order.zhifujine')}}：
-          <span style="color:red">${{tot_price}}</span>
-        </div>
-        <div style='float:left;width: 100%;margin-left: 5%;margin-top:5px'>
-          {{$t('order.beizhudingdanhao')}}：
-          <span style="color:red">{{order_num_alias}}</span>
-        </div>
-        <div style='float:left;width: 100%;margin-left: 5%;margin-top:5px'>
-          <!--<span style="color:red">{{$t('order.xierugaidingdanhao')}}</span>-->
-        </div>
-
-        <div style='text-align: center; font-size: 3vw' >
-          <div style='width: 100%;justify-content: center; '>
-            <img :src='payNowQr' @click="imagePreview"
-                 style='width: 200px;height: 200px;margin-top: 10px;border: 1px solid #000;'/>
-            <div style='wid:200px;height:40px;margin-top:1vw;'>
-
-              <span style='text-align: left'>{{$t('order.saomazhifu')}}  <!--或 uen: {{payNowUen}}--></span>
-
-            </div>
-            <div style='wid:200px;height:20px; text-align: left; margin-top:1vw;margin-left:1vw;'>
-              <span style='font-size: 15px;'>Step 1: Take a screenshot of the QR code</span>
-            </div>
-            <div style='wid:200px;height:40px; text-align: left; margin-top:1vw;margin-left:1vw;'>
-              <span style='font-size: 15px;'>Step 2: Proceed to make payment via PayNow by scanning the QR</span>
-            </div>
-            <div style='wid:200px;height:40px; text-align: left; margin-top:1vw;margin-left:1vw;'>
-              <span style='font-size: 15px;'>Step 3: On your PayNow account enter your mobile number under notes and click Submit</span>
-            </div>
-
-            <div style='wid:200px;height:100px; margin-top:3vw;'>
-              <span style='font-size: 18px;'><!--请在支付时备注您订单内的联系号码 \n--></span>
-              <span style='font-size: 18px;color: #c0c0c0'>{{$t('order.zhuanzhangbeizhu')}}</span>
-            </div>
-          </div>
-          <!--
-          <div class="receiver">
-
-            <span>{{$t('order.jiaoyiliushui')}}</span>
-            <input v-model="transaction_id" class="mobile" placeholder="Paynow transaction No." type="text"></input>
-
-          </div>
-          -->
-          <div style='width: 60%;text-align: center;margin-top: 2vw;margin-left: 20%;'>
-            <button @click="havePaid" :style="{background:skin.color,color:' #fff'}" data-type="paynow" class="wux-button wux-button--block" type="default">{{$t('order.yizhifu')}}
-            </button>
-          </div>
-        </div>
-      </div>
 
       <div class="mask" catchtouchmove="preventTouchMove" v-if="show_payment_modal"></div>
       <div class="modalDlg" v-if="show_payment_modal">
@@ -672,6 +563,7 @@
   import status from '../../utils/index.js'
   import util from '../../utils/index.js'
   import { ImagePreview } from 'vant';
+  import exp from "../../utils/timeFormat.js";
 
   var app, wx
   var _extends = Object.assign || function(e) {
@@ -681,7 +573,8 @@
       }
       return e
     }, locat = require('../../utils/Location.js')
-    ,wcache = require('../../utils/wcache.js')
+    ,wcache = require('../../utils/wcache.js');
+
   export default {
     name: 'placeOrder',
     mixins: [GlobalMixin],
@@ -698,6 +591,7 @@
         show_storefront_modal: false,
         deliveryTimes: [{ date: '2020-04-10', week: '星期五', full: true, text: '已满' }],
         bankInfo: {},
+        payNowInfo: {},
         storefronts: [],
         payNowQr: '',
         payNowNo: '',
@@ -1269,7 +1163,7 @@
         }) : e.prepay())
 
       },
-      havePaid: function(t) {
+      havePaid: function(type) {
 
       //  if ( '' == this.transaction_id) {
       //    return wx.showToast({
@@ -1279,7 +1173,6 @@
       //  }
         var i= this
         var s = wx.getStorageSync('token')
-        var type = t.currentTarget.dataset.type
         wx.showLoading(), app.util.request({
           url: 'entry/wxapp/user',
           data: {
@@ -1853,6 +1746,106 @@
         })
       },
       showPickupTime: function() {
+        console.log("showPickupTime");
+        var isPresell = this.isPresell();
+
+          var that = this;
+          if(!isPresell){
+            that.doShowPickupTime();
+          }else{
+            that.showSelectDialog();
+          }
+
+      },
+      showSelectDialog:function () {
+          var that = this;
+          var confirm = false;
+        this.$wx.showModal({
+          title: "选择收货时间",
+          content: "是否选择预售时间" ,
+          confirmColor: "#F75451",
+          success: function (t) {
+
+            if (confirm || t.confirm) {
+                confirm = t.confirm;
+              console.log("用户点击确定");
+              that.doShowPreTime();
+            } else {
+              console.log("用户点击取消");
+              that.doShowPickupTime();
+            }
+          }
+        });
+      },
+      isPresell:function(){
+        var isPreTime = false;
+
+        for (var i in this.seller_goodss) {
+          var goods = this.seller_goodss[i].goods;
+          for (var j in goods){
+            var is_presell = goods[j].is_presell;
+            console.log(is_presell,"is_presell");
+            if (is_presell == "1") {//1 是预售商品
+                isPreTime = true;
+                break;
+            }
+          }
+        }
+        return isPreTime;
+      },
+      doShowPreTime:function () {
+          var isPreTime = false;
+          var beginTime = 0;
+
+        for (var i in this.seller_goodss) {
+            var goods = this.seller_goodss[i].goods;
+            for (var j in goods){
+              var is_presell = goods[j].is_presell;
+              console.log(is_presell,"is_presell");
+              if (is_presell == "1") {//1 是预售商品
+                isPreTime = true;
+                var temp_beginTime = goods[j].begin_time;
+                var temp_endTime = goods[j].end_time;
+                console.log(temp_beginTime,"temp_beginTime");
+                var diff = parseInt(temp_beginTime) - beginTime;
+                if (diff > 0) {
+                  beginTime = parseInt(temp_beginTime);
+                }
+
+              }
+            }
+
+        }
+
+        if (isPreTime && beginTime > 0){
+          var list = new Array();
+          var days = 7;
+          for(var i=0;i<days;i++){
+            var bgDate = new Date(beginTime*1000+i*86400*1000);
+            var str_date = exp.formatYMD(bgDate);
+            var md = exp.formatDM(bgDate);
+            var tempDate = exp.formatMD2(bgDate);
+            var chinaWeek = exp.formatWeekday(bgDate);
+            var date = tempDate+"("+chinaWeek.weekday+")";
+            var week_key = exp.formatWeekdayEnglish(bgDate).weekday;
+            var data = {
+              "date": date,
+              "week_key": week_key,
+              "md": md,
+              "str_date": str_date,
+              "times": ["09:00 - 18:00"]
+            };
+            console.log(data);
+            list.push(data);
+          }
+
+          this.rickupTimeData.list = list;
+          this.rickupTimeData.currentTimes = list[0].times;
+          this.showPickupTimeModal = true;
+        }
+        //this.doShowPickupTime();
+      },
+      doShowPickupTime: function() {
 
 
         var r = this,s = r.tabAddress, n = r.tabIdx, t = wx.getStorageSync("token");
@@ -1874,7 +1867,7 @@
           method: 'POST',
           success: function(e) {
             var list = e.data;
-
+            console.log(e,"date_list");
 
             r.rickupTimeData.list = list
             r.rickupTimeData.currentTimes = list[0].times
@@ -1934,9 +1927,9 @@
           dataType: "json",
           method: "POST",
           success: function(t) {
-            this_.payNowQr = t.paynow_qr
-            this_.payNowNo = t.paynow_no
-            this_.payNowUen = t.paynow_uen
+            this_.payNowInfo.payNowQr = t.paynow_qr
+            this_.payNowInfo.payNowNo = t.paynow_no
+            this_.payNowInfo.payNowUen = t.paynow_uen
           }
         });
       },
@@ -1947,7 +1940,7 @@
           ],
           closeable: true,
         });
-      }
+      },
 
 
     }

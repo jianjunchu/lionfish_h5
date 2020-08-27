@@ -235,13 +235,13 @@
 
       <div class="tool">
         <div class="toolList">
-          <div @click="goLink2" class="yuenav" data-link="/lionfish_comshop/pages/user/charge"
+          <div  class="yuenav" data-link="/lionfish_comshop/pages/user/charge"
                v-if="is_open_yue_pay==1">
             <div class="item-main">
               <div class="item-title">
                 <img class="toolIcon" mode="widthFix"
                      :src="user_tool_icons.i1?user_tool_icons.i1:require('@/assets/images/wallet.png')"/>
-                <span>余额<div v-if="!needAuth">: ${{member_info.account_money||0}}</div>
+                <span>{{$t('wallet.yue')}}<div v-if="!needAuth">: ${{member_info.account_money||0}}</div>
                 </span>
               </div>
               <div class="tool-right">

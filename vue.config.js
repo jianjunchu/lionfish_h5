@@ -14,6 +14,7 @@ const name = defaultSettings.title || 'H&Z Mart' // page title
 // You can change the port by the following methods:
 // port = 9528 npm run dev OR npm run dev --port = 9528
 const port = process.env.port || process.env.npm_config_port || 9528 // dev port
+const publicPath = process.env.VUE_APP_BASE_PATH || '' // dev port
 
 // All configuration item explanations can be find in https://cli.vuejs.org/config/
 module.exports = {
@@ -24,7 +25,7 @@ module.exports = {
    * In most cases please use '/' !!!
    * Detail: https://cli.vuejs.org/config/#publicpath
    */
-  publicPath: '/',
+  publicPath: publicPath,
   outputDir: 'dist',
   assetsDir: 'static',
   lintOnSave: process.env.NODE_ENV === 'development',
@@ -38,7 +39,7 @@ module.exports = {
     },
     proxy: {
       '/api': {
-        target: 'https://hz.xx315.net',
+        target: 'http://hztest.xx315.net',
         changeOrigin: true,
         pathRewrite: {
           '^/api': ''

@@ -328,10 +328,10 @@ export default {
     zhidingfenlei: 'Specified Category'
   },
   wallet: {
-    jinrishouru: 'Today\'s Commission',
-    benyueshouru: 'This Month',
+    jinrishouru: 'Today\'s Expected Commission',
+    benyueshouru: 'Expected This Month',
     leijishouru: 'Total',
-    daiquerenshouru: 'Pending',
+    daiquerenshouru: 'Pending Commission',
     dingdanmingxi: 'Order Details',
     ketixianjine: 'Available Commission',
     yidakuanjine: 'Commission Disbursed',
@@ -345,7 +345,7 @@ export default {
     quanbutixian: 'Withdraw Total Amount',
     tixianshouxufei: 'Withdraw Fee',
     zuizhongdaozhangjine: 'Final Amount',
-    yue: 'My Wallet',
+    yue: 'MartPay',
     yinhangka: 'Bank Transfer',
     xingming: 'Name',
     kaihuyinhang: 'Bank Name',
