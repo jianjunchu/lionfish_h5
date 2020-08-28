@@ -1947,7 +1947,7 @@
   }
 </script>
 
-<style>
+<style scoped>
   .page {
     background: #f6f6f6;
   }
@@ -2198,7 +2198,7 @@
     margin-right: 1.6vw;
   }
 
-  .fixed-content .fixed-bar-btn {
+  .fixed-content >>>.fixed-bar-btn {
     width: 30vw;
     height: 15vw;
     text-align: center;

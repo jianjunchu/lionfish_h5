@@ -27,7 +27,7 @@
       return {
         tabbarRefresh: false,
         currentIdx: 0,
-        loadOver:false
+        loadOver: false
       }
     },
     util: util,
@@ -81,7 +81,7 @@
     methods: {
 
       setNavBgColor: function() {
-        const i = this;
+        const i = this
         i.$http({
           controller: 'index.get_nav_bg_color'
         }).then(a => {

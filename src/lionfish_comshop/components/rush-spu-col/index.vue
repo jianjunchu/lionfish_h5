@@ -273,7 +273,7 @@
   .w250 .new-img {
     width: 30vw;
     height: 33vw;
-    margin-bottom: 2vw;
+    /*margin-bottom: 2vw;*/
     overflow: hidden;
   }
 
@@ -284,10 +284,10 @@
   }
 
   .new-comers-item .new-bot, .w250 .new-bot {
+    height: 9vw;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-top: 3vw;
   }
 
   .new-comers-item .add-cart, .w250 .add-cart {
@@ -349,10 +349,11 @@
 
   .spu .item-tag {
     position: absolute;
-    right: 1vw;
+    left: 1vw;
     top: 2vw;
-    width: 5.4vw;
-    height: 6.2vw;
+    width: 7vw;
+    font-size: 1.5vw;
+    height: 8vw;
     z-index: 1;
     color: #fff;
     text-align: center;
@@ -362,15 +363,16 @@
     position: absolute;
     left: 0;
     top: 0;
-    width: 5.4vw;
-    height: 6.2vw;
+    width: 7vw;
+    height: 8vw;
     z-index: 0;
   }
 
   .spu .item-tag .tag-name {
     position: relative;
     padding-top: 0.5vw;
-    font-size: 2vw;
+    font-size: 1.5vw;
+    -webkit-transform:scale(0.7);
     line-height: 1;
     font-weight: 600;
     z-index: 1;
