@@ -120,10 +120,10 @@
             </div>
           </div>
         </div>
-        <div class="modal-body community fsz-30">
+        <div class="modal-body community fsz-30" style="height: 19vw">
           <div class="weight red mb5">{{community.communityName}}</div>
-          <div class="fsz-30 text-gray mb5">{{community.fullAddress}}</div>
-          <div class="i-flex" style="vertical-align:middle;" v-if="community.disUserMobile||community.head_mobile">
+          <div class="fsz-30 text-gray mb5" style="float: left;width: 60%">{{community.fullAddress}}</div>
+          <div class="i-flex" style="justify-content: center;vertical-align:middle;float:right;width: 40%" v-if="community.disUserMobile||community.head_mobile">
             <!--
                         <div>
                           <span class="iconfont icon-ziyuan fsz-30"></span> {{$t('common.phone')}}：
@@ -135,8 +135,8 @@
             -->
             <div @click="goLink" class="goods-sign-btn" :data-link="community.whatsapplink"
                  v-show="community.whatsapplink != '' && community.whatsapplink != undefined && community.whatsapplink != null ">
-              <img src="@/assets/images/join-group.png" height="20vw" width="20vw"/> <span
-              style="font-size:larger;float:right">Join Group</span>
+              <img src="@/assets/images/join-group.png" style="float: left;width:4vw;height: 4vw;margin-top: 0.7vw"/> 
+              <span style="font-size:3vw;float:right;color:#9b9b9b">&nbsp;Join our chat</span>
             </div>
           </div>
 
