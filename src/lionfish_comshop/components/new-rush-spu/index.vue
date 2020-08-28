@@ -31,9 +31,7 @@
             <div class="spu-title">
               <span class="span">{{spuItem.spuName}}</span>
             </div>
-            <div class="spu-title-tag" v-if="spuItem.is_presell && spuItem.is_presell ==1">
-              <span class="span">[Pre]Shipment of {{spuItem.begin_time_str}} is expected</span>
-            </div>
+
             <div class="spu-desc" v-if="spuItem.spuDescribe">
               <span class="em">{{spuItem.spuDescribe}}</span>
             </div>

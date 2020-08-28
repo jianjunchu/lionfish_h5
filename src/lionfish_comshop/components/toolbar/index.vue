@@ -53,7 +53,7 @@
     background-color: #3dc14a;
     left: 0px;
     top: 0px;
-    z-index: 100
+    z-index: 9999
   }
   .vux-header .vux-header-title {
     line-height: 48px;
