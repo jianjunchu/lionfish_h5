@@ -123,7 +123,7 @@
         <div class="modal-body community fsz-30">
           <div class="weight red mb5">{{community.communityName}}</div>
           <div class="fsz-30 text-gray mb5">{{community.fullAddress}}</div>
-          <div class="i-flex" style="vertical-align:middle;" v-if="community.disUserMobile||community.head_mobile">
+          <div class="i-flex" style="vertical-align:middle;float:right" v-if="community.disUserMobile||community.head_mobile">
             <!--
                         <div>
                           <span class="iconfont icon-ziyuan fsz-30"></span> {{$t('common.phone')}}：
@@ -136,7 +136,7 @@
             <div @click="goLink" class="goods-sign-btn" :data-link="community.whatsapplink"
                  v-show="community.whatsapplink != '' && community.whatsapplink != undefined && community.whatsapplink != null ">
               <img src="@/assets/images/join-group.png" height="20vw" width="20vw"/> <span
-              style="font-size:larger;float:right">Join our chat</span>
+              style="font-size:larger;float:right;color:#9b9b9b">Join our chat</span>
             </div>
           </div>
 
