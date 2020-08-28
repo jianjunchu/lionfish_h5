@@ -581,6 +581,7 @@
     components:{ITabs},
     data() {
       return {
+        pre_begin_time:0,
         transaction_id:'',
         order_id: '',
         order_num_alias: '',
@@ -1760,10 +1761,14 @@
       showSelectDialog:function () {
           var that = this;
           var confirm = false;
+        var preBt = this.pre_begin_time * 1000;
+
         this.$wx.showModal({
-          title: "选择收货时间",
-          content: "是否选择预售时间" ,
+          title: "Pre-Order Delivery Alert",
+          content: "Do you want to proceed with combining your delivery date?<br><br>Date: "+exp.formatDMY_en(new Date(preBt)) ,
           confirmColor: "#F75451",
+          confirmText:"Yes",
+          cancelText:"No",
           success: function (t) {
 
             if (confirm || t.confirm) {
@@ -1779,7 +1784,8 @@
       },
       isPresell:function(){
         var isPreTime = false;
-
+        var beginTime = 0;
+        this.pre_begin_time = 0;
         for (var i in this.seller_goodss) {
           var goods = this.seller_goodss[i].goods;
           for (var j in goods){
@@ -1787,10 +1793,17 @@
             console.log(is_presell,"is_presell");
             if (is_presell == "1") {//1 是预售商品
                 isPreTime = true;
-                break;
+                var temp_beginTime = goods[j].begin_time;
+                var temp_endTime = goods[j].end_time;
+                console.log(temp_beginTime,"temp_beginTime");
+                var diff = parseInt(temp_beginTime) - beginTime;
+                if (diff > 0) {
+                  beginTime = parseInt(temp_beginTime);
+                }
             }
           }
         }
+        this.pre_begin_time = beginTime;
         return isPreTime;
       },
       doShowPreTime:function () {

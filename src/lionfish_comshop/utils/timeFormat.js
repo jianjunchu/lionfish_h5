@@ -20,7 +20,13 @@ var e = exp.formatTime = function(e) {
 }, exp.formatYMD = function(r) {
     var n = e(r);
     return [ n.year, n.month, n.day ].map(t).join("-");
-}, exp.formatHMS = function(r) {
+}, exp.formatDMY_en = function(r) {
+  var n = e(r);
+  // var englishMonths=new Array("Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Spt","Oct","Nov","Dec");
+  var englishMonths=new Array("January","February","March","April","May","June","July","August","September","October","November","December");
+  var month = englishMonths[n.month-1];
+  return [ n.day ].map(t) + " " + month + " " + [ n.year ].map(t) ;
+},exp.formatHMS = function(r) {
     var n = e(r);
     return [ n.hour, n.minute, n.second ].map(t).join(":");
 }, exp.formatWithoutSecond = function(r) {
