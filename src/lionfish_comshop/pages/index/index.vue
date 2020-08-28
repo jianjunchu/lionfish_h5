@@ -1,10 +1,10 @@
 <template>
-  <div class="page" ref="ct">
+  <div class="page" ref="page">
     <el-amap style="display: none" vid="amap" :plugin="plugin" class="amap-demo" :center="center">
     </el-amap>
-    <div v-if="loadOver && isblack!=1" class="aaaa">
+    <div v-if="loadOver && isblack!=1" >
 
-      <div :class="['index-box', 'pb100', (showNewCoupon?'preventTouchMove':'')]">
+      <div  :class="['index-box', 'pb100', (showNewCoupon?'preventTouchMove':'')]">
         <div class="miniAppTip" v-if="isTipShow">
           <div @click="handleProxy" class="add-myapp">
             <span>{{$t('index.desktop')}}</span>
@@ -13,7 +13,7 @@
         <div @click="handleHideProxy" class="guide" v-if="isShowGuide">
           <img mode="widthFix" :src="index_lead_image"/>
         </div>
-        <div class="bg-f">
+        <div class="bg-f" >
           <div class="header-content" v-if="hide_top_community==0">
             <img class="header-bg"
                  :src="shop_info.common_header_backgroundimage?shop_info.common_header_backgroundimage:'@/assets/images/TOP_background@2x.png'"
@@ -378,10 +378,9 @@
           </div>
 
 
-          <div v-if="rushList.length>0&&tabIdx==0">
+          <div v-if="tabIdx==0">
 
-            <van-list v-model="$data.$data.isLoadData" :finished="commigLoadMore" @load="load_goods_data"
-                      class="rush-list-box">
+            <van-list v-model="$data.$data.isLoadData" :finished="commigLoadMore" @load="load_goods_data" class="rush-list-box">
 
               <div class="active-item" v-if="rushList.length>0&&theme==0" v-for="(item,index) in rushList"
                    :key="item.id">
@@ -439,7 +438,18 @@
                             v-for="(item,index) in rushList" :key="item.actId"></i-rush-spu>
 
               </div>
-              <i-load-more iClass="loadMore" :loading="loadMore" :tip="loadText" v-if="loadMore"></i-load-more>
+              <!--<i-load-more iClass="loadMore" :loading="loadMore" :tip="loadText" v-if="loadMore"></i-load-more>-->
+
+              <div class="none-rush-list" v-if="showEmpty">
+                <img class="img-block" src="@/assets/images/icon-index-empty.png"/>
+                <div class="h1">Please try again</div>
+                <!-- <div class="h2">我们正在为您准备更优惠的团购</div> -->
+              </div>
+              <!--
+                            <div class="slogan" v-if="!loadMore&&rushList.length">
+                              <img :src="(indexBottomImage?indexBottomImage:require('@/assets/images/icon-index-slogan.png'))"/>
+                            </div>
+              -->
             </van-list>
           </div>
 
@@ -478,18 +488,6 @@
                           </div>
             -->
             </van-list>
-          </div>
-          <div v-if="tabIdx ==0">
-            <div class="none-rush-list" v-if="showEmpty">
-              <img class="img-block" src="@/assets/images/icon-index-empty.png"/>
-              <div class="h1">Please try again</div>
-              <!-- <div class="h2">我们正在为您准备更优惠的团购</div> -->
-            </div>
-            <!--
-                          <div class="slogan" v-if="!loadMore&&rushList.length">
-                            <img :src="(indexBottomImage?indexBottomImage:require('@/assets/images/icon-index-slogan.png'))"/>
-                          </div>
-            -->
           </div>
 
         </div>
@@ -942,9 +940,7 @@
     },
     mounted: function() {
       var i = this
-      this.$nextTick(() => {
-        i.$root.$el.addEventListener('scroll', this.onScroll)
-      })
+
     },
     activated: function() {
       var i = this
@@ -956,6 +952,20 @@
 
       this.onShow()
 
+    },
+    beforeRouteEnter(to, from, next) {
+      next(vm => {
+        const page = vm.$refs.page
+        // 记录滚动高度
+        page.scrollTop = vm.scroll
+
+      })
+    },
+    beforeRouteLeave(to, from, next) {
+      const page = this.$refs.page;
+      this.scroll = page.scrollTop; //data中记得定义变量scroll
+      console.log('this.scroll = '+this.scroll)
+      next()
     },
     methods: {
 

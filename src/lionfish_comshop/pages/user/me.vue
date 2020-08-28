@@ -120,10 +120,10 @@
             </div>
           </div>
         </div>
-        <div class="modal-body community fsz-30">
+        <div class="modal-body community fsz-30" style="height: 19vw">
           <div class="weight red mb5">{{community.communityName}}</div>
-          <div class="fsz-30 text-gray mb5">{{community.fullAddress}}</div>
-          <div class="i-flex" style="vertical-align:middle;float:right" v-if="community.disUserMobile||community.head_mobile">
+          <div class="fsz-30 text-gray mb5" style="float: left;width: 60%">{{community.fullAddress}}</div>
+          <div class="i-flex" style="justify-content: center;vertical-align:middle;float:right;width: 40%" v-if="community.disUserMobile||community.head_mobile">
             <!--
                         <div>
                           <span class="iconfont icon-ziyuan fsz-30"></span> {{$t('common.phone')}}：
@@ -135,8 +135,8 @@
             -->
             <div @click="goLink" class="goods-sign-btn" :data-link="community.whatsapplink"
                  v-show="community.whatsapplink != '' && community.whatsapplink != undefined && community.whatsapplink != null ">
-              <img src="@/assets/images/join-group.png" height="20vw" width="20vw"/> <span
-              style="font-size:larger;float:right;color:#9b9b9b">Join our chat</span>
+              <img src="@/assets/images/join-group.png" style="float: left;width:4vw;height: 4vw;margin-top: 0.7vw"/>
+              <span style="font-size:3vw;float:right;color:#9b9b9b">&nbsp;Join our chat</span>
             </div>
           </div>
 
@@ -978,5 +978,600 @@
     }
   }
 </script>
-<style  src="@/lionfish_comshop/pages/user/me.css" scoped>
+<style   scoped>
+  @import "../../../@feiying/8.less";
+
+  @import "../../../@feiying/8.less";
+
+  .personal {
+    width: 100%;
+    background: #f5f5f5;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .personal .basicInform {
+    width: 100%;
+    height: 170px;
+  }
+
+  .personal .basicInform .back-img {
+    width: 100%;
+    height: 170px;
+  }
+
+  .personal .basicInform .modify {
+    width: 17px;
+    height: 15px;
+    line-height: 15px;
+    margin-left: 5px;
+    font-size: 11px;
+    border: none;
+    background: transparent;
+    padding: 0;
+  }
+
+  .personal .basicInform .modify::after {
+    border: none;
+  }
+
+  .personal .order {
+    position: relative;
+    height: 130px;
+    width: 95vw;
+    border-radius: 10px;
+    margin: -90px 10px 0 10px;
+    background: #fff;
+    z-index: 5;
+    box-shadow: 0 0 20px rgba(0,0,0,0.1);
+  }
+
+  .personal .order .my-order {
+    padding: 11px 15px;
+    display: flex;
+    align-items: center;
+  }
+
+  .personal .order .my-order .my-order-title {
+    flex: 1;
+    font-size:12px;
+    font-weight: 500;
+    color: #444;
+  }
+
+  .personal .order .my-order .to-order {
+    font-size: 12px;
+    color: #aaa;
+    margin-right: 10px;
+  }
+
+  .personal .order .orderTab {
+    border-top: 0.05px solid #efefef;
+    padding: 16px 21px 0;
+    background-color: #fff;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .personal .order .orderTab .order_status {
+    position: relative;
+    color: #58595b;
+    font-size: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+
+  .personal .order .orderTab .order_status .num {
+    width: 5vw;
+    height: 5vw;
+    background: #fff;
+    font-size: 2vw;
+    color: #fff;
+    border: 0.5vw solid #fff;
+    background: #ff6557;
+    border-radius: 50%;
+    position: absolute;
+    right: 0;
+    top: -1.5vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1;
+  }
+
+  .personal .order .orderTab .order_status .icon-img {
+    height: 28px;
+    width: 28px;
+    margin-bottom: 10px;
+  }
+
+  .personal .icon-right {
+    width: 6px;
+    height: 11px;
+  }
+
+  .personal .tool {
+    width: 95vw;
+    border-radius: 10px;
+    margin: 10px 0 0 10px;
+    background: #fff;
+    box-shadow: 0 0 20px rgba(0,0,0,0.1);
+  }
+
+  .personal .tool .border-top-bottom {
+    border-top: 0.5px solid #efefef;
+    border-bottom: 0.5px solid #efefef;
+  }
+
+  .personal .tool .item-main {
+    padding: 16px 20px;
+    border-bottom: 0.5px solid #efefef;
+  }
+
+  .personal .tool .item-main .item-title {
+    height: 20px;
+    width: 200px;
+    color: #444;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+  }
+
+  .personal .tool .item-main .tool-right {
+    float: right;
+    display: flex;
+    align-items: center;
+    margin-top: -15px;
+  }
+
+  .personal .tool .item-fav {
+    background: #fff;
+    margin: 0;
+    padding: 0;
+    height: 54px;
+  }
+
+  .personal .tool button::after {
+    border: none;
+  }
+
+  .personal .canvas-content {
+    width: 95vw;
+    height: 158px;
+    border-radius: 10px;
+    margin: 10px 0 0 10px;
+    background: #fff;
+    text-align: center;
+    box-shadow: 0 0 20px rgba(0,0,0,0.1);
+    overflow: hidden;
+    display: flex;
+    font-family: PingFangSC-Regular;
+    font-weight: 400;
+  }
+
+  .personal .canvas-content .left {
+    position: relative;
+  }
+
+  .personal .canvas-content .right {
+    flex: 1;
+  }
+
+  .personal .canvas-content .icon-sm-logo {
+    position: absolute;
+    height: 28px;
+    width: 28px;
+    top: 61px;
+    left: 61px;
+  }
+
+  .personal .canvas-content .canvas {
+    height: 110px;
+    width: 110px;
+    margin: 24px 0 0 22px;
+  }
+
+  .personal .canvas-content .title1 {
+    text-align: center;
+    margin-top: 78px;
+    font-size: 14px;
+    line-height: 14px;
+    color: #8ED9D1;
+    margin-left: -10px;
+  }
+
+  .personal .canvas-content .title2 {
+    text-align: center;
+    margin-top: 10px;
+    font-size: 12px;
+    line-height: 12px;
+    color: #949494;
+  }
+
+  .personal .canvas-content .btn {
+    text-align: center;
+    box-sizing: border-box;
+    border-radius: 13px;
+    border: 1px solid #ff695c;
+    padding: 7px 0;
+    margin: 10px auto 0;
+    width: 92px;
+    font-size: 12px;
+    line-height: 12px;
+    color: #ff5344;
+  }
+
+  .version {
+    width: 100%;
+    font-size: 12px;
+    color: #aaa;
+    text-align: center;
+    margin: 40px auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+
+  .personal .basicInform .personalCon {
+    width: 100%;
+    height: 105px;
+    padding-top: 15px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 3;
+  }
+
+  .personal .basicInform .personalCon .userInfo {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+  }
+
+  .personal .basicInform .personalCon .userInfo .userAvatarUrl {
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    margin-left: 20px;
+    margin-right: 10px;
+  }
+
+  .personal .basicInform .personalCon .userInfo .user-name {
+    color: #fff;
+    font-size: 15px;
+    font-weight: bold;
+  }
+
+  .personal .basicInform .personalCon .userInfo .user-name .user-name-top {
+    font-size: 15px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    margin-left: 70px;
+    margin-top: -40px;
+  }
+
+  .personal .basicInform .personalCon .userInfo .user-name .user-name-top view:first-of-type {
+    max-width: 200px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .personal .basicInform .personalCon .userInfo .user-name .user-name-top .refresh {
+    position: relative;
+  }
+
+  .personal .basicInform .personalCon .userInfo .user-name .user-name-top .refresh .modify {
+    width: 12px;
+    height: 12px;
+    background: #ea544c;
+    opacity: 0;
+    border: none;
+    position: absolute;
+    left: 0;
+    top: 0;
+    padding: 10px 20px;
+  }
+
+  .personal .basicInform .personalCon .userInfo .user-name .user-name-top .refresh .modify::after {
+    border: none;
+  }
+
+  .personal .basicInform .personalCon .userInfo .user-name .user-name-top .refresh .updateWx {
+    color: #fff;
+    margin-left: 85px;
+  }
+
+  .personal .basicInform .personalCon .userInfo .user-name .user-name-top .refreshImg {
+    width: 12px;
+    height: 12px;
+    margin-left: 10px;
+  }
+
+  .personal .basicInform .personalCon .userInfo .user-name .member {
+    font-size: 12px;
+    color: #fff;
+    margin-top: 2px;
+  }
+
+  .personal .basicInform .personalCon .pineCones {
+    padding: 0 25px;
+    margin-top: 30px;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .personal .basicInform .personalCon .pineCones .myPineCones {
+    color: #e9cc95;
+    font-size: 14px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+  }
+
+  .personal .basicInform .personalCon .pineCones .myPineCones .pineConesImg {
+    width: 14px;
+    height: 15px;
+    margin-right: 5px;
+  }
+
+  .personal .basicInform .personalCon .pineCones .myPineCones .pineConeRules {
+    font-size: 10px;
+    margin-left: 14px;
+    text-decoration: underline;
+  }
+
+  .personal .basicInform .personalCon .pineCones .myPineCones navigator {
+    margin-top: -4px;
+  }
+
+  .personal .basicInform .personalCon .pineCones .pineconeDetail {
+    color: #e9cc95;
+    font-size: 12px;
+    padding: 1px 10px;
+    border: 0.05px solid #e9cc95;
+    border-radius: 11px;
+  }
+
+  .personal .order.close-yue {
+    position: relative;
+    margin-top: -50px;
+    z-index: 2;
+  }
+
+  .yuenav .tool-right {
+    margin-top: -19px!important;
+  }
+
+  .disModal {
+    width: 90%;
+  }
+
+  .modal-content {
+    position: relative;
+    background-color: #fff;
+    box-sizing: border-box;
+    border-radius: 5px;
+    font-size: 14px;
+  }
+
+  .modal-head {
+    position: relative;
+    padding: 10px 15px;
+  }
+
+  .modal-foot {
+    position: relative;
+    padding: 10px 15px;
+  }
+
+  .modal-head::after,.modal-foot::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 1px;
+    transform: scaleY(.5);
+  }
+
+  .modal-head::after {
+    border-bottom: 1px solid #c8c7cc;
+    bottom: 0;
+  }
+
+  .modal-foot::before {
+    border-top: 1px solid #c8c7cc;
+    top: 0;
+  }
+
+  .modal-foot .tot,.modal-head-r {
+    color: #ff5344;
+  }
+
+  .modal-head-l {
+    color: #333;
+    font-size: 15px;
+    font-weight: bold;
+  }
+
+  .modal-body {
+    padding: 25px 15px;
+    color: #333;
+  }
+
+  .modal-foot-r.btn {
+    color: #fff;
+    background-color: #ff5344;
+    padding: 3px 15px;
+    border-radius: 4px;
+  }
+
+  .distribut-new {
+    text-align: center;
+  }
+
+  .bor-r {
+    position: relative;
+    padding-right: 10px;
+    margin-right: 10px;
+  }
+
+  .bor-r::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    width: 1px;
+    transform: scaleX(.5);
+    border-right: 1px solid #c8c7cc;
+  }
+
+  .distribut-tot {
+    font-size: 29px;
+    font-weight: bold;
+    padding-left: 15px;
+  }
+
+  .model-close {
+    text-align: center;
+    margin: 15px 0;
+  }
+
+  .model-close .close {
+    width: 30px;
+    height: 30px;
+  }
+
+  .personal .distribution .my-distribution {
+    padding: 11px 15px;
+    display: flex;
+    align-items: center;
+  }
+
+  .personal .distribution .my-distribution .my-distribution-title {
+    flex: 1;
+    font-size: 12px;
+    font-weight: 500;
+    color: #444;
+  }
+
+  .personal .distribution .my-distribution .to-distribution {
+    font-size: 12px;
+    color: #aaa;
+    margin-right: 10px;
+  }
+
+  .personal .distribution .item-main {
+    padding: 10px 15px;
+  }
+
+  .toolList {
+    border-top: 0.5px solid #efefef;
+  }
+
+  .nocode {
+    border: 0.5px solid #e5e5e5;
+    height: 110px;
+    line-height: 110px;
+    width: 110px;
+    margin: 24px 0 0 22px;
+    background: rgba(0,0,0,0.1);
+    text-align: center;
+    color: #fff;
+  }
+
+  .toolIcon {
+    width: 20px;
+    max-height: 25px;
+    margin-right: 9px;
+  }
+
+  .userLevel {
+    display: flex;
+    align-items: center;
+    margin-top: 5px;
+    color: #fff;
+  }
+
+  .userLevelName {
+    background: #372d35;
+    border-radius: 10px;
+    padding: 0 7.5px;
+    height:19px;
+    line-height: 19px;
+    text-align: center;
+    font-size: 11px;
+  }
+
+  .userLevelName .iconfont {
+    color: #fae9bb;
+    font-size: 12px;
+  }
+
+  .userLevel .userLeveldiscount {
+    font-size: 12px;
+    margin-left: 5px;
+  }
+
+  .fetch-coder {
+    position: absolute;
+    right: 10px;
+    text-align: center;
+    color: #fff;
+  }
+
+  .fetch-coder .iconfont {
+    color: #fff;
+    background: rgba(0,0,0,0.1);
+    width: 36px;
+    height: 36px;
+    text-align: center;
+    line-height: 36px;
+    border-radius: 50%;
+    display: inline-block;
+  }
+
+  .fetch-coder-text {
+    font-size: 11px;
+    margin-top: 2px;
+  }
+
+  .personal .order.hasVip {
+    margin-top: -47.5px;
+  }
+
+  .vip {
+    margin: 10px;
+  }
+
+  .signIn {
+    right: 56px;
+  }
+
+  .community.modal-body {
+    padding: 15px;
+  }
+
+  .goods-sign-btn {
+    display: inline-block;
+    height: 6vw;
+    padding: 0 2vw;
+    border: 1px solid #9bd9d3;
+    border-radius: 3vw;
+    text-align: center;
+    font-size: 3vw;
+    line-height: 5.5vw;
+    color: #2ebc45;
+    margin-left: 1vw;
+    vertical-align:middle;
+  }
+
+
 </style>
