@@ -135,7 +135,7 @@
             -->
             <div @click="goLink" class="goods-sign-btn" :data-link="community.whatsapplink"
                  v-show="community.whatsapplink != '' && community.whatsapplink != undefined && community.whatsapplink != null ">
-              <img src="@/assets/images/join-group.png" style="float: left;width:4vw;height: 4vw;margin-top: 0.7vw"/> 
+              <img src="@/assets/images/join-group.png" style="float: left;width:4vw;height: 4vw;margin-top: 0.7vw"/>
               <span style="font-size:3vw;float:right;color:#9b9b9b">&nbsp;Join our chat</span>
             </div>
           </div>
@@ -981,6 +981,8 @@
 <style   scoped>
   @import "../../../@feiying/8.less";
 
+  @import "../../../@feiying/8.less";
+
   .personal {
     width: 100%;
     background: #f5f5f5;
@@ -1561,14 +1563,15 @@
     display: inline-block;
     height: 6vw;
     padding: 0 2vw;
-    border: 1px solid #2ebc45;
+    border: 1px solid #9bd9d3;
     border-radius: 3vw;
     text-align: center;
-    font-size: 2vw;
+    font-size: 3vw;
     line-height: 5.5vw;
     color: #2ebc45;
     margin-left: 1vw;
     vertical-align:middle;
   }
+
 
 </style>
