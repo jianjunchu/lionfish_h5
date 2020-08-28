@@ -38,7 +38,7 @@
          style="height: '300px'; background: url('@/assets/images/index-comming-goods-bitmap.png');backgroundSize: '100% 100%'">
       <div class="item-tag" v-if="goods.label_info&&goods.label_info.type==0">
         <img class="item-tag-bg" mode="widthFix" src="@/assets/images/tag.png"/>
-        <div class="['tag-name', (goods.label_info.len==2?'two-word':'')]">{{goods.label_info.tagcontent}}</div>
+        <div :class="['tag-name', goods.label_info.len==2?'two-word':'']">{{goods.label_info.tagcontent}}</div>
       </div>
       <!--<div class="item-tag" :style="background:url(goods.label_info.tagcontent) no-repeat left top;background-size: 100%;" v-if="goods.label_info&&goods.label_info.type==1"></div>-->
       <div class="item-tag"
@@ -75,7 +75,7 @@
           <img bindload="imageLoad" @click="predivImg" width="100%" :data-idx="index" lazyLoad="true" mode="widthFix"
                :src="item.image" v-else/>
         </swiper-slide>
-        <div class="swiper-pagination"  slot="pagination" style="padding-bottom: 50px;"></div>   
+        <div class="swiper-pagination"  slot="pagination" style="padding-bottom: 50px;"></div>
       </swiper>
       </div>
     </div>
@@ -337,7 +337,7 @@
               </div>
             </a>
           </div>
-          <div class="goodsStatus" v-if="goods.over_type==0">{{$t('detail.jijiangkaiqiang')}}</div>
+          <div class="goodsStatus" v-if="goods.over_type==0 && goods.is_presell !=1">{{$t('detail.jijiangkaiqiang')}}</div>
           <div class="goodsStatus" v-else-if="goods.total<=0">{{$t('detail.yiqiangguang')}}</div>
           <div class="goodsStatus" v-else-if="goods.total>0&&goods.over_type==2">{{$t('detail.tuangouyijieshu')}}</div>
           <div class="goodsStatus" v-else-if="goods.grounding!=1">{{$t('detail.yixiajia')}}</div>
@@ -595,7 +595,7 @@
             },
             //设置点击箭头
             // navigation: {
-            //   nextEl: '.swiper-button-next', 
+            //   nextEl: '.swiper-button-next',
             //   prevEl: '.swiper-button-prev'
             // },
             //自动轮播
@@ -1778,7 +1778,7 @@
   .wrapper >>> .swiper-pagination-bullet-active{
     background: #e95d2e
   }
-   
+
 
   .goods-wrapper {
     position: relative;

@@ -957,7 +957,6 @@
       this.onShow()
 
     },
-
     methods: {
 
       copyText: function(t) {
