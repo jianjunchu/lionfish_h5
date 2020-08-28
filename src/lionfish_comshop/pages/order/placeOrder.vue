@@ -367,7 +367,7 @@
                 Total：<span>${{tot_price}}</span>
               </div>
               <div class="h2" v-if="buy_type!='integral'">
-                <em>{{$t('order.zonge')}}${{total_all}}</em>
+                <em>{{$t('order.zonge')}}${{total_all}}</em><br>
                 <em v-if="disAmount>0">{{$t('order.zongyouhui')}}${{disAmount}}</em>
               </div>
             </div>
@@ -2177,7 +2177,7 @@
   }
 
   .fixed-content .fixed-left .h1 {
-    font-size: 4vw;
+    font-size: 3vw;
     line-height: 5vw;
     color: #444;
     margin-bottom: 0.2vw;
@@ -2189,18 +2189,18 @@
   }
 
   .fixed-content .fixed-left .h2 {
-    font-size: 3vw;
+    font-size: 2vw;
     line-height: 5vw;
     color: #666;
   }
 
   .fixed-content .fixed-left .h2 em {
-    margin-right: 2vw;
+    margin-right: 1.6vw;
   }
 
   .fixed-content .fixed-bar-btn {
     width: 30vw;
-    height: 12vw;
+    height: 15vw;
     text-align: center;
     line-height: 11vw;
     color: #fff;
