@@ -1868,13 +1868,14 @@
 
   .cart-item >>>.pre-title {
     width: 80vw;
-    color: rgb(255,83,68);
+
     font-weight: 600;
+    font-size: 3vw;
   }
 
   .cart-item >>>.pre-content {
       margin-top: 1.5vw;
-    font-size: 1.5vw;
+    font-size: 2.5vw;
 
   }
 

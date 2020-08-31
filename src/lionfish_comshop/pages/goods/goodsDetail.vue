@@ -164,7 +164,7 @@
             <span class="remaining"> {{goods.seller_count}} </span><!--，{{$t('detail.jinsheng')}}
             <span class="remaining"> {{goods.total}} </span>-->
           </span>
-          <span class="pre" v-if="goods.is_show_pre == 1">Expected delivery date: {{goods.pre_delivery_date}}</span>
+          <span class="pre" v-if="goods.is_show_pre == 1">Expected delivery date: <span style="color: #ff5344">{{goods.pre_delivery_date}}</span></span>
         </div>
         <div @click="goLink" class="vip i-flex i-flex-spb" data-link="/lionfish_comshop/moduleA/vip/upgrade"
              v-if="goods.is_take_vipcard==1&&is_vip_card_member==1&&is_open_vipcard_buy==1">
@@ -2096,7 +2096,7 @@
   }
 
   .spuInfo .spuDetailInfo .purchasing, .spuInfo .spuDetailInfo .saleNum, .spuInfo .straightInLive .purchasing, .spuInfo .straightInLive .saleNum, .spuInfo .buyRecords .purchasing, .spuInfo .buyRecords .saleNum {
-    font-size: 13px;
+    font-size: 3.2vw;
     color: #666;
     padding: 15px 0 0;
     margin: 0 5px;
@@ -2128,8 +2128,9 @@
   .spuInfo .spuDetailInfo .pre  {
     border: none;
     float:right;
-    font-size: 1vw;
-    color: black;
+    font-size: 3.2vw;
+    color: #444;
+    font-weight: bold;
   }
 
   .spuInfo .straightInLive, .spuInfo .buyRecords {
@@ -2260,7 +2261,7 @@
     font-weight: normal;
   }
 
-  .spuInfo .buyRecords .title .buyNum text {
+  .spuInfo .buyRecords .title .buyNum span {
     color: #ff5344;
     font-weight: bold;
   }
