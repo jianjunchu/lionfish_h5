@@ -2,6 +2,8 @@
   background-color: #f6f6f6;
   font-weight: 400;
   color: #333;
+  height: 100%;
+  overflow-y: scroll
 }
 .bg-f {
   background-color: #fff;

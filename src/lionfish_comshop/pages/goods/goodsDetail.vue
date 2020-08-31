@@ -34,8 +34,7 @@
     <!--<div class="spuInfoImg" :style="{height:imageSize.imageHeight + 'px', background: 'url(' + indexcomminggoodsbitmap + ')',backgroundSize: '100% 100%'}">-->
     <!--<div class="spuInfoImg" :style="{height:imageSize.imageHeight + 'px', background: 'url(' + indexcomminggoodsbitmap + ')',backgroundSize: '100% 100%'}">-->
     <!--<div class="spuInfoImg" :style="{height: '100%', background: 'url(' + indexcomminggoodsbitmap + ')',backgroundSize: '100% 100%'}">-->
-    <div class="spuInfoImg"
-         style="height: '300px'; background: url('@/assets/images/index-comming-goods-bitmap.png');backgroundSize: '100% 100%'">
+    <div class="spuInfoImg" :style="{ background: 'url(' + indexcomminggoodsbitmap + ')',backgroundSize: '100% 100%'}">
       <div class="item-tag" v-if="goods.label_info&&goods.label_info.type==0">
         <img class="item-tag-bg" mode="widthFix" src="@/assets/images/tag.png"/>
         <div :class="['tag-name', goods.label_info.len==2?'two-word':'']">{{goods.label_info.tagcontent}}</div>
@@ -611,7 +610,7 @@
         goods_id: 0,
         size: 1,
         showHexiaoModal: false,
-        indexcomminggoodsbitmap: '/lionfish_comshop/images/index-comming-goods-bitmap.png',
+        indexcomminggoodsbitmap: require('@/assets/images/index-comming-goods-bitmap.png'),
         needAuth: false,
         goodsIndex: 1,
         goods_id: 0,

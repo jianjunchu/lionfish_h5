@@ -380,7 +380,7 @@
 
           <div v-if="tabIdx==0">
 
-            <van-list v-model="$data.$data.isLoadData" :finished="commigLoadMore" @load="load_goods_data" class="rush-list-box">
+            <van-list v-model="$data.$data.isLoadData" :finished="commigLoadMore" ref="pullRefresh" @load="load_goods_data" class="rush-list-box">
 
               <div class="active-item" v-if="rushList.length>0&&theme==0" v-for="(item,index) in rushList"
                    :key="item.id">
@@ -934,7 +934,7 @@
         showMore: false,
         showBack: false
       })
-
+      this.$data.$data.scrollTop = 0;
       const o = this.$route.query || {}
       this.onLoad(o)
     },
@@ -951,20 +951,16 @@
       }
 
       this.onShow()
-
+      this.$refs.page.scrollTop = this.$data.$data.scrollTop
     },
     beforeRouteEnter(to, from, next) {
       next(vm => {
-        const page = vm.$refs.page
-        // 记录滚动高度
-        page.scrollTop = vm.scroll
 
       })
     },
     beforeRouteLeave(to, from, next) {
-      const page = this.$refs.page;
-      this.scroll = page.scrollTop; //data中记得定义变量scroll
-      console.log('this.scroll = '+this.scroll)
+      this.$data.$data.scrollTop = this.$refs.page.scrollTop;
+
       next()
     },
     methods: {
@@ -1084,7 +1080,7 @@
 
           0 == e.isFirst ? a.couponRefresh = !0 : (this.getCoupon(), e.isFirst++)
         }
-        a.load_goods_data()
+
 
       },
       get_index_info() {
