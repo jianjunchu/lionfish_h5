@@ -1765,7 +1765,7 @@
 
         this.$wx.showModal({
           title: "Pre-Order Delivery Alert",
-          content: "Do you want to proceed with combining your delivery date?<br><br>Date: "+exp.formatDMY_en(new Date(preBt)) ,
+          content: "Do you wish to proceed with combining your order and delivery at a later date?<br><br>Expected Delivery Date: "+exp.formatDMY_en(new Date(preBt)) ,
           confirmColor: "#F75451",
           confirmText:"Yes",
           cancelText:"No",
