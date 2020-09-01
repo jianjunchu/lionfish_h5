@@ -34,8 +34,7 @@
     <!--<div class="spuInfoImg" :style="{height:imageSize.imageHeight + 'px', background: 'url(' + indexcomminggoodsbitmap + ')',backgroundSize: '100% 100%'}">-->
     <!--<div class="spuInfoImg" :style="{height:imageSize.imageHeight + 'px', background: 'url(' + indexcomminggoodsbitmap + ')',backgroundSize: '100% 100%'}">-->
     <!--<div class="spuInfoImg" :style="{height: '100%', background: 'url(' + indexcomminggoodsbitmap + ')',backgroundSize: '100% 100%'}">-->
-    <div class="spuInfoImg"
-         style="height: '300px'; background: url('@/assets/images/index-comming-goods-bitmap.png');backgroundSize: '100% 100%'">
+    <div class="spuInfoImg" :style="{ background: 'url(' + indexcomminggoodsbitmap + ')',backgroundSize: '100% 100%'}">
       <div class="item-tag" v-if="goods.label_info&&goods.label_info.type==0">
         <img class="item-tag-bg" mode="widthFix" src="@/assets/images/tag.png"/>
         <div :class="['tag-name', goods.label_info.len==2?'two-word':'']">{{goods.label_info.tagcontent}}</div>
@@ -164,6 +163,7 @@
             <span class="remaining"> {{goods.seller_count}} </span><!--，{{$t('detail.jinsheng')}}
             <span class="remaining"> {{goods.total}} </span>-->
           </span>
+          <span class="pre" v-if="goods.is_show_pre == 1">Expected delivery date: <span style="color: #ff5344">{{goods.pre_delivery_date}}</span></span>
         </div>
         <div @click="goLink" class="vip i-flex i-flex-spb" data-link="/lionfish_comshop/moduleA/vip/upgrade"
              v-if="goods.is_take_vipcard==1&&is_vip_card_member==1&&is_open_vipcard_buy==1">
@@ -610,7 +610,7 @@
         goods_id: 0,
         size: 1,
         showHexiaoModal: false,
-        indexcomminggoodsbitmap: '/lionfish_comshop/images/index-comming-goods-bitmap.png',
+        indexcomminggoodsbitmap: require('@/assets/images/index-comming-goods-bitmap.png'),
         needAuth: false,
         goodsIndex: 1,
         goods_id: 0,
@@ -2095,7 +2095,7 @@
   }
 
   .spuInfo .spuDetailInfo .purchasing, .spuInfo .spuDetailInfo .saleNum, .spuInfo .straightInLive .purchasing, .spuInfo .straightInLive .saleNum, .spuInfo .buyRecords .purchasing, .spuInfo .buyRecords .saleNum {
-    font-size: 13px;
+    font-size: 3.2vw;
     color: #666;
     padding: 15px 0 0;
     margin: 0 5px;
@@ -2122,6 +2122,14 @@
 
   .spuInfo .spuDetailInfo .saleNum, .spuInfo .straightInLive .saleNum, .spuInfo .buyRecords .saleNum {
     border: none;
+  }
+
+  .spuInfo .spuDetailInfo .pre  {
+    border: none;
+    float:right;
+    font-size: 3.2vw;
+    color: #444;
+    font-weight: bold;
   }
 
   .spuInfo .straightInLive, .spuInfo .buyRecords {
@@ -2252,7 +2260,7 @@
     font-weight: normal;
   }
 
-  .spuInfo .buyRecords .title .buyNum text {
+  .spuInfo .buyRecords .title .buyNum span {
     color: #ff5344;
     font-weight: bold;
   }

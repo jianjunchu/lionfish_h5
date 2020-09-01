@@ -198,8 +198,7 @@
             <div class="cart-item" slot="content">
               <div class="sku-item" v-for="(item,index) in value.goods" :key="index">
 
-
-                <van-image class="sku-img" :src="item.image">
+                <van-image  class="sku-img" :src="item.image">
                   <template v-slot:loading>
                     <van-loading type="spinner" size="20" />
                   </template>
@@ -581,6 +580,7 @@
     components:{ITabs},
     data() {
       return {
+        pre_begin_time:0,
         transaction_id:'',
         order_id: '',
         order_num_alias: '',
@@ -1760,10 +1760,14 @@
       showSelectDialog:function () {
           var that = this;
           var confirm = false;
+        var preBt = this.pre_begin_time * 1000;
+
         this.$wx.showModal({
-          title: "选择收货时间",
-          content: "是否选择预售时间" ,
+          title: "Pre-Order Delivery Alert",
+          content: "Do you wish to proceed with combining your order and delivery at a later date?<br><br>Expected Delivery Date: "+exp.formatDMY_en(new Date(preBt)) ,
           confirmColor: "#F75451",
+          confirmText:"Yes",
+          cancelText:"No",
           success: function (t) {
 
             if (confirm || t.confirm) {
@@ -1779,7 +1783,8 @@
       },
       isPresell:function(){
         var isPreTime = false;
-
+        var beginTime = 0;
+        this.pre_begin_time = 0;
         for (var i in this.seller_goodss) {
           var goods = this.seller_goodss[i].goods;
           for (var j in goods){
@@ -1787,10 +1792,17 @@
             console.log(is_presell,"is_presell");
             if (is_presell == "1") {//1 是预售商品
                 isPreTime = true;
-                break;
+                var temp_beginTime = goods[j].begin_time;
+                var temp_endTime = goods[j].end_time;
+                console.log(temp_beginTime,"temp_beginTime");
+                var diff = parseInt(temp_beginTime) - beginTime;
+                if (diff > 0) {
+                  beginTime = parseInt(temp_beginTime);
+                }
             }
           }
         }
+        this.pre_begin_time = beginTime;
         return isPreTime;
       },
       doShowPreTime:function () {
@@ -1947,7 +1959,7 @@
   }
 </script>
 
-<style>
+<style scoped>
   .page {
     background: #f6f6f6;
   }
@@ -2050,7 +2062,11 @@
   }
 
   .cart-item {
-    display: flex;
+    width: 100vw;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    padding: 1vw 0;
+    border-bottom: 1px solid #efefef;
   }
 
   .sku-item {
@@ -2060,10 +2076,14 @@
     align-items: flex-start;
   }
 
-  .sku-item .sku-img {
+  .sku-item /deep/ .sku-img {
     width: 20vw;
     height: 20vw;
     margin-right: 2vw;
+  }
+  .sku-item /deep/ .sku-img /deep/ .van-image__img {
+    width: 20vw;
+    height: 20vw;
   }
 
   .sku-item .sku-msg {
@@ -2078,7 +2098,7 @@
     font-weight: 500;
     overflow: hidden;
     text-overflow: ellipsis;
-    white-space: nowrap;
+    /*white-space: nowrap;*/
   }
 
   .sku-item .sku-msg .sku-spec {
@@ -2163,44 +2183,44 @@
     color: #a3a3a3;
   }
 
-  .fixed-content {
+  /deep/ .fixed-content {
     display: flex;
     padding-left: 2vw;
     justify-content: space-between;
     align-items: center;
   }
 
-  .fixed-content .fixed-left {
+  .fixed-content /deep/ .fixed-left {
     display: flex;
     justify-content: center;
     flex-direction: column;
   }
 
-  .fixed-content .fixed-left .h1 {
+  .fixed-content /deep/ .fixed-left /deep/ .h1 {
     font-size: 3vw;
     line-height: 5vw;
     color: #444;
     margin-bottom: 0.2vw;
   }
 
-  .fixed-content .fixed-left .h1 span {
+  .fixed-content /deep/ .fixed-left /deep/ .h1 /deep/ span {
     color: #ff5344;
     font-weight: bold;
   }
 
-  .fixed-content .fixed-left .h2 {
+  .fixed-content /deep/ .fixed-left /deep/ .h2 {
     font-size: 2vw;
     line-height: 5vw;
     color: #666;
   }
 
-  .fixed-content .fixed-left .h2 em {
+  .fixed-content /deep/ .fixed-left /deep/ .h2  /deep/ em {
     margin-right: 1.6vw;
   }
 
-  .fixed-content .fixed-bar-btn {
+  .fixed-content  /deep/ .fixed-bar-btn {
     width: 30vw;
-    height: 15vw;
+    height: 14vw;
     text-align: center;
     line-height: 11vw;
     color: #fff;
@@ -2213,7 +2233,7 @@
     font-weight: bold;
   }
 
-  .confirm-order-modal {
+  /deep/ .confirm-order-modal {
     border-radius: 2vw 3vw 0 0;
     background: #fff;
     padding: 1vw 1vw 0;
@@ -2224,7 +2244,7 @@
 
   }
 
-  .confirm-order-modal .title {
+   .confirm-order-modal /deep/ .title {
     font-size: 3.5vw;
     color: #444;
     line-height: 8.5vw;
@@ -2232,7 +2252,7 @@
     font-weight: 500;
   }
 
-  .confirm-order-modal .sub-title {
+  .confirm-order-modal /deep/ .sub-title {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -2243,13 +2263,13 @@
     font-weight: 500;
   }
 
-  .confirm-order-modal .sub-title img {
+  .confirm-order-modal /deep/ .sub-title /deep/ img {
     width: 5vw;
     height: 5vw;
     margin-right: 3vw;
   }
 
-  .confirm-order-modal .order-content {
+  .confirm-order-modal /deep/ .order-content {
     width: 95vw;
     border-radius: 2vw;
     padding-top: 3vw;
@@ -2257,7 +2277,7 @@
     margin-bottom: 15vw;
   }
 
-  .confirm-order-modal .order-content .msg-group {
+  .confirm-order-modal /deep/ .order-content /deep/ .msg-group {
     width: 100vw;
     padding: 0 4vw;
     margin-bottom: 1vw;
@@ -2268,18 +2288,18 @@
     box-sizing: border-box;
   }
 
-  .confirm-order-modal .order-content .msg-group span {
+  .confirm-order-modal /deep/ .order-content /deep/ .msg-group /deep/  span {
     font-weight: bold;
     white-space: nowrap;
   }
 
-  .confirm-order-modal .order-content .msg-group em {
+  .confirm-order-modal /deep/ .order-content /deep/ .msg-group /deep/ em {
     font-weight: 400;
     flex: 1;
     line-height: 1.4;
   }
 
-  .confirm-order-modal .order-content .total {
+  .confirm-order-modal /deep/ .order-content /deep/ .total {
     line-height: 10vw;
     padding: 0 2vw;
     text-align: right;
@@ -2288,11 +2308,11 @@
     border-top: 0.1vw solid #e2e2e2;
   }
 
-  .confirm-order-modal .order-content .total em {
+  .confirm-order-modal /deep/ .order-content /deep/ .total /deep/ em {
     color: #ff5344;
   }
 
-  .confirm-order-modal .button-group {
+  .confirm-order-modal /deep/ .button-group {
     display: flex;
     width: 100%;
     border-top: 0.1vw solid rgba(0, 0, 0, 0.1);
@@ -2301,11 +2321,11 @@
     bottom: 0;
   }
 
-  .confirm-order-modal .button-group .btn-content {
+  .confirm-order-modal /deep/ .button-group /deep/ .btn-content {
     flex: 1;
   }
 
-  .confirm-order-modal .button-group .btn {
+  .confirm-order-modal /deep/ .button-group /deep/ .btn {
     flex: 1;
     margin: 0;
     padding: 0;
@@ -2317,12 +2337,12 @@
     font-weight: bold;
   }
 
-  .confirm-order-modal .button-group .left-btn {
+  .confirm-order-modal /deep/ .button-group /deep/ .left-btn {
     color: #666;
     background: #fff;
   }
 
-  .confirm-order-modal .button-group .right-btn {
+  .confirm-order-modal /deep/ .button-group /deep/ .right-btn {
     color: #fff;
     background: linear-gradient(to right, #ff5041, #ff695c);
   }

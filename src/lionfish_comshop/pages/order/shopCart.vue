@@ -181,11 +181,14 @@
                         </div>
                       </div>
                     </div>
-                    <div class="piece-reduce" v-if="shopcarts.is_show_presell">
-                      <div class="tag-content">
-                        <div class="tag">Pre-sale</div>
+                    <div class="pre" v-if="shopcarts.is_show_presell">
+                      <div class="pre-title">
+                          Pre-Order
                       </div>
-                      Delivery date:{{shopcarts.begin_time_str}}
+                      <div class="pre-content">
+                        Delivery date: {{shopcarts.begin_time_str}}
+                      </div>
+
                     </div>
                     <div class="piece-reduce" style="display:none;"
                          v-if="shopcarts.can_man_jian&&item.is_open_fullreduction==1">
@@ -300,7 +303,7 @@
         </div>
         <div class="cart-bar">
           <label @click="all_select" class="cart-item-checkbox">
-              <div class="checkbox">
+              <div class="checkbox cart-item-checkbox checkbox-group">
               <span class="iconfont icon-selected checkbox-checked" :style="{color:skin.color}"
                     v-if="allselect"></span>
                 <img class="checkbox-disabled" src="@/assets/images/checkbox-disabled.png" v-else/>
@@ -1500,7 +1503,7 @@
   }
 </script>
 
-<style>
+<style scoped>
   @import "../../../@feiying/8.less";
   .empty {
     background: #fff;
@@ -1556,7 +1559,7 @@
     font-size: 5vw;
   }
 
-  .shop-cart-content {
+  >>>.shop-cart-content {
     padding: 15px 10px 60px;
   }
 
@@ -1568,11 +1571,11 @@
     padding-bottom: 70px;
   }
 
-  .shop-cart-content .card-group {
+  .shop-cart-content >>>.card-group {
     margin-bottom: 10px;
   }
 
-  .shop-cart-content .card-group .card-header {
+  .shop-cart-content >>>.card-group >>>.card-header {
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
@@ -1580,12 +1583,12 @@
     border-bottom: 1px solid #efefef;
   }
 
-  .shop-cart-content .card-group .card-header .cart-header-left {
+  .shop-cart-content >>> .card-group >>>.card-header >>>.cart-header-left {
     display: flex;
     align-items: flex-start;
   }
 
-  .shop-cart-content .card-group .card-header .tag {
+  .shop-cart-content >>>.card-group >>>.card-header >>>.tag {
     font-size: 10px;
     line-height: 14px;
     padding: 0 4px;
@@ -1597,14 +1600,14 @@
     font-weight: 500;
   }
 
-  .shop-cart-content .card-group .card-header .active-msg {
+  .shop-cart-content >>>.card-group >>>.card-header >>>.active-msg {
     font-size: 13px;
     line-height: 15px;
     color: #666;
     margin-top: -1px;
   }
 
-  .shop-cart-content .card-group .card-header .i-link {
+  .shop-cart-content >>> .card-group >>>.card-header >>>.i-link {
     display: flex;
     align-items: center;
     flex: 1;
@@ -1616,12 +1619,12 @@
     white-space: nowrap;
   }
 
-  .shop-cart-content .card-group .card-header .i-link .iconfont {
+  .shop-cart-content >>> .card-group >>>.card-header >>>.i-link >>>.iconfont {
     font-size: 9px;
     margin-left: 3px;
   }
 
-  .fixed-bar {
+  >>>.fixed-bar {
     position: fixed;
     left: 0;
     right: 0;
@@ -1630,7 +1633,7 @@
     z-index: 100;
   }
 
-  .cart-bar {
+  >>>.cart-bar {
     width: 100%;
     display: flex;
     align-items: center;
@@ -1638,7 +1641,7 @@
     padding-left: 10px;
   }
 
-  .fixed-bar .cart-item-checkbox {
+  .fixed-bar >>>.cart-item-checkbox {
     display: flex;
 
     font-size: 13px;
@@ -1647,8 +1650,8 @@
     white-space: nowrap;
   }
 
-  .fixed-bar .cart-item-checkbox checkbox-group {
-    margin-right: 5px;
+  .fixed-bar >>>.cart-item-checkbox checkbox-group {
+    margin-right: 1vw;
   }
 
   .fixed-bar .fixed-bar-center {
@@ -1743,7 +1746,7 @@
     font-size: 14px;
   }
 
-  .cart-item {
+  >>>.cart-item {
     width: 100vw;
     display: flex;
     align-items: center;
@@ -1752,7 +1755,7 @@
     border-bottom: 1px solid #efefef;
   }
 
-  .cart-item .cart-item-checkbox {
+  .cart-item >>>.cart-item-checkbox {
     width: 10vw;
     height: 100%;
     display: flex;
@@ -1760,19 +1763,19 @@
     justify-content: center;
   }
 
-  .cart-item-img {
+  >>>.cart-item-img {
     width: 25vw;
     height: 25vw;
     margin-right: 2vw;
     position: relative;
   }
 
-  .cart-item-img .i-class {
+  .cart-item-img >>>.i-class {
     width: 90px;
     height: 90px;
   }
 
-  .cart-item-img .tip {
+  .cart-item-img >>>.tip {
     width: 90px;
     height: 15px;
     color: #fff;
@@ -1786,15 +1789,15 @@
     z-index: 100;
   }
 
-  .cart-item-content {
-    width: 51vw;
+  >>>.cart-item-content {
+    width: 55vw;
     height: 20vw;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
   }
 
-  .cart-item-content .title {
+  .cart-item-content >>>.title {
     font-size: 13px;
     color: #444;
     line-height: 15px;
@@ -1808,40 +1811,40 @@
     white-space: normal;
   }
 
-  .cart-item-content .cart-item-content-bottom {
+  .cart-item-content >>>.cart-item-content-bottom {
     display: flex;
     align-items: center;
     justify-content: space-between;
     position: relative;
   }
 
-  .cart-item-content .cart-item-content-bottom .input-class {
+  .cart-item-content >>>.cart-item-content-bottom >>>.input-class {
     position: absolute;
     right: 0;
     bottom: 0;
   }
 
-  .cart-item-content .spec {
+  .cart-item-content >>>.spec {
     font-size: 10px;
     color: #aaa;
     line-height: 10px;
     margin-bottom: 5px;
   }
 
-  .cart-item-content .sale-price {
+  .cart-item-content >>>.sale-price {
     color: #ff5344;
     font-size: 10px;
     line-height: 10px;
   }
 
-  .cart-item-content .sale-price span {
+  .cart-item-content >>>.sale-price >>>span {
     font-size: 18px;
     line-height: 18px;
     margin-left: 2px;
     font-weight: bold;
   }
 
-  .cart-item-content .delete-icon {
+  .cart-item-content >>>.delete-icon {
     position: absolute;
     right: 0;
     top: -5px;
@@ -1853,7 +1856,7 @@
     padding: 10px;
   }
 
-  .cart-item-content .delete-icon img {
+  .cart-item-content >>>.delete-icon >>>img {
     width: 9px;
     height: 9px;
     margin-right: 6px;
@@ -1863,7 +1866,30 @@
     bottom: 60px;
   }
 
-  .cart-item .piece-reduce {
+  .cart-item >>>.pre-title {
+    width: 80vw;
+
+    font-weight: 600;
+    font-size: 3vw;
+  }
+
+  .cart-item >>>.pre-content {
+      margin-top: 1.5vw;
+    font-size: 2.5vw;
+
+  }
+
+  .cart-item >>>.pre {
+    margin: 0vw auto 0;
+
+  }
+
+  .cart-item >>>.pre-content {
+    width: 80vw;
+
+  }
+
+  .cart-item >>>.piece-reduce {
     width: 80vw;
     display: flex;
     align-items: flex-start;
@@ -1878,13 +1904,13 @@
     white-space: normal;
   }
 
-  .cart-item .piece-reduce .tag-content {
+  .cart-item >>>.piece-reduce >>>.tag-content {
     height: 3.2vw;
     display: flex;
     align-items: center;
   }
 
-  .cart-item .piece-reduce .tag {
+  .cart-item >>>.piece-reduce >>>.tag {
     border-radius: 2.6vw;
     height: 2.2vw;
     padding: 0 8rpx;
@@ -1907,7 +1933,7 @@
     color: #ff5344;
   }
 
-  .reduce-item + .normal-item {
+  .reduce-item  >>>.normal-item {
     width: 100%;
     border-top: 15px solid #f6f6f6;
   }
@@ -1967,7 +1993,7 @@
     margin-left: 3px;
   }
 
-  .cart-item-img .tag {
+  >>>.cart-item-img .tag {
     position: absolute;
     left: 0;
     bottom: 0;
@@ -1988,7 +2014,7 @@
     white-space: nowrap;
   }
 
-  .cart-item-img .tag.pos-top {
+  >>>.cart-item-img .tag.pos-top {
     top: 0;
     bottom: initial;
   }
@@ -2077,7 +2103,7 @@
     font-size: 14px;
   }
 
-  .invalid-card-group .cart-item-content .title {
+  .invalid-card-group >>>.cart-item-content >>>.title {
     color: #b0b0b0;
   }
 

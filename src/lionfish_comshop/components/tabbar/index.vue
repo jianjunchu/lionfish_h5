@@ -237,6 +237,7 @@
   }
 
   .tabbar_nav span {
+    font-size: 3vw;
     margin-top: 5px;
     margin-left: 5px;
   }
