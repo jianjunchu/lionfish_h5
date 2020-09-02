@@ -136,7 +136,7 @@
             <div @click="goLink" class="goods-sign-btn" :data-link="community.whatsapplink"
                  v-show="community.whatsapplink != '' && community.whatsapplink != undefined && community.whatsapplink != null ">
               <img src="@/assets/images/join-group.png" style="float: left;width:4vw;height: 4vw;margin-top: 0.7vw"/>
-              <span style="font-size:3vw;float:right;color:#9b9b9b">&nbsp;Join our chat</span>
+              <span style="font-size:3vw;float:right;color:#9b9b9b;line-height: 6vw">&nbsp;Join our chat</span>
             </div>
           </div>
 

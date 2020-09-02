@@ -11,7 +11,25 @@
     <div ref="Box" @scroll="scrollEvent" class="new-comers-scroll">
       <div class="new-comers-wrap">
         <router-link class="new-comers-item" :to="'/lionfish_comshop/pages/goods/goodsDetail?id='+item.actId"
-                       v-for="(item , index) in list" :key="item.id">
+                       v-for="(item , index) in list1" :key="item.id">
+          <i-img defaultImage="@/assets/images/placeholder-refund.png" height="200" iClass="new-img"
+                 :loadImage="item.skuImage" width="180"></i-img>
+          <div class="act-end" v-if="item.spuCanBuyNum==0">{{$t('home.yiqiangguang')}}</div>
+          <div class="title">{{item.spuName}}</div>
+          <div class="new-bot">
+            <div class="price">${{item.actPrice[0]}}.{{item.actPrice[1]}}</div>
+            <i-button iClass="add-cart" v-if="disabled||item.spuCanBuyNum==0">
+              <img class="img" src="@/assets/images/icon-add-shopCart-disabled.png"></img>
+            </i-button>
+            <i-button @handleTap="openSku(index)" :data-idx="index" iClass="add-cart" v-else>
+              <i-addcart iClass="img"></i-addcart>
+            </i-button>
+          </div>
+        </router-link>
+      </div>
+      <div class="new-comers-wrap">
+        <router-link class="new-comers-item" :to="'/lionfish_comshop/pages/goods/goodsDetail?id='+item.actId"
+                       v-for="(item , index) in list2" :key="item.id">
           <i-img defaultImage="@/assets/images/placeholder-refund.png" height="200" iClass="new-img"
                  :loadImage="item.skuImage" width="180"></i-img>
           <div class="act-end" v-if="item.spuCanBuyNum==0">{{$t('home.yiqiangguang')}}</div>
@@ -57,6 +75,8 @@
       return{
         disabled: !1,
         list: [],
+        list1: [],
+        list2: [],
         pageNum: 1,
         noMore: !1,
         rushEndTime: 0
@@ -79,9 +99,20 @@
           console.log(t)
           if (0 == t.code) {
             var e = i.list.concat(t.list), a = i.getTime(e)
-
-            this.list = e,
-              this.rushEndTime = a
+            this.list = e;
+            if(e.length <= 6){
+              if(e.length > 3){
+                this.list1 = e.slice(0, 3);
+                this.list2 = e.slice(3, e.length);
+              }else{
+                this.list1 = e;
+              }
+            }else{
+              var a = Math.round(e.length/2);
+              this.list1 = e.slice(0, a);
+              this.list2 = e.slice(a, e.length);
+            }
+            this.rushEndTime = a;
           } else {
             this.noMore = !0
           }
