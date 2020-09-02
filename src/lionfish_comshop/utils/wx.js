@@ -87,6 +87,9 @@ export default {
   redirectTo: function(option) {
     _this.$router.replace(option.url)
   },
+  blankTo: function(option) {
+    window.open(option.url, '_blank')
+  },
   switchTab: function(option) {
     _this.$router.push(option.url)
   },

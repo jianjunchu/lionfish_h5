@@ -625,5 +625,5 @@
 </script>
 
 
-<style  src="@/lionfish_comshop/pages/order/index.css">
+<style  src="@/lionfish_comshop/pages/order/index.css" scoped>
 </style>

@@ -227,12 +227,25 @@
                                 </span>
                   </div>
                 </div>
+
+                <div class="pre" v-if="item.is_show_presell">
+                  <div class="pre-title">
+                    Pre-Order
+                  </div>
+                  <div class="pre-content">
+                    Delivery date: {{item.begin_time_str}}
+                  </div>
+
+                </div>
+
+
               </div>
             </div>
             <div class="cart-footer" slot="footer" v-if="is_open_order_message==1">
               <input @input="bindInputMessage" class="order-message" :data-idx="key" placeholder={{$t('common.beizhu')}}
                      type="text"></input>
             </div>
+
           </i-card>
         </div>
         <div class="act-content">
@@ -2069,11 +2082,37 @@
     border-bottom: 1px solid #efefef;
   }
 
+  .cart-item /deep/ .pre-title {
+    width: 80vw;
+
+    font-weight: 600;
+    font-size: 3vw;
+  }
+
+  .cart-item /deep/ .pre-content {
+    width: 80vw;
+    margin-top: 1.5vw;
+    font-size: 2.5vw;
+
+  }
+
+  .cart-item /deep/ .pre {
+    margin: 0vw 5vw 0;
+
+  }
+
   .sku-item {
-    padding: 3vw;
-    border-bottom: 0.1vw solid #efefef;
+    width: 100vw;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    align-items: flex-start;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    padding: 1vw 0;
+    border-bottom: 1px solid #efefef;
   }
 
   .sku-item /deep/ .sku-img {
@@ -2087,7 +2126,10 @@
   }
 
   .sku-item .sku-msg {
-    width: 80vw;
+    display: flex;
+    width: 70vw;
+    flex-direction: column;
+    justify-content: space-between;
   }
 
   .sku-item .sku-msg .sku-title {
@@ -2749,7 +2791,7 @@
     top: 0;
     left: 0;
     background: #000;
-    z-index: 199;
+    z-index: 99;
     opacity: 0.7;
   }
 
@@ -2820,7 +2862,7 @@
     font-size: 1px;
   }
 
-  .wux-button {
+  /deep/ .wux-button {
     display: inline-block;
     box-sizing: border-box;
     margin: 0;
@@ -2831,6 +2873,7 @@
     border-radius: 2vw;
     vertical-align: middle;
     text-align: center;
+    width: 40vw;
     text-overflow: ellipsis;
     font-size: 4vw;
     line-height: 10vw;
@@ -2838,23 +2881,12 @@
 
   }
 
-  .wux-button--block {
+  /deep/ .wux-button--block {
     width: 100%;
     margin-top: 4vw;
   }
 
-  .paynow {
-    position: fixed;
-    top: 1%;
-    width: 100%;
-    height: 99%;
-    padding: 5vw;
-    font-size: 3vw;
-    /* border: 8px solid #e8e9f7; */
-    background-color: white;
-    z-index: 901;
-    overflow: auto;
-  }
+
   .paynow input{
     border-radius: 1vw;
     flex: 1;

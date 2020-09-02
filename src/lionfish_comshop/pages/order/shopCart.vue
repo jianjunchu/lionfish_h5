@@ -1,5 +1,5 @@
 <template>
-  <div class="page" style="margin-bottom: 52px">
+  <div class="page" style="padding-bottom: 52px">
     <div class="pb100">
       <div :class="['cart-tabs', is_open_vipcard_buy==1&&is_vip_card_member!=1?'hasVip':'']" v-if="showTab">
         <div @click="changeTabs" :class="['cart-tabs-item' ,tabIdx==index?'active':'']" :data-idx="item.id"
@@ -1874,6 +1874,7 @@
   }
 
   .cart-item >>>.pre-content {
+    width: 80vw;
       margin-top: 1.5vw;
     font-size: 2.5vw;
 
@@ -1884,10 +1885,6 @@
 
   }
 
-  .cart-item >>>.pre-content {
-    width: 80vw;
-
-  }
 
   .cart-item >>>.piece-reduce {
     width: 80vw;

@@ -1947,8 +1947,8 @@
             d = i[e].thumb.linktype && i[e].thumb.linktype[a]
           if (void 0 == d && (d = 1), util.checkRedirectTo(n, s)) return void this.authModal()
           if (0 == d) {
-            n = i[e].thumb.webview[a], wx.navigateTo({
-              url: '/lionfish_comshop/pages/web-view?url=' + encodeURIComponent(n)
+            n = i[e].thumb.webview[a], wx.blankTo({
+              url: n
             })
           } else if (1 == d) {
             -1 != n.indexOf('lionfish_comshop/pages/index/index') || -1 != n.indexOf('lionfish_comshop/pages/order/shopCart') || -1 != n.indexOf('lionfish_comshop/pages/user/me') || -1 != n.indexOf('lionfish_comshop/pages/type/index') ? n && wx.switchTab({
