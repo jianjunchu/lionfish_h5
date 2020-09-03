@@ -46,9 +46,9 @@
           <div style='wid:200px;height:40px; text-align: left; margin-top:1vw;margin-left:1vw;'>
             <span style='font-size: 15px;'>Step 2: Proceed to make payment via PayNow by scanning the QR</span>
           </div>
-          <div style='wid:200px;height:40px; text-align: left; margin-top:1vw;margin-left:1vw;'>
-            <span style='font-size: 15px;'>Step 3: On your PayNow account enter your mobile number under notes and click Submit</span>
-          </div>
+          <div style='wid:200px;height:40px; text-align: left; margin-top:1vw;margin-left:1vw;word-wrap:break-word'>
+            <span style='font-size: 15px;'>Step 3: On your PayNow account <span style="font-weight: 800;color: red;">enter your mobile number</span>  under notes and click Submit</span>
+          </div>
 
           <div style='wid:200px;height:100px; margin-top:3vw;'>
             <span style='font-size: 18px;'><!--请在支付时备注您订单内的联系号码 \n--></span>
