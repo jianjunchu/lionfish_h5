@@ -10,30 +10,30 @@
     </div>
     <div ref="Box" @scroll="scrollEvent" class="new-comers-scroll">
       <div class="new-comers-wrap">
-        <router-link class="new-comers-item" :to="'/lionfish_comshop/pages/goods/goodsDetail?id='+item.actId"
+        <router-link class="new-comers-item" style="width: 25vw;margin-left: 3vw;margin-right: 3vw;" :to="'/lionfish_comshop/pages/goods/goodsDetail?id='+item.actId"
                        v-for="(item , index) in list1" :key="item.id">
           <i-img defaultImage="@/assets/images/placeholder-refund.png" height="200" iClass="new-img"
                  :loadImage="item.skuImage" width="180"></i-img>
           <div class="act-end" v-if="item.spuCanBuyNum==0">{{$t('home.yiqiangguang')}}</div>
-          <div class="title">{{item.spuName}}</div>
+          <div class="title" style="width: 25vw">{{item.spuName}}</div>
           <div class="new-bot">
             <div class="price">${{item.actPrice[0]}}.{{item.actPrice[1]}}</div>
-            <i-button iClass="add-cart" v-if="disabled||item.spuCanBuyNum==0">
-              <img class="img" src="@/assets/images/icon-add-shopCart-disabled.png"></img>
-            </i-button>
-            <i-button @handleTap="openSku(index)" :data-idx="index" iClass="add-cart" v-else>
-              <i-addcart iClass="img"></i-addcart>
-            </i-button>
+              <i-button iClass="add-cart" v-if="disabled||item.spuCanBuyNum==0">
+                <img class="img" src="@/assets/images/icon-add-shopCart-disabled.png"></img>
+              </i-button>
+              <i-button @handleTap="openSku(index)" :data-idx="index" iClass="add-cart" v-else>
+                <i-addcart iClass="img"></i-addcart>
+              </i-button>
           </div>
         </router-link>
       </div>
       <div class="new-comers-wrap">
-        <router-link class="new-comers-item" :to="'/lionfish_comshop/pages/goods/goodsDetail?id='+item.actId"
+        <router-link class="new-comers-item" style="width: 25vw;margin-left: 3vw;margin-right: 3vw;" :to="'/lionfish_comshop/pages/goods/goodsDetail?id='+item.actId"
                        v-for="(item , index) in list2" :key="item.id">
           <i-img defaultImage="@/assets/images/placeholder-refund.png" height="200" iClass="new-img"
-                 :loadImage="item.skuImage" width="180"></i-img>
+                 :loadImage="item.skuImage" width="180" ></i-img>
           <div class="act-end" v-if="item.spuCanBuyNum==0">{{$t('home.yiqiangguang')}}</div>
-          <div class="title">{{item.spuName}}</div>
+          <div class="title" style="width: 25vw">{{item.spuName}}</div>
           <div class="new-bot">
             <div class="price">${{item.actPrice[0]}}.{{item.actPrice[1]}}</div>
             <i-button iClass="add-cart" v-if="disabled||item.spuCanBuyNum==0">
@@ -45,6 +45,10 @@
           </div>
         </router-link>
       </div>
+    </div>
+    <div style="width: 95vw;height: 2vw;margin-top: 2vw">
+      <div v-bind:class="[ isActive  ? 'div-white': 'div-white2' ]"></div>
+      <div v-bind:class="[ !isActive ? 'div-black': 'div-black2' ]"></div>
     </div>
   </div>
 
@@ -79,7 +83,8 @@
         list2: [],
         pageNum: 1,
         noMore: !1,
-        rushEndTime: 0
+        rushEndTime: 0,
+        isActive: true
       }
     },
     mounted:function(){
@@ -133,6 +138,11 @@
         let a = this.$refs.Box.scrollLeft
         let b = this.$refs.Box.scrollWidth
         let c = this.$refs.Box.scrollTop
+        if(a>=110){
+          this.isActive = false;
+        }else{
+          this.isActive = true;
+        }
         console.log('滚动条'+a)
         console.log('可视区'+b)
         console.log('距离顶部'+c)
@@ -175,6 +185,44 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+  }
+
+  .div-white{
+    margin-left: 44%; 
+    width: 2vw;
+    height: 2vw;
+    border-radius: 100%;
+    float:left;
+    background: #e95d2e;
+    border: 1px solid #e95d2e
+  }
+
+  .div-white2{
+    margin-left: 44%; 
+    width: 2vw;
+    height: 2vw;
+    border-radius: 100%;
+    float:left;
+    border: 1px solid #e95d2e
+  }
+
+  .div-black{
+    margin-left: 2%; 
+    width: 2vw;
+    height: 2vw;
+    border-radius: 100%;
+    float:left;
+    background: #e95d2e;
+    border: 1px solid #e95d2e
+  }
+
+  .div-black2{
+    margin-left: 2%; 
+    width: 2vw;
+    height: 2vw;
+    border-radius: 100%;
+    float:left;
+    border: 1px solid #e95d2e
   }
 
   .count-down {
