@@ -111,19 +111,19 @@
     top: 0;
     left: 0;
     background: #000;
-    z-index: 9000;
+    z-index: 99;
     opacity: 0.7;
   }
 
   .paynow{
     position: fixed;
-    top: 1%;
+    top: 50px;
     width: 100%;
-    height: 99%;
+    height: 80vh;
     padding: 1vw;
-    /* border: 8px solid #e8e9f7; */
+
     background-color: white;
-    z-index: 9999;
+    z-index: 100;
     overflow: auto;
   }
 </style>

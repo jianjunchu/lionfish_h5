@@ -34,7 +34,7 @@
   }
 </script>
 
-<style>
+<style scoped>
 
   .i-as {
     position: fixed;
@@ -47,7 +47,7 @@
     transform: translate3d(0,100%,0);
     transform-origin: center;
     transition: all 0.2s ease-in-out;
-    z-index: 900;
+    z-index: 98;
     visibility: hidden;
     border-radius: 15px 15px 0 0;
   }

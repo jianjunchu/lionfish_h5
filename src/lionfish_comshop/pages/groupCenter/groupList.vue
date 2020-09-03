@@ -71,11 +71,13 @@
                     </div>
                   </div>
 
-                  <div class="tips i-flex i-flex-spb" v-if="item.delivery_time && item.delivery_time!='' && item.delivery_date && item.delivery_date!=''">
+                  <div class="tips i-flex i-flex-spb" v-if=" goods.is_show_presell">
                     <div>
-                      {{item.delivery=='pickup'?'提货时间:':'送货时间:'}} {{item.delivery_date}} [{{item.delivery_time}}]
+                      {{item.delivery=='pickup'?'Delivery Date:':'Delivery Date:'}}[Pre-Order] {{goods.begin_time_str}} [{{item.delivery_time}}]
                     </div>
-
+                  </div>
+                  <div class="tips i-flex i-flex-spb" v-else>
+                    {{item.delivery=='pickup'?'Delivery Date:':'Delivery Date:'}} {{item.delivery_date}} [{{item.delivery_time}}]
                   </div>
 
                 </div>

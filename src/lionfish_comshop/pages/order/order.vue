@@ -43,12 +43,12 @@
               <div class="tradeStatus-index--count-down count-down">
                 <span v-if="endtime.days>0">{{endtime.days}}天</span>{{endtime.hours}}:{{endtime.minutes}}:{{endtime.seconds}}</div>
             </div>
-            <div class="font-bold-30" v-if="order.order_info.open_auto_delete==0">
+            <div class="font-bold-30" v-else>
               <div class="tradeStatus-index--count-down count-down">{{$t('common.daifukuan')}}</div>
             </div>
 
-           <!-- <div class="font-12" v-if="order.order_info.open_auto_delete==1">请尽快付款，超时将被自动取消</div>
-            <div class="font-12" v-else>请尽快付款，不然就被抢光了</div>-->
+           <!-- <div class="font-12" v-if="order.order_info.open_auto_delete==1">请尽快付款，超时将被自动取消</div>-->
+            <!--<div class="font-12" v-else>请尽快付款，不然就被抢光了</div>-->
 
           </div>
           <div class="to-get-wrap" v-if="order.order_info.order_status_id==1 || order.order_info.order_status_id==15">
@@ -134,10 +134,10 @@
               <div v-for="(goodsInfo,index) in order.order_goods_list" :key="goodsInfo.goods_id" >
               <div class="middle-line"></div>
               <div @click="showRefundInfo" class="each-item" :data-hasrefund="goodsInfo.has_refund_quantity" :data-idx="index">
-                <div style="margin-right: 10px">
+                <div class="each-item-left">
                   <i-img height="60" iClass="show-img" lazyLoad="true" :loadImage="goodsInfo.image" width="60"></i-img>
                 </div>
-                <div style="flex-grow: 1 ">
+                <div class="each-item-content">
                   <div class="name bold-text">
                     <!--<span class="pintag" style="background:{{skin.color}}" v-if="order.order_info.is_pin==1">拼团</span>-->
                     <span class="pintag" :style="{color:skin.color,background:skin.light}" v-if="order.order_info.is_pin==1">拼团</span>
@@ -177,6 +177,16 @@
                     <div class="btn-2 mar-left-8" v-if="goodsInfo.is_refund_state==0&&(order.order_info.order_status_id==1||order.order_info.order_status_id==14)">{{$t('order.beihuozhong')}}</div>
                     <div @click="receivOrder" class="btn-3 mar-left-8" :data-show="confirmGoodsVisible" :data-type="order.order_info.order_id" v-if="goodsInfo.is_refund_state==0&&order.order_info.order_status_id==4"><!--{{order.order_info.delivery=='pickup'?'确认提货':'确认收货'}}--> {{order.order_info.delivery=='pickup'? $t('order.querentihuo'): $t('order.querenshouhuo') }}</div>
                   </div>
+                </div>
+
+                <div class="pre" v-if="goodsInfo.is_show_presell">
+                  <div class="pre-title">
+                    Pre-Order
+                  </div>
+                  <div class="pre-content">
+                    Delivery date: {{goodsInfo.begin_time_str}}
+                  </div>
+
                 </div>
               </div>
             </div>
@@ -967,5 +977,572 @@
   }
 </script>
 
-<style  src="@/lionfish_comshop/pages/order/order.css" scoped>
+<style  scoped>
+
+  .content {
+    padding: 0 10px;
+    padding-bottom: 40px;
+  }
+
+  .goods-info {
+    margin-bottom: 10px;
+  }
+
+  .order-info {
+    margin-bottom: 10px;
+  }
+
+  .foot {
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+    z-index: 1000;
+  }
+
+  .mar-left-8 {
+    margin-left: 8px;
+  }
+
+  .space-between-card {
+    height: 11px;
+  }
+
+  .btn-group {
+    display: flex;
+    text-align: center;
+    font-size: 15px;
+    z-index: 1000;
+  }
+
+  .btn-group .cancelBtn {
+    width: 50%;
+  }
+
+  .btn-group .cancelBtn .cancel-btn {
+    background-color: white;
+    color: #666;
+    height: 48px;
+    line-height: 48px;
+    font-weight: 500;
+  }
+
+  .btn-group .pay-btn {
+    color: #666;
+    height: 48px;
+    line-height: 48px;
+    font-weight: 500;
+  }
+
+  .btn-group .confirm-receipt {
+    width: 100%;
+    background-color: white;
+    color: #ff5243;
+    border-top: 0.05px solid rgba(0,0,0,0.1);
+    height: 48px;
+    line-height: 48px;
+  }
+
+  .btn-group .del-order {
+    margin: 10px 0 0 10px;
+    padding: 17px 138px;
+    background: linear-gradient(90deg,#ff5041 0%,#ff695c 100%);
+    border-radius: 10px;
+    color: white;
+    font-size: 15px;
+  }
+
+  .font-bold-30 {
+    font-size: 6vw;
+  }
+
+  .font-bold-20 {
+    font-size: 20px;
+    font-weight: 500;
+  }
+
+  .font-12 {
+    font-size: 12px;
+  }
+
+  .head .little-img {
+    width: 115px;
+    height: 60px;
+  }
+
+  .back-img-wrap {
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+  }
+
+  .back-img-wrap .back-img {
+    width: 100%;
+    height: 170px;
+  }
+
+  .to-pay-wrap {
+    text-align: center;
+    padding: 23px 0;
+    color: white;
+  }
+
+  .to-get-wrap {
+    display: flex;
+    justify-content: space-between;
+    padding: 25px 25px 0 25px;
+    color: white;
+  }
+
+  .trade-cancel-wrap {
+    padding: 25px 38px;
+    color: white;
+    text-align: center;
+  }
+
+  .cancel-box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .cancel-img {
+    margin-right: 5px;
+    width: 20px;
+    height: 20px;
+  }
+
+  .count-down {
+    font-weight: 500;
+  }
+
+  .header {
+    padding: 10px 15px;
+    color: #444;
+    font-size: 14px;
+    font-weight: 500;
+  }
+
+  .content-wrap {
+    border-top: 0.05px solid #efefef;
+    padding-bottom: 10px;
+  }
+
+  .content-wrap .item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 12px;
+    padding: 8px 15px 0;
+  }
+
+  .content-wrap .item .title {
+    word-break: keep-all;
+    color: #aaa;
+  }
+
+  .content-wrap .item .detail {
+    color: #444;
+    text-align: right;
+    display: flex;
+    align-items: center;
+  }
+
+  .content-wrap .item .detail .phone {
+    margin-left: 10px;
+    padding: 0 10px;
+    height: 22px;
+    display: flex;
+    align-items: center;
+    border: 0.05px solid #efefef;
+    border-radius: 13px;
+  }
+
+  .content-wrap .item .detail .phone .icon-phone {
+    width: 10px;
+    height: 10px;
+    margin-right: 5px;
+  }
+
+  .bold-text {
+    font-weight: 500;
+  }
+
+  .show-img {
+    float: left;
+    width: 60px;
+    height: 60px;
+  }
+
+  .name {
+    margin-top: -4px;
+    font-size: 13px;
+    color: #444;
+    text-overflow: ellipsis;
+    overflow: hidden;
+  }
+
+  .mount {
+    font-size: 11px;
+    color: #aaa;
+    margin-top: 5px;
+  }
+
+  .bottom-info {
+    justify-content: space-between;
+    font-size: 14px;
+    color: #444;
+    margin-top: 9px;
+  }
+
+  .bold-text {
+    font-weight: 500;
+  }
+
+  .header {
+    display: flex;
+    justify-content: space-between;
+    padding: 15px;
+    font-size: 12px;
+  }
+
+  .header .goods-num {
+    color: #aaa;
+  }
+
+  .header .goods-done {
+    color: #aaa;
+  }
+
+  .header .goods-cancel {
+    color: #aaa;
+  }
+
+  .middle .middle-line {
+    height: 0.05px;
+    background: #efefef;
+  }
+
+  .middle .each-item {
+    box-sizing: border-box;
+    display: flex;
+    width: 100%;
+    padding: 3vw 1.5vw;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+  }
+
+
+
+  .middle .each-item .each-item-left{
+    position: relative;
+    margin-right: 10px
+  }
+
+  .middle .each-item .each-item-content{
+    width: 70vw;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+  }
+
+  .middle /deep/ .pre-title {
+    width: 80vw;
+
+    font-weight: 600;
+    font-size: 3vw;
+  }
+
+  .middle /deep/ .pre-content {
+    width: 80vw;
+    margin-top: 1.5vw;
+    font-size: 2.5vw;
+  }
+
+  .middle /deep/ .pre {
+    margin: 0vw 5vw 0;
+  }
+
+  .mar-left-8 {
+    margin-left: 8px;
+  }
+
+  .card-btn {
+    margin-top: 10px;
+    float: right;
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: flex-end;
+  }
+
+  .card-btn .button-hover {
+    background: #b6b6b6;
+  }
+
+  .footer .btn-1,.card-btn .btn-1 {
+    position: relative;
+    color: #666;
+    text-align: center;
+    padding: 0;
+    line-height: 6vw;
+    font-size: 1.8vw;
+    border-radius: 50%;
+    padding: 0vw 2vw;
+    box-sizing: border-box;
+  }
+
+  .footer .btn-1::after,.card-btn .btn-1::after {
+    box-sizing: border-box;
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 200%;
+    height: 200%;
+    transform: scale(0.5);
+    transform-origin: 0 0;
+    border: 1px solid #b6b6b6;
+    border-radius: 26px;
+    pointer-events: none;
+  }
+
+  .card-btn .btn-2 {
+    text-align: center;
+    padding: 0;
+    line-height: 6vw;
+    font-size: 1.5vw;
+    border-radius: 3vw;
+    padding: 0vw 2vw;
+    box-sizing: border-box;
+    color: #aaa;
+    background-color: #f6f6f6;
+  }
+
+  .card-btn .btn-3 {
+    color: white;
+    background: linear-gradient(90deg,#ff5041 0%,#ff877d 100%);
+    text-align: center;
+    padding: 0;
+    line-height: 6vw;
+    font-size: 1.8vw;
+    padding: 0vw 2vw;
+    border-radius: 10px;
+    box-sizing: border-box;
+  }
+
+  .card-btn .btn-5 {
+    display: flex;
+    align-items: center;
+    color: #aaa;
+  }
+
+  .card-btn .arrow-right {
+    width: 6px;
+    height: 11px;
+    margin-left: 5px;
+    font-size: 12px;
+  }
+
+  .i-card {
+    width: 95vw;
+    border-radius: 3vw;
+    background: #fff;
+    box-shadow: 0 0 4vw 0 rgba(0,0,0,0.05);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+
+  .header {
+    padding: 10px 15px;
+    color: #444;
+    font-size: 14px;
+    font-weight: 500;
+  }
+
+  .content-wrap {
+    border-top: 0.05px solid #efefef;
+    padding-bottom: 10px;
+  }
+
+  .content-wrap .item {
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    padding: 8px 15px;
+    padding-bottom: 0;
+  }
+
+  .content-wrap .item .title {
+    color: #aaa;
+  }
+
+  .content-wrap .item .detail {
+    color: #444;
+  }
+
+  .footer {
+    border-top: 0.05px solid #efefef;
+    padding: 16px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    font-size: 14px;
+    font-weight: 500;
+  }
+
+  .footer .money {
+    color: #ff5344;
+    font-weight: 500;
+    font-size: 15px;
+  }
+
+  .share-modal {
+    position: relative;
+    background-color: #fff;
+    border-radius: 5px;
+    width: 300px;
+    box-sizing: border-box;
+    padding: 10px;
+  }
+
+  .share-modal-title {
+    font-size: 16px;
+    color: #333;
+    padding-bottom: 10px;
+  }
+
+  .share-modal-img {
+    padding-bottom: 5px;
+  }
+
+  .share-modal-img image {
+    width: 100%;
+  }
+
+  .share-modal-btn {
+    display: flex;
+    line-height: 45px;
+    text-align: center;
+  }
+
+  .btn-item {
+    position: relative;
+    flex: 1;
+    font-size: 15px;
+    background: #ff5344;
+  }
+
+  .share-btn {
+    color: #fff;
+    line-height: inherit;
+    border-radius: 5px;
+  }
+
+  .share-btn::after {
+    border: 0;
+  }
+
+  .close-modal {
+    position: absolute;
+    right: -8px;
+    top: -8px;
+    width: 24px;
+    height: 24px;
+  }
+
+  .home-btn {
+    bottom: 40%!important;
+  }
+
+  .pintag {
+    background: linear-gradient(to right,#ff5041,#ff695c);
+    color: #fff;
+    font-size: 10px;
+    padding: 0.5px 4px;
+    border-radius: 3px;
+    font-weight: bold;
+    margin-right: 5px;
+  }
+
+  .refundModal {
+    position: relative;
+    width: 90%;
+    box-sizing: border-box;
+  }
+
+  .refund-btn {
+    position: absolute;
+    right: 0;
+    bottom: 15px;
+  }
+
+  .btn-gray {
+    text-align: center;
+    padding: 0;
+    width: 68px;
+    height: 26px;
+    line-height: 26px;
+    font-size: 12px;
+    border-radius: 13px;
+    box-sizing: border-box;
+    color: #aaa;
+    background-color: #f6f6f6;
+  }
+
+  .line {
+    height: 5px;
+    border-radius: 2.5px;
+    background: #f6f6f6;
+  }
+
+  .refundScroll {
+    max-height: 300px;
+    overflow-y: scroll;
+  }
+
+  .modalDlg{
+    text-align: center;
+    position: fixed;
+    top: 25%;
+    left: 15%;
+    width: 65%;
+    padding: 16px 8px 16px 8px;
+    /* border: 8px solid #e8e9f7; */
+    background-color: white;
+    z-index: 200;
+    border-radius: 10px;
+    overflow: auto;
+
+  }
+  >>>.wux-button {
+    display: inline-block;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0 12px;
+    min-width: 52px;
+    min-height: 44px;
+    border: none;
+    border-radius: 4px;
+    vertical-align: middle;
+    text-align: center;
+    text-overflow: ellipsis;
+    font-size: 16px;
+    line-height: 42px;
+    cursor: pointer;
+
+  }
+  >>>.wux-button--block{
+    width: 100%;
+    margin-top: 10px;
+  }
+
 </style>
