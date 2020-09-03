@@ -586,6 +586,7 @@
     line-height: 26px;
     font-size: 12px;
     text-align: center;
+    padding: 0vw 3vw;
 }
 
 .my-button::after {

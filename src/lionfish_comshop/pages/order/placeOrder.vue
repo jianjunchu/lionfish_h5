@@ -2082,21 +2082,21 @@
     border-bottom: 1px solid #efefef;
   }
 
-  .cart-item /deep/ .pre-title {
+  .cart-item >>> .pre-title {
     width: 80vw;
 
     font-weight: 600;
     font-size: 3vw;
   }
 
-  .cart-item /deep/ .pre-content {
+  .cart-item >>> .pre-content {
     width: 80vw;
     margin-top: 1.5vw;
     font-size: 2.5vw;
 
   }
 
-  .cart-item /deep/ .pre {
+  .cart-item >>> .pre {
     margin: 0vw 5vw 0;
 
   }
@@ -2115,12 +2115,12 @@
     border-bottom: 1px solid #efefef;
   }
 
-  .sku-item /deep/ .sku-img {
+  .sku-item >>> .sku-img {
     width: 20vw;
     height: 20vw;
     margin-right: 2vw;
   }
-  .sku-item /deep/ .sku-img /deep/ .van-image__img {
+  .sku-item >>> .sku-img >>> .van-image__img {
     width: 20vw;
     height: 20vw;
   }
@@ -2225,42 +2225,42 @@
     color: #a3a3a3;
   }
 
-  /deep/ .fixed-content {
+  >>> .fixed-content {
     display: flex;
     padding-left: 2vw;
     justify-content: space-between;
     align-items: center;
   }
 
-  .fixed-content /deep/ .fixed-left {
+  .fixed-content >>> .fixed-left {
     display: flex;
     justify-content: center;
     flex-direction: column;
   }
 
-  .fixed-content /deep/ .fixed-left /deep/ .h1 {
+  .fixed-content >>> .fixed-left >>> .h1 {
     font-size: 3vw;
     line-height: 5vw;
     color: #444;
     margin-bottom: 0.2vw;
   }
 
-  .fixed-content /deep/ .fixed-left /deep/ .h1 /deep/ span {
+  .fixed-content >>> .fixed-left >>> .h1 >>> span {
     color: #ff5344;
     font-weight: bold;
   }
 
-  .fixed-content /deep/ .fixed-left /deep/ .h2 {
+  .fixed-content >>> .fixed-left >>> .h2 {
     font-size: 2vw;
     line-height: 5vw;
     color: #666;
   }
 
-  .fixed-content /deep/ .fixed-left /deep/ .h2  /deep/ em {
+  .fixed-content >>> .fixed-left >>> .h2  >>> em {
     margin-right: 1.6vw;
   }
 
-  .fixed-content  /deep/ .fixed-bar-btn {
+  .fixed-content  >>> .fixed-bar-btn {
     width: 30vw;
     height: 14vw;
     text-align: center;
@@ -2275,7 +2275,7 @@
     font-weight: bold;
   }
 
-  /deep/ .confirm-order-modal {
+  >>> .confirm-order-modal {
     border-radius: 2vw 3vw 0 0;
     background: #fff;
     padding: 1vw 1vw 0;
@@ -2286,7 +2286,7 @@
 
   }
 
-   .confirm-order-modal /deep/ .title {
+  .confirm-order-modal >>> .title {
     font-size: 3.5vw;
     color: #444;
     line-height: 8.5vw;
@@ -2294,7 +2294,7 @@
     font-weight: 500;
   }
 
-  .confirm-order-modal /deep/ .sub-title {
+  .confirm-order-modal >>> .sub-title {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -2305,13 +2305,13 @@
     font-weight: 500;
   }
 
-  .confirm-order-modal /deep/ .sub-title /deep/ img {
+  .confirm-order-modal >>> .sub-title >>> img {
     width: 5vw;
     height: 5vw;
     margin-right: 3vw;
   }
 
-  .confirm-order-modal /deep/ .order-content {
+  .confirm-order-modal >>> .order-content {
     width: 95vw;
     border-radius: 2vw;
     padding-top: 3vw;
@@ -2319,7 +2319,7 @@
     margin-bottom: 15vw;
   }
 
-  .confirm-order-modal /deep/ .order-content /deep/ .msg-group {
+  .confirm-order-modal  .order-content >>> .msg-group {
     width: 100vw;
     padding: 0 4vw;
     margin-bottom: 1vw;
@@ -2330,18 +2330,18 @@
     box-sizing: border-box;
   }
 
-  .confirm-order-modal /deep/ .order-content /deep/ .msg-group /deep/  span {
+  .confirm-order-modal  .order-content >>> .msg-group >>>  span {
     font-weight: bold;
     white-space: nowrap;
   }
 
-  .confirm-order-modal /deep/ .order-content /deep/ .msg-group /deep/ em {
+  .confirm-order-modal  .order-content >>> .msg-group >>> em {
     font-weight: 400;
     flex: 1;
     line-height: 1.4;
   }
 
-  .confirm-order-modal /deep/ .order-content /deep/ .total {
+  .confirm-order-modal  .order-content >>> .total {
     line-height: 10vw;
     padding: 0 2vw;
     text-align: right;
@@ -2350,11 +2350,11 @@
     border-top: 0.1vw solid #e2e2e2;
   }
 
-  .confirm-order-modal /deep/ .order-content /deep/ .total /deep/ em {
+  .confirm-order-modal  .order-content >>> .total >>> em {
     color: #ff5344;
   }
 
-  .confirm-order-modal /deep/ .button-group {
+  .confirm-order-modal >>> .button-group {
     display: flex;
     width: 100%;
     border-top: 0.1vw solid rgba(0, 0, 0, 0.1);
@@ -2363,11 +2363,11 @@
     bottom: 0;
   }
 
-  .confirm-order-modal /deep/ .button-group /deep/ .btn-content {
+  .confirm-order-modal  .button-group >>> .btn-content {
     flex: 1;
   }
 
-  .confirm-order-modal /deep/ .button-group /deep/ .btn {
+  .confirm-order-modal  .button-group >>> .btn {
     flex: 1;
     margin: 0;
     padding: 0;
@@ -2379,12 +2379,12 @@
     font-weight: bold;
   }
 
-  .confirm-order-modal /deep/ .button-group /deep/ .left-btn {
+  .confirm-order-modal  .button-group >>> .left-btn {
     color: #666;
     background: #fff;
   }
 
-  .confirm-order-modal /deep/ .button-group /deep/ .right-btn {
+  .confirm-order-modal  .button-group >>> .right-btn {
     color: #fff;
     background: linear-gradient(to right, #ff5041, #ff695c);
   }
@@ -2862,7 +2862,7 @@
     font-size: 1px;
   }
 
-  /deep/ .wux-button {
+  >>> .wux-button {
     display: inline-block;
     box-sizing: border-box;
     margin: 0;
@@ -2881,7 +2881,7 @@
 
   }
 
-  /deep/ .wux-button--block {
+  >>> .wux-button--block {
     width: 100%;
     margin-top: 4vw;
   }

@@ -120,7 +120,7 @@
                 </div>
               </div>
               <div v-if="item.order_status_id==1||item.order_status_id==6||item.order_status_id==11||item.order_status_id==14||item.order_status_id==15||item.order_status_id==16">
-                <div class="my-button" style="width: 86px" :data-type="item.order_id" size="small">{{$t('order.chakanxiangqing')}}</div>
+                <div class="my-button"  :data-type="item.order_id" size="small">{{$t('order.chakanxiangqing')}}</div>
               </div>
             </div>
           </i-card>
