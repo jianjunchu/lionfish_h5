@@ -565,7 +565,7 @@
           }).then(e=> {
               console.log(e);
             var t = e.order_info;
-            if (3 == t.order_status_id) {
+            if (t && t.order_status_id && 3 == t.order_status_id) {
               var o = 1e3 * (t.over_buy_time - t.cur_time);
               0 < o ? count_down(a, o) : a.changeState= 1;
             }

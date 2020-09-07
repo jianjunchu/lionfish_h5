@@ -35,6 +35,8 @@
             <div class="spu-desc" v-if="spuItem.spuDescribe">
               <span class="em">{{spuItem.spuDescribe}}</span>
             </div>
+
+            <div class="spu-tag-pre" v-if="spuItem.is_show_presell" >Expected Delivery: {{spuItem.begin_time_str}}</div>
             <div class="spu-tag" v-if="isShowListTimer"></div>
 
             <div class="spu-count" v-if="isShowListCount==1">
@@ -421,6 +423,13 @@
     padding-left: 20vw;
     margin-bottom: 2vw;
     display: flex;
+    height: 2.8vw;
+  }
+  .spu >>> .spu-content .item-right .spu-tag-pre {
+    margin-bottom: 2vw;
+    display: flex;
+    font-size: 2.2vw;
+    margin-top: 1vw;
     height: 2.8vw;
   }
 

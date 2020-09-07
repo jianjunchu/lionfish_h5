@@ -43,10 +43,10 @@
           <span v-else>{{$t('type.xialachakan')}}</span>
         </div>-->
         <div>
-            <van-list v-if="!pageEmpty" v-model="$data.$data.loading" :finished="!loadMore" @load="getHotList" class="van-clearfix page-list scrollY">
+            <van-list ref="list" @scroll="scrollGet($event)"  v-model="$data.$data.loading" :finished="!loadMore" @load="getHotList" class="van-clearfix page-list scrollY">
               <i-type-item @authModal="authModal" @changeCartNum="changeCartNum" @openSku="openSku" @vipModal="vipModal" :canLevelBuy="canLevelBuy" :changeCarCount="changeCarCount" :is_open_vipcard_buy="is_open_vipcard_buy" :needAuth="needAuth" :reduction="reduction" :spuItem="item" :stopClick="stopClick" v-for="(item,index) in rushList" :key="item.actId"></i-type-item>
             </van-list>
-          <div class="none-rush-list" v-else-if="pageEmpty">
+          <div class="none-rush-list" v-if="pageEmpty">
             <img class="img-div" src="@/assets/images/icon-index-empty.png">
             <div class="h1">{{$t('type.zhanshimeiyou')}}</div>
             <div class="h2">{{$t('type.zhengzaizhunbei')}}</div>
@@ -167,19 +167,32 @@
     },*/
     activated:function(){
       var i = this;
+      this.$refs.list.scrollTop = this.$data.$data.scrollInfo
       wx.setNavigationBarTitle({
         title: 'Type',
         showLogo:false,
         showMore:false,
         showBack:false
       })
-      i.onShow();
+
       if(i.$refs.tabbar){
         i.$refs.tabbar.switchTab();
       }
     },
-    methods: {
+    beforeRouteLeave(to, from, next) {
 
+      this.$data.$data.scrollInfo = this.$refs.list.scrollTop;
+      console.log(this.$refs.list)
+      console.log("this.$refs.list.scrollTop = " +this.$refs.list.scrollTop)
+      next()
+    },
+    mounted(){
+      this.onShow();
+    },
+    methods: {
+      scrollGet (e) {
+        console.log(e.srcElement.scrollTop, e.target.scrollTop)
+      },
       onLoad: function(i) {
         var t = app.globalData.isIpx, s = this
 
@@ -223,21 +236,21 @@
       onShow: function() {
         var s = this
         s.$data.$data.pageNum = 1,
-          s.rushCategoryData = {
-            tabs: [],
-            activeIndex: 0
-          },
-            s.rushList = [],
-            s.categoryScrollBarTop = 0,
-            s.resetScrollBarTop = 50,
-            s.loadMore = !0,
-            s.loadText = '加载中...',
-            s.isFirstCategory = !0,
-            s.isLastCategory = !1,
-            s.pageEmpty = !1,
-            s.tabbarRefresh = !0,
-
-            console.log('s.isFirst'+s.isFirst), s.get_cate_list().then(function() {
+        /*s.rushCategoryData = {
+          tabs: [],
+          activeIndex: 0
+        },*/
+        s.rushList = [],
+        s.categoryScrollBarTop = 0,
+        s.resetScrollBarTop = 50,
+        s.loadMore = !0,
+        s.loadText = '加载中...',
+        s.isFirstCategory = !0,
+        s.isLastCategory = !1,
+        s.pageEmpty = !1,
+        s.tabbarRefresh = !0,
+        console.log('s.isFirst'+s.isFirst)
+        s.get_cate_list().then(function() {
             if(app.globalData.typeCateId>0){
               s.active_sub_index =0;
             }
@@ -261,10 +274,12 @@
                 return false;
               }) || 0
 
+
               s.rushCategoryData = t
               console.log(t )
             }
-          s.setCategory(s.rushCategoryData.activeIndex)
+
+            s.setCategory(s.rushCategoryData.activeIndex)
 
           }), util.check_login_new().then(function(t) {
           if (t) {
@@ -973,9 +988,9 @@
     position: absolute;
     left: 25vw;
     width: 75vw;
-    height: 70vh;
-    padding-top: 5px;
-    box-sizing: border-box;
+    height: 74.3vh;
+    background-color: white;
+    overflow-y: scroll
   }
 
   .page-list .scroll-col-tip-top, .page-list .scroll-col-tip-bottom {
