@@ -7,8 +7,9 @@
     
     <div class="wrapper" style="width: 80vw;height: 60vw;margin: 0 auto;">
       <swiper :options="swiperOption">
-        <swiper-slide v-for="(item,index) in goods_image" :key="item.id">
-          <div v-if="goods.video!=''&&goods.video!=null">
+        <swiper-slide v-for="(item,index) in goods_image2" :key="index">
+          {{item.imgUrl}}
+          <div v-if="item.urlType == 1">
             <img bindload="imageLoad" @click="predivImg" style="height: 60vw; width: 80vw; margin: 0 auto;" :data-idx="index" lazyLoad="true" 
                   :src="item.image" v-if="index!=0"/>
             <div class="video-wrap" v-else>
@@ -25,76 +26,113 @@
 
             </div>
           </div>
-          <img bindload="imageLoad" @click="predivImg" width="100%" :data-idx="index" lazyLoad="true" style="height: 60vw; width: 80vw; margin: 0 auto;"
-                :src="item.image" v-else/>
+          <img style="height: 60vw; width: 80vw; margin: 0 auto;"
+                src="http://123.206.27.155:8068/userfiles/1340497/images/product/2020/01/22222_191224170450_200115111647.png" v-else/>
         </swiper-slide>
         <div class="swiper-pagination"  slot="pagination"></div>
       </swiper>
     </div>
 
-    <div style="width: 80vw;margin: -1vw auto 2vw;background: red;height: 15vw;text-align:center;border-radius: 0 0 3vw 3vw;" id="clickDiv1" onclick="turnShow()">
-        <div style="width: 100%;height: 3vw;margin-top: 1vw;">
+    <div :class="[showWord ? 'check-word-block': 'check-word-none']" id="clickDiv1" @click="turnShow">
+        <div style="width: 100%;height: 5vw;">
             <img src="@/assets/images/12template right@3X.png" style="vertical-align:middle;height: 3vw;position: relative;top: 0.4rem"/>&nbsp;
-            <lable style="font-size: 3vw; font-weight: 1000;vertical-align:middle;font-family: PingFangSC-Semibold;position: relative;top: 0.4rem">成功验证 3 次</lable>&nbsp;&nbsp;&nbsp;
+            <lable style="font-size: 3.5vw; font-weight: 1000;vertical-align:middle;font-family: PingFangSC-Semibold;position: relative;top: 0.4rem">成功验证 3 次</lable>&nbsp;&nbsp;&nbsp;
             <img id="img1" src="@/assets/images/xiala.png" style="vertical-align:middle;height: 2vw;position: relative;top: 0.4rem"/>
         </div>
         <div style="height: 3vw;width: 100%;position: relative;top: 0.6rem">
-            <span style="font-size: 0.3rem;color: #000000;font-family: PingFangSC-Semibold;">动态验证码 / CD123456789123</span>
+            <span style="font-size: 3vw;color: #000000;font-family: PingFangSC-Semibold;">动态验证码 / CD123456789123</span>
         </div>
         <div style="height: 0.3rem;width: 100%;margin-top: 0.02rem;position: relative;top: 0.6rem">
             <!--<span style="font-size: 0.25rem;color: #B8BBBE;letter-spacing: 0;font-family: PingFangSC-Semibold;">查询者所在地${address}</span>-->
         </div>
-        <div id="clickDiv2" style="background-color: #F8F8F9;border-radius: 6px;border-radius: 6px;width: 7.2rem;height: 4.0rem;float: left;margin: 0.8rem 0.3333rem;display: none">
-            <div style="width: 5.4667rem;height: 2.8rem;margin: 0.35rem auto;padding-top: 0.5rem;">
+        <div id="clickDiv2" :class="[showWord ? 'check-content-block': 'check-content-none']">
+            <div style="width: 75vw;height: 20vw;margin: 0.35rem auto;padding-top: 0.5rem;">
                     <span style="opacity: 0.99;font-family: PingFangSC-Regular;font-size: 0.3rem;color: #72727F;letter-spacing: 0.0rem;text-align: justify;line-height: 0.4533rem;">
-                        以上动态码由NFC标签芯片对内部产生的随机数、计数器值签名运算产生，用于验证标签的真实性。该码每次读取变化，30秒内验证使用有效，超过30秒再次查询会验证失败。请认准${checkName}域名。
+                        以上动态码由NFC标签芯片对内部产生的随机数、计数器值签名运算产生，用于验证标签的真实性。该码每次读取变化，30秒内验证使用有效，超过30秒再次查询会验证失败。请认准NFC315.com域名。
                     </span>
             </div>
         </div>
     </div>
 
-    <div style="width: 80vw;margin: 0 auto;background: red;height: 15vw;text-align:center" id="clickDiv1" onclick="turnShow()">
-        <div style="width: 100%;height: 0.64rem;margin-top: 0.3rem;">
-            <img src="${pageContext.request.contextPath}/static/images/12template right@3X.png" style="vertical-align:middle;height: 0.377rem;position: relative;top: 0.4rem"/>&nbsp;
-            <lable style="font-size: 0.346667rem; font-weight: 800;vertical-align:middle;font-family: PingFangSC-Semibold;position: relative;top: 0.4rem">成功验证 3 次</lable>&nbsp;&nbsp;&nbsp;
-            <img id="img1" src="${pageContext.request.contextPath}/static/images/xiala.png" style="vertical-align:middle;height: 0.156rem;position: relative;top: 0.4rem"/>
-        </div>
-        <div style="height: 0.4rem;width: 100%;position: relative;top: 0.6rem">
-            <span style="font-size: 0.3rem;color: #000000;font-family: PingFangSC-Semibold;">动态验证码 / ${chk}</span>
-        </div>
-        <div style="height: 0.3rem;width: 100%;margin-top: 0.02rem;position: relative;top: 0.6rem">
-            <!--<span style="font-size: 0.25rem;color: #B8BBBE;letter-spacing: 0;font-family: PingFangSC-Semibold;">查询者所在地${address}</span>-->
-        </div>
-        <div id="clickDiv2" style="background-color: #F8F8F9;border-radius: 6px;border-radius: 6px;width: 7.2rem;height: 4.0rem;float: left;margin: 0.8rem 0.3333rem;display: none">
-            <div style="width: 5.4667rem;height: 2.8rem;margin: 0.35rem auto;padding-top: 0.5rem;">
-                    <span style="opacity: 0.99;font-family: PingFangSC-Regular;font-size: 0.3rem;color: #72727F;letter-spacing: 0.0rem;text-align: justify;line-height: 0.4533rem;">
-                        以上动态码由NFC标签芯片对内部产生的随机数、计数器值签名运算产生，用于验证标签的真实性。该码每次读取变化，30秒内验证使用有效，超过30秒再次查询会验证失败。请认准${checkName}域名。
-                    </span>
-            </div>
-        </div>
+    <div style="margin: 0.64rem auto;height: 15vw;text-align: center;width: 80vw;background: #000000;" >
+			<table style="width: 80vw; height: 10vw; font-family: PingFangSC-Semibold;font-size: 3vw;color: #717379;letter-spacing: 0;line-height: 10vw;margin: 0 auto;">
+				<tr>
+					<td id="oneDiv1"><div id="oneDiv" style="border-bottom: 2px solid #fff;padding-bottom: 0.08rem;width:fit-content;margin: 0 auto;color: #ffffff;" onclick="turnOne()">基础信息</div></td>
+					<td id="oneDiv2"><div id="twoDiv" style="padding-bottom: 0.08rem;width:fit-content;margin: 0 auto;" onclick="turnTwo()">溯源信息</div></td>
+					<td id="oneDiv3"><div id="threeDiv" style="padding-bottom: 0.08rem;width:fit-content;margin: 0 auto;" onclick="turnThree()">视频监控</div></td>
+					<td id="oneDiv4"><div id="fourDiv" style="padding-bottom: 0.08rem;width:fit-content;margin: 0 auto;" onclick="turnFour()">新品推荐</div></td>
+				</tr>
+			</table>
+		</div>
+
+    <div id="oneDivView" style="width: 80vw;height: auto;margin: 0vw auto; font-size: 0.25rem;background-color: black;padding-bottom: 5vw;display: block">
+			<div style="width: 100%;height: 10vw;margin-top: 10px;border-bottom: 1px solid white;">
+				<div style="height: 100%;width: 40%;float: left;color: #ffffff;font-weight: 600;text-align: left;">
+					<span style="line-height: 10vw;font-size: 0.25rem；letter-spacing: 0;">品名</span>
+				</div>
+				<div style="height: 100%;width: 60%;float: right;color: #ffffff;font-weight: 600;text-align: right;">
+					<span style="line-height: 10vw;font-size: 0.25rem；letter-spacing: 0;">Supreme 水润滋养唇膏</span>
+				</div>
+			</div>
+			<div style="width: 100%;height: 10vw;margin-top: 10px;border-bottom: 1px solid white;">
+				<div style="height: 100%;width: 40%;float: left;color: #ffffff;font-weight: 600;text-align: left;">
+					<span style="line-height: 10vw;font-size: 0.25rem；letter-spacing: 0;">颜色</span>
+				</div>
+				<div style="height: 100%;width: 60%;float: right;color: #ffffff;font-weight: 600;text-align: right;">
+					<span style="line-height: 10vw;font-size: 0.25rem；letter-spacing: 0;">牛血色</span>
+				</div>
+			</div>
+			<div style="width: 100%;height: 10vw;margin-top: 10px;border-bottom: 1px solid white;">
+				<div style="height: 100%;width: 40%;float: left;color: #ffffff;font-weight: 600;text-align: left;">
+					<span style="line-height: 10vw;font-size: 0.25rem；letter-spacing: 0;">净含量</span>
+				</div>
+				<div style="height: 100%;width: 60%;float: right;color: #ffffff;font-weight: 600;text-align: right;">
+					<span style="line-height: 10vw;font-size: 0.25rem；letter-spacing: 0;">3.5g</span>
+				</div>
+			</div>
+			<div style="width: 100%;height: 10vw;margin-top: 10px;border-bottom: 1px solid white;">
+				<div style="height: 100%;width: 40%;float: left;color: #ffffff;font-weight: 600;text-align: left;">
+					<span style="line-height: 10vw;font-size: 0.25rem；letter-spacing: 0;">生产日期</span>
+				</div>
+				<div style="height: 100%;width: 60%;float: right;color: #ffffff;font-weight: 600;text-align: right;">
+					<span style="line-height: 10vw;font-size: 0.25rem；letter-spacing: 0;">2018-09-20</span>
+				</div>
+			</div>
+			<div style="width: 100%;height: 10vw;margin-top: 10px;border-bottom: 1px solid white;">
+				<div style="height: 100%;width: 40%;float: left;color: #ffffff;font-weight: 600;text-align: left;">
+					<span style="line-height: 10vw;font-size: 0.25rem；letter-spacing: 0;">使用方法</span>
+				</div>
+				<div style="height: 100%;width: 60%;float: right;color: #ffffff;font-weight: 600;text-align: right;">
+					<span style="font-size: 0.25rem；letter-spacing: 0;line-height: 0.5rem">确定位置轮廓，将唇膏均匀涂抹，轻抿嘴唇，保持湿润。</span>
+				</div>
+			</div>
     </div>
 
-    <div style="width: 80vw;margin: 0 auto;background: red;height: 15vw;text-align:center;" id="clickDiv1" onclick="turnShow()">
-        <div style="width: 100%;height: 0.64rem;margin-top: 0.3rem;">
-            <img src="${pageContext.request.contextPath}/static/images/12template right@3X.png" style="vertical-align:middle;height: 0.377rem;position: relative;top: 0.4rem"/>&nbsp;
-            <lable style="font-size: 0.346667rem; font-weight: 800;vertical-align:middle;font-family: PingFangSC-Semibold;position: relative;top: 0.4rem">成功验证 3 次</lable>&nbsp;&nbsp;&nbsp;
-            <img id="img1" src="${pageContext.request.contextPath}/static/images/xiala.png" style="vertical-align:middle;height: 0.156rem;position: relative;top: 0.4rem"/>
-        </div>
-        <div style="height: 0.4rem;width: 100%;position: relative;top: 0.6rem">
-            <span style="font-size: 0.3rem;color: #000000;font-family: PingFangSC-Semibold;">动态验证码 / ${chk}</span>
-        </div>
-        <div style="height: 0.3rem;width: 100%;margin-top: 0.02rem;position: relative;top: 0.6rem">
-            <!--<span style="font-size: 0.25rem;color: #B8BBBE;letter-spacing: 0;font-family: PingFangSC-Semibold;">查询者所在地${address}</span>-->
-        </div>
-        <div id="clickDiv2" style="background-color: #F8F8F9;border-radius: 6px;border-radius: 6px;width: 7.2rem;height: 4.0rem;float: left;margin: 0.8rem 0.3333rem;display: none">
-            <div style="width: 5.4667rem;height: 2.8rem;margin: 0.35rem auto;padding-top: 0.5rem;">
-                    <span style="opacity: 0.99;font-family: PingFangSC-Regular;font-size: 0.3rem;color: #72727F;letter-spacing: 0.0rem;text-align: justify;line-height: 0.4533rem;">
-                        以上动态码由NFC标签芯片对内部产生的随机数、计数器值签名运算产生，用于验证标签的真实性。该码每次读取变化，30秒内验证使用有效，超过30秒再次查询会验证失败。请认准${checkName}域名。
-                    </span>
-            </div>
-        </div>
-    </div>
-    
+    <div id="twoDivView" style="width:80vw;height: 70vw; margin: 0 auto;display: block;background: #fff">
+			<img src="" style="width:80vw;height: 70vw;">
+		</div>
+
+    <div id="threeDivView" style="width:  80vw;height: auto;display: block; background: #000000; margin: 0 auto;" class="content2" >
+			<div style="width: 80vw;height: 4.72rem;background: #F8F9F8 url() no-repeat 2.3rem 1rem;margin: 0.4667rem auto 0rem;background-size: 50% 50%;border-radius: 0.16rem 0.16rem 0 0;"><img src=" " style="width: 0.8133rem;height: 0.8133rem;position: relative;left: 4rem;top: 2rem"></div>
+			<div style="width:  80vw;height: 1.0667rem;background: #FFFFFF;border-radius: 0 0 0.16rem 0.16rem;margin: 0 auto 0.4667rem"><span style="font-family: PingFangSC-Semibold;font-size: 0.4rem;color: #252525;letter-spacing: 0;margin-left: 0.6rem;line-height: 1.2rem">产地视频</span></div>
+
+			<div style="width: 80vw;height: 4.72rem;background: #F8F9F8 url() no-repeat 2.3rem 1rem;margin: 0.4667rem auto 0rem;background-size: 50% 50%;border-radius: 0.16rem 0.16rem 0 0;"><img src=" " style="width: 0.8133rem;height: 0.8133rem;position: relative;left: 4rem;top: 2rem"></div>
+			<div style="width:  80vw;height: 1.0667rem;background: #FFFFFF;border-radius: 0 0 0.16rem 0.16rem;margin: 0 auto 0.4667rem"><span style="font-family: PingFangSC-Semibold;font-size: 0.4rem;color: #252525;letter-spacing: 0;margin-left: 0.6rem;line-height: 1.2rem">产地视频</span></div>
+
+			<div style="width: 80vw;height: 4.72rem;background: #F8F9F8 url() no-repeat 2.3rem 1rem;margin: 0.4667rem auto 0rem;background-size: 50% 50%;border-radius: 0.16rem 0.16rem 0 0;"><img src=" " style="width: 0.8133rem;height: 0.8133rem;position: relative;left: 4rem;top: 2rem"></div>
+			<div style="width:  80vw;height: 1.0667rem;background: #FFFFFF;border-radius: 0 0 0.16rem 0.16rem;margin: 0 auto 0.4667rem"><span style="font-family: PingFangSC-Semibold;font-size: 0.4rem;color: #252525;letter-spacing: 0;margin-left: 0.6rem;line-height: 1.2rem">产地视频</span></div>
+
+		</div>
+		<div id="fourDivView" style="width:  80vw;height: auto;display: block; background: #000000;margin: 0 auto;" class="content2" >
+			<div style="width: 80vw;height: 4.72rem;background: #F8F9F8 url() no-repeat 0rem 0rem;margin: 0.4667rem auto 0rem;background-size: 100% 100%;border-radius: 0.2rem 0.2rem 0 0;"></div>
+			<div style="width: 80vw;height: 1.0667rem;background: #FFFFFF;border-radius: 0 0 0.16rem 0.16rem;margin: 0 auto 0.4667rem"><span style="font-family: PingFangSC-Semibold;font-size: 0.4rem;color: #252525;letter-spacing: 0;margin-left: 0.6rem;line-height: 1.2rem">新品上市，8折速来抢购！</span></div>
+
+			<div style="width: 80vw;height: 4.72rem;background: #F8F9F8 url() no-repeat 0rem 0rem;margin: 0.4667rem auto 0rem;background-size: 100% 100%;border-radius: 0.2rem 0.2rem 0 0;"></div>
+			<div style="width: 80vw;height: 1.0667rem;background: #FFFFFF;border-radius: 0 0 0.16rem 0.16rem;margin: 0 auto 0.4667rem"><span style="font-family: PingFangSC-Semibold;font-size: 0.4rem;color: #252525;letter-spacing: 0;margin-left: 0.6rem;line-height: 1.2rem">速来围观，最新Q版包装上市！</span></div>
+
+		</div>
+		
+
   </div>
 
 </template>
@@ -103,8 +141,10 @@
 
   import { swiper, swiperSlide } from 'vue-awesome-swiper'
   import GlobalMixin from '../../mixin/globalMixin.js'
-  import status from '../../utils/index.js'
-  import util from '../../utils/index.js'
+  // import status from '../../utils/index.js'
+  // import util from '../../utils/index.js'
+  import util from '../../utils'
+  import status from '../../utils'
   //  require("swiper/dist/css/swiper.css");
 
   var _extends = Object.assign || function(t) {
@@ -152,15 +192,11 @@
     mixins: [GlobalMixin],
     swiper: [swiper],
     swiperSlide: [swiperSlide],
-    name: 'goods-goodsDetail',
+    name: 'template2-button',
     data() {
       return {
-        endtime: {
-          days: '00',
-          hours: '00',
-          minutes: '00',
-          seconds: '00'
-        },
+
+        showWord: false,
         swiperOption:{
             //显示分页
             pagination: {
@@ -181,6 +217,7 @@
             //开启循环模式
             // loop: true
         },
+        goods_image2: [],
         goods_id: 0,
         size: 1,
         showHexiaoModal: false,
@@ -308,20 +345,7 @@
 //          limitMemberNum:0,
 //          limitOrderNum:0
 
-        },
-        cur_sku_arr: {
-          skuImage: '',
-          spuName: '',
-          actPrice: [],
-          marketPrice: [],
-          card_price: 0,
-          levelprice: 0,
-          spec: '',
-          stock: 0
-        },
-        is_just_addcar: 0,
-        showVipModal: false,
-        showSku: false
+        }
       }
     },
     created: function() {
@@ -331,10 +355,37 @@
         showMore: false,
         showBack: false
       })
-      this.onLoad()
-      this.onShow()
+      this.onLoad();
+      this.onShow();
+      this.getDate();
     },
     methods: {
+      turnShow: function(){
+        if(this.showWord){
+          this.showWord = false;
+        }else{
+          this.showWord = true;
+        }
+      },
+      getDate: function(){
+        var app = this.$getApp(), wx = this.$wx;
+        var that = this;
+        wx.request({
+          // 请求地址
+          url: 'http://123.206.27.155:8068/pmp/api/v2/nfc315/verify/1340497/8B409C99015C00224D08FCEA78829C3548/113.45.91.173',
+          // 请求方式
+          method: "get",
+          dataType: 'json',
+          responseType: 'text',
+          // 方法
+          success: function(data) {
+            console.log(data.data.body,"liuwantao");
+            that.goods = data.data.body;
+            that.goods_image2 =data.data.body.product.productType.productTypeGalleryList;
+            console.log(this.goods_image2,"123");
+          }
+        })
+      },
       onLoad: function() {
         var e = this.$route.query
         this.$app.globalData.navBackUrl = ''
@@ -473,9 +524,6 @@
           community_id: 1022
         }).then(t => {
           console.log(t, 'get_goods_detail')
-//            setTimeout(function() {
-//              this.$wx.hideLoading();
-//            }, 1e3);
           var a = t.data, e = a.goods, o = a.is_can_headsales
           if (e && 0 != e.length && '' != Object.keys(e) || this.$wx.showModal({
             title: '提示',
@@ -1378,6 +1426,46 @@
   swiper img {
     width: 100%;
     height: auto;
+  }
+
+  .check-word-none{
+    width: 80vw;
+    margin: 0vw auto 2vw;
+    background: #fff;
+    height: 14vw;
+    text-align:center;
+    border-radius: 0 0 3vw 3vw;
+  }
+
+  .check-word-block{
+    width: 80vw;
+    margin: 0vw auto 2vw;
+    background: #fff;
+    height: 42vw;
+    text-align:center;
+    border-radius: 0 0 3vw 3vw;
+  }
+
+  .check-content-block{
+    background-color: #F8F8F9;
+    border-radius: 6px;
+    border-radius: 6px;
+    width: 80vw;
+    height: 25vw;
+    float: left;
+    margin: 5vw auto;
+    display: block
+  }
+
+  .check-content-none{
+    background-color: #F8F8F9;
+    border-radius: 6px;
+    border-radius: 6px;
+    width: 80vw;
+    height: 25vw;
+    float: left;
+    margin: 5vw auto;
+    display: none
   }
 
   
