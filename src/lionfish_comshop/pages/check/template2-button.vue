@@ -4,12 +4,12 @@
     <div class="logo">
         <img class="logo-img" :src="logo"/>
     </div>
-    
+
     <div class="wrapper" style="width: 88vw;height: 70vw;margin: 0 auto;">
       <swiper :options="swiperOption">
         <swiper-slide v-for="(item,index) in goods_image2" :key="index">
           <div v-if="item.urlType == 1">
-            <img style="height: 60vw; width: 88vw; margin: 0 auto;" :data-idx="index" lazyLoad="true" 
+            <img style="height: 60vw; width: 88vw; margin: 0 auto;" :data-idx="index" lazyLoad="true"
                   :src="item.image" v-if="index!=0"/>
             <div class="video-wrap" v-else>
               <div v-if="fmShow">
@@ -79,7 +79,7 @@
 
     <!-- 溯源信息 -->
     <div v-if="verifyResult" id="twoDivView" :class="[showTwo? 'two-div-block':'two-div-none']">
-			<table style="width: 100%;table-layout:fixed;color: #000" 
+			<table style="width: 100%;table-layout:fixed;color: #000"
         <tr v-for="(item,index) in goods_circulate" :key="index">
           <td style="width: 30%;font-family: PingFangSC-Semibold;font-size: 2vw;color: #ffffff;letter-spacing: 0;" valign="top" align="center">
               <label style="word-wrap:break-word;">{{item.time}}</label>
@@ -147,7 +147,7 @@
       <div>
         <img id="img1" src="@/assets/check-image/fail@3X.png" style="width: 88vw;height: 88vw;margin: 0 auto"/>
       </div>
-    </div>	
+    </div>
   </div>
 
 </template>
@@ -217,8 +217,8 @@
         showMore: false,
         showBack: false
       });
-      //this.getIp();
-      this.getDate();
+      this.getIp();
+//      this.getDate();
       // this.getCirculate();
     },
     methods: {
@@ -235,16 +235,23 @@
         var app = this.$getApp(), wx = this.$wx;
         wx.request({
           // 请求地址
-          url: 'http://pv.sohu.com/cityjson?ie=utf-8',
+          url: 'ip',
           // 请求方式
           method: "get",
           dataType: 'json',
           responseType: 'text',
           // 方法
-          success: function(data) {
-            console.log(data,"liuwantao");
+          success: function (data) {
+            console.log(data, "data")
+            var result = data.data;
+            var start = result.indexOf("{");
+            var end = result.indexOf("}") + 1;
+            var jsonStr = result.substring(start,end);
+            var jsonObj = JSON.parse(jsonStr);
+            that.nowIp = jsonObj.cip;
+            that.getDate();
           }
-        })
+        });
       },
       getDate: function(){
         var app = this.$getApp(), wx = this.$wx;
@@ -252,9 +259,12 @@
         that.b0 = this.$route.query.b0;
         that.checkCode = this.$route.query.chk;
         that.code = that.checkCode.slice(14);
+//        var url = 'http://123.206.27.155:8068/pmp/api/v2/nfc315/verify/'+that.b0+'/'+that.checkCode+'/113.45.91.173';
+        var url = 'http://123.206.27.155:8068/pmp/api/v2/nfc315/verify/'+that.b0+'/'+that.checkCode+'/'+ that.nowIp;
+        debugger
         wx.request({
           // 请求地址
-          url: 'http://123.206.27.155:8068/pmp/api/v2/nfc315/verify/'+that.b0+'/'+that.checkCode+'/113.45.91.173',
+          url: url,
           // 请求方式
           method: "get",
           dataType: 'json',
@@ -334,7 +344,7 @@
         that.showTwo = false;
         that.showThree = false;
         that.showFour = true;
-        that.showFive = false;  
+        that.showFive = false;
       },
       turnFive: function(){
         var that = this;
@@ -345,7 +355,7 @@
         that.showFive = true;
       },
       turnToReport: function(){
-        
+
       }
     }
   }
@@ -464,7 +474,7 @@
 
   .two-div-block{
     width:88vw;
-    height: auto; 
+    height: auto;
     margin: 0 auto;
     display: block;
     background: #000;
@@ -473,7 +483,7 @@
 
   .two-div-none{
     width:88vw;
-    height: auto; 
+    height: auto;
     margin: 0 auto;
     display: none;
     background: #000;
@@ -482,15 +492,15 @@
 
   .three-div-block{
     width:  88vw;height: auto;
-    display: block; 
-    background: #000000; 
+    display: block;
+    background: #000000;
     margin: 0 auto;
   }
 
   .three-div-none{
     width:  88vw;height: auto;
-    display: none; 
-    background: #000000; 
+    display: none;
+    background: #000000;
     margin: 0 auto;
   }
 

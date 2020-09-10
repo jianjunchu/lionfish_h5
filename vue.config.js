@@ -44,6 +44,13 @@ module.exports = {
         pathRewrite: {
           '^/api': ''
         }
+      } ,
+      '/ip': {
+        target: 'http://pv.sohu.com/cityjson?ie=utf-8',
+        changeOrigin: true,
+        pathRewrite: {
+          '^/ip': ''
+        }
       }
     }
     // before: require('./mock/mock-server.js')
