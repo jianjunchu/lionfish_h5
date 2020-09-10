@@ -393,6 +393,24 @@ export const constantRoutes = [
       keepAlive: false
     }
   },
+{
+    name: '/lottery',
+    path: '/lottery',
+    component: () => import('@//lionfish_comshop/pages/lottery/lottery'),
+    hidden: true,
+    meta: {
+      keepAlive: false
+    }
+  },
+{
+    name: '/lottery_record',
+    path: '/lottery_record',
+    component: () => import('@//lionfish_comshop/pages/lottery/lottery_record'),
+    hidden: true,
+    meta: {
+      keepAlive: false
+    }
+  },
   // 404 page must be placed at the end !!!
   {
     name: '/404',
