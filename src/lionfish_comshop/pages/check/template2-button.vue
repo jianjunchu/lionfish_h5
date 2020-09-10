@@ -32,14 +32,14 @@
       </swiper>
     </div>
 
-    <div :class="[showWord ? 'check-word-block': 'check-word-none']" id="clickDiv1" @click="turnShow">
+    <div v-if="verifyResult" :class="[showWord ? 'check-word-block': 'check-word-none']" id="clickDiv1" @click="turnShow">
         <div style="width: 100%;height: 5vw;">
             <img src="@/assets/images/12template right@3X.png" style="vertical-align:middle;height: 3vw;position: relative;top: 0.4rem"/>&nbsp;
             <lable style="font-size: 3.5vw; font-weight: 1000;vertical-align:middle;font-family: PingFangSC-Semibold;position: relative;top: 0.4rem">成功验证 3 次</lable>&nbsp;&nbsp;&nbsp;
             <img id="img1" src="@/assets/images/xiala.png" style="vertical-align:middle;height: 2vw;position: relative;top: 0.4rem"/>
         </div>
         <div style="height: 3vw;width: 100%;position: relative;top: 0.6rem">
-            <span style="font-size: 3vw;color: #000000;font-family: PingFangSC-Semibold;">动态验证码 / CD123456789123</span>
+            <span style="font-size: 3vw;color: #000000;font-family: PingFangSC-Semibold;">动态验证码 / {{code}}</span>
         </div>
         <div style="height: 2vw;width: 100%;margin-top: 0.02rem;position: relative;top: 0.6rem">
             <!--<span style="font-size: 0.25rem;color: #B8BBBE;letter-spacing: 0;font-family: PingFangSC-Semibold;">查询者所在地${address}</span>-->
@@ -53,20 +53,20 @@
         </div>
     </div>
 
-    <div style="margin: 0.64rem auto;height: 15vw;text-align: center;width: 80vw;background: #000000;" >
+    <div v-if="verifyResult" style="margin: 0.64rem auto;height: 15vw;text-align: center;width: 80vw;background: #000000;" >
 			<table style="width: 80vw; height: 10vw; font-family: PingFangSC-Semibold;font-size: 3vw;color: #717379;letter-spacing: 0;line-height: 10vw;margin: 0 auto;">
 				<tr>
 					<td id="oneDiv1"><div id="oneDiv" :class="[showOne? 'tab-style-block':'tab-style-none']" @click="turnOne">{{tabList[0].name}}</div></td>
-					<td id="oneDiv2"><div id="twoDiv" :class="[showTwo? 'tab-style-block':'tab-style-none']" @click="turnTwo">{{tabList[1].name}}</div></td>
-					<td id="oneDiv3"><div id="threeDiv" :class="[showThree? 'tab-style-block':'tab-style-none']" @click="turnThree">{{tabList[2].name}}</div></td>
-					<td id="oneDiv4"><div id="fourDiv" :class="[showFour? 'tab-style-block':'tab-style-none']" @click="turnFour">{{tabList[3].name}}</div></td>
-          <td id="oneDiv4"><div id="fourDiv" :class="[showFive? 'tab-style-block':'tab-style-none']" @click="turnFive">{{tabList[4].name}}</div></td>
+					<td id="oneDiv2" v-if="rtpFlag == 0"><div id="twoDiv" :class="[showTwo? 'tab-style-block':'tab-style-none']" @click="turnTwo">{{tabList[1].name}}</div></td>
+					<td id="oneDiv3" v-if="monitorFlag == 0"><div id="threeDiv" :class="[showThree? 'tab-style-block':'tab-style-none']" @click="turnThree">{{tabList[2].name}}</div></td>
+					<td id="oneDiv4" v-if="newRecFlag == 0"><div id="fourDiv" :class="[showFour? 'tab-style-block':'tab-style-none']" @click="turnFour">{{tabList[3].name}}</div></td>
+          <td id="oneDiv5" v-if="companyFlag == 0"><div id="fourDiv" :class="[showFive? 'tab-style-block':'tab-style-none']" @click="turnFive">{{tabList[4].name}}</div></td>
 				</tr>
 			</table>
 		</div>
 
     <!-- 基础信息 -->
-    <div id="oneDivView" :class="[showOne? 'one-div-block':'one-div-none']">
+    <div v-if="verifyResult" id="oneDivView" :class="[showOne? 'one-div-block':'one-div-none']">
 			<div v-for="(item,index) in goods_attribute" :key="index" style="width: 100%;height: 10vw;margin-top: 10px;border-bottom: 1px solid white;">
 				<div style="height: 100%;width: 40%;float: left;color: #ffffff;font-weight: 600;text-align: left;">
 					<span style="line-height: 10vw;font-size: 0.25rem；letter-spacing: 0;">{{item.attributeName}}</span>
@@ -78,7 +78,7 @@
     </div>
 
     <!-- 溯源信息 -->
-    <div id="twoDivView" :class="[showTwo? 'two-div-block':'two-div-none']">
+    <div v-if="verifyResult" id="twoDivView" :class="[showTwo? 'two-div-block':'two-div-none']">
 			<table style="width: 100%;table-layout:fixed;color: #000" 
         <tr v-for="(item,index) in goods_circulate" :key="index">
           <td style="width: 30%;font-family: PingFangSC-Semibold;font-size: 2vw;color: #ffffff;letter-spacing: 0;" valign="top" align="center">
@@ -99,7 +99,7 @@
 
 
     <!-- 视频监控 -->
-    <div id="threeDivView" :class="[showThree? 'three-div-block':'three-div-none']">
+    <div v-if="verifyResult" id="threeDivView" :class="[showThree? 'three-div-block':'three-div-none']">
       <div v-for="(item,index) in goods_image2" :key="index">
         <div v-if="item.urlType == 3" style="width: 80vw;height: 40vw;background: #F8F9F8;margin: 5vw auto 0rem;background-size: 50% 50%;border-radius: 0.16rem 0.16rem 0 0;">
           <video id="myPlayer" poster="" controls playsInline webkit-playsinline style="width: 80vw;height: 40vw;" class="content2">
@@ -114,7 +114,7 @@
 		</div>
 
     <!-- 新品推荐 -->
-		<div id="fourDivView" :class="[showFour? 'four-div-block':'four-div-none']" >
+		<div v-if="verifyResult" id="fourDivView" :class="[showFour? 'four-div-block':'four-div-none']" >
       <div v-for="(item,index) in goods_image2" :key="index">
         <div v-if="item.urlType == 2" style="width: 80vw;height: 60vw;background: #F8F9F8 url() no-repeat 0rem 0rem;margin: 0.4667rem auto 0rem;background-size: 100% 100%;border-radius: 0.2rem 0.2rem 0 0;">
           <img style="height: 60vw; width: 80vw; margin: 0 auto;" :src="item.imgUrl"/>
@@ -126,7 +126,7 @@
 		</div>
 
     <!-- 公司资质 -->
-		<div id="fiveDivView" :class="[showFive? 'five-div-block':'five-div-none']" >
+		<div v-if="verifyResult" id="fiveDivView" :class="[showFive? 'five-div-block':'five-div-none']" >
       <div v-for="(item,index) in goods_image2" :key="index">
         <div v-if="item.urlType == 4" style="width: 80vw;height: 10vw;background: #FFFFFF;border-radius: 0 0 0vw 0vw;margin: 0 auto">
           <span style="font-family: PingFangSC-Semibold;font-size: 3vw;color: #252525;letter-spacing: 0;margin-left: 0.6rem;line-height: 10vw">{{item.imgDesc}}</span>
@@ -137,10 +137,16 @@
       </div>
 		</div>
 
-    <div style="width: 80vw;height: 15vw;background: #FFFFFF;box-shadow: 0 -0.053333rem 0.213333rem 0 rgba(222,223,223,0.50);margin: 2vw auto 5vw">
+    <div v-if="verifyResult" style="width: 80vw;height: 15vw;background: #FFFFFF;box-shadow: 0 -0.053333rem 0.213333rem 0 rgba(222,223,223,0.50);margin: 2vw auto 5vw">
         <div style="width: 30vw; height: 9vw;position: relative;background: #292929;box-shadow: 0 0.266667rem 0.533333rem 0 #CBCCCD;border-radius: 4vw;left: 25vw;top: 3vw;text-align: center">
             <a style="font-size:3vw;color: #FFFFFF;letter-spacing: 0;width: 100%;line-height: 9vw;" href="javascript:void(0)" @click="turnToReport">查看详情</a>
         </div>
+    </div>
+
+    <div v-if="!verifyResult" style="width: 80vw;height: 80vw;margin: 0 auto;background: #fff">
+      <div>
+        <img id="img1" src="@/assets/check-image/fail@3X.png" style="width: 80vw;height: 80vw;margin: 0 auto"/>
+      </div>
     </div>	
   </div>
 
@@ -191,7 +197,15 @@
         showTwo: false,
         showThree: false,
         showFour: false,
-        showFive: false
+        showFive: false,
+        b0: '',
+        checkCode: '',
+        companyFlag: 1,
+        monitorFlag: 1,
+        newRecFlag: 1,
+        rtpFlag: 1,
+        queryCount: 0,
+        verifyResult: true
       }
     },
     created: function() {
@@ -216,9 +230,12 @@
       getDate: function(){
         var app = this.$getApp(), wx = this.$wx;
         var that = this;
+        that.b0 = this.$route.query.b0;
+        that.checkCode = this.$route.query.chk;
+        that.code = that.checkCode.slice(14);
         wx.request({
           // 请求地址
-          url: 'http://123.206.27.155:8068/pmp/api/v2/nfc315/verify/1340497/8B409C99015C00224D08FCEA78829C3548/113.45.91.173',
+          url: 'http://123.206.27.155:8068/pmp/api/v2/nfc315/verify/'+that.b0+'/'+that.checkCode+'/113.45.91.173',
           // 请求方式
           method: "get",
           dataType: 'json',
@@ -230,6 +247,12 @@
             that.goods_image2 =data.data.body.product.productType.productTypeGalleryList;
             that.goods_attribute = that.goods.product.attributes;
             that.tabList = that.goods.product.tabs;
+            that.monitorFlag = data.data.body.product.productType.monitorFlag;
+            that.companyFlag = data.data.body.product.productType.companyFlag;
+            that.newRecFlag = data.data.body.product.productType.newRecFlag;
+            that.rtpFlag = data.data.body.product.productType.rtpFlag;
+            that.queryCount = data.data.body.queryCount;
+            that.verifyResult = data.data.body.verifyResult;
           }
         })
       },
@@ -347,7 +370,7 @@
     width: 80vw;
     margin: 0vw auto 2vw;
     background: #fff;
-    height: 42vw;
+    height: 38vw;
     text-align:center;
     border-radius: 0 0 3vw 3vw;
   }
@@ -357,7 +380,7 @@
     border-radius: 6px;
     border-radius: 6px;
     width: 80vw;
-    height: 25vw;
+    height: 20vw;
     float: left;
     margin: 5vw auto;
     display: block
