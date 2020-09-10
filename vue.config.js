@@ -39,7 +39,7 @@ module.exports = {
     },
     proxy: {
       '/api': {
-        target: 'http://hztest.xx315.net',
+        target: 'http://boruolai.xx315.net',
         changeOrigin: true,
         pathRewrite: {
           '^/api': ''
