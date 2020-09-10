@@ -2,14 +2,14 @@
 
   <div class="goods-wrapper">
     <div class="logo">
-        <img class="logo-img" src="@/assets/images/logo 1.png"/>
+        <img class="logo-img" :src="logo"/>
     </div>
     
-    <div class="wrapper" style="width: 80vw;height: 70vw;margin: 0 auto;">
+    <div class="wrapper" style="width: 88vw;height: 70vw;margin: 0 auto;">
       <swiper :options="swiperOption">
         <swiper-slide v-for="(item,index) in goods_image2" :key="index">
           <div v-if="item.urlType == 1">
-            <img style="height: 60vw; width: 80vw; margin: 0 auto;" :data-idx="index" lazyLoad="true" 
+            <img style="height: 60vw; width: 88vw; margin: 0 auto;" :data-idx="index" lazyLoad="true" 
                   :src="item.image" v-if="index!=0"/>
             <div class="video-wrap" v-else>
               <div v-if="fmShow">
@@ -17,7 +17,7 @@
                 <div @click="btnPlay" class="btn_div centerboth" v-else>
                   <img src="@/assets/images/play.png"/>
                 </div>
-                <img :data-idx="index" lazyLoad="true" style="height: 60vw; width: 80vw;margin: 0 auto;"
+                <img :data-idx="index" lazyLoad="true" style="height: 60vw; width: 88vw;margin: 0 auto;"
                       :src="item.image"/>
               </div>
               <video bindended="videEnd" class="swiper-video" v-show="fmShow" id="myVideo" objectFit="contain"
@@ -25,7 +25,7 @@
 
             </div>
           </div>
-          <img style="height: 70vw; width: 80vw; margin: 0 auto;"
+          <img style="height: 70vw; width: 88vw; margin: 0 auto;"
                 :src="item.imgUrl" v-else/>
         </swiper-slide>
         <div class="swiper-pagination"  slot="pagination" style="padding-bottom: 0vw;"></div>
@@ -35,7 +35,7 @@
     <div v-if="verifyResult" :class="[showWord ? 'check-word-block': 'check-word-none']" id="clickDiv1" @click="turnShow">
         <div style="width: 100%;height: 5vw;">
             <img src="@/assets/images/12template right@3X.png" style="vertical-align:middle;height: 3vw;position: relative;top: 0.4rem"/>&nbsp;
-            <lable style="font-size: 3.5vw; font-weight: 1000;vertical-align:middle;font-family: PingFangSC-Semibold;position: relative;top: 0.4rem">成功验证 3 次</lable>&nbsp;&nbsp;&nbsp;
+            <lable style="font-size: 3.5vw; font-weight: 1000;vertical-align:middle;font-family: PingFangSC-Semibold;position: relative;top: 0.4rem">成功验证 {{queryCount}} 次</lable>&nbsp;&nbsp;&nbsp;
             <img id="img1" src="@/assets/images/xiala.png" style="vertical-align:middle;height: 2vw;position: relative;top: 0.4rem"/>
         </div>
         <div style="height: 3vw;width: 100%;position: relative;top: 0.6rem">
@@ -53,8 +53,8 @@
         </div>
     </div>
 
-    <div v-if="verifyResult" style="margin: 0.64rem auto;height: 15vw;text-align: center;width: 80vw;background: #000000;" >
-			<table style="width: 80vw; height: 10vw; font-family: PingFangSC-Semibold;font-size: 3vw;color: #717379;letter-spacing: 0;line-height: 10vw;margin: 0 auto;">
+    <div v-if="verifyResult" style="margin: 0.64rem auto;height: 15vw;text-align: center;width: 88vw;background: #000000;" >
+			<table style="width: 88vw; height: 10vw; font-family: PingFangSC-Semibold;font-size: 3vw;color: #717379;letter-spacing: 0;line-height: 10vw;margin: 0 auto;">
 				<tr>
 					<td id="oneDiv1"><div id="oneDiv" :class="[showOne? 'tab-style-block':'tab-style-none']" @click="turnOne">{{tabList[0].name}}</div></td>
 					<td id="oneDiv2" v-if="rtpFlag == 0"><div id="twoDiv" :class="[showTwo? 'tab-style-block':'tab-style-none']" @click="turnTwo">{{tabList[1].name}}</div></td>
@@ -69,10 +69,10 @@
     <div v-if="verifyResult" id="oneDivView" :class="[showOne? 'one-div-block':'one-div-none']">
 			<div v-for="(item,index) in goods_attribute" :key="index" style="width: 100%;height: 10vw;margin-top: 10px;border-bottom: 1px solid white;">
 				<div style="height: 100%;width: 40%;float: left;color: #ffffff;font-weight: 600;text-align: left;">
-					<span style="line-height: 10vw;font-size: 0.25rem；letter-spacing: 0;">{{item.attributeName}}</span>
+					<span style="line-height: 10vw;font-size: 2vw；letter-spacing: 0;">{{item.attributeName}}</span>
 				</div>
 				<div style="height: 100%;width: 60%;float: right;color: #ffffff;font-weight: 600;text-align: right;">
-					<span style="line-height: 10vw;font-size: 0.25rem；letter-spacing: 0;">{{item.attributeValue1}}</span>
+					<span style="line-height: 8vw;font-size: 2vw；letter-spacing: 0;" v-html="item.attributeValue1"></span>
 				</div>
 			</div>
     </div>
@@ -101,13 +101,13 @@
     <!-- 视频监控 -->
     <div v-if="verifyResult" id="threeDivView" :class="[showThree? 'three-div-block':'three-div-none']">
       <div v-for="(item,index) in goods_image2" :key="index">
-        <div v-if="item.urlType == 3" style="width: 80vw;height: 40vw;background: #F8F9F8;margin: 5vw auto 0rem;background-size: 50% 50%;border-radius: 0.16rem 0.16rem 0 0;">
-          <video id="myPlayer" poster="" controls playsInline webkit-playsinline style="width: 80vw;height: 40vw;" class="content2">
+        <div v-if="item.urlType == 3" style="width: 88vw;height: 40vw;background: #F8F9F8;margin: 5vw auto 0rem;background-size: 50% 50%;border-radius: 0.16rem 0.16rem 0 0;">
+          <video id="myPlayer" poster="" controls playsInline webkit-playsinline style="width: 88vw;height: 40vw;" class="content2">
             <source :src="item.imgUrl" type="video/mp4">
             <source :src="item.imgUrl" type="application/x-mpegURL" />
           </video>
         </div>
-        <div v-if="item.urlType == 3" style="width:  80vw;height: 10vw;background: #FFFFFF;border-radius: 0 0 2vw 2vw;margin: 0 auto 1vw">
+        <div v-if="item.urlType == 3" style="width:  88vw;height: 10vw;background: #FFFFFF;border-radius: 0 0 2vw 2vw;margin: 0 auto 1vw">
           <span style="font-family: PingFangSC-Semibold;font-size: 3vw;color: #252525;letter-spacing: 0;margin-left: 0.6rem;line-height: 10vw">{{item.imgDesc}}</span>
         </div>
       </div>
@@ -116,10 +116,10 @@
     <!-- 新品推荐 -->
 		<div v-if="verifyResult" id="fourDivView" :class="[showFour? 'four-div-block':'four-div-none']" >
       <div v-for="(item,index) in goods_image2" :key="index">
-        <div v-if="item.urlType == 2" style="width: 80vw;height: 60vw;background: #F8F9F8 url() no-repeat 0rem 0rem;margin: 0.4667rem auto 0rem;background-size: 100% 100%;border-radius: 0.2rem 0.2rem 0 0;">
-          <img style="height: 60vw; width: 80vw; margin: 0 auto;" :src="item.imgUrl"/>
+        <div v-if="item.urlType == 2" style="width: 88vw;height: 60vw;background: #F8F9F8 url() no-repeat 0rem 0rem;margin: 0.4667rem auto 0rem;background-size: 100% 100%;border-radius: 0.2rem 0.2rem 0 0;">
+          <img style="height: 60vw; width: 88vw; margin: 0 auto;" :src="item.imgUrl"/>
         </div>
-        <div v-if="item.urlType == 2" style="width: 80vw;height: 10vw;background: #FFFFFF;border-radius: 0 0 2vw 2vw;margin: 0 auto 5vw">
+        <div v-if="item.urlType == 2" style="width: 88vw;height: 10vw;background: #FFFFFF;border-radius: 0 0 2vw 2vw;margin: 0 auto 5vw">
           <span style="font-family: PingFangSC-Semibold;font-size: 3vw;color: #252525;letter-spacing: 0;margin-left: 0.6rem;line-height: 10vw">{{item.imgDesc}}</span>
         </div>
       </div>
@@ -128,30 +128,29 @@
     <!-- 公司资质 -->
 		<div v-if="verifyResult" id="fiveDivView" :class="[showFive? 'five-div-block':'five-div-none']" >
       <div v-for="(item,index) in goods_image2" :key="index">
-        <div v-if="item.urlType == 4" style="width: 80vw;height: 10vw;background: #FFFFFF;border-radius: 0 0 0vw 0vw;margin: 0 auto">
+        <div v-if="item.urlType == 4" style="width: 88vw;height: 10vw;background: #FFFFFF;border-radius: 0 0 0vw 0vw;margin: 0 auto">
           <span style="font-family: PingFangSC-Semibold;font-size: 3vw;color: #252525;letter-spacing: 0;margin-left: 0.6rem;line-height: 10vw">{{item.imgDesc}}</span>
         </div>
-        <div v-if="item.urlType == 4" style="width: 80vw;height: 60vw;background: #F8F9F8 url() no-repeat 0rem 0rem;margin: 0 auto;background-size: 100% 100%;border-radius: 0.2rem 0.2rem 0 0;">
-          <img style="height: 60vw; width: 80vw; margin: 0 auto;" :src="item.imgUrl"/>
+        <div v-if="item.urlType == 4" style="width: 88vw;height: 60vw;background: #F8F9F8 url() no-repeat 0rem 0rem;margin: 0 auto;background-size: 100% 100%;border-radius: 0.2rem 0.2rem 0 0;">
+          <img style="height: 60vw; width: 88vw; margin: 0 auto;" :src="item.imgUrl"/>
         </div>
       </div>
 		</div>
 
-    <div v-if="verifyResult" style="width: 80vw;height: 15vw;background: #FFFFFF;box-shadow: 0 -0.053333rem 0.213333rem 0 rgba(222,223,223,0.50);margin: 2vw auto 5vw">
+    <div v-if="verifyResult" style="width: 88vw;height: 15vw;background: #FFFFFF;box-shadow: 0 -0.053333rem 0.213333rem 0 rgba(222,223,223,0.50);margin: 2vw auto 5vw">
         <div style="width: 30vw; height: 9vw;position: relative;background: #292929;box-shadow: 0 0.266667rem 0.533333rem 0 #CBCCCD;border-radius: 4vw;left: 25vw;top: 3vw;text-align: center">
             <a style="font-size:3vw;color: #FFFFFF;letter-spacing: 0;width: 100%;line-height: 9vw;" href="javascript:void(0)" @click="turnToReport">查看详情</a>
         </div>
     </div>
 
-    <div v-if="!verifyResult" style="width: 80vw;height: 80vw;margin: 0 auto;background: #fff">
+    <div v-if="!verifyResult" style="width: 88vw;height: 88vw;margin: 0 auto;background: #fff">
       <div>
-        <img id="img1" src="@/assets/check-image/fail@3X.png" style="width: 80vw;height: 80vw;margin: 0 auto"/>
+        <img id="img1" src="@/assets/check-image/fail@3X.png" style="width: 88vw;height: 88vw;margin: 0 auto"/>
       </div>
     </div>	
   </div>
 
 </template>
-
 <script>
 
   import { swiper, swiperSlide } from 'vue-awesome-swiper'
@@ -205,7 +204,10 @@
         newRecFlag: 1,
         rtpFlag: 1,
         queryCount: 0,
-        verifyResult: true
+        verifyResult: true,
+        logo: '',
+        uid: '',
+        nowIp: ''
       }
     },
     created: function() {
@@ -214,9 +216,10 @@
         showLogo: false,
         showMore: false,
         showBack: false
-      })
+      });
+      //this.getIp();
       this.getDate();
-      this.getCirculate();
+      // this.getCirculate();
     },
     methods: {
       turnShow: function(){
@@ -226,6 +229,22 @@
         }else{
           that.showWord = true;
         }
+      },
+      getIp: function(){
+        var that = this;
+        var app = this.$getApp(), wx = this.$wx;
+        wx.request({
+          // 请求地址
+          url: 'http://pv.sohu.com/cityjson?ie=utf-8',
+          // 请求方式
+          method: "get",
+          dataType: 'json',
+          responseType: 'text',
+          // 方法
+          success: function(data) {
+            console.log(data,"liuwantao");
+          }
+        })
       },
       getDate: function(){
         var app = this.$getApp(), wx = this.$wx;
@@ -242,7 +261,6 @@
           responseType: 'text',
           // 方法
           success: function(data) {
-            console.log(data.data.body,"liuwantao");
             that.goods = data.data.body;
             that.goods_image2 =data.data.body.product.productType.productTypeGalleryList;
             that.goods_attribute = that.goods.product.attributes;
@@ -253,26 +271,39 @@
             that.rtpFlag = data.data.body.product.productType.rtpFlag;
             that.queryCount = data.data.body.queryCount;
             that.verifyResult = data.data.body.verifyResult;
+            that.logo = data.data.body.product.antiwhiteLogo;
+            that.uid = data.data.body.product.uid;
+            wx.request({
+              // 请求地址
+              url: 'http://123.206.27.155:8068/pmp/api/v1/product/circulate/'+that.uid,
+              // 请求方式
+              method: "get",
+              dataType: 'json',
+              responseType: 'text',
+              // 方法
+              success: function(data) {
+                that.goods_circulate = data.data.body;
+              }
+            })
           }
         })
       },
-      getCirculate: function(){
-        var app = this.$getApp(), wx = this.$wx;
-        var that = this;
-        wx.request({
-          // 请求地址
-          url: 'http://123.206.27.155:8068/pmp/api/v1/product/circulate/8bd19997019200',
-          // 请求方式
-          method: "get",
-          dataType: 'json',
-          responseType: 'text',
-          // 方法
-          success: function(data) {
-            console.log(data.data.body,"liuwantao2");
-            that.goods_circulate = data.data.body;
-          }
-        })
-      },
+      // getCirculate: function(){
+      //   var app = this.$getApp(), wx = this.$wx;
+      //   var that = this;
+      //   wx.request({
+      //     // 请求地址
+      //     url: 'http://123.206.27.155:8068/pmp/api/v1/product/circulate/'+that.uid,
+      //     // 请求方式
+      //     method: "get",
+      //     dataType: 'json',
+      //     responseType: 'text',
+      //     // 方法
+      //     success: function(data) {
+      //       that.goods_circulate = data.data.body;
+      //     }
+      //   })
+      // },
       turnOne: function(){
         var that = this;
         that.showOne = true;
@@ -358,7 +389,7 @@
   }
 
   .check-word-none{
-    width: 80vw;
+    width: 88vw;
     margin: 0vw auto 2vw;
     background: #fff;
     height: 14vw;
@@ -367,7 +398,7 @@
   }
 
   .check-word-block{
-    width: 80vw;
+    width: 88vw;
     margin: 0vw auto 2vw;
     background: #fff;
     height: 38vw;
@@ -379,7 +410,7 @@
     background-color: #F8F8F9;
     border-radius: 6px;
     border-radius: 6px;
-    width: 80vw;
+    width: 88vw;
     height: 20vw;
     float: left;
     margin: 5vw auto;
@@ -390,7 +421,7 @@
     background-color: #F8F8F9;
     border-radius: 6px;
     border-radius: 6px;
-    width: 80vw;
+    width: 88vw;
     height: 25vw;
     float: left;
     margin: 5vw auto;
@@ -412,7 +443,7 @@
   }
 
   .one-div-block{
-    width: 80vw;
+    width: 88vw;
     height: auto;
     margin: 0vw auto;
     font-size: 0.25rem;
@@ -422,7 +453,7 @@
   }
 
   .one-div-none{
-    width: 80vw;
+    width: 88vw;
     height: auto;
     margin: 0vw auto;
     font-size: 0.25rem;
@@ -432,7 +463,7 @@
   }
 
   .two-div-block{
-    width:80vw;
+    width:88vw;
     height: auto; 
     margin: 0 auto;
     display: block;
@@ -441,7 +472,7 @@
   }
 
   .two-div-none{
-    width:80vw;
+    width:88vw;
     height: auto; 
     margin: 0 auto;
     display: none;
@@ -450,21 +481,21 @@
   }
 
   .three-div-block{
-    width:  80vw;height: auto;
+    width:  88vw;height: auto;
     display: block; 
     background: #000000; 
     margin: 0 auto;
   }
 
   .three-div-none{
-    width:  80vw;height: auto;
+    width:  88vw;height: auto;
     display: none; 
     background: #000000; 
     margin: 0 auto;
   }
 
   .four-div-block{
-    width:  80vw;
+    width:  88vw;
     height: auto;
     display: block;
     background: #000000;
@@ -472,7 +503,7 @@
   }
 
   .four-div-none{
-    width:  80vw;
+    width:  88vw;
     height: auto;
     display: none;
     background: #000000;
@@ -480,7 +511,7 @@
   }
 
   .five-div-block{
-    width:  80vw;
+    width:  88vw;
     height: auto;
     display: block;
     background: #000000;
@@ -488,7 +519,7 @@
   }
 
   .five-div-none{
-    width:  80vw;
+    width:  88vw;
     height: auto;
     display: none;
     background: #000000;
