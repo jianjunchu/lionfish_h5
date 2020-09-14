@@ -1,6 +1,6 @@
 module.exports = {
 
-  title: 'H&Z Mart',
+  title: '博若莱之星',
 
   /**
    * @type {boolean} true | false

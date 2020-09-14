@@ -12,6 +12,7 @@ const state = {
   showToolbarBack: true,
   showToolbarMore: true,
   showToolbarLogo: true,
+  showTitle: true,
   showTabbar: true,
   navBgColor: '#F75451',
   navFontColor: '#ffffff',
@@ -76,6 +77,9 @@ const mutations = {
   TOGGLE_TOOLBAR_LOGO: (state, show) => {
     state.showToolbarLogo = show
   },
+  TOGGLE_TITLE: (state, show) =>{
+    state.showTitle = show
+  },
   SET_APP_TITLE(state, title) {
     state.toolbarTitle = title
   },
@@ -123,6 +127,12 @@ const actions = {
   },
   showToolbarLogo({ commit }) {
     commit('TOGGLE_TOOLBAR_LOGO', true)
+  },
+  showTitle({ commit }) {
+    commit('TOGGLE_TITLE', true)
+  },
+  hideTitle({ commit }) {
+    commit('TOGGLE_TITLE', false)
   },
   hideToolbarLogo({ commit }) {
     commit('TOGGLE_TOOLBAR_LOGO', false)

@@ -9,24 +9,13 @@
       <swiper :options="swiperOption">
         <swiper-slide v-for="(item,index) in goods_image2" :key="index">
           <div v-if="item.urlType == 1">
-            <img style="height: 60vw; width: 88vw; margin: 0 auto;" :data-idx="index" lazyLoad="true"
-                  :src="item.image" v-if="index!=0"/>
-            <div class="video-wrap" v-else>
-              <div v-if="fmShow">
-                <div class="btn_div centerboth" v-if="item.video==''"></div>
-                <div @click="btnPlay" class="btn_div centerboth" v-else>
-                  <img src="@/assets/images/play.png"/>
-                </div>
-                <img :data-idx="index" lazyLoad="true" style="height: 60vw; width: 88vw;margin: 0 auto;"
-                      :src="item.image"/>
-              </div>
-              <video bindended="videEnd" class="swiper-video" v-show="fmShow" id="myVideo" objectFit="contain"
-                      :src="goods.video"></video>
-
-            </div>
+              <video id="myPlayer" poster="" controls playsInline webkit-playsinline style="width: 88vw;height: 70vw;" class="content2">
+                <source :src="item.imgUrl" type="video/mp4">
+                <source :src="item.imgUrl" type="application/x-mpegURL" />
+              </video>
           </div>
-          <img style="height: 70vw; width: 88vw; margin: 0 auto;"
-                :src="item.imgUrl" v-else/>
+          <img v-if="item.urlType == 0" style="height: 70vw; width: 88vw; margin: 0 auto;"
+                :src="item.imgUrl"/>
         </swiper-slide>
         <div class="swiper-pagination"  slot="pagination" style="padding-bottom: 0vw;"></div>
       </swiper>
@@ -54,7 +43,7 @@
     </div>
 
     <div v-if="verifyResult" style="margin: 0.64rem auto;height: 15vw;text-align: center;width: 88vw;background: #000000;" >
-			<table style="width: 88vw; height: 10vw; font-family: PingFangSC-Semibold;font-size: 3vw;color: #717379;letter-spacing: 0;line-height: 10vw;margin: 0 auto;">
+			<table style="width: 88vw; height: 10vw; font-family: PingFangSC-Semibold;font-size: 15px;color: #717379;letter-spacing: 0;line-height: 10vw;margin: 0 auto;">
 				<tr>
 					<td id="oneDiv1"><div id="oneDiv" :class="[showOne? 'tab-style-block':'tab-style-none']" @click="turnOne">{{tabList[0].name}}</div></td>
 					<td id="oneDiv2" v-if="rtpFlag == 0"><div id="twoDiv" :class="[showTwo? 'tab-style-block':'tab-style-none']" @click="turnTwo">{{tabList[1].name}}</div></td>
@@ -69,24 +58,24 @@
     <div v-if="verifyResult" id="oneDivView" :class="[showOne? 'one-div-block':'one-div-none']">
 			<div v-for="(item,index) in goods_attribute" :key="index" style="width: 100%;height: 10vw;margin-top: 10px;border-bottom: 1px solid white;">
 				<div style="height: 100%;width: 40%;float: left;color: #ffffff;font-weight: 600;text-align: left;">
-					<span style="line-height: 10vw;font-size: 2vw；letter-spacing: 0;">{{item.attributeName}}</span>
+					<span style="line-height: 10vw;font-size: 13px; letter-spacing: 0;">{{item.attributeName}}</span>
 				</div>
-				<div style="height: 100%;width: 60%;float: right;color: #ffffff;font-weight: 600;text-align: right;">
-					<span style="line-height: 8vw;font-size: 2vw；letter-spacing: 0;" v-html="item.attributeValue1"></span>
+				<div style="height: 4vw;width: 60%;float: right;color: #ffffff;font-weight: 600;text-align: right;display: table-cell;vertical-align:middle;margin-top: 1vw">
+					<span style="font-size: 13px;letter-spacing: 0;vertical-align:middle;" v-html="item.attributeValue1"></span>
 				</div>
 			</div>
     </div>
 
     <!-- 溯源信息 -->
     <div v-if="verifyResult" id="twoDivView" :class="[showTwo? 'two-div-block':'two-div-none']">
-			<table style="width: 100%;table-layout:fixed;color: #000"
+			<table style="width: 100%;table-layout:fixed;color: #000">
         <tr v-for="(item,index) in goods_circulate" :key="index">
-          <td style="width: 30%;font-family: PingFangSC-Semibold;font-size: 2vw;color: #ffffff;letter-spacing: 0;" valign="top" align="center">
+          <td style="width: 30%;font-family: PingFangSC-Semibold;font-size: 13px;color: #ffffff;letter-spacing: 0;" valign="top" align="center">
               <label style="word-wrap:break-word;">{{item.time}}</label>
           </td>
           <td style="width: 2.5%;font-family: PingFangSC-Semibold;font-size: 20px;color: #ffffff;letter-spacing: 0;border-left: 2px solid #fff;" valign="top">
           </td>
-          <td style="width: 60%;font-family: PingFangSC-Semibold;font-size: 2vw;color: #ffffff;letter-spacing: 0;word-wrap:break-word;" valign="top">
+          <td style="width: 60%;font-family: PingFangSC-Semibold;font-size: 13px;color: #ffffff;letter-spacing: 0;word-wrap:break-word;" valign="top">
                   {{item.location}}
               <span v-if="item.action == 0"> / 装箱, </span>
               <span v-if="item.action == 1"> / 出库 ,</span>
@@ -100,9 +89,9 @@
 
     <!-- 视频监控 -->
     <div v-if="verifyResult" id="threeDivView" :class="[showThree? 'three-div-block':'three-div-none']">
-      <div v-for="(item,index) in goods_image2" :key="index">
-        <div v-if="item.urlType == 3" style="width: 88vw;height: 40vw;background: #F8F9F8;margin: 5vw auto 0rem;background-size: 50% 50%;border-radius: 0.16rem 0.16rem 0 0;">
-          <video id="myPlayer" poster="" controls playsInline webkit-playsinline style="width: 88vw;height: 40vw;" class="content2">
+      <div v-for="(item,index) in goods_image" :key="index">
+        <div v-if="item.urlType == 3" style="width: 88vw;height: 50vw;background: #F8F9F8;margin: 5vw auto 0rem;background-size: 50% 50%;border-radius: 0.16rem 0.16rem 0 0;">
+          <video id="myPlayer" poster="" controls playsInline webkit-playsinline style="width: 88vw;height: 50vw;" class="content2">
             <source :src="item.imgUrl" type="video/mp4">
             <source :src="item.imgUrl" type="application/x-mpegURL" />
           </video>
@@ -115,7 +104,7 @@
 
     <!-- 新品推荐 -->
 		<div v-if="verifyResult" id="fourDivView" :class="[showFour? 'four-div-block':'four-div-none']" >
-      <div v-for="(item,index) in goods_image2" :key="index">
+      <div v-for="(item,index) in goods_image" :key="index">
         <div v-if="item.urlType == 2" style="width: 88vw;height: 60vw;background: #F8F9F8 url() no-repeat 0rem 0rem;margin: 0.4667rem auto 0rem;background-size: 100% 100%;border-radius: 0.2rem 0.2rem 0 0;">
           <img style="height: 60vw; width: 88vw; margin: 0 auto;" :src="item.imgUrl"/>
         </div>
@@ -127,18 +116,18 @@
 
     <!-- 公司资质 -->
 		<div v-if="verifyResult" id="fiveDivView" :class="[showFive? 'five-div-block':'five-div-none']" >
-      <div v-for="(item,index) in goods_image2" :key="index">
+      <div v-for="(item,index) in goods_image" :key="index">
         <div v-if="item.urlType == 4" style="width: 88vw;height: 10vw;background: #FFFFFF;border-radius: 0 0 0vw 0vw;margin: 0 auto">
           <span style="font-family: PingFangSC-Semibold;font-size: 3vw;color: #252525;letter-spacing: 0;margin-left: 0.6rem;line-height: 10vw">{{item.imgDesc}}</span>
         </div>
-        <div v-if="item.urlType == 4" style="width: 88vw;height: 60vw;background: #F8F9F8 url() no-repeat 0rem 0rem;margin: 0 auto;background-size: 100% 100%;border-radius: 0.2rem 0.2rem 0 0;">
-          <img style="height: 60vw; width: 88vw; margin: 0 auto;" :src="item.imgUrl"/>
+        <div v-if="item.urlType == 4" style="width: 88vw;height: auto;background: #F8F9F8 url() no-repeat 0rem 0rem;margin: 0 auto;background-size: 100% 100%;border-radius: 0.2rem 0.2rem 0 0;">
+          <img style="height: auto; width: 88vw; margin: 0 auto;" :src="item.imgUrl"/>
         </div>
       </div>
 		</div>
 
     <div v-if="verifyResult" style="width: 88vw;height: 15vw;background: #FFFFFF;box-shadow: 0 -0.053333rem 0.213333rem 0 rgba(222,223,223,0.50);margin: 2vw auto 5vw">
-        <div style="width: 30vw; height: 9vw;position: relative;background: #292929;box-shadow: 0 0.266667rem 0.533333rem 0 #CBCCCD;border-radius: 4vw;left: 25vw;top: 3vw;text-align: center">
+        <div style="width: 30vw; height: 9vw;position: relative;background: #292929;box-shadow: 0 0.266667rem 0.533333rem 0 #CBCCCD;border-radius: 4vw;left: 29vw;top: 3vw;text-align: center">
             <a style="font-size:3vw;color: #FFFFFF;letter-spacing: 0;width: 100%;line-height: 9vw;" href="javascript:void(0)" @click="turnToReport">查看详情</a>
         </div>
     </div>
@@ -186,8 +175,9 @@
             //   disableOnInteraction: false,
             // },
             //开启循环模式
-            // loop: true
+            loop: true
         },
+        goods_image: [],
         goods_image2: [],
         goods_attribute: [],
         goods_circulate: [],
@@ -213,12 +203,13 @@
     created: function() {
       this.$wx.setNavigationBarTitle({
         title: 'check',
+        showTitle: false,
         showLogo: false,
         showMore: false,
         showBack: false
       });
       this.getIp();
-//      this.getDate();
+      //this.getDate();
       // this.getCirculate();
     },
     methods: {
@@ -233,24 +224,31 @@
       getIp: function(){
         var that = this;
         var app = this.$getApp(), wx = this.$wx;
-        wx.request({
-          // 请求地址
-          url: 'ip',
-          // 请求方式
-          method: "get",
-          dataType: 'json',
-          responseType: 'text',
-          // 方法
-          success: function (data) {
-            console.log(data, "data")
-            var result = data.data;
-            var start = result.indexOf("{");
-            var end = result.indexOf("}") + 1;
-            var jsonStr = result.substring(start,end);
-            var jsonObj = JSON.parse(jsonStr);
-            that.nowIp = jsonObj.cip;
+        // wx.request({
+        //   // 请求地址
+        //   url: 'ip',
+        //   // 请求方式
+        //   method: "get",
+        //   dataType: 'json',
+        //   responseType: 'text',
+        //   // 方法
+        //   success: function (data) {
+        //     console.log(data, "data")
+        //     var result = data.data;
+        //     var start = result.indexOf("{");
+        //     var end = result.indexOf("}") + 1;
+        //     var jsonStr = result.substring(start,end);
+        //     var jsonObj = JSON.parse(jsonStr);
+        //     that.nowIp = jsonObj.cip;
+        //     that.getDate();
+        //   }
+        // });
+        this.$http({
+            controller: "index.get_client_ip"
+          }).then(e=> {
+            console.log(e,"liuwantao");
+            that.nowIp = e.data;
             that.getDate();
-          }
         });
       },
       getDate: function(){
@@ -259,8 +257,12 @@
         that.b0 = this.$route.query.b0;
         that.checkCode = this.$route.query.chk;
         that.code = that.checkCode.slice(14);
-//        var url = 'http://123.206.27.155:8068/pmp/api/v2/nfc315/verify/'+that.b0+'/'+that.checkCode+'/113.45.91.173';
-        var url = 'http://123.206.27.155:8068/pmp/api/v2/nfc315/verify/'+that.b0+'/'+that.checkCode+'/'+ that.nowIp;
+        var url = "";
+        if(that.nowIp == ""){
+          url = 'http://123.206.27.155:8068/pmp/api/v2/nfc315/verify/'+that.b0+'/'+that.checkCode+'/113.45.91.173';
+        }else{
+          url = 'http://123.206.27.155:8068/pmp/api/v2/nfc315/verify/'+that.b0+'/'+that.checkCode+'/'+ that.nowIp;
+        }
         debugger
         wx.request({
           // 请求地址
@@ -272,7 +274,12 @@
           // 方法
           success: function(data) {
             that.goods = data.data.body;
-            that.goods_image2 =data.data.body.product.productType.productTypeGalleryList;
+            that.goods_image =data.data.body.product.productType.productTypeGalleryList;
+            for(var i=0;i < that.goods_image.length; i ++){
+              if(that.goods_image[i].urlType == 0 || that.goods_image[i].urlType == 1){
+                that.goods_image2.push(that.goods_image[i]);
+              }
+            }
             that.goods_attribute = that.goods.product.attributes;
             that.tabList = that.goods.product.tabs;
             that.monitorFlag = data.data.body.product.productType.monitorFlag;
@@ -281,6 +288,7 @@
             that.rtpFlag = data.data.body.product.productType.rtpFlag;
             that.queryCount = data.data.body.queryCount;
             that.verifyResult = data.data.body.verifyResult;
+            //that.verifyResult = true;
             that.logo = data.data.body.product.antiwhiteLogo;
             that.uid = data.data.body.product.uid;
             wx.request({
