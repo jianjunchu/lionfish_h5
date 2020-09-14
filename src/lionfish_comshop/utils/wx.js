@@ -58,6 +58,12 @@ export default {
       } else {
         _this.$store.dispatch('app/hideToolbarBack')
       }
+
+      if (!option.showTitle) {
+        _this.$store.dispatch('app/hideTitle')
+      } else {
+        _this.$store.dispatch('app/showTitle') 
+      }
     }
     option.showMore ? _this.$store.dispatch('app/showToolbarMore') : _this.$store.dispatch('app/hideToolbarMore')
   },

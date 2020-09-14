@@ -1,5 +1,5 @@
 <template>
-  <div class="vux-header" :style="{background:navBgColor}">
+  <div class="vux-header" :style="{background:navBgColor}" v-if="getShowTitle">
     <div class="vux-header-left" v-if="getShowToolbarBack" @click.stop="back"><a class="vux-header-back"></a>
       <div class="left-arrow"></div>
     </div>
@@ -18,6 +18,9 @@
     computed: {
       getShowToolbarLogo(){
         return this.$store.getters.showToolbarLogo
+      },
+      getShowTitle(){
+        return this.$store.getters.showTitle
       },
       getShowToolbarBack(){
         return this.$store.getters.showToolbarBack

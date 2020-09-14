@@ -8,6 +8,7 @@ const getters = {
   showToolbarBack: state => state.app.showToolbarBack,
   showToolbarMore: state => state.app.showToolbarMore,
   showToolbarLogo: state => state.app.showToolbarLogo,
+  showTitle: state => state.app.showTitle,
   toolbarTitle: state => state.app.toolbarTitle,
   showTabbar: state => state.app.showTabbar,
   navBgColor: state => state.app.navBgColor,
