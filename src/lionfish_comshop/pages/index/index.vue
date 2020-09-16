@@ -2263,7 +2263,7 @@
         this.$router.push(item.link)
       },
       backTop: function() {
-        
+
       }
 
     }
@@ -2271,7 +2271,7 @@
 
 </script>
 
-<style src="@/lionfish_comshop/pages/index/index.css">
+<style src="@/lionfish_comshop/pages/index/index.css" >
 </style>
 <style src="@/lionfish_comshop/pages/index/cube.css">
 </style>
