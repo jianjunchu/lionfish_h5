@@ -714,10 +714,10 @@
 }
 
 .sticky-content-index .tab-nav-index {
-  /*height: 41px;*/
+  height: 9.4vw;
   display: flex;
-  margin: 0 10px;
-  border-bottom: 2px solid #fc4443;
+  margin: 0 3vw;
+  border-bottom: 0.4vw solid #fc4443;
   transition: all 0.3s linear;
 }
 
@@ -730,50 +730,47 @@
 }
 
 .sticky-content-index .tab-nav-index .count-down-content em {
-  font-size: 26px;
+  font-size: 2.6vw;
 }
 
 .sticky-content-index .tab-nav-index .count-down-content .count-down-left-text {
-  font-size: 26px;
+  font-size: 2.6vw;
 }
 
 .sticky-content-index .tab-nav-index .count-down-content .count-down {
-  height: 50px;
-  line-height: 50px;
+  height: 6.8vw;
+  line-height: 6.8vw;
   color: #444;
-  font-size: 26px;
+  font-size: 2.6vw;
   display: flex;
   align-items: center;
-  flex: 1;
 }
 
 .sticky-content-index .tab-nav-index .count-down-content .count-down .item-time {
-  width: 34px;
-  height: 40px;
-  line-height: 40px;
-  color: #fff;
-  text-align: center;
-  background: #444;
-  border-radius: 4px;
-  padding: 0 2px;
+  height: 6.8vw;
+  line-height: 6.8vw;
+  color: #444;
+  font-size: 2.6vw;
+  display: flex;
+  align-items: center;
 }
 
 .sticky-content-index .tab-nav-index .tab-nav-index-item {
   color: #6c6c6c;
-  font-size: 13px;
+  font-size: 2.6vw;
   font-weight: bold;
   position: relative;
   z-index: 1;
-  width: 100px;
-  height: 40px;
+  width: 19vw;
+  height: 9vw;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
 .sticky-content-index .tab-nav-index .tab-nav-index-item img {
-  width: 100px;
-  height: 40px;
+  width: 19vw;
+  height: 9vw;
   position: absolute;
   left: 0;
   top: 0;
@@ -946,29 +943,25 @@ button[plain] {
 
 .fixed-aside {
   position: fixed;
-  right: -20px;
-  top: 70%;
+  right: 3vw;
+  top: 65%;
   z-index: 100;
-  width: 80px;
+  width: 8vw;
 }
 
 .fixed-service {
   display: inline-block;
-  bottom: 22%;
-  right: 15px;
-  width: 40px;
-  height: 40px;
-  position: fixed;
+  width: 8vw;
+  height: 8vw;
   background: rgba(0,0,0,0.5);
   border-radius: 50%;
   text-align: center;
   color: #fff;
-  -webkit-box-sizing: border-box;
   box-sizing: border-box;
-  font-size: 10px;
-  padding: 5px;
+  font-size: 2vw;
+  padding: 1vw;
   line-height: 1.2;
-  z-index: 100;
+  margin-bottom: 1vw;
 }
 
 .fixed-service::after {
@@ -976,22 +969,20 @@ button[plain] {
 }
 
 .fixed-service .iconfont {
-  font-size: 15px;
+  font-size: 3vw;
 }
 
 .index-search-bar {
-  padding: 6px 10px;
+  padding: 1.2vw 2.5vw;
   background-color: #fff;
-  width: 100%;
-  overflow:scroll;
+  padding-bottom: 2vw;
 }
 
 .search-box {
   background-color: #f0f0f0;
   height: 9vw;
-  line-height: 18px;
-  border-radius: 20px;
-  width: 100%;
+  line-height: 9vw;
+  border-radius: 2.8vw;
   color: #acacac;
   display: flex;
   align-content: center;
@@ -999,34 +990,23 @@ button[plain] {
 
 .search-icon {
   position: absolute;
-  left: 20px;
-  margin-left: 10px;
-  margin-right: 10px;
-}
-
-.search-icon2 {
-  position: absolute;
-  right: 20px;
-  margin-left: 10px;
-  margin-right: 10px;
+  left: 2vw;
+  margin-left: 2.5vw;
+  margin-right: 1.2vw;
 }
 
 .search-icon .iconfont {
-  font-size: 5vw;
-  padding-top:2.6vw;
+  font-size: 4vw;
+  padding-top: 0.6vw;
 }
 
 .search-box .ipt {
-  margin-left: 10vw;
-  margin-right: 2vw;
-  padding: 0 6px 0 6px;
-  line-height: 8vw;
-  height: 9vw;
-  width: 90%;
-  font-size: 14px;
+  padding: 0 3vw 0 6vw;
+  line-height: 7vw;
+  width: 93%;
   box-sizing: border-box;
   background-color: transparent;
-  border: 0px;
+  border: 0;
 }
 
 .location-left {
@@ -1050,7 +1030,7 @@ button[plain] {
   position: absolute;
   left: 50%;
   top: 50%;
-  width: 86vw;
+  width: 60vw;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -1086,7 +1066,7 @@ button[plain] {
 }
 
 .new-coupou-body-foot {
-  height: 12vw;
+  height: 12.2vw;
 }
 
 .new-coupou-body-btn {
@@ -1122,14 +1102,14 @@ button[plain] {
 }
 
 .new-coupou-title {
-  font-size: 32px;
+  font-size: 3.2vw;
   color: #000;
 }
 
 .new-coupou-time {
-  font-size: 24px;
+  font-size: 2.4vw;
   color: #fe655c;
-  margin-top: 10px;
+  margin-top: 1vw;
 }
 
 .new-coupou-r {
@@ -1138,12 +1118,12 @@ button[plain] {
 
 .new-coupou-price {
   color: #fe655c;
-  font-size: 48px;
+  font-size: 4.8vw;
   font-weight: bold;
 }
 
 .new-coupou-price text {
-  font-size: 24px;
+  font-size: 2.4vw;
   font-weight: normal;
   display: inline-block;
   vertical-align: middle;
@@ -1159,7 +1139,7 @@ button[plain] {
 }
 
 .blank10 {
-  margin-bottom: 20px;
+  margin-bottom: 2vw;
 }
 
 .copytext {
@@ -1230,15 +1210,15 @@ button[plain] {
   position: fixed;
   right: 0;
   top: 58%;
-  font-size: 20px;
+  font-size: 2vw;
   color: #999;
   z-index: 100;
-  width: 80px;
+  width: 8vw;
   line-height: 1.2;
   border: 1px solid #999;
   border-right: 0;
-  padding: 5px 15px 5px 20px;
-  border-radius: 40px 0 0 40px;
+  padding: 0.5vw 1.5vw 0.5vw 2vw;
+  border-radius: 4vw 0 0 4vw;
 }
 
 .community-content-btn {
@@ -1409,7 +1389,8 @@ button[plain] {
 .theme3 {
   display: flex;
   flex-wrap: wrap;
-  border-radius: 10px;
+  margin: 2vw;
+  border-radius: 1vw;
   overflow: hidden;
   background-color: #fff;
 }
@@ -1420,20 +1401,20 @@ button[plain] {
 
 .theme3-more {
   text-align: center;
-  border-top: 0.1px solid #efefef;
-  padding: 20px 0;
+  border-top: 0.1vw solid #efefef;
+  padding: 2vw 0;
   width: 100%;
-  font-size: 24px;
-  margin: 20px 20px 0;
+  font-size: 2.4vw;
+  margin: 2vw 2vw 0;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
 .theme3-more .iconfont {
-  font-size: 20px;
+  font-size: 2vw;
   color: #999;
-  margin-top: 1px;
+  margin-top: 0.1vw;
 }
 
 .location-theme2 {
@@ -1441,37 +1422,37 @@ button[plain] {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 20px 20px 0;
+  padding: 2vw 2vw 0;
 }
 
 .location-theme2 .loc-m {
   flex: 1;
-  margin: 0 20px;
-  font-size: 30px;
+  margin: 0 2vw;
+  font-size: 3vw;
   font-weight: bold;
 }
 
 .location-theme2 .loc-m .iconfont {
-  font-size: 26px;
+  font-size: 2.6vw;
 }
 
 .location-theme2 .loc-l .img {
-  width: 60px;
-  height: 60px;
+  width: 6vw;
+  height: 6vw;
   border-radius: 50%;
   vertical-align: middle;
 }
 
 .location-theme2 .top-search {
   background-color: #ebebeb;
-  border-radius: 30px;
-  padding: 10px 40px;
+  border-radius: 3vw;
+  padding: 1vw 4vw;
   color: #666;
 }
 
 .location-theme2 .top-search .iconfont {
-  font-size: 28px;
-  margin-right: 20px;
+  font-size: 2.8vw;
+  margin-right: 2vw;
 }
 
 .forbid {
@@ -1483,27 +1464,27 @@ button[plain] {
 }
 
 .forbid .iconfont {
-  font-size: 200px;
+  font-size: 20vw;
 }
 
 .forbid .h1 {
-  font-size: 32px;
-  margin-top: 30px;
+  font-size: 3.2vw;
+  margin-top: 3vw;
   font-weight: bold;
 }
 
 .forbid .h2 {
-  font-size: 28px;
-  margin-top: 10px;
+  font-size: 2.8vw;
+  margin-top: 1vw;
 }
 
 .mp-account {
   position: fixed;
-  left: 20px;
-  right: 20px;
-  bottom: 97px;
+  left: 2vw;
+  right: 2vw;
+  bottom: 9.7vw;
   z-index: 100;
-  border: 1px solid #ccc;
-  border-radius: 8px;
+  border: 0.1vw solid #ccc;
+  border-radius: 0.8vw;
   overflow: hidden;
 }
