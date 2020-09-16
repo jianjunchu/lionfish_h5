@@ -88,7 +88,7 @@
               <div class="swiper-pagination" slot="pagination"></div>
             </swiper>
           </div>
-          <div class="nav-list" v-if="navigat.length>0">
+          <div class="nav-list" v-if="navigat && navigat.length>0">
             <div v-for="(item,idx) in navigat" style="width:20%;" class="block" :key="item.id">
               <div @click="goNavUrl" class="nav-list-item" :data-idx="idx" v-if="item.type!=5">
                 <img height="36" class="nav-list-img" :src="item.thumb" width="36"/>
@@ -100,7 +100,7 @@
                 <div class="nav-list-text">{{item.navname}}</div>
               </button>
             </div>
-            <div style="width:20%;" v-if="navigatEmpty.length" v-for="(item,id) in navigatEmpty"></div>
+            <div style="width:20%;" v-if="navigatEmpty &&navigatEmpty.length" v-for="(item,id) in navigatEmpty"></div>
           </div>
           <div class="promotion" v-if="hasCoupon">
             <div class="slider">
@@ -130,7 +130,7 @@
           </div>
 
 
-          <div style="padding-bottom:5px;margin-left: 16px;margin-right: 16px" v-if="notice_list.length>0">
+          <div style="padding-bottom:5px;margin-left: 16px;margin-right: 16px" v-if="notice_list && notice_list.length>0">
             <div class="top-msg" :style="{color:skin.color,background:skin.lighter}">
               <img :src="notice_setting.horn" v-if="notice_setting.horn"/>
               <span class="iconfont icon-laba" v-else></span>
@@ -151,7 +151,7 @@
 
           <template is="cube" :data="{data:cube}"></template>
 
-          <div class="cube" v-if="cube.length">
+          <div class="cube" v-if="cube && cube.length">
             <div v-for="(item,index) in cube" :key="item.id">
               <div class="cube-item" v-if="item.type==1">
                 <img @click.native="goCube" class="cube-one rounded" data-idx="0" :data-index="index" mode="widthFix"
@@ -244,7 +244,7 @@
                 更多 <span class="iconfont icon-gengduo"></span>
               </div>
             </div>
-            <div class="seckill-list" v-if="secRushList.length">
+            <div class="seckill-list" v-if="secRushList && secRushList.length">
 
               <swiper :options="sliderSwiperOption" class="sec-swiper-content">
                 <swiper-slide v-for="(item,index) in secRushList" :key="item.id">
@@ -261,21 +261,21 @@
               </van-swipe>
 
 
-              <span class="current" v-if="secRushList.length">{{secKillGoodsIndex}}/{{secRushList.length}}</span>
+              <span class="current" v-if="secRushList && secRushList.length">{{secKillGoodsIndex}}/{{secRushList.length}}</span>
             </div>
           </div>
           <!--整点秒杀结束-->
 
 
           <i-topic @openSku="openSku" :refresh="couponRefresh"></i-topic>
-          <div class="theme3 bg-f" v-if="typeTopicList.length&&(typeItem.banner||typeItem.list.length)"
+          <div class="theme3 bg-f" v-if="typeTopicList && typeTopicList.length&&(typeItem.banner||typeItem.list.length)"
                v-for="(typeItem,index) in typeTopicList" :key="typeItem.id">
             <img @click="goLink" class="topic-img" :data-link="'/lionfish_comshop/pages/type/details?id='+typeItem.id"
                  mode="widthFix" :src="typeItem.banner" v-if="typeItem.banner"/>
             <i-rush-spu @authModal="authModal" @changeCartNum="changeNotListCartNum" @openSku="openSku"
                         :canLevelBuy="{canLevelBuy}" class="item" :is_open_vipcard_buy="is_open_vipcard_buy"
                         :needAuth="needAuth" :notNum="true" :reduction="reduction" :spuItem="item"
-                        :stopClick="stopClick" v-if="typeItem.list.length"></i-rush-spu>
+                        :stopClick="stopClick" v-if="typeItem.list && typeItem.list.length"></i-rush-spu>
             <div @click="goLink" class="theme3-more"
                  :data-link="'/lionfish_comshop/pages/type/details?id='+typeItem.id" v-if="typeItem.list.length">
               All
@@ -382,7 +382,7 @@
 
             <van-list v-model="$data.$data.isLoadData" :finished="commigLoadMore" ref="pullRefresh" @load="load_goods_data" class="rush-list-box">
 
-              <div class="active-item" v-if="rushList.length>0&&theme==0" v-for="(item,index) in rushList"
+              <div class="active-item" v-if="rushList && rushList.length>0&&theme==0" v-for="(item,index) in rushList"
                    :key="item.id">
                 <div class="list-item-tag-content" v-if="isShowListTimer==1">
                   <div class="empty-1"></div>
@@ -406,7 +406,7 @@
                                 :skin="skin" :spuItem="item" :stopClick="stopClick"></i-new-rush-spu>
 
               </div>
-              <div class="active-item-two" v-if="rushList.length>0&&theme==1" v-for="(item,index) in rushList"
+              <div class="active-item-two" v-if="rushList && rushList.length>0&&theme==1" v-for="(item,index) in rushList"
                    :key="item.id">
                 <div class="list-item-tag-content" v-if="isShowListTimer==1">
                   <div class="list-item-count-down type-two" :style="{color:skin.color}"
@@ -458,13 +458,13 @@
             <van-list v-model="$data.$data.isLoadData" :finished="commigLoadMore" @load="getCommingList"
                       class="rush-list-box">
 
-            <div class="comming-list" v-if="commingList.length">
+            <div class="comming-list" v-if="commingList && commingList.length">
               <!--<i-comming-spu :category="commingClassification.tabs[commingClassification.activeIndex].name"
                              class="comming-spu-item" :spuItem="item" v-if="commingList.length"
                              v-for="(item,index) in commingList"></i-comming-spu>-->
 
 
-              <div class="active-item" v-if="rushList.length>0&&theme==0" v-for="(item,index) in commingList"
+              <div class="active-item" v-if="rushList && rushList.length>0&&theme==0" v-for="(item,index) in commingList"
                    :key="item.id">
 
                 <i-new-rush-spu :actEnd="actEndMap[item.end_time]" @authModal="authModal" @changeCartNum="changeCartNum"
@@ -503,7 +503,7 @@
             <span class="iconfont icon-kefu"></span>
             <div>Service</div>
           </button>
-          <button @click="backTop" class="fixed-service" v-show="(!isSticky)" v-if="ishow_index_gotop==1">
+          <button @click="backTop"class="fixed-service" v-show="(!isSticky)" v-if="ishow_index_gotop==1">
             <span class="iconfont icon-fanhuidingbu"></span>
             <div>Top</div>
           </button>
@@ -674,7 +674,7 @@
         <div class="copytext-p">自提点：{{community.address||community.communityAddress||community.fullAddress}}</div>
         <div class="copytext-h3">今日推荐</div>
         <div scrollY class="copytext-content">
-          <div class="copytext-item" v-if="copy_text_arr.length" v-for="(item,index) in copy_text_arr">
+          <div class="copytext-item" v-if="copy_text_arr && copy_text_arr.length" v-for="(item,index) in copy_text_arr">
             {{index+1}}. 【{{item.goods_name}}】
             <span>团购价{{item.price}}元</span>
           </div>
@@ -2261,6 +2261,9 @@
 
       swiperClick: function(item) {
         this.$router.push(item.link)
+      },
+      backTop: function() {
+        
       }
 
     }
