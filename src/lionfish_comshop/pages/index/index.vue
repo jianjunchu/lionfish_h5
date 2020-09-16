@@ -267,7 +267,7 @@
           <!--整点秒杀结束-->
 
 
-          <i-topic @openSku="openSku" :refresh="couponRefresh"></i-topic>
+          <!-- <i-topic @openSku="openSku" :refresh="couponRefresh"></i-topic>
           <div class="theme3 bg-f" v-if="typeTopicList && typeTopicList.length&&(typeItem.banner||typeItem.list.length)"
                v-for="(typeItem,index) in typeTopicList" :key="typeItem.id">
             <img @click="goLink" class="topic-img" :data-link="'/lionfish_comshop/pages/type/details?id='+typeItem.id"
@@ -281,7 +281,7 @@
               All
               <span class="iconfont icon-youjiantou"></span>
             </div>
-          </div>
+          </div> -->
           <template is="pinrow" :data="{pinList:pinList,skin:skin}"></template>
           <!--
                     <img class="rush-list-title" id="rush-title" :src="shop_info.index_list_top_image"
@@ -931,6 +931,7 @@
       wx.setNavigationBarTitle({
         title: this.shop_info.shoname,
         showLogo: true,
+        showTitle: false,
         showMore: false,
         showBack: false
       })
@@ -1156,6 +1157,7 @@
             wcache.put('shopname', a.shoname), wx.setNavigationBarTitle({
               title: a.shoname,
               showLogo: true,
+              showTitle: true,
               showMore: false,
               showBack: false
             })

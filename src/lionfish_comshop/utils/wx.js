@@ -48,6 +48,11 @@ export default {
   },
   setNavigationBarTitle: function(option) {
     _this.$store.dispatch('app/setToolbarTitle', option.title)
+    if (typeof option.showTitle === 'undefined' || option.showTitle) {
+      _this.$store.dispatch('app/showTitle') 
+    } else {
+      _this.$store.dispatch('app/hideTitle')
+    }
     if (option.showLogo) {
       _this.$store.dispatch('app/showToolbarLogo')
       _this.$store.dispatch('app/hideToolbarBack')
@@ -57,12 +62,6 @@ export default {
         _this.$store.dispatch('app/showToolbarBack')
       } else {
         _this.$store.dispatch('app/hideToolbarBack')
-      }
-
-      if (!option.showTitle) {
-        _this.$store.dispatch('app/hideTitle')
-      } else {
-        _this.$store.dispatch('app/showTitle') 
       }
     }
     option.showMore ? _this.$store.dispatch('app/showToolbarMore') : _this.$store.dispatch('app/hideToolbarMore')
