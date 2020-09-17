@@ -25,7 +25,7 @@
                              v-if="hide_community_change_btn==0&&open_danhead_model!=1">
                   <div class="community-title">
                                 <span>{{community.communityName}}
-                <span class="community-change" v-if="hide_community_change_word==0">{{$t('index.change')}}</span>
+                  <span class="community-change" v-if="hide_community_change_word==0">{{$t('index.change')}}</span>
                                     <span class="iconfont icon-youjiantou"></span>
                                 </span>
                   </div>
