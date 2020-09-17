@@ -5,7 +5,9 @@ import prizeBtn1 from "@/assets/images/01.png";
 import prizeBtn2 from "@/assets/images/02.png";
 import prizeBtn3 from "@/assets/images/03.png";
 import prizeBtn4 from "@/assets/images/04.png";
-
+import util from '../../utils'
+import auth from '../../utils/auth'
+var app,wx;
 export default {
   data() {
     return {
@@ -50,15 +52,19 @@ export default {
       point_word: "",
       shop_logo: "",
       toolbar: false,
+      needAuth: false,
 
     };
   },
   created() {
 
     // this.lotteryId = this.fun.getKey("lotteryId");
+    app = this.$getApp()
+    wx = this.$wx;
 
     var query = this.$route.query;
     this.lotteryId = query.lotteryId;
+    if (!this.authModal()) return
     this.initData();
     this.getData();
   },
@@ -2060,6 +2066,22 @@ export default {
           }
         });
       });
-    }
+    },
+    authModal: function() {
+
+      var i = this;
+
+      util.check_login_new().then(function(e) {
+        if(e){
+          i.needAuth = !1
+        }else{
+          wx.navigateTo({
+            url: "/login"
+          })
+        }
+      })
+
+      return !i.needAuth
+    },
   }
 };
