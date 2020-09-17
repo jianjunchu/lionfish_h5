@@ -2,7 +2,6 @@ import request from '@/lionfish_comshop/utils/request'
 
 export function http(params) {
   return request({
-    url: '/wxapp.php',
     changeOrigin: true,
     method: 'get',
     params
@@ -11,7 +10,6 @@ export function http(params) {
 }
 export function http_post(params) {
   return request({
-    url: '/wxapp.php',
     changeOrigin: true,
     method: 'post',
     params
@@ -25,7 +23,6 @@ export function index_info() {
   params.communityId = 4559
 
   return request({
-    url: '/wxapp.php',
     changeOrigin: true,
     method: 'get',
     params
@@ -41,7 +38,6 @@ export function get_navigat(gid, pageNum) {
   params.controller = 'index.get_navigat'
 
   return request({
-    url: '/wxapp.php',
     changeOrigin: true,
     method: 'get',
     params
@@ -58,7 +54,6 @@ export function load_gps_goodslist(gid, pageNum) {
   params.head_id = 4559
   params.per_page = 12
   return request({
-    url: '/wxapp.php',
     changeOrigin: true,
     method: 'get',
     params
@@ -69,7 +64,6 @@ export function get_tabbar() {
   const params = {}
   params.controller = 'index.get_tabbar'
   return request({
-    url: '/wxapp.php',
     changeOrigin: true,
     method: 'get',
     params
