@@ -197,7 +197,8 @@
         verifyResult: true,
         logo: '',
         uid: '',
-        nowIp: ''
+        nowIp: '',
+        needAuth: !1
       }
     },
     created: function() {
@@ -209,10 +210,32 @@
         showBack: false
       });
       this.getIp();
+      // var app = this.$getApp(), wx = this.$wx;
+      // var e = wx.getStorageSync("token");
+      // console.log(e,"token");
       //this.getDate();
       // this.getCirculate();
+      this.onShow();
     },
     methods: {
+       onShow: function() {
+
+        const wx = this.$wx, app = this.$getApp()
+        var s = this
+
+        util.check_login_new().then(function(t) {
+          console.log(t)
+          if (t) {//登录状态
+            console.log("11111");
+            
+          } else {//未登录
+            console.log("22222");
+            wx.navigateTo({
+              url: "/login"
+            })
+          }
+        })
+      },
       turnShow: function(){
         var that = this;
         if(that.showWord){
