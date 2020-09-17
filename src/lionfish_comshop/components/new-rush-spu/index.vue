@@ -41,8 +41,8 @@
 
             <div class="spu-count" v-if="isShowListCount==1">
               <div class="spu-count-border" :style="{'border-color':skin.color}">
-                <span class="txt" :style="{color:skin.color}">已售{{spuItem.soldNum}}件</span>
-                <span class="txt spu-count-num" :style="{'background-color':skin.color}">仅剩{{spuItem.spuCanBuyNum}}件</span>
+                <span class="txt" :style="{color:skin.color}">{{$t('detail.yishou')}}{{spuItem.soldNum}}{{$t('order.meidanxiangou3')}}</span>
+                <span class="txt spu-count-num" :style="{'background-color':skin.color}">仅剩{{spuItem.spuCanBuyNum}}{{$t('order.meidanxiangou2')}}</span>
               </div>
             </div>
             <i-vip-price :price="spuItem.card_price" v-if="is_open_vipcard_buy==1&&spuItem.is_take_vipcard==1"></i-vip-price>

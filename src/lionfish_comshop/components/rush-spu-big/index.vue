@@ -42,7 +42,7 @@
             </div>
             <div class="market-price" v-if="spuItem.show_productprice"> ${{spuItem.marketPrice[0]}}.{{spuItem.marketPrice[1]}}</div>
           </div>
-          <div class="spu-count" v-if="isShowListCount==1">已售{{spuItem.soldNum}}件 / 仅剩{{spuItem.spuCanBuyNum}}件</div>
+          <div class="spu-count" v-if="isShowListCount==1">{{$t('detail.yishou')}}{{spuItem.soldNum}}{{$t('order.meidanxiangou3')}} / 仅剩{{spuItem.spuCanBuyNum}}{{$t('order.meidanxiangou3')}}</div>
         </div>
         <div v-if="!isPast">
           <div v-if="number<=0">

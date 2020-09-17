@@ -1365,7 +1365,7 @@
         for (var d = '', r = 0; r < o.length; r++) r == o.length - 1 ? d += o[r].id : d = d + o[r].id + '_'
         var c = s.sku_mu_list[d], u = {};
         (i = i || 1) > c.canBuyNum && (u.sku_val = c.canBuyNum, this.$wx.showToast({
-          title: '最多只能购买' + c.canBuyNum + '件',
+          title: '最多只能购买' + c.canBuyNum + e.$t('order.meidanxiangou3'),
           icon: 'none'
         }))
         var ext = _extends({
@@ -1726,7 +1726,7 @@
         if (this.focusFlag = false, i) {
           var n = parseInt(i.value)
           s < (n = n < 1 ? 1 : n) ? (this.$wx.showToast({
-            title: '最多只能购买' + s + '件',
+            title: '最多只能购买' + s + a.$t('order.meidanxiangou3'),
             icon: 'none'
           }), o = s) : o = n
         }

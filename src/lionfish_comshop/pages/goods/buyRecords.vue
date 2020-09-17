@@ -11,7 +11,7 @@
               <span v-if="goods.total_limit_count>0">{{$t('order.meirenxiangou1')}}{{goods.total_limit_count}}{{$('order.meirenxiangou2')}}</span>
               <span v-if="goods.one_limit_count>0"> {{$t('order.meidanxiangou1')}}{{goods.one_limit_count}}{{$t('order.meidanxiangou2')}}</span>
             </div>
-            <div class="saleNum">已售{{goods.seller_count}}份，剩余{{goods.total}}份</div>
+            <div class="saleNum">{{$t('detail.yishou')}}{{goods.seller_count}}{{$t('order.meidanxiangou2')}}，{{$t('detail.shengyu')}}{{goods.total}}{{$t('order.meidanxiangou2')}}</div>
           </div>
           <!--<button class="shareBtn" hoverClass="none" openType="share">-->
             <!--<img class="shareImg" src="@/assets/images/shareImg.png"/>-->
@@ -21,9 +21,9 @@
           <div class="price">$
             <span class="salePrice">{{goods.price_front}}</span>.{{goods.price_after}}</div>
           <div class="time">
-            <span v-if="goods.over_type==1">距结束</span>
-            <span class="endAct" v-if="goods.over_type==0">距开始</span>
-            <span class="endAct" v-if="goods.over_type==2">结束时间</span>
+            <span v-if="goods.over_type==1">{{$t('common.jujieshu')}}</span>
+            <span class="endAct" v-if="goods.over_type==0">{{$t('common.jukaishi')}}</span>
+            <span class="endAct" v-if="goods.over_type==2">{{$t('common.jieshushijian')}}</span>
             <span class="endAct" v-if="goods.over_type==2">{{goods.end_date}}</span>
             <div class="countdown-class i-count-down">
               <em v-if="endtime.days>0">{{endtime.days}}天</em>
@@ -70,7 +70,7 @@
             <div class="bar-item back-to-index">
               <!--<img class="icon" :src="iconArr.home"></img>-->
               <img class="icon" src="@/assets/images/icon-tab-index.png"  height="27px" width="27px"/>
-              回首页
+              {{$t('detail.huishouye')}}
             </div>
           </a>
           <a hoverClass="none" openType="switchTab" href="#/lionfish_comshop/pages/order/shopCart">
@@ -80,25 +80,25 @@
                 <img src="@/assets/images/icon-tab-shop.png" height="27px" width="27px"/>
                 <div class="cart-num" v-if="cartNum">{{cartNum}}</div>
               </div>
-              购物车
+              {{$t('detail.gouwuche')}}
             </div>
           </a>
         </div>
-        <div class="goodsStatus" v-if="goods.total<=0">已抢光</div>
-        <div class="goodsStatus" v-else-if="goods.total>0&&goods.over_type==2">团购已结束</div>
-        <div class="goodsStatus" v-else-if="goods.grounding!=1">已下架</div>
-        <div class="goodsStatus" v-else-if="goods.over_type==0">即将开抢</div>
-        <div class="goodsStatus" v-else-if="is_comunity_rest==1">团长休息中</div>
+        <div class="goodsStatus" v-if="goods.total<=0">{{$t('detail.yiqiangguang')}}</div>
+        <div class="goodsStatus" v-else-if="goods.total>0&&goods.over_type==2">{{$t('detail.tuangouyijieshu')}}</div>
+        <div class="goodsStatus" v-else-if="goods.grounding!=1">{{$t('detail.yixiajia')}}</div>
+        <div class="goodsStatus" v-else-if="goods.over_type==0">{{$t('detail.jijiangkaiqiang')}}</div>
+        <div class="goodsStatus" v-else-if="is_comunity_rest==1">{{$t('detail.tuanzhangxiuxi')}}</div>
         <div class="gobuy" v-else>
           <form @click="addToCart" reportSubmit="true">
-            <div class="bar-item add-to-cart" :style="{background: goodsdetails_addcart_bg_color}">加入购物车</div>
+            <div class="bar-item add-to-cart" :style="{background: goodsdetails_addcart_bg_color}">{{$t('detail.jiarugouwuche')}}</div>
             <button class="btn" formType="submit"></button>
           </form>
           <form @click="submit" reportSubmit="true">
             <button hidden formType="submit" id="formId"></button>
           </form>
           <label class="balanceBtn" for="formId">
-            <div @click="balance" class="bar-item balance" :style="{background: goodsdetails_buy_bg_color}">立即购买</div>
+            <div @click="balance" class="bar-item balance" :style="{background: goodsdetails_buy_bg_color}">{{$t('detail.lijigoumai')}}</div>
           </label>
         </div>
       </div>

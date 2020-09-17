@@ -11,7 +11,7 @@
               <span v-if="goods.total_limit_count>0">每人限购{{goods.total_limit_count}}份</span>
               <span v-if="goods.one_limit_count>0"> 每单限购{{goods.one_limit_count}}份</span>
             </div>
-            <div class="saleNum">已售{{goods.seller_count}}份，剩余{{goods.total}}份</div>
+            <div class="saleNum">{{$t('detail.yishou')}}{{goods.seller_count}}份，{{$t('detail.shengyu')}}{{goods.total}}份</div>
           </div>
           <!--<button class="shareBtn" hoverClass="none" openType="share">-->
             <!--<img class="shareImg" src="@/assets/images/shareImg.png"/>-->
@@ -75,7 +75,7 @@
             <div class="bar-item back-to-index">
               <!--<img class="icon" :src="iconArr.home"></img>-->
               <img class="icon" src="@/assets/images/icon-tab-index.png"  height="27px" width="27px"/>
-              回首页
+              {{$t('detail.huishouye')}}
             </div>
           </a>
           <a hoverClass="none" openType="switchTab" href="#/lionfish_comshop/pages/order/shopCart">
@@ -85,7 +85,7 @@
                 <img src="@/assets/images/icon-tab-shop.png" height="27px" width="27px"/>
                 <div class="cart-num" v-if="cartNum">{{cartNum}}</div>
               </div>
-              购物车
+              {{$t('detail.gouwuche')}}
             </div>
           </a>
         </div>
@@ -96,14 +96,14 @@
         <div class="goodsStatus" v-else-if="is_comunity_rest==1">团长休息中</div>
         <div class="gobuy" v-else>
           <form @click="addToCart" reportSubmit="true">
-            <div class="bar-item add-to-cart" :style="{background: goodsdetails_addcart_bg_color}">加入购物车</div>
+            <div class="bar-item add-to-cart" :style="{background: goodsdetails_addcart_bg_color}">{{$t('detail.jiarugouwuche')}}</div>
             <button class="btn" formType="submit"></button>
           </form>
           <form @click="submit" reportSubmit="true">
             <button hidden formType="submit" id="formId"></button>
           </form>
           <label class="balanceBtn" for="formId">
-            <div @click="balance" class="bar-item balance" :style="{background: goodsdetails_buy_bg_color}">立即购买</div>
+            <div @click="balance" class="bar-item balance" :style="{background: goodsdetails_buy_bg_color}">{{$t('detail.lijigoumai')}}</div>
           </label>
         </div>
       </div>
