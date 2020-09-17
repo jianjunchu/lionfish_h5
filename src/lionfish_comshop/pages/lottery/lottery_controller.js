@@ -5,7 +5,9 @@ import prizeBtn1 from "@/assets/images/01.png";
 import prizeBtn2 from "@/assets/images/02.png";
 import prizeBtn3 from "@/assets/images/03.png";
 import prizeBtn4 from "@/assets/images/04.png";
-
+import util from '../../utils'
+import auth from '../../utils/auth'
+var app,wx;
 export default {
   data() {
     return {
@@ -50,15 +52,19 @@ export default {
       point_word: "",
       shop_logo: "",
       toolbar: false,
+      needAuth: false,
 
     };
   },
   created() {
 
     // this.lotteryId = this.fun.getKey("lotteryId");
+    app = this.$getApp()
+    wx = this.$wx;
 
     var query = this.$route.query;
     this.lotteryId = query.lotteryId;
+    if (!this.authModal()) return
     this.initData();
     this.getData();
   },
@@ -771,414 +777,419 @@ export default {
             "avatar_image": "",
             "username": null
           },
-          "list": [
-            {
-              "id": 16,
-              "uniacid": 2,
-              "member_id": 12,
-              "activity_id": 1,
-              "prize_id": "1",
-              "point": 0,
-              "love": 0,
-              "amount": 0,
-              "coupon_id": 1,
-              "created_at": "2020-09-10 12:57:43",
-              "updated_at": "2020-09-10 12:57:43",
-              "prize_name": "油卡50元优惠券",
-              "prize_thumb": "https://ulink.sg/static/upload/images/0/2020/09/2492932c85eeb9b577872a6eb96b6bdf.jpg",
-              "member": {
-                "uid": 12,
-                "mobile": "",
-                "nickname": "初建朋",
-                "avatar_image": "",
-                "username": "初建朋"
-              },
-              "has_one_coupon": {
-                "id": 1,
-                "name": "油卡50元优惠券"
-              }
+          "list": [{
+            "id": 17,
+            "uniacid": 2,
+            "member_id": 1,
+            "activity_id": 1,
+            "prize_id": "2",
+            "point": 0,
+            "love": 0,
+            "amount": 0,
+            "coupon_id": 2,
+            "created_at": "2020-09-15 12:05:12",
+            "updated_at": "2020-09-15 12:05:12",
+            "prize_name": "油卡100元",
+            "prize_thumb": "https://ulink.sg/static/upload/images/0/2020/09/e91e2ea87af9ca6541ac1646492807ca.png",
+            "member": {
+              "uid": 1,
+              "mobile": "18501178289",
+              "nickname": "18501178289",
+              "avatar_image": "",
+              "username": "18501178289"
             },
-            {
-              "id": 15,
-              "uniacid": 2,
-              "member_id": 12,
-              "activity_id": 1,
-              "prize_id": "2",
-              "point": 0,
-              "love": 0,
-              "amount": 0,
-              "coupon_id": 2,
-              "created_at": "2020-09-10 12:50:15",
-              "updated_at": "2020-09-10 12:50:15",
-              "prize_name": "油卡100元优惠券",
-              "prize_thumb": "https://ulink.sg/static/upload/images/0/2020/09/a1b2e19cf345eea06b0ca3d1c117db0e.jpg",
-              "member": {
-                "uid": 12,
-                "mobile": "",
-                "nickname": "初建朋",
-                "avatar_image": "",
-                "username": "初建朋"
-              },
-              "has_one_coupon": {
-                "id": 2,
-                "name": "油卡100元优惠券"
-              }
-            },
-            {
-              "id": 14,
-              "uniacid": 2,
-              "member_id": 1,
-              "activity_id": 1,
-              "prize_id": "2",
-              "point": 0,
-              "love": 0,
-              "amount": 0,
-              "coupon_id": 2,
-              "created_at": "2020-09-10 11:56:09",
-              "updated_at": "2020-09-10 11:56:09",
-              "prize_name": "油卡100元优惠券",
-              "prize_thumb": "https://ulink.sg/static/upload/images/0/2020/09/a1b2e19cf345eea06b0ca3d1c117db0e.jpg",
-              "member": {
-                "uid": 1,
-                "mobile": "18501178289",
-                "nickname": "18501178289",
-                "avatar_image": "",
-                "username": "18501178289"
-              },
-              "has_one_coupon": {
-                "id": 2,
-                "name": "油卡100元优惠券"
-              }
-            },
-            {
-              "id": 13,
-              "uniacid": 2,
-              "member_id": 11,
-              "activity_id": 1,
-              "prize_id": "2",
-              "point": 0,
-              "love": 0,
-              "amount": 0,
-              "coupon_id": 1,
-              "created_at": "2020-09-10 11:16:06",
-              "updated_at": "2020-09-10 11:16:06",
-              "prize_name": "优惠码",
-              "prize_thumb": "https://ulink.sg/static/upload/images/0/2020/09/2628da7554536efdec3b11cbead1ec5b.png",
-              "member": {
-                "uid": 11,
-                "mobile": "",
-                "nickname": "索梦阳վᴗ ի",
-                "avatar_image": "",
-                "username": "索梦阳վᴗ ի"
-              },
-              "has_one_coupon": {
-                "id": 1,
-                "name": "油卡50元优惠券"
-              }
-            },
-            {
-              "id": 12,
-              "uniacid": 2,
-              "member_id": 11,
-              "activity_id": 1,
-              "prize_id": "2",
-              "point": 0,
-              "love": 0,
-              "amount": 1,
-              "coupon_id": 0,
-              "created_at": "2020-09-10 09:51:12",
-              "updated_at": "2020-09-10 09:51:12",
-              "prize_name": "二等奖",
-              "prize_thumb": "https://ulink.sg/static/upload/images/0/2020/09/fa7255596e5a7fae85e9474db0eaebdb.png",
-              "member": {
-                "uid": 11,
-                "mobile": "",
-                "nickname": "索梦阳վᴗ ի",
-                "avatar_image": "",
-                "username": "索梦阳վᴗ ի"
-              },
-              "has_one_coupon": null
-            },
-            {
-              "id": 11,
-              "uniacid": 2,
-              "member_id": 11,
-              "activity_id": 1,
-              "prize_id": "2",
-              "point": 0,
-              "love": 0,
-              "amount": 1,
-              "coupon_id": 0,
-              "created_at": "2020-09-10 09:50:13",
-              "updated_at": "2020-09-10 09:50:13",
-              "prize_name": "二等奖",
-              "prize_thumb": "https://ulink.sg/static/upload/images/0/2020/09/fa7255596e5a7fae85e9474db0eaebdb.png",
-              "member": {
-                "uid": 11,
-                "mobile": "",
-                "nickname": "索梦阳վᴗ ի",
-                "avatar_image": "",
-                "username": "索梦阳վᴗ ի"
-              },
-              "has_one_coupon": null
-            },
-            {
-              "id": 10,
-              "uniacid": 2,
-              "member_id": 12,
-              "activity_id": 1,
-              "prize_id": "1",
-              "point": 1,
-              "love": 0,
-              "amount": 0,
-              "coupon_id": 0,
-              "created_at": "2020-09-10 09:42:13",
-              "updated_at": "2020-09-10 09:42:13",
-              "prize_name": "一等奖",
-              "prize_thumb": "https://ulink.sg/static/upload/images/0/2020/09/b5c5a9dcd62dc85c501a8c4810ecf62d.png",
-              "member": {
-                "uid": 12,
-                "mobile": "",
-                "nickname": "初建朋",
-                "avatar_image": "",
-                "username": "初建朋"
-              },
-              "has_one_coupon": null
-            },
-            {
-              "id": 9,
-              "uniacid": 2,
-              "member_id": 12,
-              "activity_id": 1,
-              "prize_id": "3",
-              "point": 0,
-              "love": 0,
-              "amount": 0,
-              "coupon_id": 1,
-              "created_at": "2020-09-10 09:41:39",
-              "updated_at": "2020-09-10 09:41:39",
-              "prize_name": "三等奖",
-              "prize_thumb": "https://ulink.sg/static/upload/images/0/2020/09/0fb22ad3332a0f4b6955df3b6270bfd8.png",
-              "member": {
-                "uid": 12,
-                "mobile": "",
-                "nickname": "初建朋",
-                "avatar_image": "",
-                "username": "初建朋"
-              },
-              "has_one_coupon": {
-                "id": 1,
-                "name": "油卡50元优惠券"
-              }
-            },
-            {
-              "id": 8,
-              "uniacid": 2,
-              "member_id": 1,
-              "activity_id": 1,
-              "prize_id": "3",
-              "point": 0,
-              "love": 0,
-              "amount": 0,
-              "coupon_id": 1,
-              "created_at": "2020-09-09 20:56:55",
-              "updated_at": "2020-09-09 20:56:55",
-              "prize_name": "三等奖",
-              "prize_thumb": "https://ulink.sg/static/upload/images/0/2020/09/0fb22ad3332a0f4b6955df3b6270bfd8.png",
-              "member": {
-                "uid": 1,
-                "mobile": "18501178289",
-                "nickname": "18501178289",
-                "avatar_image": "",
-                "username": "18501178289"
-              },
-              "has_one_coupon": {
-                "id": 1,
-                "name": "油卡50元优惠券"
-              }
-            },
-            {
-              "id": 7,
-              "uniacid": 2,
-              "member_id": 1,
-              "activity_id": 1,
-              "prize_id": "3",
-              "point": 0,
-              "love": 0,
-              "amount": 0,
-              "coupon_id": 1,
-              "created_at": "2020-09-09 18:33:33",
-              "updated_at": "2020-09-09 18:33:33",
-              "prize_name": "三等奖",
-              "prize_thumb": "https://ulink.sg/static/upload/images/0/2020/09/0fb22ad3332a0f4b6955df3b6270bfd8.png",
-              "member": {
-                "uid": 1,
-                "mobile": "18501178289",
-                "nickname": "18501178289",
-                "avatar_image": "",
-                "username": "18501178289"
-              },
-              "has_one_coupon": {
-                "id": 1,
-                "name": "油卡50元优惠券"
-              }
-            },
-            {
-              "id": 6,
-              "uniacid": 2,
-              "member_id": 10,
-              "activity_id": 1,
-              "prize_id": "1",
-              "point": 1,
-              "love": 0,
-              "amount": 0,
-              "coupon_id": 0,
-              "created_at": "2020-09-09 10:29:10",
-              "updated_at": "2020-09-09 10:29:10",
-              "prize_name": "一等奖",
-              "prize_thumb": "https://ulink.sg/static/upload/images/0/2020/09/b5c5a9dcd62dc85c501a8c4810ecf62d.png",
-              "member": {
-                "uid": 10,
-                "mobile": "",
-                "nickname": "初建军",
-                "avatar_image": "",
-                "username": "初建军"
-              },
-              "has_one_coupon": null
-            },
-            {
-              "id": 5,
-              "uniacid": 2,
-              "member_id": 10,
-              "activity_id": 1,
-              "prize_id": "2",
-              "point": 0,
-              "love": 0,
-              "amount": 1,
-              "coupon_id": 0,
-              "created_at": "2020-09-09 10:28:56",
-              "updated_at": "2020-09-09 10:28:56",
-              "prize_name": "二等奖",
-              "prize_thumb": "https://ulink.sg/static/upload/images/0/2020/09/fa7255596e5a7fae85e9474db0eaebdb.png",
-              "member": {
-                "uid": 10,
-                "mobile": "",
-                "nickname": "初建军",
-                "avatar_image": "",
-                "username": "初建军"
-              },
-              "has_one_coupon": null
-            },
-            {
-              "id": 4,
-              "uniacid": 2,
-              "member_id": 10,
-              "activity_id": 1,
-              "prize_id": "3",
-              "point": 0,
-              "love": 0,
-              "amount": 0,
-              "coupon_id": 1,
-              "created_at": "2020-09-09 10:28:25",
-              "updated_at": "2020-09-09 10:28:25",
-              "prize_name": "三等奖",
-              "prize_thumb": "https://ulink.sg/static/upload/images/0/2020/09/0fb22ad3332a0f4b6955df3b6270bfd8.png",
-              "member": {
-                "uid": 10,
-                "mobile": "",
-                "nickname": "初建军",
-                "avatar_image": "",
-                "username": "初建军"
-              },
-              "has_one_coupon": {
-                "id": 1,
-                "name": "油卡50元优惠券"
-              }
-            },
-            {
-              "id": 3,
-              "uniacid": 2,
-              "member_id": 13,
-              "activity_id": 1,
-              "prize_id": "2",
-              "point": 0,
-              "love": 0,
-              "amount": 1,
-              "coupon_id": 0,
-              "created_at": "2020-09-09 10:16:06",
-              "updated_at": "2020-09-09 10:16:06",
-              "prize_name": "二等奖",
-              "prize_thumb": "https://ulink.sg/static/upload/images/0/2020/09/fa7255596e5a7fae85e9474db0eaebdb.png",
-              "member": {
-                "uid": 13,
-                "mobile": "",
-                "nickname": "李龙云",
-                "avatar_image": "",
-                "username": "李龙云"
-              },
-              "has_one_coupon": null
-            },
-            {
+            "has_one_coupon": {
               "id": 2,
-              "uniacid": 2,
-              "member_id": 13,
-              "activity_id": 1,
-              "prize_id": "3",
-              "point": 0,
-              "love": 0,
-              "amount": 0,
-              "coupon_id": 1,
-              "created_at": "2020-09-09 10:15:52",
-              "updated_at": "2020-09-09 10:15:52",
-              "prize_name": "三等奖",
-              "prize_thumb": "https://ulink.sg/static/upload/images/0/2020/09/0fb22ad3332a0f4b6955df3b6270bfd8.png",
-              "member": {
-                "uid": 13,
-                "mobile": "",
-                "nickname": "李龙云",
-                "avatar_image": "",
-                "username": "李龙云"
-              },
-              "has_one_coupon": {
-                "id": 1,
-                "name": "油卡50元优惠券"
-              }
-            },
-            {
-              "id": 1,
-              "uniacid": 2,
-              "member_id": 12,
-              "activity_id": 1,
-              "prize_id": "3",
-              "point": 0,
-              "love": 0,
-              "amount": 0,
-              "coupon_id": 1,
-              "created_at": "2020-09-09 10:05:22",
-              "updated_at": "2020-09-09 10:05:22",
-              "prize_name": "三等奖",
-              "prize_thumb": "https://ulink.sg/static/upload/images/0/2020/09/0fb22ad3332a0f4b6955df3b6270bfd8.png",
-              "member": {
-                "uid": 12,
-                "mobile": "",
-                "nickname": "初建朋",
-                "avatar_image": "",
-                "username": "初建朋"
-              },
-              "has_one_coupon": {
-                "id": 1,
-                "name": "油卡50元优惠券"
-              }
+              "name": "油卡100元优惠券"
             }
-          ],
+          }, {
+            "id": 16,
+            "uniacid": 2,
+            "member_id": 12,
+            "activity_id": 1,
+            "prize_id": "1",
+            "point": 0,
+            "love": 0,
+            "amount": 0,
+            "coupon_id": 1,
+            "created_at": "2020-09-10 12:57:43",
+            "updated_at": "2020-09-10 12:57:43",
+            "prize_name": "油卡50元优惠券",
+            "prize_thumb": "https://ulink.sg/static/upload/images/0/2020/09/2492932c85eeb9b577872a6eb96b6bdf.jpg",
+            "member": {
+              "uid": 12,
+              "mobile": "",
+              "nickname": "初建朋",
+              "avatar_image": "",
+              "username": "初建朋"
+            },
+            "has_one_coupon": {
+              "id": 1,
+              "name": "油卡50元优惠券"
+            }
+          }, {
+            "id": 15,
+            "uniacid": 2,
+            "member_id": 12,
+            "activity_id": 1,
+            "prize_id": "2",
+            "point": 0,
+            "love": 0,
+            "amount": 0,
+            "coupon_id": 2,
+            "created_at": "2020-09-10 12:50:15",
+            "updated_at": "2020-09-10 12:50:15",
+            "prize_name": "油卡100元优惠券",
+            "prize_thumb": "https://ulink.sg/static/upload/images/0/2020/09/a1b2e19cf345eea06b0ca3d1c117db0e.jpg",
+            "member": {
+              "uid": 12,
+              "mobile": "",
+              "nickname": "初建朋",
+              "avatar_image": "",
+              "username": "初建朋"
+            },
+            "has_one_coupon": {
+              "id": 2,
+              "name": "油卡100元优惠券"
+            }
+          }, {
+            "id": 14,
+            "uniacid": 2,
+            "member_id": 1,
+            "activity_id": 1,
+            "prize_id": "2",
+            "point": 0,
+            "love": 0,
+            "amount": 0,
+            "coupon_id": 2,
+            "created_at": "2020-09-10 11:56:09",
+            "updated_at": "2020-09-10 11:56:09",
+            "prize_name": "油卡100元优惠券",
+            "prize_thumb": "https://ulink.sg/static/upload/images/0/2020/09/a1b2e19cf345eea06b0ca3d1c117db0e.jpg",
+            "member": {
+              "uid": 1,
+              "mobile": "18501178289",
+              "nickname": "18501178289",
+              "avatar_image": "",
+              "username": "18501178289"
+            },
+            "has_one_coupon": {
+              "id": 2,
+              "name": "油卡100元优惠券"
+            }
+          }, {
+            "id": 13,
+            "uniacid": 2,
+            "member_id": 11,
+            "activity_id": 1,
+            "prize_id": "2",
+            "point": 0,
+            "love": 0,
+            "amount": 0,
+            "coupon_id": 1,
+            "created_at": "2020-09-10 11:16:06",
+            "updated_at": "2020-09-10 11:16:06",
+            "prize_name": "优惠码",
+            "prize_thumb": "https://ulink.sg/static/upload/images/0/2020/09/2628da7554536efdec3b11cbead1ec5b.png",
+            "member": {
+              "uid": 11,
+              "mobile": "",
+              "nickname": "索梦阳վᴗ ի",
+              "avatar_image": "",
+              "username": "索梦阳վᴗ ի"
+            },
+            "has_one_coupon": {
+              "id": 1,
+              "name": "油卡50元优惠券"
+            }
+          }, {
+            "id": 12,
+            "uniacid": 2,
+            "member_id": 11,
+            "activity_id": 1,
+            "prize_id": "2",
+            "point": 0,
+            "love": 0,
+            "amount": 1,
+            "coupon_id": 0,
+            "created_at": "2020-09-10 09:51:12",
+            "updated_at": "2020-09-10 09:51:12",
+            "prize_name": "二等奖",
+            "prize_thumb": "https://ulink.sg/static/upload/images/0/2020/09/fa7255596e5a7fae85e9474db0eaebdb.png",
+            "member": {
+              "uid": 11,
+              "mobile": "",
+              "nickname": "索梦阳վᴗ ի",
+              "avatar_image": "",
+              "username": "索梦阳վᴗ ի"
+            },
+            "has_one_coupon": null
+          }, {
+            "id": 11,
+            "uniacid": 2,
+            "member_id": 11,
+            "activity_id": 1,
+            "prize_id": "2",
+            "point": 0,
+            "love": 0,
+            "amount": 1,
+            "coupon_id": 0,
+            "created_at": "2020-09-10 09:50:13",
+            "updated_at": "2020-09-10 09:50:13",
+            "prize_name": "二等奖",
+            "prize_thumb": "https://ulink.sg/static/upload/images/0/2020/09/fa7255596e5a7fae85e9474db0eaebdb.png",
+            "member": {
+              "uid": 11,
+              "mobile": "",
+              "nickname": "索梦阳վᴗ ի",
+              "avatar_image": "",
+              "username": "索梦阳վᴗ ի"
+            },
+            "has_one_coupon": null
+          }, {
+            "id": 10,
+            "uniacid": 2,
+            "member_id": 12,
+            "activity_id": 1,
+            "prize_id": "1",
+            "point": 1,
+            "love": 0,
+            "amount": 0,
+            "coupon_id": 0,
+            "created_at": "2020-09-10 09:42:13",
+            "updated_at": "2020-09-10 09:42:13",
+            "prize_name": "一等奖",
+            "prize_thumb": "https://ulink.sg/static/upload/images/0/2020/09/b5c5a9dcd62dc85c501a8c4810ecf62d.png",
+            "member": {
+              "uid": 12,
+              "mobile": "",
+              "nickname": "初建朋",
+              "avatar_image": "",
+              "username": "初建朋"
+            },
+            "has_one_coupon": null
+          }, {
+            "id": 9,
+            "uniacid": 2,
+            "member_id": 12,
+            "activity_id": 1,
+            "prize_id": "3",
+            "point": 0,
+            "love": 0,
+            "amount": 0,
+            "coupon_id": 1,
+            "created_at": "2020-09-10 09:41:39",
+            "updated_at": "2020-09-10 09:41:39",
+            "prize_name": "三等奖",
+            "prize_thumb": "https://ulink.sg/static/upload/images/0/2020/09/0fb22ad3332a0f4b6955df3b6270bfd8.png",
+            "member": {
+              "uid": 12,
+              "mobile": "",
+              "nickname": "初建朋",
+              "avatar_image": "",
+              "username": "初建朋"
+            },
+            "has_one_coupon": {
+              "id": 1,
+              "name": "油卡50元优惠券"
+            }
+          }, {
+            "id": 8,
+            "uniacid": 2,
+            "member_id": 1,
+            "activity_id": 1,
+            "prize_id": "3",
+            "point": 0,
+            "love": 0,
+            "amount": 0,
+            "coupon_id": 1,
+            "created_at": "2020-09-09 20:56:55",
+            "updated_at": "2020-09-09 20:56:55",
+            "prize_name": "三等奖",
+            "prize_thumb": "https://ulink.sg/static/upload/images/0/2020/09/0fb22ad3332a0f4b6955df3b6270bfd8.png",
+            "member": {
+              "uid": 1,
+              "mobile": "18501178289",
+              "nickname": "18501178289",
+              "avatar_image": "",
+              "username": "18501178289"
+            },
+            "has_one_coupon": {
+              "id": 1,
+              "name": "油卡50元优惠券"
+            }
+          }, {
+            "id": 7,
+            "uniacid": 2,
+            "member_id": 1,
+            "activity_id": 1,
+            "prize_id": "3",
+            "point": 0,
+            "love": 0,
+            "amount": 0,
+            "coupon_id": 1,
+            "created_at": "2020-09-09 18:33:33",
+            "updated_at": "2020-09-09 18:33:33",
+            "prize_name": "三等奖",
+            "prize_thumb": "https://ulink.sg/static/upload/images/0/2020/09/0fb22ad3332a0f4b6955df3b6270bfd8.png",
+            "member": {
+              "uid": 1,
+              "mobile": "18501178289",
+              "nickname": "18501178289",
+              "avatar_image": "",
+              "username": "18501178289"
+            },
+            "has_one_coupon": {
+              "id": 1,
+              "name": "油卡50元优惠券"
+            }
+          }, {
+            "id": 6,
+            "uniacid": 2,
+            "member_id": 10,
+            "activity_id": 1,
+            "prize_id": "1",
+            "point": 1,
+            "love": 0,
+            "amount": 0,
+            "coupon_id": 0,
+            "created_at": "2020-09-09 10:29:10",
+            "updated_at": "2020-09-09 10:29:10",
+            "prize_name": "一等奖",
+            "prize_thumb": "https://ulink.sg/static/upload/images/0/2020/09/b5c5a9dcd62dc85c501a8c4810ecf62d.png",
+            "member": {
+              "uid": 10,
+              "mobile": "",
+              "nickname": "初建军",
+              "avatar_image": "",
+              "username": "初建军"
+            },
+            "has_one_coupon": null
+          }, {
+            "id": 5,
+            "uniacid": 2,
+            "member_id": 10,
+            "activity_id": 1,
+            "prize_id": "2",
+            "point": 0,
+            "love": 0,
+            "amount": 1,
+            "coupon_id": 0,
+            "created_at": "2020-09-09 10:28:56",
+            "updated_at": "2020-09-09 10:28:56",
+            "prize_name": "二等奖",
+            "prize_thumb": "https://ulink.sg/static/upload/images/0/2020/09/fa7255596e5a7fae85e9474db0eaebdb.png",
+            "member": {
+              "uid": 10,
+              "mobile": "",
+              "nickname": "初建军",
+              "avatar_image": "",
+              "username": "初建军"
+            },
+            "has_one_coupon": null
+          }, {
+            "id": 4,
+            "uniacid": 2,
+            "member_id": 10,
+            "activity_id": 1,
+            "prize_id": "3",
+            "point": 0,
+            "love": 0,
+            "amount": 0,
+            "coupon_id": 1,
+            "created_at": "2020-09-09 10:28:25",
+            "updated_at": "2020-09-09 10:28:25",
+            "prize_name": "三等奖",
+            "prize_thumb": "https://ulink.sg/static/upload/images/0/2020/09/0fb22ad3332a0f4b6955df3b6270bfd8.png",
+            "member": {
+              "uid": 10,
+              "mobile": "",
+              "nickname": "初建军",
+              "avatar_image": "",
+              "username": "初建军"
+            },
+            "has_one_coupon": {
+              "id": 1,
+              "name": "油卡50元优惠券"
+            }
+          }, {
+            "id": 3,
+            "uniacid": 2,
+            "member_id": 13,
+            "activity_id": 1,
+            "prize_id": "2",
+            "point": 0,
+            "love": 0,
+            "amount": 1,
+            "coupon_id": 0,
+            "created_at": "2020-09-09 10:16:06",
+            "updated_at": "2020-09-09 10:16:06",
+            "prize_name": "二等奖",
+            "prize_thumb": "https://ulink.sg/static/upload/images/0/2020/09/fa7255596e5a7fae85e9474db0eaebdb.png",
+            "member": {
+              "uid": 13,
+              "mobile": "",
+              "nickname": "李龙云",
+              "avatar_image": "",
+              "username": "李龙云"
+            },
+            "has_one_coupon": null
+          }, {
+            "id": 2,
+            "uniacid": 2,
+            "member_id": 13,
+            "activity_id": 1,
+            "prize_id": "3",
+            "point": 0,
+            "love": 0,
+            "amount": 0,
+            "coupon_id": 1,
+            "created_at": "2020-09-09 10:15:52",
+            "updated_at": "2020-09-09 10:15:52",
+            "prize_name": "三等奖",
+            "prize_thumb": "https://ulink.sg/static/upload/images/0/2020/09/0fb22ad3332a0f4b6955df3b6270bfd8.png",
+            "member": {
+              "uid": 13,
+              "mobile": "",
+              "nickname": "李龙云",
+              "avatar_image": "",
+              "username": "李龙云"
+            },
+            "has_one_coupon": {
+              "id": 1,
+              "name": "油卡50元优惠券"
+            }
+          }, {
+            "id": 1,
+            "uniacid": 2,
+            "member_id": 12,
+            "activity_id": 1,
+            "prize_id": "3",
+            "point": 0,
+            "love": 0,
+            "amount": 0,
+            "coupon_id": 1,
+            "created_at": "2020-09-09 10:05:22",
+            "updated_at": "2020-09-09 10:05:22",
+            "prize_name": "三等奖",
+            "prize_thumb": "https://ulink.sg/static/upload/images/0/2020/09/0fb22ad3332a0f4b6955df3b6270bfd8.png",
+            "member": {
+              "uid": 12,
+              "mobile": "",
+              "nickname": "初建朋",
+              "avatar_image": "",
+              "username": "初建朋"
+            },
+            "has_one_coupon": {
+              "id": 1,
+              "name": "油卡50元优惠券"
+            }
+          }],
           "activityModel": {
             "id": 1,
             "uniacid": 2,
             "name": "抽油卡",
-            "countdown_time": [
-              1599614504,
-              1604160000
-            ],
+            "countdown_time": [1599614504, 1604160000],
             "role_type": 0,
             "member_type": 0,
             "level_id": "0",
@@ -1190,16 +1201,9 @@ export default {
             "days_share_times": "1",
             "somebody_times": "",
             "somebody_share_times": "",
-            "prize_id": [
-              1,
-              1,
-              2,
-              2,
-              3,
-              3
-            ],
+            "prize_id": [1, 1, 2, 2, 3, 3],
             "empty_prize_name": "谢谢惠顾",
-            "empty_prize_thumb": "https://ulink.sg/static/upload/images/0/2020/09/a3bda89fb2eb84c276c1d67ef535d74c.png",
+            "empty_prize_thumb": "https://ulink.sg/static/upload/images/0/2020/09/29d9b7662390b1ab79ba93adbc581e84.jpg",
             "empty_prize_prompt": "谢谢惠顾",
             "jump_type": 0,
             "jump_link": "",
@@ -1212,162 +1216,149 @@ export default {
             "background_colour": "#F13939",
             "is_logo": 0,
             "is_roster": 1,
-            "content": "中奖者请点击右侧“…”按钮，到商城中购物使用。",
+            "content": "活动说明\n*抽中优惠券的消费者可点击右侧\"...\"按钮，到商城中使用优惠券购买加油卡。\n*微信扫描加油卡上二维码，进入公众号，点击优惠加油，登录后，输入卡背面上的刮码数字，面值相应金额会进入到帐户中。\n*加油前微信扫描卡上二维码，点击优惠加油，查看附近的签约加油站。\n*加油后选则油枪号，输入金额完成优惠抵扣支付，每次优惠金额不等。\n*全国目前已有中石化、中石油1万多家签约加油站，加油最高折扣7折起，在线支付，无需下车。",
             "created_at": "2020-09-09 09:28:36",
-            "updated_at": "2020-09-15 10:20:20",
+            "updated_at": "2020-09-16 16:02:19",
             "goods_id": 0
           },
-          "result_arr": [
-            {
-              "id": 7,
-              "prize": "谢谢惠顾",
-              "thumb_url": "https://ulink.sg/static/upload/images/0/2020/09/a3bda89fb2eb84c276c1d67ef535d74c.png",
-              "jump_type": 0,
-              "jump_link": "",
-              "chance": 3.3333333333333335,
-              "item": 0
-            },
-            {
-              "id": 1,
-              "prize": "油卡50元",
-              "thumb_url": "https://ulink.sg/static/upload/images/0/2020/09/b5fc8fcf24fd89864bf4e66156b56e15.png",
-              "chance": 25,
-              "coupon": "油卡50元优惠券",
-              "point": "0.00",
-              "love": "0.00",
-              "amount": "0.00",
-              "prize_num": 100,
-              "item": 1
-            },
-            {
-              "id": 8,
-              "prize": "谢谢惠顾",
-              "thumb_url": "https://ulink.sg/static/upload/images/0/2020/09/a3bda89fb2eb84c276c1d67ef535d74c.png",
-              "jump_type": 0,
-              "jump_link": "",
-              "chance": 3.3333333333333335,
-              "item": 2
-            },
-            {
-              "id": 2,
-              "prize": "油卡100元",
-              "thumb_url": "https://ulink.sg/static/upload/images/0/2020/09/e91e2ea87af9ca6541ac1646492807ca.png",
-              "chance": 10,
-              "coupon": "油卡100元优惠券",
-              "point": "0.00",
-              "love": "0.00",
-              "amount": "0.00",
-              "prize_num": 50,
-              "item": 3
-            },
-            {
-              "id": 9,
-              "prize": "谢谢惠顾",
-              "thumb_url": "https://ulink.sg/static/upload/images/0/2020/09/a3bda89fb2eb84c276c1d67ef535d74c.png",
-              "jump_type": 0,
-              "jump_link": "",
-              "chance": 3.3333333333333335,
-              "item": 4
-            },
-            {
-              "id": 3,
-              "prize": "油卡200元",
-              "thumb_url": "https://ulink.sg/static/upload/images/0/2020/09/c6b42c8cc2fa29144b7d5a0d9ae68a6d.png",
-              "chance": 5,
-              "coupon": "油卡200元优惠券",
-              "point": "0.00",
-              "love": "0.00",
-              "amount": "0.00",
-              "prize_num": 10,
-              "item": 5
-            },
-            {
-              "id": 10,
-              "prize": "谢谢惠顾",
-              "thumb_url": "https://ulink.sg/static/upload/images/0/2020/09/a3bda89fb2eb84c276c1d67ef535d74c.png",
-              "jump_type": 0,
-              "jump_link": "",
-              "chance": 3.3333333333333335,
-              "item": 6
-            },
-            {
-              "id": 1,
-              "prize": "油卡50元",
-              "thumb_url": "https://ulink.sg/static/upload/images/0/2020/09/b5fc8fcf24fd89864bf4e66156b56e15.png",
-              "chance": 25,
-              "coupon": "油卡50元优惠券",
-              "point": "0.00",
-              "love": "0.00",
-              "amount": "0.00",
-              "prize_num": 100,
-              "item": 7
-            },
-            {
-              "id": 11,
-              "prize": "谢谢惠顾",
-              "thumb_url": "https://ulink.sg/static/upload/images/0/2020/09/a3bda89fb2eb84c276c1d67ef535d74c.png",
-              "jump_type": 0,
-              "jump_link": "",
-              "chance": 3.3333333333333335,
-              "item": 8
-            },
-            {
-              "id": 2,
-              "prize": "油卡100元",
-              "thumb_url": "https://ulink.sg/static/upload/images/0/2020/09/e91e2ea87af9ca6541ac1646492807ca.png",
-              "chance": 10,
-              "coupon": "油卡100元优惠券",
-              "point": "0.00",
-              "love": "0.00",
-              "amount": "0.00",
-              "prize_num": 50,
-              "item": 9
-            },
-            {
-              "id": 12,
-              "prize": "谢谢惠顾",
-              "thumb_url": "https://ulink.sg/static/upload/images/0/2020/09/a3bda89fb2eb84c276c1d67ef535d74c.png",
-              "jump_type": 0,
-              "jump_link": "",
-              "chance": 3.3333333333333335,
-              "item": 10
-            },
-            {
-              "id": 3,
-              "prize": "油卡200元",
-              "thumb_url": "https://ulink.sg/static/upload/images/0/2020/09/c6b42c8cc2fa29144b7d5a0d9ae68a6d.png",
-              "chance": 5,
-              "coupon": "油卡200元优惠券",
-              "point": "0.00",
-              "love": "0.00",
-              "amount": "0.00",
-              "prize_num": 10,
-              "item": 11
-            }
-          ],
+          "result_arr": [{
+            "id": 7,
+            "prize": "谢谢惠顾",
+            "thumb_url": "https://ulink.sg/static/upload/images/0/2020/09/29d9b7662390b1ab79ba93adbc581e84.jpg",
+            "jump_type": 0,
+            "jump_link": "",
+            "chance": 3.3333333333333335,
+            "item": 0
+          }, {
+            "id": 1,
+            "prize": "油卡50元",
+            "thumb_url": "https://ulink.sg/static/upload/images/0/2020/09/b5fc8fcf24fd89864bf4e66156b56e15.png",
+            "chance": 25,
+            "coupon": "油卡50元优惠券",
+            "point": "0.00",
+            "love": "0.00",
+            "amount": "0.00",
+            "prize_num": 100,
+            "item": 1
+          }, {
+            "id": 8,
+            "prize": "谢谢惠顾",
+            "thumb_url": "https://ulink.sg/static/upload/images/0/2020/09/29d9b7662390b1ab79ba93adbc581e84.jpg",
+            "jump_type": 0,
+            "jump_link": "",
+            "chance": 3.3333333333333335,
+            "item": 2
+          }, {
+            "id": 2,
+            "prize": "油卡100元",
+            "thumb_url": "https://ulink.sg/static/upload/images/0/2020/09/e91e2ea87af9ca6541ac1646492807ca.png",
+            "chance": 10,
+            "coupon": "油卡100元优惠券",
+            "point": "0.00",
+            "love": "0.00",
+            "amount": "0.00",
+            "prize_num": 49,
+            "item": 3
+          }, {
+            "id": 9,
+            "prize": "谢谢惠顾",
+            "thumb_url": "https://ulink.sg/static/upload/images/0/2020/09/29d9b7662390b1ab79ba93adbc581e84.jpg",
+            "jump_type": 0,
+            "jump_link": "",
+            "chance": 3.3333333333333335,
+            "item": 4
+          }, {
+            "id": 3,
+            "prize": "油卡200元",
+            "thumb_url": "https://ulink.sg/static/upload/images/0/2020/09/c6b42c8cc2fa29144b7d5a0d9ae68a6d.png",
+            "chance": 5,
+            "coupon": "油卡200元优惠券",
+            "point": "0.00",
+            "love": "0.00",
+            "amount": "0.00",
+            "prize_num": 10,
+            "item": 5
+          }, {
+            "id": 10,
+            "prize": "谢谢惠顾",
+            "thumb_url": "https://ulink.sg/static/upload/images/0/2020/09/29d9b7662390b1ab79ba93adbc581e84.jpg",
+            "jump_type": 0,
+            "jump_link": "",
+            "chance": 3.3333333333333335,
+            "item": 6
+          }, {
+            "id": 1,
+            "prize": "油卡50元",
+            "thumb_url": "https://ulink.sg/static/upload/images/0/2020/09/b5fc8fcf24fd89864bf4e66156b56e15.png",
+            "chance": 25,
+            "coupon": "油卡50元优惠券",
+            "point": "0.00",
+            "love": "0.00",
+            "amount": "0.00",
+            "prize_num": 100,
+            "item": 7
+          }, {
+            "id": 11,
+            "prize": "谢谢惠顾",
+            "thumb_url": "https://ulink.sg/static/upload/images/0/2020/09/29d9b7662390b1ab79ba93adbc581e84.jpg",
+            "jump_type": 0,
+            "jump_link": "",
+            "chance": 3.3333333333333335,
+            "item": 8
+          }, {
+            "id": 2,
+            "prize": "油卡100元",
+            "thumb_url": "https://ulink.sg/static/upload/images/0/2020/09/e91e2ea87af9ca6541ac1646492807ca.png",
+            "chance": 10,
+            "coupon": "油卡100元优惠券",
+            "point": "0.00",
+            "love": "0.00",
+            "amount": "0.00",
+            "prize_num": 49,
+            "item": 9
+          }, {
+            "id": 12,
+            "prize": "谢谢惠顾",
+            "thumb_url": "https://ulink.sg/static/upload/images/0/2020/09/29d9b7662390b1ab79ba93adbc581e84.jpg",
+            "jump_type": 0,
+            "jump_link": "",
+            "chance": 3.3333333333333335,
+            "item": 10
+          }, {
+            "id": 3,
+            "prize": "油卡200元",
+            "thumb_url": "https://ulink.sg/static/upload/images/0/2020/09/c6b42c8cc2fa29144b7d5a0d9ae68a6d.png",
+            "chance": 5,
+            "coupon": "油卡200元优惠券",
+            "point": "0.00",
+            "love": "0.00",
+            "amount": "0.00",
+            "prize_num": 10,
+            "item": 11
+          }],
           "surplus_time": 20
         },
         "basic_info": {
           "popularize_page": {
             "wechat": {
-              "vue_route": [ ],
+              "vue_route": [],
               "url": ""
             },
             "mini": {
-              "vue_route": [ ],
+              "vue_route": [],
               "url": "",
               "mini_url": ""
             },
             "wap": {
-              "vue_route": [ ],
+              "vue_route": [],
               "url": ""
             },
             "app": {
-              "vue_route": [ ],
+              "vue_route": [],
               "url": ""
             },
             "alipay": {
-              "vue_route": [ ],
+              "vue_route": [],
               "url": ""
             },
             "baidu": null
@@ -1422,34 +1413,32 @@ export default {
               "btn_romotion": 1
             },
             "default": {
-              "ads": [ ],
-              "advs": [ ],
-              "brand": [ ],
-              "category": [
-                {
-                  "id": 1,
-                  "uniacid": 2,
-                  "name": "红葡萄酒",
-                  "thumb": "",
-                  "parent_id": 0,
-                  "description": "",
-                  "display_order": 0,
-                  "enabled": 1,
-                  "is_home": 1,
-                  "adv_img": "",
-                  "adv_url": "",
-                  "level": 1,
-                  "advimg_pc": "",
-                  "advurl_pc": "",
-                  "created_at": "2020-09-02 18:17:06",
-                  "updated_at": "2020-09-02 18:17:06",
-                  "deleted_at": null,
-                  "plugin_id": 0,
-                  "filter_ids": "1",
-                  "small_adv_url": null
-                }
-              ],
-              "time_goods": [ ],
+              "ads": [],
+              "advs": [],
+              "brand": [],
+              "category": [{
+                "id": 1,
+                "uniacid": 2,
+                "name": "红葡萄酒",
+                "thumb": "",
+                "parent_id": 0,
+                "description": "",
+                "display_order": 0,
+                "enabled": 1,
+                "is_home": 1,
+                "adv_img": "",
+                "adv_url": "",
+                "level": 1,
+                "advimg_pc": "",
+                "advurl_pc": "",
+                "created_at": "2020-09-02 18:17:06",
+                "updated_at": "2020-09-02 18:17:06",
+                "deleted_at": null,
+                "plugin_id": 0,
+                "filter_ids": "1",
+                "small_adv_url": null
+              }],
+              "time_goods": [],
               "set": {
                 "cat_adv_img": ""
               },
@@ -1462,79 +1451,73 @@ export default {
                 "prev_page_url": null,
                 "from": null,
                 "to": null,
-                "data": [ ]
+                "data": []
               }
             },
             "item": {
               "data": "",
               "topmenu": {
-                "menus": [ ],
-                "params": [ ],
+                "menus": [],
+                "params": [],
                 "isshow": false
               },
-              "menus": [
-                {
-                  "id": 1,
-                  "title": "首页",
-                  "icon": "fa fa-home",
-                  "url": "/addons/yun_shop/?#/home?i=2&mid=&type=5",
-                  "name": "home",
-                  "subMenus": [ ],
-                  "textcolor": "#70c10b",
-                  "bgcolor": "#24d7e6",
-                  "bordercolor": "#bfbfbf",
-                  "iconcolor": "#666666"
-                },
-                {
-                  "id": "menu_1489731310493",
-                  "title": "分类",
-                  "icon": "fa fa-th-large",
-                  "url": "/addons/yun_shop/?#/category?i=2&mid=&type=5",
-                  "name": "category",
-                  "subMenus": [ ],
-                  "textcolor": "#70c10b",
-                  "bgcolor": "#24d7e6",
-                  "iconcolor": "#666666",
-                  "bordercolor": "#bfbfbf"
-                },
-                {
-                  "id": "menu_1489731319695",
-                  "classt": "no",
-                  "title": "推广",
-                  "icon": "fa fa-send",
-                  "url": "/addons/yun_shop/?#/member/extension?i=2&mid=&type=5",
-                  "name": "extension",
-                  "subMenus": [ ],
-                  "textcolor": "#666666",
-                  "bgcolor": "#837aef",
-                  "iconcolor": "#666666",
-                  "bordercolor": "#bfbfbf"
-                },
-                {
-                  "id": "menu_1489735163419",
-                  "title": "购物车",
-                  "icon": "fa fa-cart-plus",
-                  "url": "/addons/yun_shop/?#/cart?i=2&mid=&type=5",
-                  "name": "cart",
-                  "subMenus": [ ],
-                  "textcolor": "#70c10b",
-                  "bgcolor": "#24d7e6",
-                  "iconcolor": "#666666",
-                  "bordercolor": "#bfbfbf"
-                },
-                {
-                  "id": "menu_1491619644306",
-                  "title": "会员中心",
-                  "icon": "fa fa-user",
-                  "url": "/addons/yun_shop/?#/member?i=2&mid=&type=5",
-                  "name": "member",
-                  "subMenus": [ ],
-                  "textcolor": "#70c10b",
-                  "bgcolor": "#24d7e6",
-                  "iconcolor": "#666666",
-                  "bordercolor": "#bfbfbf"
-                }
-              ],
+              "menus": [{
+                "id": 1,
+                "title": "首页",
+                "icon": "fa fa-home",
+                "url": "/addons/yun_shop/?#/home?i=2&mid=&type=5",
+                "name": "home",
+                "subMenus": [],
+                "textcolor": "#70c10b",
+                "bgcolor": "#24d7e6",
+                "bordercolor": "#bfbfbf",
+                "iconcolor": "#666666"
+              }, {
+                "id": "menu_1489731310493",
+                "title": "分类",
+                "icon": "fa fa-th-large",
+                "url": "/addons/yun_shop/?#/category?i=2&mid=&type=5",
+                "name": "category",
+                "subMenus": [],
+                "textcolor": "#70c10b",
+                "bgcolor": "#24d7e6",
+                "iconcolor": "#666666",
+                "bordercolor": "#bfbfbf"
+              }, {
+                "id": "menu_1489731319695",
+                "classt": "no",
+                "title": "推广",
+                "icon": "fa fa-send",
+                "url": "/addons/yun_shop/?#/member/extension?i=2&mid=&type=5",
+                "name": "extension",
+                "subMenus": [],
+                "textcolor": "#666666",
+                "bgcolor": "#837aef",
+                "iconcolor": "#666666",
+                "bordercolor": "#bfbfbf"
+              }, {
+                "id": "menu_1489735163419",
+                "title": "购物车",
+                "icon": "fa fa-cart-plus",
+                "url": "/addons/yun_shop/?#/cart?i=2&mid=&type=5",
+                "name": "cart",
+                "subMenus": [],
+                "textcolor": "#70c10b",
+                "bgcolor": "#24d7e6",
+                "iconcolor": "#666666",
+                "bordercolor": "#bfbfbf"
+              }, {
+                "id": "menu_1491619644306",
+                "title": "会员中心",
+                "icon": "fa fa-user",
+                "url": "/addons/yun_shop/?#/member?i=2&mid=&type=5",
+                "name": "member",
+                "subMenus": [],
+                "textcolor": "#70c10b",
+                "bgcolor": "#24d7e6",
+                "iconcolor": "#666666",
+                "bordercolor": "#bfbfbf"
+              }],
               "menustyle": {
                 "previewbg": "#ef372e",
                 "height": "49px",
@@ -1562,7 +1545,7 @@ export default {
             "balance": "余额"
           },
           "lang": {
-            "test": [ ],
+            "test": [],
             "commission": {
               "title": "",
               "commission": "",
@@ -1882,16 +1865,16 @@ export default {
                   "msg": "恭喜你，中奖了！",
                   "data": {
                     "result": {
-                      "id": 2,
-                      "prize": "油卡100元",
-                      "thumb_url": "https://ulink.sg/static/upload/images/0/2020/09/e91e2ea87af9ca6541ac1646492807ca.png",
-                      "chance": 10,
-                      "coupon": "油卡100元优惠券",
+                      "id": 1,
+                      "prize": "油卡50元",
+                      "thumb_url": "https://ulink.sg/static/upload/images/0/2020/09/b5fc8fcf24fd89864bf4e66156b56e15.png",
+                      "chance": 25,
+                      "coupon": "油卡50元优惠券",
                       "point": "0.00",
                       "love": "0.00",
                       "amount": "0.00",
-                      "prize_num": 50,
-                      "item": 9
+                      "prize_num": 100,
+                      "item": 7
                     }
                   }
                 };
@@ -2083,6 +2066,22 @@ export default {
           }
         });
       });
-    }
+    },
+    authModal: function() {
+
+      var i = this;
+
+      util.check_login_new().then(function(e) {
+        if(e){
+          i.needAuth = !1
+        }else{
+          wx.navigateTo({
+            url: "/login"
+          })
+        }
+      })
+
+      return !i.needAuth
+    },
   }
 };
