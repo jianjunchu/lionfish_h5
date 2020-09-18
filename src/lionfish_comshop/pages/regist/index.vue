@@ -63,8 +63,8 @@
         <div>
 
           <el-checkbox v-model="privatepolic"><span style="color: red;font-weight:800">*</span>
-            <span style="font-weight:600;font-size: 4vw" > 同意条款.</span> <br></el-checkbox>
-          <router-link style="font-size:3.4vw;padding-left: 6vw;text-decoration:underline;color: #4b4b4b" to="/privatepolic"> 查看条款</router-link>
+            <span style="font-weight:600;font-size: 4vw" > 同意隐私条款</span> <br></el-checkbox>
+          <router-link style="font-size:3.4vw;padding-left: 6vw;text-decoration:underline;color: #4b4b4b" to="/privatepolic"> 查看隐私条款</router-link>
 
          <!--注册按钮-->
 			    <el-button type="warning"
