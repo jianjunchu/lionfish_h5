@@ -1805,7 +1805,7 @@
         var l = i.sku_mu_list[d],
           r = {};
         (s = s || 1) > l.canBuyNum && (e.sku_val = l.canBuyNum, wx.showToast({
-          title: '最多只能购买' + l.canBuyNum + '件',
+          title: '最多只能购买' + l.canBuyNum + e.$t('order.meidanxiangou3'),
           icon: 'none'
         })), (e.cur_sku_arr = l, e.sku = o), console.log(d)
       },

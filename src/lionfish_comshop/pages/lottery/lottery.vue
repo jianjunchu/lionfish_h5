@@ -99,7 +99,8 @@
         <ul>
           <li v-if="activityModel.name">{{ activityModel.name }}</li>
           <!--<li v-if="activityModel.countdown_time">{{ activityModel.countdown_time }}</li>-->
-          <li v-if="activityModel.content">{{ activityModel.content }}</li>
+          <!--<li v-if="activityModel.content">{{ activityModel.content }}</li>-->
+          <li v-if="activityModel.content" v-html="activityModel.content"></li>
         </ul>
       </div>
     </div>

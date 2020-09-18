@@ -70,7 +70,7 @@
             </div>
             <div class="even-num"
                  v-else-if="!skuList[current].isLimit&&skuList[current].canBuyNum-value<=10&&skuList[current].canBuyNum-value>-1">
-              还可以购买 {{skuList[current].canBuyNum-value}} 件
+              还可以购买 {{skuList[current].canBuyNum-value}} {{$t('order.meidanxiangou3')}}
             </div>
           </div>
           <form bindsubmit="gocarfrom" reportSubmit="true">
@@ -166,7 +166,7 @@
         var l = {}
         u > (s = Object.assign(s, o.sku_mu_list[n])).canBuyNum && (l.sku_val = s.canBuyNum,
           this.$wx.showToast({
-            title: '最多只能购买' + s.canBuyNum + '件',
+            title: '最多只能购买' + s.canBuyNum + e.$t('order.meidanxiangou3'),
             icon: 'none'
           }))
         this.cur_sku_arr = s
@@ -282,7 +282,7 @@
         if (this.focusFlag = !1, o) {
           var u = parseInt(o.value)
           s < (u = u < 1 ? 1 : u) ? (this.$wx.showToast({
-            title: '最多只能购买' + s + '件',
+            title: '最多只能购买' + s + a.$t('order.meidanxiangou3'),
             icon: 'none'
           }), i = s) : i = u
         }
