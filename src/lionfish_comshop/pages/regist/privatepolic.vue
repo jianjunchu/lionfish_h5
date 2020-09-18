@@ -1,53 +1,167 @@
 <template>
   <div class="page">
-    <h2 class="title" style="text-align: center"><span style="font-family: Arial, Helvetica, sans-serif; font-size: 5vw;">Privacy Policy for H&amp;Z Mart Pte Ltd</span></h2>
-    <p><span>At H&amp;Z Mart Pte Ltd, accessible from&nbsp;</span><span><a href="http://www.mart.com.sg" rel="noopener noreferrer" target="_blank"><span style="font-family: Arial, Helvetica, sans-serif;">www.mart.com.sg</span></a><span style="font-family: Arial, Helvetica, sans-serif;">, one of our main priorities is the privacy of our visitors. This Privacy Policy document contains types of information that is collected and recorded by&nbsp;</span><a href="http://www.mart.com.sg" rel="noopener noreferrer" target="_blank"><span style="font-family: Arial, Helvetica, sans-serif;">www.mart.com.sg</span></a><span style="font-family: Arial, Helvetica, sans-serif;">&nbsp;and how we use it.</span></span></p>
-    <p><span>If you have additional questions or require more information about our Privacy Policy, do not hesitate to contact us.</span></span></p>
-    <p><span>This Privacy Policy applies only to our online activities and is valid for visitors to our website with regards to the information that they shared and/or collect in www.mart.com.sg. This policy is not applicable to any information collected offline or via channels other than this website.</span></p>
-    <h2><span class="title">Consent</span></h2>
-    <p><span>By using our website, you hereby consent to our Privacy Policy and agree to its terms.</span></p>
-    <h2><span class="title">Information we collect</span></h2>
-    <p><span>The personal information that you are asked to provide, and the reasons why you are asked to provide it, will be made clear to you at the point we ask you to provide your personal information.</span></p>
-    <p><span>If you contact us directly, we may receive additional information about you such as your name, email address, phone number, the contents of the message and/or attachments you may send us, and any other information you may choose to provide.</span></span></p>
-    <p><span>When you register for an Account, we may ask for your contact information, including items such as name, address, email address, and telephone number.</span></p>
-    <h2><span class="title">How we use your information</span></h2>
-    <p><span>We use the information we collect in various ways, including to:</span></p>
-    <ul>
-      <li><span>Provide, operate, and maintain our website</span></span></li>
-      <li><span>Improve, personalize, and expand our website</span></span></li>
-      <li><span>Understand and analyze how you use our
-                <meta charset="utf-8"><span style="color: rgb(0, 0, 0); font-family: Arial, Helvetica, sans-serif; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-style: initial; text-decoration-color: initial; float: none; display: inline !important;">website</span></span></span></li>
-      <li><span>Develop new products, services, features, and functionality</span></span></li>
-      <li><span>Communicate with you, either directly or through one of our partners, including for customer service, to provide you with updates and other information relating to the
-                <meta charset="utf-8"><span style="color: rgb(0, 0, 0); font-family: Arial, Helvetica, sans-serif; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-style: initial; text-decoration-color: initial; float: none; display: inline !important;">website</span>, and for marketing and promotional purposes</span></span></li>
-      <li><span>Send you emails</span></span></li>
-      <li><span>Find and prevent fraud</span></li>
-    </ul>
-    <h2><span class="title">Log Files</span></h2>
-    <p><span>H&amp;Z Mart Pte Ltd follows a standard procedure of using log files. These files log visitors when they visit websites. All hosting companies do this and a part of hosting services&#39; analytics. The information collected by log files include internet protocol (IP) addresses, browser type, Internet Service Provider (ISP), date and time stamp, referring/exit pages, and possibly the number of clicks. These are not linked to any information that is personally identifiable. The purpose of the information is for analyzing trends, administering the site, tracking users&#39; movement on the website, and gathering demographic information. </span></p>
-    <h2><span class="title">Cookies and Web Beacons</span></h2>
-    <p><span>Like any other website, www.mart.com.sg uses &#39;cookies&#39;. These cookies are used to store information including visitors&#39; preferences, and the pages on the website that the visitor accessed or visited. The information is used to optimize the users&#39; experience by customizing our web page content based on visitors&#39; browser type and/or other information.</span></p>
-    <p><span>For more general information on cookies, please read <a href="https://www.cookieconsent.com/what-are-cookies/">&quot;What Are Cookies&quot;</a>.</span></p>
-    <h2><span class="title">Advertising Partners Privacy Policies</span></h2>
-    <p><span>You may consult this list to find the Privacy Policy for each of the advertising partners of&nbsp;</span><span><a href="http://www.mart.com.sg"><span style="font-family: Arial, Helvetica, sans-serif;">www.mart.com.sg</span></a><span style="font-family: Arial, Helvetica, sans-serif;">.</span></span></p>
-    <p><span>Third-party ad servers or ad networks uses technologies like cookies, JavaScript, or Web Beacons that are used in their respective advertisements and links that appear on&nbsp;</span><a href="http://www.mart.com.sg"><span style="font-family: Arial, Helvetica, sans-serif;">www.mart.com.sg</span></a><span style="font-family: Arial, Helvetica, sans-serif;">, which are sent directly to users&#39; browser. They automatically receive your IP address when this occurs. These technologies are used to measure the effectiveness of their advertising campaigns and/or to personalize the advertising content that you see on websites that you visit.</span></span></p>
-    <p><span>Note that www.mart.com.sg has no access to or control over these cookies that are used by third-party advertisers.</span></p>
-    <h2><span class="title">Third Party Privacy Policies</span></h2>
-    <p><a href="http://www.mart.com.sg"><span>www.mart.com.sg</span></a><span>&#39;s Privacy Policy does not apply to other advertisers or websites. Thus, we are advising you to consult the respective Privacy Policies of these third-party ad servers for more detailed information. It may include their practices and instructions about how to opt-out of certain options.</span></span></p>
-    <p><span>You can choose to disable cookies through your individual browser options. To know more detailed information about cookie management with specific web browsers, it can be found at the browsers&#39; respective websites.</span></p>
-    <h2><span class="title">GDPR Data Protection Rights</span></h2>
-    <p><span>We would like to make sure you are fully aware of all of your data protection rights. Every user is entitled to the following:</span></p>
-    <p><span>The right to access &ndash; You have the right to request copies of your personal data. We may charge you a small fee for this service.</span></span></p>
-    <p><span>The right to rectification &ndash; You have the right to request that we correct any information you believe is inaccurate. You also have the right to request that we complete the information you believe is incomplete.</span></span></p>
-    <p><span>The right to erasure &ndash; You have the right to request that we erase your personal data, under certain conditions.</span></span></p>
-    <p><span>The right to restrict processing &ndash; You have the right to request that we restrict the processing of your personal data, under certain conditions.</span></span></p>
-    <p><span>The right to object to processing &ndash; You have the right to object to our processing of your personal data, under certain conditions.</span></span></p>
-    <p><span>The right to data portability &ndash; You have the right to request that we transfer the data that we have collected to another organization, or directly to you, under certain conditions.</span></span></p>
-    <p><span>If you make a request, we have one month to respond to you. If you would like to exercise any of these rights, please contact us.</span></p>
-    <h2><span class="title">Children&#39;s Information</span></h2>
-    <p><span>Another part of our priority is adding protection for children while using the internet. We encourage parents and guardians to observe, participate in, and/or monitor and guide their online activity.</span></p>
-    <p><span><a href="http://www.mart.com.sg"><span style="font-family: Arial, Helvetica, sans-serif;">www.mart.com.sg</span></a></span><span>&nbsp;does not knowingly collect any Personal Identifiable Information from children under the age of 13. If you think that your child provided this kind of information on our website, we strongly encourage you to contact us immediately and we will do our best efforts to promptly remove such information from our records.</span></p>
+    <div style="width: 88vw;margin: 0 auto">
+    <h2 class="title" style="text-align: center"><span style="font-family: Arial, Helvetica, sans-serif; font-size: 5vw;">隐私条款</span></h2>
+    <p>博若莱之星非常重视用户的隐私保护，因此制定了本涵盖如何收集、使用、披露、分享以及存储用户的信息的《隐私条款》。用户在使用我们的服务时，我们可能会收集和使用您的相关信息。我们希望通过本《隐私条款》向您说明，在使用我们的服务时，我们如何收集、使用、储存和分享这些信息，以及我们为您提供的访问、更新、控制和保护这些信息的方式。本《隐私条款》适用于用户与本商城的交互行为以及用户注册和使用本商城的服务，我们建议您仔细地阅读本政策，以帮助您了解维护自己隐私权的方式。
+您使用或继续使用我们的服务，即表示您同意我们按照本《隐私条款》收集、使用、储存和分享您的相关信息。如对本《隐私条款》或相关事宜有任何问题，请进行留言。<br>
 
+一、我们可能收集的信息<br>
+
+我们提供服务时，可能会收集、储存和使用下列与您有关的信息。如果您不提供相关信息，可能无法注册成为我们的用户或无法享受我们提供的某些服务，或者无法达到相关服务拟达到的效果。<br>
+
+（一）您提供的信息<br>
+
+1、您在注册账户或使用我们的服务时，向我们提供的相关个人信息，例如电话号码、身份证明、电子邮件等；<br>
+
+2、如您使用我们的服务需与用户的银行账户或其他支付工具的账户关联方能实现时，您向我们提供您的银行账户信息或其他支付工具的账户信息；<br>
+
+3、您通过我们的服务向其他方提供的共享信息，以及您使用我们的服务时所储存的信息。<br>
+
+（二）其他方分享的您的信息<br>
+
+其他方使用我们的服务时所提供有关您的共享信息。<br>
+
+（三）我们获取的您的信息<br>
+
+1、您使用服务时我们可能收集如下信息：<br>
+
+（1）日志信息，指您使用我们的服务时，系统自动采集的技术信息，包括：<br>
+
+o 设备或软件信息，例如您的移动设备、网页浏览器或用于接入我们服务的其他程序所提供的配置信息、您的IP地址和移动设备所用的版本和设备识别码；<br>
+
+o 在使用我们服务时搜索或浏览的信息，例如您使用的网页搜索词语、访问的社交媒体页面url地址，以及您在使用我们服务时浏览或要求提供的其他信息和内容详情；<br>
+
+o 有关您曾使用的移动应用（APP）和其他软件的信息，以及您曾经使用该等移动应用和软件的信息；<br>
+
+o 您通过我们的服务进行通讯的信息，例如曾通讯的账号，以及通讯时间、数据和时长；<br>
+
+o 您通过我们的服务分享的内容所包含的信息（元数据），例如拍摄或上传的共享照片或录像的日期、时间或地点等。<br>
+
+（2）位置信息，指您开启设备定位功能并使用我们基于位置提供的相关服务时，收集的有关您位置的信息，包括：<br>
+
+o 您或其他用户提供的包含您所处地理位置的实时信息，例如您提供的账户信息中包含的您所在地区信息，您或其他人上传的显示您当前或曾经所处地理位置的共享信息，您或其他人共享的照片包含的地理标记信息；<br>
+
+o 您通过具有定位功能的移动设备使用我们的服务时，通过GPS或WiFi等方式收集的您的地理位置信息；<br>
+
+o 您可以通过关闭定位功能，停止对您的地理位置信息的收集。<br>
+
+二、我们如何使用您的信息<br>
+
+（一）我们可能将在向您提供服务的过程之中所收集的信息用作下列用途：<br>
+
+1、向您提供服务。在我们提供服务时，用于身份验证、客户服务、安全防范、诈骗监测、存档和备份用途，确保我们向您提供的产品和服务的安全性；<br>
+
+2、帮助我们设计新服务，改善我们现有服务；<br>
+
+3、使我们更加了解您如何接入和使用我们的服务，从而针对性地回应您的个性化需求，例如语言设定、位置设定、个性化的帮助服务和指示，或对您和其他用户作出其他方面的回应；<br>
+
+4、向您提供与您更加相关的广告以替代普遍投放的广告；<br>
+
+5、评估我们服务中的广告和其他促销及推广活动的效果，并加以改善；<br>
+
+6、软件认证或管理软件升级；<br>
+
+7、让您参与有关我们产品和服务的调查。<br>
+
+（二）为了让您有更好的体验、改善我们的服务或您同意的其他用途，在符合相关法律法规的前提下，我们可能将通过某一项服务所收集的信息，以汇集信息或者个性化的方式，用于我们的其他服务。例如，在您使用我们的一项服务时所收集的信息，可能在另一服务中用于向您提供特定内容，或向您展示与您相关的、非普遍推送的信息。如果我们在相关服务中提供了相应选项，您也可以授权我们将该服务所提供和储存的信息用于我们的其他服务。<br>
+
+三、您如何访问和控制自己的个人信息<br>
+
+我们将尽量采取适当的技术手段，保证您可以访问、更新和更正自己的注册信息或使用我们的服务时提供的其他个人信息。在访问、更新、更正和删除前述信息时，我们可能会要求您进行身份验证，以保障账户安全。<br>
+
+四、我们如何分享您的信息<br>
+
+除以下情形外，未经您同意，我们以及我们的关联公司不会与任何第三方分享您的个人信息：<br>
+
+（一）我们以及我们的关联公司，可能将您的个人信息与我们的关联公司、合作伙伴及第三方服务供应商、承包商及代理（例如代表我们发出电子邮件或推送通知的通讯服务提供商、为我们提供位置数据的地图服务供应商）分享（他们可能并非位于您所在的法域），用作下列用途：<br>
+
+o 向您提供我们的服务；<br>
+
+o 实现“我们可能如何使用信息”部分所述目的；<br>
+
+o 履行我们在本《隐私条款》或本商城与您达成的其他协议中的义务和行使我们的权利；<br>
+
+o 理解、维护和改善我们的服务。
+<br>
+如我们或我们的关联公司与任何上述第三方分享您的个人信息，我们将努力确保该等第三方在使用您的个人信息时遵守本《隐私条款》及我们要求其遵守的其他适当的保密和安全措施。<br>
+
+（二）随着我们业务的持续发展，我们以及我们的关联公司有可能进行合并、收购、资产转让或类似的交易，您的个人信息有可能作为此类交易的一部分而被转移。我们将在转移前通知您。<br>
+
+（三）我们或我们的关联公司还可能为以下需要而保留、保存或披露您的个人信息：<br>
+
+o 您授权或同意本商城披露的；<br>
+
+o 遵守适用的法律法规；<br>
+
+o 遵守法院命令或其他法律程序的规定；<br>
+
+o 遵守相关政府机关的要求；<br>
+
+o 为遵守适用的法律法规、维护社会公共利益，或保护我们的客户、我们或我们的集团公司、其他用户或雇员的人身和财产安全或合法权益所合理必需的用途；<br>
+
+o 根据本商城各服务条款及声明中的相关规定，或者本商城认为必要的其他情形下。<br>
+
+用户协议<br>
+
+（以下简称“本公司”）按照下列条款与条件提供信息和产品，您在本协议中亦可被称为“用户”，以下所述条款和条件将构成您与本公司，就您使用提供的内容所达成的全部协议（以下称“本协议”）。<br>
+
+说明<br>
+
+本公司向您提供包括但不限于网页展示、使用、充值、客户服务、商城资讯、下单购物、售后等服务（以下称“本服务”）。本公司针对本服务所制定的相关规定，包括但不限于本公司在商城平台下运营的任何一款商城所包含的商城规则、用户处罚条例，客服条例等，以及本公司就账号使用及管理、商城充值等服务制定的相关服务协议、规则。本公司在此提示用户，请您在使用本服务前详细阅读本协议的所有内容，尤其是免除、限制本公司责任或者限制用户权利的条款（特别是粗体下划线标注的内容），如您对本协议有任何疑问，请向本公司（020-3755993）进行咨询。一旦您使用本服务，即表示您已阅读并完全同意接受本协议项下所述条款和条件的约束。如果您不同意本协议的任何条款，请您不要使用本服务。未成年人应经其监护人陪同阅读本服务协议并表示同意，方可接受本服务协议。监护人应加强对未成年人的监督和保护，因其未谨慎履行监护责任而损害未成年人利益或者本公司利益的，应由监护人承担责任。<br>
+
+权利声明<br>
+
+1、本公司及其关联公司（关联企业指与本公司存在直接或间接，股权或以协议安排等其他形式的控制与被控制关系，以及对公司运营具有重大影响关系的公司法人）享有并保留以下各项内容完整的、不可分割的所有权及/或知识产权：<br>
+
+（1）商城平台相关的软件、技术、程序、代码、用户界面等；<br>
+
+（2）本服务相关的商标、图形标记。<br>
+
+2、本公司提供的服务内容中所涉及的商城，文字、软件、声音、图片、动画、录像、图表等，均受相关知识产权法以及其他相关法律的保护。未经本公司或者其他相关权利人授权，用户不得复制、使用、修改、摘编、翻译、发行,第三方未经本公司及/或其相关权利人的书面许可，不得以任何方式擅自进行使用。<br>
+
+责任限制<br>
+
+1、本公司向用户提供的服务均是在依"现状"提供，本公司在此明确声明对本服务不作任何明示或暗示的保证，包括但不限于对服务的可适用性、准确性、及时性、可持续性等。<br>
+
+2、用户理解并同意自行承担使用本服务的风险，且用户在使用本服务时，应遵循中国法律的相关规定，由于用户行为所造成的任何损害和后果，本公司均不承担除法律有明确规定外的责任。<br>
+
+3、不论在何种情况下，本公司均不对由于网络连接故障、通讯线路、第三方网站、电脑硬件等任何原因给用户造成的任何损失承担除法律有明确规定外的责任。<br>
+
+用户行为规范<br>
+
+1、用户在本网站注册时，不得使用虚假身份信息。用户应当妥善保存其账户信息和密码，由于用户泄密所导致的损失需由用户自行承担。如用户发现他人冒用或盗用其账户或密码，或其账户存在其他未经合法授权使用之情形，应立即以有效方式通知本公司。用户理解并同意本公司有权根据用户的通知、请求或依据判断，采取相应的行动或措施，包括但不限于冻结账户、限制账户功能等，本公司对采取上述行动所导致的损失不承担除法律有明确规定外的责任。<br>
+
+2、用户在使用本服务时须遵守法律法规，不得利用本服务从事违法违规行为，包括但不限于：<br>
+
+（1）发布、传送、传播、储存危害国家安全统一、破坏社会稳定、违反公序良俗、侮辱、诽谤、淫秽、暴力以及任何违反国家法律法规的内容；<br>
+
+（2）发布、传送、传播、储存侵害他人知识产权、商业秘密等合法权利的内容；<br>
+
+（3）恶意虚构事实、隐瞒真相以误导、欺骗他人；<br>
+
+（4）发布、传送、传播广告信息及垃圾信息；<br>
+
+（5）其他法律法规禁止的行为。<br>
+
+3、用户不得利用本服务进行任何有损本公司及其关联企业之权利、利益及商誉，或其他用户合法权利之行为。<br>
+
+4、用户不得基于本服务从事制作、使用、传播“私服”、“外挂”等侵害本公司合法权益的行为。如有违反，本公司将依据中国现行法律法规及本公司的相关规定予以处理。<br>
+
+5、虚拟财产转移服务外，用户不得通过任何方式直接或变相进行商城账号、商城币、商城道具等虚拟财产的转移。<br>
+
+6、用户不得从事作弊等损害商城公平性的行为。用户承诺接受本公司对其商城数据进行分析，当本公司发现其数据异常时，本公司可根据自己的独立判断认定其为作弊。<br>
+
+7、用户不得从事任何利用本公司平台系统漏洞进行有损其他用户、本公司或互联网安全的行为。<br>
+
+8、用户知悉并确认，本公司通过公告、邮件、短信、账户通知以及用户在账户中登记的即时通讯工具等方式，向用户发出关于本服务的通知、规则、提示等信息，均为有效通知。该等信息一经公布或发布，即视为已送达至用户。<br>
+
+广告信息和促销<br>
+
+1、用户同意接受本公司通过公告、邮件、短信、账户通知以及用户在账户中登记的即时通讯工具等方式发送的有关本服务，或本公司、本公司之关联企业或与本公司有合作关系的第三方相关的商品、服务促销或其他商业信息。<br>
+
+2、本公司在本服务中可能提供与其他互联网之网站站点或资源的链接，本公司对存在或源于此类网站站点或资源的任何内容、广告、产品或其他资料不予保证或负责；如该链接所载的内容或搜索引擎所提供之链接的内容侵犯用户权利，本公司声明与上述内容无关，且不承担除法律有明确规定外的责任。<br>
+</p>
+</div>
   </div>
 </template>
 
@@ -60,7 +174,7 @@
     methods: {
       hideTopAndFooter: function() {
         this.$wx.setNavigationBarTitle({
-          title: 'Privacy Policy',
+          title: '隐私条款',
           showLogo: false,
           showMore: false,
           showBack: true
