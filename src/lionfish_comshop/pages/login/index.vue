@@ -13,14 +13,15 @@
 <!--密码登陆-->
    <div v-show="isShowLogin">
 	  <div style="height: 50px;">
-	  <div style="width: 100%;height:25px;border-bottom:1px solid #ccc;font-size: 16px;color: #939393;float: left;" @click="click_btn()" v-show="this.isShow">Phone</div>
+	  <div style="width: 100%;height:25px;border-bottom:1px solid #ccc;font-size: 16px;color: #939393;float: left;" @click="click_btn()" v-show="this.isShow">手机号</div>
 	  <div style="width: 100%;height:41px;border-bottom:1px solid #3D7BD0;font-size: 16px;color: #3D7BD0;float: left;" v-show="this.isShow2">
 		 <span>
 	   <el-select v-model="aa" placeholder="请选择" style="width:80px;height:30px;float: left;color: #0076FF;float: left;">
-		   <el-option label="65" value="65">+65 Singapore</el-option>
-	          <el-option label="60" value="60">+60 Malaysia </el-option>
-			   <el-option label="62" value="62">+62 Indonesia</el-option>
-			    <el-option label="86" value="86">+86 China</el-option>
+       <el-option label="86" value="86">+86 中国</el-option>
+		   <el-option label="65" value="65">+65 新加坡</el-option>
+	          <el-option label="60" value="60">+60 马来西亚 </el-option>
+			   <el-option label="62" value="62">+62 印度尼西亚</el-option>
+
 	    </el-select>
 	  <span style="margin-top: 12220px;">|</span>
 	  </span>
@@ -29,7 +30,7 @@
 	  </div>
 
 	  <div style="height: 50px;">
-       <div style="width: 100%;height:25px;border-bottom:1px solid #ccc;font-size: 16px;color: #939393;margin-top: 5px;" @click="click_btn2()" v-show="this.isShow3">Password</div>
+       <div style="width: 100%;height:25px;border-bottom:1px solid #ccc;font-size: 16px;color: #939393;margin-top: 5px;" @click="click_btn2()" v-show="this.isShow3">密码</div>
 	   <div style="width: 100%;height:28px;border-bottom:1px solid #3D7BD0;font-size: 16px;color: #3D7BD0;margin-top: 10px;" v-show="this.isShow4">
 	   <input type="password" style="width: 90%;height: 100%;border:none;outline: none;" v-model="loginForm.password"/>
 	   </div>
@@ -40,14 +41,15 @@
 	   <!--验证码登陆-->
    <div v-show="isShowCode">
    	<div style="height: 50px;">
-	  <div style="width: 100%;height:25px;border-bottom:1px solid #ccc;font-size: 16px;color: #939393;float: left;" @click="click_btn3()" v-show="this.isShow5">Phone</div>
+	  <div style="width: 100%;height:25px;border-bottom:1px solid #ccc;font-size: 16px;color: #939393;float: left;" @click="click_btn3()" v-show="this.isShow5">手机号</div>
 	  <div style="width: 100%;height:41px;border-bottom:1px solid #3D7BD0;font-size: 16px;color: #3D7BD0;float: left;" v-show="this.isShow6">
 		 <span>
 	   <el-select v-model="country" placeholder="请选择" style="width:80px;height:30px;float: left;color: #0076FF;float: left;">
-		   <el-option label="65" value="65">+65 Singapore</el-option>
-	       <el-option label="60" value="60">+60 Malaysia </el-option>
-			   <el-option label="62" value="62">+62 Indonesia</el-option>
-			   <el-option label="86" value="86">+86 China</el-option>
+       <el-option label="86" value="86">+86 中国</el-option>
+		   <el-option label="65" value="65">+65 新加坡</el-option>
+	       <el-option label="60" value="60">+60 马来西亚 </el-option>
+			   <el-option label="62" value="62">+62 印度尼西亚</el-option>
+
 	    </el-select>
 	  <span style="margin-top: 12220px;">|</span>
 	  </span>
@@ -58,7 +60,7 @@
 
 	 	<div style="height: 50px;">
 		 <div style="width: 100%;height:28px;border-bottom:1px solid #ccc;font-size: 12px;color: #3D7BD0;" >
-		 <input type="number" style="width: 70%;height: 100%;border:none;outline: none;background: none;" v-model="logoCode" id="input_code"  @blur="blur('code')" @keyup="activeregist()" ref="code" placeholder="Code"/>
+		 <input type="number" style="width: 70%;height: 100%;border:none;outline: none;background: none;" v-model="logoCode" id="input_code"  @blur="blur('code')" @keyup="activeregist()" ref="code" placeholder="验证码"/>
 		 <div style="float: right;background: #FDEACA;border-radius: 20px;color: #FDB56D;font-size: 13px;padding:5px;margin-bottom: 10px;" @click="getVerifyCode()" ref="getCode" :disabled="getCodeDisabled">{{getCodeBtnText}}</div>
 		 </div>
 		 </div>
@@ -67,17 +69,17 @@
 
    </div>
 
-   <span style="color: #0076FF;font-size: 16px;" v-show="isShowLogin" @click="yanzhengma">Login with OTP</span>
+   <span style="color: #0076FF;font-size: 16px;" v-show="isShowLogin" @click="yanzhengma">使用验证码登录</span>
 
-   <span style="color: #0076FF;font-size: 16px;" v-show="isShowCode" @click="mima">Login with password</span>
+   <span style="color: #0076FF;font-size: 16px;" v-show="isShowCode" @click="mima">使用密码登录</span>
 
 
 	<!--密码登录按钮-->
-   <el-button v-show="isShowLogin"  :loading="loading" type="primary" style="height: 40px;width:100%;margin-bottom:30px;border-radius: 20px;background: #FDEACA;border:none;color: #F7AC39;font-weight: 600;margin-top: 50px;" @click.native.prevent="handleLogin">Login</el-button>
+   <el-button v-show="isShowLogin"  :loading="loading" type="primary" style="height: 40px;width:100%;margin-bottom:30px;border-radius: 20px;background: #FDEACA;border:none;color: #F7AC39;font-weight: 600;margin-top: 50px;" @click.native.prevent="handleLogin">登录</el-button>
 
 
 <!--7验证码登陆按钮-->
-   <el-button v-show="isShowCode" :loading="loading" type="primary" style="height: 40px;width:100%;margin-bottom:30px;border-radius: 20px;background: #FDEACA;border:none;color: #F7AC39;font-weight: 600;margin-top: 50px;" @click.native.prevent="handleLogin2">Login</el-button>
+   <el-button v-show="isShowCode" :loading="loading" type="primary" style="height: 40px;width:100%;margin-bottom:30px;border-radius: 20px;background: #FDEACA;border:none;color: #F7AC39;font-weight: 600;margin-top: 50px;" @click.native.prevent="handleLogin2">登录</el-button>
 
 
 
@@ -86,7 +88,7 @@
 
     </el-form>
     <div class="gotoRegist">
-     <span style="color: #959595;">Don't have an account?  </span>  <router-link to="/regist" style="color: #007cdc;font-weight:600">Sign Up</router-link> </a>
+     <span style="color: #959595;">没有账号?  </span>  <router-link to="/regist" style="color: #007cdc;font-weight:600">注册</router-link> </a>
     </div>
   </div>
 </template>
@@ -102,7 +104,7 @@ import	status  from "../../utils"
 var	wcache = require("../../utils/wcache.js")
 export default {
   mixins: [GlobalMixin],
-	name: 'Login',
+	name: '登录',
   computed: {
     navBgColor(){
       return this.$store.getters.navBgColor
@@ -111,13 +113,14 @@ export default {
 	data() {
 		const validatePassword = (rule, value, callback) => {
 			if(value.length < 6) {
-				callback(new Error('The password can not be less than 6 digits'))
+//				callback(new Error('The password can not be less than 6 digits'))
+				callback(new Error('密码不能少于6位数字'))
 			} else {
 				callback()
 			}
 		}
 		return {
-			country:'65',
+			country:'86',
 			input_phone:'',
 			logoCode:'',
 			isShowLogin: true,
@@ -146,7 +149,7 @@ export default {
 			isShow6: false,
 			isShow7: true,
 			isShow8: true,
-			aa: '65',
+			aa: '86',
 			   //错误信息
                 errorFlag:{
                     phone_empty:false,
@@ -163,19 +166,22 @@ export default {
                 getCodeDisabled: true,
                 registFlag: true,
                 // 获取验证码按钮文字
-                getCodeBtnText: "Get OTP",
+                getCodeBtnText: "获取验证码",
                 //解决安卓输入框将fixed布局顶上的问题
                 hideFooter:true,
                 docmHeight: document.documentElement.clientHeight || document.body.clientHeight,
                 showHeight: document.documentElement.clientHeight || document.body.clientHeight,
                 options: [
-                    {value: "86", name: "+86 China"},
-                    {value: "60", name: "+60 Malaysia"},
-                    {value: "62", name: "+62 Indonesia"},
-                    {value: "65", name: "+65 Singapore"}
+                    {value: "86", name: "+86 中国"},
+                    {value: "60", name: "+60 马来西亚"},
+                    {value: "62", name: "+62 印度尼西亚"},
+                    {value: "65", name: "+65 新加坡"}
               ],
 		}
 	},
+  created() {
+    this.aa = "86";
+  },
 	watch: {
 		$route: {
 			handler: function(route) {
@@ -228,7 +234,8 @@ export default {
                             that.getCodeDisabled = false;
                             // that.$refs.getCode.removeAttribute("disabled");
                             // that.$refs.getCode.value = "获取验证码";
-                            that.getCodeBtnText = "Get OTP";
+//                            that.getCodeBtnText = "Get OTP";
+                            that.getCodeBtnText = "获取验证码";
                         }
                     },1000)
                 } else {
@@ -276,13 +283,15 @@ export default {
        var i = this;
 			if(this.loginForm.username == '') {
         i.$wx.showToast({
-          title: "Please fill in the login account.",
+//          title: "Please fill in the login account.",
+          title: "请输入登录账号.",
           icon: "none"
         });
 				return
 			} else if(this.loginForm.password == '') {
         i.$wx.showToast({
-          title: "Please fill in the password.",
+//          title: "Please fill in the password.",
+          title: "请输入密码.",
           icon: "none"
         });
 				return
@@ -297,7 +306,8 @@ export default {
 				var result = response;
 				if(result != null && result.member_id != -1) {
           i.$wx.showToast({
-            title: "Login Successful.",
+//            title: "Login Successful.",
+            title: "登录成功.",
             icon: "none"
           });
 					this.$wx.setStorageSync('token', response.token)
@@ -317,7 +327,12 @@ export default {
 
 				} else {
 
-					alert("Login failed, please try again");
+//					alert("Login failed, please try again");
+//					alert("登录失败，请重新再试");
+          i.$wx.showToast({
+            title: "登录失败，请重新再试.",
+            icon: "none"
+          });
 				}
 			})
 		},
@@ -336,7 +351,12 @@ export default {
 				console.log(response)
 				var result = response;
 				if(result != null && result.member_id != -1) {
-					alert('Login Successful');
+//					alert('Login Successful');
+//					alert('登录成功');
+          i.$wx.showToast({
+            title: "登录成功",
+            icon: "none"
+          });
           i.$wx.setStorageSync('token', response.token)
           util.getMemberInfo({success:function(e) {
               i.$wx.setStorageSync('userInfo',e.data)
@@ -352,7 +372,12 @@ export default {
 
 
 				} else {
-					alert("Login Failed");
+//					alert("Login Failed");
+//					alert("登录失败");
+          i.$wx.showToast({
+            title: "登录失败",
+            icon: "none"
+          });
 				}
 			})
 		},
@@ -363,7 +388,7 @@ export default {
 		},
 		hideTopAndFooter: function() {
 			this.$wx.setNavigationBarTitle({
-				title: 'Login',
+				title: '登录',
 				showLogo: false,
 				showMore: false,
 				showBack: true

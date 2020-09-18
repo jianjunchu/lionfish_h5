@@ -1,7 +1,8 @@
 <template>
   <div class="login-container">
     <div class="top">
-        <div style="width: 70%;float:left;line-height: 50px;font-size: 18px;font-weight: 600">&nbsp;&nbsp;&nbsp;Complete your profile</div>
+        <!--<div style="width: 70%;float:left;line-height: 50px;font-size: 18px;font-weight: 600">&nbsp;&nbsp;&nbsp;Complete your profile</div>-->
+        <div style="width: 70%;float:left;line-height: 50px;font-size: 18px;font-weight: 600">&nbsp;&nbsp;&nbsp;完善您的个人信息</div>
         <!-- <div style="width: 20%;float:right;line-height: 50px;text-align: center;color: blue;font-weight: 400" @click="turnToLogin">Skip</div> -->
     </div>
     <el-form ref="loginForm" :model="loginForm" :rules="rules" class="login-form" auto-complete="on" label-position="left">
@@ -16,7 +17,7 @@
         <el-input
           ref="username"
           v-model="loginForm.username"
-          placeholder="User Name"
+          placeholder="用户名"
           name="username"
           type="text"
           tabindex="1"
@@ -47,7 +48,7 @@
         <el-input
           ref="password"
           v-model="loginForm.password"
-          placeholder="Password"
+          placeholder="密码"
           name="password"
           type="password"
           tabindex="1"
@@ -56,12 +57,13 @@
       </el-form-item>
 
       <el-form-item style="background: transparent">
-        <el-checkbox v-model="checked" > Yes, I would like to receive newsletters <br>and special offers by email.</el-checkbox>
+        <!--<el-checkbox v-model="checked" > Yes, I would like to receive newsletters <br>and special offers by email.</el-checkbox>-->
+        <el-checkbox v-model="checked" > 同意通过邮件接收优惠信息.</el-checkbox>
       </el-form-item>
 
 
 
-      <el-button :loading="loading" type="primary" round style="width:100%;margin-bottom:40px;" @click.native.prevent="handleSave">Save</el-button>
+      <el-button :loading="loading" type="primary" round style="width:100%;margin-bottom:40px;" @click.native.prevent="handleSave">保存</el-button>
 
       <!-- <div class="tips">
         <span style="margin-right:20px;">username: admin</span>
@@ -79,19 +81,21 @@ export default {
   data() {
     const validatePassword = (rule, value, callback) => {
       if (value.length < 6) {
-        callback(new Error('The password can not be less than 6 digits'))
+//        callback(new Error('The password can not be less than 6 digits'))
+        callback(new Error('密码不能少于6位数字'))
       } else {
         callback()
       }
     }
     const isEmail = (rule, value, callback) => {
       if (!value) {
-        callback(); 
+        callback();
       } else {
         const reg = /^[a-z0-9]+([._\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*[a-z0-9]+.){1,63}[a-z0-9]+$/;
         const email = reg.test(value);
         if (!email) {
-          callback(new Error("Input error! For example:admin@163.com"));
+//          callback(new Error("Input error! For example:admin@163.com"));
+          callback(new Error("请输入正确邮箱! 例如:admin@163.com"));
         } else {
           callback();
         }
@@ -195,7 +199,7 @@ export default {
     },
     hideTopAndFooter: function(){
       this.$wx.setNavigationBarTitle({
-        title: 'Regist',
+        title: '注册',
         showLogo: false,
         showMore: false,
         showBack: true

@@ -34,14 +34,15 @@
 
 
 		<div style="height: 50px;">
-		<div style="width: 100%;height:25px;border-bottom:1px solid #ccc;font-size: 16px;color: #939393;float: left;" @click="click_btn()" v-show="this.isShow">Phone</div>
+		<div style="width: 100%;height:25px;border-bottom:1px solid #ccc;font-size: 16px;color: #939393;float: left;" @click="click_btn()" v-show="this.isShow">手机号</div>
 		<div style="width: 100%;height:41px;border-bottom:1px solid #3D7BD0;font-size: 16px;color: #3D7BD0;float: left;" v-show="this.isShow2">
 				 <span>
 		 <el-select v-model="cityCode" placeholder="请选择" style="width:70px;height:30px;float: left;color: #0076FF;border:none">
-				<el-option label="65" value="65">+65 Singapore</el-option>
-		        <el-option label="60" value="60">+60 Malaysia </el-option>
-				<el-option label="62" value="62">+62 Indonesia</el-option>
-				<el-option label="86" value="86">+86 China</el-option>
+       <el-option label="86" value="86">+86 中国</el-option>
+				<el-option label="65" value="65">+65 新加坡</el-option>
+		        <el-option label="60" value="60">+60 马来西亚 </el-option>
+				<el-option label="62" value="62">+62 印度尼西亚</el-option>
+
 		  </el-select>
 		<span style="margin-top: 12220px;">|</span>
 		</span>
@@ -52,7 +53,7 @@
 
 		<div style="height: 50px;">
 		 <div style="width: 100%;height:28px;border-bottom:1px solid #ccc;font-size: 16px;color: #3D7BD0;" >
-		 <input type="number" style="width: 70%;height: 100%;border:none;outline: none;background: none;" v-model="input_info.code" id="input_code" @focus="focus('code')" @blur="blur('code')" @keyup="activeregist()" ref="code" placeholder="Code"/>
+		 <input type="number" style="width: 70%;height: 100%;border:none;outline: none;background: none;" v-model="input_info.code" id="input_code" @focus="focus('code')" @blur="blur('code')" @keyup="activeregist()" ref="code" placeholder="验证码"/>
 		 <div style="float: right;background: #FDEACA;border-radius: 20px;color: #FDB56D;font-size: 13px;padding:5px;margin-bottom: 10px;" @click="getVerifyCode()" ref="getCode" :disabled="getCodeDisabled">{{getCodeBtnText}}</div>
 		 </div>
 		 </div>
@@ -62,13 +63,13 @@
         <div>
 
           <el-checkbox v-model="privatepolic"><span style="color: red;font-weight:800">*</span>
-            <span style="font-weight:600;font-size: 4vw" > I agree with the Privacy Terms.</span> <br></el-checkbox>
-          <router-link style="font-size:3.4vw;padding-left: 6vw;text-decoration:underline;color: #4b4b4b" to="/privatepolic"> Please click here to view the Privacy Policy</router-link>
+            <span style="font-weight:600;font-size: 4vw" > 同意条款.</span> <br></el-checkbox>
+          <router-link style="font-size:3.4vw;padding-left: 6vw;text-decoration:underline;color: #4b4b4b" to="/privatepolic"> 查看条款</router-link>
 
          <!--注册按钮-->
 			    <el-button type="warning"
 			   	style="height: 40px;width:100%;margin-bottom:30px;border-radius: 20px;border:none;font-weight: 600;margin-top: 50px;"
-			   	@click.native.prevent="regist"  :disabled="!privatepolic">Register</el-button>
+			   	@click.native.prevent="regist"  :disabled="!privatepolic">注册</el-button>
 
 
 
@@ -79,7 +80,7 @@
 
 
         <div class="gotoLogin">
-           <span style="color: #959595;"> Already have an account? </span> <a href="javascript:void()" @click="gotoLogin" style="color: blue">Login</a>
+           <span style="color: #959595;"> 已有账号? </span> <a href="javascript:void()" @click="gotoLogin" style="color: blue">登录</a>
         </div>
 		<!-- <div class="gotoLogin">
 		 <span style="color: #959595;">Don't have an account?</span>  <a href="javascript:void()" @click="gotoRegist" style="color: #568CE2;">Register</a>
@@ -101,7 +102,7 @@
 				      isShow3:true,
 				      isShow4:false,
               privatepolic:false,
-				      aa:'65',
+				      aa:'86',
                 //用户输入信息
                 input_info:{
                     phone:"",
@@ -128,16 +129,16 @@
                 getCodeDisabled: true,
                 registFlag: true,
                 // 获取验证码按钮文字
-                getCodeBtnText: "Get OTP",
+                getCodeBtnText: "获取验证码",
                 //解决安卓输入框将fixed布局顶上的问题
                 hideFooter:true,
                 docmHeight: document.documentElement.clientHeight || document.body.clientHeight,
                 showHeight: document.documentElement.clientHeight || document.body.clientHeight,
                 options: [
-                    {value: "86", name: "+86 China"},
-                    {value: "60", name: "+60 Malaysia"},
-                    {value: "62", name: "+62 Indonesia"},
-                    {value: "65", name: "+65 Singapore"}
+                    {value: "86", name: "+86 中国"},
+                    {value: "60", name: "+60 马来西亚"},
+                    {value: "62", name: "+62 印度尼西亚"},
+                    {value: "65", name: "+65 新加坡"}
               ],
               cityCode: 65
             }
@@ -150,6 +151,7 @@
         },
         props:['baseConfig'],
       created() {
+        this.cityCode = "86";
         this.hideTopAndFooter();
       },
         mounted() {
@@ -200,7 +202,7 @@
             },
             hideTopAndFooter: function(){
               this.$wx.setNavigationBarTitle({
-                title: 'Regist',
+                title: '注册',
                 showLogo: false,
                 showMore: false,
                 showBack: true
@@ -234,7 +236,7 @@
                 let that = this;
                 let input_phone = this.input_info.phone.replace(/\s*/g,"");      //去除空格
               if ( !/^\d{8}$/.test(input_phone) && !/^1(3|4|5|6|7|8|9)\d{9}$/.test(input_phone)) return this.$wx.showToast({
-                title: "Wrong cell phone number",
+                title: "错误的手机号",
                 icon: "none"
               }), !1;
 
@@ -255,7 +257,7 @@
                 //倒计时
                 if (!this.errorFlag.phone_empty){
                     Toast({
-                        message: 'OTP Send',
+                        message: '发送验证码',
                         position: 'middle',
                     });
                     this.timer = setInterval(()=>{
@@ -270,7 +272,7 @@
                             that.getCodeDisabled = false;
                             // that.$refs.getCode.removeAttribute("disabled");
                             // that.$refs.getCode.value = "获取验证码";
-                            that.getCodeBtnText = "Get OTP";
+                            that.getCodeBtnText = "获取验证码";
                         }
                     },1000)
                 } else {
@@ -288,7 +290,7 @@
 
                 if(!this.privatepolic){
                   this.$wx.showToast({
-                    title: 'You must agree to private polic to register',
+                    title: '请同意条款注册',
                     icon: "none"
                   });
                   return;
@@ -298,10 +300,18 @@
               let phone = this.input_info.phone.replace(/\s*/g,"");      //去除空格
               var country = this.cityCode
               if(phone == ""){
-                alert("Please Input Phone!");
+//                alert("Please Input Phone!");
+                this.$wx.showToast({
+                  title: '请输入手机号',
+                  icon: "none"
+                });
                 return;
               }else if(code == ""){
-                alert("Please Input Code!");
+//                alert("Please Input Code!");
+                this.$wx.showToast({
+                  title: '请输入验证码',
+                  icon: "none"
+                });
                 return;
               }
               this.$http({
@@ -319,11 +329,23 @@
                 if(result.code == 0){
                   this.$router.push({path: '/userInfo?memberId='+result.member_id+'&country='+this.cityCode+'&phone='+str});
                 } else if(result.code == -1){
-									alert(" code parameter not")
+//									alert(" code parameter not")
+                  this.$wx.showToast({
+                    title: '验证码不存在',
+                    icon: "none"
+                  });
 								}else if(result.code == -2){
-									alert("timeout")
+//									alert("timeout")
+                  this.$wx.showToast({
+                    title: '验证码失效',
+                    icon: "none"
+                  });
 								}else if(result.code == -3){
-									alert("code verify fails")
+//									alert("code verify fails")
+                  this.$wx.showToast({
+                    title: '验证码验证失败',
+                    icon: "none"
+                  });
 								}
               })
             }
