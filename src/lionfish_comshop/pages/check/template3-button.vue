@@ -64,6 +64,14 @@
 					<span style="font-size: 13px;letter-spacing: 0;vertical-align:middle;" v-html="item.attributeValue1"></span>
 				</div>
 			</div>
+      <div style="width: 100%;height: 10vw;margin-top: 10px;border-bottom: 1px solid #000;" v-if="showEcommerceUrl == 1">
+				<div style="height: 100%;width: 40%;float: left;color: #000;font-weight: 600;text-align: left;">
+					<span style="line-height: 8vw;font-size: 13px; letter-spacing: 0;">再次购买</span>
+				</div>
+				<div style="height: 4vw;width: 60%;float: right;color: #000;font-weight: 600;text-align: right;display: table-cell;vertical-align:middle;margin-top: 1.5vw">
+					<span style="font-size: 13px;letter-spacing: 0;vertical-align:middle;"><a :href="ecommerceUrl">再次购买</a></span>
+				</div>
+			</div>
     </div>
 
     <!-- 溯源信息 -->
@@ -127,8 +135,11 @@
 		</div>
 
     <div v-if="verifyResult" style="width: 88vw;height: 15vw;background: #FFFFFF;box-shadow: 0 -0.053333rem 0.213333rem 0 rgba(222,223,223,0.50);margin: 2vw auto 5vw">
-        <div style="width: 30vw; height: 9vw;position: relative;background: #292929;box-shadow: 0 0.266667rem 0.533333rem 0 #CBCCCD;border-radius: 4vw;left: 29vw;top: 3vw;text-align: center">
-            <a style="font-size:3vw;color: #FFFFFF;letter-spacing: 0;width: 100%;line-height: 9vw;" href="javascript:void(0)" @click="turnToReport">查看详情</a>
+        <div :class="[showLottery==1 ? 'detail_button_left' : 'detail_button_center']">
+            <a style="font-size:3vw;color: #FFFFFF;letter-spacing: 0;width: 100%;line-height: 9vw;" :href="imgLinkUrl">查看详情</a>
+        </div>
+        <div style="width: 30vw; height: 9vw;box-shadow: 0 0.266667rem 0.533333rem 0 #CBCCCD;border-radius: 4vw;text-align: center;float: left;margin-left: 10vw;margin-top: 3vw;" v-if="showLottery==1">
+            <a href="http://boruolai.xx315.net/wap/#/lottery"><img src="@/assets/images/choujiang.png" style="height: 100%;"/></a>
         </div>
     </div>
 
@@ -179,6 +190,7 @@
         },
         goods_image: [],
         goods_image2: [],
+        goods_image3: [],
         goods_attribute: [],
         goods_circulate: [],
         tabList: [],
@@ -198,7 +210,12 @@
         logo: '',
         uid: '',
         nowIp: '',
-        needAuth: !1
+        needAuth: !1,
+        imgLinkUrl: '',
+        showLottery: 1, //抽奖0 不显示，1 显示
+        showCheckLogin: 0, //验证登录0 不需要，1 需要
+        showEcommerceUrl: 0,//再次购买 0不显示，1显示
+        ecommerceUrl: ''//电商url
       }
     },
     created: function() {
@@ -209,32 +226,32 @@
         showMore: false,
         showBack: false
       });
-      this.getIp();
+      //this.getIp();
       // var app = this.$getApp(), wx = this.$wx;
       // var e = wx.getStorageSync("token");
       // console.log(e,"token");
       //this.getDate();
       // this.getCirculate();
-      this.onShow();
+      //this.onShow();
+      this.getDistributor();
     },
     methods: {
        onShow: function() {
-
         const wx = this.$wx, app = this.$getApp()
-        var s = this
-
+        var s = this  
         util.check_login_new().then(function(t) {
           console.log(t)
           if (t) {//登录状态
-            console.log("11111");
+            //console.log("11111");
             
           } else {//未登录
-            console.log("22222");
+            //console.log("22222");
             wx.navigateTo({
               url: "/login"
             })
           }
         })
+
       },
       turnShow: function(){
         var that = this;
@@ -274,6 +291,31 @@
             that.getDate();
         });
       },
+      getDistributor: function(){
+        var app = this.$getApp(), wx = this.$wx;
+        var that = this;
+        var aaa = this.$route.query.organizationId;//经销商ID
+        wx.request({
+          // 请求地址
+          url: 'http://localhost:8080/pmp/api/v1/distributorExtend/get/'+aaa,
+          // 请求方式
+          method: "get",
+          dataType: 'json',
+          responseType: 'text',
+          // 方法
+          success: function(data) {
+            that.showCheckLogin = data.data.body.showCheckLogin;//是否验证登录
+            that.showLottery = data.data.body.showLottery;//抽奖
+            that.showEcommerceUrl = data.data.body.showEcommerceUrl;//再次购买
+            that.ecommerceUrl = data.data.body.ecommerceUrl;//电商url
+            if(that.showCheckLogin == 1){
+              that.onShow();
+            }
+            that.getIp();
+          }
+        })
+        
+      },
       getDate: function(){
         var app = this.$getApp(), wx = this.$wx;
         var that = this;
@@ -303,6 +345,7 @@
                 that.goods_image2.push(that.goods_image[i]);
               }
             }
+            that.imgLinkUrl = that.goods_image[1].imgLinkUrl;
             that.goods_attribute = that.goods.product.attributes;
             that.tabList = that.goods.product.tabs;
             that.monitorFlag = data.data.body.product.productType.monitorFlag;
@@ -384,9 +427,6 @@
         that.showThree = false;
         that.showFour = false;
         that.showFive = true;
-      },
-      turnToReport: function(){
-
       }
     }
   }
@@ -567,6 +607,30 @@
     display: none;
     background: #F5F5F5;
     margin: 0 auto;
+  }
+
+  .detail_button_center{
+    width: 30vw; 
+    height: 9vw;
+    background: #292929;
+    box-shadow: 0 0.266667rem 0.533333rem 0 #CBCCCD;
+    border-radius: 4vw;
+    text-align: center;
+    float: left;
+    margin-left: 29vw;
+    margin-top: 3vw
+  }
+
+  .detail_button_left{
+    width: 30vw; 
+    height: 9vw;
+    background: #292929;
+    box-shadow: 0 0.266667rem 0.533333rem 0 #CBCCCD;
+    border-radius: 4vw;
+    text-align: center;
+    float: left;
+    margin-left: 9vw;
+    margin-top: 3vw
   }
 
 </style>
