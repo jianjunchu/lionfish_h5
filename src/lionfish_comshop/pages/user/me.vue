@@ -235,13 +235,13 @@
 
       <div class="tool">
         <div class="toolList">
-          <div  class="yuenav" data-link="/lionfish_comshop/pages/user/charge"
+          <div @click="goLink2" class="yuenav" data-link="/lionfish_comshop/pages/user/charge"
                v-if="is_open_yue_pay==1">
             <div class="item-main">
               <div class="item-title">
                 <img class="toolIcon" mode="widthFix"
                      :src="user_tool_icons.i1?user_tool_icons.i1:require('@/assets/images/wallet.png')"/>
-                <span>{{$t('wallet.yue')}}<div v-if="!needAuth">: ${{member_info.account_money||0}}</div>
+                <span>{{$t('wallet.yue')}}<span v-if="!needAuth">: ${{member_info.account_money||0}}</span>
                 </span>
               </div>
               <div class="tool-right">
@@ -346,7 +346,7 @@
             <router-link  hoverClass="none" to="/lionfish_comshop/pages/groupCenter/recruit" v-if="close_community_apply_enter==0">
               <div class="item-main">
                 <div class="item-title">
-                  <img class="toolIcon" mode="widthFix" :src="user_tool_icons.i5?user_tool_icons.i5:require('@/assets//images/groupCenterIcon.png')"/>
+                  <img class="toolIcon" mode="widthFix" :src="user_tool_icons.i5?user_tool_icons.i5:require('@/assets/images/groupCenterIcon.png')"/>
                   <span>{{$t('me.shenqingchengwei1')}}{{groupInfo.owner_name}}</span>
                 </div>
                 <div class="tool-right">

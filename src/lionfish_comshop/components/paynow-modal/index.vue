@@ -119,11 +119,32 @@
     position: fixed;
     top: 50px;
     width: 100%;
-    height: 80vh;
+    height: 90vh;
     padding: 1vw;
 
     background-color: white;
     z-index: 100;
     overflow: auto;
+  }
+  .wux-button {
+    display: inline-block;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0 12px;
+    min-width: 52px;
+    min-height: 44px;
+    border: none;
+    border-radius: 4px;
+    vertical-align: middle;
+    text-align: center;
+    text-overflow: ellipsis;
+    font-size: 16px;
+    line-height: 42px;
+    cursor: pointer;
+
+  }
+  .wux-button--block{
+    width: 100%;
+    margin-top: 10px;
   }
 </style>
