@@ -198,7 +198,12 @@
         logo: '',
         uid: '',
         nowIp: '',
-        needAuth: !1
+        needAuth: !1,
+        imgLinkUrl: '',
+        showLottery: 1, //抽奖0 不显示，1 显示
+        showCheckLogin: 0, //验证登录0 不需要，1 需要
+        showEcommerceUrl: 0,//再次购买 0不显示，1显示
+        ecommerceUrl: ''//电商url
       }
     },
     created: function() {
@@ -215,7 +220,8 @@
       // console.log(e,"token");
       //this.getDate();
       // this.getCirculate();
-      this.onShow();
+      // this.onShow();
+      this.getDistributor();
     },
     methods: {
        onShow: function() {
@@ -273,6 +279,31 @@
             that.nowIp = e.data;
             that.getDate();
         });
+      },
+      getDistributor: function(){
+        var app = this.$getApp(), wx = this.$wx;
+        var that = this;
+        var aaa = this.$route.query.organizationId;//经销商ID
+        wx.request({
+          // 请求地址
+          url: 'http://localhost:8080/pmp/api/v1/distributorExtend/get/'+aaa,
+          // 请求方式
+          method: "get",
+          dataType: 'json',
+          responseType: 'text',
+          // 方法
+          success: function(data) {
+            that.showCheckLogin = data.data.body.showCheckLogin;//是否验证登录
+            that.showLottery = data.data.body.showLottery;//抽奖
+            that.showEcommerceUrl = data.data.body.showEcommerceUrl;//再次购买
+            that.ecommerceUrl = data.data.body.ecommerceUrl;//电商url
+            if(that.showCheckLogin == 1){
+              that.onShow();
+            }
+            that.getIp();
+          }
+        })
+        
       },
       getDate: function(){
         var app = this.$getApp(), wx = this.$wx;
