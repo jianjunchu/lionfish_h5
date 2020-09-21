@@ -297,7 +297,7 @@
         var aaa = this.$route.query.organizationId;//经销商ID
         wx.request({
           // 请求地址
-          url: 'http://localhost:8080/pmp/api/v1/distributorExtend/get/'+aaa,
+          url: 'http://123.206.27.155:8068/pmp/api/v1/distributorExtend/get/'+aaa,
           // 请求方式
           method: "get",
           dataType: 'json',
