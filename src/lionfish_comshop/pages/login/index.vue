@@ -211,7 +211,11 @@ export default {
                 }).then(response => {
                   console.log(response,",,,,,")
 							  if(response.code ==-1){
-								  alert(response.message)
+//								  alert(response.message)
+                  that.$wx.showToast({
+                    title: response.message,
+                    icon: "none"
+                  });
 							  }
                 });
                 this.registFlag = true;
