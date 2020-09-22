@@ -50,8 +50,8 @@ export const constantRoutes = [
     }
   },
   {
-    name: '/lionfish_comshop/pages/check/template2-button',
-    path: '/lionfish_comshop/pages/check/template2-button',
+    name: '/t2',
+    path: '/t2',
     component: () => import('@/lionfish_comshop/pages/check/template2-button'),
     hidden: true,
     meta: {
@@ -59,8 +59,8 @@ export const constantRoutes = [
     }
   },
   {
-    name: '/lionfish_comshop/pages/check/template3-button',
-    path: '/lionfish_comshop/pages/check/template3-button',
+    name: '/t3',
+    path: '/t3',
     component: () => import('@/lionfish_comshop/pages/check/template3-button'),
     hidden: true,
     meta: {

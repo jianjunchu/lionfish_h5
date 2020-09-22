@@ -60,7 +60,7 @@
 				<div style="height: 100%;width: 40%;float: left;color: #000;font-weight: 600;text-align: left;">
 					<span style="line-height: 8vw;font-size: 13px; letter-spacing: 0;">{{item.attributeName}}</span>
 				</div>
-				<div style="height: 4vw;width: 60%;float: right;color: #000;font-weight: 600;text-align: right;display: table-cell;vertical-align:middle;margin-top: 1.5vw">
+				<div style="height: 4vw;width: 60%;float: right;color: #000;font-weight: 600;text-align: right;display: table-cell;vertical-align:middle;margin-top: 1.6vw">
 					<span style="font-size: 13px;letter-spacing: 0;vertical-align:middle;" v-html="item.attributeValue1"></span>
 				</div>
 			</div>
@@ -264,25 +264,6 @@
       getIp: function(){
         var that = this;
         var app = this.$getApp(), wx = this.$wx;
-        // wx.request({
-        //   // 请求地址
-        //   url: 'ip',
-        //   // 请求方式
-        //   method: "get",
-        //   dataType: 'json',
-        //   responseType: 'text',
-        //   // 方法
-        //   success: function (data) {
-        //     console.log(data, "data")
-        //     var result = data.data;
-        //     var start = result.indexOf("{");
-        //     var end = result.indexOf("}") + 1;
-        //     var jsonStr = result.substring(start,end);
-        //     var jsonObj = JSON.parse(jsonStr);
-        //     that.nowIp = jsonObj.cip;
-        //     that.getDate();
-        //   }
-        // });
         this.$http({
             controller: "index.get_client_ip"
           }).then(e=> {
@@ -294,24 +275,37 @@
       getDistributor: function(){
         var app = this.$getApp(), wx = this.$wx;
         var that = this;
-        var aaa = this.$route.query.organizationId;//经销商ID
+        that.checkCode = this.$route.query.chk;
+        that.code = that.checkCode.substr(0,14);
         wx.request({
           // 请求地址
-          url: 'http://123.206.27.155:8068/pmp/api/v1/distributorExtend/get/'+aaa,
+          url: 'http://123.206.27.155:8068/pmp/api/v1/distributorExtend/getByUid/'+that.code,
           // 请求方式
           method: "get",
           dataType: 'json',
           responseType: 'text',
           // 方法
           success: function(data) {
-            that.showCheckLogin = data.data.body.showCheckLogin;//是否验证登录
-            that.showLottery = data.data.body.showLottery;//抽奖
-            that.showEcommerceUrl = data.data.body.showEcommerceUrl;//再次购买
-            that.ecommerceUrl = data.data.body.ecommerceUrl;//电商url
-            if(that.showCheckLogin == 1){
-              that.onShow();
-            }
-            that.getIp();
+            console.log(data,"经销商");
+            if(data.data == ""){
+              that.showCheckLogin = 1;//是否验证登录
+              that.showLottery = 1;//抽奖
+              that.showEcommerceUrl = 1;//再次购买
+              that.ecommerceUrl = 'http://boruolai.xx315.net/wap/#/';//电商url
+              if(that.showCheckLogin == 1){
+                that.onShow();
+              }
+              that.getIp();
+            }else{
+              that.showCheckLogin = data.data.body.showCheckLogin;//是否验证登录
+              that.showLottery = data.data.body.showLottery;//抽奖
+              that.showEcommerceUrl = data.data.body.showEcommerceUrl;//再次购买
+              that.ecommerceUrl = data.data.body.ecommerceUrl;//电商url
+              if(that.showCheckLogin == 1){
+                that.onShow();
+              }
+              that.getIp();
+            }   
           }
         })
         
@@ -328,7 +322,6 @@
         }else{
           url = 'http://123.206.27.155:8068/pmp/api/v2/nfc315/verify/'+that.b0+'/'+that.checkCode+'/'+ that.nowIp;
         }
-        debugger
         wx.request({
           // 请求地址
           url: url,

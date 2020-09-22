@@ -9,7 +9,7 @@
       <swiper :options="swiperOption">
         <swiper-slide v-for="(item,index) in goods_image2" :key="index">
           <div v-if="item.urlType == 1">
-              <video id="myPlayer" poster="" controls playsInline webkit-playsinline style="width: 88vw;height: 70vw;" class="content2">
+              <video id="myPlayer" :poster="item.videoMainImgUrl" controls playsInline webkit-playsinline style="width: 88vw;height: 70vw;" class="content2">
                 <source :src="item.imgUrl" type="video/mp4">
                 <source :src="item.imgUrl" type="application/x-mpegURL" />
               </video>
@@ -64,6 +64,14 @@
 					<span style="font-size: 13px;letter-spacing: 0;vertical-align:middle;" v-html="item.attributeValue1"></span>
 				</div>
 			</div>
+      <div style="width: 100%;height: 10vw;margin-top: 10px;border-bottom: 1px solid #fff;" v-if="showEcommerceUrl == 1">
+				<div style="height: 100%;width: 40%;float: left;color: #fff;font-weight: 600;text-align: left;">
+					<span style="line-height: 8vw;font-size: 13px; letter-spacing: 0;">再次购买</span>
+				</div>
+				<div style="height: 4vw;width: 60%;float: right;color: #fff;font-weight: 600;text-align: right;display: table-cell;vertical-align:middle;margin-top: 1.5vw">
+					<span style="font-size: 13px;letter-spacing: 0;vertical-align:middle;"><a :href="ecommerceUrl">再次购买</a></span>
+				</div>
+			</div>
     </div>
 
     <!-- 溯源信息 -->
@@ -91,7 +99,7 @@
     <div v-if="verifyResult" id="threeDivView" :class="[showThree? 'three-div-block':'three-div-none']">
       <div v-for="(item,index) in goods_image" :key="index">
         <div v-if="item.urlType == 3" style="width: 88vw;height: 50vw;background: #F8F9F8;margin: 5vw auto 0rem;background-size: 50% 50%;border-radius: 0.16rem 0.16rem 0 0;">
-          <video id="myPlayer" poster="" controls playsInline webkit-playsinline style="width: 88vw;height: 50vw;" class="content2">
+          <video id="myPlayer" :poster="item.videoMainImgUrl" controls playsInline webkit-playsinline style="width: 88vw;height: 50vw;" class="content2">
             <source :src="item.imgUrl" type="video/mp4">
             <source :src="item.imgUrl" type="application/x-mpegURL" />
           </video>
@@ -127,8 +135,11 @@
 		</div>
 
     <div v-if="verifyResult" style="width: 88vw;height: 15vw;background: #FFFFFF;box-shadow: 0 -0.053333rem 0.213333rem 0 rgba(222,223,223,0.50);margin: 2vw auto 5vw">
-        <div style="width: 30vw; height: 9vw;position: relative;background: #292929;box-shadow: 0 0.266667rem 0.533333rem 0 #CBCCCD;border-radius: 4vw;left: 29vw;top: 3vw;text-align: center">
-            <a style="font-size:3vw;color: #FFFFFF;letter-spacing: 0;width: 100%;line-height: 9vw;" href="javascript:void(0)" @click="turnToReport">查看详情</a>
+        <div :class="[showLottery==1 ? 'detail_button_left' : 'detail_button_center']">
+            <a style="font-size:3vw;color: #FFFFFF;letter-spacing: 0;width: 100%;line-height: 9vw;" :href="imgLinkUrl">查看详情</a>
+        </div>
+        <div style="width: 30vw; height: 9vw;box-shadow: 0 0.266667rem 0.533333rem 0 #CBCCCD;border-radius: 4vw;text-align: center;float: left;margin-left: 10vw;margin-top: 3vw;" v-if="showLottery==1">
+            <a href="http://boruolai.xx315.net/wap/#/lottery"><img src="@/assets/images/choujiang.png" style="height: 100%;"/></a>
         </div>
     </div>
 
@@ -214,7 +225,7 @@
         showMore: false,
         showBack: false
       });
-      this.getIp();
+      //this.getIp();
       // var app = this.$getApp(), wx = this.$wx;
       // var e = wx.getStorageSync("token");
       // console.log(e,"token");
@@ -253,29 +264,10 @@
       getIp: function(){
         var that = this;
         var app = this.$getApp(), wx = this.$wx;
-        // wx.request({
-        //   // 请求地址
-        //   url: 'ip',
-        //   // 请求方式
-        //   method: "get",
-        //   dataType: 'json',
-        //   responseType: 'text',
-        //   // 方法
-        //   success: function (data) {
-        //     console.log(data, "data")
-        //     var result = data.data;
-        //     var start = result.indexOf("{");
-        //     var end = result.indexOf("}") + 1;
-        //     var jsonStr = result.substring(start,end);
-        //     var jsonObj = JSON.parse(jsonStr);
-        //     that.nowIp = jsonObj.cip;
-        //     that.getDate();
-        //   }
-        // });
         this.$http({
             controller: "index.get_client_ip"
           }).then(e=> {
-            console.log(e,"liuwantao");
+            //console.log(e,"liuwantao");
             that.nowIp = e.data;
             that.getDate();
         });
@@ -283,24 +275,36 @@
       getDistributor: function(){
         var app = this.$getApp(), wx = this.$wx;
         var that = this;
-        var aaa = this.$route.query.organizationId;//经销商ID
+        that.checkCode = this.$route.query.chk;
+        that.code = that.checkCode.substr(0,14);
         wx.request({
           // 请求地址
-          url: 'http://localhost:8080/pmp/api/v1/distributorExtend/get/'+aaa,
+          url: 'http://123.206.27.155:8068/pmp/api/v1/distributorExtend/getByUid/'+that.code,
           // 请求方式
           method: "get",
           dataType: 'json',
           responseType: 'text',
           // 方法
           success: function(data) {
-            that.showCheckLogin = data.data.body.showCheckLogin;//是否验证登录
-            that.showLottery = data.data.body.showLottery;//抽奖
-            that.showEcommerceUrl = data.data.body.showEcommerceUrl;//再次购买
-            that.ecommerceUrl = data.data.body.ecommerceUrl;//电商url
-            if(that.showCheckLogin == 1){
-              that.onShow();
-            }
-            that.getIp();
+            if(data.data == ""){
+              that.showCheckLogin = 1;//是否验证登录
+              that.showLottery = 1;//抽奖
+              that.showEcommerceUrl = 1;//再次购买
+              that.ecommerceUrl = 'http://boruolai.xx315.net/wap/#/';//电商url
+              if(that.showCheckLogin == 1){
+                that.onShow();
+              }
+              that.getIp();
+            }else{
+              that.showCheckLogin = data.data.body.showCheckLogin;//是否验证登录
+              that.showLottery = data.data.body.showLottery;//抽奖
+              that.showEcommerceUrl = data.data.body.showEcommerceUrl;//再次购买
+              that.ecommerceUrl = data.data.body.ecommerceUrl;//电商url
+              if(that.showCheckLogin == 1){
+                that.onShow();
+              }
+              that.getIp();
+            }   
           }
         })
         
@@ -317,7 +321,6 @@
         }else{
           url = 'http://123.206.27.155:8068/pmp/api/v2/nfc315/verify/'+that.b0+'/'+that.checkCode+'/'+ that.nowIp;
         }
-        debugger
         wx.request({
           // 请求地址
           url: url,
@@ -596,6 +599,30 @@
     display: none;
     background: #000000;
     margin: 0 auto;
+  }
+
+  .detail_button_center{
+    width: 30vw; 
+    height: 9vw;
+    background: #292929;
+    box-shadow: 0 0.266667rem 0.533333rem 0 #CBCCCD;
+    border-radius: 4vw;
+    text-align: center;
+    float: left;
+    margin-left: 29vw;
+    margin-top: 3vw
+  }
+
+  .detail_button_left{
+    width: 30vw; 
+    height: 9vw;
+    background: #292929;
+    box-shadow: 0 0.266667rem 0.533333rem 0 #CBCCCD;
+    border-radius: 4vw;
+    text-align: center;
+    float: left;
+    margin-left: 9vw;
+    margin-top: 3vw
   }
 
 </style>
