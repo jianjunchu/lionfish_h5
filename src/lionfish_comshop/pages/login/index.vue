@@ -123,8 +123,8 @@ export default {
 			country:'86',
 			input_phone:'',
 			logoCode:'',
-			isShowLogin: true,
-			isShowCode: false,
+			isShowLogin: false,
+			isShowCode: true,
 			loginForm: {
 				username: '',
 				password: '',
@@ -204,7 +204,8 @@ export default {
                 }
                 var phone = this.country + input_phone;
                 this.$http({
-                  controller : 'index.send_sms_login',
+//                  controller : 'index.send_sms_login',
+                  controller : 'index.send_sms_login_save',
                   country: this.country,
                   phone: input_phone
 //                  , i: 3
