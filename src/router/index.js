@@ -396,7 +396,25 @@ export const constantRoutes = [
   {
     name: '/lionfish_comshop/pages/web-view',
     path: '/lionfish_comshop/pages/web-view',
-    component: () => import('@//lionfish_comshop/pages/web-view'),
+    component: () => import('@/lionfish_comshop/pages/web-view'),
+    hidden: true,
+    meta: {
+      keepAlive: false
+    }
+  },
+  {
+    name: '/lionfish_comshop/pages/user/rechargeDetails',
+    path: '/lionfish_comshop/pages/user/rechargeDetails',
+    component: () => import('@/lionfish_comshop/pages/user/rechargeDetails'),
+    hidden: true,
+    meta: {
+      keepAlive: false
+    }
+  },
+  {
+    name: '/lionfish_comshop/pages/user/charge',
+    path: '/lionfish_comshop/pages/user/charge',
+    component: () => import('@/lionfish_comshop/pages/user/charge'),
     hidden: true,
     meta: {
       keepAlive: false

@@ -1,13 +1,13 @@
 <template>
 
   <div class="goods-wrapper">
-    <div @click="hide_share_handler" class="ui-mask" v-show="is_share_html"></div>
+    <div @click.stop="hide_share_handler" class="ui-mask" v-show="is_share_html"></div>
     <div class="model-services show" v-show="is_share_html">
       <div class="model-services-title">{{$t('common.fenxiang')}}</div>
       <div class="model-services-content">
         <div class="service-list">
           <div class="service-item">
-            <div class="none_btn" @click="share_whatsapp" openType="share" plain="true">
+            <div class="none_btn" @click.stop="share_whatsapp" openType="share" plain="true">
                 <span>
                   <svg xmlns="http://www.w3.org/2000/svg" width="39" height="39" viewBox="0 0 39 39"><path
                     fill="#00E676"
@@ -20,7 +20,7 @@
               </div>
             </div>
           </div>
-          <!--<div @click="get_share_img" class="service-item">
+          <!--<div @click.stop="get_share_img" class="service-item">
             <div class="iconfont icon-pengyouquan service-icon"></div>
             <div class="cube-text">
               <div>海报</div>
@@ -55,15 +55,15 @@
       <swiper  style="height:100%" :options="swiperOption">
         <swiper-slide v-for="(item,index) in goods_image" :key="item.id">
           <div v-if="goods.video!=''&&goods.video!=null">
-            <img bindload="imageLoad" @click="predivImg" width="100%" :data-idx="index" lazyLoad="true" mode="widthFix"
+            <img bindload="imageLoad" @click.stop="predivImg" width="100%" :data-idx="index" lazyLoad="true" mode="widthFix"
                  :src="item.image" v-if="index!=0"/>
             <div class="video-wrap" v-else>
               <div v-if="fmShow">
                 <div class="btn_div centerboth" v-if="item.video==''"></div>
-                <div @click="btnPlay" class="btn_div centerboth" v-else>
+                <div @click.stop="btnPlay" class="btn_div centerboth" v-else>
                   <img src="@/assets/images/play.png"/>
                 </div>
-                <img bindload="imageLoad" @click="predivImg" :data-idx="index" lazyLoad="true" mode="widthFix"
+                <img bindload="imageLoad" @click.stop="predivImg" :data-idx="index" lazyLoad="true" mode="widthFix"
                      :src="item.image"/>
               </div>
               <video bindended="videEnd" class="swiper-video" v-show="fmShow" id="myVideo" objectFit="contain"
@@ -71,7 +71,7 @@
 
             </div>
           </div>
-          <img bindload="imageLoad" @click="predivImg" width="100%" :data-idx="index" lazyLoad="true" mode="widthFix"
+          <img bindload="imageLoad" @click.stop="predivImg" width="100%" :data-idx="index" lazyLoad="true" mode="widthFix"
                :src="item.image" v-else/>
         </swiper-slide>
         <div class="swiper-pagination"  slot="pagination" style="padding-bottom: 50px;"></div>
@@ -80,8 +80,8 @@
     </div>
 
 
-    <!--<div @click="endPlay" class="end-play" :hidden="fmShow">-->
-    <div @click="endPlay" class="end-play" v-show="false">
+    <!--<div @click.stop="endPlay" class="end-play" :hidden="fmShow">-->
+    <div @click.stop="endPlay" class="end-play" v-show="false">
       <div class="btn">退出播放</div>
     </div>
     <!--<div class="spuInfo" :style="{z-index: fmShow==false?-1:2}">-->
@@ -124,7 +124,7 @@
             <div class="iconfont icon-gou red fsz-22"></div>
             {{$t('detail.zitishangpin')}}
           </div>
-          <div @click="handleHexiaoModal" class="hexiao text-6">
+          <div @click.stop="handleHexiaoModal" class="hexiao text-6">
             <div class="iconfont icon-gou red fsz-22" v-if="hx_len"></div>
             支持多点自提
           </div>
@@ -165,7 +165,7 @@
           </span>
           <span class="pre" v-if="goods.is_show_pre == 1">Expected delivery date: <span style="color: #ff5344">{{goods.pre_delivery_date}}</span></span>
         </div>
-        <div @click="goLink" class="vip i-flex i-flex-spb" data-link="/lionfish_comshop/moduleA/vip/upgrade"
+        <div @click.stop="goLink" class="vip i-flex i-flex-spb" data-link="/lionfish_comshop/moduleA/vip/upgrade"
              v-if="goods.is_take_vipcard==1&&is_vip_card_member==1&&is_open_vipcard_buy==1">
           <div class="i-flex vip-name">
             <img class="vip-logo" :src="modify_vipcard_logo" v-if="modify_vipcard_logo"/>
@@ -174,7 +174,7 @@
             <div v-if="goods.is_take_vipcard==1">会员立省{{goods.feePrice}}元</div>
           </div>
         </div>
-        <div @click="goLink" class="vip i-flex i-flex-spb" data-link="/lionfish_comshop/moduleA/vip/upgrade"
+        <div @click.stop="goLink" class="vip i-flex i-flex-spb" data-link="/lionfish_comshop/moduleA/vip/upgrade"
              v-if="is_open_vipcard_buy==1&&is_vip_card_member!=1">
           <div class="i-flex vip-name">
             <img class="vip-logo" :src="modify_vipcard_logo" v-if="modify_vipcard_logo"/>
@@ -192,7 +192,7 @@
           </div>
         </div>
       </div>
-      <div @click="changeCommunity" class="group"
+      <div @click.stop="changeCommunity" class="group"
            v-if="is_show_goodsdetails_communityinfo==1&&community&&community.communityName">
         <div class="group-avatar">
           <img :src="community.headImg||community.disUserHeadImg"/>
@@ -208,7 +208,7 @@
           <img class="group-r-icon" src="@/assets/images/community-right-arrow.png"/>
         </div>
       </div>
-      <div @click="showGroupCode" class="group"
+      <div @click.stop="showGroupCode" class="group"
            v-if="isopen_community_group_share==1&&group_share_info&&group_share_info.share_wxcode">
         <div class="group-avatar">
           <img :src="group_share_info.share_avatar"/>
@@ -232,10 +232,10 @@
               <img :src="item.avatar"/>
               <div>{{item.user_name}}</div>
             </div>
-            <!--<div @click="bindOpen" :class="{'commentsCon', item.isOpen&&item.showOpen?'doubleHidden':''}" :data-idx="index">{{item.content}}</div>-->
-            <div @click="bindOpen" class="'commentsCon', 'doubleHidden'" :data-idx="index">{{item.content}}</div>
+            <!--<div @click.stop="bindOpen" :class="{'commentsCon', item.isOpen&&item.showOpen?'doubleHidden':''}" :data-idx="index">{{item.content}}</div>-->
+            <div @click.stop="bindOpen" class="'commentsCon', 'doubleHidden'" :data-idx="index">{{item.content}}</div>
             <div class="commentsOpen" v-if="item.showOpen">
-              <div @click="bindOpen" :data-idx="index">{{item.isOpen?'展开':'收起'}}</div>
+              <div @click.stop="bindOpen" :data-idx="index">{{item.isOpen?'展开':'收起'}}</div>
               <img class="commentsOpenImg down" src="@/assets/images/commentsOpen.png"/>
             </div>
             <div class="allImg" v-if="item.images.length>0">
@@ -244,7 +244,7 @@
                 <img class="goodsImg img-class" :src="imgItem" style="width:75px;height:75px;"/>
               </div>
             </div>
-            <div class="checkComments" @click="goLink2" hoverClass="none"
+            <div class="checkComments" @click.stop="goLink2" hoverClass="none"
                  data-link="/lionfish_comshop/pages/goods/comment?id=" :data-id="item.goods_id">
               {{$t('detail.quanbupinglun')}}
             </div>
@@ -253,7 +253,7 @@
       </div>
       <div v-if="buy_record_arr.count>0&&is_show_buy_record==1">
         <div class="buyRecords">
-          <div class="moreBuyer" @click="goLink2" hoverClass="none"
+          <div class="moreBuyer" @click.stop="goLink2" hoverClass="none"
                data-link="/lionfish_comshop/pages/goods/buyRecords?id=" :data-id="goods_id">
             <div class="title">
               {{$t('detail.goumaijilu')}}
@@ -269,7 +269,7 @@
             <div class="buyerList">
               <img class="buyerImg img-class" :src="item.avatar" style="height:45px;height:45px;"
                    v-for="(item,index) in buy_record_arr.list" :key="item.id"/>
-              <div class="moreBuyer" @click="goLink2" hoverClass="none"
+              <div class="moreBuyer" @click.stop="goLink2" hoverClass="none"
                    data-link="/lionfish_comshop/pages/goods/buyRecords?id=" :data-id="goods_id">
                 <img class="buyerImg" src="@/assets/images/moreBuyer.png"/>
               </div>
@@ -303,7 +303,7 @@
             </div>
           </div>
         </div>
-        <div class="cell" @click="goLink2" data-link="/lionfish_comshop/pages/goods/industrial?id=" :data-id="goods_id"
+        <div class="cell" @click.stop="goLink2" data-link="/lionfish_comshop/pages/goods/industrial?id=" :data-id="goods_id"
              v-if="goods_industrial_switch==1&&goods_industrial">
           <div class="cell-left">
             <img class="cell-icon" mode="widthFix"
@@ -347,13 +347,13 @@
               <button hidden type="button" id="formId_"></button>
             </form>
             <label class="balanceBtn" for="formId">
-              <div @click="balance" class="bar-item balance" :style="{background: goodsdetails_buy_bg_color}">
+              <div @click.stop="balance" class="bar-item balance" :style="{background: goodsdetails_buy_bg_color}">
                 {{$t('detail.tuanzhangxiuxi')}}{{$t('detail.lijiduihuan')}}
               </div>
             </label>
           </div>
           <div class="gobuy" v-else>
-            <form @click="addToCart" reportSubmit="true">
+            <form @click.stop="addToCart" reportSubmit="true">
               <div class="bar-item add-to-cart" :style="{background: goodsdetails_addcart_bg_color}">
                 {{$t('detail.jiarugouwuche')}}
               </div>
@@ -363,7 +363,7 @@
               <button hidden type="button" id="formId"></button>
             </form>
             <label class="balanceBtn" for="formId">
-              <div @click="balance" class="bar-item balance" :style="{background: goodsdetails_buy_bg_color}">
+              <div @click.stop="balance" class="bar-item balance" :style="{background: goodsdetails_buy_bg_color}">
                 {{goods.is_seckill==1?$t('detail.mashangqianggou'):$t('detail.lijigoumai')}}
               </div>
             </label>
@@ -372,12 +372,12 @@
       </div>
 
 
-      <!--<div @click="closeSku" class="mask" :hidden="!visible"></div>-->
-      <div @click="closeSku" class="mask" v-show="visible"></div>
+      <!--<div @click.stop="closeSku" class="mask" :hidden="!visible"></div>-->
+      <div @click.stop="closeSku" class="mask" v-show="visible"></div>
       <!--<div bind:cancel="close" class="sku-content" :hidden="!visible" scrollUp="true">-->
-      <div @click="close" class="sku-content" v-show="visible" scrollUp="true">
+      <div @click.stop="close" class="sku-content" v-show="visible" scrollUp="true">
         <div class="sku-card">
-          <div @click="closeSku" class="close">
+          <div @click.stop="closeSku" class="close">
             <img src="@/assets/images/icon-sku-close.png"/>
           </div>
 
@@ -414,8 +414,8 @@
           <div class="sku-spec" v-for="(item,index) in skuList.list" :key="item.id">
             <div class="title">{{item.name}}</div>
             <div class="spec-list">
-              <!--<span @click="selectSku" class="{{idx==sku[index]['idx']?'on':''}}" data-disabled="{{item.canBuyNum-value<0}}" data-idx="{{idx}}" data-type="{{index}}_{{idx}}_{{value.option_value_id}}_{{value.name}}" wx:for="{{item.option_value}}" wx:for-index="idx" wx:for-item="value" wx:key="idx">{{value.name}}</span>-->
-              <span @click="selectSku" :class="idx==sku[index]['idx']?'on':''" :data-disabled="item.canBuyNum-value<0"
+              <!--<span @click.stop="selectSku" class="{{idx==sku[index]['idx']?'on':''}}" data-disabled="{{item.canBuyNum-value<0}}" data-idx="{{idx}}" data-type="{{index}}_{{idx}}_{{value.option_value_id}}_{{value.name}}" wx:for="{{item.option_value}}" wx:for-index="idx" wx:for-item="value" wx:key="idx">{{value.name}}</span>-->
+              <span @click.stop="selectSku" :class="idx==sku[index]['idx']?'on':''" :data-disabled="item.canBuyNum-value<0"
                     :data-idx="idx" :data-type="index_idx_value.option_value_id_value.name"
                     v-for="(value,idx) in item.option_value" :key="item.idx">{{value.name}}</span>
             </div>
@@ -423,12 +423,12 @@
           <div class="sku-num-content">
             <div class="title">{{$t('common.shuliang')}}</div>
             <div :class="['i-class', 'i-input-number', 'i-input-number-size-'+size]">
-              <div @click="setNum" class="i-input-number-minus" data-type="decrease">
+              <div @click.stop="setNum" class="i-input-number-minus" data-type="decrease">
                 <img src="@/assets/images/icon-input-reduce.png"/>
               </div>
               <input bindblur="handleBlur" bindfocus="handleFocus" @input="changeNumber" class="i-input-number-text"
                      type="number" :value="sku_val"></input>
-              <div @click="setNum" class="i-input-number-plus" data-type="add">
+              <div @click.stop="setNum" class="i-input-number-plus" data-type="add">
                 <img src="@/assets/images/icon-input-add.png"/>
               </div>
             </div>
@@ -439,7 +439,7 @@
             <!--</div>-->
             <!--<div class="even-num" v-else-if="!skuList[current].isLimit&&skuList[current].canBuyNum-value<=10&&skuList[current].canBuyNum-value>-1">还可以购买 {{skuList[current].canBuyNum-value}} 件</div>-->
           </div>
-          <form @click="gocarfrom" reportSubmit="true">
+          <form @click.stop="gocarfrom" reportSubmit="true">
             <button class="sku-confirm" :disabled="cur_sku_arr.stock==0?true:false" type="button">
               <div>{{cur_sku_arr.stock==0?$t('common.yiqiangguang'):$t('common.queding')}}</div>
             </button>
@@ -449,7 +449,7 @@
     </div>
 
 
-    <button @click.stop="share_handler" class="fixed-share">
+    <button @click.stop.stop="share_handler" class="fixed-share">
       <div class="iconfont icon-fenxiang"></div>
       <div>Share</div>
     </button>
@@ -459,7 +459,7 @@
     </button>-->
     <!--<i-order-notify iClass="order-notify" :stopNotify="stopNotify" v-if="order_notify_switch==1"></i-order-notify>
     <i-new-auth bind:authSuccess="authSuccess" bind:cancel="authModal" :needAuth="needAuth&&showAuthModal" :needPosition="needPosition"></i-new-auth>
-    <div @click="closeShareModal" class="share-modal" :hidden="hideModal">
+    <div @click.stop="closeShareModal" class="share-modal" :hidden="hideModal">
       <div class="share-modal-content">
         <div class="share-modal-img">
           <img mode="widthFix" :src="shareImgUrl"/>
@@ -473,7 +473,7 @@
               </div>
             </button>
           </div>
-          <div @click="saveThumb" class="share-modal-btn-item">
+          <div @click.stop="saveThumb" class="share-modal-btn-item">
             <div class="iconfont icon-zhaopian btn-icon"></div>
             <div class="btn-text">
               <div>保存相册</div>
@@ -492,7 +492,7 @@
     <!--<div class="sku-card">-->
     <!--<div class="title text-gray mb10 fsz-26 i-flex i-alc">-->
     <!--<div class="i-flex-item">共 <div class="red bold">{{hx_len}}</div> 个自提点</div>-->
-    <!--<div @click="handleHexiaoModal" class="iconfont icon-guanbi fsz-34 text-3"></div>-->
+    <!--<div @click.stop="handleHexiaoModal" class="iconfont icon-guanbi fsz-34 text-3"></div>-->
     <!--</div>-->
     <!--<scroll-div scrollY style="height: 60vh;">-->
     <!--<div class="border-bottom py10"  v-for="(item,index) in hexiao_arr" :key="item.index" >-->
@@ -507,7 +507,7 @@
     <!--<div class="section">-->
     <!--<video autoplay loop autoPauseIfOpenNative="true" bindended="coverVideoEnd" controls="false" direction="0" id="coverVideo" :objectFit="is_heng==0?'fill':'contain'" showFullscreenBtn="false" :src="goods.video"></video>-->
     <!--</div>-->
-    <!--<cover-div @click="closeCoverVideo" class="goods" :data-id="goods.id" v-if="goods">-->
+    <!--<cover-div @click.stop="closeCoverVideo" class="goods" :data-id="goods.id" v-if="goods">-->
     <!--<cover-div class="good-img">-->
     <!--<cover-image :src="goods.image_thumb?goods.image_thumb:'@/assets/images/placeholder-refund.png'"></cover-image>-->
     <!--</cover-div>-->
