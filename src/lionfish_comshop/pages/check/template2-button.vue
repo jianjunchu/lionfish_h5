@@ -9,12 +9,12 @@
       <swiper :options="swiperOption">
         <swiper-slide v-for="(item,index) in goods_image2" :key="index">
           <div v-if="item.urlType == 1">
-              <video id="myPlayer" :poster="item.videoMainImgUrl" controls playsInline webkit-playsinline style="width: 88vw;height: 70vw;" class="content2">
+              <video id="myPlayer" :poster="item.videoMainImgUrl" controls playsInline webkit-playsinline style="width: 88vw;" class="content2">
                 <source :src="item.imgUrl" type="video/mp4">
                 <source :src="item.imgUrl" type="application/x-mpegURL" />
               </video>
           </div>
-          <img v-if="item.urlType == 0" style="height: 70vw; width: 88vw; margin: 0 auto;"
+          <img v-if="item.urlType == 0" style="width: 88vw; margin: 0 auto;"
                 :src="item.imgUrl"/>
         </swiper-slide>
         <div class="swiper-pagination"  slot="pagination" style="padding-bottom: 0vw;"></div>
@@ -180,11 +180,11 @@
             //   prevEl: '.swiper-button-prev'
             // },
             //自动轮播
-            // autoplay: {
-            //   delay: 2000,
-            //   //当用户滑动图片后继续自动轮播
-            //   disableOnInteraction: false,
-            // },
+            autoplay: {
+              delay: 3000,
+              //当用户滑动图片后继续自动轮播
+              disableOnInteraction: false,
+            },
             //开启循环模式
             loop: true
         },
