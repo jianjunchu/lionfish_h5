@@ -217,7 +217,7 @@ export default {
     tihuodidian: '提货地点',
     weizhi: '位置:',
     zonge: '总额:',
-    zongyouhui: '总优惠:',
+    zongyouhui: '总优惠',
     querenshouhuoxinxi: '需要快递配送，请确认收货信息',
     shangpinzonge: '商品总额:',
     youhuijine: '优惠金额:',
@@ -292,7 +292,8 @@ export default {
     zhuanzhangbeizhu: '注：转账支付为人工审核',
     querenshoudao: '确认收到货?',
     yuezhifu: '余额支付（余额：{p1})',
-    yuebuzhu: '余额不足'
+    yuebuzhu: '余额不足',
+    shouhuochenghong: '收货成功'
   },
   cart: {
     gouwuchekong: '购物车空空如也，赶紧去逛逛吧~',

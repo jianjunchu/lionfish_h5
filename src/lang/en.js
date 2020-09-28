@@ -194,7 +194,7 @@ export default {
     weizhi: 'Position:',
     jianshangpin: 'Product(s)',
     zonge: 'Total Amount:',
-    zongyouhui: 'Total Discount:',
+    zongyouhui: 'Redeem Coupon',
     querenshouhuoxinxi: 'Delivery to Home,Please Confirm the Receiver',
     shangpinzonge: 'Total Amount:',
     youhuijine: 'Discount Amount:',
@@ -272,7 +272,8 @@ export default {
     zhuanzhangbeizhu: 'Note: Payment is currently offline, please allow up to 48 hours for payment to be processed. Your order status will be updated accordingly. ',
     querenshoudao: 'Please confirm receipt of your order?',
     yuezhifu: 'Balance Paid（Balance：{p1})',
-    yuebuzhu: 'Not Sufficient Funds'
+    yuebuzhu: 'Not Sufficient Funds',
+    shouhuochenghong: 'Delivery Completed'
   },
   cart: {
     gouwuchekong: 'Back to Homepage',

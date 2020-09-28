@@ -62,7 +62,7 @@
                     <div class="cart-item-img">
 
 
-                      <van-image  :src="shopcarts.imgurl">
+                      <van-image style="width: 25vw; height: 25vw"  :src="shopcarts.imgurl">
                         <template v-slot:loading>
                           <van-loading type="spinner" size="20" />
                         </template>
@@ -139,7 +139,7 @@
                     </label>
                     <div class="cart-item-img">
 
-                      <van-image  :src="shopcarts.imgurl">
+                      <van-image style="width: 25vw; height: 25vw" :src="shopcarts.imgurl">
                         <template v-slot:loading>
                           <van-loading type="spinner" size="20" />
                         </template>

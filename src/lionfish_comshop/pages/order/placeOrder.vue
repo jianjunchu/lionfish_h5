@@ -380,7 +380,7 @@
               </div>
               <div class="h2" v-if="buy_type!='integral'">
                 <em>{{$t('order.zonge')}}${{total_all}}</em><br>
-                <em v-if="disAmount>0">{{$t('order.zongyouhui')}}${{disAmount}}</em>
+                <em v-if="disAmount>0">{{$t('order.zongyouhui')}} : ${{disAmount}}</em>
               </div>
             </div>
             <div class="fixed-bar-btn bgDisabled" v-if="btnDisable">{{btnText?btnText:'立即支付'}}</div>
@@ -750,7 +750,10 @@
     mounted:function(){
       this.onShow()
     },
-
+    beforeRouteLeave(to, form, next) {
+      this.clearCarGoods();
+      next()
+    },
     methods: {
       onLoad: function() {
 
@@ -1958,15 +1961,25 @@
           }
         });
       },
-      imagePreview:function() {
-        ImagePreview({
-          images: [
-            this.payNowQr
-          ],
-          closeable: true,
-        });
-      },
+      clearCarGoods: function() {
+        var that = this;
+        let buy_type =   that.buy_type
+        var t = wx.getStorageSync('token'), a = wx.getStorageSync('community'), i = a.communityId;
+        app.util.request({
+          url: "entry/wxapp/user",
+          data: {
+            controller: "car.clearPreOrder",
+            token: t,
+            community_id:i,
+            buy_type:buy_type
+          },
+          dataType: "json",
+          method: "POST",
+          success: function(t) {
 
+          }
+        });
+      }
 
     }
   }

@@ -705,7 +705,7 @@
                 C.open_danhead_model = f,
                 C.is_open_solitaire = b,
                 C.user_top_font_color = y,
-                C.excharge_nav_name = v || "查看",
+                C.excharge_nav_name = v || "",
                 C.user_service_url = t.user_service_url
             }
           }
