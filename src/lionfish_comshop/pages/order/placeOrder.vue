@@ -1769,7 +1769,7 @@
           if(!isPresell){
             that.doShowPickupTime();
           }else{
-            that.showSelectDialog();
+            that.doShowPreTime();
           }
 
       },
