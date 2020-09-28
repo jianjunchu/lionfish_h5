@@ -269,7 +269,7 @@
               dataType: "json",
               success: function(e) {
                 0 == e.data.code && (wx.showToast({
-                  title: "收货成功",
+                  title: a.$t('order.shouhuochenghong'),
                   icon: "success",
                   duration: 1e3
                 }), a.reload_data());

@@ -1339,7 +1339,7 @@
 //            }) : this.$wx.navigateTo({
 //              url: "/lionfish_comshop/pages/order/placeOrder?type=dan&is_limit=" + s
 //            });
-            i.$wx.redirectTo({
+            i.$wx.navigateTo({
               url: '/lionfish_comshop/pages/order/placeOrder?type=dan&is_limit=' + s
             })
           }
