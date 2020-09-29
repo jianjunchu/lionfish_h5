@@ -215,7 +215,9 @@
         showLottery: 1, //抽奖0 不显示，1 显示
         showCheckLogin: 0, //验证登录0 不需要，1 需要
         showEcommerceUrl: 0,//再次购买 0不显示，1显示
-        ecommerceUrl: ''//电商url
+        ecommerceUrl: '',//电商url
+        organizationTel: '',//经销商手机号
+        distributorId:''//经销商id即电商中的团长id
       }
     },
     created: function() {
@@ -238,12 +240,12 @@
     methods: {
        onShow: function() {
         const wx = this.$wx, app = this.$getApp()
-        var s = this  
+        var s = this
         util.check_login_new().then(function(t) {
           console.log(t)
           if (t) {//登录状态
             //console.log("11111");
-            
+
           } else {//未登录
             //console.log("22222");
             wx.navigateTo({
@@ -301,14 +303,15 @@
               that.showLottery = data.data.body.showLottery;//抽奖
               that.showEcommerceUrl = data.data.body.showEcommerceUrl;//再次购买
               that.ecommerceUrl = data.data.body.ecommerceUrl;//电商url
+              that.organizationTel = data.data.body.organizationTel;//经销商手机号
               if(that.showCheckLogin == 1){
                 that.onShow();
               }
               that.getIp();
-            }   
+            }
           }
         })
-        
+
       },
       getDate: function(){
         var app = this.$getApp(), wx = this.$wx;
@@ -362,6 +365,7 @@
                 that.goods_circulate = data.data.body;
               }
             })
+            that.getLionfishHeadInfo();
           }
         })
       },
@@ -420,7 +424,47 @@
         that.showThree = false;
         that.showFour = false;
         that.showFive = true;
-      }
+      },
+      //获取电商团长信息
+      getLionfishHeadInfo: function(){
+        var that =this;
+        var distributorId = this.$wx.getStorageSync('distributorId');
+        if (distributorId != ''){
+          that.updateHeadMemberRel();
+        }else {
+          if(this.organizationTel != ''){
+            this.$http({
+              controller : 'index.get_community_head',
+              phone: this.organizationTel
+            }).then(response => {
+              console.log(response,"get_community_head");
+            if (response && response.id){
+              that.distributorId = response.id;
+              that.$wx.setStorageSync('distributorId',that.distributorId);
+              that.updateHeadMemberRel();
+            }
+
+          });
+          }
+        }
+
+      },
+      //设置团长与会员关系
+      updateHeadMemberRel: function(){
+        var that =this;
+        var token = this.$wx.getStorageSync('token');
+        var distributorId = this.$wx.getStorageSync('distributorId');
+        if(distributorId != ''){
+          this.$http({
+            controller : 'index.update_member_community',
+            token:token,
+            head_id: distributorId
+          }).then(response => {
+            console.log(response,"update_member_community");
+          });
+        }
+
+      },
     }
   }
 </script>
@@ -450,7 +494,7 @@
 
   .logo-img{
     height: 15vw;
-    margin-top: -5vw; 
+    margin-top: -5vw;
     margin-left: 5vw;
   }
 
@@ -603,7 +647,7 @@
   }
 
   .detail_button_center{
-    width: 30vw; 
+    width: 30vw;
     height: 9vw;
     background: #292929;
     box-shadow: 0 0.266667rem 0.533333rem 0 #CBCCCD;
@@ -615,7 +659,7 @@
   }
 
   .detail_button_left{
-    width: 30vw; 
+    width: 30vw;
     height: 9vw;
     background: #292929;
     box-shadow: 0 0.266667rem 0.533333rem 0 #CBCCCD;
