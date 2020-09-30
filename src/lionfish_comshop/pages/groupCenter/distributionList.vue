@@ -24,7 +24,7 @@
 
       </div>
       <div class="income">
-        <span>预计佣金：${{permoney}}</span>
+        <span>Commission：${{permoney}}</span>
       </div>
     </div>
     <div class="distributionList">
@@ -48,8 +48,8 @@
                   <img class="i-class goodsImg" mode="widthFix" :src="goods.goods_images" style="width:60px;height:60px;"/>
                   <div class="detail">
                     <div class="goodsName">{{goods.name}}</div>
-                    <div class="commission text-right">团单金额 ${{goods.total}} |
-                      <span v-if="item.order_status_id!=11&&item.order_status_id!=6">预估</span>佣金 ${{goods.commision}}</div>
+                    <div class="commission text-right">Total ${{goods.total}} |
+                      <span v-if="item.order_status_id!=11&&item.order_status_id!=6">Expected </span> Commission ${{goods.commision}}</div>
                     <div class="i-flex i-flex-spb text-right text-gray fsz-26 mt5" v-if="goods.has_refund_quantity>0">
                                         <span @click="handleTipDialog" class="i-flex-item">
                       佣金变化:<span class="red">${{goods.del_commision}}</span>
@@ -63,7 +63,7 @@
                   <span class="totalCommision">合计佣金: ${{item.total_commision}}（含配送）</span>
                 </div>
                 <div class="distributionCommision" v-else>
-                  <span class="totalCommision" v-if="item.order_status_id!=5&&item.order_status_id!=7">合计佣金: ${{item.total_commision}}</span>
+                  <span class="totalCommision" v-if="item.order_status_id!=5&&item.order_status_id!=7">Total Commission: ${{item.total_commision}}</span>
                 </div>
               </div>
               <i-loadMore :tip="tip" v-if="!isHideLoadMore"></i-loadMore>
@@ -102,20 +102,20 @@
         currentTab: 0,
         pageSize: 10,
         navList: [{
-          name: "全部",
+          name: "All",
           status: "0"
         }, {
-          name: "待确认",
+          name: "Pending",
           status: "1"
         }, {
-          name: "已确认",
+          name: "Confirmed",
           status: "2"
         }, {
-          name: "无效",
+          name: "Cancelled",
           status: "3"
         }],
         distributionList: [],
-        loadText: "没有更多记录了~",
+        loadText: "No more records~",
         containerHeight: 0,
         chooseDate: "",
         chooseDateTime: "",
@@ -142,7 +142,7 @@
       app = this.$app;
       this.initYM();
       this.$wx.setNavigationBarTitle({
-        title: '结算记录',
+        title: $t('host.jiesuanjilu'),
         showLogo:false,
         showMore:false,
         showBack:true
