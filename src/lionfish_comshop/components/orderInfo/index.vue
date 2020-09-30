@@ -73,7 +73,7 @@
           </div>
         </div>
         <div class="item" v-if="disAmount>0">
-          <div class="title">总优惠</div>
+          <div class="title">{{$t('order.zongyouhui')}}</div>
           <div class="detail">
             - ${{disAmount}}
           </div>

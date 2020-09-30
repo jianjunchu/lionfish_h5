@@ -594,7 +594,7 @@
 
                 if (0 == e.code) {
                   wx.showToast({
-                    title: "收货成功",
+                    title: a.$t('order.shouhuochenghong'),
                     icon: "success",
                     duration: 1000
                   });
@@ -1523,7 +1523,7 @@
     overflow: auto;
 
   }
-  >>>.wux-button {
+  wux-button {
     display: inline-block;
     box-sizing: border-box;
     margin: 0;
@@ -1536,11 +1536,10 @@
     text-align: center;
     text-overflow: ellipsis;
     font-size: 16px;
-    line-height: 42px;
     cursor: pointer;
 
   }
-  >>>.wux-button--block{
+  wux-button--block{
     width: 100%;
     margin-top: 10px;
   }

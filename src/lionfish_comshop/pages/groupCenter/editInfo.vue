@@ -28,17 +28,17 @@
                 <!--<span>{{item.value}}</span>-->
               <!--</label>-->
             <!--</radio-group>-->
-            <van-radio-group v-model="payType" direction="horizontal">
+            <van-radio-group v-model="type" direction="horizontal">
               <van-radio :name="item.name" v-if="item.show" v-for="(item,index) in items" :key="item.id">{{item.value}}</van-radio>
             </van-radio-group>
-            <div class="form-box" v-if="payType==2">
+            <div class="form-box" v-if="type==2">
               <div class="form-group">
                 <label>微信真实姓名：<input class="form-ipt" name="bankusername" type="text" v-model="community_info.last_weixin_realname"></input>
                 </label>
               </div>
             </div>
-            <div class="form-box" v-if="payType==3">
-              <div class="form-group" v-if="payType!=2">
+            <div class="form-box" v-if="type==3">
+              <div class="form-group" v-if="type!=2">
                 <label>{{$t('wallet.paynowzhanghao')}}：<input class="form-ipt" name="bankaccount" type="text" v-model="community_info.last_alipay_account"></input>
                 </label>
               </div>
@@ -47,7 +47,7 @@
                 </label>
               </div>
             </div>
-            <div class="form-box" v-if="payType==4">
+            <div class="form-box" v-if="type==4">
               <div class="form-group">
                 <label>{{$t('wallet.kaihuyinhang')}}：<input class="form-ipt" name="bankname" type="text" v-model="community_info.last_bank_bankname"></input>
                 </label>
@@ -56,7 +56,7 @@
                 <label>{{$t('wallet.kaihuming')}}：<input class="form-ipt" name="bankusername" type="text" v-model="community_info.last_bank_name"></input>
                 </label>
               </div>
-              <div class="form-group" v-if="payType!=2">
+              <div class="form-group" v-if="type!=2">
                 <label>{{$t('wallet.zhanghao')}}：<input class="form-ipt" name="bankaccount" type="text" v-model="community_info.last_bank_account"></input>
                 </label>
               </div>
@@ -163,7 +163,7 @@
         tixian_money: "",
         final_money: 0,
         sxfee: 0,
-        payType: 1,
+        type: 1,
         items: [ {
           name: "1",
           value: this.$t('wallet.yue'),
@@ -221,7 +221,7 @@
               var i = e, n = _.items, t = i.community_info;
               0 == t.head_commiss_tixianway_yuer && (n[0].show = !1), 0 == t.head_commiss_tixianway_weixin && (n[1].show = !1),
               0 == t.head_commiss_tixianway_alipay && (n[2].show = !1), 0 == t.head_commiss_tixianway_bank && (n[3].show = !1);
-              for (var a = _.payType, o = 0; o < n.length; o++) if (n[o].show) {
+              for (var a = _.type, o = 0; o < n.length; o++) if (n[o].show) {
                 n[o].checked = !0, a = n[o].name;
                 break;
               }
@@ -234,7 +234,7 @@
                 _.community_tixian_fee= i.community_tixian_fee;
                 _.community_min_money= i.community_min_money;
                 _.items= n;
-                _.payType= a;
+                _.type= a;
                 _.hasTixianPublish= m;
                 _.is_need_subscript= r;
                 _.need_subscript_template= u;
@@ -271,7 +271,7 @@
 
 //        var i = e.detail.value;
         var i = getFormData(e.target);
-        var n = 0, t = this.payType, a = [ {}, {}, {
+        var n = 0, t = this.type, a = [ {}, {}, {
           bankusername: "微信真实姓名"
         }, {
           bankusername: "Paynow Account",
@@ -302,7 +302,7 @@
         console.log(n);
         if ( 1 == n)  return;
 
-          i.payType = t;
+          i.type = t;
           console.log(i);
           var m = this, c = parseFloat(m.tixian_money), r = m.commission_info.money, u = parseFloat(m.community_min_money);
           if ("" == c || c < u) {
@@ -372,7 +372,7 @@
       },
       radioChange: function(e) {
 
-          this.payType= e.detail.value;
+          this.type= e.detail.value;
       }
     }
   }

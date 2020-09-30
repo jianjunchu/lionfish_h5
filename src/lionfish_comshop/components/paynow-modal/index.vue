@@ -4,7 +4,7 @@
     <div class="mask" catchtouchmove="preventTouchMove" v-if="visible"></div>
     <div class="paynow" v-if="visible">
       <div style='width: 100%;height: 5%;'>
-        <div style='float:left;width: 40%;font-size: 18px;line-height: 5vw;margin-left: 5%;'>
+        <div style='float:left;width: 40%;font-size: 4vw;line-height: 5vw;margin-left: 5%;'>
           PayNow
         </div>
 
@@ -34,25 +34,25 @@
       <div style='text-align: center; font-size: 3vw' >
         <div style='width: 100%;justify-content: center; '>
           <img :src='payNowInfo.payNowQr' @click="imagePreview"
-               style='width: 200px;height: 200px;margin-top: 10px;border: 1px solid #000;'/>
+               style='width: 120px;height: 120px;margin-top: 10px;border: 1px solid #000;'/>
           <div style='wid:200px;height:40px;margin-top:1vw;'>
 
             <span style='text-align: left'>{{$t('order.saomazhifu')}}  <!--或 uen: {{payNowUen}}--></span>
 
           </div>
-          <div style='wid:200px;height:20px; text-align: left; margin-top:1vw;margin-left:1vw;'>
-            <span style='font-size: 15px;'>Step 1: Take a screenshot of the QR code</span>
+          <div style='text-align: left; margin-top:1vw;margin-left:1vw;'>
+            <span style='font-size: 2vw'>Step 1: Take a screenshot of the QR code</span>
           </div>
-          <div style='wid:200px;height:40px; text-align: left; margin-top:1vw;margin-left:1vw;'>
-            <span style='font-size: 15px;'>Step 2: Proceed to make payment via PayNow by scanning the QR</span>
+          <div style='text-align: left; margin-top:1vw;margin-left:1vw;'>
+            <span style='font-size: 2vw'>Step 2: Proceed to make payment via PayNow by scanning the QR</span>
           </div>
-          <div style='wid:200px;height:40px; text-align: left; margin-top:1vw;margin-left:1vw;word-wrap:break-word'>
-            <span style='font-size: 15px;'>Step 3: On your PayNow account <span style="font-weight: 800;color: red;">enter your mobile number</span>  under notes and click Submit</span>
+          <div style=' text-align: left; margin-top:1vw;margin-left:1vw;word-wrap:break-word' >
+            <span style='font-size: 2vw'>Step 3: On your PayNow account </span> <span style="font-weight: 800;color: red;">enter your mobile number</span> <span> under notes and click Submit</span>
           </div>
 
-          <div style='wid:200px;height:100px; margin-top:3vw;'>
+          <div style='wid:200px;height:10vh; margin-top:3vw;'>
             <span style='font-size: 18px;'><!--请在支付时备注您订单内的联系号码 \n--></span>
-            <span style='font-size: 18px;color: #c0c0c0'>{{$t('order.zhuanzhangbeizhu')}}</span>
+            <span style='font-size: 3vw;color: #c0c0c0'>{{$t('order.zhuanzhangbeizhu')}}</span>
           </div>
         </div>
         <!--
@@ -63,7 +63,7 @@
 
         </div>
         -->
-        <div style='width: 60%;text-align: center;margin-top: 2vw;margin-left: 20%;'>
+        <div style='width: 60%;text-align: center;margin-top: 0vw;margin-left: 20%;'>
           <button @click="havePaid" :style="{background:skin.color,color:' #fff'}" data-type="paynow" class="wux-button wux-button--block" type="default">{{$t('order.yizhifu')}}
           </button>
         </div>
@@ -74,6 +74,7 @@
 </template>
 
 <script>
+  import { ImagePreview } from 'vant';
   export default {
     name: '',
     props: {
@@ -94,6 +95,14 @@
     methods: {
       close:function() {
         this.$emit("close")
+      },
+      imagePreview:function() {
+        ImagePreview({
+          images: [
+            this.payNowInfo.payNowQr
+          ],
+          closeable: true,
+        });
       },
       havePaid:function() {
         this.$emit("havePaid",'paynow')
@@ -139,7 +148,6 @@
     text-align: center;
     text-overflow: ellipsis;
     font-size: 16px;
-    line-height: 42px;
     cursor: pointer;
 
   }

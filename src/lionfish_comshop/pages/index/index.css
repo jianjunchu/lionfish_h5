@@ -714,7 +714,7 @@
 }
 
 .sticky-content-index .tab-nav-index {
-  height: 9.4vw;
+  height: 9.5vw;
   display: flex;
   margin: 0 3vw;
   border-bottom: 0.4vw solid #fc4443;
@@ -738,7 +738,7 @@
 }
 
 .sticky-content-index .tab-nav-index .count-down-content .count-down {
-  height: 6.8vw;
+  height: 9.5vw;
   line-height: 6.8vw;
   color: #444;
   font-size: 2.6vw;
@@ -747,8 +747,8 @@
 }
 
 .sticky-content-index .tab-nav-index .count-down-content .count-down .item-time {
-  height: 6.8vw;
-  line-height: 6.8vw;
+  height: 9.5vw;
+  line-height: 9.5vw;
   color: #444;
   font-size: 2.6vw;
   display: flex;
@@ -757,11 +757,11 @@
 
 .sticky-content-index .tab-nav-index .tab-nav-index-item {
   color: #6c6c6c;
-  font-size: 2.6vw;
+  font-size: 2vw;
   font-weight: bold;
   position: relative;
   z-index: 1;
-  width: 19vw;
+  width: 20vw;
   height: 9vw;
   display: flex;
   align-items: center;

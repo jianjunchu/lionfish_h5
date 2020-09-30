@@ -21,7 +21,7 @@
               <i-button iClass="add-cart" v-if="disabled||item.spuCanBuyNum==0">
                 <img class="img" src="@/assets/images/icon-add-shopCart-disabled.png"></img>
               </i-button>
-              <i-button @handleTap="openSku(index)" :data-idx="index" iClass="add-cart" v-else>
+              <i-button @handleTap="openSku1(index)" :data-idx="index" iClass="add-cart" v-else>
                 <i-addcart iClass="img"></i-addcart>
               </i-button>
           </div>
@@ -39,7 +39,7 @@
             <i-button iClass="add-cart" v-if="disabled||item.spuCanBuyNum==0">
               <img class="img" src="@/assets/images/icon-add-shopCart-disabled.png"></img>
             </i-button>
-            <i-button @handleTap="openSku(index)" :data-idx="index" iClass="add-cart" v-else>
+            <i-button @handleTap="openSku2(index)" :data-idx="index" iClass="add-cart" v-else>
               <i-addcart iClass="img"></i-addcart>
             </i-button>
           </div>
@@ -169,6 +169,48 @@
           }
         })
       },
+      openSku1: function(e) {
+
+        this.disabled = !1
+
+        var a = this.list1[e]
+        this.$emit('openSku', {
+          actId: a.actId,
+          skuList: a.skuList,
+          promotionDTO: a.promotionDTO || '',
+          is_take_vipcard: a.is_take_vipcard,
+          is_mb_level_buy: a.is_mb_level_buy,
+          allData: {
+            spuName: a.spuName,
+            skuImage: a.skuImage,
+            actPrice: a.actPrice,
+            canBuyNum: a.spuCanBuyNum,
+            stock: a.spuCanBuyNum,
+            marketPrice: a.marketPrice
+          }
+        })
+      },
+      openSku2: function(e) {
+
+        this.disabled = !1
+
+        var a = this.list2[e]
+        this.$emit('openSku', {
+          actId: a.actId,
+          skuList: a.skuList,
+          promotionDTO: a.promotionDTO || '',
+          is_take_vipcard: a.is_take_vipcard,
+          is_mb_level_buy: a.is_mb_level_buy,
+          allData: {
+            spuName: a.spuName,
+            skuImage: a.skuImage,
+            actPrice: a.actPrice,
+            canBuyNum: a.spuCanBuyNum,
+            stock: a.spuCanBuyNum,
+            marketPrice: a.marketPrice
+          }
+        })
+      },
       getTime: function(t) {
         var e = 0
         return 0 === (arguments && 1 < arguments.length && void 0 !== arguments[1] ? arguments[1] : 0) && t.map(function(t) {
@@ -188,7 +230,7 @@
   }
 
   .div-white{
-    margin-left: 44%; 
+    margin-left: 44%;
     width: 2vw;
     height: 2vw;
     border-radius: 100%;
@@ -198,7 +240,7 @@
   }
 
   .div-white2{
-    margin-left: 44%; 
+    margin-left: 44%;
     width: 2vw;
     height: 2vw;
     border-radius: 100%;
@@ -207,7 +249,7 @@
   }
 
   .div-black{
-    margin-left: 2%; 
+    margin-left: 2%;
     width: 2vw;
     height: 2vw;
     border-radius: 100%;
@@ -217,7 +259,7 @@
   }
 
   .div-black2{
-    margin-left: 2%; 
+    margin-left: 2%;
     width: 2vw;
     height: 2vw;
     border-radius: 100%;
