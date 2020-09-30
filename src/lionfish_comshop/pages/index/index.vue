@@ -216,9 +216,7 @@
 
           <!--<template is="pin" :data="{pinList:pinList,skin:skin}"></template>-->
 
-
           <i-spike @openSku="openSku" :refresh="newComerRefresh" :skin="skin" v-if="is_show_spike_buy==1"></i-spike>
-
 
           <!--<template is="seckill"
                     :data="{secRushList:secRushList,skin:skin,scekillTimeList:scekillTimeList,secKillActiveIdx:secKillActiveIdx,secKillGoodsIndex:secKillGoodsIndex,needAuth:needAuth}"
@@ -593,7 +591,7 @@
                 <i-vip-price :price="cur_sku_arr.levelprice" type="1" v-if="is_open_vipcard_buy!=1"></i-vip-price>
               </div>
             </div>
-            <div class="sku-switch-on" v-if="cur_sku_arr.spec">已选择：{{cur_sku_arr.spec}}</div>
+            <div class="sku-switch-on">已选择：{{cur_sku_arr.spec}}</div>
           </div>
         </div>
         <div class="sku-spec" v-for="(item,index) in skuList.list">
@@ -608,14 +606,14 @@
         <div class="sku-num-content">
           <div class="title">Quantity</div>
           <div :class="['i-class', 'i-input-number', 'i-input-number-size-']">
-            <div @click.stop="setNum" :class="['i-input-number-minus']"
+            <div @click="setNum" :class="['i-input-number-minus']"
                  data-type="decrease">
               <img src="@/assets/images/icon-input-reduce.png"></image>
             </div>
             <input bindblur="handleBlur" bindfocus="handleFocus" @input="changeNumber"
                    :class="['i-input-number-text']" type="number"
-                   v-model="sku_val"/>
-            <div @click.stop="setNum" :class="['i-input-number-plus']"
+                   :value="sku_val"/>
+            <div @click="setNum" :class="['i-input-number-plus']"
                  data-type="add">
               <img src="@/assets/images/icon-input-add.png"></image>
             </div>
@@ -629,7 +627,7 @@
             还可以购买 {{skuList[current].canBuyNum-value}} 件
           </div>&ndash;&gt;-->
         </div>
-        <button @click.stop="gocarfrom" class="sku-confirm" :disabled="(cur_sku_arr.stock==0?true:false)" formType="submit">
+        <button @click="gocarfrom" class="sku-confirm" :disabled="(cur_sku_arr.stock==0?true:false)" formType="submit">
           <div>{{cur_sku_arr.stock==0?$t('home.yiqiangguang'):$t('home.queding')}}</div>
         </button>
       </div>
@@ -1688,7 +1686,7 @@
           sku_str: n,
           buy_type: 'dan',
           pin_id: 0,
-          is_just_addcar: i.is_presell ? 0 : 1
+          is_just_addcar: 1
         }
         util.addCart(d).then(function(t) {
           if (1 == t.showVipModal) {
@@ -1713,12 +1711,6 @@
               icon: 'none',
               duration: 2e3
             })
-          } else if(t.code ==1 && i.is_presell){
-            var s = t.is_limit_distance_buy
-
-            i.$wx.navigateTo({
-              url: '/lionfish_comshop/pages/order/placeOrder?type=dan&is_limit=' + s
-            })
           } else {
             i.cartNum = t.total
             i.closeSku()
@@ -1741,6 +1733,7 @@
       },
 
       openSku: function(t) {
+
         if (this.authModal()) {
           var a = t,
             e = a.actId,
@@ -1749,7 +1742,7 @@
 
           var i = o.list || [],
             s = []
-          if (0 < i.length || a.isPresell) {
+          if (0 < i.length) {
             for (var n = 0; n < i.length; n++) {
               var d = i[n].option_value[0],
                 c = {
@@ -1761,28 +1754,14 @@
               s.push(c)
             }
             for (var l = '', r = 0; r < s.length; r++) r == s.length - 1 ? l += s[r].id : l = l + s[r].id + '_'
-            var u;
-            if(o && o.sku_mu_list){
-              u = o.sku_mu_list[l] ;
-            }else{
-              var h = a.allData
-              u = {
-                canBuyNum: h.canBuyNum,
-                spuName: h.spuName,
-                actPrice: h.actPrice,
-                marketPrice: h.marketPrice,
-                stock: h.stock,
-                skuImage: h.skuImage
-              }
-            }
-
+            var u = o.sku_mu_list[l] || {}
             this.sku = s
             this.sku_val = 1
             this.cur_sku_arr = u
             this.skuList = a.skuList
             this.visible = true
+            this.$set(this, 'visible', true)
             this.showSku = true
-            this.is_presell = a.isPresell || false
             this.is_take_vipcard = a.is_take_vipcard || ''
             this.is_mb_level_buy = a.is_mb_level_buy || ''
             return true

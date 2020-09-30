@@ -352,9 +352,14 @@
     left: 0;
     top: -1vw;
     overflow: hidden;
-    text-overflow: ellipsis;
+   /* text-overflow: ellipsis;
     white-space: normal;
-    margin: 0;
+    margin: 0; */
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    font-size: 14px;
   }
 
   .spu .spu-content-type .item-right .spu-desc {

@@ -60,9 +60,6 @@
             <i-button iClass="add-cart" class="add-cart" v-if="disabled||spuItem.spuCanBuyNum==0||actEnd">
               <img class="img" src="@/assets/images/icon-add-shopCart-disabled.png"></img>
             </i-button>
-            <div @click.stop.prevent="openSku" iClass="card-btn" class="card-btn" v-if="spuItem.is_presell && spuItem.is_presell == 1">
-                {{$t('detail.mashangqianggou')}}
-            </div>
             <i-button @handleTap="openSku" iClass="add-cart" class="add-cart" v-else>
               <i-addcart fontsize="14" iClass="img"></i-addcart>
             </i-button>
@@ -180,37 +177,25 @@
     },
     methods: {
       openSku: function() {
-
-        if(this.needAuth){
-          this.$emit("authModal", !0);
-        }else{
-          console.log("step1");
-        }
-
-        if((this.spuItem.is_presell && this.spuItem.is_presell =='1') || this.spuItem.skuList.length>0){
-          this.$emit("openSku", {
-            actId: this.spuItem.actId,
-            skuList:this.spuItem.skuList,
-            isPresell:this.spuItem.is_presell == '1',
-            promotionDTO:this.spuItem.promotionDTO,
-            is_take_vipcard:this.spuItem.is_take_vipcard,
-            is_mb_level_buy:this.spuItem.is_mb_level_buy,
-            allData: {
-              spuName:this.spuItem.spuName,
-              skuImage:this.spuItem.skuImage,
-              actPrice:this.spuItem.actPrice,
-              canBuyNum:this.spuItem.spuCanBuyNum,
-              stock:this.spuItem.spuCanBuyNum,
-              marketPrice:this.spuItem.marketPrice
-            }
-          })
-        }else {
-          this.addCart({
-            value: 1,
-            type: "plus"
-          })
-        }
-
+        this.needAuth ? this.$emit("authModal", !0) : (console.log("step1"),
+          (this.stopClick =  !0, this.disabled = !1), void 0 ===this.spuItem.skuList.length ? this.$emit("openSku", {
+          actId: this.spuItem.actId,
+          skuList:this.spuItem.skuList,
+          promotionDTO:this.spuItem.promotionDTO,
+          is_take_vipcard:this.spuItem.is_take_vipcard,
+          is_mb_level_buy:this.spuItem.is_mb_level_buy,
+          allData: {
+            spuName:this.spuItem.spuName,
+            skuImage:this.spuItem.skuImage,
+            actPrice:this.spuItem.actPrice,
+            canBuyNum:this.spuItem.spuCanBuyNum,
+            stock:this.spuItem.spuCanBuyNum,
+            marketPrice:this.spuItem.marketPrice
+          }
+        }) : this.addCart({
+          value: 1,
+          type: "plus"
+        }));
         return false;
       },
       countDownEnd: function() {
@@ -429,9 +414,13 @@
     left: 0;
     top: -0.4vw;
     overflow: hidden;
-    text-overflow: ellipsis;
+    /* text-overflow: ellipsis;
     white-space: normal;
-    margin: 0;
+    margin: 0; */
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
   }
 
   .spu >>> .spu-content .item-right .spu-tag {
@@ -499,8 +488,9 @@
 
   .spu >>>.spu-content .item-right .spu-count {
     font-size: 2.4vw;
-    height: 2.4vw;
+    height: 3vw;
     color: #999;
+    margin-top: 5vw;
     margin-bottom: 2vw;
   }
 
@@ -679,32 +669,4 @@
     padding-top: 2vw;
   }
 
-  .card-btn {
-    height: 7vw;
-    padding: 0;
-    margin: 0;
-    position: absolute;
-    right: 0;
-    bottom: 0.1vw;
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-align: center;
-    -ms-flex-align: center;
-    align-items: center;
-    -webkit-box-pack: center;
-    -ms-flex-pack: center;
-    justify-content: center;
-    border: none;
-    outline: none;
-    color: white;
-    background: linear-gradient(90deg,#ff5041 0%,#ff877d 100%);
-    text-align: center;
-    padding: 0;
-    line-height: 6vw;
-    font-size: 1.8vw;
-    padding: 0vw 2vw;
-    border-radius: 10px;
-    box-sizing: border-box;
-  }
 </style>
