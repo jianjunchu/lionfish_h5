@@ -281,7 +281,7 @@
         that.code = that.checkCode.substr(0,14);
         wx.request({
           // 请求地址
-          url: 'http://123.206.27.155:8068/pmp/api/v1/distributorExtend/getByUid/'+that.code,
+          url: 'https://123.206.27.155:8443/pmp/api/v1/distributorExtend/getByUid/'+that.code,
           // 请求方式
           method: "get",
           dataType: 'json',
@@ -320,9 +320,9 @@
         that.code = that.checkCode.slice(14);
         var url = "";
         if(that.nowIp == ""){
-          url = 'http://123.206.27.155:8068/pmp/api/v2/nfc315/verify/'+that.b0+'/'+that.checkCode+'/113.45.91.173';
+          url = 'https://123.206.27.155:8443/pmp/api/v2/nfc315/verify/'+that.b0+'/'+that.checkCode+'/113.45.91.173';
         }else{
-          url = 'http://123.206.27.155:8068/pmp/api/v2/nfc315/verify/'+that.b0+'/'+that.checkCode+'/'+ that.nowIp;
+          url = 'https://123.206.27.155:8443/pmp/api/v2/nfc315/verify/'+that.b0+'/'+that.checkCode+'/'+ that.nowIp;
         }
         wx.request({
           // 请求地址
@@ -353,7 +353,7 @@
             that.uid = data.data.body.product.uid;
             wx.request({
               // 请求地址
-              url: 'http://123.206.27.155:8068/pmp/api/v1/product/circulate/'+that.uid,
+              url: 'https://123.206.27.155:8443/pmp/api/v1/product/circulate/'+that.uid,
               // 请求方式
               method: "get",
               dataType: 'json',

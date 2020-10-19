@@ -39,7 +39,7 @@ module.exports = {
     },
     proxy: {
       '/api': {
-        target: 'http://boruolai.xx315.net',
+        target: 'https://beaujolais.nfc315.com',
         changeOrigin: true,
         pathRewrite: {
           '^/api': ''
