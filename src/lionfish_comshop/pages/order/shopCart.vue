@@ -492,7 +492,7 @@
       wx = this.$wx
       app = this.$getApp()
       this.$wx.setNavigationBarTitle({
-        title: "Cart",
+        title: "购物车",
         showLogo:false,
         showMore:false,
         showBack:false
@@ -507,7 +507,7 @@
 
       var i = this;
       wx.setNavigationBarTitle({
-        title: 'Cart',
+        title: '购物车',
         showLogo:false,
         showMore:false,
         showBack:false

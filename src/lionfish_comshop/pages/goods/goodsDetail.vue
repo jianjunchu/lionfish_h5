@@ -752,13 +752,12 @@
         },
         is_just_addcar: 0,
         showVipModal: false,
-        showSku: false,
-        community:{}
+        showSku: false
       }
     },
     created: function() {
       this.$wx.setNavigationBarTitle({
-        title: 'Product Details',
+        title: '商品详情',
         showLogo: false,
         showMore: false,
         showBack: true
@@ -781,7 +780,6 @@
 //          console.log(t,"setIcon");
 //          o.iconArr= t;
 //        });
-
         var t = decodeURIComponent(e.scene)
         if ('undefined' !== t) {
           var a = t.split('_')
@@ -837,7 +835,6 @@
         this.get_instructions()
       },
       paramHandle: function(s) {
-
         var i = 1 < arguments.length && void 0 !== arguments[1] ? arguments[1] : ''
         console.log('step2')
         var n = this, d = s.id, r = s.community_id
@@ -845,14 +842,13 @@
           controller: 'index.get_community_info',
           community_id: r
         }).then(t => {
-
           console.log(t, 'get_community_info')
-          if (0 == t.code) {
-            var a = t.data
+          if (0 == t.data.code) {
+            var a = t.data.data
             console.log(a)
             var e = i.communityId
-            if (1 == t.open_danhead_model) {
-              var o = t.default_head_info
+            if (1 == t.data.open_danhead_model) {
+              var o = t.data.default_head_info
               this.$app.globalData.community = o, i && i.communityId != o.communityId && (this.$app.globalData.changedCommunity = true),
                 util.addhistory(o), this.$wx.setStorage({
                 key: 'community',
@@ -905,7 +901,7 @@
           controller: 'goods.get_goods_detail',
           token: e,
           id: t,
-          community_id: currentCommunity_id
+          community_id: 1022
         }).then(t => {
           console.log(t, 'get_goods_detail')
 //            setTimeout(function() {
@@ -923,7 +919,6 @@
               })
             }
           }), 0 == o && 'integral' != L.buy_type) {
-
             var s = L.data.groupInfo
             this.$app.util.message('此商品在您所属' + s.group_name + '不可参与', 'switchTo:/lionfish_comshop/pages/index/index', 'error')
           }
@@ -1075,18 +1070,13 @@
       },
       confrimChangeCommunity: function() {
         var t = this.changeCommunity, a = this.$wx.getStorageSync('token')
-        this.$app.globalData.community = t, this.$app.globalData.changedCommunity = true;
-        this.$wx.setStorage({
+        this.$app.globalData.community = t, this.$app.globalData.changedCommunity = true, this.$wx.setStorage({
           key: 'community',
           data: t
-        });
-        a && util.addhistory(t);
-        this.setData({
+        }), a && util.addhistory(t), this.setData({
           community: t,
           showChangeCommunity: false
-        });
-        this.get_goods_details(this.goods_id, t, t.communityId);
-        console.log('用户点击确定')
+        }), this.get_goods_details(this.goods_id, t, t.communityId), console.log('用户点击确定')
       },
       cancelChangeCommunity: function() {
         var t = this.data, a = t.is_can_headsales, e = t.groupInfo
@@ -3045,7 +3035,7 @@
 
   .group {
     background-color: #fff;
-    width: 95vw;
+    width: 325px;
     padding: 10px 15px;
     border-radius: 10px;
     margin: 10px auto 0;

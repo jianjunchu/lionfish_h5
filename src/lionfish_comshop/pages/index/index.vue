@@ -289,7 +289,7 @@
           -->
           <div class="index-search-bar" v-if="index_switch_search==1">
             <div class="search-box">
-              <input @keypress="goResult" class="ipt" confirmType="搜索" placeholder="Search" type="search"
+              <input @keypress="goResult" class="ipt" confirmType="搜索" placeholder="搜索" type="search"
                      v-model="searchName"></input>
               <div class="search-icon">
                 <div class="iconfont icon-sousuo1"></div>
@@ -1160,7 +1160,7 @@
               showBack: false
             })
             var p = a.category_list || [],
-              _ = a.index_type_first_name || 'All'
+              _ = a.index_type_first_name || '全部'
             0 < p.length ? (p.unshift({
               name: _,
               id: 0
