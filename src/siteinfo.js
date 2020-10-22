@@ -4,6 +4,6 @@ export default {
   acid: '2',
   multiid: '0',
   version: '12.4.0',
-  siteroot: 'https://boruolai.xx315.net/wxapp.php',
+  siteroot: 'https://beaujolais.nfc315.com/wxapp.php',
   design_method: '3'
 }

@@ -52,10 +52,10 @@
       <!--<swiper circular :autoplay="!goods.video" bindchange="scrollImagesChange" duration="300" interval="5000" :style="{height:imageSize.imageHeight+'px'}">-->
       <!--<swiper circular :autoplay="!goods.video" bindchange="scrollImagesChange" duration="300" interval="5000" style="height:100%">-->
       <div class="wrapper">
-      <swiper  style="height:100%" :options="swiperOption">
+      <swiper  style="height:100%;text-align: center" :options="swiperOption">
         <swiper-slide v-for="(item,index) in goods_image" :key="item.id">
-          <div v-if="goods.video!=''&&goods.video!=null">
-            <img bindload="imageLoad" @click.stop="predivImg" width="100%" :data-idx="index" lazyLoad="true" mode="widthFix"
+          <!-- <div v-if="goods.video!=''&&goods.video!=null">
+            <img bindload="imageLoad" @click.stop="predivImg" style="height: 100vw" :data-idx="index" lazyLoad="true" mode="widthFix"
                  :src="item.image" v-if="index!=0"/>
             <div class="video-wrap" v-else>
               <div v-if="fmShow">
@@ -63,16 +63,21 @@
                 <div @click.stop="btnPlay" class="btn_div centerboth" v-else>
                   <img src="@/assets/images/play.png"/>
                 </div>
-                <img bindload="imageLoad" @click.stop="predivImg" :data-idx="index" lazyLoad="true" mode="widthFix"
+                <img bindload="imageLoad" @click.stop="predivImg" style="height: 100vw" :data-idx="index" lazyLoad="true" mode="widthFix"
                      :src="item.image"/>
               </div>
-              <video bindended="videEnd" class="swiper-video" v-show="fmShow" id="myVideo" objectFit="contain"
+              <video bindended="videEnd" class="swiper-video" style="height: 100vw" v-show="fmShow" id="myVideo" objectFit="contain"
                      :src="goods.video"></video>
 
             </div>
+          </div> -->
+          <img bindload="imageLoad" @click.stop="predivImg" style="height: 100vw" :data-idx="index" lazyLoad="true" mode="widthFix"
+               :src="item.image"/>
+        </swiper-slide>
+        <swiper-slide v-if="goods.video!=''&&goods.video!=null">
+          <div v-on:click="playVideo">
+              <video style="height: 90vw" id="myVideo" :src="goods.video" controls="controls" ></video>
           </div>
-          <img bindload="imageLoad" @click.stop="predivImg" width="100%" :data-idx="index" lazyLoad="true" mode="widthFix"
-               :src="item.image" v-else/>
         </swiper-slide>
         <div class="swiper-pagination"  slot="pagination" style="padding-bottom: 50px;"></div>
       </swiper>
@@ -91,11 +96,11 @@
         <!--<img class="spuPriceBg" :src="goods_details_price_bg?goods_details_price_bg:'@/assets/images/shareBottomBg.png'"/>-->
         <img class="spuPriceBg" src="@/assets/images/shareBottomBg.png"/>
         <div class="price">
-          <span v-if="buy_type!='integral'">$</span>
+          <span v-if="buy_type!='integral'">￥</span>
           <span class="salePrice">{{goods.price_front}}</span>.{{goods.price_after}}
           <span v-if="buy_type=='integral'">积分</span>
           <span class="storePrice" v-if="goods.show_productprice">
-            <span v-if="buy_type!='integral'">$</span>{{goods.productprice}} <span v-if="buy_type=='integral'">积分</span>
+            <span v-if="buy_type!='integral'">￥</span>{{goods.productprice}} <span v-if="buy_type=='integral'">积分</span>
           </span>
         </div>
         <div class="time" v-if="is_close_details_time==0">
@@ -130,10 +135,10 @@
           </div>
         </div>
         <div class="comiss" v-if="is_commiss_mb==1&&commiss_mb_money>0">
-          <div class="con">会员分销预估佣金:${{commiss_mb_money}}</div>
+          <div class="con">会员分销预估佣金:￥{{commiss_mb_money}}</div>
         </div>
         <div class="comiss" v-if="is_goods_head_mb==1&&goods_head_money>0">
-          <div class="con">团长预估佣金：${{goods_head_money}}</div>
+          <div class="con">团长预估佣金：￥{{goods_head_money}}</div>
         </div>
         <i-vip-price :price="goods.card_price" v-if="is_open_vipcard_buy==1&&goods.is_take_vipcard==1"></i-vip-price>
         <i-vip-price :price="goods.levelprice" type="1"
@@ -392,10 +397,10 @@
                   <span>{{cur_sku_arr.actPrice[0]}}</span>.{{cur_sku_arr.actPrice[1]}} {{$t('common.jifen')}}
                 </div>
                 <div class="sale-price" v-else>
-                  $ <span>{{cur_sku_arr.actPrice[0]}}</span>.{{cur_sku_arr.actPrice[1]}}
+                  ￥ <span>{{cur_sku_arr.actPrice[0]}}</span>.{{cur_sku_arr.actPrice[1]}}
                 </div>
                 <div class="market-price">
-                  <span v-if="buy_type!='integral'">$</span>{{cur_sku_arr.marketPrice[0]}}.{{cur_sku_arr.marketPrice[1]}}<span
+                  <span v-if="buy_type!='integral'">￥</span>{{cur_sku_arr.marketPrice[0]}}.{{cur_sku_arr.marketPrice[1]}}<span
                   v-if="buy_type=='integral'">{{$t('common.jifen')}}</span>
                 </div>
                 <i-vip-price :price="cur_sku_arr.card_price"
@@ -514,7 +519,7 @@
     <!--<cover-div style="display: flex;flex-direction: column;justify-content: space-between;margin-right:5px;flex:1;">-->
     <!--<cover-div class="good-title .text-overflow2">{{goods.goodsname}}</cover-div>-->
     <!--<cover-div class="xqbottom">-->
-    <!--<cover-div class="good-price">${{goods.price_front}}.{{goods.price_after}}</cover-div>-->
+    <!--<cover-div class="good-price">￥{{goods.price_front}}.{{goods.price_after}}</cover-div>-->
     <!--</cover-div>-->
     <!--</cover-div>-->
     <!--</cover-div>-->
@@ -1666,6 +1671,10 @@
       },
       btnPlay: function() {
         this.fmShow = false, this.videoContext.play()
+      },
+      playVideo: function() {
+        var vdo = document.getElementById("myVideo");
+        vdo.play()
       },
       videEnd: function() {
         this.fmShow = true

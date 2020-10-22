@@ -15,7 +15,7 @@
 
       <!-- 总金额 -->
       <div style='height:50px;width:100%'>
-        <span style='font-size:30px;color:#f00'>${{tot_price}}</span>
+        <span style='font-size:30px;color:#f00'>￥{{tot_price}}</span>
       </div>
 
 <!--
@@ -73,7 +73,7 @@
                     {{item.goods_list[0].name}}
                   </div>
                   <div class="mount">{{item.goods_list[0].option_str}} x {{item.goods_list[0].quantity}}</div>
-                  <div class="bottom-info">${{item.goods_list[0].price}} <span>${{item.goods_list[0].orign_price}}</span>
+                  <div class="bottom-info">￥{{item.goods_list[0].price}} <span>￥{{item.goods_list[0].orign_price}}</span>
                   </div>
                 </div>
               </div>
@@ -100,10 +100,10 @@
                 <span class="i-class">{{item.goods_list.length}}</span>  {{$t('order.jianshangpin')}}
                 <div class="accual-pay" v-if="item.orderStatus!=3"> {{$t('order.shifu')}}：
                   <div class="money" v-if="item.type=='integral'">
-                    <div v-if="item.shipping_fare>0">${{item.shipping_fare}} + </div>{{item.score}}{{$t('common.jifen')}}
+                    <div v-if="item.shipping_fare>0">￥{{item.shipping_fare}} + </div>{{item.score}}{{$t('common.jifen')}}
                   </div>
                   <div class="money" v-else>
-                    ${{item.total}}
+                    ￥{{item.total}}
                   </div>
                 </div>
               </div>

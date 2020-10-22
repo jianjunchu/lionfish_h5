@@ -37,52 +37,52 @@
           <div class="title" v-if="orderInfo.type=='integral'">{{groupInfo.placeorder_trans_name}}</div>
           <div class="title" v-else>diyshipname</div>
           <div class="detail">
-            + ${{orderInfo.shipping_fare}}
+            + ￥{{orderInfo.shipping_fare}}
           </div>
         </div>
         <div v-if="orderInfo.is_free_shipping_fare==1">
           <div class="item">
             <div class="title">{{diyshipname}}</div>
             <div class="detail">
-              + ${{orderInfo.fare_shipping_free}}
+              + ￥{{orderInfo.fare_shipping_free}}
             </div>
           </div>
           <div class="item">
             <div class="title">{{$('order.manjinemian1')}}{{diyshipname}}{{$t('order.manjinemian2')}}</div>
             <div class="detail">
-              - ${{orderInfo.fare_shipping_free}}
+              - ￥{{orderInfo.fare_shipping_free}}
             </div>
           </div>
         </div>
         <div class="item" v-if="orderInfo.score_for_money*1>0">
           <div class="title">积分抵扣</div>
           <div class="detail">
-            - ${{orderInfo.score_for_money}}
+            - ￥{{orderInfo.score_for_money}}
           </div>
         </div>
         <div class="item" v-if="orderInfo.is_vipcard_buy==1&&levelAmount>0">
           <div class="title">会员优惠</div>
           <div class="detail">
-            - ${{levelAmount}}
+            - ￥{{levelAmount}}
           </div>
         </div>
         <div class="item" v-if="orderInfo.is_level_buy==1&&orderInfo.is_vipcard_buy!=1&&levelAmount>0">
           <div class="title">等级折扣</div>
           <div class="detail">
-            - ${{levelAmount}}
+            - ￥{{levelAmount}}
           </div>
         </div>
         <div class="item" v-if="disAmount>0">
           <div class="title">{{$t('order.zongyouhui')}}</div>
           <div class="detail">
-            - ${{disAmount}}
+            - ￥{{disAmount}}
           </div>
         </div>
         <div class="item">
           <div class="title">{{$t('order.shangpinjine')}}</div>
           <div class="detail">
             +
-            <span v-if="orderInfo.type!='integral'">$</span>
+            <span v-if="orderInfo.type!='integral'">￥</span>
             {{goodsTotal}}
             <span v-if="orderInfo.type=='integral'">积分</span>
           </div>
@@ -93,14 +93,14 @@
       <div class="footer" v-if="orderInfo.type=='integral'">
         <div>To Pay：</div>
         <div class="money">
-          <span v-if="orderInfo.shipping_fare>0">${{orderInfo.shipping_fare}} +</span>
+          <span v-if="orderInfo.shipping_fare>0">￥{{orderInfo.shipping_fare}} +</span>
           {{orderInfo.score}}积分
         </div>
       </div>
       <div class="footer" v-else>
         <div>Total：</div>
         <span class="money">
-          ${{orderInfo.total}}
+          ￥{{orderInfo.total}}
         </span>
       </div>
     </div>

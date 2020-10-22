@@ -8,9 +8,9 @@
         <div class="goods-item-r">
           <div class="name">{{order_goods.name}}</div>
           <div class="mount">
-            <block v-if="order_goods.option_str">{{order_goods.option_str}} </block>${{order_goods.price}} x {{order_goods.quantity}}
+            <block v-if="order_goods.option_str">{{order_goods.option_str}} </block>￥{{order_goods.price}} x {{order_goods.quantity}}
           </div>
-          <div class="price">${{total}}</div>
+          <div class="price">￥{{total}}</div>
         </div>
       </div>
     </div>
@@ -60,13 +60,13 @@
     <div class="cell">
       <div class="cell-hd">{{$t('refund.tuikuanjine')}}：</div>
       <div class="cell-bd">
-        <input bindinput="refund_money_input" class="cell-ipt" :placeholder="'最高可退款 $'+total" type="text" :value="refund_money"></input>
+        <input bindinput="refund_money_input" class="cell-ipt" :placeholder="'最高可退款 ￥'+total" type="text" :value="refund_money"></input>
       </div>
     </div>
     <!-- <div class="cell">
       <div class="cell-hd">{{$t('refund.peisongfei')}}：</div>
       <div class="cell-bd">
-        <div>${{order_goods.shipping_fare}}</div>
+        <div>￥{{order_goods.shipping_fare}}</div>
         <div class="fsz-22 text-gray" v-if="order_goods.shipping_fare==0">{{$t('refund.wupeisongfei')}}无配送费</div>
       </div>
     </div> -->

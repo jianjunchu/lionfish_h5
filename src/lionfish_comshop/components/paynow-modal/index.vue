@@ -21,7 +21,7 @@
       </div>-->
       <div style='float:left;width: 100%;margin-left: 5%;margin-top:5px'>
         {{$t('order.zhifujine')}}：
-        <span style="color:red">${{tot_price}}</span>
+        <span style="color:red">￥{{tot_price}}</span>
       </div>
       <div style='float:left;width: 100%;margin-left: 5%;margin-top:5px'>
         {{$t('order.beizhudingdanhao')}}：

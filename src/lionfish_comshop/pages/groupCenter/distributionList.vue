@@ -24,7 +24,7 @@
 
       </div>
       <div class="income">
-        <span>预计佣金：${{permoney}}</span>
+        <span>预计佣金：￥{{permoney}}</span>
       </div>
     </div>
     <div class="distributionList">
@@ -48,22 +48,22 @@
                   <img class="i-class goodsImg" mode="widthFix" :src="goods.goods_images" style="width:60px;height:60px;"/>
                   <div class="detail">
                     <div class="goodsName">{{goods.name}}</div>
-                    <div class="commission text-right">团单金额 ${{goods.total}} |
-                      <span v-if="item.order_status_id!=11&&item.order_status_id!=6">预估</span>佣金 ${{goods.commision}}</div>
+                    <div class="commission text-right">团单金额 ￥{{goods.total}} |
+                      <span v-if="item.order_status_id!=11&&item.order_status_id!=6">预估</span>佣金 ￥{{goods.commision}}</div>
                     <div class="i-flex i-flex-spb text-right text-gray fsz-26 mt5" v-if="goods.has_refund_quantity>0">
                                         <span @click="handleTipDialog" class="i-flex-item">
-                      佣金变化:<span class="red">${{goods.del_commision}}</span>
+                      佣金变化:<span class="red">￥{{goods.del_commision}}</span>
                                             <span class="iconfont icon-shuoming text-dark fsz-26" style="margin-left:10rpx;"></span>
                                         </span>
                     </div>
                   </div>
                 </div>
                 <div class="distributionCommision" v-if="item.shipping_fare!='免运费'&&item.delivery=='tuanz_send'">
-                  <span class="fareCommision">配送收入: ${{item.shipping_fare}}</span>
-                  <span class="totalCommision">合计佣金: ${{item.total_commision}}（含配送）</span>
+                  <span class="fareCommision">配送收入: ￥{{item.shipping_fare}}</span>
+                  <span class="totalCommision">合计佣金: ￥{{item.total_commision}}（含配送）</span>
                 </div>
                 <div class="distributionCommision" v-else>
-                  <span class="totalCommision" v-if="item.order_status_id!=5&&item.order_status_id!=7">合计佣金: ${{item.total_commision}}</span>
+                  <span class="totalCommision" v-if="item.order_status_id!=5&&item.order_status_id!=7">合计佣金: ￥{{item.total_commision}}</span>
                 </div>
               </div>
               <i-loadMore :tip="tip" v-if="!isHideLoadMore"></i-loadMore>

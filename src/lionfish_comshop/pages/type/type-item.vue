@@ -28,9 +28,9 @@
           </div>
           <div class="spu-price">
             <span class="sale-price">
-              <span class="span">${{spuItem.actPrice[0]}}</span>.{{spuItem.actPrice[1]}}</span>
+              <span class="span">￥{{spuItem.actPrice[0]}}</span>.{{spuItem.actPrice[1]}}</span>
             <div class="market-price" v-if="spuItem.show_productprice">
-              ${{spuItem.marketPrice[0]}}.{{spuItem.marketPrice[1]}}
+              ￥{{spuItem.marketPrice[0]}}.{{spuItem.marketPrice[1]}}
             </div>
           </div>
         </div>

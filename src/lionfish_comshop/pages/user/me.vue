@@ -241,7 +241,7 @@
               <div class="item-title">
                 <img class="toolIcon" mode="widthFix"
                      :src="user_tool_icons.i1?user_tool_icons.i1:require('@/assets/images/wallet.png')"/>
-                <span>{{$t('wallet.yue')}}<span v-if="!needAuth">: ${{member_info.account_money||0}}</span>
+                <span>{{$t('wallet.yue')}}<span v-if="!needAuth">: ￥{{member_info.account_money||0}}</span>
                 </span>
               </div>
               <div class="tool-right">

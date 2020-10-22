@@ -15,9 +15,9 @@
           <span class="last">商品数量：{{item.groupOrderNum}}</span>
         </div>
         <div class="tips">
-          <span>商品金额：${{item.totalAmount?item.totalAmount/100:0}}</span>
+          <span>商品金额：￥{{item.totalAmount?item.totalAmount/100:0}}</span>
           <span class="last">佣金:
-          <span class="price">${{item.commision?item.commision/100:0}}</span>
+          <span class="price">￥{{item.commision?item.commision/100:0}}</span>
                 </span>
         </div>
       </div>

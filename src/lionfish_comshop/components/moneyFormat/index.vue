@@ -1,5 +1,5 @@
 <template>
-  <span :class="IClass">${{showMoney}}</span>
+  <span :class="IClass">￥{{showMoney}}</span>
 </template>
 
 <script>

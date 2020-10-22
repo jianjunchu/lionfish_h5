@@ -1,6 +1,6 @@
 <template>
-  <span class="vipprice" v-if="type==0">会员价:${{prePrice}}</span>
-  <span class="vipprice level" v-else-if="type==1">等级折扣价:${{prePrice}}</span>
+  <span class="vipprice" v-if="type==0">会员价:￥{{prePrice}}</span>
+  <span class="vipprice level" v-else-if="type==1">等级折扣价:￥{{prePrice}}</span>
 </template>
 
 <script>

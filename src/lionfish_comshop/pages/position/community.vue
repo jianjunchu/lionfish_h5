@@ -388,7 +388,7 @@
               a.index_hide_headdetail_address = t.index_hide_headdetail_address || 0
 
             } else {
-              console.log(a.needAuth)
+              console.log(a.needAuth,"123")
               1 == t.code ? (a.loadMore = !1, a.tip = 'Please try again') : 2 == t.code && (wx.hideLoading(), (a.needAuth = !0, a.hasRefeshin = !1))
             }
           }

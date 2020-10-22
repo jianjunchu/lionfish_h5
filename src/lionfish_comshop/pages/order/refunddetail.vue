@@ -27,13 +27,13 @@
           <div class="goods-item-r">
             <div class="name">{{order_goods.name}}</div>
             <div class="mount">
-              <block v-if="order_goods.option_str">{{order_goods.option_str}} </block>${{order_goods.price}} x {{order_goods.quantity}}
+              <block v-if="order_goods.option_str">{{order_goods.option_str}} </block>￥{{order_goods.price}} x {{order_goods.quantity}}
             </div>
-            <div class="price">${{order_goods.total}}</div>
+            <div class="price">￥{{order_goods.total}}</div>
           </div>
         </div>
       </div>
-      <div class="ll">实际退款金额：<span>${{order_refund.ref_money}}</span>
+      <div class="ll">实际退款金额：<span>￥{{order_refund.ref_money}}</span>
       </div>
       <div class="ll">问题类型：<span>{{order_refund.ref_name}}</span>
       </div>

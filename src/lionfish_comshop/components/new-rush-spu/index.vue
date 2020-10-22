@@ -50,9 +50,9 @@
           </div>
           <div class="spu-price">
             <div class="sale-price">
-              <span class="span">${{spuItem.actPrice[0]}}</span>.{{spuItem.actPrice[1]}}
+              <span class="span">￥{{spuItem.actPrice[0]}}</span>.{{spuItem.actPrice[1]}}
             </div>
-            <div class="market-price" v-if="spuItem.show_productprice">${{spuItem.marketPrice[0]}}.{{spuItem.marketPrice[1]}}</div>
+            <div class="market-price" v-if="spuItem.show_productprice">￥{{spuItem.marketPrice[0]}}.{{spuItem.marketPrice[1]}}</div>
           </div>
         </div>
         <div v-if="!isPast">
@@ -452,7 +452,7 @@
     height: 3.2vw;
     position: absolute;
     left: 0;
-    top: 9vw;
+    top: 12vw;
     line-height: 3.2vw;
     overflow: hidden;
     text-overflow: ellipsis;
