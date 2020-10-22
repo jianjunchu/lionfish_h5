@@ -85,6 +85,12 @@
                    v-model="tabAddress[tabIdx].mobile"></input>
           </div>
 
+           <div class="receiver">
+            <span>所在地区： </span>
+              <div @click="choseLocation" class="sel-btn">{{tabAddress[tabIdx].region[0]||'选择地址'}}{{tabAddress[tabIdx].region[1]}}{{tabAddress[tabIdx].region[2]}} </div>
+            <img class="icon-right" src="@/assets/images/rightArrowImg.png"></image>
+           </div>
+
 
           <!-- <div class="address-box" v-if="tabIdx!=0">
             <div class="receiver">
@@ -2146,9 +2152,10 @@
   }
 
   .sku-item .sku-msg .sku-title {
+    height: 4vw;
     font-size: 3.5vw;
     color: #444;
-    line-height: 3vw;
+    line-height: 4vw;
     margin-bottom: 1.2vw;
     font-weight: 500;
     overflow: hidden;

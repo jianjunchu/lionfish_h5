@@ -29,7 +29,8 @@ const i18n = new VueI18n({
   // options: en | zh | es
   locale: Cookies.get('language') || 'zh',
   // set locale messages
-  messages
+  messages,
+  silentTranslationWarn: true
 })
 
 // 更新vant组件库本身的语言变化，支持国际化

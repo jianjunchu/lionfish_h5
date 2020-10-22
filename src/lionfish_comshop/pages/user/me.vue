@@ -578,7 +578,7 @@
       app = this.$getApp()
       wx = this.$wx
       wx.setNavigationBarTitle({
-        title: 'Me',
+        title: '个人中心',
         showLogo: false,
         showMore: false,
         showBack: false
