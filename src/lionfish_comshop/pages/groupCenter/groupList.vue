@@ -52,10 +52,10 @@
                     <span class="last" v-if="goods.option_str!=''">Specification：{{goods.option_str}}</span>
                   </div>
                   <div class="tips">
-                    <span>Amount：${{goods.total}}</span>
+                    <span>Amount：￥{{goods.total}}</span>
                   </div>
                   <div class="tips i-flex i-flex-spb">
-                    <div>Valid Amount: <span class="red">${{goods.order_jishu}}</span>
+                    <div>Valid Amount: <span class="red">￥{{goods.order_jishu}}</span>
                     </div>
                     <div v-if="goods.fen_type==1">Fixed Commission: <span class="red">{{goods.fen_gumoney}}</span>
                     </div>
@@ -63,10 +63,10 @@
                     </div>
                   </div>
                   <div class="tips i-flex i-flex-spb">
-                    <div>Host Freight: <span class="red">${{goods.head_shipping_fare||0}}</span>
+                    <div>Host Freight: <span class="red">￥{{goods.head_shipping_fare||0}}</span>
                     </div>
                     <div @click="handleTipDialog" :data-type="goods.fen_type==1">
-                      Real Commission: <span class="red">${{goods.commision}}</span>
+                      Real Commission: <span class="red">￥{{goods.commision}}</span>
                       <span class="iconfont icon-shuoming text-dark fsz-28" style="margin-left:5px;"></span>
                     </div>
                   </div>

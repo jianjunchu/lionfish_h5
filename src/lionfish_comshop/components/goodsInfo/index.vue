@@ -51,7 +51,7 @@
         <div class="footer">
       {{$t('common.gong')}} {{order.goods_count}} {{$t('order.jianshangpin')}}  {{$t('goodsinfo.xiaoji')}}
       <div class="money">
-        <span>$</span>{{order.order_info.total}}
+        <span>￥</span>{{order.order_info.total}}
       </div>
         </div>
     </div>

@@ -15,7 +15,7 @@
             </div>
             <div class="per">
               <span>{{$t('wallet.tixianjine')}}：</span>
-              <span>${{item.money}}</span>
+              <span>￥{{item.money}}</span>
             </div>
             <div class="per">
               <span>{{$t('wallet.shenqingriqi')}}：</span>

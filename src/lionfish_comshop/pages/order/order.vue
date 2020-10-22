@@ -15,7 +15,7 @@
 
       <!-- 总金额 -->
       <div style='height:50px;width:100%'>
-        <span style='font-size:30px;color:#f00'>${{order.order_info.real_total}}</span>
+        <span style='font-size:30px;color:#f00'>￥{{order.order_info.real_total}}</span>
       </div>
 
 
@@ -145,12 +145,12 @@
                   </div>
                   <div class="mount">
                     <span v-if="goodsInfo.option_str">{{goodsInfo.option_str}} </span>
-                    <span v-if="order.order_info.type!='integral'">${{goodsInfo.price}}</span>
+                    <span v-if="order.order_info.type!='integral'">￥{{goodsInfo.price}}</span>
                     <span v-if="order.order_info.type=='integral'">积分</span> x {{goodsInfo.quantity}}
                   </div>
                   <div class="bottom-info">
                     <span class="bold-text">
-                      {{$t('common.xiaoji')}} <span v-if="order.order_info.type!='integral'"> ${{goodsInfo.real_total}} </span>
+                      {{$t('common.xiaoji')}} <span v-if="order.order_info.type!='integral'"> ￥{{goodsInfo.real_total}} </span>
                       <span v-if="order.order_info.type=='integral'">{{$t('common.point')}}</span>
                     </span>
                     <i-dialog @cancel="callDialog" @confirm="confirmGoods" :data-cancel="confirmGoodsVisible" text="确认该商品已经提货？" :visible="confirmGoodsVisible"></i-dialog>
@@ -263,11 +263,11 @@
               <!--</div>-->
               <!--<div class="mount">-->
                 <!--<div v-if="refundGoodsInfo.option_str">{{refundGoodsInfo.option_str}} </div>-->
-                <!--<div v-if="order.order_info.type!='integral'">$</div>{{refundGoodsInfo.price}}-->
+                <!--<div v-if="order.order_info.type!='integral'">￥</div>{{refundGoodsInfo.price}}-->
                 <!--<div v-if="order.order_info.type=='integral'">积分</div> x {{refundGoodsInfo.quantity}}-->
               <!--</div>-->
               <!--<div class="weight mt5">-->
-                <!--小计：<div v-if="order.order_info.type!='integral'">$</div>{{refundGoodsInfo.real_total}}-->
+                <!--小计：<div v-if="order.order_info.type!='integral'">￥</div>{{refundGoodsInfo.real_total}}-->
                 <!--<div v-if="order.order_info.type=='integral'">积分</div>-->
               <!--</div>-->
               <!--<div class="card-btn">-->
@@ -298,7 +298,7 @@
             <!--<div class="fsz-24 text-6" v-for="(item,idx) in refundGoodsInfo.order_goods_refund_list" :key="item.index">-->
               <!--<div class="mb5">退款时间：<span class="text-3">{{item.addtime}}</span>-->
               <!--</div>-->
-              <!--<div class="mb5">退款金额：<span class="text-3">${{item.money}}</span>-->
+              <!--<div class="mb5">退款金额：<span class="text-3">￥{{item.money}}</span>-->
               <!--</div>-->
             <!--</div>-->
           <!--</div>-->

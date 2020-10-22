@@ -13,13 +13,13 @@
           </div>
           <div class="sku-price">
             <div class="sale-price">
-              <div v-if="buyType!='integral'">$</div>
+              <div v-if="buyType!='integral'">￥</div>
               <span class="span">{{cur_sku_arr.actPrice[0]}}</span>>
               .{{cur_sku_arr.actPrice[1]}}
               <div v-if="buyType=='integral'">积分</div>
               <div>
                 <div class="market-price">
-                  <div v-if="buyType!='integral'">$</div>
+                  <div v-if="buyType!='integral'">￥</div>
                   {{cur_sku_arr.marketPrice[0]}}.{{cur_sku_arr.marketPrice[1]}}
                   <div v-if="buyType=='integral'">积分</div>
                 </div>

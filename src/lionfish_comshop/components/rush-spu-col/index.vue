@@ -31,7 +31,7 @@
         <i-vip-price class="vip" :price="spuItem.levelprice" type="1"
                      v-else-if="canLevelBuy&&spuItem.is_mb_level_buy==1"></i-vip-price>
         <div class="new-bot">
-          <div class="price">${{spuItem.actPrice[0]}}.{{spuItem.actPrice[1]}}</div>
+          <div class="price">￥{{spuItem.actPrice[0]}}.{{spuItem.actPrice[1]}}</div>
           <div v-if="!isPast">
             <div v-if="number<=0||notNum">
               <i-button iClass="add-cart" v-if="disabled||spuItem.spuCanBuyNum==0||actEnd">

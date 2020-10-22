@@ -39,7 +39,7 @@
 
         <!-- 总金额 -->
         <div style='height:5vw;width:100%'>
-          <span style='font-size:3vw;color:#f00'>${{tot_price}}</span>
+          <span style='font-size:3vw;color:#f00'>￥{{tot_price}}</span>
         </div>
 
         <!--
@@ -86,7 +86,7 @@
           </div>
 
 
-          <div class="address-box" v-if="tabIdx!=0">
+          <!-- <div class="address-box" v-if="tabIdx!=0">
             <div class="receiver">
               <span space="ensp">{{$t('order.youbian')}}</span>
               <input @input="inputZipCode" class="receive-name"
@@ -114,10 +114,10 @@
               <input  class="receive-name" placeholder=""
                      type="" v-model="tabAddress[tabIdx].building "></input>
             </div>
+ -->
 
-
-            <!--
-            <div v-if="tabIdx==2">
+            
+            <!-- <div v-if="tabIdx==2">
 
                  <div class="receiver">
                     <span>所在地区： </span>
@@ -146,8 +146,8 @@
                     <input @input="bindReceiverMobile" focus="{{focus_delivery_time}}" bindfocus="selectdeliveryTime" placeholder="送货时间" type="text" value="{{tabAddress[tabIdx].delivery_time}}"></input>
                  </div>
             </block>
-            -->
-          </div>
+           
+          </div> -->
 
           <div class="receiver align-start">
             <span>{{tabIdx ==0 ? $t('cart.zitishijian') : $t('cart.songhuoshijian') }}</span>
@@ -212,7 +212,7 @@
                     <span v-for="(option,index) in item.option " :key="option.option_id">{{option.value}}；</span>
                   </div>
                   <div class="original-price">
-                    <span v-if="buy_type!='integral'">$</span>
+                    <span v-if="buy_type!='integral'">￥</span>
                     {{item.price}} ×{{item.quantity}}
                     <span v-if="buy_type=='integral'">{{$t('common.jifen')}}</span>
                     <i-vip-price :price="item.card_price"
@@ -222,7 +222,7 @@
                   </div>
                   <div class="sku-price">{{$t('common.xiaoji')}}
                     <span>
-                                    <span v-if="buy_type!='integral'">$</span>{{item.total}}
+                                    <span v-if="buy_type!='integral'">￥</span>{{item.total}}
                     <span v-if="buy_type=='integral'">{{$t('common.jifen')}}</span>
                                 </span>
                   </div>
@@ -251,42 +251,42 @@
         <div class="act-content">
           <div class="cell" v-if="is_vip_card_member==1&&is_open_vipcard_buy==1&&vipcard_save_money>0">
             <span>会员优惠</span>
-            <em>- $ {{vipcard_save_money}}</em>
+            <em>- ￥ {{vipcard_save_money}}</em>
           </div>
           <div class="cell" v-if="canLevelBuy&&levelAmount>0">
             <span>等级折扣</span>
-            <em>- $ {{levelAmount}}</em>
+            <em>- ￥ {{levelAmount}}</em>
           </div>
           <div class="cell" v-if="tabIdx==1&&delivery_tuanz_money>0">
             <span>{{groupInfo.placeorder_tuan_name}}</span>
-            <em>+ $ {{delivery_tuanz_money}}</em>
+            <em>+ ￥ {{delivery_tuanz_money}}</em>
           </div>
           <div class="cell" v-if="tabIdx==2&&trans_free_toal>0">
             <span>{{groupInfo.placeorder_trans_name}}</span>
-            <em>+ $ {{trans_free_toal}}</em>
+            <em>+ ￥ {{trans_free_toal}}</em>
           </div>
           <div class="cell" v-if="tabIdx!=0">
             <div v-if="tabIdx==1&&is_man_delivery_tuanz_fare>0">
               <span>满{{man_free_tuanzshipping}}免{{groupInfo.placeorder_tuan_name}}</span>
-              <em>- $ {{delivery_tuanz_money}}</em>
+              <em>- ￥ {{delivery_tuanz_money}}</em>
             </div>
             <div v-if="tabIdx==2&&is_man_shipping_fare>0">
               <span>满{{man_free_shipping}}免{{groupInfo.placeorder_trans_name}}</span>
-              <em>- $ {{fare_man_shipping_fare_money}}</em>
+              <em>- ￥ {{fare_man_shipping_fare_money}}</em>
             </div>
           </div>
           <div class="cell" v-if="reduce_money&&is_open_fullreduction">
             <span>满减</span>
-            <em>- $ {{reduce_money}}</em>
+            <em>- ￥ {{reduce_money}}</em>
           </div>
           <div @click="showvoucher" class="cell" data-seller_id="0" v-if="seller_goodss[0] && seller_goodss[0].show_voucher==1">
             <div>
               <span>{{$t('common.youhuiquan')}}</span>
-              <span class="cell-desc" v-if="sel_chose_vouche.limit_money>0">min. ${{sel_chose_vouche.limit_money}} purchase to use ${{sel_chose_vouche.credit}} coupon</span>
+              <span class="cell-desc" v-if="sel_chose_vouche.limit_money>0">min. ￥{{sel_chose_vouche.limit_money}} purchase to use ￥{{sel_chose_vouche.credit}} coupon</span>
               <span class="cell-desc" v-else>优惠{{sel_chose_vouche.credit}}元</span>
             </div>
             <div>
-              <em>- $ {{sel_chose_vouche.credit}}</em>
+              <em>- ￥ {{sel_chose_vouche.credit}}</em>
               <img class="icon-right" src="@/assets/images/rightArrowImg.png"/>
             </div>
           </div>
@@ -372,15 +372,15 @@
               <div class="h1" v-if="buy_type=='integral'">
                 To Pay：
                 <span>
-                            <div v-if="total_free>0">${{total_free}} + </div>{{total_integral}}积分
+                            <div v-if="total_free>0">￥{{total_free}} + </div>{{total_integral}}积分
             </span>
               </div>
               <div class="h1" v-else>
-                Total：<span>${{tot_price}}</span>
+                Total：<span>￥{{tot_price}}</span>
               </div>
               <div class="h2" v-if="buy_type!='integral'">
-                <em>{{$t('order.zonge')}}${{total_all}}</em><br>
-                <em v-if="disAmount>0">{{$t('order.zongyouhui')}} : ${{disAmount}}</em>
+                <em>{{$t('order.zonge')}}￥{{total_all}}</em><br>
+                <em v-if="disAmount>0">{{$t('order.zongyouhui')}} : ￥{{disAmount}}</em>
               </div>
             </div>
             <div class="fixed-bar-btn bgDisabled" v-if="btnDisable">{{btnText?btnText:'立即支付'}}</div>
@@ -427,19 +427,19 @@
         <div class="order-content">
           <div class="msg-group">
             <span>{{$t('order.shangpinzonge')}}</span>
-            <em>+${{total_goods_price}}</em>
+            <em>+￥{{total_goods_price}}</em>
           </div>
           <div class="msg-group" v-if="tabIdx==1">
             <span>{{groupInfo.placeorder_tuan_name}}：</span>
-            <em>+${{delivery_tuanz_money?delivery_tuanz_money:0}}</em>
+            <em>+￥{{delivery_tuanz_money?delivery_tuanz_money:0}}</em>
           </div>
           <div class="msg-group" v-if="tabIdx==2">
             <span>{{groupInfo.placeorder_trans_name}}：</span>
-            <em>+${{trans_free_toal?trans_free_toal:0}}</em>
+            <em>+￥{{trans_free_toal?trans_free_toal:0}}</em>
           </div>
           <div class="msg-group" v-if="disAmount>0">
             <span>{{$t('order.youhuijine')}}</span>
-            <em>-${{disAmount}}</em>
+            <em>-￥{{disAmount}}</em>
           </div>
           <div class="msg-group">
             <span>{{groupInfo.owner_name}}：</span>
@@ -469,7 +469,7 @@
           </div>
           <div class="total">
             {{$t('order.heji')}}
-            <em>${{tot_price}}</em>
+            <em>￥{{tot_price}}</em>
           </div>
         </div>
         <div class="button-group">

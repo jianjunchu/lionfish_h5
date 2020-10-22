@@ -87,7 +87,7 @@
                                    v-else-if="canLevelBuy&&shopcarts.is_mb_level_buy"></i-vip-price>
                       <div class="cart-item-content-bottom">
                         <div class="sale-price">
-                          $<span>{{shopcarts.currntprice}}</span>
+                          ￥<span>{{shopcarts.currntprice}}</span>
                         </div>
                         <div :class="['i-class', 'i-input-number', 'i-input-number-size-'+size]"
                              v-if="shopcarts.can_buy==1&&shopcarts.option_can_buy==1">
@@ -159,7 +159,7 @@
                                    v-else-if="canLevelBuy&&shopcarts.is_mb_level_buy"></i-vip-price>
                       <div class="cart-item-content-bottom">
                         <div class="sale-price">
-                          $<span>{{shopcarts.currntprice}}</span>
+                          ￥<span>{{shopcarts.currntprice}}</span>
                         </div>
                         <div :class="['i-class', 'i-input-number', 'i-input-number-size-'+size]"
                              v-if="shopcarts.can_buy==1&&shopcarts.option_can_buy==1">
@@ -265,7 +265,7 @@
               <span :style="{color:skin.color}">{{diffDeliveryMoney}}</span>
               元
             </div>
-            <div class="active-msg" v-else>自营满${{man_free_tuanzshipping}}免配送费${{delivery_tuanz_money}}</div>
+            <div class="active-msg" v-else>自营满￥{{man_free_tuanzshipping}}免配送费￥{{delivery_tuanz_money}}</div>
           </div>
           <i-router-link :style="{color:skin.color}" url="/lionfish_comshop/pages/index/index"
                          v-if="diffDeliveryMoney<0&&man_free_tuanzshipping>0&&delivery_tuanz_money>0">
@@ -314,24 +314,24 @@
           <div class="fixed-bar-center" v-if="disAmount&&disAmount!='0.00'&&is_open_fullreduction==1">
             <div class="total">
               Total：
-              <span>${{totalAmount}}</span>
+              <span>￥{{totalAmount}}</span>
             </div>
             <div class="total-detail">
-              <span>Amount:${{allcount}}</span>
-              <span>Discount:${{disAmount}}</span>
+              <span>Amount:￥{{allcount}}</span>
+              <span>Discount:￥{{disAmount}}</span>
             </div>
           </div>
           <div class="fixed-bar-center" v-else>
             <div class="total">
-              Total：<span>${{allcount}}</span>
+              Total：<span>￥{{allcount}}</span>
             </div>
             <div class="total-detail" v-if="vipFee>0">
-              <span>Amount:${{vipTotal}}</span>
-              <span>Discount:${{vipFee}}</span>
+              <span>Amount:￥{{vipTotal}}</span>
+              <span>Discount:￥{{vipFee}}</span>
             </div>
             <div class="total-detail" v-else-if="levelFee>0">
-              <span>Amount:${{levelToTal}}</span>
-              <span>Discount:${{levelFee}}</span>
+              <span>Amount:￥{{levelToTal}}</span>
+              <span>Discount:￥{{levelFee}}</span>
             </div>
           </div>
           <button class="cart-fixed-bar-btn" style="background:#dcdcdc;" v-if="is_comunity_rest==1">团长休息中</button>
@@ -340,7 +340,7 @@
             <button disabled @click="toorder" class="cart-fixed-bar-btn" v-else>
               <span> v-if="totalAmount!=0">差</span>
               <span> v-else>满</span>
-              ${{-canbuy_other}}下单
+              ￥{{-canbuy_other}}下单
             </button>
           </div>
           <div @click="toorder" class="cart-fixed-bar-btn" :style="{background:skin.color}" v-else>{{$t('cart.qujiesuan')}}({{allnum}})
@@ -373,12 +373,12 @@
             </div>
             <div class="sku-price">
               <div class="sale-price" v-if="is_vip_card_member==1&&is_open_vipcard_buy==1">
-                $ <span>{{cur_sku_arr.card_price[0]}}</span>.{{cur_sku_arr.card_price[1]}}
+                ￥ <span>{{cur_sku_arr.card_price[0]}}</span>.{{cur_sku_arr.card_price[1]}}
               </div>
               <div class="sale-price" v-else>
-                $ <span>{{cur_sku_arr.actPrice[0]}}</span>.{{cur_sku_arr.actPrice[1]}}
+                ￥ <span>{{cur_sku_arr.actPrice[0]}}</span>.{{cur_sku_arr.actPrice[1]}}
               </div>
-              <div class="market-price">${{cur_sku_arr.marketPrice[0]}}.{{cur_sku_arr.marketPrice[1]}}</div>
+              <div class="market-price">￥{{cur_sku_arr.marketPrice[0]}}.{{cur_sku_arr.marketPrice[1]}}</div>
             </div>
             <div class="sku-switch-on">已选择：{{cur_sku_arr.spec}}</div>
           </div>

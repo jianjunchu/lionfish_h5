@@ -38,9 +38,9 @@
           </div>
           <div class="spu-price">
             <div class="sale-price">
-              <span class="span">${{spuItem.actPrice[0]}}</span>.{{spuItem.actPrice[1]}}
+              <span class="span">￥{{spuItem.actPrice[0]}}</span>.{{spuItem.actPrice[1]}}
             </div>
-            <div class="market-price" v-if="spuItem.show_productprice"> ${{spuItem.marketPrice[0]}}.{{spuItem.marketPrice[1]}}</div>
+            <div class="market-price" v-if="spuItem.show_productprice"> ￥{{spuItem.marketPrice[0]}}.{{spuItem.marketPrice[1]}}</div>
           </div>
           <div class="spu-count" v-if="isShowListCount==1">{{$t('detail.yishou')}}{{spuItem.soldNum}}{{$t('order.meidanxiangou3')}} / 仅剩{{spuItem.spuCanBuyNum}}{{$t('order.meidanxiangou3')}}</div>
         </div>

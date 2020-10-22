@@ -40,7 +40,7 @@
                     <span class="i-class">{{item.goods_list.length}}</span> {{$t('order.jianshangpin')}}
                     <div class="accual-pay" v-if="item.orderStatus!=3">{{$t('order.paid')}}：
                       <div class="money">
-                        ${{item.total}}
+                        ￥{{item.total}}
                       </div>
                     </div>
                   </div>

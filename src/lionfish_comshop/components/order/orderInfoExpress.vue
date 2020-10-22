@@ -63,14 +63,14 @@
       <div class="footer" v-if="order.order_info.type=='integral'">
         <div>{{$t('order.gong')}}{{order.goods_count}}{{$t('order.jianshangpin')}} $nbsp;{{$t('order.shifu')}}：</div>
         <div class="money">
-          <div v-if="order.order_info.shipping_fare>0">${{order.order_info.shipping_fare}} +</div>
+          <div v-if="order.order_info.shipping_fare>0">￥{{order.order_info.shipping_fare}} +</div>
           {{order.order_info.score}}积分
         </div>
       </div>
       <div class="footer" v-else>
         {{$t('order.gong')}}{{order.goods_count}}{{$t('order.jianshangpin')}} {{$t('order.xiaoji')}}：
         <div class="money">
-          <span>$</span>
+          <span>￥</span>
           {{order.order_info.total}}
         </div>
       </div>

@@ -72,7 +72,7 @@
               </div>
               <div @click="goLink" class="top-search" data-link="/lionfish_comshop/pages/type/search">
                 <span class="iconfont icon-sousuo1"></span>
-                ${{$t('index.search')}}
+                ￥{{$t('index.search')}}
               </div>
             </div>
           </div>
@@ -526,13 +526,13 @@
                   <div class="new-coupou-item" v-for="(item ,index) in alert_quan_list" :key="item.id">
                     <div class="m-coupon-l">
                       <div class="m-coupou-price">
-                        <span>$</span>
+                        <span>￥</span>
                         {{item.credit}}
                       </div>
                     </div>
                     <div class="m-coupou-m">
                       <div class="m-coupou-name">{{item.voucher_title}}</div>
-                      <div class="m-coupou-title" v-if="item.limit_money>0">min ${{item.limit_money}} purchase to use
+                      <div class="m-coupou-title" v-if="item.limit_money>0">min ￥{{item.limit_money}} purchase to use
                         coupon
                       </div>
                       <div class="m-coupou-title" v-else>Useable for all products</div>
@@ -1107,17 +1107,17 @@
                 F.loadPage()
               } else {
 
-                wx.showModal({
-                  title: '',
-                  content: 'Please select an ' + e.group_name,
-                  showCancel: false,
-                  confirmColor: '#8ED9D1',
-                  success: function(t) {
-                    wx.navigateTo({
-                      url: '/lionfish_comshop/pages/position/community'
-                    })
-                  }
-                })
+                // wx.showModal({
+                //   title: '',
+                //   content: 'Please select an ' + e.group_name,
+                //   showCancel: false,
+                //   confirmColor: '#8ED9D1',
+                //   success: function(t) {
+                //     wx.navigateTo({
+                //       url: '/lionfish_comshop/pages/position/community'
+                //     })
+                //   }
+                // })
               }
             }
             var i = a.notice_list,

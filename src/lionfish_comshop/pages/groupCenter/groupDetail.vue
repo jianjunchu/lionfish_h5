@@ -28,19 +28,19 @@
 								</span>
                 </div>
                 <div class="attribute">
-                  <div class="price-text">${{goodsInfo.price}}</div>
+                  <div class="price-text">￥{{goodsInfo.price}}</div>
                 </div>
               </div>
             </div>
             <div class="px15 pb10 fsz-30 text-gray">
               <div class="tips i-flex i-flex-spb mb5">
-                <div>{{$t('order.shangpin')}}&nbsp;{{$t('order.jine')}}: <span class="red">${{goodsInfo.price}}</span>
+                <div>{{$t('order.shangpin')}}&nbsp;{{$t('order.jine')}}: <span class="red">￥{{goodsInfo.price}}</span>
                 </div>
-                <div>{{$t('order.tuikuan')}}&nbsp;{{$t('order.jine')}}: <span class="red">${{goodsInfo.has_refund_money}}</span>
+                <div>{{$t('order.tuikuan')}}&nbsp;{{$t('order.jine')}}: <span class="red">￥{{goodsInfo.has_refund_money}}</span>
                 </div>
               </div>
               <div class="tips i-flex i-flex-spb">
-                <div>{{$t('order.youxiaojine')}}: <span class="red">${{goodsInfo.order_jishu}}</span>
+                <div>{{$t('order.youxiaojine')}}: <span class="red">￥{{goodsInfo.order_jishu}}</span>
                 </div>
                 <div v-if="goodsInfo.fen_type==0">{{$t('order.yongjin')}}&nbsp;{{$t('order.bili')}}: <span class="red">{{goodsInfo.fen_bili}}%</span>
                 </div>
@@ -51,11 +51,11 @@
           </div>
           <div class="px15 py10 fsz-30 text-right">
             <div class="mb5" v-if="head_shipping_fare">
-              团长配送费:<span class="red weight">${{head_shipping_fare}} </span>
+              团长配送费:<span class="red weight">￥{{head_shipping_fare}} </span>
               <span class="fsz-24 text-gray">(归团长收入)</span>
             </div>
             <div bindtap="handleTipDialog">
-                {{$t('order.shijiyongjin')}}:<span class="red weight">${{commision}} </span>
+                {{$t('order.shijiyongjin')}}:<span class="red weight">￥{{commision}} </span>
               <span class="iconfont icon-shuoming text-dark fsz-30"></span>
               <span class="fsz-30 text-gray"> ({{is_statements_state==1?$t('order.yijiesuan'):$t('order.daijiesuan')}}<span v-if="is_statements_state==1&&statements_end_date"> {{statements_end_date}}</span>)</span>
             </div>

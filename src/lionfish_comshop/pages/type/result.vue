@@ -32,10 +32,10 @@
             </div>
             <div class="sku-price">
               <div class="sale-price" v-if="cur_sku_arr && cur_sku_arr.actPrice">
-                $
+                ￥
                 <span>{{cur_sku_arr.actPrice[0]}}</span>.{{cur_sku_arr.actPrice[1]}}
               </div>
-              <div class="market-price" v-if="cur_sku_arr&&cur_sku_arr.marketPrice">${{cur_sku_arr.marketPrice[0]}}.{{cur_sku_arr.marketPrice[1]}}</div>
+              <div class="market-price" v-if="cur_sku_arr&&cur_sku_arr.marketPrice">￥{{cur_sku_arr.marketPrice[0]}}.{{cur_sku_arr.marketPrice[1]}}</div>
             </div>
             <div class="sku-switch-on">已选择：{{cur_sku_arr.spec}}</div>
           </div>

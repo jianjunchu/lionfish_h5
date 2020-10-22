@@ -18,7 +18,7 @@
           <!--</button>-->
         </div>
         <div class="detailBottom">
-          <div class="price">$
+          <div class="price">￥
             <span class="salePrice">{{goods.price_front}}</span>.{{goods.price_after}}</div>
           <div class="time">
             <span v-if="goods.over_type==1">距结束</span>
@@ -122,10 +122,10 @@
             </div>
             <div class="sku-price">
               <div class="sale-price">
-                $
+                ￥
                 <span>{{cur_sku_arr.actPrice[0]}}</span>.{{cur_sku_arr.actPrice[1]}}
               </div>
-              <div class="market-price">${{cur_sku_arr.marketPrice[0]}}.{{cur_sku_arr.marketPrice[1]}}</div>
+              <div class="market-price">￥{{cur_sku_arr.marketPrice[0]}}.{{cur_sku_arr.marketPrice[1]}}</div>
             </div>
             <div class="sku-switch-on" v-if="cur_sku_arr.spec">已选择：{{cur_sku_arr.spec}}</div>
           </div>

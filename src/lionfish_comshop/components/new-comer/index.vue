@@ -20,7 +20,7 @@
           <div class="act-end" v-if="item.spuCanBuyNum==0">{{$t('home.yiqiangguang')}}</div>
           <div class="title">{{item.spuName}}</div>
           <div class="new-bot">
-            <div class="price">${{item.actPrice[0]}}.{{item.actPrice[1]}}</div>
+            <div class="price">￥{{item.actPrice[0]}}.{{item.actPrice[1]}}</div>
             <i-button iClass="add-cart" v-if="disabled||item.spuCanBuyNum==0">
               <img class="img" src="@/assets/images/icon-add-shopCart-disabled.png"/>
             </i-button>

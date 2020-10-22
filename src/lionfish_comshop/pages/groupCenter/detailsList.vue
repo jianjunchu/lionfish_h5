@@ -24,11 +24,11 @@
               </div>
               <div class="per">
                 <span>{{$t('wallet.dingdanjine')}}：</span>
-                <span>${{item.total}}</span>
+                <span>￥{{item.total}}</span>
               </div>
               <div class="per">
                 <span>{{$t('wallet.yongjinjine')}}：</span>
-                <span>${{item.money}}</span>
+                <span>￥{{item.money}}</span>
               </div>
               <div class="per">
                 <span>{{$t('wallet.xiadanriqi')}}：</span>

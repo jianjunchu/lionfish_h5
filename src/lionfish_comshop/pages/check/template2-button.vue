@@ -5,7 +5,7 @@
         <img class="logo-img" :src="logo"/>
     </div>
 
-    <div class="wrapper" style="width: 88vw;height: 70vw;margin: 0 auto;">
+    <div class="wrapper" style="width: 88vw;height: 70vw;margin: 0 auto;text-align: center">
       <swiper :options="swiperOption">
         <swiper-slide v-for="(item,index) in goods_image2" :key="index">
           <div v-if="item.urlType == 1">
@@ -14,7 +14,7 @@
                 <source :src="item.imgUrl" type="application/x-mpegURL" />
               </video>
           </div>
-          <img v-if="item.urlType == 0" style="width: 88vw; margin: 0 auto;"
+          <img v-if="item.urlType == 0" style="height: 70vw; margin: 0 auto;"
                 :src="item.imgUrl"/>
         </swiper-slide>
         <div class="swiper-pagination"  slot="pagination" style="padding-bottom: 0vw;"></div>
@@ -69,7 +69,7 @@
 					<span style="line-height: 8vw;font-size: 13px; letter-spacing: 0;">再次购买</span>
 				</div>
 				<div style="height: 4vw;width: 60%;float: right;color: #fff;font-weight: 600;text-align: right;display: table-cell;vertical-align:middle;margin-top: 1.5vw">
-					<span style="font-size: 13px;letter-spacing: 0;vertical-align:middle;"><a :href="ecommerceUrl">再次购买</a></span>
+					<span style="font-size: 13px;letter-spacing: 0;vertical-align:middle;"><a :href="ecommerceUrl" style="color: #66ffff;text-decoration: underline">点击查看</a></span>
 				</div>
 			</div>
     </div>
@@ -139,7 +139,7 @@
             <a style="font-size:3vw;color: #FFFFFF;letter-spacing: 0;width: 100%;line-height: 9vw;" :href="imgLinkUrl">查看详情</a>
         </div>
         <div style="width: 30vw; height: 9vw;box-shadow: 0 0.266667rem 0.533333rem 0 #CBCCCD;border-radius: 4vw;text-align: center;float: left;margin-left: 10vw;margin-top: 3vw;" v-if="showLottery==1">
-            <a href="http://boruolai.xx315.net/wap/#/lottery"><img src="@/assets/images/choujiang.png" style="height: 100%;"/></a>
+            <a href="https://boruolai.xx315.net/wap/#/lottery"><img src="@/assets/images/choujiang.png" style="height: 100%;"/></a>
         </div>
     </div>
 
@@ -216,7 +216,9 @@
         showEcommerceUrl: 0,//再次购买 0不显示，1显示
         ecommerceUrl: '',//电商url
         organizationTel: '',//经销商手机号
-        distributorId:''//经销商id即电商中的团长id
+        distributorId:'',//经销商id即电商中的团长id
+        ecommerceUrlFlag: 0,//0不是第三方链接，1是
+        productTypeNr: ''
       }
     },
     created: function() {
@@ -238,10 +240,8 @@
     },
     methods: {
        onShow: function() {
-
         const wx = this.$wx, app = this.$getApp()
         var s = this
-
         util.check_login_new().then(function(t) {
           console.log(t)
           if (t) {//登录状态
@@ -254,6 +254,7 @@
             })
           }
         })
+
       },
       turnShow: function(){
         var that = this;
@@ -281,18 +282,20 @@
         that.code = that.checkCode.substr(0,14);
         wx.request({
           // 请求地址
-          url: 'https://123.206.27.155:8443/pmp/api/v1/distributorExtend/getByUid/'+that.code,
+          url: 'https://wms.nfc315.com/pmp/api/v1/distributorExtend/getByUid/'+that.code,
           // 请求方式
           method: "get",
           dataType: 'json',
           responseType: 'text',
           // 方法
           success: function(data) {
+            console.log(data.data,"123456");
             if(data.data == ""){
               that.showCheckLogin = 1;//是否验证登录
               that.showLottery = 1;//抽奖
               that.showEcommerceUrl = 1;//再次购买
-              that.ecommerceUrl = 'http://boruolai.xx315.net/wap/#/';//电商url
+              that.ecommerceUrlFlag = 0;//0不是第三方链接,1是
+              that.ecommerceUrl = 'https://boruolai.xx315.net/wap/#/';//电商url
               if(that.showCheckLogin == 1){
                 that.onShow();
               }
@@ -303,6 +306,7 @@
               that.showEcommerceUrl = data.data.body.showEcommerceUrl;//再次购买
               that.ecommerceUrl = data.data.body.ecommerceUrl;//电商url
               that.organizationTel = data.data.body.organizationTel;//经销商手机号
+              that.ecommerceUrlFlag = data.data.body.ecommerceUrlFlag;//0不是第三方链接,1是
               if(that.showCheckLogin == 1){
                 that.onShow();
               }
@@ -320,9 +324,9 @@
         that.code = that.checkCode.slice(14);
         var url = "";
         if(that.nowIp == ""){
-          url = 'https://123.206.27.155:8443/pmp/api/v2/nfc315/verify/'+that.b0+'/'+that.checkCode+'/113.45.91.173';
+          url = 'https://wms.nfc315.com/pmp/api/v2/nfc315/verify/'+that.b0+'/'+that.checkCode+'/113.45.91.173';
         }else{
-          url = 'https://123.206.27.155:8443/pmp/api/v2/nfc315/verify/'+that.b0+'/'+that.checkCode+'/'+ that.nowIp;
+          url = 'https://wms.nfc315.com/pmp/api/v2/nfc315/verify/'+that.b0+'/'+that.checkCode+'/'+ that.nowIp;
         }
         wx.request({
           // 请求地址
@@ -336,6 +340,11 @@
             that.goods = data.data.body;
             that.goods_image =data.data.body.product.productType.productTypeGalleryList;
             for(var i=0;i < that.goods_image.length; i ++){
+              //修改替换url中ip为域名
+              var url = that.goods_image[i].imgUrl;
+              //console.log(url,"123");
+              that.goods_image[i].imgUrl = that.replaceIp(url);
+              //console.log(that.goods_image[i].imgUrl,"修改后的url");
               if(that.goods_image[i].urlType == 0 || that.goods_image[i].urlType == 1){
                 that.goods_image2.push(that.goods_image[i]);
               }
@@ -349,11 +358,12 @@
             that.queryCount = data.data.body.queryCount;
             that.verifyResult = data.data.body.verifyResult;
             //that.verifyResult = true;
-            that.logo = data.data.body.product.antiwhiteLogo;
+            that.logo = that.replaceIp(data.data.body.product.antiwhiteLogo);
             that.uid = data.data.body.product.uid;
+            that.productTypeNr = data.data.body.product.productType.productTypeNr;
             wx.request({
               // 请求地址
-              url: 'https://123.206.27.155:8443/pmp/api/v1/product/circulate/'+that.uid,
+              url: 'https://wms.nfc315.com/pmp/api/v1/product/circulate/'+that.uid,
               // 请求方式
               method: "get",
               dataType: 'json',
@@ -364,15 +374,36 @@
               }
             })
             that.getLionfishHeadInfo();
+            if(that.ecommerceUrlFlag == 0){
+              that.getBuyUrl();
+            }
           }
         })
+      },
+      replaceIp: function(url){
+        var index = url.indexOf("/userfiles");
+        //console.log(url.substring(26,url.length),"位置");
+        var ipName = "https://wms.nfc315.com";
+        return ipName + url.substring(26,url.length);
+      },
+      getBuyUrl: function(){
+        var that = this;
+        console.log("123");
+        this.$http({
+          controller : 'index.get_goods_detail_url',
+          phone: this.organizationTel,
+          codes: this.productTypeNr
+        }).then(response => {
+          console.log(response,"url123456");
+          that.ecommerceUrl = response.url;
+        });
       },
       // getCirculate: function(){
       //   var app = this.$getApp(), wx = this.$wx;
       //   var that = this;
       //   wx.request({
       //     // 请求地址
-      //     url: 'http://123.206.27.155:8068/pmp/api/v1/product/circulate/'+that.uid,
+      //     url: 'https://wms.nfc315.com:8068/pmp/api/v1/product/circulate/'+that.uid,
       //     // 请求方式
       //     method: "get",
       //     dataType: 'json',
@@ -509,7 +540,7 @@
 
   .check-word-none{
     width: 88vw;
-    margin: 0vw auto 2vw;
+    margin: -10vw auto 2vw;
     background: #fff;
     height: 14vw;
     text-align:center;
@@ -518,7 +549,7 @@
 
   .check-word-block{
     width: 88vw;
-    margin: 0vw auto 2vw;
+    margin: -10vw auto 2vw;
     background: #fff;
     height: 38vw;
     text-align:center;
