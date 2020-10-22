@@ -421,7 +421,7 @@
             <div class="spec-list">
               <!--<span @click.stop="selectSku" class="{{idx==sku[index]['idx']?'on':''}}" data-disabled="{{item.canBuyNum-value<0}}" data-idx="{{idx}}" data-type="{{index}}_{{idx}}_{{value.option_value_id}}_{{value.name}}" wx:for="{{item.option_value}}" wx:for-index="idx" wx:for-item="value" wx:key="idx">{{value.name}}</span>-->
               <span @click.stop="selectSku" :class="idx==sku[index]['idx']?'on':''" :data-disabled="item.canBuyNum-value<0"
-                    :data-idx="idx" :data-type="index_idx_value.option_value_id_value.name"
+                    :data-idx="idx" :data-type="index+'_'+idx+'_'+value.option_value_id+'_'+value.name"
                     v-for="(value,idx) in item.option_value" :key="item.idx">{{value.name}}</span>
             </div>
           </div>
@@ -1179,7 +1179,8 @@
           } else {
             s = this.goods_id, i = this.currentOptions
           }
-          a.addCar_goodsid = s
+
+          a.addCar_goodsid = s;
           var n = i.list || [], d = []
           if (0 < n.length) {
             for (var r = 0; r < n.length; r++) {
@@ -1191,25 +1192,27 @@
               }
               d.push(u)
             }
-            for (var l = '', _ = 0; _ < d.length; _++) _ == d.length - 1 ? l += d[_].id : l = l + d[_].id + '_'
+            for (var l = '', _ = 0; _ < d.length; _++) {
+                _ == d.length - 1 ? l += d[_].id : l = l + d[_].id + '_'
+            }
             var m = i.sku_mu_list[l]
 
-            a.sku = d,
-              a.sku_val = 1,
-              a.cur_sku_arr = m,
-              a.skuList = i,
-              a.visible = true,
-              a.showSku = true,
-              a.is_just_addcar = e
+            a.sku = d;
+              a.sku_val = 1;
+              a.cur_sku_arr = m;
+              a.skuList = i;
+              a.visible = true;
+              a.showSku = true;
+              a.is_just_addcar = e;
 
           } else if (t) {
-            var g = o.allData
+            var g = o.allData;
 
-            a.sku = [],
-              a.sku_val = 1,
-              a.skuList = [],
-              a.cur_sku_arr = g,
-              a.is_just_addcar = e
+            a.sku = [];
+              a.sku_val = 1;
+              a.skuList = [];
+              a.cur_sku_arr = g;
+              a.is_just_addcar = e;
             var h = {
               detail: {
                 formId: ''
@@ -1367,7 +1370,9 @@
           idx: a[1]
         }
         o.splice(a[0], 1, n)
-        for (var d = '', r = 0; r < o.length; r++) r == o.length - 1 ? d += o[r].id : d = d + o[r].id + '_'
+        for (var d = '', r = 0; r < o.length; r++) {
+            r == o.length - 1 ? d += o[r].id : d = d + o[r].id + '_'
+        }
         var c = s.sku_mu_list[d], u = {};
         (i = i || 1) > c.canBuyNum && (u.sku_val = c.canBuyNum, this.$wx.showToast({
           title: '最多只能购买' + c.canBuyNum + e.$t('order.meidanxiangou3'),
@@ -1376,8 +1381,11 @@
         var ext = _extends({
           cur_sku_arr: c,
           sku: o
-        }, u)
+        }, u);
+        e.cur_sku_arr = c;
+        e.sku = o;
         console.log(d)
+        e.$forceUpdate();
       },
       submit: function(t) {
         var a = t.detail.formId, e = this.$wx.getStorageSync('token')
@@ -3035,7 +3043,7 @@
 
   .group {
     background-color: #fff;
-    width: 325px;
+    width: 95vw;
     padding: 10px 15px;
     border-radius: 10px;
     margin: 10px auto 0;
