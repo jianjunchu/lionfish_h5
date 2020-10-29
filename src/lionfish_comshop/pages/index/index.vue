@@ -495,15 +495,15 @@
         <div class="fixed-aside">
           <button @click="share_handler" class="fixed-service" v-if="isShowShareBtn==1">
             <span class="iconfont icon-fenxiang"></span>
-            <div>Share</div>
+            <div></div>
           </button>
           <button class="fixed-service" openType="contact" v-if="isShowContactBtn==1">
             <span class="iconfont icon-kefu"></span>
-            <div>Service</div>
+            <div></div>
           </button>
           <button @click="backTop"class="fixed-service" v-show="(!isSticky)" v-if="ishow_index_gotop==1">
             <span class="iconfont icon-fanhuidingbu"></span>
-            <div>Top</div>
+            <div></div>
           </button>
         </div>
 
