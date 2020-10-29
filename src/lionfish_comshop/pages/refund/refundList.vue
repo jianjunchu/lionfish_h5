@@ -14,7 +14,7 @@
             <div @click.stop="goRefund" class="card" :data-type="item.ref_id" v-for="(item ,index) in order" :key="item.id">
               <div class="i-card my-card" :data-orderId="item.order_id" showModal="true">
                 <div class="card-header" slot="header">
-                  <div>下单时间：
+                  <div>{{$t('order.xiadanshijian')}}：
                     <span>{{item.createTime}}</span>
                   </div>
                   <div>

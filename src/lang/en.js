@@ -259,7 +259,7 @@ export default {
     meidanxiangou3: 'Pieces',
     dengdaituikuan: 'Waiting Refund',
     daiziti: 'Waiting Pickup',
-    yiziti: 'Received',
+    yiziti: 'Collected',
     querentihuo: 'Confirm Delivery',
     querenshouhuo: 'Confirm Receipt',
     beihuozhong: 'Prepare Goods',
