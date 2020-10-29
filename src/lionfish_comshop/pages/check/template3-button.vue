@@ -14,7 +14,7 @@
                 <source :src="item.imgUrl" type="application/x-mpegURL" />
               </video>
           </div>
-          <img v-if="item.urlType == 0" style="height: 70vw; margin: 0 auto;"
+          <img v-if="item.urlType == 0" style="height: 70vw;max-width: 88vw"
                 :src="item.imgUrl"/>
         </swiper-slide>
         <div class="swiper-pagination"  slot="pagination" style="padding-bottom: 0vw;"></div>
@@ -135,12 +135,15 @@
 		</div>
 
     <div v-if="verifyResult" style="width: 88vw;height: 15vw;background: #FFFFFF;box-shadow: 0 -0.053333rem 0.213333rem 0 rgba(222,223,223,0.50);margin: 2vw auto 5vw">
-        <div :class="[showLottery==1 ? 'detail_button_left' : 'detail_button_center']">
+        <!-- <div :class="[showLottery==1 ? 'detail_button_left' : 'detail_button_center']">
+            <a style="font-size:3vw;color: #FFFFFF;letter-spacing: 0;width: 100%;line-height: 9vw;" :href="imgLinkUrl">查看详情</a>
+        </div> -->
+        <div class="detail_button_center">
             <a style="font-size:3vw;color: #FFFFFF;letter-spacing: 0;width: 100%;line-height: 9vw;" :href="imgLinkUrl">查看详情</a>
         </div>
-        <div style="width: 30vw; height: 9vw;box-shadow: 0 0.266667rem 0.533333rem 0 #CBCCCD;border-radius: 4vw;text-align: center;float: left;margin-left: 10vw;margin-top: 3vw;" v-if="showLottery==1">
-            <a href="https://boruolai.xx315.net/wap/#/lottery"><img src="@/assets/images/choujiang.png" style="height: 100%;"/></a>
-        </div>
+        <!-- <div style="width: 30vw; height: 9vw;box-shadow: 0 0.266667rem 0.533333rem 0 #CBCCCD;border-radius: 4vw;text-align: center;float: left;margin-left: 10vw;margin-top: 3vw;" v-if="showLottery==1">
+            <a href="https://beaujolais.nfc315.com/wap/#/lottery"><img src="@/assets/images/choujiang.png" style="height: 100%;"/></a>
+        </div> -->
     </div>
 
     <div v-if="!verifyResult" style="width: 88vw;height: 88vw;margin: 0 auto;background: #fff">
