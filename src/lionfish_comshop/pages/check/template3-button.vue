@@ -221,7 +221,8 @@
         organizationTel: '',//经销商手机号
         distributorId:'',//经销商id即电商中的团长id
         ecommerceUrlFlag: 0,//0不是第三方链接，1是
-        productTypeNr: ''
+        productTypeNr: '',
+        openHome: 0 //0否 1是
       }
     },
     created: function() {
@@ -353,6 +354,12 @@
             }
             that.goods_attribute = that.goods.product.attributes;
             that.tabList = that.goods.product.tabs;
+            that.openHome = data.data.body.product.productType.openHome;
+            if(that.openHome == 1){
+              wx.navigateTo({
+                url: "/home?chk="+that.checkCode
+              })
+            }
             that.monitorFlag = data.data.body.product.productType.monitorFlag;
             that.companyFlag = data.data.body.product.productType.companyFlag;
             that.newRecFlag = data.data.body.product.productType.newRecFlag;
@@ -386,7 +393,7 @@
         var index = url.indexOf("/userfiles");
         //console.log(url.substring(26,url.length),"位置");
         var ipName = "https://wms.nfc315.com";
-        return ipName + url.substring(26,url.length);
+        return ipName + url.substring(index,url.length);
       },
       getBuyUrl: function(){
         var that = this;
