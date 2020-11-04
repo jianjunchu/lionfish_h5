@@ -317,7 +317,9 @@ export default {
     shanchu: '删除',
     qingkong: '清空',
     haoburongyi: '好不容易挑出来，确定要取消吗？',
-    quxiaochenggong: '取消成功'
+    quxiaochenggong: '取消成功',
+    manjian: '满减',
+    yijian: '已减'
   },
   type: {
     yijingdingbu: '已经拉到最顶部啦～',
