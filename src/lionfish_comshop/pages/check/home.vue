@@ -2,25 +2,25 @@
 
   <div :style="note">
     <!-- <div style="width: 100vw;height: 12vw;margin: 0vw auto 0vw;"></div> -->
-    <div style="width: 40vw;height: 15vw;margin: 0vw auto 0vw;">
+    <div style="width: 40vw;height: 18vw;margin: 0vw auto 0vw;">
       <img :src="productBrandLogoImg" style="width: 40vw;height: 15vw">
     </div>
 
-    <div style="width: 85vw;height: 38vw;margin: 8vw auto;">
-      <img :src="productNameImg" style="width: 85vw;height: 38vw;">
+    <div style="width: 85vw;height: 35vw;margin: 8vw auto;">
+      <img :src="productNameImg" style="width: 85vw;height: 32vw;">
     </div>
 
     <!-- 产品介绍 -->
     <div :style="goodImg">
       <img src="@/assets/check-image/caidai.png" style="width: 12vw;height: 13vw;z-index: 3;position:absolute;left: 5vw;bottom: 4vw">
-      <img :src="productParameterImg" style="width: 64vw;height: 94vw;z-index: 2;position:absolute;left: 13vw;top: 8vw">
+      <img :src="productParameterImg" style="width: 70vw;height: 100vw;z-index: 2;position:absolute;left: 10vw;top: 5vw">
       <img src="@/assets/check-image/16@2x.png" style="width: 84vw;height: 108vw;z-index: 1;position:absolute;left: 1vw;top: 1vw">
     </div>
 
     <!-- 新酒节文字介绍 -->
     <div :style="wineDay"></div>
-    <div style="width: 85vw;height: auto;min-height: 15vw;margin: 9vw auto;text-align: left">
-      <span style="color: #fff;font-size: 3vw;line-height: 4vw;letter-spacing:0.1vw;">
+    <div style="width: 85vw;height: auto;min-height: 15vw;margin: 10vw auto;text-align: left">
+      <span style="color: #fff;font-size: 3vw;line-height: 4.3vw;letter-spacing:0.1vw;">
         {{newWineIntroduce}}
       </span>
     </div>
@@ -29,11 +29,12 @@
     <div :style="video_word"></div>
     <div :style="video_content">
         <!-- <img :src="productParameterImg" style="width: 60vw;height: 90vw;z-index: 1;position:absolute;left: 15vw;top: 10vw"> -->
-        <video id="myPlayer" :poster="nowvideo.videoMainImgUrl" v-on:click="pauseVideo" playsInline webkit-playsinline style="width: 82vw;height: 47vw;z-index: 1;position:absolute;left: 1.5vw;top: 1.5vw">
+        <video id="myPlayer" :poster="nowvideo.videoMainImgUrl" v-on:click="pauseVideo" playsInline webkit-playsinline style="width: 85vw;height: 50vw;z-index: 2;position:absolute;">
           <source :src="nowvideo.imgUrl" type="video/mp4" />
           <source :src="nowvideo.imgUrl" type="application/x-mpegURL" />
         </video>
-        <img src="@/assets/check-image/play-ico.png" id="play-ico" style="width: 12vw;height: 12vw;z-index: 3;position:absolute;left: 36vw;top: 19vw" v-on:click="playVideo">
+        <img src="@/assets/check-image/play-ico.png" id="play-ico" style="width: 12vw;height: 12vw;z-index: 4;position:absolute;left: 36vw;top: 19vw" v-on:click="playVideo">
+        <img src="@/assets/check-image/heng.png" id="play-ico" style="width: 85vw;height: 50vw;z-index: 3;position:absolute;" v-on:click="pauseVideo">
     </div>
 
     <!-- 音乐 -->
@@ -53,8 +54,9 @@
     </div>
 
     <!-- 查看商品详情 -->
-    <div style="width: 60vw;height: 10vw;margin: 10vw auto 0vw;background: #F3CE30;text-align: center">
-        <a href="javascript:window.history.back()"><span style="line-height: 10vw;color: #fff">查看商品详情</span></a>
+    <div style="width: 60vw;height: 10vw;margin: 10vw auto 0vw;background: #F3CE30;text-align: center" v-on:click="goback">
+        <!-- <a href="javascript:window.history.back()"><span style="line-height: 10vw;color: #fff">查看商品详情</span></a> -->
+        <span style="line-height: 10vw;color: #fff">查看商品详情</span>
     </div>
   </div>
   
@@ -74,7 +76,9 @@
         productNameImg: '',
         productParameterImg: '',
         newWineIntroduce: '',
-
+        b0: '',
+        code: '',
+        checkCode: '',
         note: {
           backgroundImage: "url(" + require("@/assets/check-image/back_home.jpg") + ")",
           backgroundRepeat:'no-repeat',
@@ -94,9 +98,9 @@
           position:'relative'
         },
         wineDay: {
-          width: '85vw',
+          width: '83vw',
           height: '15vw',
-          margin: '20vw auto 0vw',
+          margin: '22vw auto 0vw',
           backgroundImage: "url(" + require("@/assets/check-image/5@2x.png") + ")",
           backgroundRepeat:'no-repeat',
           backgroundSize:'100% 100%'
@@ -114,9 +118,9 @@
           width: '85vw',
           height: '50vw',
           margin: '8vw auto',
-          background: "url(" + require("@/assets/check-image/heng.png") + ")",
-          backgroundRepeat:'no-repeat',
-          backgroundSize:'100% 100%',
+          // background: "url(" + require("@/assets/check-image/heng.png") + ")",
+          // backgroundRepeat:'no-repeat',
+          // backgroundSize:'100% 100%',
           position:'relative'  
         },
         music_word: {
@@ -286,6 +290,24 @@
         min = Math.ceil(min);
         max = Math.floor(max);
         return Math.floor(Math.random() * (max - min)) + min; //不含最大值，含最小值
+      },
+      goback: function(){
+        var that = this;
+        var wx = this.$wx;
+        that.b0 = this.$route.query.b0;
+        that.checkCode = this.$route.query.chk;
+        var flag = this.$route.query.flag;
+        that.code = that.checkCode.slice(14);
+        if(flag == 't3'){
+          wx.navigateTo({
+            url: "/t3?chk="+that.checkCode+"&b0="+that.b0+"&flag=1"
+          })
+        }else{
+          wx.navigateTo({
+            url: "/t2?chk="+that.checkCode+"&b0="+that.b0+"&flag=1"
+          })
+        }
+          
       }
     }
   }
