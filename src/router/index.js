@@ -59,6 +59,15 @@ export const constantRoutes = [
     }
   },
   {
+    name: '/home',
+    path: '/home',
+    component: () => import('@/lionfish_comshop/pages/check/home'),
+    hidden: true,
+    meta: {
+      keepAlive: false
+    }
+  },
+  {
     name: '/t3',
     path: '/t3',
     component: () => import('@/lionfish_comshop/pages/check/template3-button'),

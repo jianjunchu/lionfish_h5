@@ -221,7 +221,8 @@
         organizationTel: '',//经销商手机号
         distributorId:'',//经销商id即电商中的团长id
         ecommerceUrlFlag: 0,//0不是第三方链接，1是
-        productTypeNr: ''
+        productTypeNr: '',
+        openHome: 0 //0否 1是
       }
     },
     created: function() {
@@ -272,7 +273,7 @@
         this.$http({
             controller: "index.get_client_ip"
           }).then(e=> {
-            //console.log(e,"liuwantao");
+            console.log(e,"liuwantao");
             that.nowIp = e.data;
             that.getDate();
         });
@@ -324,6 +325,7 @@
         that.b0 = this.$route.query.b0;
         that.checkCode = this.$route.query.chk;
         that.code = that.checkCode.slice(14);
+        var flag = this.$route.query.flag;
         var url = "";
         if(that.nowIp == ""){
           url = 'https://wms.nfc315.com/pmp/api/v2/nfc315/verify/'+that.b0+'/'+that.checkCode+'/113.45.91.173';
@@ -339,6 +341,7 @@
           responseType: 'text',
           // 方法
           success: function(data) {
+            console.log(data,"123456");
             that.goods = data.data.body;
             that.goods_image =data.data.body.product.productType.productTypeGalleryList;
             for(var i=0;i < that.goods_image.length; i ++){
@@ -353,12 +356,22 @@
             }
             that.goods_attribute = that.goods.product.attributes;
             that.tabList = that.goods.product.tabs;
+            that.openHome = data.data.body.product.productType.openHome;
             that.monitorFlag = data.data.body.product.productType.monitorFlag;
             that.companyFlag = data.data.body.product.productType.companyFlag;
             that.newRecFlag = data.data.body.product.productType.newRecFlag;
             that.rtpFlag = data.data.body.product.productType.rtpFlag;
             that.queryCount = data.data.body.queryCount;
-            that.verifyResult = data.data.body.verifyResult;
+            if(flag == 1){
+              that.verifyResult = true;
+            }else{
+              that.verifyResult = data.data.body.verifyResult;
+            }          
+            if(that.openHome == 1 && that.verifyResult && flag != 1){
+              wx.navigateTo({
+                url: "/home?chk="+that.checkCode+"&b0="+that.b0+"&flag=t3"
+              })
+            }
             //that.verifyResult = true;
             that.logo = that.replaceIp(data.data.body.product.logoImage);
             that.uid = data.data.body.product.uid;
@@ -386,7 +399,7 @@
         var index = url.indexOf("/userfiles");
         //console.log(url.substring(26,url.length),"位置");
         var ipName = "https://wms.nfc315.com";
-        return ipName + url.substring(26,url.length);
+        return ipName + url.substring(index,url.length);
       },
       getBuyUrl: function(){
         var that = this;
