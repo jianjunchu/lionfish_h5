@@ -772,6 +772,7 @@
         var o = this
         status.setNavBgColor()
         status.setGroupInfo().then(function(t) {
+
           console.log(t, 'setGroupInfo')
           o.groupInfo = t
         })
@@ -919,8 +920,21 @@
               })
             }
           }), 0 == o && 'integral' != L.buy_type) {
-            var s = L.data.groupInfo
-            this.$app.util.message('此商品在您所属' + s.group_name + '不可参与', 'switchTo:/lionfish_comshop/pages/index/index', 'error')
+            var s = L.groupInfo;
+//            this.$app.util.message('此商品在您所属' + s.group_name + '不可参与', 'switchTo:/lionfish_comshop/pages/index/index', 'error')
+
+//            this.$wx.showModal({
+//              title: '提示',
+//              content: '此商品在您所属' + s.group_name + '不可参与',
+//              showCancel: false,
+//              confirmColor: '#F75451',
+//              success: function(t) {
+//                t.confirm && this.$wx.switchTab({
+//                  url: '/lionfish_comshop/pages/index/index'
+//                })
+//              }
+//            });
+
           }
 
           var i = t.comment_list
@@ -1079,9 +1093,21 @@
         }), this.get_goods_details(this.goods_id, t, t.communityId), console.log('用户点击确定')
       },
       cancelChangeCommunity: function() {
-        var t = this.data, a = t.is_can_headsales, e = t.groupInfo
-        0 == a && this.$app.util.message('此商品在您所属' + e.group_name + '不可参与', 'switchTo:/lionfish_comshop/pages/index/index', 'error'),
-          console.log('取消切换')
+        var t = this.data, a = t.is_can_headsales, e = t.groupInfo;
+//        0 == a && this.$app.util.message('此商品在您所属' + e.group_name + '不可参与', 'switchTo:/lionfish_comshop/pages/index/index', 'error'),
+//          console.log('取消切换')
+
+//        this.$wx.showModal({
+//          title: '提示',
+//          content: '此商品在您所属' + s.group_name + '不可参与',
+//          showCancel: false,
+//          confirmColor: '#F75451',
+//          success: function(t) {
+//            t.confirm && this.$wx.switchTab({
+//              url: '/lionfish_comshop/pages/index/index'
+//            })
+//          }
+//        });
       },
       authSuccess: function() {
         var t = this.$data.id, a = this.$data.scene,
