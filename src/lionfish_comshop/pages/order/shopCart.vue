@@ -114,7 +114,8 @@
                       <div class="tag-content">
                         <div class="tag">{{$t('cart.manjian')}}</div>
                       </div>
-                      ${{item.full_money}} less ${{item.full_reducemoney}}
+                      满{{item.full_money}}减{{item.full_reducemoney}}
+                      <!--${{item.full_money}} less ${{item.full_reducemoney}}-->
                     </div>
                   </div>
                   <div class="swiper-out-button-content" slot="button" style="display:none;">
@@ -195,7 +196,8 @@
                       <div class="tag-content">
                         <div class="tag">{{$t('cart.manjian')}}</div>
                       </div>
-                      ${{item.full_money}} less {{item.full_reducemoney}}
+                      满{{item.full_money}} 减 {{item.full_reducemoney}}
+                      <!--${{item.full_money}} less {{item.full_reducemoney}}-->
                     </div>
                   </div>
                   <div class="swiper-out-button-content" slot="button" style="display:none;">
@@ -277,7 +279,8 @@
         <div class="fullreductionInfo" v-if="is_open_fullreduction==1&&reduceNum>0&&!isEmpty">
           <div class="fr-left">
             <div class="tag" :style="{background:skin.color}">{{$t('cart.manjian')}}</div>
-            <div class="active-msg">${{full_money}} less ${{full_reducemoney}}</div>
+            <!--<div class="active-msg">${{full_money}} less ${{full_reducemoney}}</div>-->
+            <div class="active-msg">满{{full_money}}减{{full_reducemoney}}</div>
           </div>
           <i-router-link url="/lionfish_comshop/pages/index/index" v-if="disAmount<=0&&is_open_fullreduction==1">
             <div class="i-link" :style="{color:skin.color}">
@@ -293,10 +296,11 @@
           <i-router-link type="switch" url="/lionfish_comshop/pages/index/index" v-else>
             <div class="i-link">
               <div class="diff-money" v-if="disAmount&&disAmount>0">{{$t('cart.yijian')}}
-                <span>${{disAmount}}</span>
-                
+                <!--<span>${{disAmount}}</span>-->
+                <span>￥{{disAmount}}</span>
+
               </div>
-              
+
               <span class="iconfont icon-youjiantou"></span>
             </div>
           </i-router-link>
