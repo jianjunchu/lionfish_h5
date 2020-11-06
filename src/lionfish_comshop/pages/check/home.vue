@@ -41,7 +41,7 @@
     <div :style="music_word"></div>
     <div :style="music_word2" v-on:click="turnMusic">Another one</div>
     <!-- 音乐名 -->
-    <div style="width: 60vw;height: 8vw;margin: 35vw auto 0vw;text-align: center;">
+    <div style="width: 80vw;height: 8vw;margin: 35vw auto 0vw;text-align: center;">
         <span style="line-height: 8vw;color: #BBB">《{{nowmusic.imgDesc}}》</span>
     </div>
     <!-- 转动唱片 -->
@@ -79,6 +79,7 @@
         b0: '',
         code: '',
         checkCode: '',
+        nowIp: '',
         note: {
           backgroundImage: "url(" + require("@/assets/check-image/back_home.jpg") + ")",
           backgroundRepeat:'no-repeat',
@@ -162,7 +163,8 @@
         showMore: false,
         showBack: false
       });
-      this.getDate();
+      //this.getDate2();
+      this.getIp();
     },
     methods: {
       //  onShow: function() {
@@ -189,7 +191,7 @@
           }).then(e=> {
             //console.log(e,"liuwantao");
             that.nowIp = e.data;
-            that.getDate();
+            that.getDate2();
         });
       },
       getDate: function(){
@@ -241,6 +243,77 @@
           }
         })
       },
+      getDate2: function(){
+        var app = this.$getApp(), wx = this.$wx;
+        var that = this;
+        that.b0 = this.$route.query.b0;
+        that.checkCode = this.$route.query.chk;
+        that.code = that.checkCode.slice(14);
+        var url = "";
+        if(that.nowIp == ""){
+          url = 'https://wms.nfc315.com/pmp/api/v2/nfc315/verify/'+that.b0+'/'+that.checkCode+'/113.45.91.173';
+        }else{
+          url = 'https://wms.nfc315.com/pmp/api/v2/nfc315/verify/'+that.b0+'/'+that.checkCode+'/'+ that.nowIp;
+        }
+        wx.request({
+          // 请求地址
+          url: url,
+          // 请求方式
+          method: "get",
+          dataType: 'json',
+          responseType: 'text',
+          // 方法
+          success: function(data) {
+            console.log(data.data.body.verifyResult,"1234");
+            if(data.data.body.verifyResult){
+              console.log(data.data.body.product.productType,"123456789");
+              var productType = data.data.body.product.productType;
+              that.productBrandLogoImg = that.replaceIp(productType.productBrandLogoImg);
+              that.newWineIntroduce = productType.newWineIntroduce;
+              that.productParameterImg = that.replaceIp(productType.productParameterImg);
+              that.productNameImg = that.replaceIp(productType.productNameImg);
+              var gallerys = productType.productTypeGalleryList;
+              for(var i=0;i < gallerys.length; i ++){
+                //修改替换url中ip为域名
+                var url = gallerys[i].imgUrl;
+                //console.log(url,"123");
+                gallerys[i].imgUrl = that.replaceIp(url);
+                //console.log(that.goods_image[i].imgUrl,"修改后的url");
+                if(gallerys[i].urlType == 5){
+                  that.video_list.push(gallerys[i]);
+                }else if(gallerys[i].urlType == 6){
+                  that.music_list.push(gallerys[i]);
+                }
+              }
+              //获取随机视频
+              var nowIndex1 = that.getRandomInt(0,that.video_list.length);
+              that.nowIndex1 = nowIndex1;
+              that.nowvideo = that.video_list[nowIndex1];
+
+              var nowIndex2 = that.getRandomInt(0,that.music_list.length);
+              that.nowIndex2 = nowIndex2;
+              that.nowmusic = that.music_list[nowIndex2];
+
+              var audio = document.getElementById("audio1");
+              var vid = document.getElementById("myPlayer");
+              audio.load();
+              vid.load();
+            }else{
+              var flag = that.$route.query.flag;
+              
+              if(flag == 't3'){
+                wx.navigateTo({
+                  url: "/t3?chk="+that.checkCode+"&b0="+that.b0
+                })
+              }else{
+                wx.navigateTo({
+                  url: "/t2?chk="+that.checkCode+"&b0="+that.b0
+                })
+              }
+            }    
+          }
+        })
+      },
       replaceIp: function(url){
         var index = url.indexOf("/userfiles");
         //console.log(url.substring(26,url.length),"位置");
@@ -279,7 +352,7 @@
         if(that.nowIndex2 < length){
           that.nowIndex2 ++;
         }else{
-          that.nowIndex2 --;
+          that.nowIndex2=0;
         }
         that.nowmusic = that.music_list[that.nowIndex2];
         var audio = document.getElementById("audio1");

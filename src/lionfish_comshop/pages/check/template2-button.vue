@@ -9,7 +9,7 @@
       <swiper :options="swiperOption">
         <swiper-slide v-for="(item,index) in goods_image2" :key="index">
           <div v-if="item.urlType == 1">
-              <video id="myPlayer" :poster="item.videoMainImgUrl" controls playsInline webkit-playsinline style="width: 88vw;" class="content2">
+              <video id="myPlayer" :poster="item.videoMainImgUrl" controls playsInline webkit-playsinline style="width: 88vw;max-height: 70vw" class="content2">
                 <source :src="item.imgUrl" type="video/mp4">
                 <source :src="item.imgUrl" type="application/x-mpegURL" />
               </video>
@@ -183,13 +183,11 @@
             //   prevEl: '.swiper-button-prev'
             // },
             //自动轮播
-            autoplay: {
-              delay: 3000,
-              //当用户滑动图片后继续自动轮播
-              disableOnInteraction: false,
-            },
+            autoplay: true,
+            //手动滑动后，自动轮播停止
+            autoplayDisableOnInteraction: true,
             //开启循环模式
-            loop: true
+            loop: false
         },
         goods_image: [],
         goods_image2: [],
@@ -238,7 +236,7 @@
       // console.log(e,"token");
       //this.getDate();
       // this.getCirculate();
-      // this.onShow();
+      this.onShow();
       this.getDistributor();
     },
     methods: {
@@ -249,7 +247,6 @@
           console.log(t)
           if (t) {//登录状态
             console.log("11111");
-
           } else {//未登录
             console.log("22222");
             wx.navigateTo({
