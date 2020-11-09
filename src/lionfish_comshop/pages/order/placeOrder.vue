@@ -85,11 +85,41 @@
                    v-model="tabAddress[tabIdx].mobile"></input>
           </div>
 
-           <div class="receiver">
-            <span>所在地区： </span>
-              <div @click="choseLocation" class="sel-btn">{{tabAddress[tabIdx].region[0]||'选择地址'}}{{tabAddress[tabIdx].region[1]}}{{tabAddress[tabIdx].region[2]}} </div>
-            <img class="icon-right" src="@/assets/images/rightArrowImg.png"></image>
-           </div>
+          <div class="receiver" style="width: 60%">
+            <span>省/市： </span>
+            <!--<input   class="sel-btn" placeholder="" type="text" v-model="tabAddress[tabIdx].region[0]"></input>-->
+            <select @change='provinceChange' v-model="tabAddress[tabIdx].region[0]">
+              <!--<option value="">请选择</option>-->
+              <option v-for="obj in provinces" :value="obj.name" :selected="obj.name == tabAddress[tabIdx].region[0] ? true:false">{{obj.name}}</option>
+            </select>
+          </div>
+
+          <div class="receiver" style="width: 60%">
+            <span>市： </span>
+            <!--<input   class="sel-btn" placeholder="" type="text" v-model="tabAddress[tabIdx].region[1]"></input>-->
+            <select @change='cityChange' v-model="tabAddress[tabIdx].region[1]">
+              <!--<option value="">请选择</option>-->
+              <option v-for="obj in citys" :value="obj.name" :selected="obj.name == tabAddress[tabIdx].region[1] ? true:false">{{obj.name}}</option>
+            </select>
+          </div>
+          <div class="receiver" style="width: 60%">
+            <span>县/区： </span>
+            <!--<input   class="sel-btn" placeholder="" type="text" v-model="tabAddress[tabIdx].region[2]"></input>-->
+            <select @change='' v-model="tabAddress[tabIdx].region[2]">
+              <!--<option value="">请选择</option>-->
+              <option v-for="obj in countys" :value="obj.name" :selected="obj.name == tabAddress[tabIdx].region[2] ? true:false">{{obj.name}}</option>
+            </select>
+          </div>
+          <div class="receiver align-start">
+            <span>详细地址：</span>
+            <input  class="receive-name"  placeholder="" type="text" v-model="tabAddress[tabIdx].receiverAddress"></input>
+          </div>
+
+           <!--<div class="receiver">-->
+            <!--<span>所在地区： </span>-->
+              <!--<div @click="choseLocation" class="sel-btn">{{tabAddress[tabIdx].region[0]||'选择地址'}}{{tabAddress[tabIdx].region[1]}}{{tabAddress[tabIdx].region[2]}} </div>-->
+            <!--<img class="icon-right" src="@/assets/images/rightArrowImg.png"></image>-->
+           <!--</div>-->
 
 
           <!-- <div class="address-box" v-if="tabIdx!=0">
@@ -122,7 +152,7 @@
             </div>
  -->
 
-            
+
             <!-- <div v-if="tabIdx==2">
 
                  <div class="receiver">
@@ -152,7 +182,7 @@
                     <input @input="bindReceiverMobile" focus="{{focus_delivery_time}}" bindfocus="selectdeliveryTime" placeholder="送货时间" type="text" value="{{tabAddress[tabIdx].delivery_time}}"></input>
                  </div>
             </block>
-           
+
           </div> -->
 
           <div class="receiver align-start">
@@ -317,6 +347,16 @@
         </div>
         <div v-if="buy_type=='integral'">
           <div class="act-content" >
+
+            <div avalonctrl="oc_payment" @click="ck_wxpays" class="oc-payment">
+              <div :class="['oc-payment-item', ck_yupay==0?'oc-payment-selected':'']"
+                   :style="ck_yupay==0?'color:'+skin.color:''">
+                <span class="iconfont icon-weixinzhifu oc-payment-icon" style="color:#00c800;"></span>
+                <div class="oc-payment-method">微信支付</div>
+                <div class="oc-payment-recommend" :style="{'color':skin.color , 'border-color':skin.color}">推荐</div>
+              </div>
+            </div>
+
             <div avalonctrl="oc_payment" @click="ck_paynowpays" class="oc-payment">
               <div :class="['oc-payment-item',ck_yupay==2?'oc-payment-selected':'']"
                    :style="ck_yupay==2?'color:'+skin.color:''">
@@ -346,6 +386,16 @@
         </div>
         <div v-else>
           <div class="act-content" >
+
+            <div avalonctrl="oc_payment" @click="ck_wxpays" class="oc-payment">
+              <div :class="['oc-payment-item', ck_yupay==0?'oc-payment-selected':'']"
+                   :style="ck_yupay==0?'color:'+skin.color:''">
+                <span class="iconfont icon-weixinzhifu oc-payment-icon" style="color:#00c800;"></span>
+                <div class="oc-payment-method">微信支付</div>
+                <div class="oc-payment-recommend" :style="{'color':skin.color , 'border-color':skin.color}">推荐</div>
+              </div>
+            </div>
+
             <div avalonctrl="oc_payment" @click="ck_paynowpays" class="oc-payment">
               <div :class="['oc-payment-item', ck_yupay==2?'oc-payment-selected':'']"
                    :style="ck_yupay==2?'color:'+skin.color:''">
@@ -599,6 +649,9 @@
     components:{ITabs},
     data() {
       return {
+        provinces:[],
+        citys:[],
+        countys:[],
         pre_begin_time:0,
         transaction_id:'',
         order_id: '',
@@ -684,8 +737,8 @@
         comment: '',
         is_yue_open: 0,
         can_yupay: 0,
-        ck_yupay: 2,
-        pay_method:'paynow',
+        ck_yupay: 0,
+        pay_method:'wx',
         use_score: 0,
         commentArr: {},
         community: {},
@@ -919,12 +972,20 @@
               F.is_open_fullreduction = e.is_open_fullreduction
               F.cha_reduce_money = e.cha_reduce_money
 
-              F.calcPrice()
+              F.calcPrice();
+
+              F.getProvinces();
+              F.getCitys(q.province_name);
+              F.getCountys(q.city_name);
+
             }
           })
         }
 
-        1 == o && s && n && console.log('---------is here ?-----------'), r()
+        1 == o && s && n && console.log('---------is here ?-----------'), r();
+
+        //获取地址
+        F.getProvinces();
       },
       onShow: function(e) {
         this.getPayInfo();
@@ -1114,33 +1175,59 @@
           }), !1
         }
 
-        if (0 != a && ('' == zc || !/^\d{6}$/.test(zc))) {
+        if (0 != a && '' == n[0]) {
           return wx.showToast({
-            title:  e.$t('order.youbianyouwu'),
+            title: '请填写省市',
+            icon: 'none'
+          }), !1
+        }
+        if (0 != a && '' == n[1]) {
+          return wx.showToast({
+            title: '请填写市',
+            icon: 'none'
+          }), !1
+        }
+        if (0 != a && '' == n[2]) {
+          return wx.showToast({
+            title: '请填写区县',
             icon: 'none'
           }), !1
         }
 
-        if (0 != a && '' == rn) {
+        if (0 != a && '' == r) {
           return wx.showToast({
-            title: '请填写道路名',
+            title: '请填写详细地址',
             icon: 'none'
           }), !1
         }
 
-        if (0 != a && '' == bd) {
-          return wx.showToast({
-            title: '请填写建筑名',
-            icon: 'none'
-          }), !1
-        }
-
-        if (0 != a && '' == d) {
-          return wx.showToast({
-            title: this.$t('order.tianxiemenpai'),
-            icon: 'none'
-          }), !1
-        }
+//        if (0 != a && ('' == zc || !/^\d{6}$/.test(zc))) {
+//          return wx.showToast({
+//            title:  e.$t('order.youbianyouwu'),
+//            icon: 'none'
+//          }), !1
+//        }
+//
+//        if (0 != a && '' == rn) {
+//          return wx.showToast({
+//            title: '请填写道路名',
+//            icon: 'none'
+//          }), !1
+//        }
+//
+//        if (0 != a && '' == bd) {
+//          return wx.showToast({
+//            title: '请填写建筑名',
+//            icon: 'none'
+//          }), !1
+//        }
+//
+//        if (0 != a && '' == d) {
+//          return wx.showToast({
+//            title: this.$t('order.tianxiemenpai'),
+//            icon: 'none'
+//          }), !1
+//        }
 
         /**
          if (2 == a && "选择地址" == n[0]) return wx.showToast({
@@ -1985,7 +2072,63 @@
 
           }
         });
+      },
+      getProvinces:function(){
+        var that = this;
+        app.util.request({
+          url: 'entry/wxapp/user',
+          data: {
+            controller: 'car.getProvinces'
+          },
+          dataType: 'json',
+          success: function (res) {
+            console.log("getProvinces",res);
+            that.provinces = res;
+          }
+        })
+      },
+      provinceChange:function () {
+        var province = this.tabAddress[this.tabIdx].region[0];
+        this.getCitys(province);
+        this.tabAddress[this.tabIdx].region[1] = "";
+        this.tabAddress[this.tabIdx].region[2] = "";
+      },
+      getCitys:function(province){
+        var that = this;
+        app.util.request({
+          url: 'entry/wxapp/user',
+          data: {
+            controller: 'car.getCitys',
+            province:province
+          },
+          dataType: 'json',
+          success: function (res) {
+            console.log("getCitys",res);
+            that.citys = res;
+          }
+        })
+      },
+      cityChange:function () {
+        var city = this.tabAddress[this.tabIdx].region[1];
+        this.getCountys(city);
+        this.tabAddress[this.tabIdx].region[2] = "";
+      },
+      getCountys:function(city){
+        var that = this;
+        app.util.request({
+          url: 'entry/wxapp/user',
+          data: {
+            controller: 'car.getCountys',
+            city:city
+          },
+          dataType: 'json',
+          success: function (res) {
+            console.log("getCountys",res);
+            that.countys = res;
+          }
+        })
       }
+
 
     }
   }
