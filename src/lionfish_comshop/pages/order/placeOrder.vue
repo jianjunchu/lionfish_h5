@@ -357,14 +357,14 @@
               </div>
             </div>
 
-            <div avalonctrl="oc_payment" @click="ck_paynowpays" class="oc-payment">
-              <div :class="['oc-payment-item',ck_yupay==2?'oc-payment-selected':'']"
-                   :style="ck_yupay==2?'color:'+skin.color:''">
-                <span class="iconfont icon-weixinzhifu oc-payment-icon" style="color:#00c800;"></span>
-                <div class="oc-payment-method">PayNow</div>
-                <!--<div class="oc-payment-recommend" :style="{color:skin.color,'border-color':skin.color}">推荐</div>-->
-              </div>
-            </div>
+            <!--<div avalonctrl="oc_payment" @click="ck_paynowpays" class="oc-payment">-->
+              <!--<div :class="['oc-payment-item',ck_yupay==2?'oc-payment-selected':'']"-->
+                   <!--:style="ck_yupay==2?'color:'+skin.color:''">-->
+                <!--<span class="iconfont icon-weixinzhifu oc-payment-icon" style="color:#00c800;"></span>-->
+                <!--<div class="oc-payment-method">PayNow</div>-->
+                <!--&lt;!&ndash;<div class="oc-payment-recommend" :style="{color:skin.color,'border-color':skin.color}">推荐</div>&ndash;&gt;-->
+              <!--</div>-->
+            <!--</div>-->
 
             <div v-if="is_yue_open==1&&total_free>0">
               <div avalonctrl="oc_payment" @click="ck_yupays" class="oc-payment" v-if="can_yupay">
@@ -396,14 +396,14 @@
               </div>
             </div>
 
-            <div avalonctrl="oc_payment" @click="ck_paynowpays" class="oc-payment">
-              <div :class="['oc-payment-item', ck_yupay==2?'oc-payment-selected':'']"
-                   :style="ck_yupay==2?'color:'+skin.color:''">
-                <span class="iconfont icon-weixinzhifu oc-payment-icon" style="color:#00c800;"></span>
-                <div class="oc-payment-method">PayNow</div>
-                <!--<div class="oc-payment-recommend" :style="{'color':skin.color , 'border-color':skin.color}">推荐</div>-->
-              </div>
-            </div>
+            <!--<div avalonctrl="oc_payment" @click="ck_paynowpays" class="oc-payment">-->
+              <!--<div :class="['oc-payment-item', ck_yupay==2?'oc-payment-selected':'']"-->
+                   <!--:style="ck_yupay==2?'color:'+skin.color:''">-->
+                <!--<span class="iconfont icon-weixinzhifu oc-payment-icon" style="color:#00c800;"></span>-->
+                <!--<div class="oc-payment-method">PayNow</div>-->
+                <!--&lt;!&ndash;<div class="oc-payment-recommend" :style="{'color':skin.color , 'border-color':skin.color}">推荐</div>&ndash;&gt;-->
+              <!--</div>-->
+            <!--</div>-->
 
             <div v-if="is_yue_open==1">
               <div avalonctrl="oc_payment" @click="ck_yupays" class="oc-payment" v-if="can_yupay">
@@ -738,7 +738,8 @@
         is_yue_open: 0,
         can_yupay: 0,
         ck_yupay: 0,
-        pay_method:'wx',
+//        pay_method:'wx',
+        pay_method:'wxh5',
         use_score: 0,
         commentArr: {},
         community: {},
@@ -1092,7 +1093,8 @@
 
       ck_wxpays: function() {
         this.ck_yupay = 0
-        this.pay_method ='wx'
+//        this.pay_method ='wx';
+        this.pay_method ='wxh5';
       },
 
       ck_yupays: function() {
@@ -1386,13 +1388,16 @@
 
               console.log(t)
               wx.hideLoading()
-
+              debugger
               var e = t.has_yupay || 0, a = t.order_id, i = {}
               var ona = t.order_num_alias
               var id = t.order_id
 
               this_.order_id = id
-              this_.order_num_alias = ona.substring(ona.length - 5)
+              if(ona){
+                this_.order_num_alias = ona.substring(ona.length - 5)
+              }
+
 
               if (pm == 'cash') {
                 wx.redirectTo({
@@ -1421,37 +1426,44 @@
                 this_.closePaymentModal()
                 this_.showTransferModal()
               } else {
-                console.log('支付日志：', t), 0 == t.code ? (o.changeIndexList(), 1 == e ? (o.canPay = !0,
+                  debugger
+                console.log('支付日志：', t);
+                  0 == t.code ? (o.changeIndexList(), 1 == e ? (o.canPay = !0,
                   'dan' == q || 'pindan' == q || 'integral' == q || 'soitaire' == q ? t.is_go_orderlist <= 1 ? wx.redirectTo({
                     url: '/lionfish_comshop/pages/order/order?id=' + a + '&is_show=1'
                   }) : wx.redirectTo({
                     url: '/lionfish_comshop/pages/order/index?is_show=1'
                   }) : wx.redirectTo({
                     url: '/lionfish_comshop/moduleA/pin/share?id=' + a
-                  })) : wx.requestPayment({
-                  appId: t.appId,
-                  timeStamp: t.timeStamp,
-                  nonceStr: t.nonceStr,
-                  package: t.package,
-                  signType: t.signType,
-                  paySign: t.paySign,
-                  success: function(e) {
-                    o.canPay = !0, 'dan' == q || 'pindan' == q || 'integral' == q || 'soitaire' == q ? t.is_go_orderlist <= 1 ? wx.redirectTo({
-                      url: '/lionfish_comshop/pages/order/order?id=' + a + '&is_show=1'
-                    }) : wx.redirectTo({
-                      url: '/lionfish_comshop/pages/order/index?is_show=1'
-                    }) : wx.redirectTo({
-                      url: '/lionfish_comshop/moduleA/pin/share?id=' + a
-                    })
-                  },
-                  fail: function(e) {
-                    t.is_go_orderlist <= 1 ? wx.redirectTo({
-                      url: '/lionfish_comshop/pages/order/order?id=' + a + '&?isfail=1'
-                    }) : wx.redirectTo({
-                      url: '/lionfish_comshop/pages/order/index?isfail=1'
-                    })
-                  }
-                })) : 1 == t.code ? (o.canPay = !0, wx.showModal({
+                  })) :
+//                      console.log("预支付返回结果",t)
+                  window.location.href = t.mweb_url
+//                  wx.requestPayment({
+//                  appId: t.appId,
+//                  timeStamp: t.timeStamp,
+//                  nonceStr: t.nonceStr,
+//                  package: t.package,
+//                  signType: t.signType,
+//                  paySign: t.paySign,
+//                  success: function(e) {
+//                    o.canPay = !0, 'dan' == q || 'pindan' == q || 'integral' == q || 'soitaire' == q ? t.is_go_orderlist <= 1 ? wx.redirectTo({
+//                      url: '/lionfish_comshop/pages/order/order?id=' + a + '&is_show=1'
+//                    }) : wx.redirectTo({
+//                      url: '/lionfish_comshop/pages/order/index?is_show=1'
+//                    }) : wx.redirectTo({
+//                      url: '/lionfish_comshop/moduleA/pin/share?id=' + a
+//                    })
+//                  },
+//                  fail: function(e) {
+//                    t.is_go_orderlist <= 1 ? wx.redirectTo({
+//                      url: '/lionfish_comshop/pages/order/order?id=' + a + '&?isfail=1'
+//                    }) : wx.redirectTo({
+//                      url: '/lionfish_comshop/pages/order/index?isfail=1'
+//                    })
+//                  }
+////                })
+                  )
+                  : 1 == t.code ? (o.canPay = !0, wx.showModal({
                   title: '提示',
                   content: t.RETURN_MSG || '支付失败',
                   showCancel: !1,
