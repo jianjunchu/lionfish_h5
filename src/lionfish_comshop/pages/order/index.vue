@@ -18,14 +18,14 @@
         <span style='font-size:30px;color:#f00'>￥{{tot_price}}</span>
       </div>
 
-<!--
+
       <button @click.stop="orderPayWeixin" class="wux-button wux-button--block" type="warn">
         微信支付</button>
--->
+
       <!--
       <button class="wux-button wux-button--block" type="warn" style="margin-top=16px">到店付款</button>
       -->
-      <button @click.stop="payNow" class="wux-button wux-button--block" data-type="paynow" :style="{background:skin.color,color:' #fff'}" type="warn">PayNow</button>
+      <!--<button @click.stop="payNow" class="wux-button wux-button&#45;&#45;block" data-type="paynow" :style="{background:skin.color,color:' #fff'}" type="warn">PayNow</button>-->
       <button @click.stop="yuepay" v-if="is_open_yue_pay ==1" :style="{background:skin.color,color:' #fff','font-size':'2vw'}" class="wux-button wux-button--block" type="warn"> {{ $t('order.yuezhifu',{p1:accountMoney}) }} </button>
 
       <!--<button @click.stop="orderPayTransfer" data-type="banktransfer" class="wux-button wux-button&#45;&#45;block" type="warn">公司转账</button>-->
@@ -511,22 +511,23 @@
           }).then(t=> {
             if (0 == t.code) {
               t.is_pin;
-              wx.requestPayment({
-                appId: t.appId,
-                timeStamp: t.timeStamp,
-                nonceStr: t.nonceStr,
-                package: t.package,
-                signType: t.signType,
-                paySign: t.paySign,
-                success: function(t) {
-                  this.$wx.redirectTo({
-                    url: "/lionfish_comshop/pages/order/order?id=" + a + "&is_show=1"
-                  });
-                },
-                fail: function(t) {
-                  console.log(t);
-                }
-              });
+              window.location.href = t.mweb_url
+//              wx.requestPayment({
+//                appId: t.appId,
+//                timeStamp: t.timeStamp,
+//                nonceStr: t.nonceStr,
+//                package: t.package,
+//                signType: t.signType,
+//                paySign: t.paySign,
+//                success: function(t) {
+//                  this.$wx.redirectTo({
+//                    url: "/lionfish_comshop/pages/order/order?id=" + a + "&is_show=1"
+//                  });
+//                },
+//                fail: function(t) {
+//                  console.log(t);
+//                }
+//              });
             } else if(2 == t.code){
                 this.$wx.showToast({
                   title: t.msg,

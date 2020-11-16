@@ -155,6 +155,7 @@
           <div>
             <div class="tit">{{$t('common.manjian')}}</div>
             <div class="con">满{{goods.full_money}}元减{{goods.full_reducemoney}}元</div>
+            <!--<div class="con">Spend ${{goods.full_money}} and get ${{goods.full_reducemoney}} discount</div>-->
           </div>
         </div>
         <div class="purchasing pb10" v-if="goods.one_limit_count>0||goods.total_limit_count>0">

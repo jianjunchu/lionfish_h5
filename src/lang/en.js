@@ -297,7 +297,9 @@ export default {
     shanchu: 'Delete',
     qingkong: 'Delete',
     haoburongyi: 'Are you sure?',
-    quxiaochengggong: 'Cancel Successful'
+    quxiaochengggong: 'Cancel Successful',
+    manjian: 'Discount',
+    yijian: 'Discount'
   },
   type: {
     yijingdingbu: 'Already on the top～',

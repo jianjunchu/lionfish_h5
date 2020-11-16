@@ -112,9 +112,10 @@
                     <div class="piece-reduce" style="display:none;"
                          v-if="shopcarts.can_man_jian&&item.is_open_fullreduction==1">
                       <div class="tag-content">
-                        <div class="tag">满减</div>
+                        <div class="tag">{{$t('cart.manjian')}}</div>
                       </div>
                       满{{item.full_money}}减{{item.full_reducemoney}}
+                      <!--${{item.full_money}} less ${{item.full_reducemoney}}-->
                     </div>
                   </div>
                   <div class="swiper-out-button-content" slot="button" style="display:none;">
@@ -193,9 +194,10 @@
                     <div class="piece-reduce" style="display:none;"
                          v-if="shopcarts.can_man_jian&&item.is_open_fullreduction==1">
                       <div class="tag-content">
-                        <div class="tag">满减</div>
+                        <div class="tag">{{$t('cart.manjian')}}</div>
                       </div>
-                      满{{item.full_money}}减{{item.full_reducemoney}}
+                      满{{item.full_money}} 减 {{item.full_reducemoney}}
+                      <!--${{item.full_money}} less {{item.full_reducemoney}}-->
                     </div>
                   </div>
                   <div class="swiper-out-button-content" slot="button" style="display:none;">
@@ -276,7 +278,8 @@
         </div>
         <div class="fullreductionInfo" v-if="is_open_fullreduction==1&&reduceNum>0&&!isEmpty">
           <div class="fr-left">
-            <div class="tag" :style="{background:skin.color}">满减</div>
+            <div class="tag" :style="{background:skin.color}">{{$t('cart.manjian')}}</div>
+            <!--<div class="active-msg">${{full_money}} less ${{full_reducemoney}}</div>-->
             <div class="active-msg">满{{full_money}}减{{full_reducemoney}}</div>
           </div>
           <i-router-link url="/lionfish_comshop/pages/index/index" v-if="disAmount<=0&&is_open_fullreduction==1">
@@ -292,11 +295,12 @@
           </i-router-link>
           <i-router-link type="switch" url="/lionfish_comshop/pages/index/index" v-else>
             <div class="i-link">
-              <div class="diff-money" v-if="disAmount&&disAmount>0">已减
-                <span>{{disAmount}}</span>
-                元,
+              <div class="diff-money" v-if="disAmount&&disAmount>0">{{$t('cart.yijian')}}
+                <!--<span>${{disAmount}}</span>-->
+                <span>￥{{disAmount}}</span>
+
               </div>
-              逛一逛
+
               <span class="iconfont icon-youjiantou"></span>
             </div>
           </i-router-link>
