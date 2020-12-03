@@ -180,7 +180,8 @@ export default {
 		}
 	},
   created() {
-    this.aa = "86";
+	this.aa = "86";
+	console.log(document.referrer,"来源页面");
   },
 	watch: {
 		$route: {
@@ -402,6 +403,7 @@ export default {
 	},
 	created: function() {
 		this.hideTopAndFooter();
+		console.log(document.referrer,"来源页面");
 	}
 }</script>
 

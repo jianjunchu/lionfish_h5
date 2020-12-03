@@ -66,9 +66,9 @@
     <!-- 留言 -->
     <div style="width: 85vw;height: 10vw;margin: 0 auto">
       <input type="text" cols="15" 
-       rows="2"  style="width: 65vw;height: 8vw;position: relative;left: 0;top: 1vw;background: #000;border: 1px solid #c0c0c0;color: #fff;font-size: 3vw;" maxlength="20" v-model="messages" placeholder="请输入留言，将所有人可见，限20字内" v-on:click="leavMessage2">
+       rows="2"  style="width: 65vw;height: 8vw;position: relative;left: 0;top: 1vw;background: #000;border: 1px solid #c0c0c0;color: #fff;font-size: 14px;" maxlength="20" v-model="messages" placeholder="请输入留言，将所有人可见，限20字内">
       <!-- <textarea rows="2" cols="13" style="width: 54vw;height: 16vw;position: relative;left: 0;top: 1vw;background: #000;border: 1px solid #c0c0c0;color: #fff;resize:none" placeholder="请输入留言，将所有人可见，限30字内"></textarea> -->
-      <button type="button" style="width: 15vw;height: 6vw;position: relative;left: 2vw;top: 0.8vw;font-size: 1vw;background: #000;color: #fff;border: 1px solid #c0c0c0;" v-on:click="leavMessage">饮用评价</button>
+      <button type="button" style="width: 15vw;height: 6vw;position: relative;left: 2vw;top: 1.2vw;font-size: 16px;background: #000;color: #fff;border: 1px solid #c0c0c0;" v-on:click="leavMessage">饮用评价</button>
     </div>
 
     <!-- 查看商品详情 -->
@@ -76,11 +76,6 @@
         <!-- <a href="javascript:window.history.back()"><span style="line-height: 10vw;color: #fff">查看商品详情</span></a> -->
         <span style="line-height: 10vw;color: #fff">查看商品详情</span>
     </div>
-
-    <div id="disappare" style="display:none;">
-        <p  style="margin-top: -24px; ">评价成功！</p>
-    </div>
-
   </div>
   
 
@@ -255,7 +250,6 @@
               that.messageList = data.data.body;
             }
             that.getMessageList2();
-            that.nowIndex1 = that.messageArray.length-1
             that.getNowMessage();
             that.timer = setInterval(that.getNowMessage,5000);
             // that.getMessageList2();
@@ -274,42 +268,25 @@
       },
       getNowMessage(){
         var that = this;
-        //var nowIndex = that.getRandomInt(0,that.messageArray.length);
-        that.nowMessage = that.messageArray[that.nowIndex1];
-        if((that.nowIndex1-1) < 0){
-          that.nowIndex1 = that.messageArray.length;
-        }
-        that.nowIndex1 --;
+        var nowIndex = that.getRandomInt(0,that.messageArray.length);
         //var tel = that.messageList[nowIndex].tel;
         // that.nowMessage = "尾号"+tel.substring(tel.length-4)+":"+that.messageList[nowIndex].message;
-        //that.nowMessage = that.messageArray[nowIndex];
+        that.nowMessage = that.messageArray[nowIndex];
         //console.log(that.nowMessage);
       },
       getMessageList2(){
         var that = this;
-        that.messageArray = [];
+        
         for(var i = 0;i < that.messageList.length; i++){
           var tel = that.messageList[i].tel;
           var date1 = new Date(that.messageList[i].createTime);
           var date2 = new Date();
           var times = date2 - date1;
-          var secs = Math.floor(times / 1000);
-          var mins = Math.floor(times / 1000 / 60);
           var hours = Math.floor(times / 1000 / 60 / 60);
           var days = Math.floor(times / 1000 / 60 / 60 / 24);
           if(hours >= 24){
             var obj = {};
             obj.status = days + "天前," + "尾号"+tel.substring(tel.length-4)+":";
-            obj.message = that.messageList[i].message;
-            that.messageArray.push(obj);
-          }else if(mins < 1){
-            var obj = {};
-            obj.status = secs + "秒前," + "尾号"+tel.substring(tel.length-4)+":";
-            obj.message = that.messageList[i].message;
-            that.messageArray.push(obj);
-          }else if(mins < 60){
-            var obj = {};
-            obj.status = mins + "分钟前," + "尾号"+tel.substring(tel.length-4)+":";
             obj.message = that.messageList[i].message;
             that.messageArray.push(obj);
           }else{
@@ -324,25 +301,6 @@
         // var tel = that.messageList[nowIndex].tel;
         // that.nowMessage = "尾号"+tel.substring(tel.length-4)+":"+that.messageList[nowIndex].message;
         // console.log(that.nowMessage);
-      },
-      leavMessage2: function(){
-        const that = this;
-        util.check_login_new().then(function(t) {
-          console.log(t)
-          if (t) {//登录状态
-            console.log("已登录");
-          } else {//未登录
-            console.log("未登录");
-            //alert("评价失败，请先登录！");
-            if(confirm('请先登录后，再进行评价，是否前去登录？')==true){
-              that.$router.push("/login");;
-            }else{}
-            // wx.navigateTo({
-            //   url: "/login"
-            // })
-            //that.$router.push("/login");
-          }
-        });
       },
       leavMessage: function(){
         const wx = this.$wx, app = this.$getApp();
@@ -369,19 +327,15 @@
               // 方法
               success: function(data) {
                 console.log(data);
-                //that.nowMessage="尾号"+telephone.substring(telephone.length-4)+":"+message;
-                alert("评价成功");
-                that.getMessage();
+                that.nowMessage="尾号"+telephone.substring(telephone.length-4)+":"+message;
                 that.messages = "";
               }
            });
           } else {//未登录
             console.log("未登录");
-            alert("评价失败，请先登录！");
-            // wx.navigateTo({
-            //   url: "/login"
-            // })
-            that.$router.push("/login");
+            wx.navigateTo({
+              url: "/login"
+            })
           }
         });
       },
@@ -454,7 +408,7 @@
           // 方法
           success: function(data) {
             console.log(data.data.body.verifyResult,"1234");
-            if(data.data.body.verifyResult){
+            if(!data.data.body.verifyResult){
               var productType = data.data.body.product.productType;
               that.productTypeId = productType.id;
               that.getMessage();
@@ -496,18 +450,17 @@
               // }    
               that.playMusic();
             }else{
-              // var flag = that.$route.query.flag;
+              var flag = that.$route.query.flag;
               
-              // if(flag == 't3'){
-              //   wx.navigateTo({
-              //     url: "/t3?chk="+that.checkCode+"&b0="+that.b0+"&flag=1"
-              //   })
-              // }else{
-              //   wx.navigateTo({
-              //     url: "/t2?chk="+that.checkCode+"&b0="+that.b0+"&flag=1"
-              //   })
-              // }
-              alert("动态码已过期，请重新扫标签验证");
+              if(flag == 't3'){
+                wx.navigateTo({
+                  url: "/t3?chk="+that.checkCode+"&b0="+that.b0+"&flag=1"
+                })
+              }else{
+                wx.navigateTo({
+                  url: "/t2?chk="+that.checkCode+"&b0="+that.b0+"&flag=1"
+                })
+              }
             }    
           }
         })
@@ -605,20 +558,6 @@
 @keyframes play{
     0%{transform: rotate(0deg);}
     100%{transform: rotate(360deg);}
-}
-
-#disappare {
-    border: 3px solid #ccc;
-    border-radius: 5px;
-    background: #fff;
-    font-size: 20px;
-    width: 190px;
-    height: 67px;
-    position: fixed;
-    top: 30%;
-    left: 50%;
-    background-color: yellow;
-    color: red;
 }
 
 .marquee-wrap  {
