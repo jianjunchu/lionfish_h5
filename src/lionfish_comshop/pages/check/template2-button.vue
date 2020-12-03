@@ -156,6 +156,7 @@
 </template>
 <script>
 
+  
   import { swiper, swiperSlide } from 'vue-awesome-swiper'
   import GlobalMixin from '../../mixin/globalMixin.js'
   import util from '../../utils'
@@ -219,7 +220,8 @@
         organizationTel: '',//经销商手机号
         distributorId:'',//经销商id即电商中的团长id
         ecommerceUrlFlag: 0,//0不是第三方链接，1是
-        productTypeNr: ''
+        productTypeNr: '',
+        openHome: 0 //0否 1是
       }
     },
     created: function() {
@@ -236,17 +238,19 @@
       // console.log(e,"token");
       //this.getDate();
       // this.getCirculate();
-      this.onShow();
+      //this.onShow();
       this.getDistributor();
+      //this.isAndroid();
     },
     methods: {
        onShow: function() {
         const wx = this.$wx, app = this.$getApp()
-        var s = this
+        const s = this
         util.check_login_new().then(function(t) {
           console.log(t)
           if (t) {//登录状态
-            console.log("11111");
+            console.log("已登录");
+            s.getIp();
           } else {//未登录
             console.log("22222");
             wx.navigateTo({
@@ -255,6 +259,13 @@
           }
         })
 
+      },
+      isAndroid: function(){
+        var u = navigator.userAgent;
+        var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
+        var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/);//ios终端
+        // alert('是否是Android：'+isAndroid);
+        // alert('是否是iOS：'+isiOS);
       },
       turnShow: function(){
         var that = this;
@@ -270,7 +281,7 @@
         this.$http({
             controller: "index.get_client_ip"
           }).then(e=> {
-            //console.log(e,"liuwantao");
+            console.log(e,"liuwantao");
             that.nowIp = e.data;
             that.getDate();
         });
@@ -289,19 +300,21 @@
           responseType: 'text',
           // 方法
           success: function(data) {
-            console.log(data.data,"123456");
+            console.log(data.data,"123456789111");
             if(data.data == ""){
-              that.showCheckLogin = 1;//是否验证登录
-              that.showLottery = 1;//抽奖
-              that.showEcommerceUrl = 1;//再次购买
+              that.showCheckLogin = 0;//是否验证登录
+              that.showLottery = 0;//抽奖
+              that.showEcommerceUrl = 0;//再次购买
               that.ecommerceUrlFlag = 0;//0不是第三方链接,1是
               that.ecommerceUrl = 'https://boruolai.xx315.net/wap/#/';//电商url
               if(that.showCheckLogin == 1){
                 that.onShow();
+              }else{
+                that.getIp();
               }
-              that.getIp();
             }else{
               that.showCheckLogin = data.data.body.showCheckLogin;//是否验证登录
+              //that.showCheckLogin = 0;
               that.showLottery = data.data.body.showLottery;//抽奖
               that.showEcommerceUrl = data.data.body.showEcommerceUrl;//再次购买
               that.ecommerceUrl = data.data.body.ecommerceUrl;//电商url
@@ -309,8 +322,10 @@
               that.ecommerceUrlFlag = data.data.body.ecommerceUrlFlag;//0不是第三方链接,1是
               if(that.showCheckLogin == 1){
                 that.onShow();
+              }else{
+                that.getIp();
               }
-              that.getIp();
+              //
             }
           }
         })
@@ -338,6 +353,7 @@
           responseType: 'text',
           // 方法
           success: function(data) {
+            console.log(data,"123456");
             that.goods = data.data.body;
             that.goods_image =data.data.body.product.productType.productTypeGalleryList;
             for(var i=0;i < that.goods_image.length; i ++){
@@ -358,18 +374,20 @@
             that.newRecFlag = data.data.body.product.productType.newRecFlag;
             that.rtpFlag = data.data.body.product.productType.rtpFlag;
             that.queryCount = data.data.body.queryCount;
+            //判断是否是首页跳转过来的
             if(flag == 1){
               that.verifyResult = true;
             }else{
               that.verifyResult = data.data.body.verifyResult;
-            }        
+            }
+            that.verifyResult = true;          
             if(that.openHome == 1 && that.verifyResult && flag != 1){
               wx.navigateTo({
+                // url: "/hometest?chk="+that.checkCode+"&b0="+that.b0+"&flag=t2"
                 url: "/home?chk="+that.checkCode+"&b0="+that.b0+"&flag=t2"
               })
             }
-            //that.verifyResult = true;
-            that.logo = that.replaceIp(data.data.body.product.antiwhiteLogo);
+            that.logo = that.replaceIp(data.data.body.product.logoImage);
             that.uid = data.data.body.product.uid;
             that.productTypeNr = data.data.body.product.productType.productTypeNr;
             wx.request({

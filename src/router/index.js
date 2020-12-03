@@ -68,6 +68,15 @@ export const constantRoutes = [
     }
   },
   {
+    name: '/hometest',
+    path: '/hometest',
+    component: () => import('@/lionfish_comshop/pages/check/hometest'),
+    hidden: true,
+    meta: {
+      keepAlive: false
+    }
+  },
+  {
     name: '/t3',
     path: '/t3',
     component: () => import('@/lionfish_comshop/pages/check/template3-button'),
