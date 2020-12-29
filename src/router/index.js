@@ -49,6 +49,51 @@ export const constantRoutes = [
       keepAlive: false
     }
   },
+	{
+    name: '/check',
+    path: '/check',
+    component: () => import('@/lionfish_comshop/pages/check/check'),
+    hidden: true,
+    meta: {
+      keepAlive: false
+    }
+  },
+	{
+    name: '/nt1',
+    path: '/nt1',
+    component: () => import('@/lionfish_comshop/pages/check/template1_new'),
+    hidden: true,
+    meta: {
+      keepAlive: false
+    }
+  },
+  {
+    name: '/nt2',
+    path: '/nt2',
+    component: () => import('@/lionfish_comshop/pages/check/template2_new'),
+    hidden: true,
+    meta: {
+      keepAlive: false
+    }
+  },
+  {
+    name: '/nt3',
+    path: '/nt3',
+    component: () => import('@/lionfish_comshop/pages/check/template3_new'),
+    hidden: true,
+    meta: {
+      keepAlive: false
+    }
+  },
+	{
+		name: '/t1',
+		path: '/t1',
+		component: () => import('@/lionfish_comshop/pages/check/template1-button'),
+		hidden: true,
+		meta: {
+			keepAlive: false
+		}
+	},
   {
     name: '/t2',
     path: '/t2',

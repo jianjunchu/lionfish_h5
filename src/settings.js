@@ -1,6 +1,6 @@
 module.exports = {
 
-  title: '博若莱之星',
+  title: 'NFC315验证',
 
   /**
    * @type {boolean} true | false
