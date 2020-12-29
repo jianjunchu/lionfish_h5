@@ -155,34 +155,50 @@
         const goodsId = this.$route.query.a0
         const checkCode = this.$route.query.chk;
         //that.code = that.checkCode.substr(0,14);
-        wx.request({
-          // 请求地址
-          url: 'https://aofeiwulian.nfc315.com/wxapp.php?i=3&t=0&v=12.4.0&from=wxapp&c=entry&a=wxapp&do=index&m=lionfish_comshop&sign=60dcd9b5925c119972907bbf22255441&controller=goods.get_goods_verify_template&id='+goodsId,
-          // 请求方式
-          method: "get",
-          dataType: 'json',
-          responseType: 'text',
-          // 方法
-          success: function(data) {
-            console.log(data,"12345678");
-            // var gd_info = data.data.gd_info;
-            // var goodsId = gd_info.id;
-            if(data.data.code == 1){
+        that.$http({
+          controller: 'goods.get_goods_verify_template',
+          id: goodsId
+        }).then(t => {
+          console.log(t, 'get_instructions')
+            if(t.code == 1){
               wx.navigateTo({
                 url: "/nt3?a0="+goodsId+"&chk="+checkCode
               })
-            }
-            if(data.data.data[0].template_name.indexOf("模板一") != -1){
+            }else {
+              let path = t.data[0].path;
               wx.navigateTo({
-                url: "/nt1?a0="+goodsId+"&chk="+checkCode
-              })
-            }else{
-              wx.navigateTo({
-                url: "/nt3?a0="+goodsId+"&chk="+checkCode
+                url: path+"?a0="+goodsId+"&chk="+checkCode
               })
             }
-          }
-        })  
+        })
+        // wx.request({
+        //   // 请求地址
+        //   url: 'https://aofeiwulian.nfc315.com/wxapp.php?i=3&t=0&v=12.4.0&from=wxapp&c=entry&a=wxapp&do=index&m=lionfish_comshop&sign=60dcd9b5925c119972907bbf22255441&controller=goods.get_goods_verify_template&id='+goodsId,
+        //   // 请求方式
+        //   method: "get",
+        //   dataType: 'json',
+        //   responseType: 'text',
+        //   // 方法
+        //   success: function(data) {
+        //     console.log(data,"12345678");
+        //     // var gd_info = data.data.gd_info;
+        //     // var goodsId = gd_info.id;
+        //     if(data.data.code == 1){
+        //       wx.navigateTo({
+        //         url: "/nt3?a0="+goodsId+"&chk="+checkCode
+        //       })
+        //     }
+        //     if(data.data.data[0].template_name.indexOf("模板一") != -1){
+        //       wx.navigateTo({
+        //         url: "/nt1?a0="+goodsId+"&chk="+checkCode
+        //       })
+        //     }else{
+        //       wx.navigateTo({
+        //         url: "/nt3?a0="+goodsId+"&chk="+checkCode
+        //       })
+        //     }
+        //   }
+        // })  
         
       },
       replaceIp: function(url){

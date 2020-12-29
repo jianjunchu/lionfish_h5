@@ -193,11 +193,11 @@
         showMore: false,
         showBack: false
       });
-      //this.getIp();
+      this.getIp();
       // var app = this.$getApp(), wx = this.$wx;
       // var e = wx.getStorageSync("token");
       // console.log(e,"token");
-      this.getDate();
+      //this.getDate();
       // this.getCirculate();
       //this.onShow();
       //this.getDistributor();
@@ -242,7 +242,7 @@
         this.$http({
             controller: "index.get_client_ip"
           }).then(e=> {
-            console.log(e,"liuwantao");
+            //console.log(e,"liuwantao");
             that.nowIp = e.data;
             that.getDate();
         });
@@ -298,35 +298,60 @@
         that.checkCode = this.$route.query.chk;
         that.a0 = this.$route.query.a0;
         that.code = that.checkCode.substr(0,14);
-        wx.request({
-          // 请求地址
-          url: 'https://aofeiwulian.nfc315.com/wxapp.php?i=3&t=0&v=12.4.0&from=wxapp&c=entry&a=wxapp&do=index&m=lionfish_comshop&sign=60dcd9b5925c119972907bbf22255441&controller=nfcServer.get_verify_result&ip=113.45.55.23&a0='+that.a0+'&chk='+that.checkCode,
-          // 请求方式
-          method: "get",
-          dataType: 'json',
-          responseType: 'text',
-          // 方法
-          success: function(data) {
-            console.log(data.data,"123456");
-            that.goods_image2 =data.data.images_list;
-            var supply_info = data.data.supply_info;
-            var goods_info = data.data.goods_info;
-            var gd_info = data.data.gd_info;
+        that.$http({
+          controller: 'nfcServer.get_verify_result',
+          a0: that.a0,
+          chk: that.checkCode,
+          ip: that.nowIp
+        }).then(t => {
+          //console.log(t,"123456");
+          that.goods_image2 =t.images_list;
+          var supply_info = t.supply_info;
+          var goods_info = t.goods_info;
+          var gd_info = t.gd_info;
 
-            that.content = gd_info.content;
+          that.content = gd_info.content;
 
-            var obj = JSON.parse(data.data.verify_result);
-            that.queryCount = obj.queryCount;
-            that.verifyResult = obj.verifyResult; 
-            //that.verifyResult = true;          
-            that.logo = data.data.supply_info.logo;
-            that.uid = obj.uid;
-            that.shopName = supply_info.shopname;
-            that.goodname = goods_info.goodsname;
-            that.subtitle = goods_info.subtitle;
-            that.address = obj.location;
-          }
+          var obj = JSON.parse(t.verify_result);
+          that.queryCount = obj.queryCount;
+          that.verifyResult = obj.verifyResult; 
+          //that.verifyResult = true;          
+          that.logo = t.supply_info.logo;
+          that.uid = obj.uid;
+          that.shopName = supply_info.shopname;
+          that.goodname = goods_info.goodsname;
+          that.subtitle = goods_info.subtitle;
+          that.address = obj.location;
         })
+        // wx.request({
+        //   // 请求地址
+        //   url: 'https://aofeiwulian.nfc315.com/wxapp.php?i=3&t=0&v=12.4.0&from=wxapp&c=entry&a=wxapp&do=index&m=lionfish_comshop&sign=60dcd9b5925c119972907bbf22255441&controller=nfcServer.get_verify_result&ip=113.45.55.23&a0='+that.a0+'&chk='+that.checkCode,
+        //   // 请求方式
+        //   method: "get",
+        //   dataType: 'json',
+        //   responseType: 'text',
+        //   // 方法
+        //   success: function(data) {
+        //     console.log(data.data,"123456");
+        //     that.goods_image2 =data.data.images_list;
+        //     var supply_info = data.data.supply_info;
+        //     var goods_info = data.data.goods_info;
+        //     var gd_info = data.data.gd_info;
+
+        //     that.content = gd_info.content;
+
+        //     var obj = JSON.parse(data.data.verify_result);
+        //     that.queryCount = obj.queryCount;
+        //     that.verifyResult = obj.verifyResult; 
+        //     //that.verifyResult = true;          
+        //     that.logo = data.data.supply_info.logo;
+        //     that.uid = obj.uid;
+        //     that.shopName = supply_info.shopname;
+        //     that.goodname = goods_info.goodsname;
+        //     that.subtitle = goods_info.subtitle;
+        //     that.address = obj.location;
+        //   }
+        // })
       },
       replaceIp: function(url){
         var index = url.indexOf("/userfiles");
