@@ -43,8 +43,7 @@
         this.date.push(tp)
       }
 
-      const maxDate = new Date()
-      maxDate.setDate(maxDate.getDate() + 30)
+      const maxDate = new Date(new Date().setMonth(new Date().getMonth()+3));
       this.maxDate = maxDate
       this.date.push(maxDate)
       wx.setNavigationBarTitle({

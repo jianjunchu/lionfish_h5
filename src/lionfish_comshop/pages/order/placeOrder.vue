@@ -1839,37 +1839,44 @@
                 if (diff > 0) {
                   beginTime = parseInt(temp_beginTime);
                 }
-
               }
             }
-
         }
 
         if (isPreTime && beginTime > 0){
-          var list = new Array();
-          var days = 7;
-          for(var i=0;i<days;i++){
-            var bgDate = new Date(beginTime*1000+i*86400*1000);
-            var str_date = exp.formatYMD(bgDate);
-            var md = exp.formatDM(bgDate);
-            var tempDate = exp.formatMD2(bgDate);
-            var chinaWeek = exp.formatWeekday(bgDate);
-            var date = tempDate+"("+chinaWeek.weekday+")";
-            var week_key = exp.formatWeekdayEnglish(bgDate).weekday;
-            var data = {
-              "date": date,
-              "week_key": week_key,
-              "md": md,
-              "str_date": str_date,
-              "times": ["09:00 - 18:00"]
-            };
-            console.log(data);
-            list.push(data);
-          }
 
-          this.rickupTimeData.list = list;
-          this.rickupTimeData.currentTimes = list[0].times;
-          this.showPickupTimeModal = true;
+          var r = this,s = r.tabAddress, n = r.tabIdx, t = wx.getStorageSync("token");
+          var I = wx.getStorageSync("community").communityId;
+          var controller='';
+          if(n ==0){
+            controller = 'car.get_head_date_list'
+          }else{
+            controller = 'car.get_express_date_list'
+          }
+          app.util.request({
+            url: 'entry/wxapp/user',
+            data: {
+              controller: controller,
+              token: t,
+              head_id: I,
+              begin_time: beginTime
+            },
+            dataType: 'json',
+            method: 'POST',
+            success: function(e) {
+              var list = e.data;
+              console.log(e,"date_list");
+
+              r.rickupTimeData.list = list
+              r.rickupTimeData.currentTimes = list[0].times
+
+            }
+          })
+
+          r.showPickupTimeModal = true
+
+
+
         }
         //this.doShowPickupTime();
       },

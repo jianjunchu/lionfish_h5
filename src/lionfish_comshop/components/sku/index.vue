@@ -486,7 +486,7 @@
   }
 
   .sku-card .sku-num-content .title {
-    width: 40px;
+    width: 15vw;
     font-size: 10px;
     line-height: 25px;
   }
