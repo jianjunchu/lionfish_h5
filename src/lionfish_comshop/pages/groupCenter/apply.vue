@@ -10,42 +10,42 @@
               <label class="form-item-control">{{$t('host.xingming')}}</label>
               <!--<input @input="inputRealName" class="form-item-input" data-key="3" placeholder="{{$t(host.shuruxingming)}}" type="text"/>-->
               <!--<input v-model="head_name" class="form-item-input" :placeholder="$t('host.shuruxingming')" type="text"/>-->
-              <input v-model="head_name" class="form-item-input" type="text"/>
+              <input v-model="head_name" class="form-item-input" type="text" placeholder="请输入姓名"/>
             </div>
             <!--<div class="['form-item', (errors[2]===2?'error':'')]">-->
             <div class="form-item">
               <label class="form-item-control">{{$t('host.shoujihao')}}</label>
               <!--<input @input="inputMobile" class="form-item-input" data-key="2" :focus="focus_mobile" maxlength="11" placeholder="请输入手机号码" type="text" :value="mobile"/>-->
               <!--<input v-model="mobile_detail" class="form-item-input"  maxlength="11" :placeholder="$t('host.shurushoujihao')" type="text" />-->
-              <input v-model="mobile_detail" class="form-item-input"  maxlength="11" type="text" />
+              <input v-model="mobile_detail" class="form-item-input"  maxlength="11" type="text" placeholder="请输入手机号码"/>
             </div>
 
             <div class="form-item">
               <label class="form-item-control">{{$t('host.youbian')}}</label>
               <!--<input bindinput="inputZipCode" class="form-item-input" focus="{{focus_zip_code}}" placeholder="请输入邮编" type="text" value="{{zip_code}}"></input>-->
               <!--<input v-model="zip_code" class="form-item-input"  :placeholder="$t('host.shuruyoubian')" type="text" />-->
-              <input v-model="zip_code" class="form-item-input"  type="text" />
+              <input v-model="zip_code" class="form-item-input"  type="text" placeholder="请输入邮编"/>
             </div>
 
             <div class="form-item">
               <label class="form-item-control">{{$t('host.dapai')}}</label>
               <!--<input bindinput="inputBlkNo"   class="form-item-input" focus="{{focus_blk_no}}" placeholder="请输入大牌号" type="text" value="{{blk_no}}"></input>-->
               <!--<input v-model="blk_no"   class="form-item-input"  :placeholder="$t('host.shurudapai')" type="text" />-->
-              <input v-model="blk_no"   class="form-item-input"  type="text" />
+              <input v-model="blk_no"   class="form-item-input"  type="text" placeholder="请输入大牌号"/>
             </div>
 
             <div class="form-item">
               <label class="form-item-control">{{$t('host.luming')}}</label>
               <!--<input bindinput="inputRoadName"   class="form-item-input" focus="{{focus_road_name}}" placeholder="请输入路名" type="text" value="{{road_name}}"></input>-->
               <!--<input v-model="road_name"   class="form-item-input"  :placeholder="$t('host.shuruluming')" type="text" />-->
-              <input v-model="road_name"   class="form-item-input"  type="text" />
+              <input v-model="road_name"   class="form-item-input"  type="text" placeholder="请输入路名"/>
             </div>
 
             <div class="form-item">
               <label class="form-item-control">{{$t('host.mengpaihao')}}</label>
               <!--<input bindinput="inputLouMengHao"   class="form-item-input" focus="{{focus_lou_meng_hao}}" placeholder="请输入门牌号" type="text" value="{{lou_meng_hao}}"></input>-->
               <!--<input v-model="lou_meng_hao"   class="form-item-input"  :placeholder="$t('host.shurumengpaihao')" type="text" />-->
-              <input v-model="lou_meng_hao"   class="form-item-input"  type="text" />
+              <input v-model="lou_meng_hao"   class="form-item-input"  type="text" placeholder="请输入门牌号"/>
             </div>
 
             <!--<div class="form-item">-->
@@ -523,172 +523,5 @@
 </script>
 
 <style scoped>
-  .header {
-    background: #f75451;
-    height: 80px;
-    color: #fff;
-    font-size: 15px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-
-  .form-group {
-    padding: 6px 28px 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .form-group .form-item {
-    width: 320px;
-    display: flex;
-    align-items: center;
-    border-bottom: 1px solid #e4e4e4;
-    font-size: 15px;
-    transition: all 0.3s;
-    position: relative;
-  }
-
-  .form-group .form-item:last-child {
-    border: none;
-  }
-
-  .form-group .form-item.error {
-    border-color: #f75451;
-  }
-
-  .form-group .form-item .form-item-control {
-    width: 80px;
-    height: 50px;
-    display: flex;
-    align-items: center;
-  }
-
-  .form-group .form-item .form-item-input {
-    flex: 1;
-    height: 50px;
-    line-height: 50px;
-  }
-
-  .weui-cell__hd {
-    position: relative;
-    font-size: 14px;
-    text-align: left;
-  }
-
-  .weui-pos {
-    width: 20px;
-    height: 25px;
-    background: url(https://mall.shiziyu888.com/dan/Common/image/order_checkout_icon.png) no-repeat;
-    background-position: 0px 0;
-    background-size: 66px 71px;
-  }
-
-  .form-group .form-item .form-item-input .picker {
-    height: 50px;
-    line-height: 50px;
-  }
-
-  .form-group .form-item .captcha {
-    color: #666;
-    border-left: 2px solid #ddd;
-    padding-left: 10px;
-    width: 80px;
-    height: 100%;
-    text-align: center;
-  }
-
-  .form-group .form-item .placeholder {
-    color: #ccc;
-  }
-
-  .form-group .form-item .input-placeholder {
-    color: #ccc;
-  }
-
-  .form-group .form-item .submit {
-    width: 320px;
-    height: 47px;
-    margin-top: 23px;
-    border-radius: 47px;
-    font-size: 18px;
-    background: #f75451;
-    color: #fff;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-
-  .form-group .form-item .submit.disabled {
-    background: #dcdcdc;
-  }
-
-  .apply-pass {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    background: #fff;
-    position: fixed;
-    left: 0;
-    top: 0;
-    z-index: 9;
-    margin-top: 50px;
-  }
-
-  .apply-pass image {
-    width: 78px;
-    height: 72px;
-    padding-top: 75px;
-    margin-bottom: 14px;
-  }
-
-  .apply-pass .applyPassImg {
-    width: 93px;
-    height: 93px;
-    font-size: 115px;
-    color: #ef994c;
-    margin-bottom: 20px;
-    margin-top: 53px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-
-  .apply-pass .h1 {
-    font-size: 16px;
-    margin-bottom: 10px;
-    color: #555;
-  }
-
-  .apply-pass .p {
-    font-size: 14px;
-    color: #999;
-    margin-bottom: 15px;
-  }
-
-  .apply-pass .link-btn {
-    width: 155px;
-    height: 49px;
-    border-radius: 10px;
-    background: #fb5a50;
-    color: #fff;
-    font-size: 16px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-weight: bold;
-  }
-
-  .icon-right {
-    position: absolute;
-    right: 5px;
-    top: 50%;
-    width: 9px;
-    height: 14px;
-    margin-top: -6px;
-  }
-
+  @import "apply.less";
 </style>

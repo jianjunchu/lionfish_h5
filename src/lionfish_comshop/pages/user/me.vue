@@ -358,12 +358,12 @@
 
 
           <div v-if="enabled_front_supply==1">
-            <router-link hoverClass="none" href="#/lionfish_comshop/pages/supply/recruit" v-if="is_supply==0||needAuth">
+            <router-link hoverClass="none" to="/lionfish_comshop/pages/supply/recruit" v-if="is_supply==0||needAuth">
               <div class="item-main">
                 <div class="item-title">
                   <img aspectFit class="toolIcon supplier" mode="widthFix"
                        :src="user_tool_icons.i6?user_tool_icons.i6:require('@/assets/images/icon-supplier.png')"/>
-                  <span>{{$t('me.shengqingchengwei')}}{{supply_diy_name}}</span>
+                  <span>{{$t('me.shenqingchengwei')}}{{supply_diy_name}}</span>
                 </div>
                 <div class="tool-right">
                   <img class="icon-right " src="@/assets/images/rightArrowImg.png"/>

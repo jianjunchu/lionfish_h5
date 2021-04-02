@@ -420,5 +420,21 @@ export default {
     tijiaoshenqing: '提交申请',
     tuikuanxuzhi: '退款须知',
     tuikuanyuanyin: '退款原因'
+  },
+  supply: {
+    gongyingshangmingcheng: '供应商名称',
+    dianpumingcheng: '店铺名称',
+    lianxiren: '供应商联系人',
+    shoujihao: '手机号',
+    chanpin: '产品',
+    youbian: '仓库邮编',
+    dapaihao: '仓库大牌',
+    luming: '仓库路名',
+    jianzhuming: '仓库建筑名',
+    menpaihao: '仓库门牌号',
+    qisongjine: '起送金额',
+    yunfei: '运费',
+    logo: 'Logo',
+    xuanchuantu: '宣传图'
   }
 }

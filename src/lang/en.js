@@ -400,5 +400,21 @@ export default {
     tijiaoshenqing: 'Submit',
     tuikuanxuzhi: 'Refund Notes',
     tuikuanyuanyin: 'Refund Reason'
+  },
+  supply: {
+    gongyingshangmingcheng: 'Shop Name',
+    dianpumingcheng: 'Store Name',
+    lianxiren: 'Name',
+    shoujihao: 'Mobile',
+    chanpin: 'Product',
+    youbian: 'Postal Code',
+    dapaihao: 'Block',
+    luming: 'Street',
+    jianzhuming: 'Building',
+    menpaihao: 'Unit #',
+    qisongjine: 'Order Amount Free Delivery',
+    yunfei: 'Delivery Fee Per Order',
+    logo: 'Logo',
+    xuanchuantu: 'Banner'
   }
 }
