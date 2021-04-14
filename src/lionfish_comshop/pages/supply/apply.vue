@@ -46,11 +46,11 @@
           </div>
           <div class="form-item">
             <label class="form-item-control">{{$t('supply.qisongjine')}}</label>
-            <input v-model="order_amount_free_delivery" class="form-item-input" placeholder="请输入免运费的起送金额" type="text"/>
+            <input v-model="order_amount_free_delivery" class="form-item-input" placeholder="请输入免运费的起送金额(只输入数字)" type="text"/>
           </div>
           <div class="form-item">
             <label class="form-item-control">{{$t('supply.yunfei')}}</label>
-            <input v-model="delivery_fee_per_order" class="form-item-input" placeholder="请输入不足起送金额时需要的运费" type="text"/>
+            <input v-model="delivery_fee_per_order" class="form-item-input" placeholder="请输入不足起送金额时需要的运费(只输入数字)" type="text"/>
           </div>
           <div class="form-item">
             <label class="form-item-control">{{$t('supply.logo')}}</label>
@@ -139,6 +139,18 @@
           }
         },
         immediate: true
+      },
+      order_amount_free_delivery: {
+        handler: function(newValue, oldValue) {
+          var order_amount_free_delivery = newValue.replace(/^\s*|\s*$/g, "");
+          this.order_amount_free_delivery = order_amount_free_delivery;
+        }
+      },
+      delivery_fee_per_order: {
+        handler: function(newValue, oldValue) {
+          var delivery_fee_per_order = newValue.replace(/^\s*|\s*$/g, "");
+          this.delivery_fee_per_order = delivery_fee_per_order;
+        }
       }
     },
     created: function() {
@@ -416,7 +428,7 @@
         }
         if (!(/^[0-9]+(.?[0-9]{1,2})?$/.test(order_amount_free_delivery))) {
           wx.showToast({
-            title: "请输入正确的起送金额",
+            title: "请输入数字，不能包括其他符号",
             icon: "none"
           })
           return false;
@@ -430,7 +442,7 @@
         }
         if (!(/^[0-9]+(.?[0-9]{1,2})?$/.test(delivery_fee_per_order))) {
            wx.showToast({
-            title: "请输入正确的运费",
+            title: "请输入数字，不能包括其他符号",
             icon: "none"
           })
           return false;
