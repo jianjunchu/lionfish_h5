@@ -33,7 +33,7 @@ export const constantRoutes = [
   {
     name: '/login',
     path: '/login',
-    component: () => import('@/lionfish_comshop/pages/login/index'),
+    component: () => import('@/ulink_comshop/pages/login/index'),
     hidden: true,
     meta: {
       keepAlive: false
@@ -43,7 +43,7 @@ export const constantRoutes = [
   {
     name: '/regist',
     path: '/regist',
-    component: () => import('@/lionfish_comshop/pages/regist/index'),
+    component: () => import('@/ulink_comshop/pages/regist/index'),
     hidden: true,
     meta: {
       keepAlive: false
@@ -52,7 +52,7 @@ export const constantRoutes = [
   {
     name: '/userInfo',
     path: '/userInfo',
-    component: () => import('@/lionfish_comshop/pages/regist/userInfo'),
+    component: () => import('@/ulink_comshop/pages/regist/userInfo'),
     hidden: true,
     meta: {
       keepAlive: false
@@ -61,16 +61,16 @@ export const constantRoutes = [
   {
     name: '/privatepolic',
     path: '/privatepolic',
-    component: () => import('@/lionfish_comshop/pages/regist/privatepolic'),
+    component: () => import('@/ulink_comshop/pages/regist/privatepolic'),
     hidden: true,
     meta: {
       keepAlive: false
     }
   },
   {
-    name: '/lionfish_comshop/pages/index/index',
+    name: '/ulink_comshop/pages/index/index',
     path: '',
-    component: () => import('@/lionfish_comshop/pages/index/index'),
+    component: () => import('@/ulink_comshop/pages/index/index'),
     hidden: true,
     meta: {
       keepAlive: true,
@@ -78,9 +78,9 @@ export const constantRoutes = [
     }
   },
   {
-    name: '/lionfish_comshop/pages/index/index',
-    path: '/lionfish_comshop/pages/index/index',
-    component: () => import('@/lionfish_comshop/pages/index/index'),
+    name: '/ulink_comshop/pages/index/index',
+    path: '/ulink_comshop/pages/index/index',
+    component: () => import('@/ulink_comshop/pages/index/index'),
     hidden: true,
     meta: {
       keepAlive: true,
@@ -88,224 +88,224 @@ export const constantRoutes = [
     }
   },
   {
-    name: '/lionfish_comshop/pages/type/index',
-    path: '/lionfish_comshop/pages/type/index',
-    component: () => import('@/lionfish_comshop/pages/type/index'),
+    name: '/ulink_comshop/pages/type/index',
+    path: '/ulink_comshop/pages/type/index',
+    component: () => import('@/ulink_comshop/pages/type/index'),
     hidden: true,
     meta: {
       keepAlive: true
     }
   },
   {
-    name: '/lionfish_comshop/pages/order/index',
-    path: '/lionfish_comshop/pages/order/index',
-    component: () => import('@/lionfish_comshop/pages/order/index'),
+    name: '/ulink_comshop/pages/order/index',
+    path: '/ulink_comshop/pages/order/index',
+    component: () => import('@/ulink_comshop/pages/order/index'),
     hidden: true,
     meta: {
       keepAlive: false
     }
   }, {
-    name: '/lionfish_comshop/pages/order/order',
-    path: '/lionfish_comshop/pages/order/order',
-    component: () => import('@/lionfish_comshop/pages/order/order'),
+    name: '/ulink_comshop/pages/order/order',
+    path: '/ulink_comshop/pages/order/order',
+    component: () => import('@/ulink_comshop/pages/order/order'),
     hidden: true,
     meta: {
       keepAlive: false
     }
   },
   {
-    name: '/lionfish_comshop/pages/user/me',
-    path: '/lionfish_comshop/pages/user/me',
-    component: () => import('@/lionfish_comshop/pages/user/me'),
+    name: '/ulink_comshop/pages/user/me',
+    path: '/ulink_comshop/pages/user/me',
+    component: () => import('@/ulink_comshop/pages/user/me'),
     hidden: true,
     meta: {
       keepAlive: false
     }
   },
   {
-    name: '/lionfish_comshop/pages/user/articleProtocol',
-    path: '/lionfish_comshop/pages/user/articleProtocol',
-    component: () => import('@/lionfish_comshop/pages/user/articleProtocol'),
+    name: '/ulink_comshop/pages/user/articleProtocol',
+    path: '/ulink_comshop/pages/user/articleProtocol',
+    component: () => import('@/ulink_comshop/pages/user/articleProtocol'),
     hidden: true,
     meta: {
       keepAlive: false
     }
   },
   {
-    name: '/lionfish_comshop/pages/user/protocol',
-    path: '/lionfish_comshop/pages/user/protocol',
-    component: () => import('@/lionfish_comshop/pages/user/protocol'),
+    name: '/ulink_comshop/pages/user/protocol',
+    path: '/ulink_comshop/pages/user/protocol',
+    component: () => import('@/ulink_comshop/pages/user/protocol'),
     hidden: true,
     meta: {
       keepAlive: false
     }
   },
   {
-    name: '/lionfish_comshop/pages/user/coupon',
-    path: '/lionfish_comshop/pages/user/coupon',
-    component: () => import('@/lionfish_comshop/pages/user/coupon'),
+    name: '/ulink_comshop/pages/user/coupon',
+    path: '/ulink_comshop/pages/user/coupon',
+    component: () => import('@/ulink_comshop/pages/user/coupon'),
     hidden: true,
     meta: {
       keepAlive: false
     }
   },
   {
-    name: '/lionfish_comshop/pages/goods/goodsDetail',
-    path: '/lionfish_comshop/pages/goods/goodsDetail',
-    component: () => import('@/lionfish_comshop/pages/goods/goodsDetail'),
+    name: '/ulink_comshop/pages/goods/goodsDetail',
+    path: '/ulink_comshop/pages/goods/goodsDetail',
+    component: () => import('@/ulink_comshop/pages/goods/goodsDetail'),
     hidden: true,
     meta: {
       keepAlive: false
     }
   },
   {
-    name: '/lionfish_comshop/pages/goods/comment',
-    path: '/lionfish_comshop/pages/goods/comment',
-    component: () => import('@/lionfish_comshop/pages/goods/comment'),
+    name: '/ulink_comshop/pages/goods/comment',
+    path: '/ulink_comshop/pages/goods/comment',
+    component: () => import('@/ulink_comshop/pages/goods/comment'),
     hidden: true,
     meta: {
       keepAlive: false
     }
   },
   {
-    name: '/lionfish_comshop/pages/goods/buyRecords',
-    path: '/lionfish_comshop/pages/goods/buyRecords',
-    component: () => import('@/lionfish_comshop/pages/goods/buyRecords'),
+    name: '/ulink_comshop/pages/goods/buyRecords',
+    path: '/ulink_comshop/pages/goods/buyRecords',
+    component: () => import('@/ulink_comshop/pages/goods/buyRecords'),
     hidden: true,
     meta: {
       keepAlive: false
     }
   },
   {
-    name: '/lionfish_comshop/pages/groupCenter/index',
-    path: '/lionfish_comshop/pages/groupCenter/index',
-    component: () => import('@/lionfish_comshop/pages/groupCenter/index'),
+    name: '/ulink_comshop/pages/groupCenter/index',
+    path: '/ulink_comshop/pages/groupCenter/index',
+    component: () => import('@/ulink_comshop/pages/groupCenter/index'),
     hidden: true,
     meta: {
       keepAlive: false
     }
   },
   {
-    name: '/lionfish_comshop/pages/groupCenter/groupList',
-    path: '/lionfish_comshop/pages/groupCenter/groupList',
-    component: () => import('@/lionfish_comshop/pages/groupCenter/groupList'),
+    name: '/ulink_comshop/pages/groupCenter/groupList',
+    path: '/ulink_comshop/pages/groupCenter/groupList',
+    component: () => import('@/ulink_comshop/pages/groupCenter/groupList'),
     hidden: true,
     meta: {
       keepAlive: false
     }
   },
   {
-    name: '/lionfish_comshop/pages/groupCenter/groupDetail',
-    path: '/lionfish_comshop/pages/groupCenter/groupDetail',
-    component: () => import('@/lionfish_comshop/pages/groupCenter/groupDetail'),
+    name: '/ulink_comshop/pages/groupCenter/groupDetail',
+    path: '/ulink_comshop/pages/groupCenter/groupDetail',
+    component: () => import('@/ulink_comshop/pages/groupCenter/groupDetail'),
     hidden: true,
     meta: {
       keepAlive: false
     }
   },
   {
-    name: '/lionfish_comshop/pages/groupCenter/apply',
-    path: '/lionfish_comshop/pages/groupCenter/apply',
-    component: () => import('@/lionfish_comshop/pages/groupCenter/apply'),
+    name: '/ulink_comshop/pages/groupCenter/apply',
+    path: '/ulink_comshop/pages/groupCenter/apply',
+    component: () => import('@/ulink_comshop/pages/groupCenter/apply'),
     hidden: true,
     meta: {
       keepAlive: false
     }
   },
   {
-    name: '/lionfish_comshop/pages/groupCenter/recruit',
-    path: '/lionfish_comshop/pages/groupCenter/recruit',
-    component: () => import('@/lionfish_comshop/pages/groupCenter/recruit'),
+    name: '/ulink_comshop/pages/groupCenter/recruit',
+    path: '/ulink_comshop/pages/groupCenter/recruit',
+    component: () => import('@/ulink_comshop/pages/groupCenter/recruit'),
     hidden: true,
     meta: {
       keepAlive: false
     }
   },
   {
-    name: '/lionfish_comshop/pages/groupCenter/groupTime',
-    path: '/lionfish_comshop/pages/groupCenter/groupTime',
-    component: () => import('@/lionfish_comshop/pages/groupCenter/groupTime'),
+    name: '/ulink_comshop/pages/groupCenter/groupTime',
+    path: '/ulink_comshop/pages/groupCenter/groupTime',
+    component: () => import('@/ulink_comshop/pages/groupCenter/groupTime'),
     hidden: true,
     meta: {
       keepAlive: false
     }
   },
   {
-    name: '/lionfish_comshop/pages/groupCenter/distributionList',
-    path: '/lionfish_comshop/pages/groupCenter/distributionList',
-    component: () => import('@/lionfish_comshop/pages/groupCenter/distributionList'),
+    name: '/ulink_comshop/pages/groupCenter/distributionList',
+    path: '/ulink_comshop/pages/groupCenter/distributionList',
+    component: () => import('@/ulink_comshop/pages/groupCenter/distributionList'),
     hidden: true,
     meta: {
       keepAlive: false
     }
   },
   {
-    name: '/lionfish_comshop/pages/groupCenter/wallet',
-    path: '/lionfish_comshop/pages/groupCenter/wallet',
-    component: () => import('@/lionfish_comshop/pages/groupCenter/wallet'),
+    name: '/ulink_comshop/pages/groupCenter/wallet',
+    path: '/ulink_comshop/pages/groupCenter/wallet',
+    component: () => import('@/ulink_comshop/pages/groupCenter/wallet'),
     hidden: true,
     meta: {
       keepAlive: false
     }
   },
   {
-    name: '/lionfish_comshop/pages/groupCenter/editInfo',
-    path: '/lionfish_comshop/pages/groupCenter/editInfo',
-    component: () => import('@/lionfish_comshop/pages/groupCenter/editInfo'),
+    name: '/ulink_comshop/pages/groupCenter/editInfo',
+    path: '/ulink_comshop/pages/groupCenter/editInfo',
+    component: () => import('@/ulink_comshop/pages/groupCenter/editInfo'),
     hidden: true,
     meta: {
       keepAlive: false
     }
   },
   {
-    name: '/lionfish_comshop/pages/groupCenter/detailsList',
-    path: '/lionfish_comshop/pages/groupCenter/detailsList',
-    component: () => import('@/lionfish_comshop/pages/groupCenter/detailsList'),
+    name: '/ulink_comshop/pages/groupCenter/detailsList',
+    path: '/ulink_comshop/pages/groupCenter/detailsList',
+    component: () => import('@/ulink_comshop/pages/groupCenter/detailsList'),
     hidden: true,
     meta: {
       keepAlive: false
     }
   },
   {
-    name: '/lionfish_comshop/pages/groupCenter/cashList',
-    path: '/lionfish_comshop/pages/groupCenter/cashList',
-    component: () => import('@/lionfish_comshop/pages/groupCenter/cashList'),
+    name: '/ulink_comshop/pages/groupCenter/cashList',
+    path: '/ulink_comshop/pages/groupCenter/cashList',
+    component: () => import('@/ulink_comshop/pages/groupCenter/cashList'),
     hidden: true,
     meta: {
       keepAlive: false
     }
   },
   {
-    name: '/lionfish_comshop/pages/order/evaluate',
-    path: '/lionfish_comshop/pages/order/evaluate',
-    component: () => import('@/lionfish_comshop/pages/order/evaluate'),
+    name: '/ulink_comshop/pages/order/evaluate',
+    path: '/ulink_comshop/pages/order/evaluate',
+    component: () => import('@/ulink_comshop/pages/order/evaluate'),
     hidden: true,
     meta: {
       keepAlive: false
     }
   },
   {
-    name: '/lionfish_comshop/pages/order/shopCart',
-    path: '/lionfish_comshop/pages/order/shopCart',
-    component: () => import('@/lionfish_comshop/pages/order/shopCart'),
+    name: '/ulink_comshop/pages/order/shopCart',
+    path: '/ulink_comshop/pages/order/shopCart',
+    component: () => import('@/ulink_comshop/pages/order/shopCart'),
     hidden: true,
     meta: {
       keepAlive: true
     }
   },
   {
-    name: '/lionfish_comshop/pages/order/placeOrder',
-    path: '/lionfish_comshop/pages/order/placeOrder',
-    component: () => import('@/lionfish_comshop/pages/order/placeOrder'),
+    name: '/ulink_comshop/pages/order/placeOrder',
+    path: '/ulink_comshop/pages/order/placeOrder',
+    component: () => import('@/ulink_comshop/pages/order/placeOrder'),
     hidden: true,
     meta: {
       keepAlive: false
     }
   },
   {
-    name: '/lionfish_comshop/pages/position/community',
-    path: '/lionfish_comshop/pages/position/community',
-    component: () => import('@/lionfish_comshop/pages/position/community'),
+    name: '/ulink_comshop/pages/position/community',
+    path: '/ulink_comshop/pages/position/community',
+    component: () => import('@/ulink_comshop/pages/position/community'),
     hidden: true,
     meta: {
       keepAlive: false
@@ -314,7 +314,7 @@ export const constantRoutes = [
   {
     name: '/404',
     path: '/404',
-    component: () => import('@/lionfish_comshop/pages/404'),
+    component: () => import('@/ulink_comshop/pages/404'),
     hidden: true,
     meta: {
       keepAlive: false
@@ -322,117 +322,117 @@ export const constantRoutes = [
   },
 
   {
-    name: '/lionfish_comshop/pages/type/result',
-    path: '/lionfish_comshop/pages/type/result',
-    component: () => import('@/lionfish_comshop/pages/type/result'),
+    name: '/ulink_comshop/pages/type/result',
+    path: '/ulink_comshop/pages/type/result',
+    component: () => import('@/ulink_comshop/pages/type/result'),
     hidden: true,
     meta: {
       keepAlive: false
     }
   },
   {
-    name: '/lionfish_comshop/pages/position/search',
-    path: '/lionfish_comshop/pages/position/search',
-    component: () => import('@/lionfish_comshop/pages/position/search'),
+    name: '/ulink_comshop/pages/position/search',
+    path: '/ulink_comshop/pages/position/search',
+    component: () => import('@/ulink_comshop/pages/position/search'),
     hidden: true,
     meta: {
       keepAlive: false
     }
   },
   {
-    name: '/lionfish_comshop/pages/refund/refundList',
-    path: '/lionfish_comshop/pages/refund/refundList',
-    component: () => import('@/lionfish_comshop/pages/refund/refundList'),
+    name: '/ulink_comshop/pages/refund/refundList',
+    path: '/ulink_comshop/pages/refund/refundList',
+    component: () => import('@/ulink_comshop/pages/refund/refundList'),
     hidden: true,
     meta: {
       keepAlive: false
     }
   },
   {
-    name: '/lionfish_comshop/pages/order/refund',
-    path: '/lionfish_comshop/pages/order/refund',
-    component: () => import('@/lionfish_comshop/pages/order/refund'),
+    name: '/ulink_comshop/pages/order/refund',
+    path: '/ulink_comshop/pages/order/refund',
+    component: () => import('@/ulink_comshop/pages/order/refund'),
     hidden: true,
     meta: {
       keepAlive: false
     }
   },
   {
-    name: '/lionfish_comshop/pages/order/refunddetail',
-    path: '/lionfish_comshop/pages/order/refunddetail',
-    component: () => import('@/lionfish_comshop/pages/order/refunddetail'),
+    name: '/ulink_comshop/pages/order/refunddetail',
+    path: '/ulink_comshop/pages/order/refunddetail',
+    component: () => import('@/ulink_comshop/pages/order/refunddetail'),
     hidden: true,
     meta: {
       keepAlive: false
     }
   },
   {
-    name: '/lionfish_comshop/pages/type/details',
-    path: '/lionfish_comshop/pages/type/details',
-    component: () => import('@/lionfish_comshop/pages/type/details'),
+    name: '/ulink_comshop/pages/type/details',
+    path: '/ulink_comshop/pages/type/details',
+    component: () => import('@/ulink_comshop/pages/type/details'),
     hidden: true,
     meta: {
       keepAlive: false
     }
   },
   {
-    name: '/lionfish_comshop/pages/web-view',
-    path: '/lionfish_comshop/pages/web-view',
-    component: () => import('@/lionfish_comshop/pages/web-view'),
+    name: '/ulink_comshop/pages/web-view',
+    path: '/ulink_comshop/pages/web-view',
+    component: () => import('@/ulink_comshop/pages/web-view'),
     hidden: true,
     meta: {
       keepAlive: false
     }
   },
   {
-    name: '/lionfish_comshop/pages/user/rechargeDetails',
-    path: '/lionfish_comshop/pages/user/rechargeDetails',
-    component: () => import('@/lionfish_comshop/pages/user/rechargeDetails'),
+    name: '/ulink_comshop/pages/user/rechargeDetails',
+    path: '/ulink_comshop/pages/user/rechargeDetails',
+    component: () => import('@/ulink_comshop/pages/user/rechargeDetails'),
     hidden: true,
     meta: {
       keepAlive: false
     }
   },
   {
-    name: '/lionfish_comshop/pages/user/charge',
-    path: '/lionfish_comshop/pages/user/charge',
-    component: () => import('@/lionfish_comshop/pages/user/charge'),
+    name: '/ulink_comshop/pages/user/charge',
+    path: '/ulink_comshop/pages/user/charge',
+    component: () => import('@/ulink_comshop/pages/user/charge'),
     hidden: true,
     meta: {
       keepAlive: false
     }
   },
   {
-    name: '/lionfish_comshop/pages/supply/recruit',
-    path: '/lionfish_comshop/pages/supply/recruit',
-    component: () => import('@/lionfish_comshop/pages/supply/recruit'),
+    name: '/ulink_comshop/pages/supply/recruit',
+    path: '/ulink_comshop/pages/supply/recruit',
+    component: () => import('@/ulink_comshop/pages/supply/recruit'),
     hidden: true,
     meta: {
       keepAlive: false
     }
   },
   {
-    name: '/lionfish_comshop/pages/supply/apply',
-    path: '/lionfish_comshop/pages/supply/apply',
-    component: () => import('@/lionfish_comshop/pages/supply/apply'),
+    name: '/ulink_comshop/pages/supply/apply',
+    path: '/ulink_comshop/pages/supply/apply',
+    component: () => import('@/ulink_comshop/pages/supply/apply'),
     hidden: true,
     meta: {
       keepAlive: false
     }
   },
   {
-    name: '/lionfish_comshop/pages/supply/index',
-    path: '/lionfish_comshop/pages/supply/index',
-    component: () => import('@/lionfish_comshop/pages/supply/index'),
+    name: '/ulink_comshop/pages/supply/index',
+    path: '/ulink_comshop/pages/supply/index',
+    component: () => import('@/ulink_comshop/pages/supply/index'),
     hidden: true,
     meta: {
       keepAlive: false
     }
   },
   {
-    name: '/lionfish_comshop/pages/supply/home',
-    path: '/lionfish_comshop/pages/supply/home',
-    component: () => import('@/lionfish_comshop/pages/supply/home'),
+    name: '/ulink_comshop/pages/supply/home',
+    path: '/ulink_comshop/pages/supply/home',
+    component: () => import('@/ulink_comshop/pages/supply/home'),
     hidden: true,
     meta: {
       keepAlive: false

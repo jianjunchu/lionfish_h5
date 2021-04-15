@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import SvgIcon from '@/lionfish_comshop/components/SvgIcon/index'// svg component
+import SvgIcon from '@/ulink_comshop/components/SvgIcon/index'// svg component
 
 // register globally
 Vue.component('svg-icon', SvgIcon)

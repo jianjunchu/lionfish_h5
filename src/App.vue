@@ -16,9 +16,9 @@
 
 </style>
 <script>
-  import util from './lionfish_comshop/utils/index'
-  import timeQueue from './lionfish_comshop/utils/timeQueue'
-  import wx from './lionfish_comshop/utils/wx'
+  import util from './ulink_comshop/utils/index'
+  import timeQueue from './ulink_comshop/utils/timeQueue'
+  import wx from './ulink_comshop/utils/wx'
   import siteInfo from './siteinfo'
 
   export default {

@@ -1,4 +1,4 @@
-import { validUsername, isExternal } from '@/lionfish_comshop/utils/validate.js'
+import { validUsername, isExternal } from '@/ulink_comshop/utils/validate.js'
 
 describe('Utils:validate', () => {
   it('validUsername', () => {
