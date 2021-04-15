@@ -44,7 +44,7 @@
         </div>-->
         <div>
             <van-list ref="list" @scroll="scrollGet($event)"  v-model="$data.$data.loading" :finished="!loadMore" @load="getHotList" class="van-clearfix page-list scrollY">
-              <i-type-item @authModal="authModal" @changeCartNum="changeCartNum" @openSku="openSku" @vipModal="vipModal" :canLevelBuy="canLevelBuy" :changeCarCount="changeCarCount" :is_open_vipcard_buy="is_open_vipcard_buy" :needAuth="needAuth" :reduction="reduction" :spuItem="item" :stopClick="stopClick" v-for="(item,index) in rushList" :key="item.actId"></i-type-item>
+              <i-type-item @authModal="authModal" @changeCartNum="changeCartNum" @openSku="openSku" @vipModal="vipModal" :canLevelBuy="canLevelBuy" :changeCarCount="changeCarCount" :is_open_vipcard_buy="is_open_vipcard_buy" :needAuth="needAuth" :reduction="reduction" :spuItem="item" :stopClick="stopClick" v-for="(item,index) in rushList" :key="item.actId" :isShowContactBtn="isShowContactBtn"></i-type-item>
             </van-list>
           <div class="none-rush-list" v-if="pageEmpty">
             <img class="img-div" src="@/assets/images/icon-index-empty.png">
@@ -144,7 +144,8 @@
             pageX: 0,
             pageY: 0
           },
-          rushList: []
+          rushList: [],
+          isShowContactBtn: false
         }
       }
     },
@@ -196,7 +197,7 @@
       onLoad: function(i) {
         var t = app.globalData.isIpx, s = this
 
-        wx.showLoading(), wx.hideTabBar(), status.setNavBgColor(), status.setGroupInfo().then(function(t) {
+        wx.showLoading(), wx.hideTabBar(), status.setNavBgColor(), this.get_index_info(), status.setGroupInfo().then(function(t) {
           s.groupInfo = t
         })
 
@@ -850,6 +851,29 @@
             fail: function() {
             }
           }
+      },
+
+      /**
+       * 获取服务信息
+       */
+      get_index_info: function() {
+        let that = this;
+        let community = wx.getStorageSync('community');
+        let communityId = community && community.communityId || '';
+        let token = wx.getStorageSync('token');
+        app.util.request({
+          url: 'entry/wxapp/index',
+          data: {
+            controller: 'index.index_info',
+            communityId,
+            token
+          },
+          dataType: 'json',
+          success: function(res) {
+            let isShowContactBtn = res.index_service_switch || 0; 
+            that.isShowContactBtn = isShowContactBtn;
+          }
+        });
       }
     }
 

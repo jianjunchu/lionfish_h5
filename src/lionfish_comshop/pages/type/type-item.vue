@@ -19,6 +19,12 @@
           <div class="item-right-top">
             <div class="spu-title">
               <span class="span">{{spuItem.spuName}} </span>
+              <div class="supply" v-if="spuItem.supply_info && isShowContactBtn==1" @click.stop.prevent="goSupply" :data-id="spuItem.supply_info.id">
+                <div class="supply-logo">
+                  <img v-if="spuItem.supply_info && spuItem.supply_info.logo" :src="'https://fish.xx315.net//Uploads/image/' + spuItem.supply_info.logo"/>
+                </div>
+                <div class="supply-name" v-if="spuItem.supply_info.storename || spuItem.supply_info.shopname">{{spuItem.supply_info.storename || spuItem.supply_info.shopname}}</div>
+              </div>
             </div>
             <div class="spu-desc" v-if="spuItem.spuDescribe">
               <span class="em">{{spuItem.spuDescribe}}</span>
@@ -83,7 +89,8 @@
           spuDescribe: '',
           is_take_fullreduction: 0,
           label_info: '',
-          car_count: 0
+          car_count: 0,
+          supply_info: []
         }
       },
       isPast: {
@@ -111,6 +118,9 @@
       },
       canLevelBuy: {
         default: !1
+      },
+      isShowContactBtn: {
+        default: 0
       }
     },
     data() {
@@ -257,6 +267,12 @@
             }
           })
         }
+      },
+      goSupply: function (event) {
+        var id = event.currentTarget.dataset.id;
+        wx.navigateTo({
+          url: '/lionfish_comshop/pages/supply/home?id=' + id
+        })
       }
     }
 
@@ -542,5 +558,36 @@
   .spu .item-tag .tag-name.two-word {
     font-size: 2.2vw;
     padding-top: 1.4vw;
+  }
+
+  .supply {
+    position: absolute;
+    right: 0;
+    padding: 0;
+    width: 11vw;
+  }
+
+  .supply-logo {
+    width: 4vw;
+    height: 4vw;
+    margin: 0 auto 1.2vw auto;
+  }
+
+  .supply-logo image {
+    width: 4vw;
+    height: 4vw;
+    border-radius: 5px;
+  }
+
+  .supply-name {
+    margin: 0 auto;
+    font-weight: normal;
+    font-size: 2.6vw;
+    line-height: 3vw;
+    color: #999;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    text-align: center;
   }
 </style>

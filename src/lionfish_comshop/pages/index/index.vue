@@ -209,6 +209,27 @@
           <!--限时抢购结束-->
 
         </div>
+
+        <!-- 附近店铺 -->
+        <div class="supply" v-if="supply.length>0 && isShowContactBtn==1">
+          <div class="my-supply modal-head">
+            <div class="supply-title">
+              <span>附近店铺</span>
+            </div>
+            <router-link class="to-supply" to="/lionfish_comshop/pages/supply/index">
+              <span>更多</span>
+              <img class="icon-right" src="@/assets/images/rightArrowImg.png"/>
+            </router-link>
+          </div>
+          <div class="supply-list" v-if="supply.length>0">
+            <div class="supply-list-item" v-for="(item,index) in supply" :key="item.id" @click="goSupply" :data-id="item.id">
+              <div class="supply-list-distance">{{item.distance}}KM</div>
+              <img class="supply-list-img" :src="item.logo"/>
+              <div class="supply-list-text">{{item.storename || item.shopname}}</div>
+            </div>
+          </div>
+        </div>
+
         <div class="list-content">
 
           <i-new-comer @openSku="openSku" :refresh="newComerRefresh" :skin="skin"
@@ -403,7 +424,7 @@
                                 :changeCarCount="changeCarCount" :isShowListCount="isShowListCount"
                                 :isShowListTimer="isShowListTimer==1" :is_open_vipcard_buy="is_open_vipcard_buy"
                                 :needAuth="needAuth" :reduction="reduction" :showPickTime="(ishow_index_pickup_time==1)"
-                                :skin="skin" :spuItem="item" :stopClick="stopClick"></i-new-rush-spu>
+                                :skin="skin" :spuItem="item" :stopClick="stopClick" :isShowContactBtn="isShowContactBtn"></i-new-rush-spu>
 
               </div>
               <div class="active-item-two" v-if="rushList && rushList.length>0&&theme==1" v-for="(item,index) in rushList"
@@ -472,7 +493,7 @@
                                 :changeCarCount="changeCarCount" :isShowListCount="isShowListCount"
                                 :isShowListTimer="isShowListTimer==1" :is_open_vipcard_buy="is_open_vipcard_buy"
                                 :needAuth="needAuth" :reduction="reduction" :showPickTime="(ishow_index_pickup_time==1)"
-                                :skin="skin" :spuItem="item" :stopClick="stopClick"></i-new-rush-spu>
+                                :skin="skin" :spuItem="item" :stopClick="stopClick" :isShowContactBtn="isShowContactBtn"></i-new-rush-spu>
 
               </div>
 
@@ -913,7 +934,8 @@
               })
             }
           }
-        }]
+        }],
+        supply: []
       }
     },
     watch: {
@@ -1019,7 +1041,7 @@
               i.loadPage()
             })
         } else {
-          util.getCommunityById(o.community_id).then(function(t) {
+          util.getCommunityById(d).then(function(t) {
             0 == t.code && (1 == t.open_danhead_model && (console.log('开启单社区step7'), i.community = t.default_head_info, i.open_danhead_model = t.open_danhead_model
               , s && i.addhistory(t.default_head_info.communityId || '')), i.loadPage())
           }).catch(function() {
@@ -1406,7 +1428,7 @@
       loadPage() {
 
         var e = this
-        e.get_index_info(), e.get_type_topic(), e.getNavigat(), e.getCoupon(), e.getPinList(),
+        e.get_index_info(), e.get_type_topic(), e.getNavigat(), e.getCoupon(), e.getPinList(), e.getSupplyList(),
           status.loadStatus().then(function() {
             var t = e.$app.globalData.appLoadStatus
 
@@ -2283,6 +2305,62 @@
       },
       backTop: function() {
 
+      },
+
+      getSupplyList: function() {
+        var token = wx.getStorageSync('token');
+        var that = this;
+        var cur_community = wx.getStorageSync('community');
+        var latitude = wx.getStorageSync('latitude');
+        var longitude = wx.getStorageSync('longitude');
+        if (!latitude || !longitude) {
+          latitude =  1.3677037;
+          longitude = 103.8542143;
+        }
+        app.util.request({
+          'url': 'entry/wxapp/index',
+          'data': {
+            controller: 'supply.get_list',
+            token: token,
+            page: 1,
+            head_id: cur_community.communityId,
+            lat: latitude,
+            lon: longitude
+          },
+          dataType: 'json',
+          success: function (res) {
+            if (res.code == 0) {
+              let supply = [];
+              let supply_list = res.data;
+              let length = supply_list.length >= 8 ? 8 : supply_list.length;
+              if (supply_list.length != length) {
+                for(var i=0;i<length;i++) {
+                  let distance = supply_list[i].distance;
+                  if (distance) {
+                    supply_list[i].distance = (distance/1000).toFixed(1);
+                  }
+                  supply.push(supply_list[i]);
+                }
+              } else {
+                for(var i=0;i<length;i++) {
+                  let distance = supply_list[i].distance;
+                  if (distance) {
+                    supply_list[i].distance = (distance/1000).toFixed(1);
+                  }
+                }
+                supply = supply_list;
+              }
+              that.supply = supply;
+            }
+          }
+        })
+      },
+
+      goSupply: function (event) {
+        var id = event.currentTarget.dataset.id;
+        wx.navigateTo({
+          url: '/lionfish_comshop/pages/supply/home?id=' + id
+        })
       }
 
     }
@@ -2295,6 +2373,117 @@
 <style src="@/lionfish_comshop/pages/index/cube.css">
 </style>
 <style src="@/lionfish_comshop/pages/index/seckill.css">
+</style>
+
+<style scoped>
+/* 店铺 */
+.supply {
+  width: 95%;
+  border-radius: 2vw;
+  margin: 2vw auto;
+  background: #fff;
+  box-shadow: 0 0 4vw rgba(0, 0, 0, 0.1);
+}
+
+.modal-head {
+  position: relative;
+  padding: 2vw 3vw;
+}
+
+.modal-head::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 1px;
+  transform: scaleY(.5);
+}
+
+.modal-head::after {
+  border-bottom: 1px solid #c8c7cc;
+  bottom: 0;
+}
+
+.supply .my-supply  {
+  padding: 2.2vw 3vw;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.supply .my-supply .my-supply-title {
+  flex: 1;
+  font-weight: 500;
+  color: #444;
+}
+
+.supply .my-supply .to-supply {
+  font-size: 2.4vw;
+  color: #aaa;
+  margin-right: 2vw;
+}
+
+.icon-right {
+  width: 1.2vw;
+  height: 2.2vw;
+  margin-left: 2vw;
+}
+
+.supply-list {
+  position: relative;
+  z-index: 1;
+  margin: 3vw 0 1vw;
+  display: flex;
+  padding: 0 2vw;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.supply-list-item {
+  width: 25%;
+  color: #333;
+  margin-bottom: 2vw;
+}
+
+.supply-list-item .supply-list-img  {
+  display: block;
+  width: 10vw;
+  height: 10vw;
+  margin: 0 auto;
+  border-radius: 5px;
+}
+
+.supply-list-item .supply-list-distance {
+  text-align: right;
+  font-size: 1vw;
+  color: #363636;
+}
+
+.supply-list-item .supply-list-text {
+  text-align: center;
+  font-size: 3vw;
+  margin: 0.8vw 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.supply-contact {
+  font-size: inherit;
+  line-height: inherit;
+  border-radius: 0;
+  background: transparent;
+  color: inherit;
+  padding: 0;
+}
+
+.supply-contact::after {
+  content: none;
+}
+
+.supply-list-item .nav-contact .supply-list-img {
+  left: 0;
+}
 </style>
 
 

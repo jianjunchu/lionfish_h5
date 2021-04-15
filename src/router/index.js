@@ -420,6 +420,24 @@ export const constantRoutes = [
       keepAlive: false
     }
   },
+  {
+    name: '/lionfish_comshop/pages/supply/index',
+    path: '/lionfish_comshop/pages/supply/index',
+    component: () => import('@/lionfish_comshop/pages/supply/index'),
+    hidden: true,
+    meta: {
+      keepAlive: false
+    }
+  },
+  {
+    name: '/lionfish_comshop/pages/supply/home',
+    path: '/lionfish_comshop/pages/supply/home',
+    component: () => import('@/lionfish_comshop/pages/supply/home'),
+    hidden: true,
+    meta: {
+      keepAlive: false
+    }
+  },
   // 404 page must be placed at the end !!!
   {
     name: '/404',
