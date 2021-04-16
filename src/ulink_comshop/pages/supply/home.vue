@@ -78,10 +78,10 @@
   import status from '../../utils/index.js'
   import util from '../../utils/index.js'
   import axios from 'axios'
-  import CompoentCartMixin from '../../mixin/compoentCartMixin.js';
+  import {cartMixin} from '../../mixin/cartMixin.js';
   var app,wx
   export default {
-    mixins: [CompoentCartMixin,GlobalMixin],
+    mixins: [cartMixin,GlobalMixin],
     name:'supply-home',
     data() {
       return {
@@ -210,7 +210,8 @@
               let noData = false;
               if(that.page == 1) {
                 wx.setNavigationBarTitle({
-                  title: info.storename || info.shopname || '供应商'
+                  title: info.storename || info.shopname || '供应商',
+                    showBack:true
                 })
                 if (list.length==0) {
                   noData = true;
@@ -244,9 +245,7 @@
         })
       },
 
-      openSku: function (t) {
-        CompoentCartMixin.openSku(t);
-      },
+
 
       changeNumber: function (t) {
         CompoentCartMixin.changeNumber(t);
