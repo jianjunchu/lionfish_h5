@@ -209,7 +209,7 @@
           <!--限时抢购结束-->
 
           <!-- 附近店铺 -->
-          <div class="supply" v-if="supply.length>0 && isShowContactBtn==1">
+          <div class="index_supply" v-if="supply.length>0 && isShowContactBtn==1">
             <div class="my-supply modal-head">
               <div class="supply-title">
                 <span>附近店铺</span>
@@ -2379,7 +2379,7 @@
 
 <style scoped>
 /* 店铺 */
-.supply {
+.index_supply {
   width: 95%;
   border-radius: 2vw;
   margin: 2vw auto;
@@ -2406,20 +2406,20 @@
   bottom: 0;
 }
 
-.supply .my-supply  {
+.index_supply .my-supply  {
   padding: 2.2vw 3vw;
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
 
-.supply .my-supply .my-supply-title {
+.index_supply .my-supply .my-supply-title {
   flex: 1;
   font-weight: 500;
   color: #444;
 }
 
-.supply .my-supply .to-supply {
+.index_supply .my-supply .to-supply {
   font-size: 2.4vw;
   color: #aaa;
   margin-right: 2vw;

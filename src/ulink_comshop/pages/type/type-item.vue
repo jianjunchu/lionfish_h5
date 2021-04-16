@@ -279,7 +279,7 @@
   }
 </script>
 
-<style scoped>
+<style >
 
   .i-btn {
     text-align: center;
@@ -363,7 +363,7 @@
   }
 
   .spu .spu-content-type .item-right .spu-title .span {
-    width: 100%;
+    width: 85%;
     position: absolute;
     left: 0;
     top: -1vw;
@@ -573,7 +573,7 @@
     margin: 0 auto 1.2vw auto;
   }
 
-  .supply-logo image {
+  .supply-logo img {
     width: 4vw;
     height: 4vw;
     border-radius: 5px;
