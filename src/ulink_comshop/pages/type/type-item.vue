@@ -363,7 +363,7 @@
   }
 
   .spu .spu-content-type .item-right .spu-title .span {
-    width: 85%;
+    width: 80%;
     position: absolute;
     left: 0;
     top: -1vw;

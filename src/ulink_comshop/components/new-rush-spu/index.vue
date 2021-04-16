@@ -311,14 +311,16 @@
             ), s.$emit("changeCartNum", t.total));
           }
         });
+      },
+
+      goSupply: function (event) {
+        var id = event.currentTarget.dataset.id;
+        wx.navigateTo({
+          url: '/ulink_comshop/pages/supply/home?id=' + id
+        })
       }
-    },
-    goSupply: function (event) {
-      var id = event.currentTarget.dataset.id;
-      wx.navigateTo({
-        url: '/ulink_comshop/pages/supply/home?id=' + id
-      })
     }
+
   }
 </script>
 

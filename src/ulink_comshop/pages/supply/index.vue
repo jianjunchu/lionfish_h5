@@ -38,6 +38,8 @@
       <img class="img" src="@/assets/images/icon-tab-supplier.png"/>
       <span>入驻</span>
     </div>
+    <i-new-auth @authSuccess="authSuccess" @cancel="authModal" :needAuth="needAuth&&showAuthModal"
+        :needPosition="needPosition"></i-new-auth>
   </div>
 </template>
 
@@ -58,7 +60,9 @@
         noMore: false,
         supply_diy_name: "供应商",
         needAuth: false,
-        isLoadData: true
+        isLoadData: true,
+        showAuthModal: false,
+        needPosition: true,
       }
     },
     watch:{
@@ -89,6 +93,18 @@
         that.list = [];
         that.supplyList = [];
         that.getData();
+      },
+
+      authModal: function() {
+        var that = this;
+        if (that.needAuth) {
+          wx.navigateTo({
+            url: '/login'
+          })
+          return false;
+        } else {
+          return !that.needAuth;
+        }
       },
 
       /**
