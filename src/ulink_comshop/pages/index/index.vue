@@ -208,26 +208,28 @@
 
           <!--限时抢购结束-->
 
-        </div>
-        <!-- 附近店铺 -->
-        <div class="supply" v-if="supply.length>0 && isShowContactBtn==1">
-          <div class="my-supply modal-head">
-            <div class="supply-title">
-              <span>附近店铺</span>
+          <!-- 附近店铺 -->
+          <div class="supply" v-if="supply.length>0 && isShowContactBtn==1">
+            <div class="my-supply modal-head">
+              <div class="supply-title">
+                <span>附近店铺</span>
+              </div>
+              <router-link class="to-supply" to="/ulink_comshop/pages/supply/index">
+                <span>更多</span>
+                <img class="icon-right" src="@/assets/images/rightArrowImg.png"/>
+              </router-link>
             </div>
-            <router-link class="to-supply" to="/ulink_comshop/pages/supply/index">
-              <span>更多</span>
-              <img class="icon-right" src="@/assets/images/rightArrowImg.png"/>
-            </router-link>
-          </div>
-          <div class="supply-list" v-if="supply.length>0">
-            <div class="supply-list-item" v-for="(item,index) in supply" :key="item.id" @click="goSupply" :data-id="item.id">
-              <div class="supply-list-distance">{{item.distance}}KM</div>
-              <img class="supply-list-img" :src="item.logo"/>
-              <div class="supply-list-text">{{item.storename || item.shopname}}</div>
+            <div class="supply-list" v-if="supply.length>0">
+              <div class="supply-list-item" v-for="(item,index) in supply" :key="item.id" @click="goSupply" :data-id="item.id">
+                <div class="supply-list-distance">{{item.distance}}KM</div>
+                <img class="supply-list-img" :src="item.logo"/>
+                <div class="supply-list-text">{{item.storename || item.shopname}}</div>
+              </div>
             </div>
           </div>
+
         </div>
+
 
         <div class="list-content">
 

@@ -64,10 +64,11 @@
     watch:{
     },
     created: function() {
-      wx = this.$wx
-      app = this.$app
-      this.onLoad()
-      this.onShow()
+        wx = this.$wx
+        app = this.$app
+
+        this.onLoad()
+        this.onShow()
     },
     methods: {
       /**
@@ -135,6 +136,7 @@
               let supply_diy_name = res.data.supply_diy_name || '供应商';
               wx.setNavigationBarTitle({
                 title: `${supply_diy_name}列表`,
+                  showBack: true
               })
               that.supply_diy_name = supply_diy_name;
             }
