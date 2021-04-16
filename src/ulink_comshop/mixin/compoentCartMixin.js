@@ -6,24 +6,26 @@ import _this from '../../main.js'
 var wx, app
 
 export default {
-  data: {
-    visible: !1,
-    stopClick: !1,
-    updateCart: 0
+  data() {
+    return {
+      visible: !1,
+      stopClick: !1,
+      updateCart: 0
+    }
   },
   created: function() {
     wx = _this.$wx
     app = _this.$getApp()
   },
   authModal: function() {
-    return (arguments.length > 0 && void 0 !== arguments[0] && arguments[0]).detail && this.setData({
-      needAuth: !0
-    }), !this.needAuth || (this.setData({
-      showAuthModal: !this.showAuthModal
-    }), !1)
+    if (this.needAuth) {
+      this.showAuthModal = !this.showAuthModal
+      return false;
+    }
+    return true;
   },
   vipModal: function(t) {
-    this.setData(t.detail)
+    this.t.detail = t.detail;
   },
   openSku: function(t) {
     if (this.authModal()) {
@@ -31,9 +33,7 @@ export default {
       var i = t.detail
       var o = i.actId
       var s = i.skuList
-      a.setData({
-        addCar_goodsid: o
-      })
+      a.addCar_goodsid = o;
       var e = s.list || []
       var d = []
       if (e.length > 0) {
@@ -50,22 +50,19 @@ export default {
         // eslint-disable-next-line eqeqeq
         for (var c = '', l = 0; l < d.length; l++) l == d.length - 1 ? c += d[l].id : c = c + d[l].id + '_'
         var _ = s.sku_mu_list[c]
-        a.setData({
-          sku: d,
-          sku_val: 1,
-          cur_sku_arr: _,
-          skuList: i.skuList,
-          visible: !0,
-          showSku: !0
-        })
+        a.sku = d;
+        a.sku_val = 1;
+        a.cur_sku_arr = _;
+        a.skuList = i.skuList;
+        a.visible = !0
+        a.showSku = !0
       } else {
         var m = i.skuList
-        a.setData({
-          sku: [],
-          sku_val: 1,
-          skuList: [],
-          cur_sku_arr: m
-        })
+        a.sku = [];
+        a.sku_val = 1;
+        a.skuList = [];
+        a.cur_sku_arr = m;
+        a.skuList = [];
         var h = {
           detail: {
             formId: ''
@@ -98,11 +95,9 @@ export default {
       if (1 == t.showVipModal) {
         wx.hideLoading()
         var a = t.pop_vipmember_buyimage
-        s.setData({
-          pop_vipmember_buyimage: a,
-          showVipModal: !0,
-          visible: !1
-        })
+        s.pop_vipmember_buyimage = a;
+        s.showVipModal = !0;
+        s.visible = !1;
       } else if (3 == t.code) {
         wx.showToast({
           title: t.msg,
@@ -114,16 +109,14 @@ export default {
           title: '您未登录',
           duration: 2e3,
           success: function() {
-            s.setData({
-              needAuth: !0
-            })
+            s.needAuth = !0;
           }
         })
       } else if (6 == t.code || 7 == t.code) {
         var i = t.max_quantity || ''
-        0 < i && s.setData({
-          sku_val: i
-        })
+        if (0 < i) {
+          a.sku_val = i
+        }
         var o = t.msg
         wx.showToast({
           title: o,
@@ -131,10 +124,8 @@ export default {
           duration: 2e3
         })
       } else {
-        s.closeSku(), status.indexListCarCount(e, t.cur_count), s.setData({
-          cartNum: t.total || 0,
-          updateCart: u + 1
-        }), wx.showToast({
+        s.closeSku(), status.indexListCarCount(e, t.cur_count), s.cartNum = t.total || 0, s.updateCart = u + 1,
+        wx.showToast({
           title: '已加入购物车',
           image: '@/assets/images/addShopCart.png'
         })
@@ -147,7 +138,7 @@ export default {
   },
   closeSku: function() {
     this.visible = !1,
-      this.stopClick = !1
+    this.stopClick = !1
   },
   changeNumber: function(t) {
     this.addCart(t)
@@ -193,9 +184,9 @@ export default {
           })
         } else if (t.code == 3) {
           var i = t.max_quantity
-          (u[d].car_count = i) > 0 && c.setData({
-            list: u
-          })
+          if((u[d].car_count = i) > 0) {
+            c.list = u;
+          }
           wx.showToast({
             title: t.msg,
             icon: 'none',
@@ -203,10 +194,10 @@ export default {
           })
         } else if (6 == t.code || 7 == t.code) {
           var o = t.max_quantity || ''
-          0 < (u[d].car_count = o) && c.setData({
-            cartNum: t.total || 0,
-            list: u
-          })
+          if(0 < (u[d].car_count = o)) {
+            c.cartNum = t.total || 0;
+            c.list = u;
+          }
           var s = t.msg
           wx.showToast({
             title: s,
@@ -216,10 +207,7 @@ export default {
         } else {
           var e = t.total || 0
           0 < r && (e = t.goods_total_count || 0), u[d].car_count = t.cur_count,
-            c.setData({
-              cartNum: e,
-              list: u
-            }), wx.showToast({
+            c.cartNum = e,c.list = u, wx.showToast({
             title: '已加入购物车',
             image: '@/assets/images/addShopCart.png'
           }), status.indexListCarCount(n, t.cur_count)

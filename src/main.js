@@ -60,6 +60,7 @@ import FixedBottom from '@/ulink_comshop/components/fixed-bottom'
 import RushSpuGig from '@/ulink_comshop/components/rush-spu-big'
 import PaynowModal from '@/ulink_comshop/components/paynow-modal'
 import PayBankModal from '@/ulink_comshop/components/pay-bank-modal'
+import CartBtn from '@/ulink_comshop/components/cartBtn'
 
 import '@/ulink_comshop/styles/index.scss' // global css
 import qs from 'qs'
@@ -138,6 +139,7 @@ Vue.component('i-fixedBottom', FixedBottom)
 Vue.component('i-rush-spu-big', RushSpuGig)
 Vue.component('i-paynow-modal', PaynowModal)
 Vue.component('i-bank-modal', PayBankModal)
+Vue.component('i-cart-btn', CartBtn)
 
 Vue.prototype.$getApp = function() {
   return App

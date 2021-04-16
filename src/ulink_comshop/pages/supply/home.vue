@@ -19,11 +19,11 @@
               <div class='title'>{{item.spuName}}</div>
               <div class='new-bot'>
                 <div class='price'>${{item.actPrice[0]}}.{{item.actPrice[1]}}</div>
-                <!-- <div v-if="item.car_count<=0">
+                <div v-if="item.car_count<=0">
                   <i-button iClass="add-cart disabled" v-if="item.spuCanBuyNum==0">已抢光</i-button>
-                  <div @click="openSku" :data-idx="index" class="add-cart" :style="'background:'+skin.color" wx:else>立即抢购</div>
+                  <div @click.stop.prevent="openSku" :data-idx="index" class="add-cart" :style="'background:'+skin.color" v-else>立即抢购</div>
                 </div>
-                <i-input-number v-else addImage="@/assets/images/icon-add-2.png" @change="changeNumber" @outOfMax="outOfMax" iClass="index-input-number" iClassNumberText="input-number-text" :max="item.spuCanBuyNum" min="0" reduceImage="@/assets/images/icon-reduce-2.png" :value="item.car_count" :idx="index"></i-input-number> -->
+                <i-input-number v-else addImage="@/assets/images/icon-add-2.png" @change="changeNumber" @outOfMax="outOfMax" iClass="index-input-number" iClassNumberText="input-number-text" :max="item.spuCanBuyNum" min="0" reduceImage="@/assets/images/icon-reduce-2.png" :value="item.car_count" :idx="index"></i-input-number>
               </div>
             </router-link>
           </div>
@@ -36,8 +36,7 @@
         <div class='copytext-btn' @click="showCopyTextHandle" :data-status="true">
         一键复制拼团信息
         </div>
-        <!-- <i-aside-btn showShare="{{true}}" showHome="{{true}}"></i-aside-btn>
-        <i-cart-btn cartNum="{{cartNum}}" showHome="{{true}}"></i-cart-btn> -->
+        <i-cart-btn :cartNum="cartNum" :showHome="true"></i-cart-btn>
 
         <div class="addSupply" @click="goSupplyRecruit">
           <img class="img" src="@/assets/images/icon-tab-supplier.png"/>
@@ -69,7 +68,8 @@
     <!-- 文本复制 End -->
     <i-new-auth @authSuccess="authSuccess" @cancel="authModal" :needAuth="needAuth&&showAuthModal"
                 :needPosition="needPosition"></i-new-auth>
-    <!-- <sku :visible="visible" :skuList="skuList" :cur_sku_arr="cur_sku_arr" @cancel="closeSku" :sku_val="sku_val" :sku="sku" :goodsid="addCar_goodsid" @changeCartNum="changeCartNum" @vipModal="vipModal"></sku> -->
+    <sku :visible="visible" :skuList="skuList" :cur_sku_arr="cur_sku_arr" @cancel="closeSku" :sku_val="sku_val" :sku="sku" :goodsid="addCar_goodsid" @changeCartNum="changeCartNum" @vipModal="vipModal"></sku>
+    <i-vip-modal :imgUrl="pop_vipmember_buyimage" :visible="showVipModal"></i-vip-modal>
   </div>
 </template>
 
@@ -78,9 +78,10 @@
   import status from '../../utils/index.js'
   import util from '../../utils/index.js'
   import axios from 'axios'
+  import CompoentCartMixin from '../../mixin/compoentCartMixin.js';
   var app,wx
   export default {
-    mixins: [GlobalMixin],
+    mixins: [CompoentCartMixin,GlobalMixin],
     name:'supply-home',
     data() {
       return {
@@ -241,6 +242,30 @@
             }
           }
         })
+      },
+
+      openSku: function (t) {
+        CompoentCartMixin.openSku(t);
+      },
+
+      changeNumber: function (t) {
+        CompoentCartMixin.changeNumber(t);
+      },
+
+      outOfMax: function (t) {
+        CompoentCartMixin.outOfMax(t);
+      },
+
+      closeSku: function (t) {
+        CompoentCartMixin.closeSku(t);
+      },
+
+      changeCartNum: function (t) {
+        CompoentCartMixin.changeCartNum(t);
+      },
+
+      vipModal: function (t) {
+        CompoentCartMixin.vipModal(t);
       },
 
       showCopyTextHandle: function(t) {
