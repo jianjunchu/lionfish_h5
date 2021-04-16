@@ -3,9 +3,11 @@ import status from '../utils/index.js'
 import util from '../utils/index.js'
 var wx,app
 export const cartMixin = {
-  data: {
-    visible: false,
-    stopClick: false
+  data() {
+    return {
+      visible: false,
+      stopClick: false
+    }
   },
   created: function() {
     wx = this.$wx;
@@ -13,12 +15,12 @@ export const cartMixin = {
   },
   methods: {
     vipModal: function (t) {
-      this.setData(t.detail)
+      this.t.detail = t.detail;
     },
 
     authModal: function () {
       if (this.needAuth) {
-        this.setData({showAuthModal: !this.showAuthModal});
+        this.showAuthModal = !this.showAuthModal;
         return false;
       }
       return true;
@@ -130,7 +132,9 @@ export const cartMixin = {
         if (res.showVipModal == 1) {
           wx.hideLoading();
           let {pop_vipmember_buyimage} = res;
-          that.setData({pop_vipmember_buyimage, showVipModal: true, visible: false});
+          that.pop_vipmember_buyimage = pop_vipmember_buyimage;
+          that.showVipModal = true;
+          that.visible = false;
         } else {
           if (res.code == 3) {
             wx.showToast({
@@ -150,9 +154,9 @@ export const cartMixin = {
             })
           } else if (res.code == 6 || res.code == 7) {
             let max_quantity = res.max_quantity || '';
-            (max_quantity > 0) && that.setData({
-              sku_val: max_quantity
-            })
+            if(max_quantity > 0) {
+              that.sku_val = max_quantity;
+            }
             var msg = res.msg;
             wx.showToast({
               title: msg,
@@ -162,10 +166,8 @@ export const cartMixin = {
           } else {
             if (is_just_addcar == 1) {
               list[idx].car_count = res.cur_count || 0;
-              that.setData({
-                cartNum: res.total || 0,
-                list
-              })
+              that.cartNum = res.total || 0;
+              that.list = list;
               that.closeSku();
               status.indexListCarCount(goods_id, res.cur_count);
               wx.showToast({
@@ -192,22 +194,21 @@ export const cartMixin = {
 
     changeCartNum(e) {
       let cartNum = e.detail || 0;
-      cartNum && this.setData({cartNum})
+      if(cartNum) {
+        this.cartNum = cartNum;
+      }
     },
 
     /**
      * 关闭购物车选项卡
      */
     closeSku: function () {
-      this.setData({
-        visible: false,
-        stopClick: false
-      });
+      this.visible = false;
+      this.stopClick = false;
     },
 
     changeNumber: function (t) {
-      var e = t.detail;
-      e && this.addCart(e);
+      t && this.addCart(t);
     },
 
     outOfMax: function (t) {
@@ -249,7 +250,9 @@ export const cartMixin = {
             if (res.code == 3) {
               let max_quantity = res.max_quantity || '';
               list[idx].car_count = max_quantity;
-              (max_quantity > 0) && that.setData({list})
+              if(max_quantity > 0) {
+                that.list = list;
+              }
               wx.showToast({
                 title: res.msg,
                 icon: 'none',
@@ -258,7 +261,10 @@ export const cartMixin = {
             } else if (res.code == 6 || res.code == 7) {
               let max_quantity = res.max_quantity || '';
               list[idx].car_count = max_quantity;
-              (max_quantity > 0) && that.setData({cartNum: res.total || 0, list})
+              if (max_quantity > 0) {
+                that.cartNum = res.total || 0;
+                that.list = list;
+              }
               var msg = res.msg;
               wx.showToast({
                 title: msg,
@@ -267,7 +273,8 @@ export const cartMixin = {
               })
             } else {
               list[idx].car_count = res.cur_count;
-              that.setData({cartNum: res.total || 0, list})
+              that.cartNum = res.total || 0;
+              that.list = list;
               wx.showToast({
                 title: "已加入购物车",
                 image: "../../images/addShopCart.png"
@@ -301,7 +308,8 @@ export const cartMixin = {
               })
             } else {
               list[idx].car_count = res.cur_count;
-              that.setData({list, cartNum: res.total || 0})
+              that.list = list;
+              that.cartNum = res.total || 0;
               status.indexListCarCount(goods_id, res.cur_count);
             }
           }

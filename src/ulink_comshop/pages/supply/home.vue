@@ -245,28 +245,6 @@
         })
       },
 
-
-
-      changeNumber: function (t) {
-        CompoentCartMixin.changeNumber(t);
-      },
-
-      outOfMax: function (t) {
-        CompoentCartMixin.outOfMax(t);
-      },
-
-      closeSku: function (t) {
-        CompoentCartMixin.closeSku(t);
-      },
-
-      changeCartNum: function (t) {
-        CompoentCartMixin.changeCartNum(t);
-      },
-
-      vipModal: function (t) {
-        CompoentCartMixin.vipModal(t);
-      },
-
       showCopyTextHandle: function(t) {
         if (this.authModal()) {
           var a = t.currentTarget.dataset.status
@@ -441,7 +419,7 @@
 .like-list .index-input-number {
   position: absolute;
   right: 2vw;
-  bottom: 0;
+  bottom: 1vw;
   display: flex;
   justify-content: center;
   align-items: center;
