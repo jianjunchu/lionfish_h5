@@ -1,74 +1,74 @@
 <template>
   <div>
     <div class="container" v-if="state==null">
-      <div class="header" :style="{background:skin.color}">申请{{supply_diy_name}}身份，需要您填写真实姓名、手机</div>
+      <div class="header" :style="{background:skin.color}">{{$t('supply.shenqingchengwei1')}}{{supply_diy_name}}{{$t('supply.shenqingchengwei1tishi')}}</div>
       <form>
         <div class="form-group">
           <div class="form-item">
             <label class="form-item-control">{{$t('supply.gongyingshangmingcheng')}}</label>
-            <input v-model="shopname" class="form-item-input" :placeholder="'请输入'+supply_diy_name+'名称'" type="text"/>
+            <input v-model="shopname" class="form-item-input" :placeholder="$t('supply.qingshuru')+supply_diy_name+$t('supply.mingcheng')" type="text"/>
           </div>
           <div class="form-item">
             <label class="form-item-control">{{$t('supply.dianpumingcheng')}}</label>
-            <input v-model="storename" class="form-item-input" placeholder="请输入店铺名称" type="text"/>
+            <input v-model="storename" class="form-item-input" :placeholder="$t('supply.qingshuru')+$t('supply.dianpumingcheng')" type="text"/>
           </div>
           <div class="form-item">
             <label class="form-item-control">{{$t('supply.lianxiren')}}</label>
-            <input v-model="name" class="form-item-input" placeholder="请输入联系人" type="text"/>
+            <input v-model="name" class="form-item-input" :placeholder="$t('supply.qingshuru')+$t('supply.lianxiren')" type="text"/>
           </div>
           <div class="form-item">
             <label class="form-item-control">{{$t('supply.shoujihao')}}</label>
-            <input v-model="mobile" class="form-item-input" placeholder="请输入手机号码" type="text"/>
+            <input v-model="mobile" class="form-item-input" :placeholder="$t('supply.qingshuru')+$t('supply.shoujihao')" type="text"/>
           </div>
           <div class="form-item form-item2">
             <label class="form-item-control">{{$t('supply.chanpin')}}</label>
-            <textarea v-model="product" maxlength="300" class="form-item-textarea" placeholder="产品以及优势（选填）"></textarea>
+            <textarea v-model="product" maxlength="300" class="form-item-textarea" :placeholder="$t('supply.chanpinyijiyoushi')"></textarea>
           </div>
           <div class="form-item">
             <label class="form-item-control">{{$t('supply.youbian')}}</label>
-            <input v-model="zip_code" class="form-item-input" placeholder="请输入发货地址的邮编" type="text"/>
+            <input v-model="zip_code" class="form-item-input" :placeholder="$t('supply.qingshuru')+$t('supply.fahuodizhideyoubian')" type="text"/>
           </div>
           <div class="form-item">
             <label class="form-item-control">{{$t('supply.dapaihao')}}</label>
-            <input v-model="blk_no" class="form-item-input" placeholder="请输入发货地址的大牌号" type="text"/>
+            <input v-model="blk_no" class="form-item-input" :placeholder="$t('supply.qingshuru')+$t('supply.fahuodizhidedapaihao')" type="text"/>
           </div>
           <div class="form-item">
             <label class="form-item-control">{{$t('supply.luming')}}</label>
-            <input v-model="road_name" class="form-item-input" placeholder="请输入发货地址的路名" type="text"/>
+            <input v-model="road_name" class="form-item-input" :placeholder="$t('supply.qingshuru')+$t('supply.fahuodizhideluming')" type="text"/>
           </div>
           <div class="form-item">
             <label class="form-item-control">{{$t('supply.jianzhuming')}}</label>
-            <input v-model="building" class="form-item-input" placeholder="请输入发货地址的建筑名" type="text"/>
+            <input v-model="building" class="form-item-input" :placeholder="$t('supply.qingshuru')+$t('supply.fahuodizhideyoubian')" type="text"/>
           </div>
           <div class="form-item">
             <label class="form-item-control">{{$t('supply.menpaihao')}}</label>
-            <input v-model="lou_meng_hao" class="form-item-input" placeholder="请输入发货地址的门牌号" type="text"/>
+            <input v-model="lou_meng_hao" class="form-item-input" :placeholder="$t('supply.qingshuru')+$t('supply.fahuodizhidemenpaihao')" type="text"/>
           </div>
           <div class="form-item">
             <label class="form-item-control">{{$t('supply.qisongjine')}}</label>
-            <input v-model="order_amount_free_delivery" class="form-item-input" placeholder="请输入免运费的起送金额(只输入数字)" type="text"/>
+            <input v-model="order_amount_free_delivery" class="form-item-input" :placeholder="$t('supply.qingshuru')+$t('supply.qisongjine')+$t('supply.zhishurushuzi')" type="text"/>
           </div>
           <div class="form-item">
             <label class="form-item-control">{{$t('supply.yunfei')}}</label>
-            <input v-model="delivery_fee_per_order" class="form-item-input" placeholder="请输入不足起送金额时需要的运费(只输入数字)" type="text"/>
+            <input v-model="delivery_fee_per_order" class="form-item-input" :placeholder="$t('supply.qingshuru')+$t('supply.yunfei')+$t('supply.zhishurushuzi')" type="text"/>
           </div>
           <div class="form-item">
             <label class="form-item-control">{{$t('supply.logo')}}</label>
-            <input @click="changeShowLogoImages" class="form-item-input" placeholder="请上传正方形Logo 图片" type="text" readonly/>
+            <input @click="changeShowLogoImages" class="form-item-input" :placeholder="$t('supply.qingshangchuan')+$t('supply.logotishi')" type="text" readonly/>
           </div>
           <div style="width: 100%;height: 20vw;overflow-y: auto;border-bottom: 2px solid #e4e4e4;" v-show="showLogoImages">
             <van-uploader v-model="logoPiclist" :max-count="countPic" :after-read="logoAfterRead" v-if="logo.length<=countPic"/>
           </div>
           <div class="form-item">
             <label class="form-item-control">{{$t('supply.xuanchuantu')}}</label>
-            <input @click="changeShowBannerImages" class="form-item-input" placeholder="请上传 高300x宽700 的宣传图片(可选)" type="text" readonly/>
+            <input @click="changeShowBannerImages" class="form-item-input" :placeholder="$t('supply.qingshangchuan')+$t('supply.bannertishi')" type="text" readonly/>
           </div>
           <div style="width: 100%;height: 20vw;overflow-y: auto;border-bottom: 2px solid #e4e4e4;" v-show="showBannerImages">
             <van-uploader v-model="bannerPiclist" :max-count="countPic" :after-read="bannerAfterRead" v-if="banner.length<=countPic"/>
           </div>
           <div class="form-item">
             <label class="submit" :style="{background:skin.color}">
-              提交申请
+              {{$t('supply.tijiaoshenqing')}}
               <button hidden @click="submit"></button>
             </label>
           </div>
@@ -77,15 +77,15 @@
     </div>
     <div class="apply-pass" v-if="state==1">
       <img src="@/assets/images/auditSuccess.png"/>
-      <div class="h1">申请通过</div>
-      <div class='p'>恭喜您，您的申请已通过</div>
-      <div @click="goLink" class="link-btn" data-link="/ulink_comshop/pages/index/index">返回首页</div>
+      <div class="h1">{{$t('supply.shenqingtongguo')}}</div>
+      <div class='p'>{{$t('supply.shenqingtongguotishi')}}</div>
+      <div @click="goLink" class="link-btn" data-link="/ulink_comshop/pages/index/index">{{$t('supply.fanhuishouye')}}</div>
     </div>
     <div class="apply-pass" v-if="state==0">
       <img src="@/assets/images/auditing.png"/>
-      <div class="h1">申请审核中</div>
-      <div class='p'>您的申请在处理中，请等待结果…</div>
-      <div @click="goLink" class="link-btn" data-link="/ulink_comshop/pages/index/index">返回首页</div>
+      <div class="h1">{{$t('supply.shenqingshenhezhong')}}</div>
+      <div class='p'>{{$t('supply.shenqingshenhezhongtishi')}}</div>
+      <div @click="goLink" class="link-btn" data-link="/ulink_comshop/pages/index/index">{{$t('supply.fanhuishouye')}}</div>
     </div>
   </div>
 </template>

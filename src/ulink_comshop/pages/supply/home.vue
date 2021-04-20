@@ -4,13 +4,13 @@
       <div class="special">
         <img class='topic-img' :src="info.banner" v-if="info.banner"/>
         <div class="info">
-          <div class="title">店铺详情</div>
-          <div>地址：{{info.address}}</div>
-          <div>距离：{{distance}}</div>
-          <div>联系电话：{{info.mobile}}</div>
-          <div>联系人：{{info.name}}</div>
-          <div v-if="info.order_amount_free_delivery && info.order_amount_free_delivery != 0">免费起送金额：SGD {{info.order_amount_free_delivery}}</div>
-          <div v-if="info.delivery_fee_per_order && info.delivery_fee_per_order != 0">不足起送金额的送货费：SGD {{info.delivery_fee_per_order}}</div>
+          <div class="title">{{$t('supply.dianpuxiangqing')}}</div>
+          <div>{{$t('supply.dizhi')}}：{{info.address}}</div>
+          <div>{{$t('supply.juli')}}：{{distance}}</div>
+          <div>{{$t('supply.lianxidianhua')}}：{{info.mobile}}</div>
+          <div>{{$t('supply.lianxiren')}}：{{info.name}}</div>
+          <div v-if="info.order_amount_free_delivery && info.order_amount_free_delivery != 0">{{$t('supply.mianfeiqisongjine')}}：SGD {{info.order_amount_free_delivery}}</div>
+          <div v-if="info.delivery_fee_per_order && info.delivery_fee_per_order != 0">{{$t('supply.buzuqisongjinedesonghuofei')}}：SGD {{info.delivery_fee_per_order}}</div>
         </div>
         <div class='like'>
           <div class='like-list' v-if="list.length">
@@ -20,8 +20,8 @@
               <div class='new-bot'>
                 <div class='price'>${{item.actPrice[0]}}.{{item.actPrice[1]}}</div>
                 <div v-if="item.car_count<=0">
-                  <i-button iClass="add-cart disabled" v-if="item.spuCanBuyNum==0">已抢光</i-button>
-                  <div @click.stop.prevent="openSku" :data-idx="index" class="add-cart" :style="'background:'+skin.color" v-else>立即抢购</div>
+                  <i-button iClass="add-cart disabled" v-if="item.spuCanBuyNum==0">{{$t('supply.yiqiangguang')}}</i-button>
+                  <div @click.stop.prevent="openSku" :data-idx="index" class="add-cart" :style="'background:'+skin.color" v-else>{{$t('supply.lijiqianggou')}}</div>
                 </div>
                 <i-input-number v-else addImage="@/assets/images/icon-add-2.png" @change="changeNumber" @outOfMax="outOfMax" iClass="index-input-number" iClassNumberText="input-number-text" :max="item.spuCanBuyNum" min="0" reduceImage="@/assets/images/icon-reduce-2.png" :value="item.car_count" :idx="index"></i-input-number>
               </div>
@@ -29,8 +29,8 @@
           </div>
           <div class="none-rush-list" v-if="noData">
             <img class="img-block" src="@/assets/images/icon-index-empty.png"/>
-            <div class="h1">暂时没有团购</div>
-            <div class="h2">我们正在为您准备更优惠的团购</div>
+            <div class="h1">{{$t('supply.zanshimeiyoutuangou')}}</div>
+            <div class="h2">{{$t('supply.zanshimeiyoutuangoutishi')}}</div>
           </div>
         </div>
         <div class='copytext-btn' @click="showCopyTextHandle" :data-status="true">
@@ -40,7 +40,7 @@
 
         <div class="addSupply" @click="goSupplyRecruit">
           <img class="img" src="@/assets/images/icon-tab-supplier.png"/>
-          <span>入驻</span>
+          <span>{{$t('supply.ruzhu')}}</span>
         </div>
       </div>
     </van-list>
@@ -350,7 +350,8 @@
 
 .new-comers-item .add-cart {
   height: 4.8vw;
-  width: 16vw;
+  width: 20vw;
+  text-align: center;
   line-height: 4.8vw;
   padding: 0 2vw;
   color: #fff;

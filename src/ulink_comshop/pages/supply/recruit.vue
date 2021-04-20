@@ -6,7 +6,7 @@
           <p v-html="article"></p>
         </div>
         <div @click="goLink" class="apply-btn" data-link="/ulink_comshop/pages/supply/apply" :style="{background:skin.color}">
-          申请成为{{supply_diy_name}}
+          {{$t('supply.shenqingchengwei')}}{{supply_diy_name}}
         </div>
       </div>
     </div>

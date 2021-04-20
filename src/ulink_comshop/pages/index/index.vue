@@ -212,10 +212,10 @@
           <div class="index_supply" v-if="supply.length>0 && isShowContactBtn==1">
             <div class="my-supply modal-head">
               <div class="supply-title">
-                <span>附近店铺</span>
+                <span>{{$t('home.fujindianpu')}}</span>
               </div>
               <router-link class="to-supply" to="/ulink_comshop/pages/supply/index">
-                <span>更多</span>
+                <span>{{$t('home.gengduo')}}</span>
                 <img class="icon-right" src="@/assets/images/rightArrowImg.png"/>
               </router-link>
             </div>

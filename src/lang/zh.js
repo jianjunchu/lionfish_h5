@@ -9,7 +9,9 @@ export default {
     quanbu: '全部',
     yiqiangguang: '已抢光',
     tuangouyijieshu: '团购已结束',
-    queding: '确定'
+    queding: '确定',
+    fujindianpu: '附近店铺',
+    gengduo: '更多'
   },
   index: {
     desktop: '添加到「桌面」团购更方便',
@@ -172,7 +174,8 @@ export default {
     tuangouyijieshu: '团购已结束',
     yixiajia: '已下架',
     tuanzhangxiuxi: '团长休息中',
-    lijiduihuan: '立即兑换'
+    lijiduihuan: '立即兑换',
+    jinrudianpu: '进入店铺'
   },
   order: {
     shouhuoxinxi: '收货信息',
@@ -435,6 +438,40 @@ export default {
     qisongjine: '起送金额',
     yunfei: '运费',
     logo: 'Logo',
-    xuanchuantu: '宣传图'
+    xuanchuantu: '宣传图',
+    zanwupingfen: '暂无评分',
+    zanwu: '暂无',
+    ruzhu: '入驻',
+    dianpuxiangqing: '店铺详情',
+    dizhi: '地址',
+    juli: '距离',
+    lianxidianhua: '联系电话',
+    lianxiren: '联系人',
+    mianfeiqisongjine: '免费起送金额',
+    buzuqisongjinedesonghuofei: '不足起送金额的送货费',
+    yiqiangguang: '已抢光',
+    lijiqianggou: '立即抢购',
+    zanshimeiyoutuangou: '暂时没有团购',
+    zanshimeiyoutuangoutishi: '我们正在为您准备更优惠的团购',
+    shenqingchengwei: '申请成为',
+    shenqingchengweitishi: '身份，需要您填写真实姓名、手机',
+    qingshuru: '请输入',
+    mingcheng: '名称',
+    chanpinyijiyoushi: '产品以及优势（选填）',
+    fahuodizhideyoubian: '发货地址的邮编',
+    fahuodizhidedapaihao: '发货地址的大牌号',
+    fahuodizhideluming: '发货地址的路名',
+    fahuodizhidejianzhuming: '发货地址的建筑名',
+    fahuodizhidemenpaihao: '发货地址的门牌号',
+    zhishurushuzi: '（只输入数字）',
+    qingshangchuan: '请上传',
+    logotishi: '正方形Logo 图片',
+    bannertishi: ' 高300x宽700 的宣传图片(可选)',
+    tijiaoshenqing: '提交申请',
+    shenqingtongguo: '申请通过',
+    shenqingtongguotishi: '恭喜您，您的申请已通过',
+    shenqingshenhezhong: '申请审核中',
+    shenqingshenhezhongtishi: '您的申请在处理中，请等待结果…',
+    fanhuishouye: '返回首页'
   }
 }

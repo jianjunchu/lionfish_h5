@@ -166,7 +166,7 @@
           <span class="pre" v-if="goods.is_show_pre == 1">Expected delivery date: <span style="color: #ff5344">{{goods.pre_delivery_date}}</span></span>
         </div>
         <div class="supply" @click="goLink2" data-link="/ulink_comshop/pages/supply/home?id=" :data-id="goods.supply_id">
-          <div class="supply-btn" :style="'background:'+skin.color">进入店铺</div>
+          <div class="supply-btn" :style="'background:'+skin.color">{{$t('detail.jinrudianpu')}}</div>
         </div>
         <div @click.stop="goLink" class="vip i-flex i-flex-spb" data-link="/ulink_comshop/moduleA/vip/upgrade"
              v-if="goods.is_take_vipcard==1&&is_vip_card_member==1&&is_open_vipcard_buy==1">
