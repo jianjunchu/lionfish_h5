@@ -165,6 +165,9 @@
           </span>
           <span class="pre" v-if="goods.is_show_pre == 1">Expected delivery date: <span style="color: #ff5344">{{goods.pre_delivery_date}}</span></span>
         </div>
+        <div class="supply" @click="goLink2" data-link="/ulink_comshop/pages/supply/home?id=" :data-id="goods.supply_id">
+          <div class="supply-btn" :style="'background:'+skin.color">{{$t('detail.jinrudianpu')}}</div>
+        </div>
         <div @click.stop="goLink" class="vip i-flex i-flex-spb" data-link="/ulink_comshop/moduleA/vip/upgrade"
              v-if="goods.is_take_vipcard==1&&is_vip_card_member==1&&is_open_vipcard_buy==1">
           <div class="i-flex vip-name">
@@ -208,7 +211,7 @@
           <img class="group-r-icon" src="@/assets/images/community-right-arrow.png"/>
         </div>
       </div>
-      <div @click.stop="showGroupCode" class="group"
+      <!-- <div @click.stop="showGroupCode" class="group"
            v-if="isopen_community_group_share==1&&group_share_info&&group_share_info.share_wxcode">
         <div class="group-avatar">
           <img :src="group_share_info.share_avatar"/>
@@ -220,7 +223,7 @@
         <div class="group-r">
           <div class="group-btn" :style="{color:skin.color,background:skin.light}">{{$t('detail.mashangjiaqun')}}</div>
         </div>
-      </div>
+      </div> -->
       <div v-if="order_comment_count>0&&is_show_comment_list==1">
         <div class="straightInLive">
           <div class="title">
@@ -3170,6 +3173,20 @@
     flex: 1;
     font-size: 14px;
     color: red;
+  }
+
+  .supply {
+    float: right;
+    position: relative;
+    bottom: 5vw;
+    font-size: 3.2vw;
+  }
+
+  .supply-btn {
+    background: #ff5344;
+    color: #fff;
+    padding: 1vw 3vw;
+    border-radius: 6vw;
   }
 
 </style>

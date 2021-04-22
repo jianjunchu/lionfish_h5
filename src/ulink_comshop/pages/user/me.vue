@@ -380,8 +380,7 @@
               </div>
             </div>
             <div v-else-if="is_supply==2">
-              <div @click="goLink2" class="item-main" data-link="/ulink_comshop/moduleB/supply/index"
-                   v-if="is_open_supplymobile==1">
+              <div class="item-main" v-if="is_open_supplymobile==1">
                 <div class="item-title">
                   <img aspectFit class="toolIcon supplier" mode="widthFix"
                        :src="user_tool_icons.i6?user_tool_icons.i6:require('@/assets/images/icon-supplier.png')"/>

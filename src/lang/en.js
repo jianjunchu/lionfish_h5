@@ -9,7 +9,9 @@ export default {
     quanbu: 'All',
     yiqiangguang: 'Sold Out',
     tuangouyijieshu: 'Already Finished',
-    queding: 'OK'
+    queding: 'OK',
+    fujindianpu: 'Nearby Stores',
+    gengduo: 'More'
   },
   me: {
     wodedingdan: 'My Orders',
@@ -148,7 +150,8 @@ export default {
     tuangouyijieshu: 'Group Buy is Over',
     yixiajia: 'Shelf off',
     tuanzhangxiuxi: 'Host in Rest',
-    lijiduihuan: 'Exchange Now'
+    lijiduihuan: 'Exchange Now',
+    jinrudianpu: 'Store Home'
   },
   order: {
     shouhuoxinxi: 'Order Detail',
@@ -415,6 +418,41 @@ export default {
     qisongjine: 'Order Amount Free Delivery',
     yunfei: 'Delivery Fee Per Order',
     logo: 'Logo',
-    xuanchuantu: 'Banner'
+    xuanchuantu: 'Banner',
+    zanwupingfen: 'No Score',
+    zanwu: 'No More',
+    ruzhu: 'Join',
+    dianpuxiangqing: 'Store Detail',
+    dizhi: 'Address',
+    juli: 'Distance',
+    lianxidianhua: 'Contact Mobile',
+    lianxiren: 'Contact Name',
+    mianfeiqisongjine: 'Order Amount Free Delivery',
+    buzuqisongjinedesonghuofei: 'Delivery Fee Per Order',
+    yiqiangguang: 'Sold Out',
+    lijiqianggou: 'Add To Cart',
+    zanshimeiyoutuangou: 'No More Group Purchases',
+    zanshimeiyoutuangoutishi: 'We are preparing more better group purchases for you',
+    shenqingchengwei: 'Apply For ',
+    shenqingchengwei1: 'Apply for ',
+    shenqingchengwei1tishi: ' identity,please enter your real name and mobile',
+    qingshuru: 'Please Enter ',
+    mingcheng: ' Name',
+    chanpinyijiyoushi: 'Product And Advantage(Certificate)',
+    fahuodizhideyoubian: 'Postal Code Of Place Of Dispatch',
+    fahuodizhidedapaihao: 'Block Of Place Of Dispatch',
+    fahuodizhideluming: 'Street Of Place Of Dispatch',
+    fahuodizhidejianzhuming: 'Building Of Place Of Dispatch',
+    fahuodizhidemenpaihao: 'Unit Of Place Of Dispatch',
+    zhishurushuzi: '(Only Number)',
+    qingshangchuan: 'Please Upload ',
+    logotishi: 'Squared Picture For Logo',
+    bannertishi: 'Picture For Banner(Height: 300;Width: 700)(Certificate)',
+    tijiaoshenqing: 'Submit Applications',
+    shenqingtongguo: 'Application Is Approved',
+    shenqingtongguotishi: 'Congratulations! Your Application Is Approved',
+    shenqingshenhezhong: 'Application Is Under Review',
+    shenqingshenhezhongtishi: 'Your Application Is Under Review. Please Wait...',
+    fanhuishouye: 'Back to Homepage'
   }
 }

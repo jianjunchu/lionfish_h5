@@ -13,7 +13,7 @@
               <div class="name">{{supply.storename || supply.shopname || '供应商'}}</div>
               <div class="stars">
                 <div class="star" v-for="(star,index1) in supply.star" :key="index1"><img :src="star"/></div>
-                <div class="score"><span v-if="supply.score" style="color: #f1a700;">{{supply.score}}</span><span v-else>暂无评分</span></div>
+                <div class="score"><span v-if="supply.score" style="color: #f1a700;">{{supply.score}}</span><span v-else>{{$t('supply.zanwupingfen')}}</span></div>
               </div>
               <div class="product" v-if="supply.product"><span>{{supply.product}}</span></div>
             </div>
@@ -29,14 +29,14 @@
         </div>
         <div class="none-rush-list" v-if="supplyList.length==0">
           <img class="img-block" src="@/assets/images/icon-index-empty.png"/>
-          <div class="h1">暂无{{supply_diy_name}}~</div>
+          <div class="h1">{{$t('supply.zanwu')}}{{supply_diy_name}}~</div>
         </div>
       </div>
     </van-list>
 
     <div class="addSupply" @click="goSupplyRecruit">
       <img class="img" src="@/assets/images/icon-tab-supplier.png"/>
-      <span>入驻</span>
+      <span>{{$t('supply.ruzhu')}}</span>
     </div>
     <i-new-auth @authSuccess="authSuccess" @cancel="authModal" :needAuth="needAuth&&showAuthModal"
         :needPosition="needPosition"></i-new-auth>
