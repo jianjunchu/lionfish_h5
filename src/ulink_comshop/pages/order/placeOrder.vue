@@ -5,7 +5,8 @@
       <div class="mask" catchtouchmove="preventTouchMove" v-if="show_delivery_time_modal"></div>
       <div class="deliveryTimeDlg" v-if="show_delivery_time_modal">
         <div style='width:100%;height:26px;border-bottom:1px solid #ccc;margin:0;padding:0;'>
-          <span style='text-align:center;font-size:14px;font-weight:600 ;margin-top:10vw'>{{$t('order.songhuoriqi')}}</span>
+          <span
+            style='text-align:center;font-size:14px;font-weight:600 ;margin-top:10vw'>{{$t('order.songhuoriqi')}}</span>
         </div>
         <div style='width:100%;margin-top:48vw'>
           <div class='deliveryTimeItem' @click="deliveryTimeItemClick" data-item="item"
@@ -25,16 +26,18 @@
         </div>
       </div>
 
-      <i-bank-modal :visible="show_transfer_modal" :skin="skin" :tot_price="tot_price"  :bankInfo="bankInfo" @close="closeTransferModal" @havePaid="havePaid"></i-bank-modal>
+      <i-bank-modal :visible="show_transfer_modal" :skin="skin" :tot_price="tot_price" :bankInfo="bankInfo"
+                    @close="closeTransferModal" @havePaid="havePaid"></i-bank-modal>
 
-      <i-paynow-modal :visible="show_paynow_modal" :skin="skin" :tot_price="tot_price" :payNowInfo="payNowInfo" @close="closePayNowModal" @havePaid="havePaid"></i-paynow-modal>
-
+      <i-paynow-modal :visible="show_paynow_modal" :skin="skin" :tot_price="tot_price" :payNowInfo="payNowInfo"
+                      @close="closePayNowModal" @havePaid="havePaid"></i-paynow-modal>
 
 
       <div class="mask" catchtouchmove="preventTouchMove" v-if="show_payment_modal"></div>
       <div class="modalDlg" v-if="show_payment_modal">
         <div style='width:100%;height:40px;border-bottom:1px solid #ccc;margin:0;padding:0;'>
-          <span style='text-align:center;font-size:14px;font-weight:600 ;margin-top:1vw'>{{$t('cart.zhifufangshi')}}</span>
+          <span
+            style='text-align:center;font-size:14px;font-weight:600 ;margin-top:1vw'>{{$t('cart.zhifufangshi')}}</span>
         </div>
 
         <!-- 总金额 -->
@@ -50,7 +53,8 @@
 
                 <button @click="preSubscript"  data-type="cashpay" class="wux-button wux-button--block" type="warn" style="margin-top=16px">到店付款</button>
                 -->
-        <button @click="preSubscript" data-type="paynow" class="wux-button wux-button--block" :style="{background:skin.color,color:' #fff'}" type="warn">PayNow
+        <button @click="preSubscript" data-type="paynow" class="wux-button wux-button--block"
+                :style="{background:skin.color,color:' #fff'}" type="warn">PayNow
         </button>
         <!--<button @click="preSubscript" data-type="banktransfer" class="wux-button wux-button&#45;&#45;block" :style="{background:skin.color,color:' #fff'}" type="warn">公司转账
         </button>-->
@@ -59,7 +63,10 @@
         <button wx:if='{{tabIdx==0}}' @click="preSubscript" data-type="cash" class="wux-button wux-button--block" type="warn">货到付款</button>
         -->
 
-        <button @click="closePaymentModal" class="wux-button wux-button--block" type="default">{{$t('cart.quxiaozhifu')}}</button>
+        <button @click="closePaymentModal" class="wux-button wux-button--block" type="default">
+          {{$t('cart.quxiaozhifu')}}
+        </button>
+
 
       </div>
 
@@ -74,14 +81,14 @@
           </div>
           <div class="receiver">
             <span space="ensp">{{tabIdx==0? $t('order.tihuoren'): $t('order.shouhuoren') }}：</span>
-            <input  class="receive-name" placeholder=""
+            <input class="receive-name" placeholder=""
                    type="text" v-model="tabAddress[tabIdx].name"></input>
           </div>
 
 
           <div class="receiver">
             <span>{{$t('order.shoujihaoma')}}</span>
-            <input   class="mobile" placeholder="" type="number"
+            <input class="mobile" placeholder="" type="number"
                    v-model="tabAddress[tabIdx].mobile"></input>
           </div>
 
@@ -94,24 +101,24 @@
             </div>
             <div class="receiver align-start">
               <span space="ensp">{{$t('order.dapaihao')}}</span>
-              <input  class="receive-name" placeholder=""
+              <input class="receive-name" placeholder=""
                      type="text" v-model="tabAddress[tabIdx].blk_no"></input>
             </div>
             <div class="receiver">
               <span space="ensp">{{$t('order.daoluming')}}</span>
-              <input  class="receive-name" placeholder=""
+              <input class="receive-name" placeholder=""
                      type="" v-model="tabAddress[tabIdx].roadName"></input>
             </div>
 
             <div class="receiver align-start">
               <span space="ensp">{{$t('order.menpaihao')}}</span>
-              <input  class="receive-name" :placeholder="$t('order.liru106')"
+              <input class="receive-name" :placeholder="$t('order.liru106')"
                      type="text" v-model="tabAddress[tabIdx].lou_meng_hao" v-if="!showConfirmModal"></input>
             </div>
 
             <div class="receiver">
               <span space="ensp">{{$t('order.jianzhuming')}}</span>
-              <input  class="receive-name" placeholder=""
+              <input class="receive-name" placeholder=""
                      type="" v-model="tabAddress[tabIdx].building "></input>
             </div>
 
@@ -151,7 +158,8 @@
 
           <div class="receiver align-start">
             <span>{{tabIdx ==0 ? $t('cart.zitishijian') : $t('cart.songhuoshijian') }}</span>
-            <input @click="showPickupTime" readonly  :placeholder="'Choose'+tabIdx ==0 ? $t('cart.xuanzeshijian') : $t('cart.xuanzeshijian')" type="text"
+            <input @click="showPickupTime" readonly
+                   :placeholder="'Choose'+tabIdx ==0 ? $t('cart.xuanzeshijian') : $t('cart.xuanzeshijian')" type="text"
                    :value="tabAddress[tabIdx].delivery_date_str"></input>
           </div>
 
@@ -162,12 +170,13 @@
             <p class="address-red">{{$t('order.xinxi')}} {{community.disUserName}} ({{community.communityName}})
 
               <router-link style="display:inline;right: 1vw;" class="to-distribution"
-                         hoverClass="none" to="/ulink_comshop/pages/position/community">
+                           hoverClass="none" to="/ulink_comshop/pages/position/community">
                 <span>{{$t('order.qiehuantuanzhang')}} </span>
               </router-link>
             </p>
-       <p class="address">{{tabIdx==0?$t('order.tihuodidian'):groupInfo.owner_name+'位置'}}：{{community.fullAddress}}</p>
-</div>
+            <p class="address">
+              {{tabIdx==0?$t('order.tihuodidian'):groupInfo.owner_name+'位置'}}：{{community.fullAddress}}</p>
+          </div>
         </div>
         <div class="address-line">
           <img src="@/assets/images/icon-address-line.png"/>
@@ -177,15 +186,15 @@
             <div class="card-header" slot="header" :style="{color:skin.color}">
 
               <div v-if="tabIdx==0">
-<!--
-                <div v-if="tabAddress[tabIdx].delivery_date_str && tabAddress[tabIdx].delivery_date_str!=''">
-                  <div class="cart-header-left">预计{{tabAddress[tabIdx].delivery_date_str}}可自提</div>
-                </div>
-                <div v-else>
-                  <div class="cart-header-left" v-if="pick_up_type==3">预计{{pick_up_time}}可自提</div>
-                  <div class="cart-header-left" v-else>预计{{pick_up_time}}({{pick_up_weekday}})可自提</div>
-                </div>
--->
+                <!--
+                                <div v-if="tabAddress[tabIdx].delivery_date_str && tabAddress[tabIdx].delivery_date_str!=''">
+                                  <div class="cart-header-left">预计{{tabAddress[tabIdx].delivery_date_str}}可自提</div>
+                                </div>
+                                <div v-else>
+                                  <div class="cart-header-left" v-if="pick_up_type==3">预计{{pick_up_time}}可自提</div>
+                                  <div class="cart-header-left" v-else>预计{{pick_up_time}}({{pick_up_weekday}})可自提</div>
+                                </div>
+                -->
               </div>
               <!--
               <div v-else-if="tabIdx==1">
@@ -198,9 +207,9 @@
             <div class="cart-item" slot="content">
               <div class="sku-item" v-for="(item,index) in value.goods" :key="index">
 
-                <van-image  class="sku-img" :src="item.image">
+                <van-image class="sku-img" :src="item.image">
                   <template v-slot:loading>
-                    <van-loading type="spinner" size="20" />
+                    <van-loading type="spinner" size="20"/>
                   </template>
                 </van-image>
 
@@ -242,8 +251,8 @@
               </div>
             </div>
             <div class="cart-footer" slot="footer" v-if="is_open_order_message==1">
-              <input @input="bindInputMessage" class="order-message" :data-idx="key" placeholder={{$t('common.beizhu')}}
-                     type="text"></input>
+              <input @input="bindInputMessage" class="order-message" :data-idx="key" :placeholder="$t('common.beizhu')"
+                     type="text">
             </div>
 
           </i-card>
@@ -279,7 +288,8 @@
             <span>满减</span>
             <em>- $ {{reduce_money}}</em>
           </div>
-          <div @click="showvoucher" class="cell" data-seller_id="0" v-if="seller_goodss[0] && seller_goodss[0].show_voucher==1">
+          <div @click="showvoucher" class="cell" data-seller_id="0"
+               v-if="seller_goodss[0] && seller_goodss[0].show_voucher==1">
             <div>
               <span>{{$t('common.youhuiquan')}}</span>
               <span class="cell-desc" v-if="sel_chose_vouche.limit_money>0">min. ${{sel_chose_vouche.limit_money}} purchase to use ${{sel_chose_vouche.credit}} coupon</span>
@@ -310,7 +320,7 @@
           </div>
         </div>
         <div v-if="buy_type=='integral'">
-          <div class="act-content" >
+          <div class="act-content">
             <div avalonctrl="oc_payment" @click="ck_paynowpays" class="oc-payment">
               <div :class="['oc-payment-item',ck_yupay==2?'oc-payment-selected':'']"
                    :style="ck_yupay==2?'color:'+skin.color:''">
@@ -320,12 +330,13 @@
               </div>
             </div>
 
+
             <div v-if="is_yue_open==1&&total_free>0">
               <div avalonctrl="oc_payment" @click="ck_yupays" class="oc-payment" v-if="can_yupay">
                 <div :class="['oc-payment-item', ck_yupay ==1?'oc-payment-selected':'']"
                      :style="ck_yupay ==1?'color:'+skin.color:''">
                   <span class="iconfont icon-balance oc-payment-icon" style="color:#ff5777;"></span>
-                  <div class="oc-payment-method">{{ $t('order.yuezhifu',{p1:yu_money}) }}   </div>
+                  <div class="oc-payment-method">{{ $t('order.yuezhifu',{p1:yu_money}) }}</div>
                 </div>
               </div>
               <div class="oc-payment" v-else>
@@ -339,12 +350,21 @@
           </div>
         </div>
         <div v-else>
-          <div class="act-content" >
+          <div class="act-content">
             <div avalonctrl="oc_payment" @click="ck_paynowpays" class="oc-payment">
               <div :class="['oc-payment-item', ck_yupay==2?'oc-payment-selected':'']"
                    :style="ck_yupay==2?'color:'+skin.color:''">
                 <span class="iconfont icon-weixinzhifu oc-payment-icon" style="color:#00c800;"></span>
                 <div class="oc-payment-method">PayNow</div>
+                <!--<div class="oc-payment-recommend" :style="{'color':skin.color , 'border-color':skin.color}">推荐</div>-->
+              </div>
+            </div>
+
+            <div avalonctrl="oc_payment" @click="ck_paypalpays" class="oc-payment">
+              <div :class="['oc-payment-item', ck_yupay==3?'oc-payment-selected':'']"
+                   :style="ck_yupay==3?'color:'+skin.color:''">
+                <span class="iconfont icon-ccpaypal oc-payment-icon" style="color:#1c36c8;"></span>
+                <div class="oc-payment-method">PayPal</div>
                 <!--<div class="oc-payment-recommend" :style="{'color':skin.color , 'border-color':skin.color}">推荐</div>-->
               </div>
             </div>
@@ -366,6 +386,7 @@
             </div>
           </div>
         </div>
+
         <i-fixed-bottom>
           <div class="fixed-content">
             <div class="fixed-left">
@@ -396,14 +417,16 @@
       <div class="confirm-order-modal">
         <div v-if="tabIdx==0">
           <!-- <div class="title">{{$t('order.cishangpinxuyao')}}{{originTabList[tabIdx].name}} {{$t('order.qingquerentihuo')}}</div> -->
-          <div v-if="tabIdx==0" class="title"> This product requires you to pick up from the Collection Point. Please confirm the collection information. </div>
-          <div v-if="tabIdx==2" class="title"> This product is Direct Delivery. </div>
-	  <div class="sub-title">
+          <div v-if="tabIdx==0" class="title"> This product requires you to pick up from the Collection Point. Please
+            confirm the collection information.
+          </div>
+          <div v-if="tabIdx==2" class="title"> This product is Direct Delivery.</div>
+          <div class="sub-title">
             <img src="@/assets/images/icon-give.png"/>
 
             <div v-if="tabAddress[tabIdx].delivery_date_str && tabAddress[tabIdx].delivery_date_str!=''">
               <!-- <div>预计{{tabAddress[tabIdx].delivery_date_str}}可自提</div>  -->
-		<div>Estimated pick-up:{{tabAddress[tabIdx].delivery_date_str}}</div>
+              <div>Estimated pick-up:{{tabAddress[tabIdx].delivery_date_str}}</div>
             </div>
             <div v-else>
               <span v-if="pick_up_type==3">{{pick_up_time}}可自提</span>
@@ -473,8 +496,11 @@
           </div>
         </div>
         <div class="button-group">
-          <i-button @handleTap="closeConfirmModal" class="btn-content" iClass="btn left-btn">{{$t('common.quxiao')}}</i-button>
-          <div class="btn-content btn right-btn bgDisabled" v-if="btnDisable">{{btnText?btnText:$t('order.querenzhifu')}}</div>
+          <i-button @handleTap="closeConfirmModal" class="btn-content" iClass="btn left-btn">{{$t('common.quxiao')}}
+          </i-button>
+          <div class="btn-content btn right-btn bgDisabled" v-if="btnDisable">
+            {{btnText?btnText:$t('order.querenzhifu')}}
+          </div>
           <i-button @handleTap="preSubscript" class="btn-content" iClass="btn right-btn" :loading="payBtnLoading"
                     :styleStr="'background:'+skin.color" v-else>
             <div :style="{background:skin.color}">{{$t('order.querenzhifu')}}</div>
@@ -520,7 +546,8 @@
       </div>
     </i-modal>
 
-    <i-modal @cancel="closePickupTimeModal" iClass="confirm-modal-content" :is-show="showPickupTimeModal" scrollUp="true">
+    <i-modal @cancel="closePickupTimeModal" iClass="confirm-modal-content" :is-show="showPickupTimeModal"
+             scrollUp="true">
       <div class="confirm-order-modal">
         <div class="title">{{tabIdx ==0 ? $t('order.xuanzetihuoshijian') : $t('order.xuanzesonghuoshijian')}}</div>
         <div class="line"></div>
@@ -546,7 +573,7 @@
               <div @click="changePickupTime" v-for="(item , index ) in rickupTimeData.currentTimes" :key="index"
                    :data-index="index">
                 <el-button style="width: 50vw" :type="rickupTimeData.activeTimeIndex===index?'warn':'primary'"
-                        plain="true" size="mini">{{item}}
+                           plain="true" size="mini">{{item}}
                 </el-button>
               </div>
             </div>
@@ -555,10 +582,12 @@
         </div>
 
         <div class="button-group">
-          <div @click="closePickupTimeModal" class="btn left-btn btn-content" iClass="btn left-btn">{{$t('common.quxiao')}}</div>
+          <div @click="closePickupTimeModal" class="btn left-btn btn-content" iClass="btn left-btn">
+            {{$t('common.quxiao')}}
+          </div>
           <div class="btn-content btn right-btn bgDisabled" v-if="btnDisable">{{btnText?btnText:'确认支付'}}</div>
           <div @click="changePickupDateTime" class="btn right-btn btn-content" iClass="btn right-btn"
-                    :styleStr="'background:'+skin.color" v-else>
+               :styleStr="'background:'+skin.color" v-else>
             <div :style="{background:skin.color}">{{$t('common.queding')}}</div>
           </div>
         </div>
@@ -570,584 +599,592 @@
 </template>
 
 <script>
-  import GlobalMixin from '../../mixin/globalMixin.js'
-  import ITabs from '@/ulink_comshop/components/tabs'
-  import status from '../../utils/index.js'
-  import util from '../../utils/index.js'
-  import { ImagePreview } from 'vant';
-  import exp from "../../utils/timeFormat.js";
+    import GlobalMixin from '../../mixin/globalMixin.js'
+    import ITabs from '@/ulink_comshop/components/tabs'
+    import status from '../../utils/index.js'
+    import util from '../../utils/index.js'
+    import exp from "../../utils/timeFormat.js";
+    import {paypalMixin} from '../../mixin/paypalMixin.js'
 
-  var app, wx
-  var _extends = Object.assign || function(e) {
-      for (var t = 1; t < arguments.length; t++) {
-        var a = arguments[t]
-        for (var i in a) Object.prototype.hasOwnProperty.call(a, i) && (e[i] = a[i])
-      }
-      return e
+    var app, wx
+    var _extends = Object.assign || function (e) {
+        for (var t = 1; t < arguments.length; t++) {
+            var a = arguments[t]
+            for (var i in a) Object.prototype.hasOwnProperty.call(a, i) && (e[i] = a[i])
+        }
+        return e
     }, locat = require('../../utils/Location.js')
-    ,wcache = require('../../utils/wcache.js');
+        , wcache = require('../../utils/wcache.js');
 
-  export default {
-    name: 'placeOrder',
-    mixins: [GlobalMixin],
-    components:{ITabs},
-    data() {
-      return {
-        pre_begin_time:0,
-        transaction_id:'',
-        order_id: '',
-        order_num_alias: '',
-        show_payment_modal: false,
-        show_paynow_modal: false,
-        show_transfer_modal: false,
-        show_delivery_time_modal: false,
-        show_storefront_modal: false,
-        deliveryTimes: [{ date: '2020-04-10', week: '星期五', full: true, text: '已满' }],
-        bankInfo: {},
-        payNowInfo: {},
-        storefronts: [],
-        payNowQr: '',
-        payNowNo: '',
-        payNowUen: '',
-        payBtnLoading: !1,
-        showConfirmModal: !1,
-        showPickupTimeModal: false,
-        receiverAddress: '',
-        tuan_send_address: '',
-        showGetPhone: !1,
-        lou_meng_hao: '',
-        pickUpAddress: '',
-        disUserName: '',
-        pickUpCommunityName: '',
-        is_limit_distance_buy: 0,
-        is_limit: 0,
-        zipCode: '', //lilongyun 2020-05-28 邮编
-        roadName: '', //lilongyun 2020-05-28 道路名
-        building: '', //lilongyun 2020-05-28 建筑名
-        blk_no: '', //lilongyun 2020-05-28 大牌号
-        rickupTimeData: {
-          activeDateIndex: 0,
-          activeTimeIndex: 0,
-          currentDate: '',
-          currentTime: '',
-          list: [],
-          currentTimes: []
-        },
-        tabList: [{
-          id: 0,
-          name: '到点自提',
-          dispatching: 'pickup',
-          enabled: !1
-        }, {
-          id: 1,
-          name: '团长配送',
-          dispatching: 'tuanz_send',
-          enabled: !1
-        }, {
-          id: 2,
-          name: '快递配送',
-          dispatching: 'express',
-          enabled: !1
-        }],
-        originTabList: [{
-          id: 0,
-          name: '到点自提',
-          dispatching: 'pickup'
-        }, {
-          id: 1,
-          name: '团长配送',
-          dispatching: 'tuanz_send'
-        }, {
-          id: 2,
-          name: '快递配送',
-          dispatching: 'express'
-        }],
-        tabIdx: 0,
-        region: ['选择地址', '', ''],
-        tot_price: 0,
-        needAuth: !1,
-        reduce_money: 0,
-        hide_quan: !0,
-        tuan_region: ['选择地址', '', ''],
-        groupInfo: {
-          group_name: '社区',
-          owner_name: '团长',
-          placeorder_tuan_name: '配送费',
-          placeorder_trans_name: 'Freight'
-        },
-        comment: '',
-        is_yue_open: 0,
-        can_yupay: 0,
-        ck_yupay: 2,
-        pay_method:'paynow',
-        use_score: 0,
-        commentArr: {},
-        community: {},
-        canPay: !0,
-        canPreSub: !0,
-        tabAddress: [{
-          name: '',
-          mobile: ''
-          //delivery_time:e.pick_up_time+'('+e.pick_up_weekday+')'
-        }, {
-          name: '',
-          mobile:  '',
-          receiverAddress: '',
-          lou_meng_hao: '',
-          zipCode: '', //lilongyun 2020-05-28
-          roadName: '',//lilongyun 2020-05-28
-          building: '',//lilongyun 2020-05-28
-          blk_no: '', //lilongyun 2020-05-28 大牌号
-          region: []
-        }, {
-          name: '',
-          mobile: '',
-          receiverAddress: '',
-          lou_meng_hao:  '',
-          zipCode: '', //lilongyun 2020-05-28
-          roadName:  '',//lilongyun 2020-05-28
-          building: '',//lilongyun 2020-05-28
-          blk_no: '', //lilongyun 2020-05-28 大牌号
-          region: []
-        }],
-        tabLength: 0,
-        seller_goodss: [],
-        ssvoucher_list: [],
-        btnLoading: !1,
-        btnDisable: !1,
-        visible: !1,
-        voucher_serller_id: 0,
-        is_hexiao: !1,
-        is_vip_card_member: !1,
-        canLevelBuy: !1,
-        disAmount: 0 ,
-        seller_chose_id: 0,
-        index_hide_headdetail_address: 0,
-        open_score_buy_score: 0,
-        total_all: 0,
-        pick_up_type: 0,
-        pick_up_time: '',
-        pick_up_weekday: '',
-        total_goods_price: '',
-        current_distance: '',
+    export default {
+        name: 'placeOrder',
+        mixins: [GlobalMixin, paypalMixin],
+        components: {ITabs},
+        data() {
+            return {
+                pre_begin_time: 0,
+                transaction_id: '',
+                order_id: '',
+                order_num_alias: '',
+                show_payment_modal: false,
+                show_paynow_modal: false,
+                show_transfer_modal: false,
+                show_delivery_time_modal: false,
+                show_storefront_modal: false,
+                deliveryTimes: [{date: '2020-04-10', week: '星期五', full: true, text: '已满'}],
+                bankInfo: {},
+                payNowInfo: {},
+                storefronts: [],
+                payNowQr: '',
+                payNowNo: '',
+                payNowUen: '',
+                payBtnLoading: !1,
+                showConfirmModal: !1,
+                showPickupTimeModal: false,
+                receiverAddress: '',
+                tuan_send_address: '',
+                showGetPhone: !1,
+                lou_meng_hao: '',
+                pickUpAddress: '',
+                disUserName: '',
+                pickUpCommunityName: '',
+                is_limit_distance_buy: 0,
+                is_limit: 0,
+                zipCode: '', //lilongyun 2020-05-28 邮编
+                roadName: '', //lilongyun 2020-05-28 道路名
+                building: '', //lilongyun 2020-05-28 建筑名
+                blk_no: '', //lilongyun 2020-05-28 大牌号
+                rickupTimeData: {
+                    activeDateIndex: 0,
+                    activeTimeIndex: 0,
+                    currentDate: '',
+                    currentTime: '',
+                    list: [],
+                    currentTimes: []
+                },
+                tabList: [{
+                    id: 0,
+                    name: '到点自提',
+                    dispatching: 'pickup',
+                    enabled: !1
+                }, {
+                    id: 1,
+                    name: '团长配送',
+                    dispatching: 'tuanz_send',
+                    enabled: !1
+                }, {
+                    id: 2,
+                    name: '快递配送',
+                    dispatching: 'express',
+                    enabled: !1
+                }],
+                originTabList: [{
+                    id: 0,
+                    name: '到点自提',
+                    dispatching: 'pickup'
+                }, {
+                    id: 1,
+                    name: '团长配送',
+                    dispatching: 'tuanz_send'
+                }, {
+                    id: 2,
+                    name: '快递配送',
+                    dispatching: 'express'
+                }],
+                tabIdx: 0,
+                region: ['选择地址', '', ''],
+                tot_price: 0,
+                needAuth: !1,
+                reduce_money: 0,
+                hide_quan: !0,
+                tuan_region: ['选择地址', '', ''],
+                groupInfo: {
+                    group_name: '社区',
+                    owner_name: '团长',
+                    placeorder_tuan_name: '配送费',
+                    placeorder_trans_name: 'Freight'
+                },
+                comment: '',
+                is_yue_open: 0,
+                can_yupay: 0,
+                ck_yupay: 2,
+                pay_method: 'paynow',
+                use_score: 0,
+                commentArr: {},
+                community: {},
+                canPay: !0,
+                canPreSub: !0,
+                tabAddress: [{
+                    name: '',
+                    mobile: ''
+                    //delivery_time:e.pick_up_time+'('+e.pick_up_weekday+')'
+                }, {
+                    name: '',
+                    mobile: '',
+                    receiverAddress: '',
+                    lou_meng_hao: '',
+                    zipCode: '', //lilongyun 2020-05-28
+                    roadName: '',//lilongyun 2020-05-28
+                    building: '',//lilongyun 2020-05-28
+                    blk_no: '', //lilongyun 2020-05-28 大牌号
+                    region: []
+                }, {
+                    name: '',
+                    mobile: '',
+                    receiverAddress: '',
+                    lou_meng_hao: '',
+                    zipCode: '', //lilongyun 2020-05-28
+                    roadName: '',//lilongyun 2020-05-28
+                    building: '',//lilongyun 2020-05-28
+                    blk_no: '', //lilongyun 2020-05-28 大牌号
+                    region: []
+                }],
+                tabLength: 0,
+                seller_goodss: [],
+                ssvoucher_list: [],
+                btnLoading: !1,
+                btnDisable: !1,
+                visible: !1,
+                voucher_serller_id: 0,
+                is_hexiao: !1,
+                is_vip_card_member: !1,
+                canLevelBuy: !1,
+                disAmount: 0,
+                seller_chose_id: 0,
+                index_hide_headdetail_address: 0,
+                open_score_buy_score: 0,
+                total_all: 0,
+                pick_up_type: 0,
+                pick_up_time: '',
+                pick_up_weekday: '',
+                total_goods_price: '',
+                current_distance: '',
 
-      }
-    },
-    created: function() {
-
-      app = this.$getApp()
-      wx = this.$wx
-      this.$wx.setNavigationBarTitle({
-        title: "Place Order",
-        showLogo:false,
-        showMore:false,
-        showBack:true
-      })
-
-      this.onLoad()
-
-    },
-    mounted:function(){
-      this.onShow()
-    },
-    beforeRouteLeave(to, form, next) {
-      this.clearCarGoods();
-      next()
-    },
-    methods: {
-      onLoad: function() {
-
-        var e = this.$route.query
-
-        var F = this
-        status.setGroupInfo().then(function(f) {
-          F.groupInfo = f
-        })
-        var t = wx.getStorageSync('token'), a = wx.getStorageSync('community'), i = a.communityId;
-        util.check_login_new().then(function(t){
-          F.needAuth = !t
-        })
-
-        var o = e.is_limit || 0
-
-
-        var fullAddress = a.fullAddress || ''
-        fullAddress = fullAddress.replace('境外境外境外地区', '')
-
-        F.buy_type = e.type || ''
-        F.soli_id = e.soli_id || ''
-        F.pickUpAddress = fullAddress || ''
-        F.pickUpCommunityName = a.communityName || ''
-        F.disUserName = a.disUserName || ''
-
-        wx.showLoading()
-
-        var s = wx.getStorageSync('latitude2'), n = wx.getStorageSync('longitude2')
-
-        function r() {
-          app.util.request({
-            url: 'entry/wxapp/user',
-            data: {
-              controller: 'car.checkout',
-              token: t,
-              community_id: i,
-              buy_type: e.type,
-              soli_id: e.soli_id
-            },
-            dataType: 'json',
-            method: 'POST',
-            success: function(e) {
-              setTimeout(function() {
-                wx.hideLoading()
-              }, 1e3)
-              var t = e, a = 0, i = 0, o = F.tabList, s = [], n = e, r = n.delivery_express_name,
-                d = n.delivery_tuanzshipping_name, c = n.delivery_ziti_name, _ = n.delivery_diy_sort,
-                u = n.delivery_type_express, l = n.delivery_type_tuanz, h = n.delivery_type_ziti,
-                p = n.delivery_tuanz_money, m = n.is_vip_card_member, y = n.vipcard_save_money, g = n.level_save_money,
-                f = n.is_open_vipcard_buy, v = n.is_member_level_buy, b = n.total_integral, x = n.is_need_subscript,
-                w = n.need_subscript_template, S = n.is_hexiao, A = !1
-              if (1 == f ? 1 != m && 1 == v && (A = !0) : 1 == v && (A = !0), 1 == u && (o[2].enabled = !0,
-                i++), 1 == l && (o[1].enabled = !0, i++), 1 == h && (o[0].enabled = !0, i++), _) {
-                var k = _.split(',')
-                k[2] && o[k[2]] && o[k[2]].enabled && (a = k[2]), k[1] && o[k[1]] && o[k[1]].enabled && (a = k[1]),
-                k[0] && o[k[0]] && o[k[0]].enabled && (a = k[0]), k.forEach(function(e) {
-                  s.push(o[e])
-                })
-              }
-              r && (o[2].name = r), d && (o[1].name = d), c && (o[0].name = c)
-              1 == a || 2 == a && t.trans_free_toal
-
-              var T = 0, D = 0, P = t.seller_goodss, z = (Object.keys(P).length, {})
-              for (var I in P) z[I] = ''
-              var L = ''
-              for (var O in P) {
-                for (var j in 1 == P[O].show_voucher && (P[O].chose_vouche.id && (T = P[O].chose_vouche.id),
-                P[O].chose_vouche.store_id && (D = P[O].chose_vouche.store_id), '[object Object]' == Object.prototype.toString.call(P[O].chose_vouche) && (L = P[O].chose_vouche)),
-                  P[O].goodsnum = Object.keys(P[O].goods).length, P[O].goods) {
-                  0 < P[O].goods[j].header_disc && P[O].goods[j].header_disc < 100 && (P[O].goods[j].header_disc = (P[O].goods[j].header_disc / 10).toFixed(1))
-                }
-              }
-              F.is_hexiao = S
-              F.loadover = !0
-              F.commentArr = z
-              F.sel_chose_vouche = L
-              F.tabList = s
-              F.is_limit_distance_buy = t.is_limit_distance_buy || 0
-              F.tabIdx = a
-              F.tabLength = i
-              F.tuan_send_address = t.tuan_send_address
-              F.is_open_order_message = t.is_open_order_message
-              F.is_yue_open = t.is_yue_open
-              F.can_yupay = t.can_yupay
-              F.show_voucher = t.show_voucher
-              F.current_distance = t.current_distance || ''
-              F.man_free_tuanzshipping = 1 * t.man_free_tuanzshipping || 0
-              F.man_free_shipping = 1 * t.man_free_shipping || 0
-              F.index_hide_headdetail_address = t.index_hide_headdetail_address || 0
-              F.open_score_buy_score = t.open_score_buy_score || 0
-              F.score = t.score || 0
-              F.score_for_money = t.score_for_money || 0
-              F.bue_use_score = t.bue_use_score || 0
-              F.is_man_delivery_tuanz_fare = t.is_man_delivery_tuanz_fare
-              F.fare_man_delivery_tuanz_fare_money = t.fare_man_delivery_tuanz_fare_money
-              F.is_man_shipping_fare = t.is_man_shipping_fare
-              F.fare_man_shipping_fare_money = t.fare_man_shipping_fare_money
-              F.is_vip_card_member = m
-              F.vipcard_save_money = y
-              F.level_save_money = g
-              F.is_open_vipcard_buy = f
-              F.is_member_level_buy = v
-              F.canLevelBuy = A
-              F.total_integral = b || ''
-              F.is_need_subscript = x
-              F.need_subscript_template = w
-
-              var q = t.address, C = t.tuan_send_address_info, M = C.address || '选择位置'
-              '' != C.city_name && 3708 != C.city_id && '' != C.country_name && 3708 != C.country_id || (M = '选择位置')
-
-              F.tabAddress = [{
-                name: t.ziti_name || '',
-                mobile: t.ziti_mobile || ''
-                //delivery_time:e.pick_up_time+'('+e.pick_up_weekday+')'
-              }, {
-                name: C.name || '',
-                mobile: C.telephone || '',
-                receiverAddress: M,
-                lou_meng_hao: C.lou_meng_hao || '',
-                zipCode: C.zip_code || '', //lilongyun 2020-05-28
-                roadName: C.road_name || '',//lilongyun 2020-05-28
-                building: C.building || '',//lilongyun 2020-05-28
-                blk_no: C.blk_no || '', //lilongyun 2020-05-28 大牌号
-                region: [C.province_name || '', C.city_name || '', C.country_name || '']
-              }, {
-                name: q.name || '',
-                mobile: q.telephone || '',
-                receiverAddress: q.address || '',
-                lou_meng_hao: C.lou_meng_hao || '',
-                zipCode: C.zip_code || '', //lilongyun 2020-05-28
-                roadName: C.road_name || '',//lilongyun 2020-05-28
-                building: C.building || '',//lilongyun 2020-05-28
-                blk_no: C.blk_no || '', //lilongyun 2020-05-28 大牌号
-                region: [q.province_name || '选择地址', q.city_name || '', q.country_name || '']
-              }]
-
-              F.pick_up_time = e.pick_up_time
-              F.pick_up_type = e.pick_up_type
-              F.pick_up_weekday = e.pick_up_weekday
-              F.addressState = !0
-              F.is_integer = e.is_integer
-              F.is_ziti = e.is_ziti
-              F.pick_up_arr = e.pick_up_arr
-              F.seller_goodss = e.seller_goodss
-              F.seller_chose_id = T
-              F.seller_chose_store_id = D
-              F.goods = e.goods
-              F.buy_type = e.buy_type
-              F.yupay = e.can_yupay
-              F.is_yue_open = e.is_yue_open
-              F.yu_money = e.yu_money
-              F.total_free = e.total_free
-              F.trans_free_toal = e.trans_free_toal
-              F.delivery_tuanz_money = e.delivery_tuanz_money
-              F.reduce_money = e.reduce_money
-              F.is_open_fullreduction = e.is_open_fullreduction
-              F.cha_reduce_money = e.cha_reduce_money
-
-              F.calcPrice()
             }
-          })
-        }
+        },
+        created: function () {
 
-        1 == o && s && n && console.log('---------is here ?-----------'), r()
-      },
-      onShow: function(e) {
-        this.getPayInfo();
-        this.getCommunityInfo()
-      },
-      authSuccess: function() {
-        this.onLoad()
-      },
-      getCommunityInfo: function() {
-        var t = this, e = wx.getStorageSync('community')
-        e ? e.head_mobile ? (t.community = e) : util.getCommunityById(e.communityId).then(function(e) {
-          t.community = e.data
-        }) : wx.getStorageSync('token') && util.getCommunityInfo().then(function(e) {
-          t.community = e.data
-        })
-      },
-      getReceiveMobile: function(e) {
-        var t = e
-        this.t_ziti_mobile = t
-        this.showGetPhone = !1
-      },
-
-      selectStorefront: function() {
-        var this_ = this
-        wx.request({
-          // 请求地址
-          url: 'https://hz.xx315.net/addons/ulink_comshop/storefront.json',
-          // 请求方式
-          method: 'get',
-          dataType: 'json',
-          responseType: 'text',
-          // 方法
-          success: function(data) {
-            var datas = data.data
-            this_storefronts = datas
-
-          }
-        })
-        this_.showStorefrontModal()
-      },
-
-      selectdeliveryTime: function() {
-        var this_ = this
-        wx.request({
-          // 请求地址
-          url: 'https://hz.xx315.net/addons/ulink_comshop/delivery_time.json',
-          // 请求方式
-          method: 'get',
-          dataType: 'json',
-          responseType: 'text',
-          // 方法
-          success: function(data) {
-            var datas = data.data
-            var list = new Array()
-            for (var i = 0; i < datas.length; i++) {
-              const item = datas[i]
-              var currentDate = new Date()
-              currentDate.setDate(currentDate.getDate() + i + 1)
-              item.date = (currentDate).Format('yyyy-MM-dd')
-              item.week = util.getWeekDay(item.date)
-              if (item.ausgebucht == 1) {
-                item.full = true
-                item.text = '已满'
-                item.class = 'deliveryTimeFull'
-              } else {
-                item.full = false
-                item.text = ''
-                item.class = ''
-              }
-
-              list.push(item)
-            }
-            this_.deliveryTimes = list
-
-          }
-        })
-        this.showDeliveryTimeModal()
-      },
-      deliveryTimeItemClick: function(item) {
-        var e = this, s = e.tabAddress, n = e.tabIdx, r = this
-
-        if (item && item.currentTarget && item.currentTarget.dataset && item.currentTarget.dataset.item && !item.currentTarget.dataset.item.full) {
-          s[n].delivery_time = item.currentTarget.dataset.item.date
-
-          this.tabAddress = s
-          this.closeDeliveryTimeModal()
-
-        }
-      },
-      copyText: function(e) {
-        wx.setClipboardData({
-          data: e.currentTarget.dataset.text,
-          success: function(res) {
-            wx.getClipboardData({
-              success: function(res) {
-                wx.showToast({
-                  title: '复制成功'
-                })
-              }
+            app = this.$getApp()
+            wx = this.$wx
+            this.$wx.setNavigationBarTitle({
+                title: "Place Order",
+                showLogo: false,
+                showMore: false,
+                showBack: true
             })
-          }
-        })
-      },
 
-      ck_wxpays: function() {
-        this.ck_yupay = 0
-        this.pay_method ='wx'
-      },
+            this.onLoad()
 
-      ck_yupays: function() {
-        this.ck_yupay = 1
-        this.pay_method = 'yue'
-      },
-      ck_paynowpays: function() {
-        this.ck_yupay = 2
-        this.pay_method='paynow'
-      },
+        },
+        mounted: function () {
+            this.onShow()
+        },
+        beforeRouteLeave(to, form, next) {
+            this.clearCarGoods();
+            next()
+        },
+        methods: {
+            onLoad: function () {
 
-      scoreChange: function(e) {
-        console.log('是否使用', e.detail.value)
-        var t = this, a = 1 * t.score_for_money, i = 1 * t.tot_price, o = 1 * t.disAmount
-        e.detail.value ? (i = (i - a).toFixed(2), o += a) : (i = (i + a).toFixed(2), o -= a)
-        t.use_score = e.detail.value ? 1 : 0
-        t.tot_price = i
-        t.disAmount = o.toFixed(2)
-      },
+                var e = this.$route.query
 
-      close: function() {
-        this.showGetPhone = !1
-      },
-      showPaymentModal: function() {
-        this.show_payment_modal = !0
-      },
-      closePaymentModal: function() {
-        this.show_payment_modal = !1
-      },
-      showPayNowModal: function() {
-        this.show_paynow_modal = !0
-      },
-      closePayNowModal: function() {
-        this.show_paynow_modal = !1
-        wx.redirectTo({
-          url: '/ulink_comshop/pages/order/order?id=' + this.order_id + '&is_show=1'
-        })
-      },
+                var F = this
+                status.setGroupInfo().then(function (f) {
+                    F.groupInfo = f
+                })
+                var t = wx.getStorageSync('token'), a = wx.getStorageSync('community'), i = a.communityId;
+                util.check_login_new().then(function (t) {
+                    F.needAuth = !t
+                })
 
-      showTransferModal: function() {
-        this.show_transfer_modal = !0
-        wx.redirectTo({
-          url: '/ulink_comshop/pages/order/order?id=' + this.order_id + '&is_show=1'
-        })
-      },
-      closeTransferModal: function() {
-        this.show_transfer_modal = !1
-      },
-      showDeliveryTimeModal: function() {
-        this.show_delivery_time_modal = !0
-      },
+                var o = e.is_limit || 0
 
-      closeDeliveryTimeModal: function() {
-        this.show_delivery_time_modal = !1
-      },
-      showStorefrontModal: function() {
-        this.show_storefront_modal = !0
 
-      },
-      closeStorefrontModal: function() {
-        this.show_storefront_modal = !1
-      },
-      goOrderfrom: function() {
-        var e = this, t = e.tabAddress, a = e.tabIdx, i = t[a].name, o = t[a].mobile, s = t[a].receiverAddress,
-          n = t[a].region, r = t[a].receiverAddress, d = t[a].lou_meng_hao, dt = t[a].delivery_date_str,
-          zc = t[a].zipCode, rn = t[a].roadName, bd = t[a].building
-        if ('' == i) {
-          e.focus_name = !0
-          var c = e.$t('order.tianxieshouhuoren')
-          return 0 == a && (c = e.$t('order.tianxietihuoren')), wx.showToast({
-            title: c,
-            icon: 'none'
-          }), !1
-        }
+                var fullAddress = a.fullAddress || ''
+                fullAddress = fullAddress.replace('境外境外境外地区', '')
 
-        if (!/^\d{8}$/.test(o) && !/^1(3|4|5|6|7|8|9)\d{9}$/.test(o)) {
-          return wx.showToast({
-            title: e.$t('order.shoujihaomayouwu'),
-            icon: 'none'
-          }), !1
-        }
+                F.buy_type = e.type || ''
+                F.soli_id = e.soli_id || ''
+                F.pickUpAddress = fullAddress || ''
+                F.pickUpCommunityName = a.communityName || ''
+                F.disUserName = a.disUserName || ''
 
-        if (0 != a && ('' == zc || !/^\d{6}$/.test(zc))) {
-          return wx.showToast({
-            title:  e.$t('order.youbianyouwu'),
-            icon: 'none'
-          }), !1
-        }
+                wx.showLoading()
 
-        if (0 != a && '' == rn) {
-          return wx.showToast({
-            title: '请填写道路名',
-            icon: 'none'
-          }), !1
-        }
+                var s = wx.getStorageSync('latitude2'), n = wx.getStorageSync('longitude2')
 
-        if (0 != a && '' == bd) {
-          return wx.showToast({
-            title: '请填写建筑名',
-            icon: 'none'
-          }), !1
-        }
+                function r() {
+                    app.util.request({
+                        url: 'entry/wxapp/user',
+                        data: {
+                            controller: 'car.checkout',
+                            token: t,
+                            community_id: i,
+                            buy_type: e.type,
+                            soli_id: e.soli_id
+                        },
+                        dataType: 'json',
+                        method: 'POST',
+                        success: function (e) {
+                            setTimeout(function () {
+                                wx.hideLoading()
+                            }, 1e3)
+                            var t = e, a = 0, i = 0, o = F.tabList, s = [], n = e, r = n.delivery_express_name,
+                                d = n.delivery_tuanzshipping_name, c = n.delivery_ziti_name, _ = n.delivery_diy_sort,
+                                u = n.delivery_type_express, l = n.delivery_type_tuanz, h = n.delivery_type_ziti,
+                                p = n.delivery_tuanz_money, m = n.is_vip_card_member, y = n.vipcard_save_money,
+                                g = n.level_save_money,
+                                f = n.is_open_vipcard_buy, v = n.is_member_level_buy, b = n.total_integral,
+                                x = n.is_need_subscript,
+                                w = n.need_subscript_template, S = n.is_hexiao, A = !1
+                            if (1 == f ? 1 != m && 1 == v && (A = !0) : 1 == v && (A = !0), 1 == u && (o[2].enabled = !0,
+                                i++), 1 == l && (o[1].enabled = !0, i++), 1 == h && (o[0].enabled = !0, i++), _) {
+                                var k = _.split(',')
+                                k[2] && o[k[2]] && o[k[2]].enabled && (a = k[2]), k[1] && o[k[1]] && o[k[1]].enabled && (a = k[1]),
+                                k[0] && o[k[0]] && o[k[0]].enabled && (a = k[0]), k.forEach(function (e) {
+                                    s.push(o[e])
+                                })
+                            }
+                            r && (o[2].name = r), d && (o[1].name = d), c && (o[0].name = c)
+                            1 == a || 2 == a && t.trans_free_toal
 
-        if (0 != a && '' == d) {
-          return wx.showToast({
-            title: this.$t('order.tianxiemenpai'),
-            icon: 'none'
-          }), !1
-        }
+                            var T = 0, D = 0, P = t.seller_goodss, z = (Object.keys(P).length, {})
+                            for (var I in P) z[I] = ''
+                            var L = ''
+                            for (var O in P) {
+                                for (var j in 1 == P[O].show_voucher && (P[O].chose_vouche.id && (T = P[O].chose_vouche.id),
+                                P[O].chose_vouche.store_id && (D = P[O].chose_vouche.store_id), '[object Object]' == Object.prototype.toString.call(P[O].chose_vouche) && (L = P[O].chose_vouche)),
+                                    P[O].goodsnum = Object.keys(P[O].goods).length, P[O].goods) {
+                                    0 < P[O].goods[j].header_disc && P[O].goods[j].header_disc < 100 && (P[O].goods[j].header_disc = (P[O].goods[j].header_disc / 10).toFixed(1))
+                                }
+                            }
+                            F.is_hexiao = S
+                            F.loadover = !0
+                            F.commentArr = z
+                            F.sel_chose_vouche = L
+                            F.tabList = s
+                            F.is_limit_distance_buy = t.is_limit_distance_buy || 0
+                            F.tabIdx = a
+                            F.tabLength = i
+                            F.tuan_send_address = t.tuan_send_address
+                            F.is_open_order_message = t.is_open_order_message
+                            F.is_yue_open = t.is_yue_open
+                            F.can_yupay = t.can_yupay
+                            F.show_voucher = t.show_voucher
+                            F.current_distance = t.current_distance || ''
+                            F.man_free_tuanzshipping = 1 * t.man_free_tuanzshipping || 0
+                            F.man_free_shipping = 1 * t.man_free_shipping || 0
+                            F.index_hide_headdetail_address = t.index_hide_headdetail_address || 0
+                            F.open_score_buy_score = t.open_score_buy_score || 0
+                            F.score = t.score || 0
+                            F.score_for_money = t.score_for_money || 0
+                            F.bue_use_score = t.bue_use_score || 0
+                            F.is_man_delivery_tuanz_fare = t.is_man_delivery_tuanz_fare
+                            F.fare_man_delivery_tuanz_fare_money = t.fare_man_delivery_tuanz_fare_money
+                            F.is_man_shipping_fare = t.is_man_shipping_fare
+                            F.fare_man_shipping_fare_money = t.fare_man_shipping_fare_money
+                            F.is_vip_card_member = m
+                            F.vipcard_save_money = y
+                            F.level_save_money = g
+                            F.is_open_vipcard_buy = f
+                            F.is_member_level_buy = v
+                            F.canLevelBuy = A
+                            F.total_integral = b || ''
+                            F.is_need_subscript = x
+                            F.need_subscript_template = w
 
-        /**
-         if (2 == a && "选择地址" == n[0]) return wx.showToast({
+                            var q = t.address, C = t.tuan_send_address_info, M = C.address || '选择位置'
+                            '' != C.city_name && 3708 != C.city_id && '' != C.country_name && 3708 != C.country_id || (M = '选择位置')
+
+                            F.tabAddress = [{
+                                name: t.ziti_name || '',
+                                mobile: t.ziti_mobile || ''
+                                //delivery_time:e.pick_up_time+'('+e.pick_up_weekday+')'
+                            }, {
+                                name: C.name || '',
+                                mobile: C.telephone || '',
+                                receiverAddress: M,
+                                lou_meng_hao: C.lou_meng_hao || '',
+                                zipCode: C.zip_code || '', //lilongyun 2020-05-28
+                                roadName: C.road_name || '',//lilongyun 2020-05-28
+                                building: C.building || '',//lilongyun 2020-05-28
+                                blk_no: C.blk_no || '', //lilongyun 2020-05-28 大牌号
+                                region: [C.province_name || '', C.city_name || '', C.country_name || '']
+                            }, {
+                                name: q.name || '',
+                                mobile: q.telephone || '',
+                                receiverAddress: q.address || '',
+                                lou_meng_hao: C.lou_meng_hao || '',
+                                zipCode: C.zip_code || '', //lilongyun 2020-05-28
+                                roadName: C.road_name || '',//lilongyun 2020-05-28
+                                building: C.building || '',//lilongyun 2020-05-28
+                                blk_no: C.blk_no || '', //lilongyun 2020-05-28 大牌号
+                                region: [q.province_name || '选择地址', q.city_name || '', q.country_name || '']
+                            }]
+
+                            F.pick_up_time = e.pick_up_time
+                            F.pick_up_type = e.pick_up_type
+                            F.pick_up_weekday = e.pick_up_weekday
+                            F.addressState = !0
+                            F.is_integer = e.is_integer
+                            F.is_ziti = e.is_ziti
+                            F.pick_up_arr = e.pick_up_arr
+                            F.seller_goodss = e.seller_goodss
+                            F.seller_chose_id = T
+                            F.seller_chose_store_id = D
+                            F.goods = e.goods
+                            F.buy_type = e.buy_type
+                            F.yupay = e.can_yupay
+                            F.is_yue_open = e.is_yue_open
+                            F.yu_money = e.yu_money
+                            F.total_free = e.total_free
+                            F.trans_free_toal = e.trans_free_toal
+                            F.delivery_tuanz_money = e.delivery_tuanz_money
+                            F.reduce_money = e.reduce_money
+                            F.is_open_fullreduction = e.is_open_fullreduction
+                            F.cha_reduce_money = e.cha_reduce_money
+
+                            F.calcPrice()
+                        }
+                    })
+                }
+
+                1 == o && s && n && console.log('---------is here ?-----------'), r()
+            },
+            onShow: function (e) {
+                this.getPayInfo();
+                this.getCommunityInfo()
+            },
+            authSuccess: function () {
+                this.onLoad()
+            },
+            getCommunityInfo: function () {
+                var t = this, e = wx.getStorageSync('community')
+                e ? e.head_mobile ? (t.community = e) : util.getCommunityById(e.communityId).then(function (e) {
+                    t.community = e.data
+                }) : wx.getStorageSync('token') && util.getCommunityInfo().then(function (e) {
+                    t.community = e.data
+                })
+            },
+            getReceiveMobile: function (e) {
+                var t = e
+                this.t_ziti_mobile = t
+                this.showGetPhone = !1
+            },
+
+            selectStorefront: function () {
+                var this_ = this
+                wx.request({
+                    // 请求地址
+                    url: 'https://hz.xx315.net/addons/ulink_comshop/storefront.json',
+                    // 请求方式
+                    method: 'get',
+                    dataType: 'json',
+                    responseType: 'text',
+                    // 方法
+                    success: function (data) {
+                        var datas = data.data
+                        this_storefronts = datas
+
+                    }
+                })
+                this_.showStorefrontModal()
+            },
+
+            selectdeliveryTime: function () {
+                var this_ = this
+                wx.request({
+                    // 请求地址
+                    url: 'https://hz.xx315.net/addons/ulink_comshop/delivery_time.json',
+                    // 请求方式
+                    method: 'get',
+                    dataType: 'json',
+                    responseType: 'text',
+                    // 方法
+                    success: function (data) {
+                        var datas = data.data
+                        var list = new Array()
+                        for (var i = 0; i < datas.length; i++) {
+                            const item = datas[i]
+                            var currentDate = new Date()
+                            currentDate.setDate(currentDate.getDate() + i + 1)
+                            item.date = (currentDate).Format('yyyy-MM-dd')
+                            item.week = util.getWeekDay(item.date)
+                            if (item.ausgebucht == 1) {
+                                item.full = true
+                                item.text = '已满'
+                                item.class = 'deliveryTimeFull'
+                            } else {
+                                item.full = false
+                                item.text = ''
+                                item.class = ''
+                            }
+
+                            list.push(item)
+                        }
+                        this_.deliveryTimes = list
+
+                    }
+                })
+                this.showDeliveryTimeModal()
+            },
+            deliveryTimeItemClick: function (item) {
+                var e = this, s = e.tabAddress, n = e.tabIdx, r = this
+
+                if (item && item.currentTarget && item.currentTarget.dataset && item.currentTarget.dataset.item && !item.currentTarget.dataset.item.full) {
+                    s[n].delivery_time = item.currentTarget.dataset.item.date
+
+                    this.tabAddress = s
+                    this.closeDeliveryTimeModal()
+
+                }
+            },
+            copyText: function (e) {
+                wx.setClipboardData({
+                    data: e.currentTarget.dataset.text,
+                    success: function (res) {
+                        wx.getClipboardData({
+                            success: function (res) {
+                                wx.showToast({
+                                    title: '复制成功'
+                                })
+                            }
+                        })
+                    }
+                })
+            },
+
+            ck_wxpays: function () {
+                this.ck_yupay = 0
+                this.pay_method = 'wx'
+            },
+
+            ck_yupays: function () {
+                this.ck_yupay = 1
+                this.pay_method = 'yue'
+            },
+            ck_paynowpays: function () {
+                this.ck_yupay = 2
+                this.pay_method = 'paynow'
+            },
+
+
+            ck_paypalpays: function () {
+                this.ck_yupay = 3
+                this.pay_method = 'paypal'
+            },
+
+            scoreChange: function (e) {
+                console.log('是否使用', e.detail.value)
+                var t = this, a = 1 * t.score_for_money, i = 1 * t.tot_price, o = 1 * t.disAmount
+                e.detail.value ? (i = (i - a).toFixed(2), o += a) : (i = (i + a).toFixed(2), o -= a)
+                t.use_score = e.detail.value ? 1 : 0
+                t.tot_price = i
+                t.disAmount = o.toFixed(2)
+            },
+
+            close: function () {
+                this.showGetPhone = !1
+            },
+            showPaymentModal: function () {
+                this.show_payment_modal = !0
+            },
+            closePaymentModal: function () {
+                this.show_payment_modal = !1
+            },
+            showPayNowModal: function () {
+                this.show_paynow_modal = !0
+            },
+            closePayNowModal: function () {
+                this.show_paynow_modal = !1
+                wx.redirectTo({
+                    url: '/ulink_comshop/pages/order/order?id=' + this.order_id + '&is_show=1'
+                })
+            },
+
+            showTransferModal: function () {
+                this.show_transfer_modal = !0
+                wx.redirectTo({
+                    url: '/ulink_comshop/pages/order/order?id=' + this.order_id + '&is_show=1'
+                })
+            },
+            closeTransferModal: function () {
+                this.show_transfer_modal = !1
+            },
+            showDeliveryTimeModal: function () {
+                this.show_delivery_time_modal = !0
+            },
+
+            closeDeliveryTimeModal: function () {
+                this.show_delivery_time_modal = !1
+            },
+            showStorefrontModal: function () {
+                this.show_storefront_modal = !0
+
+            },
+            closeStorefrontModal: function () {
+                this.show_storefront_modal = !1
+            },
+            goOrderfrom: function () {
+                var e = this, t = e.tabAddress, a = e.tabIdx, i = t[a].name, o = t[a].mobile, s = t[a].receiverAddress,
+                    n = t[a].region, r = t[a].receiverAddress, d = t[a].lou_meng_hao, dt = t[a].delivery_date_str,
+                    zc = t[a].zipCode, rn = t[a].roadName, bd = t[a].building
+                if ('' == i) {
+                    e.focus_name = !0
+                    var c = e.$t('order.tianxieshouhuoren')
+                    return 0 == a && (c = e.$t('order.tianxietihuoren')), wx.showToast({
+                        title: c,
+                        icon: 'none'
+                    }), !1
+                }
+
+                if (!/^\d{8}$/.test(o) && !/^1(3|4|5|6|7|8|9)\d{9}$/.test(o)) {
+                    return wx.showToast({
+                        title: e.$t('order.shoujihaomayouwu'),
+                        icon: 'none'
+                    }), !1
+                }
+
+                if (0 != a && ('' == zc || !/^\d{6}$/.test(zc))) {
+                    return wx.showToast({
+                        title: e.$t('order.youbianyouwu'),
+                        icon: 'none'
+                    }), !1
+                }
+
+                if (0 != a && '' == rn) {
+                    return wx.showToast({
+                        title: '请填写道路名',
+                        icon: 'none'
+                    }), !1
+                }
+
+                if (0 != a && '' == bd) {
+                    return wx.showToast({
+                        title: '请填写建筑名',
+                        icon: 'none'
+                    }), !1
+                }
+
+                if (0 != a && '' == d) {
+                    return wx.showToast({
+                        title: this.$t('order.tianxiemenpai'),
+                        icon: 'none'
+                    }), !1
+                }
+
+                /**
+                 if (2 == a && "选择地址" == n[0]) return wx.showToast({
             title: "请选择所在地区",
             icon: "none"
         }), !1;
-         if (2 == a && "" == s) return this.setData({
+                 if (2 == a && "" == s) return this.setData({
             focus_addr: !0
         }), wx.showToast({
             title: "请填写详细地址",
             icon: "none"
         }), !1;
-         if (1 == a) {
+                 if (1 == a) {
             if ("选择位置" == r || "" == r) return wx.showToast({
                 title: "请选择位置",
                 icon: "none"
@@ -1157,832 +1194,840 @@
                 icon: "none"
             }), !1;
         }
-         */
-        var ter = a == 0 ? this.$t('order.xuanzezitishijian'): this.$t('order.xuanzepeisongshijian')
-        if ( !dt || '' == dt) {
-          return wx.showToast({
-            title: ter,
-            icon: 'none'
-          }), !1
-        }
-        //原逻辑直接微信支付 改成先选择支付方式
-        2 == a ? this.preSubscript() : this.conformOrder();
-        //2 == a ? this.showPaymentModal() : this.conformOrder()
-      },
-      preSubscript: function() {
-
-        var e = this
-        this.canPreSub && (this.canPreSub = !1, 1 == this.is_need_subscript ? this.subscriptionNotice().then(function() {
-          e.prepay()
-        }).catch(function() {
-          e.prepay()
-        }) : e.prepay())
-
-      },
-      havePaid: function(type) {
-
-      //  if ( '' == this.transaction_id) {
-      //    return wx.showToast({
-      //      title: '请输入交易流水id',
-      //      icon: 'none'
-      //    }), !1
-      //  }
-        var i= this
-        var s = wx.getStorageSync('token')
-        wx.showLoading(), app.util.request({
-          url: 'entry/wxapp/user',
-          data: {
-            controller: 'order.pay_order',
-            token: s,
-            order_id: i.order_id,
-            payment_code: type,
-            transaction_id:this.transaction_id
-          },
-          dataType: 'json',
-          method: 'POST',
-          success: function(t) {
-
-            wx.hideLoading()
-            wx.redirectTo({
-              url: '/ulink_comshop/pages/order/order?id=' + i.order_id + '&is_show=1'
-            })
-          }
-
-        })
-      },
-      prepay: function(type) {
-        this.canPreSub = !0
-        var this_ = this
-        var e = this, t = e.tabAddress, a = e.tabIdx
-        if (1 == e.is_limit_distance_buy && 1 == a) {
-          return wx.showModal({
-            title: '',
-            content: 'Too far, Can not place order',
-            showCancel: !1,
-            confirmColor: '#F75451'
-          }), !1
-        }
-        if (this.canPay) {
-          this.payBtnLoading = !0
-          this.canPay = !1
-          var o = this, i = this, s = wx.getStorageSync('token'), n = this, r = n.seller_chose_id,
-            d = n.seller_chose_store_id, c = n.ck_yupay, _ = n.tabList, u = r, l = ''
-          _.forEach(function(e) {
-            e.id == a && (l = e.dispatching)
-          })
-          var h = i.commentArr, p = []
-          for (var m in h) p.push(h[m])
-          var y = p.join('@EOF@'),
-            g = t[a].receiverAddress || '',
-            f = t[a].region || [],
-            v = t[a].name,
-            b = t[a].mobile,
-            x = t[a].lou_meng_hao || '',
-            w = [],
-            dd = t[a].delivery_date || '',
-            dt = t[a].delivery_time || '',
-            zip_code = t[a].zipCode || '',
-            blk_no = t[a].blk_no || '',
-            road_name = t[a].roadName || '',
-            building = t[a].building || ''
-
-          if (0 < u) {
-            var S = d + '_' + u
-            w.push(S)
-          }
-          var A = '', k = '', T = '', D = '', P = '', z = ''
-          1 == a ? (A = g, D = (k = f)[0], P = k[1], z = k[2]) : 2 == a && (T = g, D = f[0],
-            P = f[1], z = f[2])
-          A = zip_code + ' ' + blk_no + ' ' + road_name + ' ' + x + ' ' + building
-          var I = wx.getStorageSync('community').communityId, L = wx.getStorageSync('latitude2'),
-            O = wx.getStorageSync('longitude2'), j = this, N = j.use_score, q = j.buy_type, C = j.soli_id,pm = j.pay_method;
-          wx.showLoading(), app.util.request({
-            url: 'entry/wxapp/user',
-            data: {
-              controller: 'car.sub_order',
-              token: s,
-              pay_method: pm,
-              buy_type: q,
-              pick_up_id: I,
-              dispatching: l,
-              ziti_name: v,
-              quan_arr: w,
-              comment: y,
-              ziti_mobile: b,
-              latitude: L,
-              longitude: O,
-              ck_yupay: c,
-              tuan_send_address: A,
-              lou_meng_hao: x,
-              address_name: T,
-              province_name: D,
-              city_name: P,
-              country_name: z,
-              use_score: N,
-              soli_id: C,
-              delivery_date: dd,
-              delivery_time: dt,
-              zip_code: zip_code,
-              blk_no: blk_no,
-              road_name: road_name,
-              building: building
-            },
-            dataType: 'json',
-            method: 'POST',
-            success: function(t) {
-
-              console.log(t)
-              wx.hideLoading()
-
-              var e = t.has_yupay || 0, a = t.order_id, i = {}
-              var ona = t.order_num_alias
-              var id = t.order_id
-
-              this_.order_id = id
-              this_.order_num_alias = ona.substring(ona.length - 5)
-
-              if (pm == 'cash') {
-                wx.redirectTo({
-                  url: '/ulink_comshop/pages/order/order?id=' + a + '&is_show=1'
-                })
-              } else if (pm == 'paynow') {
-
-
-
-                this_.closePaymentModal()
-                this_.showPayNowModal()
-              } else if ('banktransfer' == pm) {
-                wx.request({
-                  // 请求地址
-                  url: 'https://hz.xx315.net/payment/transfer/bank.json',
-                  // 请求方式
-                  method: 'get',
-                  dataType: 'json',
-                  responseType: 'text',
-                  // 方法
-                  success: function(data) {
-                    console.log(data)
-                    this_.bankInfo = data.data
-                  }
-                })
-                this_.closePaymentModal()
-                this_.showTransferModal()
-              } else {
-                console.log('支付日志：', t), 0 == t.code ? (o.changeIndexList(), 1 == e ? (o.canPay = !0,
-                  'dan' == q || 'pindan' == q || 'integral' == q || 'soitaire' == q ? t.is_go_orderlist <= 1 ? wx.redirectTo({
-                    url: '/ulink_comshop/pages/order/order?id=' + a + '&is_show=1'
-                  }) : wx.redirectTo({
-                    url: '/ulink_comshop/pages/order/index?is_show=1'
-                  }) : wx.redirectTo({
-                    url: '/ulink_comshop/moduleA/pin/share?id=' + a
-                  })) : wx.requestPayment({
-                  appId: t.appId,
-                  timeStamp: t.timeStamp,
-                  nonceStr: t.nonceStr,
-                  package: t.package,
-                  signType: t.signType,
-                  paySign: t.paySign,
-                  success: function(e) {
-                    o.canPay = !0, 'dan' == q || 'pindan' == q || 'integral' == q || 'soitaire' == q ? t.is_go_orderlist <= 1 ? wx.redirectTo({
-                      url: '/ulink_comshop/pages/order/order?id=' + a + '&is_show=1'
-                    }) : wx.redirectTo({
-                      url: '/ulink_comshop/pages/order/index?is_show=1'
-                    }) : wx.redirectTo({
-                      url: '/ulink_comshop/moduleA/pin/share?id=' + a
-                    })
-                  },
-                  fail: function(e) {
-                    t.is_go_orderlist <= 1 ? wx.redirectTo({
-                      url: '/ulink_comshop/pages/order/order?id=' + a + '&?isfail=1'
-                    }) : wx.redirectTo({
-                      url: '/ulink_comshop/pages/order/index?isfail=1'
-                    })
-                  }
-                })) : 1 == t.code ? (o.canPay = !0, wx.showModal({
-                  title: '提示',
-                  content: t.RETURN_MSG || '支付失败',
-                  showCancel: !1,
-                  confirmColor: '#F75451',
-                  success: function(e) {
-                    e.confirm && (t.is_go_orderlist <= 1 ? wx.redirectTo({
-                      url: '/ulink_comshop/pages/order/order?id=' + a + '&isfail=1'
-                    }) : wx.redirectTo({
-                      url: '/ulink_comshop/pages/order/index?is_show=1&?isfail=1'
-                    }))
-                  }
-                })) : 2 == t.code ? (o.canPay = !0, 1 == t.is_forb && (i.btnDisable = !0,
-                  i.btnText = '已抢光'), wx.showToast({
-                  title: t.msg,
-                  icon: 'none'
-                })) : console.log(t), (this.btnLoading = !1,
-                  this.payBtnLoading = !1)
-              }
-
-            }
-          })
-        }
-      },
-      changeReceiverName: function(e) {
-        var t = this, a = t.tabAddress, i = t.tabIdx, o = e.detail.value.trim()
-        if (!(a[i].name = o)) {
-          var s = '请填写收货人'
-          0 == i && (s = '请填写提货人'), wx.showToast({
-            title: s,
-            icon: 'none'
-          })
-        }
-        return false;
-      },
-      bindReceiverMobile: function(e) {
-        var t = this, a = t.tabAddress, i = t.tabIdx, o = e.detail.value.trim()
-        return a[i].mobile = o, this.setData({
-          tabAddress: a
-        }), {
-          value: o
-        }
-      },
-
-      bindReceiverZipCode: function(e) {
-        var t = this, a = t.tabAddress, i = t.tabIdx, o = e.detail.value.trim()
-        return a[i].zipCode = o, this.setData({
-          tabAddress: a
-        }), {
-          value: o
-        }
-      },
-      inputZipCode: function(e) {
-
-        var t = this, a = t.tabAddress, i = t.tabIdx;
-        var o = a[i].zipCode;
-        console.log(o)
-        var tk = wx.getStorageSync('token')
-        if ('' != o && /^\d{6}$/.test(o)) {
-          app.util.request({
-            url: 'entry/wxapp/user',
-            data: {
-              controller: 'index.load_address',
-              token: tk,
-              zipCode: o
-            },
-            dataType: 'json',
-            method: 'GET',
-            success: function(e) {
-              console.log(e)
-              var data = e
-              console.log(data.results[0])
-              if (data.found > 0) {
-                var result = data.results[0]
-                a[i].blk_no = result.BLK_NO
-                a[i].building = result.BUILDING
-                a[i].roadName = result.ROAD_NAME
-                console.log(a)
-
-              }
-            }
-          })
-
-        }
-      },
-
-      bindReceiverRoadName: function(e) {
-        var t = this, a = t.tabAddress, i = t.tabIdx, o = e.detail.value.trim()
-        return a[i].roadName = o, this.setData({
-          tabAddress: a
-        }), {
-          value: o
-        }
-      },
-
-      bindReceiverBuilding: function(e) {
-        var t = this, a = t.tabAddress, i = t.tabIdx, o = e.detail.value.trim()
-        return a[i].building = o, this.setData({
-          tabAddress: a
-        }), {
-          value: o
-        }
-      },
-
-      changeTuanBlkNo: function(e) {
-        var t = this, a = t.tabAddress, i = t.tabIdx, o = e.detail.value.trim()
-        return a[i].blk_no = o, this.setData({
-          tabAddress: a
-        }), {
-          value: o
-        }
-      },
-
-      changeReceiverAddress: function(e) {
-        var t = this, a = t.tabAddress
-        return a[t.tabIdx].receiverAddress = e.detail.value.trim(), this.setData({
-          tabAddress: a
-        }), {
-          value: e.detail.value.trim()
-        }
-      },
-      changeTuanAddress: function(e) {
-        var t = this, a = t.tabAddress
-        return a[t.tabIdx].lou_meng_hao = e.detail.value.trim(), this.setData({
-          tabAddress: a
-        }), {
-          value: e.detail.value.trim()
-        }
-      },
-      conformOrder: function() {
-        this.showConfirmModal = !0
-      },
-      closeConfirmModal: function() {
-        this.canPay = !0, this.showConfirmModal = !1
-      },
-
-      bindRegionChange: function(e) {
-        var t = e.detail.value
-        t && this.checkOut(t[1]), this.region =  t
-
-      },
-      checkOut: function(e) {
-        var r = this, t = wx.getStorageSync('token'), a = wx.getStorageSync('community').communityId,
-          i = wx.getStorageSync('latitude2'), o = wx.getStorageSync('longitude2'), s = this.buy_type,
-          n = this.soli_id
-        app.util.request({
-          url: 'entry/wxapp/user',
-          data: {
-            controller: 'car.checkout',
-            token: t,
-            community_id: a,
-            mb_city_name: e,
-            latitude: i,
-            longitude: o,
-            buy_type: s,
-            soli_id: n
-          },
-          dataType: 'json',
-          method: 'POST',
-          success: function(e) {
-            if (1 == e.code) {
-              var t = e, a = t.vipcard_save_money, i = t.shop_buy_distance, o = t.is_limit_distance_buy,
-                s = t.current_distance, n = t.level_save_money
-              1 == r.tabIdx && 1 == o && i < s && wx.showModal({
-                title: '提示',
-                content: '超出配送范围，请重新选择',
-                showCancel: !1,
-                confirmColor: '#F75451'
-              }), (
-                r.vipcard_save_money = a,
-                  r.level_save_money = n,
-                  r.is_limit_distance_buy = o || 0,
-                  r.current_distance = s || '',
-                  r.trans_free_toal = t.trans_free_toal,
-                  r.is_man_delivery_tuanz_fare = t.is_man_delivery_tuanz_fare,
-                  r.fare_man_delivery_tuanz_fare_money = t.fare_man_delivery_tuanz_fare_money,
-                  r.is_man_shipping_fare = t.is_man_shipping_fare,
-                  r.fare_man_shipping_fare_money = t.fare_man_shipping_fare_money,
-                  r.calcPrice()
-              )
-            }
-          }
-        })
-      },
-      choseLocation: function() {
-        var e = this, s = e.tabAddress, n = e.tabIdx, r = this
-        wx.chooseLocation({
-          success: function(e) {
-            console.log(e)
-            var t = r.region, a = e.name, i = (e.address, null)
-
-            function o() {
-              console.log('setData'), t && '市' != t[1] && r.checkOut(t[1]), s[n].region = t, s[n].receiverAddress = a,
-                r.setData({
-                  tabAddress: s
-                })
-            }
-
-            console.log('patt', i), locat.getGpsLocation(e.latitude, e.longitude).then(function(e) {
-              console.log('反推了', e), e && (t[0] = e.province, t[1] = e.city, t[2] = e.district,
-              a || (a = e.street)), o()
-            }), wcache.put('latitude2', e.latitude), wcache.put('longitude2', e.longitude)
-          },
-          fail: function(e) {
-            console.log(e), 'chooseLocation:fail auth deny' == e.errMsg && (console.log('无权限'),
-              locat.checkGPS(app, locat.openSetting()))
-          }
-        })
-      },
-      getWxAddress: function() {
-        var e = this, a = e.tabAddress, i = e.tabIdx, o = a[i].region || [], s = this
-        wx.getSetting({
-          success: function(e) {
-            console.log('vres.authSetting[\'scope.address\']：', e.authSetting['scope.address']),
-              e.authSetting['scope.address'] ? wx.chooseAddress({
-                success: function(e) {
-                  console.log('step1'), o[0] = e.provinceName || '选择地址', o[1] = e.cityName || '',
-                    o[2] = e.countyName || ''
-                  var t = e.detailInfo
-                  a[i].name = e.userName, a[i].mobile = e.telNumber, a[i].region = o, a[i].receiverAddress = t,
-                    s.setData({
-                      tabAddress: a
-                    }), o && '市' != o[1] && s.checkOut(o[1])
-                },
-                fail: function(e) {
-                  console.log('step4'), console.log(e)
+                 */
+                var ter = a == 0 ? this.$t('order.xuanzezitishijian') : this.$t('order.xuanzepeisongshijian')
+                if (!dt || '' == dt) {
+                    return wx.showToast({
+                        title: ter,
+                        icon: 'none'
+                    }), !1
                 }
-              }) : 0 == e.authSetting['scope.address'] ? wx.openSetting({
-                success: function(e) {
-                  console.log(e.authSetting)
+                //原逻辑直接微信支付 改成先选择支付方式
+                2 == a ? this.preSubscript() : this.conformOrder();
+                //2 == a ? this.showPaymentModal() : this.conformOrder()
+            },
+            preSubscript: function () {
+
+                var e = this
+                this.canPreSub && (this.canPreSub = !1, 1 == this.is_need_subscript ? this.subscriptionNotice().then(function () {
+                    e.prepay()
+                }).catch(function () {
+                    e.prepay()
+                }) : e.prepay())
+
+            },
+            havePaid: function (type) {
+
+                //  if ( '' == this.transaction_id) {
+                //    return wx.showToast({
+                //      title: '请输入交易流水id',
+                //      icon: 'none'
+                //    }), !1
+                //  }
+                var i = this
+                var s = wx.getStorageSync('token')
+                wx.showLoading(), app.util.request({
+                    url: 'entry/wxapp/user',
+                    data: {
+                        controller: 'order.pay_order',
+                        token: s,
+                        order_id: i.order_id,
+                        payment_code: type,
+                        transaction_id: this.transaction_id
+                    },
+                    dataType: 'json',
+                    method: 'POST',
+                    success: function (t) {
+
+                        wx.hideLoading()
+                        wx.redirectTo({
+                            url: '/ulink_comshop/pages/order/order?id=' + i.order_id + '&is_show=1'
+                        })
+                    }
+
+                })
+            },
+            prepay: function (type) {
+                this.canPreSub = !0
+                var this_ = this
+                var e = this, t = e.tabAddress, a = e.tabIdx
+                if (1 == e.is_limit_distance_buy && 1 == a) {
+                    return wx.showModal({
+                        title: '',
+                        content: 'Too far, Can not place order',
+                        showCancel: !1,
+                        confirmColor: '#F75451'
+                    }), !1
                 }
-              }) : (console.log('step2'), wx.chooseAddress({
-                success: function(e) {
-                  console.log('step3'), o[0] = e.provinceName || '选择地址', o[1] = e.cityName || '',
-                    o[2] = e.countyName || ''
-                  var t = e.detailInfo
-                  o && '市' != o[1] && s.checkOut(o[1]), a[i].name = e.userName, a[i].mobile = e.telNumber,
-                    a[i].region = o, a[i].receiverAddress = t, s.setData({
+                if (this.canPay) {
+                    this.payBtnLoading = !0
+                    this.canPay = !1
+                    var o = this, i = this, s = wx.getStorageSync('token'), n = this, r = n.seller_chose_id,
+                        d = n.seller_chose_store_id, c = n.ck_yupay, _ = n.tabList, u = r, l = ''
+                    _.forEach(function (e) {
+                        e.id == a && (l = e.dispatching)
+                    })
+                    var h = i.commentArr, p = []
+                    for (var m in h) p.push(h[m])
+                    var y = p.join('@EOF@'),
+                        g = t[a].receiverAddress || '',
+                        f = t[a].region || [],
+                        v = t[a].name,
+                        b = t[a].mobile,
+                        x = t[a].lou_meng_hao || '',
+                        w = [],
+                        dd = t[a].delivery_date || '',
+                        dt = t[a].delivery_time || '',
+                        zip_code = t[a].zipCode || '',
+                        blk_no = t[a].blk_no || '',
+                        road_name = t[a].roadName || '',
+                        building = t[a].building || ''
+
+                    if (0 < u) {
+                        var S = d + '_' + u
+                        w.push(S)
+                    }
+                    var A = '', k = '', T = '', D = '', P = '', z = ''
+                    1 == a ? (A = g, D = (k = f)[0], P = k[1], z = k[2]) : 2 == a && (T = g, D = f[0],
+                        P = f[1], z = f[2])
+                    A = zip_code + ' ' + blk_no + ' ' + road_name + ' ' + x + ' ' + building
+                    var I = wx.getStorageSync('community').communityId, L = wx.getStorageSync('latitude2'),
+                        O = wx.getStorageSync('longitude2'), j = this, N = j.use_score, q = j.buy_type, C = j.soli_id,
+                        pm = j.pay_method;
+                    wx.showLoading(), app.util.request({
+                        url: 'entry/wxapp/user',
+                        data: {
+                            controller: 'car.sub_order',
+                            token: s,
+                            pay_method: pm,
+                            buy_type: q,
+                            pick_up_id: I,
+                            dispatching: l,
+                            ziti_name: v,
+                            quan_arr: w,
+                            comment: y,
+                            ziti_mobile: b,
+                            latitude: L,
+                            longitude: O,
+                            ck_yupay: c,
+                            tuan_send_address: A,
+                            lou_meng_hao: x,
+                            address_name: T,
+                            province_name: D,
+                            city_name: P,
+                            country_name: z,
+                            use_score: N,
+                            soli_id: C,
+                            delivery_date: dd,
+                            delivery_time: dt,
+                            zip_code: zip_code,
+                            blk_no: blk_no,
+                            road_name: road_name,
+                            building: building
+                        },
+                        dataType: 'json',
+                        method: 'POST',
+                        success: function (t) {
+
+                            console.log(t)
+                            wx.hideLoading()
+
+                            var e = t.has_yupay || 0, a = t.order_id, i = {}
+                            var ona = t.order_num_alias
+                            var id = t.order_id
+
+                            this_.order_id = id
+                            this_.order_num_alias = ona.substring(ona.length - 5)
+
+                          if(pm == 'paypal'){
+                              let paypal_info = t.paypal_info
+                              if(paypal_info.code == 0){
+                                  window.location.href = paypal_info.approvalUrl;
+                              }
+
+
+                          } else if (pm == 'cash') {
+                                wx.redirectTo({
+                                    url: '/ulink_comshop/pages/order/order?id=' + a + '&is_show=1'
+                                })
+                            } else if (pm == 'paynow') {
+
+
+                                this_.closePaymentModal()
+                                this_.showPayNowModal()
+                            } else if ('banktransfer' == pm) {
+                                wx.request({
+                                    // 请求地址
+                                    url: 'https://hz.xx315.net/payment/transfer/bank.json',
+                                    // 请求方式
+                                    method: 'get',
+                                    dataType: 'json',
+                                    responseType: 'text',
+                                    // 方法
+                                    success: function (data) {
+                                        console.log(data)
+                                        this_.bankInfo = data.data
+                                    }
+                                })
+                                this_.closePaymentModal()
+                                this_.showTransferModal()
+                            } else {
+                                console.log('支付日志：', t), 0 == t.code ? (o.changeIndexList(), 1 == e ? (o.canPay = !0,
+                                    'dan' == q || 'pindan' == q || 'integral' == q || 'soitaire' == q ? t.is_go_orderlist <= 1 ? wx.redirectTo({
+                                        url: '/ulink_comshop/pages/order/order?id=' + a + '&is_show=1'
+                                    }) : wx.redirectTo({
+                                        url: '/ulink_comshop/pages/order/index?is_show=1'
+                                    }) : wx.redirectTo({
+                                        url: '/ulink_comshop/moduleA/pin/share?id=' + a
+                                    })) : wx.requestPayment({
+                                    appId: t.appId,
+                                    timeStamp: t.timeStamp,
+                                    nonceStr: t.nonceStr,
+                                    package: t.package,
+                                    signType: t.signType,
+                                    paySign: t.paySign,
+                                    success: function (e) {
+                                        o.canPay = !0, 'dan' == q || 'pindan' == q || 'integral' == q || 'soitaire' == q ? t.is_go_orderlist <= 1 ? wx.redirectTo({
+                                            url: '/ulink_comshop/pages/order/order?id=' + a + '&is_show=1'
+                                        }) : wx.redirectTo({
+                                            url: '/ulink_comshop/pages/order/index?is_show=1'
+                                        }) : wx.redirectTo({
+                                            url: '/ulink_comshop/moduleA/pin/share?id=' + a
+                                        })
+                                    },
+                                    fail: function (e) {
+                                        t.is_go_orderlist <= 1 ? wx.redirectTo({
+                                            url: '/ulink_comshop/pages/order/order?id=' + a + '&?isfail=1'
+                                        }) : wx.redirectTo({
+                                            url: '/ulink_comshop/pages/order/index?isfail=1'
+                                        })
+                                    }
+                                })) : 1 == t.code ? (o.canPay = !0, wx.showModal({
+                                    title: '提示',
+                                    content: t.RETURN_MSG || '支付失败',
+                                    showCancel: !1,
+                                    confirmColor: '#F75451',
+                                    success: function (e) {
+                                        e.confirm && (t.is_go_orderlist <= 1 ? wx.redirectTo({
+                                            url: '/ulink_comshop/pages/order/order?id=' + a + '&isfail=1'
+                                        }) : wx.redirectTo({
+                                            url: '/ulink_comshop/pages/order/index?is_show=1&?isfail=1'
+                                        }))
+                                    }
+                                })) : 2 == t.code ? (o.canPay = !0, 1 == t.is_forb && (i.btnDisable = !0,
+                                    i.btnText = '已抢光'), wx.showToast({
+                                    title: t.msg,
+                                    icon: 'none'
+                                })) : console.log(t), (this.btnLoading = !1,
+                                    this.payBtnLoading = !1)
+                            }
+
+                        }
+                    })
+                }
+            },
+            changeReceiverName: function (e) {
+                var t = this, a = t.tabAddress, i = t.tabIdx, o = e.detail.value.trim()
+                if (!(a[i].name = o)) {
+                    var s = '请填写收货人'
+                    0 == i && (s = '请填写提货人'), wx.showToast({
+                        title: s,
+                        icon: 'none'
+                    })
+                }
+                return false;
+            },
+            bindReceiverMobile: function (e) {
+                var t = this, a = t.tabAddress, i = t.tabIdx, o = e.detail.value.trim()
+                return a[i].mobile = o, this.setData({
                     tabAddress: a
-                  })
+                }), {
+                    value: o
                 }
-              }))
-          }
-        })
-      },
-      tabSwitch: function(e) {
-        var t = 1 * e.currentTarget.dataset.idx
-        0 != t && wx.showToast({
-          title: 'Freight Changed',
-          icon: 'none'
-        })
-        this.tabIdx =  t;
-        this.calcPrice(1);
-      },
-      showvoucher: function(e) {
-        var t = e.currentTarget.dataset.seller_id, a = [], i = this.seller_chose_id,
-          o = this.seller_chose_store_id, s = this.seller_goodss
-        for (var n in s) {
-          s[n].store_info.s_id == t && (a = s[n].voucher_list, 0 == i && (i = s[n].chose_vouche.id || 0,
-            o = s[n].chose_vouche.store_id || 0))
-        }
-        this.ssvoucher_list = a,
-          this.voucher_serller_id = t,
-          this.seller_chose_id = i,
-          this.seller_chose_store_id = o,
-          this.hide_quan = !1
-      },
-      chose_voucher_id: function(e) {
-        wx.showLoading()
-        var s = e.currentTarget.dataset.voucher_id, n = e.currentTarget.dataset.seller_id, r = this,
-          t = wx.getStorageSync('token'), a = n + '_' + s, i = wx.getStorageSync('latitude2'),
-          o = wx.getStorageSync('longitude2'), d = r.buy_type, c = this.soli_id,
-          _ = wx.getStorageSync('community').communityId || ''
-        app.util.request({
-          url: 'entry/wxapp/user',
-          data: {
-            controller: 'car.checkout',
-            token: t,
-            community_id: _,
-            voucher_id: s,
-            use_quan_str: a,
-            buy_type: d,
-            latitude: i,
-            longitude: o,
-            soli_id: c
-          },
-          dataType: 'json',
-          method: 'POST',
-          success: function(e) {
-            if (wx.hideLoading(), 1 == e.code) {
-              var t = e.seller_goodss, a = ''
-              for (var i in t) t[i].goodsnum = Object.keys(t[i].goods).length, '[object Object]' == Object.prototype.toString.call(t[i].chose_vouche) && (a = t[i].chose_vouche)
-              var o = e
-              r.seller_goodss = t
-              r.seller_chose_id = s
-              r.seller_chose_store_id = n
-              r.hide_quan = !0
-              r.goods = o.goods
-              r.buy_type = o.buy_type || 'dan'
-              r.yupay = o.can_yupay
-              r.is_yue_open = o.is_yue_open
-              r.total_free = o.total_free
-              r.sel_chose_vouche = a
-              r.current_distance = o.current_distance || ''
-              r.calcPrice()
-
-            }
-          }
-        })
-      },
-      closeCouponModal: function() {
-        this.hide_quan = !0
-      },
-      calcPrice: function() {
-        var e = 0 < arguments.length && void 0 !== arguments[0] ? arguments[0] : 0, t = this, a = t.total_free,
-          i = t.delivery_tuanz_money, o = t.trans_free_toal, s = t.tabIdx, n = t.goods, r = (t.is_open_vipcard_buy,
-            t.is_member_level_buy, t.is_vip_card_member, t.canLevelBuy)
-        a *= 1, i *= 1, o *= 1
-        var d = 0, c = 0, _ = 0, u = !0, l = !1, h = void 0
-        try {
-          for (var p, m = Object.keys(n)[Symbol.iterator](); !(u = (p = m.next()).done); u = !0) {
-            var y = n[p.value]
-            c += y.total, r && y.is_mb_level_buy && (_ += 1 * y.total - 1 * y.level_total)
-          }
-        } catch (e) {
-          l = !0, h = e
-        } finally {
-          try {
-            !u && m.return && m.return()
-          } finally {
-            if (l) throw h
-          }
-        }
-        console.log(c)
-        var g = c
-        if (0 == s) {
-          d = a
-        } else if (1 == s) {
-          d = 0 == t.is_man_delivery_tuanz_fare ? i + a : a, g += i
-        } else if (2 == s) {
-          g += o, d = 0 == t.is_man_shipping_fare ? o + a : a
-        }
-        var f = t.use_score
-        e && f && (d -= 1 * t.score_for_money)
-        var v
-        v = (g - 1 * d).toFixed(2), (
-          this.total_all = g.toFixed(2),
-            this.disAmount = v,
-            this.tot_price = d.toFixed(2),
-            this.total_goods_price = c.toFixed(2),
-            this.levelAmount = _.toFixed(2)
-        )
-      },
-      bindInputMessage: function(e) {
-        var t = this.commentArr, a = e.currentTarget.dataset.idx, i = e.detail.value
-        t[a] = i, this.setData({
-          commentArr: t
-        })
-      },
-      changeIndexList: function() {
-        var e = this.goods || []
-        0 < e.length && e.forEach(function(e) {
-          0 == e.option.length && status.indexListCarCount(e.goods_id, 0)
-        })
-      },
-      subscriptionNotice: function() {
-        console.log('subscriptionNotice')
-        var s = this
-        return new Promise(function(e, t) {
-          var o = s.need_subscript_template, a = Object.keys(o).map(function(e) {
-            return o[e]
-          })
-          wx.requestSubscribeMessage ? a.length && wx.requestSubscribeMessage({
-            tmplIds: a,
-            success: function(t) {
-              var a = 1, i = []
-              Object.keys(o).forEach(function(e) {
-                'accept' == t[o[e]] ? i.push(e) : a = 0
-              }), i.length && s.addAccept(i), s.setData({
-                is_need_subscript: a
-              }), e()
             },
-            fail: function() {
-              t()
-            }
-          }) : t()
-        })
-      },
-      addAccept: function(e) {
-        var t = wx.getStorageSync('token'), a = e.join(',')
-        app.util.request({
-          url: 'entry/wxapp/user',
-          data: {
-            controller: 'user.collect_subscriptmsg',
-            token: t,
-            type: a
-          },
-          dataType: 'json',
-          method: 'POST',
-          success: function() {
-          }
-        })
-      },
-      showPickupTime: function() {
-        console.log("showPickupTime");
-        var isPresell = this.isPresell();
 
-          var that = this;
-          if(!isPresell){
-            that.doShowPickupTime();
-          }else{
-            that.doShowPreTime();
-          }
-
-      },
-      showSelectDialog:function () {
-          var that = this;
-          var confirm = false;
-        var preBt = this.pre_begin_time * 1000;
-
-        this.$wx.showModal({
-          title: "Pre-Order Delivery Alert",
-          content: "Do you wish to proceed with combining your order and delivery at a later date?<br><br>Expected Delivery Date: "+exp.formatDMY_en(new Date(preBt)) ,
-          confirmColor: "#F75451",
-          confirmText:"Yes",
-          cancelText:"No",
-          success: function (t) {
-
-            if (confirm || t.confirm) {
-                confirm = t.confirm;
-              console.log("用户点击确定");
-              that.doShowPreTime();
-            } else {
-              console.log("用户点击取消");
-              that.doShowPickupTime();
-            }
-          }
-        });
-      },
-      isPresell:function(){
-        var isPreTime = false;
-        var beginTime = 0;
-        this.pre_begin_time = 0;
-        for (var i in this.seller_goodss) {
-          var goods = this.seller_goodss[i].goods;
-          for (var j in goods){
-            var is_presell = goods[j].is_presell;
-            console.log(is_presell,"is_presell");
-            if (is_presell == "1") {//1 是预售商品
-                isPreTime = true;
-                var temp_beginTime = goods[j].begin_time;
-                var temp_endTime = goods[j].end_time;
-                console.log(temp_beginTime,"temp_beginTime");
-                var diff = parseInt(temp_beginTime) - beginTime;
-                if (diff > 0) {
-                  beginTime = parseInt(temp_beginTime);
+            bindReceiverZipCode: function (e) {
+                var t = this, a = t.tabAddress, i = t.tabIdx, o = e.detail.value.trim()
+                return a[i].zipCode = o, this.setData({
+                    tabAddress: a
+                }), {
+                    value: o
                 }
-            }
-          }
-        }
-        this.pre_begin_time = beginTime;
-        return isPreTime;
-      },
-      doShowPreTime:function () {
-          var isPreTime = false;
-          var beginTime = 0;
+            },
+            inputZipCode: function (e) {
 
-        for (var i in this.seller_goodss) {
-            var goods = this.seller_goodss[i].goods;
-            for (var j in goods){
-              var is_presell = goods[j].is_presell;
-              console.log(is_presell,"is_presell");
-              if (is_presell == "1") {//1 是预售商品
-                isPreTime = true;
-                var temp_beginTime = goods[j].begin_time;
-                var temp_endTime = goods[j].end_time;
-                console.log(temp_beginTime,"temp_beginTime");
-                var diff = parseInt(temp_beginTime) - beginTime;
-                if (diff > 0) {
-                  beginTime = parseInt(temp_beginTime);
+                var t = this, a = t.tabAddress, i = t.tabIdx;
+                var o = a[i].zipCode;
+                console.log(o)
+                var tk = wx.getStorageSync('token')
+                if ('' != o && /^\d{6}$/.test(o)) {
+                    app.util.request({
+                        url: 'entry/wxapp/user',
+                        data: {
+                            controller: 'index.load_address',
+                            token: tk,
+                            zipCode: o
+                        },
+                        dataType: 'json',
+                        method: 'GET',
+                        success: function (e) {
+                            console.log(e)
+                            var data = e
+                            console.log(data.results[0])
+                            if (data.found > 0) {
+                                var result = data.results[0]
+                                a[i].blk_no = result.BLK_NO
+                                a[i].building = result.BUILDING
+                                a[i].roadName = result.ROAD_NAME
+                                console.log(a)
+
+                            }
+                        }
+                    })
+
+                }
+            },
+
+            bindReceiverRoadName: function (e) {
+                var t = this, a = t.tabAddress, i = t.tabIdx, o = e.detail.value.trim()
+                return a[i].roadName = o, this.setData({
+                    tabAddress: a
+                }), {
+                    value: o
+                }
+            },
+
+            bindReceiverBuilding: function (e) {
+                var t = this, a = t.tabAddress, i = t.tabIdx, o = e.detail.value.trim()
+                return a[i].building = o, this.setData({
+                    tabAddress: a
+                }), {
+                    value: o
+                }
+            },
+
+            changeTuanBlkNo: function (e) {
+                var t = this, a = t.tabAddress, i = t.tabIdx, o = e.detail.value.trim()
+                return a[i].blk_no = o, this.setData({
+                    tabAddress: a
+                }), {
+                    value: o
+                }
+            },
+
+            changeReceiverAddress: function (e) {
+                var t = this, a = t.tabAddress
+                return a[t.tabIdx].receiverAddress = e.detail.value.trim(), this.setData({
+                    tabAddress: a
+                }), {
+                    value: e.detail.value.trim()
+                }
+            },
+            changeTuanAddress: function (e) {
+                var t = this, a = t.tabAddress
+                return a[t.tabIdx].lou_meng_hao = e.detail.value.trim(), this.setData({
+                    tabAddress: a
+                }), {
+                    value: e.detail.value.trim()
+                }
+            },
+            conformOrder: function () {
+                this.showConfirmModal = !0
+            },
+            closeConfirmModal: function () {
+                this.canPay = !0, this.showConfirmModal = !1
+            },
+
+            bindRegionChange: function (e) {
+                var t = e.detail.value
+                t && this.checkOut(t[1]), this.region = t
+
+            },
+            checkOut: function (e) {
+                var r = this, t = wx.getStorageSync('token'), a = wx.getStorageSync('community').communityId,
+                    i = wx.getStorageSync('latitude2'), o = wx.getStorageSync('longitude2'), s = this.buy_type,
+                    n = this.soli_id
+                app.util.request({
+                    url: 'entry/wxapp/user',
+                    data: {
+                        controller: 'car.checkout',
+                        token: t,
+                        community_id: a,
+                        mb_city_name: e,
+                        latitude: i,
+                        longitude: o,
+                        buy_type: s,
+                        soli_id: n
+                    },
+                    dataType: 'json',
+                    method: 'POST',
+                    success: function (e) {
+                        if (1 == e.code) {
+                            var t = e, a = t.vipcard_save_money, i = t.shop_buy_distance, o = t.is_limit_distance_buy,
+                                s = t.current_distance, n = t.level_save_money
+                            1 == r.tabIdx && 1 == o && i < s && wx.showModal({
+                                title: '提示',
+                                content: '超出配送范围，请重新选择',
+                                showCancel: !1,
+                                confirmColor: '#F75451'
+                            }), (
+                                r.vipcard_save_money = a,
+                                    r.level_save_money = n,
+                                    r.is_limit_distance_buy = o || 0,
+                                    r.current_distance = s || '',
+                                    r.trans_free_toal = t.trans_free_toal,
+                                    r.is_man_delivery_tuanz_fare = t.is_man_delivery_tuanz_fare,
+                                    r.fare_man_delivery_tuanz_fare_money = t.fare_man_delivery_tuanz_fare_money,
+                                    r.is_man_shipping_fare = t.is_man_shipping_fare,
+                                    r.fare_man_shipping_fare_money = t.fare_man_shipping_fare_money,
+                                    r.calcPrice()
+                            )
+                        }
+                    }
+                })
+            },
+            choseLocation: function () {
+                var e = this, s = e.tabAddress, n = e.tabIdx, r = this
+                wx.chooseLocation({
+                    success: function (e) {
+                        console.log(e)
+                        var t = r.region, a = e.name, i = (e.address, null)
+
+                        function o() {
+                            console.log('setData'), t && '市' != t[1] && r.checkOut(t[1]), s[n].region = t, s[n].receiverAddress = a,
+                                r.setData({
+                                    tabAddress: s
+                                })
+                        }
+
+                        console.log('patt', i), locat.getGpsLocation(e.latitude, e.longitude).then(function (e) {
+                            console.log('反推了', e), e && (t[0] = e.province, t[1] = e.city, t[2] = e.district,
+                            a || (a = e.street)), o()
+                        }), wcache.put('latitude2', e.latitude), wcache.put('longitude2', e.longitude)
+                    },
+                    fail: function (e) {
+                        console.log(e), 'chooseLocation:fail auth deny' == e.errMsg && (console.log('无权限'),
+                            locat.checkGPS(app, locat.openSetting()))
+                    }
+                })
+            },
+            getWxAddress: function () {
+                var e = this, a = e.tabAddress, i = e.tabIdx, o = a[i].region || [], s = this
+                wx.getSetting({
+                    success: function (e) {
+                        console.log('vres.authSetting[\'scope.address\']：', e.authSetting['scope.address']),
+                            e.authSetting['scope.address'] ? wx.chooseAddress({
+                                success: function (e) {
+                                    console.log('step1'), o[0] = e.provinceName || '选择地址', o[1] = e.cityName || '',
+                                        o[2] = e.countyName || ''
+                                    var t = e.detailInfo
+                                    a[i].name = e.userName, a[i].mobile = e.telNumber, a[i].region = o, a[i].receiverAddress = t,
+                                        s.setData({
+                                            tabAddress: a
+                                        }), o && '市' != o[1] && s.checkOut(o[1])
+                                },
+                                fail: function (e) {
+                                    console.log('step4'), console.log(e)
+                                }
+                            }) : 0 == e.authSetting['scope.address'] ? wx.openSetting({
+                                success: function (e) {
+                                    console.log(e.authSetting)
+                                }
+                            }) : (console.log('step2'), wx.chooseAddress({
+                                success: function (e) {
+                                    console.log('step3'), o[0] = e.provinceName || '选择地址', o[1] = e.cityName || '',
+                                        o[2] = e.countyName || ''
+                                    var t = e.detailInfo
+                                    o && '市' != o[1] && s.checkOut(o[1]), a[i].name = e.userName, a[i].mobile = e.telNumber,
+                                        a[i].region = o, a[i].receiverAddress = t, s.setData({
+                                        tabAddress: a
+                                    })
+                                }
+                            }))
+                    }
+                })
+            },
+            tabSwitch: function (e) {
+                var t = 1 * e.currentTarget.dataset.idx
+                0 != t && wx.showToast({
+                    title: 'Freight Changed',
+                    icon: 'none'
+                })
+                this.tabIdx = t;
+                this.calcPrice(1);
+            },
+            showvoucher: function (e) {
+                var t = e.currentTarget.dataset.seller_id, a = [], i = this.seller_chose_id,
+                    o = this.seller_chose_store_id, s = this.seller_goodss
+                for (var n in s) {
+                    s[n].store_info.s_id == t && (a = s[n].voucher_list, 0 == i && (i = s[n].chose_vouche.id || 0,
+                        o = s[n].chose_vouche.store_id || 0))
+                }
+                this.ssvoucher_list = a,
+                    this.voucher_serller_id = t,
+                    this.seller_chose_id = i,
+                    this.seller_chose_store_id = o,
+                    this.hide_quan = !1
+            },
+            chose_voucher_id: function (e) {
+                wx.showLoading()
+                var s = e.currentTarget.dataset.voucher_id, n = e.currentTarget.dataset.seller_id, r = this,
+                    t = wx.getStorageSync('token'), a = n + '_' + s, i = wx.getStorageSync('latitude2'),
+                    o = wx.getStorageSync('longitude2'), d = r.buy_type, c = this.soli_id,
+                    _ = wx.getStorageSync('community').communityId || ''
+                app.util.request({
+                    url: 'entry/wxapp/user',
+                    data: {
+                        controller: 'car.checkout',
+                        token: t,
+                        community_id: _,
+                        voucher_id: s,
+                        use_quan_str: a,
+                        buy_type: d,
+                        latitude: i,
+                        longitude: o,
+                        soli_id: c
+                    },
+                    dataType: 'json',
+                    method: 'POST',
+                    success: function (e) {
+                        if (wx.hideLoading(), 1 == e.code) {
+                            var t = e.seller_goodss, a = ''
+                            for (var i in t) t[i].goodsnum = Object.keys(t[i].goods).length, '[object Object]' == Object.prototype.toString.call(t[i].chose_vouche) && (a = t[i].chose_vouche)
+                            var o = e
+                            r.seller_goodss = t
+                            r.seller_chose_id = s
+                            r.seller_chose_store_id = n
+                            r.hide_quan = !0
+                            r.goods = o.goods
+                            r.buy_type = o.buy_type || 'dan'
+                            r.yupay = o.can_yupay
+                            r.is_yue_open = o.is_yue_open
+                            r.total_free = o.total_free
+                            r.sel_chose_vouche = a
+                            r.current_distance = o.current_distance || ''
+                            r.calcPrice()
+
+                        }
+                    }
+                })
+            },
+            closeCouponModal: function () {
+                this.hide_quan = !0
+            },
+            calcPrice: function () {
+                var e = 0 < arguments.length && void 0 !== arguments[0] ? arguments[0] : 0, t = this, a = t.total_free,
+                    i = t.delivery_tuanz_money, o = t.trans_free_toal, s = t.tabIdx, n = t.goods,
+                    r = (t.is_open_vipcard_buy,
+                        t.is_member_level_buy, t.is_vip_card_member, t.canLevelBuy)
+                a *= 1, i *= 1, o *= 1
+                var d = 0, c = 0, _ = 0, u = !0, l = !1, h = void 0
+                try {
+                    for (var p, m = Object.keys(n)[Symbol.iterator](); !(u = (p = m.next()).done); u = !0) {
+                        var y = n[p.value]
+                        c += y.total, r && y.is_mb_level_buy && (_ += 1 * y.total - 1 * y.level_total)
+                    }
+                } catch (e) {
+                    l = !0, h = e
+                } finally {
+                    try {
+                        !u && m.return && m.return()
+                    } finally {
+                        if (l) throw h
+                    }
+                }
+                console.log(c)
+                var g = c
+                if (0 == s) {
+                    d = a
+                } else if (1 == s) {
+                    d = 0 == t.is_man_delivery_tuanz_fare ? i + a : a, g += i
+                } else if (2 == s) {
+                    g += o, d = 0 == t.is_man_shipping_fare ? o + a : a
+                }
+                var f = t.use_score
+                e && f && (d -= 1 * t.score_for_money)
+                var v
+                v = (g - 1 * d).toFixed(2), (
+                    this.total_all = g.toFixed(2),
+                        this.disAmount = v,
+                        this.tot_price = d.toFixed(2),
+                        this.total_goods_price = c.toFixed(2),
+                        this.levelAmount = _.toFixed(2)
+                )
+            },
+            bindInputMessage: function (e) {
+                var t = this.commentArr, a = e.currentTarget.dataset.idx, i = e.detail.value
+                t[a] = i, this.setData({
+                    commentArr: t
+                })
+            },
+            changeIndexList: function () {
+                var e = this.goods || []
+                0 < e.length && e.forEach(function (e) {
+                    0 == e.option.length && status.indexListCarCount(e.goods_id, 0)
+                })
+            },
+            subscriptionNotice: function () {
+                console.log('subscriptionNotice')
+                var s = this
+                return new Promise(function (e, t) {
+                    var o = s.need_subscript_template, a = Object.keys(o).map(function (e) {
+                        return o[e]
+                    })
+                    wx.requestSubscribeMessage ? a.length && wx.requestSubscribeMessage({
+                        tmplIds: a,
+                        success: function (t) {
+                            var a = 1, i = []
+                            Object.keys(o).forEach(function (e) {
+                                'accept' == t[o[e]] ? i.push(e) : a = 0
+                            }), i.length && s.addAccept(i), s.setData({
+                                is_need_subscript: a
+                            }), e()
+                        },
+                        fail: function () {
+                            t()
+                        }
+                    }) : t()
+                })
+            },
+            addAccept: function (e) {
+                var t = wx.getStorageSync('token'), a = e.join(',')
+                app.util.request({
+                    url: 'entry/wxapp/user',
+                    data: {
+                        controller: 'user.collect_subscriptmsg',
+                        token: t,
+                        type: a
+                    },
+                    dataType: 'json',
+                    method: 'POST',
+                    success: function () {
+                    }
+                })
+            },
+            showPickupTime: function () {
+                console.log("showPickupTime");
+                var isPresell = this.isPresell();
+
+                var that = this;
+                if (!isPresell) {
+                    that.doShowPickupTime();
+                } else {
+                    that.doShowPreTime();
                 }
 
-              }
+            },
+            showSelectDialog: function () {
+                var that = this;
+                var confirm = false;
+                var preBt = this.pre_begin_time * 1000;
+
+                this.$wx.showModal({
+                    title: "Pre-Order Delivery Alert",
+                    content: "Do you wish to proceed with combining your order and delivery at a later date?<br><br>Expected Delivery Date: " + exp.formatDMY_en(new Date(preBt)),
+                    confirmColor: "#F75451",
+                    confirmText: "Yes",
+                    cancelText: "No",
+                    success: function (t) {
+
+                        if (confirm || t.confirm) {
+                            confirm = t.confirm;
+                            console.log("用户点击确定");
+                            that.doShowPreTime();
+                        } else {
+                            console.log("用户点击取消");
+                            that.doShowPickupTime();
+                        }
+                    }
+                });
+            },
+            isPresell: function () {
+                var isPreTime = false;
+                var beginTime = 0;
+                this.pre_begin_time = 0;
+                for (var i in this.seller_goodss) {
+                    var goods = this.seller_goodss[i].goods;
+                    for (var j in goods) {
+                        var is_presell = goods[j].is_presell;
+                        console.log(is_presell, "is_presell");
+                        if (is_presell == "1") {//1 是预售商品
+                            isPreTime = true;
+                            var temp_beginTime = goods[j].begin_time;
+                            var temp_endTime = goods[j].end_time;
+                            console.log(temp_beginTime, "temp_beginTime");
+                            var diff = parseInt(temp_beginTime) - beginTime;
+                            if (diff > 0) {
+                                beginTime = parseInt(temp_beginTime);
+                            }
+                        }
+                    }
+                }
+                this.pre_begin_time = beginTime;
+                return isPreTime;
+            },
+            doShowPreTime: function () {
+                var isPreTime = false;
+                var beginTime = 0;
+
+                for (var i in this.seller_goodss) {
+                    var goods = this.seller_goodss[i].goods;
+                    for (var j in goods) {
+                        var is_presell = goods[j].is_presell;
+                        console.log(is_presell, "is_presell");
+                        if (is_presell == "1") {//1 是预售商品
+                            isPreTime = true;
+                            var temp_beginTime = goods[j].begin_time;
+                            var temp_endTime = goods[j].end_time;
+                            console.log(temp_beginTime, "temp_beginTime");
+                            var diff = parseInt(temp_beginTime) - beginTime;
+                            if (diff > 0) {
+                                beginTime = parseInt(temp_beginTime);
+                            }
+
+                        }
+                    }
+
+                }
+
+                if (isPreTime && beginTime > 0) {
+                    var list = new Array();
+                    var days = 7;
+                    for (var i = 0; i < days; i++) {
+                        var bgDate = new Date(beginTime * 1000 + i * 86400 * 1000);
+                        var str_date = exp.formatYMD(bgDate);
+                        var md = exp.formatDM(bgDate);
+                        var tempDate = exp.formatMD2(bgDate);
+                        var chinaWeek = exp.formatWeekday(bgDate);
+                        var date = tempDate + "(" + chinaWeek.weekday + ")";
+                        var week_key = exp.formatWeekdayEnglish(bgDate).weekday;
+                        var data = {
+                            "date": date,
+                            "week_key": week_key,
+                            "md": md,
+                            "str_date": str_date,
+                            "times": ["09:00 - 18:00"]
+                        };
+                        console.log(data);
+                        list.push(data);
+                    }
+
+                    this.rickupTimeData.list = list;
+                    this.rickupTimeData.currentTimes = list[0].times;
+                    this.showPickupTimeModal = true;
+                }
+                //this.doShowPickupTime();
+            },
+            doShowPickupTime: function () {
+
+
+                var r = this, s = r.tabAddress, n = r.tabIdx, t = wx.getStorageSync("token");
+                var I = wx.getStorageSync("community").communityId;
+                var controller = '';
+                if (n == 0) {
+                    controller = 'car.get_head_date_list'
+                } else {
+                    controller = 'car.get_express_date_list'
+                }
+                app.util.request({
+                    url: 'entry/wxapp/user',
+                    data: {
+                        controller: controller,
+                        token: t,
+                        head_id: I
+                    },
+                    dataType: 'json',
+                    method: 'POST',
+                    success: function (e) {
+                        var list = e.data;
+                        console.log(e, "date_list");
+
+                        r.rickupTimeData.list = list
+                        r.rickupTimeData.currentTimes = list[0].times
+
+                    }
+                })
+
+                r.showPickupTimeModal = true
+
+            },
+            closePickupTimeModal: function () {
+
+                this.showPickupTimeModal = false
+
+            },
+            changePickupDate: function (e) {
+                var r = this, i = e.currentTarget.dataset.index
+                var d = r.rickupTimeData.list[i]
+                console.log(d)
+                r.rickupTimeData.activeDateIndex = i,
+                    r.rickupTimeData.currentTimes = d.times
+
+            },
+            changePickupTime: function (e) {
+                var r = this, i = e.currentTarget.dataset.index
+                var activeDateIndex = r.rickupTimeData.activeDateIndex
+                r.rickupTimeData.activeTimeIndex = i
+            },
+            changePickupDateTime: function () {
+                var e = this, s = e.tabAddress, n = e.tabIdx, r = this
+
+                var activeDateIndex = e.rickupTimeData.activeDateIndex
+                var activeTimeIndex = e.rickupTimeData.activeTimeIndex
+                var d = e.rickupTimeData.list[activeDateIndex]
+                var t = d.times[activeTimeIndex]
+                if (d && d.date && t) {
+                    s[n].delivery_date = d.str_date
+                    s[n].delivery_date_str = d.md + '(' + e.$t('week.' + d.week_key) + ') ' + t
+                    s[n].delivery_time = t
+
+                    this.closePickupTimeModal()
+                } else {
+                    wx.showToast({
+                        title: this.$t('order.xuanzezitishijian'),
+                        icon: 'none'
+                    })
+                }
+
+            },
+            getPayInfo: function () {
+                var this_ = this;
+                app.util.request({
+                    url: "entry/wxapp/user",
+                    data: {
+                        controller: "user.get_copyright",
+                    },
+                    dataType: "json",
+                    method: "POST",
+                    success: function (t) {
+                        this_.payNowInfo.payNowQr = t.paynow_qr
+                        this_.payNowInfo.payNowNo = t.paynow_no
+                        this_.payNowInfo.payNowUen = t.paynow_uen
+                    }
+                });
+            },
+            clearCarGoods: function () {
+                var that = this;
+                let buy_type = that.buy_type
+                var t = wx.getStorageSync('token'), a = wx.getStorageSync('community'), i = a.communityId;
+                app.util.request({
+                    url: "entry/wxapp/user",
+                    data: {
+                        controller: "car.clearPreOrder",
+                        token: t,
+                        community_id: i,
+                        buy_type: buy_type
+                    },
+                    dataType: "json",
+                    method: "POST",
+                    success: function (t) {
+
+                    }
+                });
             }
 
         }
-
-        if (isPreTime && beginTime > 0){
-          var list = new Array();
-          var days = 7;
-          for(var i=0;i<days;i++){
-            var bgDate = new Date(beginTime*1000+i*86400*1000);
-            var str_date = exp.formatYMD(bgDate);
-            var md = exp.formatDM(bgDate);
-            var tempDate = exp.formatMD2(bgDate);
-            var chinaWeek = exp.formatWeekday(bgDate);
-            var date = tempDate+"("+chinaWeek.weekday+")";
-            var week_key = exp.formatWeekdayEnglish(bgDate).weekday;
-            var data = {
-              "date": date,
-              "week_key": week_key,
-              "md": md,
-              "str_date": str_date,
-              "times": ["09:00 - 18:00"]
-            };
-            console.log(data);
-            list.push(data);
-          }
-
-          this.rickupTimeData.list = list;
-          this.rickupTimeData.currentTimes = list[0].times;
-          this.showPickupTimeModal = true;
-        }
-        //this.doShowPickupTime();
-      },
-      doShowPickupTime: function() {
-
-
-        var r = this,s = r.tabAddress, n = r.tabIdx, t = wx.getStorageSync("token");
-        var I = wx.getStorageSync("community").communityId;
-        var controller='';
-        if(n ==0){
-          controller = 'car.get_head_date_list'
-        }else{
-          controller = 'car.get_express_date_list'
-        }
-        app.util.request({
-          url: 'entry/wxapp/user',
-          data: {
-            controller: controller,
-            token: t,
-            head_id: I
-          },
-          dataType: 'json',
-          method: 'POST',
-          success: function(e) {
-            var list = e.data;
-            console.log(e,"date_list");
-
-            r.rickupTimeData.list = list
-            r.rickupTimeData.currentTimes = list[0].times
-
-          }
-        })
-
-        r.showPickupTimeModal = true
-
-      },
-      closePickupTimeModal: function() {
-
-        this.showPickupTimeModal =  false
-
-      },
-      changePickupDate: function(e) {
-        var r = this, i = e.currentTarget.dataset.index
-        var d = r.rickupTimeData.list[i]
-        console.log(d)
-          r.rickupTimeData.activeDateIndex= i,
-          r.rickupTimeData.currentTimes = d.times
-
-      },
-      changePickupTime: function(e) {
-        var r = this, i = e.currentTarget.dataset.index
-        var activeDateIndex = r.rickupTimeData.activeDateIndex
-        r.rickupTimeData.activeTimeIndex = i
-      },
-      changePickupDateTime: function() {
-        var e = this, s = e.tabAddress, n = e.tabIdx, r = this
-
-        var activeDateIndex = e.rickupTimeData.activeDateIndex
-        var activeTimeIndex = e.rickupTimeData.activeTimeIndex
-        var d = e.rickupTimeData.list[activeDateIndex]
-        var t = d.times[activeTimeIndex]
-        if (d && d.date && t) {
-          s[n].delivery_date = d.str_date
-          s[n].delivery_date_str = d.md + '(' + e.$t('week.'+d.week_key) +') ' + t
-          s[n].delivery_time = t
-
-          this.closePickupTimeModal()
-        } else {
-          wx.showToast({
-            title: this.$t('order.xuanzezitishijian'),
-            icon: 'none'
-          })
-        }
-
-      },
-      getPayInfo :function(){
-        var this_ = this;
-        app.util.request({
-          url: "entry/wxapp/user",
-          data: {
-            controller: "user.get_copyright",
-          },
-          dataType: "json",
-          method: "POST",
-          success: function(t) {
-            this_.payNowInfo.payNowQr = t.paynow_qr
-            this_.payNowInfo.payNowNo = t.paynow_no
-            this_.payNowInfo.payNowUen = t.paynow_uen
-          }
-        });
-      },
-      clearCarGoods: function() {
-        var that = this;
-        let buy_type =   that.buy_type
-        var t = wx.getStorageSync('token'), a = wx.getStorageSync('community'), i = a.communityId;
-        app.util.request({
-          url: "entry/wxapp/user",
-          data: {
-            controller: "car.clearPreOrder",
-            token: t,
-            community_id:i,
-            buy_type:buy_type
-          },
-          dataType: "json",
-          method: "POST",
-          success: function(t) {
-
-          }
-        });
-      }
-
     }
-  }
 </script>
 
 <style scoped>
@@ -2038,8 +2083,8 @@
     display: block;
     overflow: hidden;
     text-overflow: ellipsis;
-    word-wrap:break-word;
-    word-break:normal;
+    word-wrap: break-word;
+    word-break: normal;
   }
 
   .address-line {
@@ -2091,8 +2136,6 @@
     width: 100vw;
     -ms-flex-wrap: wrap;
     flex-wrap: wrap;
-    padding: 1vw 0;
-    border-bottom: 1px solid #efefef;
   }
 
   .cart-item >>> .pre-title {
@@ -2124,7 +2167,7 @@
     align-items: center;
     -ms-flex-wrap: wrap;
     flex-wrap: wrap;
-    padding: 1vw 0;
+    padding: 2.6vw;
     border-bottom: 1px solid #efefef;
   }
 
@@ -2133,6 +2176,7 @@
     height: 20vw;
     margin-right: 2vw;
   }
+
   .sku-item >>> .sku-img >>> .van-image__img {
     width: 20vw;
     height: 20vw;
@@ -2269,11 +2313,11 @@
     color: #666;
   }
 
-  .fixed-content >>> .fixed-left >>> .h2  >>> em {
+  .fixed-content >>> .fixed-left >>> .h2 >>> em {
     margin-right: 1.6vw;
   }
 
-  .fixed-content  >>> .fixed-bar-btn {
+  .fixed-content >>> .fixed-bar-btn {
     width: 30vw;
     height: 14vw;
     text-align: center;
@@ -2303,7 +2347,7 @@
     font-size: 3.5vw;
     color: #444;
     line-height: 8.5vw;
-    margin-bottom:1vw;
+    margin-bottom: 1vw;
     font-weight: 500;
   }
 
@@ -2332,7 +2376,7 @@
     margin-bottom: 15vw;
   }
 
-  .confirm-order-modal  .order-content >>> .msg-group {
+  .confirm-order-modal .order-content >>> .msg-group {
     width: 100vw;
     padding: 0 4vw;
     margin-bottom: 1vw;
@@ -2343,18 +2387,18 @@
     box-sizing: border-box;
   }
 
-  .confirm-order-modal  .order-content >>> .msg-group >>>  span {
+  .confirm-order-modal .order-content >>> .msg-group >>> span {
     font-weight: bold;
     white-space: nowrap;
   }
 
-  .confirm-order-modal  .order-content >>> .msg-group >>> em {
+  .confirm-order-modal .order-content >>> .msg-group >>> em {
     font-weight: 400;
     flex: 1;
     line-height: 1.4;
   }
 
-  .confirm-order-modal  .order-content >>> .total {
+  .confirm-order-modal .order-content >>> .total {
     line-height: 10vw;
     padding: 0 2vw;
     text-align: right;
@@ -2363,7 +2407,7 @@
     border-top: 0.1vw solid #e2e2e2;
   }
 
-  .confirm-order-modal  .order-content >>> .total >>> em {
+  .confirm-order-modal .order-content >>> .total >>> em {
     color: #ff5344;
   }
 
@@ -2376,11 +2420,11 @@
     bottom: 0;
   }
 
-  .confirm-order-modal  .button-group >>> .btn-content {
+  .confirm-order-modal .button-group >>> .btn-content {
     flex: 1;
   }
 
-  .confirm-order-modal  .button-group >>> .btn {
+  .confirm-order-modal .button-group >>> .btn {
     flex: 1;
     margin: 0;
     padding: 0;
@@ -2392,12 +2436,12 @@
     font-weight: bold;
   }
 
-  .confirm-order-modal  .button-group >>> .left-btn {
+  .confirm-order-modal .button-group >>> .left-btn {
     color: #666;
     background: #fff;
   }
 
-  .confirm-order-modal  .button-group >>> .right-btn {
+  .confirm-order-modal .button-group >>> .right-btn {
     color: #fff;
     background: linear-gradient(to right, #ff5041, #ff695c);
   }
@@ -2533,7 +2577,7 @@
 
   .confirm-coupon-modal .title {
     width: 100%;
-    border-bottom: 1rpx solid #efefef;
+    border-bottom: 1 rpx solid #efefef;
     line-height: 2.5;
     font-size: 3.2vw;
     text-align: center;
@@ -2575,21 +2619,31 @@
 
   .use-wx-address {
     text-align: center;
-    margin-top: 20vw;
-    margin-bottom: 20vw;
+    margin-top: 2.0vw;
+    margin-bottom: 2.0vw;
     color: #ff5344;
   }
 
   .cart-footer {
-    padding: 26vw;
+    padding: 2.6vw;
   }
 
   .order-message {
-    position: relative;
+    border-radius: 1vw;
+    -webkit-box-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
+    height: 7vw;
+    line-height: 7vw;
+    padding: 1vw 1vw;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    font-weight: bold;
     background-color: #f7f7f7;
-    padding: 5vw 10vw;
-    border-radius: 5vw;
-    z-index: 0;
+    border: 0.1vw solid #ddd;
+    font-size: 2.4vw;
+    width: 90vw;
+    outline: none;
   }
 
   .tuan-pos {
@@ -2900,7 +2954,7 @@
   }
 
 
-  .paynow input{
+  .paynow input {
     border-radius: 1vw;
     flex: 1;
     height: 8vw;

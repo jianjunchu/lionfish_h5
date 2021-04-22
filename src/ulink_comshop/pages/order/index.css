@@ -455,7 +455,7 @@
 .nav-bar >>> .nav-bar-item {
     position: relative;
     word-break: keep-all;
-    font-size: 1vw;
+    font-size: 3vw;
     color: #666;
     padding: 3vw 0;
 }

@@ -191,6 +191,7 @@
         })
       },
       addCart: function(t) {
+
         var e = wx.getStorageSync('token'), a = wx.getStorageSync('community'), u = this.spuItem.actId,
           i = a.communityId, s = this
         if ('plus' == t.type) {
@@ -231,10 +232,11 @@
                   duration: 2e3
                 })
               } else {
+                  let title = s.$t('cart.yijiarugouwuche');
                 s.$emit('changeCartNum', t.total), (
                   s.number = t.cur_count
                 ), wx.showToast({
-                  title: this.$t('cart.yijiarugouwuche'),
+                  title: title,
                   image: '@/assets/images/addShopCart.png'
                 }), status.indexListCarCount(u, t.cur_count)
               }

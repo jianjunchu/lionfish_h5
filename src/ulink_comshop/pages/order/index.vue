@@ -26,6 +26,7 @@
       <button class="wux-button wux-button--block" type="warn" style="margin-top=16px">到店付款</button>
       -->
       <button @click.stop="payNow" class="wux-button wux-button--block" data-type="paynow" :style="{background:skin.color,color:' #fff'}" type="warn">PayNow</button>
+      <button @click.stop="payPal" class="wux-button wux-button--block" data-type="paypal" :style="{background:skin.color,color:' #fff'}" type="warn">PayPal</button>
       <button @click.stop="yuepay" v-if="is_open_yue_pay ==1" :style="{background:skin.color,color:' #fff','font-size':'2vw'}" class="wux-button wux-button--block" type="warn"> {{ $t('order.yuezhifu',{p1:accountMoney}) }} </button>
 
       <!--<button @click.stop="orderPayTransfer" data-type="banktransfer" class="wux-button wux-button&#45;&#45;block" type="warn">公司转账</button>-->
@@ -84,7 +85,7 @@
                     <img   class="show-img img-def opacity show-img"  :src="img.goods_images"/>
                   </div>
                 </div>
-                <div class="dot" v-if="item.goods_list.length>=4">
+                <div class="dot" v-if="item.goods_list && item.goods_list.length>=4">
                   <div class="dot-item"></div>
                   <div class="dot-item dot-middle"></div>
                   <div class="dot-item"></div>
@@ -97,7 +98,7 @@
             </div>
             <div class="card-footer" slot="footer">
               <div>{{$t('common.gong')}}
-                <span class="i-class">{{item.goods_list.length}}</span>  {{$t('order.jianshangpin')}}
+                <span class="i-class" v-if="item.goods_list">{{item.goods_list.length}}</span>  {{$t('order.jianshangpin')}}
                 <div class="accual-pay" v-if="item.orderStatus!=3"> {{$t('order.shifu')}}：
                   <div class="money" v-if="item.type=='integral'">
                     <div v-if="item.shipping_fare>0">${{item.shipping_fare}} + </div>{{item.score}}{{$t('common.jifen')}}
@@ -304,6 +305,32 @@
         this.toClosePaymentModal();
         this.toShowPayNowModal();
       },
+        payPal :function(){
+            var t = wx.getStorageSync("token"), c = this;
+            var a = c.currentItem,b = c.accountMoney;
+            wx.showLoading()
+            app.util.request({
+                url: "entry/wxapp/user",
+                data: {
+                    controller: "car.paypal_pay",
+                    order_id:a.order_id,
+                    token: t
+                },
+                dataType: "json",
+                success: function(t) {
+                    if (0 == t.code) {
+                        window.location.href = t.approvalUrl;
+                    }else{
+                        wx.showToast({
+                            title: t.msg,
+                            icon: "none"
+                        });
+                    }
+                }
+            });
+
+
+        },
       yuepay:function(){
         var t = wx.getStorageSync("token"), c = this;
         var a = c.currentItem,b = c.accountMoney;

@@ -26,6 +26,7 @@
       <button class="wux-button wux-button--block" type="warn" style="margin-top=16px">到店付款</button>
       -->
       <button @click="payNow" class="wux-button wux-button--block" type="warn" :style="{background:skin.color,color:' #fff'}" >PayNow</button>
+      <button @click="payPal" class="wux-button wux-button--block" type="warn" :style="{background:skin.color,color:' #fff'}" >PayPal</button>
       <button @click="yuepay" v-if="is_open_yue_pay ==1" :style="{background:skin.color,color:' #fff','font-size':'2vw'}" class="wux-button wux-button--block" type="warn"> {{ $t('order.yuezhifu',{p1:accountMoney}) }} </button>
 
       <!-- <button @click="orderPayTransfer" data-type="banktransfer" class="wux-button wux-button&#45;&#45;block" type="warn">公司转账</button>-->
@@ -658,8 +659,8 @@
 //        })
 
         Dialog.confirm({
-          title: this.$t('cart.quxiaozhifu'),
-          message: this.$t('cart.haoburongyi'),
+          title: that.$t('cart.quxiaozhifu'),
+          message: that.$t('cart.haoburongyi'),
         })
           .then(() => {
             that.$http({
@@ -669,7 +670,7 @@
             }).then(res=> {
 
               wx.showToast({
-                title: this.$t('order.quxiaochenggong'),
+                title: that.$t('order.quxiaochenggong'),
                 icon: "success",
               });
               wx.navigateTo({
@@ -692,6 +693,32 @@
         this.doClosePaymentModal();
         this.doShowPayNowModal();
       },
+        payPal :function(){
+            var t = wx.getStorageSync("token"), c = this;
+            var a = c.order.order_info,b = c.accountMoney;
+            wx.showLoading()
+            app.util.request({
+                url: "entry/wxapp/user",
+                data: {
+                    controller: "car.paypal_pay",
+                    order_id:a.order_id,
+                    token: t
+                },
+                dataType: "json",
+                success: function(t) {
+                    if (0 == t.code) {
+                        window.location.href = t.approvalUrl;
+                    }else{
+                        wx.showToast({
+                            title: t.msg,
+                            icon: "none"
+                        });
+                    }
+                }
+            });
+
+
+        },
       yuepay:function(){
 
         var t = wx.getStorageSync("token"), c = this;
@@ -836,7 +863,7 @@
       cancelOrder: function(a) {
         var r = this;
         this.canCancel && wx.showModal({
-          title: this.$t('order.quxiaodingdantuikuan'),
+          title: r.$t('order.quxiaodingdantuikuan'),
           content: "After refund, your money will be retuen back to the balance。",
           confirmText: r.$t('order.quxiaodingdan'),
           confirmColor: "#ff5344",
@@ -1523,7 +1550,7 @@
     overflow: auto;
 
   }
-  wux-button {
+  >>> .wux-button {
     display: inline-block;
     box-sizing: border-box;
     margin: 0;
@@ -1539,7 +1566,7 @@
     cursor: pointer;
 
   }
-  wux-button--block{
+  >>> .wux-button--block{
     width: 100%;
     margin-top: 10px;
   }
