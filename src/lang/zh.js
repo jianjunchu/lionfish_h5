@@ -62,7 +62,8 @@ export default {
     lianxikefu: '联系客服',
     tuichudenglu: '退出登陆',
     guanyuwomen: '关于我们',
-    shenqingchengwei1: '申请成为'
+    shenqingchengwei1: '申请成为',
+    lijiqiandao: '立即签到'
   },
   common: {
     daifukuan: '待付款',

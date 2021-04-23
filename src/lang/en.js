@@ -62,7 +62,8 @@ export default {
     lianxikefu: 'Contact Us',
     tuichudenglu: 'Logout',
     guanyuwomen: 'About Us',
-    shenqingchengwei1: 'Join Us as '
+    shenqingchengwei1: 'Join Us as ',
+    lijiqiandao: 'Sign In Immediately'
   },
   common: {
     daifukuan: 'To Pay',
