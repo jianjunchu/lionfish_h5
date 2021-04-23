@@ -4,7 +4,7 @@
       <div class="left-arrow"></div>
     </div>
     <div class="vux-header-left-logo" v-if="getShowToolbarLogo"><a class="vux-header-back"></a>
-      <img src="@/assets/images/toolbar_logo.png" height="32px"/>
+      <img :src="getToolbarLogo" height="32px"/>
     </div>
     <h2 class="vux-header-title"><span>{{getToolbarTitle}}</span></h2>
     <div class="vux-header-right" v-if="getShowToSolbarMore"><a class="vux-header-more"></a></div>
@@ -33,6 +33,9 @@
       },
       navFontColor(){
         return this.$store.getters.navFontColor
+      },
+      getToolbarLogo(){
+        return this.$store.getters.toolbarLogo
       }
     },
     methods:{

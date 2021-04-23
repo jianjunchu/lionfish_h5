@@ -250,7 +250,7 @@
               </div>
             </div>
           </div>
-          <div @click="goLink2" data-link="/ulink_comshop/moduleA/solitaire/me" v-if="is_open_solitaire==1">
+          <!-- <div @click="goLink2" data-link="/ulink_comshop/moduleA/solitaire/me" v-if="is_open_solitaire==1">
             <div class="item-main">
               <div class="item-title">
                 <img class="toolIcon" mode="widthFix"
@@ -261,7 +261,7 @@
                 <img class="icon-right " src="@/assets/images/rightArrowImg.png"/>
               </div>
             </div>
-          </div>
+          </div> -->
           <div v-if="is_show_score==1">
             <div @click="goLink2" class="score" data-link="/ulink_comshop/moduleA/score/signin"
                  v-if="isopen_signinreward==1">
@@ -269,10 +269,10 @@
                 <div class="item-title">
                   <img class="toolIcon" mode="widthFix"
                        :src="user_tool_icons.i2?user_tool_icons.i2:require('@/assets/images/icon-score.png')"/>-->
-                  <span>积分</span>
+                  <span>{{$t('common.jifen')}}</span>
                 </div>
                 <div class="tool-right">
-                  <span style="margin-right:5px;">立即签到</span>
+                  <span style="margin-right:5px;">{{$t('me.lijiqiandao')}}</span>
                   <img class="icon-right " src="@/assets/images/rightArrowImg.png"/>
                 </div>
               </div>
@@ -282,7 +282,7 @@
                 <div class="item-title">
                   <img class="toolIcon" mode="widthFix"
                        :src="user_tool_icons.i2?user_tool_icons.i2:require('@/assets/images/icon-score.png')"/>
-                  <span>积分</span>
+                  <span>{{$t('common.jifen')}}</span>
                 </div>
                 <div class="tool-right">
                   <img class="icon-right " src="@/assets/images/rightArrowImg.png"/>

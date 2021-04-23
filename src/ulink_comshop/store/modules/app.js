@@ -7,6 +7,7 @@ const state = {
   },
   device: 'desktop',
   toolbarTitle: '',
+  toolbarLogo: '',
   tabbarCurrentIdx: 2,
   storageSync: {},
   showToolbarBack: true,
@@ -79,6 +80,9 @@ const mutations = {
   SET_APP_TITLE(state, title) {
     state.toolbarTitle = title
   },
+  SET_APP_LOGO(state, logo) {
+    state.toolbarLogo = logo
+  },
   TOGGLE_TABBAR: (state, show) => {
     state.showTabbar = show
   },
@@ -129,6 +133,9 @@ const actions = {
   },
   setToolbarTitle({ commit }, title) {
     commit('SET_APP_TITLE', title)
+  },
+  setToolbarLogo({ commit }, logo) {
+    commit('SET_APP_LOGO', logo)
   },
   showTabbar({ commit }) {
     commit('TOGGLE_TABBAR', true)
