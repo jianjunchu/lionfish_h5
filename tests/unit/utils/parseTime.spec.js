@@ -1,4 +1,4 @@
-import { parseTime } from '@/lionfish_comshop/utils/index.js'
+import { parseTime } from '@/ulink_comshop/utils/index.js'
 
 describe('Utils:parseTime', () => {
   const d = new Date('2018-07-13 17:54:01') // "2018-07-13 17:54:01"
