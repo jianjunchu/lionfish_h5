@@ -3180,6 +3180,9 @@
     position: relative;
     bottom: 5vw;
     font-size: 3.2vw;
+    line-height: 3.2vw;
+    width: 24vw;
+    text-align: center;
   }
 
   .supply-btn {
