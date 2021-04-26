@@ -347,6 +347,7 @@
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  height: 3.5vw;
   color: #999;
 }
 
