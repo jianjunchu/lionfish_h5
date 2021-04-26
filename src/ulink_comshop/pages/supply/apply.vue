@@ -175,8 +175,9 @@
           success: function(t) {
             let supply_diy_name = t.supply_diy_name || '供应商'
             that.supply_diy_name = supply_diy_name
+            var title = that.$t('supply.shenqingchengwei1');
             wx.setNavigationBarTitle({
-              title: '申请成为'+supply_diy_name,
+              title: title+supply_diy_name,
               showBack: true
             })
             if (t.code == 0) {
