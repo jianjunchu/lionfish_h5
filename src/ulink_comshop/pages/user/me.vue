@@ -143,7 +143,7 @@
         </div>
       </div>
 
-      <div class="tool distribution" v-if="show_user_pin==1">
+      <!-- <div class="tool distribution" v-if="show_user_pin==1">
         <div @click="goLink2" data-link="/ulink_comshop/moduleA/pin/me">
           <div class="item-main">
             <div class="item-title">
@@ -230,7 +230,7 @@
             </div>
           </div>
         </div>
-      </div>
+      </div> -->
 
 
       <div class="tool">
