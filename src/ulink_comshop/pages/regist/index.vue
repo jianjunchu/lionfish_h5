@@ -202,7 +202,7 @@
             },
             hideTopAndFooter: function(){
               this.$wx.setNavigationBarTitle({
-                title: 'Regist',
+                title: 'Register',
                 showLogo: false,
                 showMore: false,
                 showBack: true
