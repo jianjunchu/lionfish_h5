@@ -18,7 +18,7 @@
         <div class="item-right">
           <div class="item-right-top">
             <div class="spu-title">
-              <span class="span">{{spuItem.spuName}} </span>
+              <span class="span">{{spuItem.spuName_en || spuItem.spuName}} </span>
               <div class="supply" v-if="spuItem.supply_info && isShowContactBtn==1" @click.stop.prevent="goSupply" :data-id="spuItem.supply_info.id">
                 <div class="supply-logo">
                   <img v-if="spuItem.supply_info && spuItem.supply_info.logo" :src="'https://fish.xx315.net//Uploads/image/' + spuItem.supply_info.logo"/>
@@ -26,8 +26,8 @@
                 <div class="supply-name" v-if="spuItem.supply_info.storename || spuItem.supply_info.shopname">{{spuItem.supply_info.storename || spuItem.supply_info.shopname}}</div>
               </div>
             </div>
-            <div class="spu-desc" v-if="spuItem.spuDescribe">
-              <span class="em">{{spuItem.spuDescribe}}</span>
+            <div class="spu-desc" v-if="spuItem.spuDescribe_en || spuItem.spuDescribe">
+              <span class="em">{{spuItem.spuDescribe_en || spuItem.spuDescribe}}</span>
             </div>
             <i-vip-price :price="spuItem.card_price"
                          v-if="is_open_vipcard_buy==1&&spuItem.is_take_vipcard==1"></i-vip-price>
@@ -371,7 +371,7 @@
     top: -1vw;
     overflow: hidden;
     text-overflow: ellipsis;
-    white-space: normal;
+    white-space: nowrap;
     margin: 0;
   }
 
@@ -390,7 +390,6 @@
     height: 5vw;
     position: absolute;
     left: 0;
-    top: 7vw;
     line-height: 5vw;
     overflow: hidden;
     text-overflow: ellipsis;
