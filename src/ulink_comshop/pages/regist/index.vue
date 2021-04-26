@@ -7,7 +7,7 @@
         </slot><br>
 
 		 <div style="width: 100px;height: 100px;margin: 0 auto;margin-top: 30px;margin-bottom: 30px;">
-        <img src="../../../assets/images/logo.png" style="width: 100%;height: 100%;" />
+        <img :src="logo" style="width: 100%;height: 100%;" />
         </div>
        <!-- <div class="input_wrapper">
             <div class="inputItem" :class="{'focus':isFocus.phoneNum,'phone_empty':errorFlag.phone_empty}">
@@ -139,7 +139,8 @@
                     {value: "62", name: "+62 Indonesia"},
                     {value: "65", name: "+65 Singapore"}
               ],
-              cityCode: 65
+              cityCode: 65,
+              logo: ''
             }
         },
         watch: {
@@ -151,6 +152,7 @@
         props:['baseConfig'],
       created() {
         this.hideTopAndFooter();
+        this.initLogo();
       },
         mounted() {
             //监听事件
@@ -326,7 +328,15 @@
 									alert("code verify fails")
 								}
               })
-            }
+            },
+            initLogo: function() {
+			    var that = this;
+                that.$http({
+                    controller: 'index.index_info'
+                }).then(t => {
+                    this.logo = t.shoplogo;
+                });
+		    }
         },
         beforeDestroy(){
             clearInterval(this.timer);

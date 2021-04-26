@@ -1167,7 +1167,7 @@
             var h = a.index_list_top_image ? a.index_list_top_image : u,
               m = {
                 shoname: a.shoname,
-                logo: a.shoplogo,
+                logo: a.shoplogo_h5,
                 shop_index_share_image: a.shop_index_share_image,
                 index_list_top_image: h,
                 title: a.title,
@@ -1181,7 +1181,7 @@
             var g = a.index_loading_image || ''
             wcache.put('shopname', a.shoname), wx.setNavigationBarTitle({
               title: a.shoname,
-              logo: a.shoplogo,
+              logo: a.shoplogo_h5,
               showLogo: true,
               showMore: false,
               showBack: false
