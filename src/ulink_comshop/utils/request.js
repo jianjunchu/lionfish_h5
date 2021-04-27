@@ -24,7 +24,6 @@ service.interceptors.request.use(
       a: 'wxapp',
       do: 'index',
       m: 'lionfish_comshop',
-      sign: '60dcd9b5925c119972907bbf22255441',
       ...config.params
     }
     return config

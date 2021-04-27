@@ -1,6 +1,10 @@
 import request from '@/ulink_comshop/utils/request'
 
 export function http(params) {
+  if (!params.hasOwnProperty('controller')) {
+    // eslint-disable-next-line no-debugger
+    debugger
+  }
   return request({
     changeOrigin: true,
     method: 'get',

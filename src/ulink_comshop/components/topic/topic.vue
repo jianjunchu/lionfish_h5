@@ -60,9 +60,15 @@
     }
     , methods: {
       getData: function() {
-        var t = this.$wx.getStorageSync('token'), e = this, a = this.$wx.getStorageSync('community')
+          var token = this.$wx.getStorageSync('token');
+          var that = this;
+          var cur_community = this.$wx.getStorageSync('community');
+        this.$http({
 
-        this.$http({}).then(t => {
+            controller: 'marketing.get_special_list',
+            token: token,
+            head_id: cur_community.communityId
+        }).then(t => {
           if (0 == t.code) {
             this.list = t.data
           }
