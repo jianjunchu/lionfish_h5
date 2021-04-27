@@ -5,7 +5,7 @@
       <div class="title-container">
         <!--<h3 class="title">Hzmart Login</h3>-->
         <div style="width: 24vw;height: 24vw;margin: 0 auto;margin-bottom: 30px;">
-        <img src="@/assets/images/logo.png" style="width: 100%;height: 100%;" />
+        <img :src="logo" style="width: 100%;height: 100%;" />
         </div>
       </div>
 
@@ -174,6 +174,7 @@ export default {
                     {value: "62", name: "+62 Indonesia"},
                     {value: "65", name: "+65 Singapore"}
               ],
+			logo: ''
 		}
 	},
 	watch: {
@@ -368,10 +369,19 @@ export default {
 				showMore: false,
 				showBack: true
 			})
+		},
+		initLogo: function() {
+			var that = this;
+      that.$http({
+          controller: 'index.index_info'
+      }).then(t => {
+          this.logo = t.shoplogo;
+      });
 		}
 	},
 	created: function() {
 		this.hideTopAndFooter();
+		this.initLogo();
 	}
 }</script>
 

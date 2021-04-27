@@ -29,7 +29,7 @@
         <div class="item-right">
           <div class="item-right-top">
             <div class="spu-title">
-              <span class="span">{{spuItem.spuName}}</span>
+              <span class="span">{{spuItem.spuName_en || spuItem.spuName}}</span>
               <div class="supply" v-if="spuItem.supply_info && isShowContactBtn==1" @click.stop.prevent="goSupply" :data-id="spuItem.supply_info.id">
                 <div class="supply-logo">
                   <img v-if="spuItem.supply_info && spuItem.supply_info.logo" :src="'https://fish.xx315.net//Uploads/image/' + spuItem.supply_info.logo"/>
@@ -38,8 +38,8 @@
               </div>
             </div>
 
-            <div class="spu-desc" v-if="spuItem.spuDescribe">
-              <span class="em">{{spuItem.spuDescribe}}</span>
+            <div class="spu-desc" v-if="spuItem.spuDescribe_en || spuItem.spuDescribe">
+              <span class="em">{{spuItem.spuDescribe_en || spuItem.spuDescribe}}</span>
             </div>
 
             <div class="spu-tag-pre" v-if="spuItem.is_show_presell" >Expected Delivery: {{spuItem.begin_time_str}}</div>
@@ -442,13 +442,13 @@
   }
 
   .spu >>> .spu-content .item-right .spu-title .span {
-    width: 90%;
+    width: 80%;
     position: absolute;
     left: 0;
     top: -0.4vw;
     overflow: hidden;
     text-overflow: ellipsis;
-    white-space: normal;
+    white-space: nowrap;
     margin: 0;
   }
 
@@ -477,11 +477,10 @@
   }
 
   .spu >>> .spu-content .item-right .spu-desc .em {
-    width: 100%;
+    width: 80%;
     height: 3.2vw;
     position: absolute;
     left: 0;
-    top: 9vw;
     line-height: 3.2vw;
     overflow: hidden;
     text-overflow: ellipsis;

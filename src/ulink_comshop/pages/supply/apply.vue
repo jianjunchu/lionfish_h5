@@ -10,15 +10,15 @@
           </div>
           <div class="form-item">
             <label class="form-item-control">{{$t('supply.dianpumingcheng')}}</label>
-            <input v-model="storename" class="form-item-input" :placeholder="$t('supply.qingshuru')+$t('supply.dianpumingcheng')" type="text"/>
+            <input v-model="storename" class="form-item-input" :placeholder="$t('supply.dianpumingchengtishi')" type="text"/>
           </div>
           <div class="form-item">
             <label class="form-item-control">{{$t('supply.lianxiren')}}</label>
-            <input v-model="name" class="form-item-input" :placeholder="$t('supply.qingshuru')+$t('supply.lianxiren')" type="text"/>
+            <input v-model="name" class="form-item-input" :placeholder="$t('supply.lianxirentishi')" type="text"/>
           </div>
           <div class="form-item">
             <label class="form-item-control">{{$t('supply.shoujihao')}}</label>
-            <input v-model="mobile" class="form-item-input" :placeholder="$t('supply.qingshuru')+$t('supply.shoujihao')" type="text"/>
+            <input v-model="mobile" class="form-item-input" :placeholder="$t('supply.shoujihaotishi')" type="text"/>
           </div>
           <div class="form-item form-item2">
             <label class="form-item-control">{{$t('supply.chanpin')}}</label>
@@ -26,42 +26,42 @@
           </div>
           <div class="form-item">
             <label class="form-item-control">{{$t('supply.youbian')}}</label>
-            <input v-model="zip_code" class="form-item-input" :placeholder="$t('supply.qingshuru')+$t('supply.fahuodizhideyoubian')" type="text"/>
+            <input v-model="zip_code" class="form-item-input" :placeholder="$t('supply.fahuodizhideyoubiantishi')" type="text"/>
           </div>
           <div class="form-item">
             <label class="form-item-control">{{$t('supply.dapaihao')}}</label>
-            <input v-model="blk_no" class="form-item-input" :placeholder="$t('supply.qingshuru')+$t('supply.fahuodizhidedapaihao')" type="text"/>
+            <input v-model="blk_no" class="form-item-input" :placeholder="$t('supply.fahuodizhidedapaihaotishi')" type="text"/>
           </div>
           <div class="form-item">
             <label class="form-item-control">{{$t('supply.luming')}}</label>
-            <input v-model="road_name" class="form-item-input" :placeholder="$t('supply.qingshuru')+$t('supply.fahuodizhideluming')" type="text"/>
+            <input v-model="road_name" class="form-item-input" :placeholder="$t('supply.fahuodizhidelumingtishi')" type="text"/>
           </div>
           <div class="form-item">
             <label class="form-item-control">{{$t('supply.jianzhuming')}}</label>
-            <input v-model="building" class="form-item-input" :placeholder="$t('supply.qingshuru')+$t('supply.fahuodizhideyoubian')" type="text"/>
+            <input v-model="building" class="form-item-input" :placeholder="$t('supply.fahuodizhideyoubiantishi')" type="text"/>
           </div>
           <div class="form-item">
             <label class="form-item-control">{{$t('supply.menpaihao')}}</label>
-            <input v-model="lou_meng_hao" class="form-item-input" :placeholder="$t('supply.qingshuru')+$t('supply.fahuodizhidemenpaihao')" type="text"/>
+            <input v-model="lou_meng_hao" class="form-item-input" :placeholder="$t('supply.fahuodizhidemenpaihaotishi')" type="text"/>
           </div>
           <div class="form-item">
             <label class="form-item-control">{{$t('supply.qisongjine')}}</label>
-            <input v-model="order_amount_free_delivery" class="form-item-input" :placeholder="$t('supply.qingshuru')+$t('supply.qisongjine')+$t('supply.zhishurushuzi')" type="text"/>
+            <input v-model="order_amount_free_delivery" class="form-item-input" :placeholder="$t('supply.qisongjinetishi')" type="text"/>
           </div>
           <div class="form-item">
             <label class="form-item-control">{{$t('supply.yunfei')}}</label>
-            <input v-model="delivery_fee_per_order" class="form-item-input" :placeholder="$t('supply.qingshuru')+$t('supply.yunfei')+$t('supply.zhishurushuzi')" type="text"/>
+            <input v-model="delivery_fee_per_order" class="form-item-input" :placeholder="$t('supply.yunfeitishi')" type="text"/>
           </div>
           <div class="form-item">
             <label class="form-item-control">{{$t('supply.logo')}}</label>
-            <input @click="changeShowLogoImages" class="form-item-input" :placeholder="$t('supply.qingshangchuan')+$t('supply.logotishi')" type="text" readonly/>
+            <input @click="changeShowLogoImages" class="form-item-input" :placeholder="$t('supply.logotishi')" type="text" readonly/>
           </div>
           <div style="width: 100%;height: 20vw;overflow-y: auto;border-bottom: 2px solid #e4e4e4;" v-show="showLogoImages">
             <van-uploader v-model="logoPiclist" :max-count="countPic" :after-read="logoAfterRead" v-if="logo.length<=countPic"/>
           </div>
           <div class="form-item">
             <label class="form-item-control">{{$t('supply.xuanchuantu')}}</label>
-            <input @click="changeShowBannerImages" class="form-item-input" :placeholder="$t('supply.qingshangchuan')+$t('supply.bannertishi')" type="text" readonly/>
+            <input @click="changeShowBannerImages" class="form-item-input" :placeholder="$t('supply.bannertishi')" type="text" readonly/>
           </div>
           <div style="width: 100%;height: 20vw;overflow-y: auto;border-bottom: 2px solid #e4e4e4;" v-show="showBannerImages">
             <van-uploader v-model="bannerPiclist" :max-count="countPic" :after-read="bannerAfterRead" v-if="banner.length<=countPic"/>
@@ -175,8 +175,9 @@
           success: function(t) {
             let supply_diy_name = t.supply_diy_name || '供应商'
             that.supply_diy_name = supply_diy_name
+            var title = that.$t('supply.shenqingchengwei1');
             wx.setNavigationBarTitle({
-              title: '申请成为'+supply_diy_name,
+              title: title+supply_diy_name,
               showBack: true
             })
             if (t.code == 0) {

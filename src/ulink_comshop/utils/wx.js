@@ -60,6 +60,9 @@ export default {
       }
     }
     option.showMore ? _this.$store.dispatch('app/showToolbarMore') : _this.$store.dispatch('app/hideToolbarMore')
+    if(option.logo) {
+      _this.$store.dispatch('app/setToolbarLogo', option.logo)
+    }
   },
   getLogManager: function() {
     return true

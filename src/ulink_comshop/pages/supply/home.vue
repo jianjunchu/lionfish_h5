@@ -16,7 +16,8 @@
           <div class='like-list' v-if="list.length">
             <router-link class="new-comers-item" :to="'/ulink_comshop/pages/goods/goodsDetail?id='+item.actId" v-for="(item,index) in list" :key="item.actId">
               <i-img defaultImage="@/assets/images/placeholder-refund.png" height="30vw" width="40vw" iClass="new-img" :loadImage="item.skuImage"/>
-              <div class='title'>{{item.spuName}}</div>
+              <div class='title'>{{item.spuName_en || item.spuName}}</div>
+              <div class='subtitle'>{{item.spuDescribe_en || item.spuDescribe}}</div>
               <div class='new-bot'>
                 <div class='price'>${{item.actPrice[0]}}.{{item.actPrice[1]}}</div>
                 <div v-if="item.car_count<=0">
@@ -339,6 +340,15 @@
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  height: 5vw;
+}
+
+.new-comers-item .subtitle {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  height: 3.5vw;
+  color: #999;
 }
 
 .new-comers-item .new-bot {

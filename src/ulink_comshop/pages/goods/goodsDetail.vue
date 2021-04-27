@@ -117,7 +117,7 @@
       <div class="spuDetailInfo">
         <div class="spuName">
           <div class="red" style="font-size:15px;" v-if="goods.is_seckill==1">[Flash Deal]</div>
-          {{goods.goodsname}}
+          {{goods.goodsname_en||goods.goodsname}}
         </div>
         <div class="fsz-22 i-flex mt10 i-aic" v-if="is_only_hexiao==1">
           <div class="hexiao text-6">
@@ -3180,6 +3180,9 @@
     position: relative;
     bottom: 5vw;
     font-size: 3.2vw;
+    line-height: 3.2vw;
+    width: 24vw;
+    text-align: center;
   }
 
   .supply-btn {

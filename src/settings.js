@@ -1,6 +1,6 @@
 module.exports = {
 
-  title: 'H&Z Mart',
+  title: 'Mart',
 
   /**
    * @type {boolean} true | false

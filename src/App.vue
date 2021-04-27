@@ -65,6 +65,7 @@
     },
     created: function() {
       this.setNavBgColor()
+      this.setTitle();
     },
     mounted: function() {
       this.$getApp().globalData.timer = new timeQueue.default()
@@ -96,6 +97,13 @@
             i.loadOver = true
           }
         })
+      },
+      setTitle: function() {
+        this.$http({
+          controller: 'index.index_info'
+        }).then(t => {
+          document.title = t.shoname;
+        });        
       }
     },
     computed: {
