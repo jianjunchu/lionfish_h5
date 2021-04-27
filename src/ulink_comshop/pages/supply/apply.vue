@@ -38,7 +38,7 @@
           </div>
           <div class="form-item">
             <label class="form-item-control">{{$t('supply.jianzhuming')}}</label>
-            <input v-model="building" class="form-item-input" :placeholder="$t('supply.fahuodizhideyoubiantishi')" type="text"/>
+            <input v-model="building" class="form-item-input" :placeholder="$t('supply.fahuodizhidejianzhumingtishi')" type="text"/>
           </div>
           <div class="form-item">
             <label class="form-item-control">{{$t('supply.menpaihao')}}</label>
@@ -352,98 +352,98 @@
 
         if (shopname == '') {
           wx.showToast({
-            title: '请填供应商名称',
+            title: that.$t('supply.qingshuru')+that.supply_diy_name+that.$t('supply.mingcheng'),
             icon: 'none',
           })
           return false;
         }
         if (storename == '') {
           wx.showToast({
-            title: '请填店铺名称',
+            title: that.$t('supply.dianpumingchengtishi'),
             icon: 'none',
           })
           return false;
         }
         if (name == '') {
           wx.showToast({
-            title: '请填写供应商联系人',
+            title: that.$t('supply.lianxirentishi'),
             icon: 'none',
           })
           return false;
         }
         if (mobile == '') {
           wx.showToast({
-            title: '请填写手机号码',
+            title: that.$t('supply.shoujihaotishi'),
             icon: 'none',
           })
           return false;
         }
         if (!/^\d{8}$/.test(mobile) && !(/^1(3|4|5|6|7|8|9)\d{9}$/.test(mobile))){
           wx.showToast({
-            title: '手机号码有误',
+            title: that.$t('supply.shoujihaomayouwu'),
             icon: 'none',
           })
           return false;
         }
         if (zip_code == '') {
           wx.showToast({
-            title: "请输入仓库邮编",
+            title: that.$t('supply.fahuodizhideyoubiantishi'),
             icon: "none"
           })
           return false;
         }
         if (blk_no == '') {
           wx.showToast({
-            title: "请输入仓库大牌号",
+            title: that.$t('supply.fahuodizhidedapaihaotishi'),
             icon: "none"
           })
           return false;
         }
         if (road_name == '') {
           wx.showToast({
-            title: "请输入仓库路名",
+            title: that.$t('supply.fahuodizhidelumingtishi'),
             icon: "none"
           })
           return false;
         }
         if (building == '') {
           wx.showToast({
-            title: "请输入仓库建筑名",
+            title: that.$t('supply.fahuodizhidejianzhumingtishi'),
             icon: "none"
           })
           return false;
         }
         if (lou_meng_hao == '') {
           wx.showToast({
-            title: "请输入仓库门牌号",
+            title: that.$t('supply.fahuodizhidemenpaihaotishi'),
             icon: "none"
           })
           return false;
         }
         if (order_amount_free_delivery == '') {
           wx.showToast({
-            title: "请输入起送金额",
+            title: that.$t('supply.qisongjinetishi'),
             icon: "none"
           })
           return false;
         }
         if (!(/^[0-9]+(.?[0-9]{1,2})?$/.test(order_amount_free_delivery))) {
           wx.showToast({
-            title: "请输入数字，不能包括其他符号",
+            title: that.$t('supply.qingshurushuzitishi'),
             icon: "none"
           })
           return false;
         }
         if (delivery_fee_per_order == '') {
           wx.showToast({
-            title: "请输入运费",
+            title: that.$t('supply.yunfeitishi'),
             icon: "none"
           })
           return false;
         }
         if (!(/^[0-9]+(.?[0-9]{1,2})?$/.test(delivery_fee_per_order))) {
            wx.showToast({
-            title: "请输入数字，不能包括其他符号",
+            title: that.$t('supply.qingshurushuzitishi'),
             icon: "none"
           })
           return false;
@@ -454,7 +454,7 @@
         }
         if (logo == '') {
           wx.showToast({
-            title: '请上传Logo图片',
+            title: that.$t('supply.logotishi'),
             icon: 'none',
           })
           return false;
@@ -471,7 +471,7 @@
         this.$http_post(s_data).then(t=> {
           if (t.code == 0) {
             wx.showToast({
-              title: '提交成功，等待审核',
+              title: that.$t('supply.tijiaochenggong'),
               icon: 'none',
               duration: 2000,
               success: function(){
@@ -484,7 +484,7 @@
             })
           } else {
             wx.showModal({
-              title: '提示',
+              title: that.$t('supply.tishi'),
               content: e.msg,
               showCancel: false
             })

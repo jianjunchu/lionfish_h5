@@ -490,6 +490,10 @@ export default {
     shenqingtongguotishi: 'Congratulations! Your Application Is Approved',
     shenqingshenhezhong: 'Application Is Under Review',
     shenqingshenhezhongtishi: 'Your Application Is Under Review. Please Wait...',
-    fanhuishouye: 'Back to Homepage'
+    fanhuishouye: 'Back to Homepage',
+    shoujihaomayouwu: 'Wrong Cell Phone',
+    qingshurushuzitishi: 'Please enter a number, no other symbols',
+    tijiaochenggong: 'Submit Success, please wait for review',
+    tishi: 'Prompt'
   }
 }

@@ -476,6 +476,10 @@ export default {
     shenqingtongguotishi: '恭喜您，您的申请已通过',
     shenqingshenhezhong: '申请审核中',
     shenqingshenhezhongtishi: '您的申请在处理中，请等待结果…',
-    fanhuishouye: '返回首页'
+    fanhuishouye: '返回首页',
+    shoujihaomayouwu: '手机号码有误',
+    qingshurushuzitishi: '请输入数字，不能包括其他符号',
+    tijiaochenggong: '提交成功，等待审核',
+    tishi: '提示'
   }
 }
