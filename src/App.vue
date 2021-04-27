@@ -65,7 +65,7 @@
     },
     created: function() {
       this.setNavBgColor()
-      this.setTitle();
+      this.setIconTitle();
     },
     mounted: function() {
       this.$getApp().globalData.timer = new timeQueue.default()
@@ -98,11 +98,12 @@
           }
         })
       },
-      setTitle: function() {
+      setIconTitle: function() {
         this.$http({
           controller: 'index.index_info'
         }).then(t => {
           document.title = t.shoname;
+          document.querySelector("link[rel='icon']").href = t.shoplogo_h5;
         });        
       }
     },
