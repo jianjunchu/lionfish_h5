@@ -268,7 +268,7 @@
               <div class="item-main">
                 <div class="item-title">
                   <img class="toolIcon" mode="widthFix"
-                       :src="user_tool_icons.i2?user_tool_icons.i2:require('@/assets/images/icon-score.png')"/>-->
+                       :src="user_tool_icons.i2?user_tool_icons.i2:require('@/assets/images/icon-score.png')"/>
                   <span>{{$t('common.jifen')}}</span>
                 </div>
                 <div class="tool-right">
@@ -277,7 +277,7 @@
                 </div>
               </div>
             </div>
-            <div @click="goLink2" class="score" data-link="/ulink_comshop/moduleA/score/scoreDetails" v-else>
+            <div @click="goLink2" class="score" data-link="/ulink_comshop/moduleA/score/signin" v-else>
               <div class="item-main">
                 <div class="item-title">
                   <img class="toolIcon" mode="widthFix"

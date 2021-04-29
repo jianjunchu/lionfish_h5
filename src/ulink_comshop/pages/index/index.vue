@@ -92,12 +92,12 @@
             <div v-for="(item,idx) in navigat" style="width:20%;" class="block" :key="item.id">
               <div @click="goNavUrl" class="nav-list-item" :data-idx="idx" v-if="item.type!=5">
                 <img height="36" class="nav-list-img" :src="item.thumb" width="36"/>
-                <div class="nav-list-text">{{item.navname}}</div>
+                <div class="nav-list-text">{{item.navname_en || item.navname}}</div>
               </div>
               <button class="nav-list-item nav-contact" openType="contact" v-else>
 
                 <img height="36" iClass="nav-list-img" :src="item.thumb" width="36"/>
-                <div class="nav-list-text">{{item.navname}}</div>
+                <div class="nav-list-text">{{item.navname_en || item.navname}}</div>
               </button>
             </div>
             <div style="width:20%;" v-if="navigatEmpty &&navigatEmpty.length" v-for="(item,id) in navigatEmpty"></div>
@@ -1074,6 +1074,7 @@
         a.get_index_info()
         a.addhistory()
           a.getSupplyList();
+          a.getNavigat();
         if ((a.stopNotify = !1, a.tabbarRefresh = !0, a.isblack = a.$app.globalData.isblack || 0), a.$app.globalData.timer.start(), a.$app.globalData.changedCommunity) {
 
           a.$app.globalData.goodsListCarCount = []

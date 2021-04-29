@@ -438,6 +438,42 @@ export const constantRoutes = [
       keepAlive: false
     }
   },
+  {
+    name: '/ulink_comshop/pages/supply/home',
+    path: '/ulink_comshop/pages/supply/home',
+    component: () => import('@/ulink_comshop/pages/supply/home'),
+    hidden: true,
+    meta: {
+      keepAlive: false
+    }
+  },
+  {
+    name: '/ulink_comshop/moduleA/score/signin',
+    path: '/ulink_comshop/moduleA/score/signin',
+    component: () => import('@/ulink_comshop/moduleA/score/signin'),
+    hidden: true,
+    meta: {
+      keepAlive: false
+    }
+  },
+  {
+    name: '/ulink_comshop/moduleA/score/scoreDetails',
+    path: '/ulink_comshop/moduleA/score/scoreDetails',
+    component: () => import('@/ulink_comshop/moduleA/score/scoreDetails'),
+    hidden: true,
+    meta: {
+      keepAlive: false
+    }
+  },
+  {
+    name: '/ulink_comshop/pages/user/rule',
+    path: '/ulink_comshop/pages/user/rule',
+    component: () => import('@/ulink_comshop/pages/user/rule'),
+    hidden: true,
+    meta: {
+      keepAlive: false
+    }
+  },
   // 404 page must be placed at the end !!!
   {
     name: '/404',

@@ -147,9 +147,7 @@ export const cartMixin = {
               title: '您未登录',
               duration: 2000,
               success: () => {
-                that.setData({
-                  needAuth: true
-                })
+                that.needAuth = true;
               }
             })
           } else if (res.code == 6 || res.code == 7) {

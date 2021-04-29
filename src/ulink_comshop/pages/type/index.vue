@@ -19,7 +19,7 @@
              :class="[rushCategoryData.activeIndex===index?'category-item active':'category-item']"
              v-for="(item,index) in rushCategoryData.tabs" :key="index">
           <div class="item-border"></div>
-          <span>{{item.name}}</span>
+          <span>{{item.name_en || item.name}}</span>
         </div>
         <div class="category-item"></div>
       </div>
@@ -27,7 +27,7 @@
       <div class="sub-cate" v-if="rushCategoryData.tabs[rushCategoryData.activeIndex] && rushCategoryData.tabs[rushCategoryData.activeIndex].sub.length">
         <div class="sub-cate-scroll scrollX">
           <div @click.stop="change_sub_cate" class="sub-cate-item" :data-id="rushCategoryData.tabs[rushCategoryData.activeIndex].id" :data-idx="0" :style="active_sub_index==0?'color:'+skin.color:''">All</div>
-          <div @click.stop="change_sub_cate" class="sub-cate-item" :data-id="item.id" :data-idx="index+1" :style="active_sub_index==index+1?'color:'+skin.color:''" v-for="(item,index) in rushCategoryData.tabs[rushCategoryData.activeIndex].sub" :key="item.id">{{item.name}}</div>
+          <div @click.stop="change_sub_cate" class="sub-cate-item" :data-id="item.id" :data-idx="index+1" :style="active_sub_index==index+1?'color:'+skin.color:''" v-for="(item,index) in rushCategoryData.tabs[rushCategoryData.activeIndex].sub" :key="item.id">{{item.name_en || item.name}}</div>
         </div>
         <!-- <div @click="showDrop" class="icon-open">
             <img class="openImg " src="@/assets/images/commentsOpen.png">
