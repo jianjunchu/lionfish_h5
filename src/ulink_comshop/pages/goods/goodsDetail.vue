@@ -780,13 +780,20 @@
 //        });
         var t = decodeURIComponent(e.scene)
         if ('undefined' !== t) {
-          var a = t.split('_')
+          var a = t.split('_');
+            var e = wcache.get('share_id', null);
           e.id = a[0], e.share_id = a[1], e.community_id = a[2]
         }
-        'undefined' != e.share_id && 0 < e.share_id && this.$wx.setStorage({
-          key: 'share_id',
-          data: e.share_id
-        })
+
+          var oid = wcache.get('share_id', null);
+          if (oid == null || oid=='' || oid==undefined) {
+              'undefined' != e.share_id && 0 < e.share_id && this.$wx.setStorage({
+                  key: 'share_id',
+                  data: e.share_id
+              })
+          }
+
+
         var s = e.type || ''
         this.buy_type = s, this.$data.id = e.id, this.$data.community_id = e.community_id,
           this.$data.scene = e.scene
@@ -1412,10 +1419,25 @@
         this.is_share_html = true
       },
       share_whatsapp: function() {
-        const text = this.goods.goodsname
-        const url = 'https://www.mart.com.sg/#/ulink_comshop/pages/goods/goodsDetail?id=' + this.order.goods_id
-        location = 'whatsapp://send?text=' + encodeURIComponent(text) + encodeURIComponent('\n\n' + url) + '&via=lopscoop'
-        this.is_share_html = false
+
+          const text = this.goods.goodsname
+
+          let token = this.$wx.getStorageSync('token');
+          let url = encodeURI(window.location.href);
+
+          this.$app.util.request({
+              url: "entry/wxapp/user",
+              data: {
+                  controller: "index.get_share_url",
+                  url:url,
+                  token: token
+              },
+              dataType: "json",
+              success: function(t) {
+                  location = 'whatsapp://send?text=' + encodeURIComponent(text) + encodeURIComponent('\n\n' + t.url njjjjj         ) + '&via=lopscoop'
+              }
+          });
+          this.is_share_html = false
       },
       hide_share_handler: function() {
         this.is_share_html = false

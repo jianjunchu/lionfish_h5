@@ -422,8 +422,13 @@ function getMemberInfo(o) {
   })
 }
 
+// eslint-disable-next-line no-unused-vars
 function message() {
 
+}
+function getUrlQuery(name, url) {
+  // eslint-disable-next-line no-sparse-arrays
+  return decodeURIComponent((new RegExp('[?|&]' + name + '=' + '([^&;]+?)(&|#|;|$)').exec(url) || [, ''])[1].replace(/\+/g, '%20')) || null
 }
 
 export default {
@@ -451,7 +456,8 @@ export default {
   check_login_new: check_login_new,
   request: request,
   url: url,
-  getMemberInfo: getMemberInfo
+  getMemberInfo: getMemberInfo,
+  getUrlQuery: getUrlQuery
 
 }
 

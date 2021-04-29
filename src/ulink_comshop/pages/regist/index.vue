@@ -297,6 +297,7 @@
                 }
 
               var code = this.input_info.code;
+                let share_id = wcache.get('share_id', 0);
               let phone = this.input_info.phone.replace(/\s*/g,"");      //去除空格
               var country = this.cityCode
               if(phone == ""){
@@ -311,7 +312,8 @@
                 i: 3,
                 country: country,
                 code: code,
-                phone: phone
+                phone: phone,
+                  share_id:share_id
               }).then(response => {
                 console.log(response)
                 var result = response;

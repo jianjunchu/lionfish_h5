@@ -948,8 +948,9 @@
       }
     },
     created: function() {
-      app = this.$getApp()
-      wx = this.$wx
+      app = this.$getApp();
+
+      wx = this.$wx;
 
       wx.setNavigationBarTitle({
         title: this.shop_info.shoname,
@@ -958,6 +959,8 @@
         showMore: false,
         showBack: false
       })
+
+
       this.$data.$data.scrollTop = 0;
       const o = this.$route.query || {}
       this.onLoad(o)
@@ -1008,12 +1011,19 @@
 
         if (o && 0 != Object.keys(o).length) {
           console.log('step2')
-          var t = decodeURIComponent(o.scene)
-          if ('undefined' != t) {
+          var t = decodeURIComponent(o.scene);
+            var e = wcache.get('share_id', null);
+          if ('undefined' != t && e == null) {
             var a = t.split('_')
-            o.community_id = a[0], wcache.put('share_id', a[1])
+            o.community_id = a[0]
           }
-          'undefined' != (i.options = o).share_id && 0 < o.share_id && wcache.put('share_id', o.share_id),
+
+            var oid = wcache.get('share_id', null);
+            if (oid == null || oid=='' || oid==undefined) {
+                'undefined' != (i.options = o).share_id && 0 < o.share_id && wcache.put('share_id', o.share_id);
+            }
+
+
             'undefined' != o.community_id && 0 < o.community_id ? (console.log('step3'), util.getCommunityById(o.community_id).then(function(t) {
               if (0 == t.code) {
                 console.log('step4')
@@ -2190,8 +2200,24 @@
         //location="whatsapp://send?text="+ encodeURIComponent('分享的内容') + encodeURIComponent("\n\n"+'https://hz.xx315.net/wap')+"&via=lopscoop";
       },
       share_whatsapp: function() {
-        location = 'whatsapp://send?text=' + encodeURIComponent(this.shop_info.title) + encodeURIComponent('\n\n' + 'https://www.mart.com.sg') + '&via=lopscoop'
-        this.is_share_html = false
+
+         let token = wx.getStorageSync('token');
+         let url = encodeURI(window.location.href);
+
+          app.util.request({
+              url: "entry/wxapp/user",
+              data: {
+                  controller: "index.get_share_url",
+                  url:url,
+                  token: token
+              },
+              dataType: "json",
+              success: function(t) {
+                  window.location = 'whatsapp://send?text=' + encodeURIComponent(this.shop_info.title) + encodeURIComponent('\n\n' +  t.url) + '&via=lopscoop'
+              }
+          });
+          this.is_share_html = false
+
       },
       confrimChangeCommunity: function() {
         var t = this,
