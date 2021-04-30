@@ -474,6 +474,60 @@ export const constantRoutes = [
       keepAlive: false
     }
   },
+  {
+    name: '/ulink_comshop/distributionCenter/pages/fans',
+    path: '/ulink_comshop/distributionCenter/pages/fans',
+    component: () => import('@/ulink_comshop/distributionCenter/pages/fans'),
+    hidden: true,
+    meta: {
+      keepAlive: false
+    }
+  },
+  {
+    name: '/ulink_comshop/distributionCenter/pages/me',
+    path: '/ulink_comshop/distributionCenter/pages/me',
+    component: () => import('@/ulink_comshop/distributionCenter/pages/me'),
+    hidden: true,
+    meta: {
+      keepAlive: false
+    }
+  },
+  {
+    name: '/ulink_comshop/distributionCenter/pages/member',
+    path: '/ulink_comshop/distributionCenter/pages/member',
+    component: () => import('@/ulink_comshop/distributionCenter/pages/member'),
+    hidden: true,
+    meta: {
+      keepAlive: false
+    }
+  },
+  {
+    name: '/ulink_comshop/distributionCenter/pages/excharge',
+    path: '/ulink_comshop/distributionCenter/pages/excharge',
+    component: () => import('@/ulink_comshop/distributionCenter/pages/excharge'),
+    hidden: true,
+    meta: {
+      keepAlive: false
+    }
+  },
+  {
+    name: '/ulink_comshop/distributionCenter/pages/exchargeRecord',
+    path: '/ulink_comshop/distributionCenter/pages/exchargeRecord',
+    component: () => import('@/ulink_comshop/distributionCenter/pages/exchargeRecord'),
+    hidden: true,
+    meta: {
+      keepAlive: false
+    }
+  },
+  {
+    name: '/ulink_comshop/distributionCenter/pages/goodsDetails',
+    path: '/ulink_comshop/distributionCenter/pages/goodsDetails',
+    component: () => import('@/ulink_comshop/distributionCenter/pages/goodsDetails'),
+    hidden: true,
+    meta: {
+      keepAlive: false
+    }
+  },
   // 404 page must be placed at the end !!!
   {
     name: '/404',

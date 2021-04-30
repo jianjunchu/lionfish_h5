@@ -164,15 +164,15 @@
             </div>
           </div>
         </div>
-      </div>
+      </div> -->
       <div class="tool distribution" v-if="commiss_level>0">
         <div v-if="commiss_sharemember_need==1">
           <div class="my-distribution modal-head">
             <div class="my-distribution-title">
-              <span>我的粉丝</span>
+              <span>{{$t('me.wodefensi')}}</span>
             </div>
             <div @click="goLink2" class="to-distribution" data-link="/ulink_comshop/distributionCenter/pages/fans">
-              <span>查看</span>
+              <span>{{$t('me.chakan')}}</span>
             </div>
             <div class="distribution-right">
               <img class="icon-right" src="@/assets/images/rightArrowImg.png"/>
@@ -182,39 +182,39 @@
             <div class="distribut-tot i-flex-item">{{share_member_count}}</div>
             <div class="distribut-new bor-r">
               <div class="distribut-num">{{today_share_member_count}}</div>
-              <div class="distribut-desc">今日新增</div>
+              <div class="distribut-desc">{{$t('me.jinrixinzeng')}}</div>
             </div>
             <div class="distribut-new">
               <div class="distribut-num">{{yestoday_share_member_count}}</div>
-              <div class="distribut-desc">昨日新增</div>
+              <div class="distribut-desc">{{$t('me.zuorixinzeng')}}</div>
             </div>
           </div>
           <div class="modal-foot i-flex i-flex-spb" v-if="!(member_info.comsiss_flag==1&&member_info.comsiss_state==1)">
             <div class="modal-foot-l" v-if="need_num_update>0">
-              <span v-if="share_member_count!=0">再</span>分享<span class="tot">{{need_num_update}}</span>位新粉丝可升级为{{commiss_diy_name}}
+              <span v-if="share_member_count!=0">{{$t('me.zai')}}</span>{{$t('me.fenxiang')}}<span class="tot">{{need_num_update}}</span>{{$t('me.weixinfensi')}}{{commiss_diy_name}}
             </div>
             <div class="modal-foot-l" v-if="commiss_biaodan_need==0&&need_num_update<=0">
-              <div v-if="formStatus==0">差一步就成为{{commiss_diy_name}}人员啦！</div>
-              <div v-if="formStatus==1">恭喜你填写成功，等待审核！</div>
-              <div v-if="formStatus==2">恭喜你成为{{commiss_diy_name}}人员！</div>
+              <div v-if="formStatus==0">{{$t('me.chayibujiuchengwei')}}{{commiss_diy_name}}{{$t('me.renyuanla')}}</div>
+              <div v-if="formStatus==1">{{$t('me.gongxinitianxiechenggong')}}</div>
+              <div v-if="formStatus==2">{{$t('me.gongxinichengwei')}}{{commiss_diy_name}}{{$t('me.renyuan')}}</div>
             </div>
             <div class="modal-foot-l" v-if="commiss_biaodan_need==1&&need_num_update<=0">
-              <div v-if="formStatus==0">差一步就成为{{commiss_diy_name}}人员啦！</div>
-              <div v-if="formStatus==1">恭喜你填写成功，等待审核！</div>
-              <div v-if="formStatus==2">恭喜你成为{{commiss_diy_name}}人员！</div>
+              <div v-if="formStatus==0">{{$t('me.chayibujiuchengwei')}}{{commiss_diy_name}}{{$t('me.renyuanla')}}</div>
+              <div v-if="formStatus==1">{{$t('me.gongxinitianxiechenggong')}}</div>
+              <div v-if="formStatus==2">{{$t('me.gongxinichengwei')}}{{commiss_diy_name}}{{$t('me.renyuan')}}</div>
             </div>
             <div @click="goNext" class="modal-foot-r btn" data-type="share" :style="{background:skin.color}"
-                 v-if="need_num_update>0">立即分享
+                 v-if="need_num_update>0">{{$t('me.lijifenxiang')}}
             </div>
             <div @click="goNext" class="modal-foot-r btn" data-type="commiss" :style="{background:skin.color}"
-                 v-if="need_num_update<=0&&commiss_biaodan_need<=0&&formStatus==2">进入{{commiss_diy_name}}
+                 v-if="need_num_update<=0&&commiss_biaodan_need<=0&&formStatus==2">{{$t('me.jinru')}}{{commiss_diy_name}}
             </div>
             <div @click="goNext" class="modal-foot-r btn" data-type="form" v-if="need_num_update<=0&&formStatus==0">
-              立即升级
+              {{$t('me.lijishengji')}}
             </div>
             <div @click="goNext" class="modal-foot-r btn" data-type="commiss" :style="{background:skin.color}"
                  v-if="commiss_biaodan_need==1&&need_num_update<=0&&formStatus==2">
-              进入{{commiss_diy_name}}
+              {{$t('me.jinru')}}{{commiss_diy_name}}
             </div>
           </div>
         </div>
@@ -222,7 +222,7 @@
           <div @click="goDistribution">
             <div class="item-main">
               <div class="item-title">
-                <span>{{commiss_diy_name}}{{$t('common.zhongxin')}}</span>
+                <span>{{commiss_diy_name}}</span>
               </div>
               <div class="tool-right">
                 <img class="icon-right " src="@/assets/images/rightArrowImg.png"/>
@@ -230,7 +230,7 @@
             </div>
           </div>
         </div>
-      </div> -->
+      </div>
 
 
       <div class="tool">
@@ -334,7 +334,7 @@
             <div class="item-main">
               <div class="item-title">
                 <img class="toolIcon" mode="widthFix" :src="user_tool_icons.i5?user_tool_icons.i5:require('@/assets/images/groupCenterIcon.png')"/>
-                <span>{{groupInfo.owner_name}}审核中</span>
+                <span>{{groupInfo.owner_name}}{{$t('me.shenhezhong')}}</span>
               </div>
               <div class="tool-right">
                 <img class="icon-right " src="@/assets/images/rightArrowImg.png"/>
@@ -375,7 +375,7 @@
                 <div class="item-title">
                   <img aspectFit class="toolIcon supplier" mode="widthFix"
                        :src="user_tool_icons.i6?user_tool_icons.i6:require('@/assets/images/icon-supplier.png')"/>
-                  <span>{{supply_diy_name}}审核中</span>
+                  <span>{{supply_diy_name}}{{$t('me.shenhezhong')}}</span>
                 </div>
               </div>
             </div>
@@ -391,7 +391,7 @@
                 <div class="item-title">
                   <img aspectFit class="toolIcon supplier" mode="widthFix"
                        :src="user_tool_icons.i6?user_tool_icons.i6:require('@/assets/images/icon-supplier.png')"/>
-                  <span>您已是{{supply_diy_name}}</span>
+                  <span>{{$t('me.ninyishi')}}{{supply_diy_name}}</span>
                 </div>
               </div>
             </div>
