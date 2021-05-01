@@ -181,7 +181,7 @@
               showBack: true
             })
             if (t.code == 0) {
-              that.state = res.data.state || 0
+              that.state = t.state || 0
             } else if(t.code == 1) {
               console.log('needAuth')
             }
@@ -485,7 +485,7 @@
           } else {
             wx.showModal({
               title: that.$t('supply.tishi'),
-              content: e.msg,
+              content: t.msg,
               showCancel: false
             })
           }

@@ -1436,7 +1436,7 @@
               },
               dataType: "json",
               success: function(t) {
-                  location = 'whatsapp://send?text=' + encodeURIComponent(text) + encodeURIComponent('\n\n' + t.url njjjjj         ) + '&via=lopscoop'
+                  location = 'whatsapp://send?text=' + encodeURIComponent(text) + encodeURIComponent('\n\n' + t.url) + '&via=lopscoop'
               }
           });
           this.is_share_html = false

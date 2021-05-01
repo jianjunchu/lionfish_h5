@@ -334,7 +334,7 @@
                           data-idx="1" fontColor="#000" iClass="category-list" :tabs="classification.tabs"></i-tabs>-->
 
                   <van-tabs v-model="classification.activeIndex" @click="classificationChange">
-                    <van-tab v-for="(item , index) in classification.tabs" :title="item.name"
+                    <van-tab v-for="(item , index) in classification.tabs" :title="item.name_en || item.name"
                              :title-style="{'flex-basis':'auto','padding': '0 10px'}">
                     </van-tab>
                   </van-tabs>
@@ -378,7 +378,7 @@
                   <!--<i-tabs :activeIndex="classification.activeIndex" @activeIndexChange="classificationChange"
                           data-idx="1" fontColor="#000" class="category-list" :tabs="classification.tabs"></i-tabs>-->
                   <van-tabs v-model="classification.activeIndex" data-idx="1" @click="classificationChange">
-                    <van-tab v-for="(item , index) in classification.tabs" :title="item.name"
+                    <van-tab v-for="(item , index) in classification.tabs" :title="item.name_en || item.name"
                              :title-style="{'flex-basis':'auto','padding': '0 10px'}">
                     </van-tab>
                   </van-tabs>
@@ -390,7 +390,7 @@
                           iClass="category-list" :tabs="classification.tabs"></i-tabs>-->
 
                   <van-tabs v-model="commingClassification.activeIndex" data-idx="2"  @click="commingClassificationChange">
-                    <van-tab v-for="(item , index) in classification.tabs" :title="item.name"
+                    <van-tab v-for="(item , index) in classification.tabs" :title="item.name_en || item.name"
                              :title-style="{'flex-basis':'auto','padding': '0 10px'}">
                     </van-tab>
                   </van-tabs>
