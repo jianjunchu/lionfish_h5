@@ -92,6 +92,7 @@
  // 按需引入部分组件
     import { Toast } from 'mint-ui';
     import 'mint-ui/lib/style.css'
+    var wcache = require('../../utils/wcache.js'), wx, app
     export default {
         name: "bm_phone_regist",
         data(){
@@ -151,6 +152,8 @@
         },
         props:['baseConfig'],
       created() {
+          app = this.$getApp();
+          wx = this.$wx;
         this.hideTopAndFooter();
         this.initLogo();
       },
