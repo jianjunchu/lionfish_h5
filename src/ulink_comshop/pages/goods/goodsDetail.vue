@@ -535,7 +535,7 @@
   import status from '../../utils/index.js'
   import util from '../../utils/index.js'
   //  require("swiper/dist/css/swiper.css");
-
+  var wcache = require('../../utils/wcache.js'), wx, app
   var _extends = Object.assign || function(t) {
     for (var a = 1; a < arguments.length; a++) {
       var e = arguments[a]
@@ -754,6 +754,8 @@
       }
     },
     created: function() {
+        app = this.$getApp();
+        wx = this.$wx;
       this.$wx.setNavigationBarTitle({
         title: 'Product Details',
         showLogo: false,

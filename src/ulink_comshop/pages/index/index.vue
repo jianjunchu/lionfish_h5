@@ -949,7 +949,6 @@
     },
     created: function() {
       app = this.$getApp();
-
       wx = this.$wx;
 
       wx.setNavigationBarTitle({
