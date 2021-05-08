@@ -528,6 +528,87 @@ export const constantRoutes = [
       keepAlive: false
     }
   },
+  {
+    name: '/ulink_comshop/moduleB/supply/index',
+    path: '/ulink_comshop/moduleB/supply/index',
+    component: () => import('@/ulink_comshop/moduleB/supply/index'),
+    hidden: true,
+    meta: {
+      keepAlive: false
+    }
+  },
+  {
+    name: '/ulink_comshop/moduleB/supply/editSupply',
+    path: '/ulink_comshop/moduleB/supply/editSupply',
+    component: () => import('@/ulink_comshop/moduleB/supply/editSupply'),
+    hidden: true,
+    meta: {
+      keepAlive: false
+    }
+  },
+  {
+    name: '/ulink_comshop/moduleB/supply/goodsManage',
+    path: '/ulink_comshop/moduleB/supply/goodsManage',
+    component: () => import('@/ulink_comshop/moduleB/supply/goodsManage'),
+    hidden: true,
+    meta: {
+      keepAlive: false
+    }
+  },
+  {
+    name: '/ulink_comshop/moduleB/supply/orderManage',
+    path: '/ulink_comshop/moduleB/supply/orderManage',
+    component: () => import('@/ulink_comshop/moduleB/supply/orderManage'),
+    hidden: true,
+    meta: {
+      keepAlive: false
+    }
+  },
+  {
+    name: '/ulink_comshop/moduleB/supply/moneyManage',
+    path: '/ulink_comshop/moduleB/supply/moneyManage',
+    component: () => import('@/ulink_comshop/moduleB/supply/moneyManage'),
+    hidden: true,
+    meta: {
+      keepAlive: false
+    }
+  },
+  {
+    name: '/ulink_comshop/moduleB/supply/listOrderdistributionOrder',
+    path: '/ulink_comshop/moduleB/supply/listOrderdistributionOrder',
+    component: () => import('@/ulink_comshop/moduleB/supply/listOrderdistributionOrder'),
+    hidden: true,
+    meta: {
+      keepAlive: false
+    }
+  },
+  {
+    name: '/ulink_comshop/moduleB/supply/addOrderdistributionOrder',
+    path: '/ulink_comshop/moduleB/supply/addOrderdistributionOrder',
+    component: () => import('@/ulink_comshop/moduleB/supply/addOrderdistributionOrder'),
+    hidden: true,
+    meta: {
+      keepAlive: false
+    }
+  },
+  {
+    name: '/ulink_comshop/moduleB/supply/addGoods',
+    path: '/ulink_comshop/moduleB/supply/addGoods',
+    component: () => import('@/ulink_comshop/moduleB/supply/addGoods'),
+    hidden: true,
+    meta: {
+      keepAlive: false
+    }
+  },
+  {
+    name: '/ulink_comshop/moduleB/supply/orderDetails',
+    path: '/ulink_comshop/moduleB/supply/orderDetails',
+    component: () => import('@/ulink_comshop/moduleB/supply/orderDetails'),
+    hidden: true,
+    meta: {
+      keepAlive: false
+    }
+  },
   // 404 page must be placed at the end !!!
   {
     name: '/404',
