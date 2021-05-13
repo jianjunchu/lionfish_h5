@@ -6,14 +6,14 @@
         <div class="weui-actionsheet__title-text">{{title}}</div>
       </div>
       <slot name="title" v-else></slot>
-      <div class="{{!showCancel&&index===actions.length-1?'weui-actionsheet__action':'weui-actionsheet__menu'}}"
-           v-for="(actionItem ,index ) in actions" v-for-item="actionItem" :key="index">
+      <div :class="!showCancel&&index===actions.length-1?'weui-actionsheet__action':'weui-actionsheet__menu'"
+           v-for="(actionItem,index ) in actions" :key="index">
         <div v-if="isNotSlot(actionItem)">
           <div @click="buttonTap"
-               class="weui-actionsheet__cell {{item.type==='warn'?'weui-actionsheet__cell_warn':''}}"
-               :data-groupindex="index" :data-index="actionIndex" :data-value="item.value"
-               v-for="(item ,actionIndex ) in actionItem " :key="value">
-            {{item.text}}
+               :class="item.type==='warn'?'weui-actionsheet__cell weui-actionsheet__cell_warn':'weui-actionsheet__cell'"
+               :data-groupindex="index" :data-index="actionIndex" :data-value="actionItem.value"
+               v-for="(item,key,actionIndex ) in actionItem " :key="actionIndex" v-if="key == 'text'">
+            {{item}}
           </div>
         </div>
         <!-- <slot name="{{actionItem}}" wx:else></slot> -->
@@ -82,7 +82,7 @@
       },
       buttonTap: function(e) {
         var t = e.currentTarget.dataset, o = t.value, n = t.groupindex, r = t.index;
-        this.triggerEvent("actiontap", {
+        this.$emit("actiontap", {
           value: o,
           groupindex: n,
           index: r
@@ -90,9 +90,7 @@
       },
       closeActionSheet: function(e) {
         var t = e.currentTarget.dataset.type;
-        (this.maskClosable || t) && (this.setData({
-          show: !1
-        }), this.triggerEvent("close"));
+        (this.maskClosable || t) && (this.show = !1, this.$emit("close"));
       }
     }
   }
