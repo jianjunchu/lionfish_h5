@@ -86,7 +86,7 @@
     </div>
     <!--<div class="spuInfo" :style="{z-index: fmShow==false?-1:2}">-->
     <!--<div class="spuInfo" :style="!fmShow ? 'z-index:-1':'z-index:2'">-->
-    <div class="spuInfo" style="z-index:2">
+    <div class="spuInfo">
       <div class="spuPrice">
         <!--<img class="spuPriceBg" :src="goods_details_price_bg?goods_details_price_bg:'@/assets/images/shareBottomBg.png'"/>-->
         <img class="spuPriceBg" src="@/assets/images/shareBottomBg.png"/>
@@ -1425,14 +1425,16 @@
           const text = this.goods.goodsname
 
           let token = this.$wx.getStorageSync('token');
-          let url = encodeURI(window.location.href);
+          let url = encodeURIComponent(window.location.href);
+         let goods_id = this.order.goods_id;
 
           this.$app.util.request({
               url: "entry/wxapp/user",
               data: {
                   controller: "index.get_share_url",
                   url:url,
-                  token: token
+                  token: token,
+                  goods_id:goods_id
               },
               dataType: "json",
               success: function(t) {
@@ -1771,7 +1773,7 @@
         })
       },
       onShareAppMessage: function() {
-//        var t = this.$wx.getStorageSync("community"), a = (this.goods_id, t.communityId), e = this.share_title, o = this.$wx.getStorageSync("member_id"), s = "lionfish_comshop/pages/goods/goodsDetail?id=" + this.goods_id + "&share_id=" + o + "&community_id=" + a, i = this.data.goods.goods_share_image;
+//        var t = this.$wx.getStorageSync("community"), a = (this.goods_id, t.communityId), e = this.share_title, o = this.$wx.getStorageSync("member_id"), s = "ulink_comshop/pages/goods/goodsDetail?id=" + this.goods_id + "&share_id=" + o + "&community_id=" + a, i = this.data.goods.goods_share_image;
 //        console.log("商品分享地址："), console.log(s);
 //        return this.is_share_html= true,
 //          this.hideModal= true, {
@@ -1966,7 +1968,6 @@
 
   .spuInfo {
     width: 100%;
-    z-index: 2;
     position: relative;
     margin-top: -50px;
   }

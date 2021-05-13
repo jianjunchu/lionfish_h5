@@ -1,5 +1,5 @@
 <template>
-  <i-router-link routerClass="new-comers-item" :url="'/lionfish_comshop/pages/goods/goodsDetail?id='+item.actId+'&type=integral'">
+  <i-router-link routerClass="new-comers-item" :url="'/ulink_comshop/pages/goods/goodsDetail?id='+item.actId+'&type=integral'">
     <i-img defaultImage="@/assets/images/placeholder-refund.png" height="180" width="180" iClass="new-img" :loadImage="item.skuImage"></i-img>
     <div class="act-end" v-if="item.spuCanBuyNum==0">{{$t('score.yiqiangguang')}}</div>
     <div class='title'>{{item.spuName}}</div>
@@ -99,7 +99,7 @@
               } else {
                 //跳转结算页面
                 wx.navigateTo({
-                  url: `/lionfish_comshop/pages/order/placeOrder?type=integral`,
+                  url: `/ulink_comshop/pages/order/placeOrder?type=integral`,
                 })
               }
             }

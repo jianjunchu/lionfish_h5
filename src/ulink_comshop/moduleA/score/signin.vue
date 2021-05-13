@@ -179,7 +179,7 @@
 
               // let isopen_signinreward = info.isopen_signinreward;
               // if (isopen_signinreward!=1) {
-              //   app.util.message('未开启签到送积分功能', 'switchTo:/lionfish_comshop/pages/index/index', 'error');
+              //   app.util.message('未开启签到送积分功能', 'switchTo:/ulink_comshop/pages/index/index', 'error');
               // }
 
               that.info = info;

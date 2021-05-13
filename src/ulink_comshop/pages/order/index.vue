@@ -320,6 +320,7 @@
                 success: function(t) {
                     if (0 == t.code) {
                         window.location.href = t.approvalUrl;
+
                     }else{
                         wx.showToast({
                             title: t.msg,

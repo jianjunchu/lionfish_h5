@@ -176,11 +176,11 @@ export const cartMixin = {
               var pages_all = getCurrentPages();
               if (pages_all.length > 3) {
                 wx.redirectTo({
-                  url: '/lionfish_comshop/pages/buy/index?type=' + tdata.order.buy_type
+                  url: '/ulink_comshop/pages/buy/index?type=' + tdata.order.buy_type
                 })
               } else {
                 wx.navigateTo({
-                  url: '/lionfish_comshop/pages/buy/index?type=' + tdata.order.buy_type
+                  url: '/ulink_comshop/pages/buy/index?type=' + tdata.order.buy_type
                 })
               }
             }

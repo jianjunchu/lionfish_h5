@@ -683,7 +683,7 @@
           success: function(e) {
             if (0 == e.code) {
               var t = e, o = t.enabled_front_supply, a = t.is_open_yue_pay, s = t.is_show_score, i = t.user_order_menu_icons, n = t.close_community_apply_enter, r = t.user_tool_icons, u = t.ishow_user_loginout_btn, _ = t.commiss_diy_name, c = t.supply_diy_name, m = t.user_service_switch, d = t.fetch_coder_type, l = t.show_user_pin, h = t.common_header_backgroundimage, p = t.is_show_about_us, g = t.show_user_change_comunity, f = t.open_danhead_model, w = t.default_head_info, b = t.is_open_solitaire, y = t.user_top_font_color, v = t.excharge_nav_name, x = {};
-              1 == f && (x.community = w), _ = _ || "分销", c = c || "供应商", wcache.put("commiss_diy_name", _),
+              1 == f && (x.community = w), _ = _ || C.$t('distributionCenter.fenxiao'), c = c || "供应商", wcache.put("commiss_diy_name", _),
                 wcache.put("supply_diy_name", c),
                 C.copyright = t.data || "",
                 C.common_header_backgroundimage = h || require('@/assets/images/TOP_background@2x.png'),

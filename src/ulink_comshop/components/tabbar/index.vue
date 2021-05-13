@@ -124,14 +124,14 @@
 
             const t = response.data, a = p.tabbar
 
-            a.list[0].text = t.t1 || '首页', a.list[0].iconPath = t.i1 || require('@/assets/images/icon-tab-index.png'),
+            a.list[0].text = t.t1 || 'Home', a.list[0].iconPath = t.i1 || require('@/assets/images/icon-tab-index.png'),
               a.list[0].selectedIconPath = t.s1 || require('@/assets/images/icon-tab-index-active.png'),
-              a.list[1].text = t.t4 || '分类', a.list[1].iconPath = t.i4 || require('@/assets/images/icon-tab-type.png'),
+              a.list[1].text = t.t4 || 'Category', a.list[1].iconPath = t.i4 || require('@/assets/images/icon-tab-type.png'),
               a.list[1].selectedIconPath = t.s4 || require('@/assets/images/icon-tab-type-active.png'),
               a.list[2].text = t.t5, a.list[2].iconPath = t.i5, a.list[2].selectedIconPath = t.s5,
-              a.list[3].text = t.t2 || '购物车', a.list[3].iconPath = t.i2 || require('@/assets/images/icon-tab-shop.png'),
+              a.list[3].text = t.t2 || 'Cart', a.list[3].iconPath = t.i2 || require('@/assets/images/icon-tab-shop.png'),
               a.list[3].selectedIconPath = t.s2 || require('@/assets/images/icon-tab-shop-active.png'),
-              a.list[4].text = t.t3 || '我的', a.list[4].iconPath = t.i3 || require('@/assets/images/icon-tab-me.png'),
+              a.list[4].text = t.t3 || 'Me', a.list[4].iconPath = t.i3 || require('@/assets/images/icon-tab-me.png'),
               a.list[4].selectedIconPath = t.s3 || require('@/assets/images/icon-tab-me-active.png')
             const o = response.open_tabbar_type || 0, i = response.open_tabbar_out_weapp || 0,
               s = response.tabbar_out_appid, n = response.tabbar_out_link, l = response.tabbar_out_type

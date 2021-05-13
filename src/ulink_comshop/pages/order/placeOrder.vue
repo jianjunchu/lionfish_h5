@@ -2007,7 +2007,7 @@
                 });
             },
             clearCarGoods: function () {
-                var that = this;
+                /*var that = this;
                 let buy_type = that.buy_type
                 var t = wx.getStorageSync('token'), a = wx.getStorageSync('community'), i = a.communityId;
                 app.util.request({
@@ -2023,7 +2023,7 @@
                     success: function (t) {
 
                     }
-                });
+                });*/
             }
 
         }
@@ -2058,14 +2058,14 @@
   .address-content .receiver input, .sel-btn {
     border-radius: 1vw;
     flex: 1;
-    height: 8vw;
-    line-height: 8vw;
-    padding: 1vw 1vw;
+    height: 7vw;
+    line-height: 7vw;
+    padding: 0.5vw 0.5vw;
     box-sizing: border-box;
     font-weight: bold;
     background-color: #f7f7f7;
     border: 0.1vw solid #ddd;
-    font-size: 3vw;
+    font-size: 2vw;
     outline: none;
   }
 
@@ -2190,7 +2190,7 @@
   }
 
   .sku-item .sku-msg .sku-title {
-    font-size: 3.5vw;
+    font-size: 2vw;
     color: #444;
     line-height: 3vw;
     margin-bottom: 1.2vw;
@@ -2319,9 +2319,9 @@
 
   .fixed-content >>> .fixed-bar-btn {
     width: 30vw;
-    height: 14vw;
+    height: 12vw;
     text-align: center;
-    line-height: 11vw;
+    line-height: 12vw;
     color: #fff;
     font-size: 4vw;
     background: #ff5344;

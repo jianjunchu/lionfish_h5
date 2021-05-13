@@ -486,7 +486,6 @@
   }
 
   .sku-card .sku-num-content .title {
-    width: 40px;
     font-size: 10px;
     line-height: 25px;
   }
@@ -510,6 +509,7 @@
 
   .sku-card .sku-confirm {
     width: 100%;
+    border: none;
     height: 48px;
     background: linear-gradient(to right, #ff5041, #ff695c);
     line-height: 48px;
@@ -524,6 +524,7 @@
 
   .sku-card .sku-confirm::after {
     border: 0;
+    border: none;
   }
 
   .i-input-number {

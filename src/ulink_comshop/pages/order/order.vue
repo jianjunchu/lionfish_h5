@@ -915,7 +915,7 @@
         var t = this.order.order_info.order_id || "", o = this.order.order_goods_list[0].goods_share_image, a = this.share_img;
         if (t && 1 == this.is_show_tip) return {
           title: "@" + this.order.order_info.ziti_name + this.groupInfo.owner_name + "，我是" + this.data.userInfo.shareNickName + "，刚在你这里下单啦！！！",
-          path: "lionfish_comshop/pages/order/shareOrderInfo?order_id=" + t,
+          path: "ulink_comshop/pages/order/shareOrderInfo?order_id=" + t,
           imageUrl: a || o
         };
       },

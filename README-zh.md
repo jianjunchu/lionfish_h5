@@ -36,7 +36,7 @@ npm run build:prod
 ## 其它
 
 ```bash
-# 预览发布环境效果
+# 预览发布环境效果~~~~
 npm run preview
 
 # 预览发布环境效果 + 静态资源分析

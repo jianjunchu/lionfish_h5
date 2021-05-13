@@ -11,11 +11,11 @@
     <div class="list-header">
       <div>{{$t('distributionCenter.fensi')}}</div><div>{{$t('distributionCenter.guanzhushijian')}}</div>
     </div>
-    <van-list v-model="isLoadData" :finished="noMore" ref="pullRefresh" @load="getData" class="list-content" :style="'height:'+containerHeight+'px'" v-if="order.length">
+    <van-list v-model="isLoadData" :finished="!noMore" ref="pullRefresh" @load="getData" class="list-content"  v-if="order.length">
       <div class="list">
         <div class="list-item" v-for="(item,index) in order" :key="item.id">
           <div class="item-left">
-            <i-img defaultImage="@/assets/images/placeholder-refund.png" height="36" isCircle="true" :loadImage="item.avatar" width="36"></i-img>
+            <i-img defaultImage="@/assets/images/placeholder-refund.png" height="16vw" isCircle="true" :loadImage="item.avatar" width="16vw"></i-img>
             <div class="text-overflow1" style="width:28vw">
               <span>{{item.username}}</span>
               <div class="level">{{levelName[item.child_level]}}</div>
@@ -63,18 +63,7 @@
         noMore: false
       }
     },
-    watch: {
-      searchKey: {
-        handler: function(newValue,oldValue) {
-          this.order = [];
-          this.no_order = 0;
-          this.page = 1;
-          this.queryData.page = 1;
-          this.queryData.memberNickName = newValue;
-          this.getData();
-        }
-      }
-    }, 
+
     created: function() {
       wx = this.$wx
       app = this.$app
@@ -252,9 +241,10 @@
 }
 
 .list-content {
-  width: 100%;
-  overflow: auto;
-  -webkit-overflow-scrolling: touch;
+  z-index: 2;
+  background: #f7f7f7;
+  position: relative;
+  min-height: 70vh;
 }
 
 .list-header, .list-item {
@@ -270,7 +260,7 @@
 
 .list-item {
   background: #fff;
-  height: 11.6vw;
+  height: 18vw;
   margin-bottom: 0.2vw;
 }
 

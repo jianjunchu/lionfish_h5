@@ -82,7 +82,7 @@
             <swiper :options="sliderSwiperOption" class="swiper-content">
               <swiper-slide class="swiper-slide" v-for="(item,index) in slider_list" :key="index">
                 <img @click.stop.prevent="swiperClick(item)" :src="item.image" class="show-img-index" width="100%"
-                     height="140px" style="border-radius: 12px"/>
+                     height="100%" style="border-radius: 12px"/>
               </swiper-slide>
               <!-- 分页器 -->
               <div class="swiper-pagination" slot="pagination"></div>
@@ -1938,6 +1938,7 @@
 
       },
       goNavUrl: function(t) {
+          debugger
         var a = t.currentTarget.dataset.idx,
           e = this,
           o = e.navigat,
@@ -1951,7 +1952,7 @@
               url: '/ulink_comshop/pages/web-div?url=' + encodeURIComponent(s)
             })
           } else if (1 == n) {
-            -1 != s.indexOf('lionfish_comshop/pages/index/index') || -1 != s.indexOf('lionfish_comshop/pages/order/shopCart') || -1 != s.indexOf('lionfish_comshop/pages/user/me') || -1 != s.indexOf('lionfish_comshop/pages/type/index') ? wx.switchTab({
+            -1 != s.indexOf('ulink_comshop/pages/index/index') || -1 != s.indexOf('ulink_comshop/pages/order/shopCart') || -1 != s.indexOf('ulink_comshop/pages/user/me') || -1 != s.indexOf('ulink_comshop/pages/type/index') ? wx.navigateTo({
               url: s
             }) : wx.navigateTo({
               url: s
@@ -1990,7 +1991,7 @@
             }))
           }
         }
-        this.$store.getters.tabbarCurrentIdx = 2
+
       },
       goCube: function(t) {
         var a = t.currentTarget.dataset.idx,
@@ -2007,7 +2008,7 @@
               url: n
             })
           } else if (1 == d) {
-            -1 != n.indexOf('lionfish_comshop/pages/index/index') || -1 != n.indexOf('lionfish_comshop/pages/order/shopCart') || -1 != n.indexOf('lionfish_comshop/pages/user/me') || -1 != n.indexOf('lionfish_comshop/pages/type/index') ? n && wx.switchTab({
+            -1 != n.indexOf('ulink_comshop/pages/index/index') || -1 != n.indexOf('ulink_comshop/pages/order/shopCart') || -1 != n.indexOf('ulink_comshop/pages/user/me') || -1 != n.indexOf('ulink_comshop/pages/type/index') ? n && wx.switchTab({
               url: n
             }) : n && wx.navigateTo({
               url: n
@@ -2202,7 +2203,8 @@
       share_whatsapp: function() {
 
          let token = wx.getStorageSync('token');
-         let url = encodeURI(window.location.href);
+         let url = encodeURIComponent(window.location.href);
+         let that = this;
 
           app.util.request({
               url: "entry/wxapp/user",
@@ -2213,7 +2215,9 @@
               },
               dataType: "json",
               success: function(t) {
-                  window.location = 'whatsapp://send?text=' + encodeURIComponent(this.shop_info.title) + encodeURIComponent('\n\n' +  t.url) + '&via=lopscoop'
+
+                  location  =  'whatsapp://send?text=' + encodeURIComponent(that.shop_info.title) + encodeURIComponent('\n\n' +  t.url)
+
               }
           });
           this.is_share_html = false

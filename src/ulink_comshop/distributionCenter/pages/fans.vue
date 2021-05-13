@@ -11,7 +11,7 @@
     <div class="list-header">
       <div>{{$t('distributionCenter.fensi')}}</div><div>{{$t('distributionCenter.guanzhushijian')}}</div>
     </div>
-    <van-list v-model="isLoadData" :finished="noMore" ref="pullRefresh" @load="getData" class="list-content" :style="'height:'+containerHeight+'px'" v-if="order.length">
+    <van-list v-model="isLoadData" :finished="!noMore" ref="pullRefresh" @load="getData" class="list-content"  v-if="order.length">
       <div class="list">
         <div class="list-item" v-for="(item,index) in order" :key="item.id">
           <div class="item-left">
@@ -61,18 +61,7 @@
         noMore: false
       }
     },
-    watch: {
-      searchKey: {
-        handler: function(newValue,oldValue) {
-          this.order = [];
-          this.no_order = 0;
-          this.page = 1;
-          this.queryData.page = 1;
-          this.queryData.memberNickName = newValue;
-          this.getData();
-        }
-      }
-    }, 
+
     created: function() {
       wx = this.$wx
       app = this.$app
@@ -92,7 +81,6 @@
         this.queryData.page = 1;
         this.queryData.communityId = app.globalData.disUserInfo.communityId;
         this.queryData.createTime = null;
-        this.getData();
       },
 
       /**
@@ -250,9 +238,10 @@
 }
 
 .list-content {
-  width: 100%;
-  overflow: auto;
-  -webkit-overflow-scrolling: touch;
+  z-index: 2;
+  background: #f7f7f7;
+  position: relative;
+  min-height: 70vh;
 }
 
 .list-header, .list-item {

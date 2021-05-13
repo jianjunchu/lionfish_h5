@@ -376,6 +376,15 @@ export const constantRoutes = [
     }
   },
   {
+    name: '/lionfish_comshop/pages/type/details',
+    path: '/lionfish_comshop/pages/type/details',
+    component: () => import('@/ulink_comshop/pages/type/details'),
+    hidden: true,
+    meta: {
+      keepAlive: false
+    }
+  },
+  {
     name: '/ulink_comshop/pages/web-view',
     path: '/ulink_comshop/pages/web-view',
     component: () => import('@/ulink_comshop/pages/web-view'),
@@ -514,6 +523,15 @@ export const constantRoutes = [
     name: '/ulink_comshop/distributionCenter/pages/exchargeRecord',
     path: '/ulink_comshop/distributionCenter/pages/exchargeRecord',
     component: () => import('@/ulink_comshop/distributionCenter/pages/exchargeRecord'),
+    hidden: true,
+    meta: {
+      keepAlive: false
+    }
+  },
+  {
+    name: '/ulink_comshop/pages/order/redirect',
+    path: '/ulink_comshop/pages/order/redirect',
+    component: () => import('@/ulink_comshop/pages/order/redirect'),
     hidden: true,
     meta: {
       keepAlive: false

@@ -714,7 +714,7 @@
 }
 
 .sticky-content-index .tab-nav-index {
-  height: 9.5vw;
+  height: 9.2vw;
   display: flex;
   margin: 0 3vw;
   border-bottom: 0.4vw solid #fc4443;
@@ -761,7 +761,7 @@
   font-weight: bold;
   position: relative;
   z-index: 1;
-  width: 20vw;
+  width: 28vw;
   height: 9vw;
   display: flex;
   align-items: center;
@@ -769,7 +769,7 @@
 }
 
 .sticky-content-index .tab-nav-index .tab-nav-index-item img {
-  width: 19vw;
+  width: 28vw;
   height: 9vw;
   position: absolute;
   left: 0;
@@ -1001,8 +1001,9 @@ button[plain] {
 }
 
 .search-box .ipt {
-  padding: 0 3vw 0 6vw;
+  padding: 0 3vw 0 7vw;
   line-height: 7vw;
+  font-size:3vw;
   width: 93%;
   box-sizing: border-box;
   background-color: transparent;

@@ -1,10 +1,10 @@
-[is="lionfish_comshop/components/parser/parser"] {
+[is="ulink_comshop/components/parser/parser"] {
   display: block;
   overflow: scroll;
   -webkit-overflow-scrolling: touch;
 }
 
-[is="lionfish_comshop/components/parser/trees/trees"] {
+[is="ulink_comshop/components/parser/trees/trees"] {
   display: inherit;
   float: inherit;
 }
@@ -13,6 +13,12 @@
 
 @import "./@feiying/0.less";
 
+button{
+  border: none;
+}
+button::after{
+  border: none;
+}
 body {
   background-color: #f6f6f6;
   font-size: 4vw;
@@ -294,7 +300,6 @@ body {
 }
 
 .sku-card .sku-num-content .title {
-  width: 40px;
   font-size: 13px;
   line-height: 30px;
 }

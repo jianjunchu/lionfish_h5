@@ -191,7 +191,7 @@
         var e = wx.getStorageSync("member_id");
         return {
           title: this.seckill_share_title,
-          path: "lionfish_comshop/moduleA/seckill/list?share_id=" + e,
+          path: "ulink_comshop/moduleA/seckill/list?share_id=" + e,
           imageUrl: this.seckill_share_image,
           success: function() {},
           fail: function() {}

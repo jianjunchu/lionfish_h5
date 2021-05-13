@@ -156,11 +156,11 @@ export const scoreCartMixin = {
               var pages_all = getCurrentPages();
               if (pages_all.length > 3) {
                 wx.redirectTo({
-                  url: `/lionfish_comshop/pages/order/placeOrder?type=integral`,
+                  url: `/ulink_comshop/pages/order/placeOrder?type=integral`,
                 })
               } else {
                 wx.navigateTo({
-                  url: `/lionfish_comshop/pages/order/placeOrder?type=integral`,
+                  url: `/ulink_comshop/pages/order/placeOrder?type=integral`,
                 })
               }
             }

@@ -843,9 +843,9 @@
       ,
       onShareAppMessage: function() {
         var t = wx.getStorageSync('community').communityId || '', a = wx.getStorageSync('member_id') || ''
-        return console.log('lionfish_comshop/pages/type/index?community_id=' + t + '&share_id=' + a),
+        return console.log('ulink_comshop/pages/type/index?community_id=' + t + '&share_id=' + a),
           {
-            path: 'lionfish_comshop/pages/type/index?community_id=' + t + '&share_id=' + a,
+            path: 'ulink_comshop/pages/type/index?community_id=' + t + '&share_id=' + a,
             success: function() {
             },
             fail: function() {
