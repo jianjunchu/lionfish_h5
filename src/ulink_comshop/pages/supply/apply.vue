@@ -13,6 +13,21 @@
             <input v-model="storename" class="form-item-input" :placeholder="$t('supply.dianpumingchengtishi')" type="text"/>
           </div>
           <div class="form-item">
+            <label class="form-item-control">{{$t('supply.logo')}}</label>
+            <input @click="changeShowLogoImages" class="form-item-input" :placeholder="$t('supply.logotishi')" type="text" readonly/>
+          </div>
+          <div style="width: 100%;height: 20vw;overflow-y: auto;border-bottom: 1px solid #e4e4e4;" v-show="showLogoImages">
+            <van-uploader v-model="logoPiclist" :max-count="countPic" :after-read="logoAfterRead" v-if="logo.length<=countPic"/>
+          </div>
+          <div class="form-item">
+            <label class="form-item-control">{{$t('supply.xuanchuantu')}}</label>
+            <input @click="changeShowBannerImages" class="form-item-input" :placeholder="$t('supply.bannertishi')" type="text" readonly/>
+          </div>
+          <div style="width: 100%;height: 20vw;overflow-y: auto;border-bottom: 1px solid #e4e4e4;" v-show="showBannerImages">
+            <van-uploader v-model="bannerPiclist" :max-count="countPic" :after-read="bannerAfterRead" v-if="banner.length<=countPic"/>
+          </div>
+
+          <div class="form-item">
             <label class="form-item-control">{{$t('supply.lianxiren')}}</label>
             <input v-model="name" class="form-item-input" :placeholder="$t('supply.lianxirentishi')" type="text"/>
           </div>
@@ -24,48 +39,49 @@
             <label class="form-item-control">{{$t('supply.chanpin')}}</label>
             <textarea v-model="product" maxlength="300" class="form-item-textarea" :placeholder="$t('supply.chanpinyijiyoushi')"></textarea>
           </div>
+
+
           <div class="form-item">
+            <el-switch
+              active-color="#13ce66"
+              inactive-color="#ff4949"
+              :inactive-text="$t('supply.sheshicangkuxinxi')"
+              v-model="switchWarehouse">
+            </el-switch>
+
+          </div>
+
+
+
+          <div class="form-item" v-show="switchWarehouse">
             <label class="form-item-control">{{$t('supply.youbian')}}</label>
             <input v-model="zip_code" class="form-item-input" :placeholder="$t('supply.fahuodizhideyoubiantishi')" type="text"/>
           </div>
-          <div class="form-item">
+          <div class="form-item" v-show="switchWarehouse">
             <label class="form-item-control">{{$t('supply.dapaihao')}}</label>
             <input v-model="blk_no" class="form-item-input" :placeholder="$t('supply.fahuodizhidedapaihaotishi')" type="text"/>
           </div>
-          <div class="form-item">
+          <div class="form-item" v-show="switchWarehouse">
             <label class="form-item-control">{{$t('supply.luming')}}</label>
             <input v-model="road_name" class="form-item-input" :placeholder="$t('supply.fahuodizhidelumingtishi')" type="text"/>
           </div>
-          <div class="form-item">
+          <div class="form-item" v-show="switchWarehouse">
             <label class="form-item-control">{{$t('supply.jianzhuming')}}</label>
             <input v-model="building" class="form-item-input" :placeholder="$t('supply.fahuodizhidejianzhumingtishi')" type="text"/>
           </div>
-          <div class="form-item">
+          <div class="form-item" v-show="switchWarehouse">
             <label class="form-item-control">{{$t('supply.menpaihao')}}</label>
             <input v-model="lou_meng_hao" class="form-item-input" :placeholder="$t('supply.fahuodizhidemenpaihaotishi')" type="text"/>
           </div>
-          <div class="form-item">
+          <div class="form-item" v-show="switchWarehouse">
             <label class="form-item-control">{{$t('supply.qisongjine')}}</label>
             <input v-model="order_amount_free_delivery" class="form-item-input" :placeholder="$t('supply.qisongjinetishi')" type="text"/>
           </div>
-          <div class="form-item">
+          <div class="form-item" v-show="switchWarehouse">
             <label class="form-item-control">{{$t('supply.yunfei')}}</label>
             <input v-model="delivery_fee_per_order" class="form-item-input" :placeholder="$t('supply.yunfeitishi')" type="text"/>
           </div>
-          <div class="form-item">
-            <label class="form-item-control">{{$t('supply.logo')}}</label>
-            <input @click="changeShowLogoImages" class="form-item-input" :placeholder="$t('supply.logotishi')" type="text" readonly/>
-          </div>
-          <div style="width: 100%;height: 20vw;overflow-y: auto;border-bottom: 2px solid #e4e4e4;" v-show="showLogoImages">
-            <van-uploader v-model="logoPiclist" :max-count="countPic" :after-read="logoAfterRead" v-if="logo.length<=countPic"/>
-          </div>
-          <div class="form-item">
-            <label class="form-item-control">{{$t('supply.xuanchuantu')}}</label>
-            <input @click="changeShowBannerImages" class="form-item-input" :placeholder="$t('supply.bannertishi')" type="text" readonly/>
-          </div>
-          <div style="width: 100%;height: 20vw;overflow-y: auto;border-bottom: 2px solid #e4e4e4;" v-show="showBannerImages">
-            <van-uploader v-model="bannerPiclist" :max-count="countPic" :after-read="bannerAfterRead" v-if="banner.length<=countPic"/>
-          </div>
+
           <div class="form-item">
             <label class="submit" :style="{background:skin.color}">
               {{$t('supply.tijiaoshenqing')}}
@@ -126,7 +142,8 @@
         logoPiclist: [],
         bannerPiclist: [],
         logo: [],
-        banner: []
+        banner: [],
+          switchWarehouse:false
       }
     },
     watch:{
@@ -349,7 +366,8 @@
 
         var logoPicList = that.logoPiclist;
         var bannerPiclist = that.bannerPiclist;
-
+        var switchWarehouse = that.switchWarehouse;
+        debugger
         if (shopname == '') {
           wx.showToast({
             title: that.$t('supply.qingshuru')+that.supply_diy_name+that.$t('supply.mingcheng'),
@@ -385,63 +403,63 @@
           })
           return false;
         }
-        if (zip_code == '') {
+        if (zip_code == '' && switchWarehouse) {
           wx.showToast({
             title: that.$t('supply.fahuodizhideyoubiantishi'),
             icon: "none"
           })
           return false;
         }
-        if (blk_no == '') {
+        if (blk_no == '' && switchWarehouse) {
           wx.showToast({
             title: that.$t('supply.fahuodizhidedapaihaotishi'),
             icon: "none"
           })
           return false;
         }
-        if (road_name == '') {
+        if (road_name == '' && switchWarehouse) {
           wx.showToast({
             title: that.$t('supply.fahuodizhidelumingtishi'),
             icon: "none"
           })
           return false;
         }
-        if (building == '') {
+        if (building == '' && switchWarehouse) {
           wx.showToast({
             title: that.$t('supply.fahuodizhidejianzhumingtishi'),
             icon: "none"
           })
           return false;
         }
-        if (lou_meng_hao == '') {
+        if (lou_meng_hao == '' && switchWarehouse) {
           wx.showToast({
             title: that.$t('supply.fahuodizhidemenpaihaotishi'),
             icon: "none"
           })
           return false;
         }
-        if (order_amount_free_delivery == '') {
+        if (order_amount_free_delivery == '' && switchWarehouse) {
           wx.showToast({
             title: that.$t('supply.qisongjinetishi'),
             icon: "none"
           })
           return false;
         }
-        if (!(/^[0-9]+(.?[0-9]{1,2})?$/.test(order_amount_free_delivery))) {
+        if (!(/^[0-9]+(.?[0-9]{1,2})?$/.test(order_amount_free_delivery)) && switchWarehouse) {
           wx.showToast({
             title: that.$t('supply.qingshurushuzitishi'),
             icon: "none"
           })
           return false;
         }
-        if (delivery_fee_per_order == '') {
+        if (delivery_fee_per_order == '' && switchWarehouse) {
           wx.showToast({
             title: that.$t('supply.yunfeitishi'),
             icon: "none"
           })
           return false;
         }
-        if (!(/^[0-9]+(.?[0-9]{1,2})?$/.test(delivery_fee_per_order))) {
+        if (!(/^[0-9]+(.?[0-9]{1,2})?$/.test(delivery_fee_per_order)) && switchWarehouse) {
            wx.showToast({
             title: that.$t('supply.qingshurushuzitishi'),
             icon: "none"

@@ -221,7 +221,7 @@
         showMore:false,
         showBack:true
       })
-      this.getPayInfo();
+
       this.onLoad();
     },
     methods: {
@@ -234,12 +234,13 @@
         var c = b.order_num_alias;
         var d = 'pickup'==b.delivery;
 
-        this.currentItem=b,
-        this.is_pickup=d,
-        this.tot_price=a,
-        this.showPaymentModal= true,
-        this.order_num_alias=c.substring(c.length-5);
+        this.currentItem=b;
+        this.is_pickup=d;
+        this.tot_price=a;
+        this.showPaymentModal= true;
+        this.order_num_alias=c;
 
+          this.getPayInfo(c,a);
 
       },
 
@@ -631,19 +632,26 @@
           }
         });
       },
-      getPayInfo :function(){
+      getPayInfo :function(reference,amount){
         var this_ = this;
+          wx.showLoading({
+              title: '请稍后。。。',
+          })
         app.util.request({
           url: "entry/wxapp/user",
           data: {
-            controller: "user.get_copyright",
+              controller: "index.get_pay_info",
+              reference: reference,
+              amount:amount
           },
           dataType: "json",
           method: "POST",
-          success: function(t) {
-            this_.payNowInfo.payNowQr = t.paynow_qr
-            this_.payNowInfo.payNowNo = t.paynow_no
-            this_.payNowInfo.payNowUen = t.paynow_uen
+          success: function(res) {
+
+            this_.payNowInfo.payNowQr = res.data.paynow_qr
+            this_.payNowInfo.payNowNo = res.data.paynow_no
+            this_.payNowInfo.payNowUen = res.data.paynow_uen;
+              wx.hideLoading();
           }
         });
       },

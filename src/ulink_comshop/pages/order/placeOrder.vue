@@ -952,7 +952,6 @@
                 1 == o && s && n && console.log('---------is here ?-----------'), r()
             },
             onShow: function (e) {
-                this.getPayInfo();
                 this.getCommunityInfo()
             },
             authSuccess: function () {
@@ -1297,7 +1296,7 @@
                     wx.showLoading(), app.util.request({
                         url: 'entry/wxapp/user',
                         data: {
-                            controller: 'car.sub_order',
+                            controller: 'car.sub_order_all',
                             token: s,
                             pay_method: pm,
                             buy_type: q,
@@ -1335,6 +1334,11 @@
                             var e = t.has_yupay || 0, a = t.order_id, i = {}
                             var ona = t.order_num_alias
                             var id = t.order_id
+
+                            let order_num_alias = t.order_num_alias;
+                            let amount = this_.tot_price;
+
+                            this_.getPayInfo(order_num_alias,amount);
 
                             this_.order_id = id
                             this_.order_num_alias = ona.substring(ona.length - 5)
@@ -1990,19 +1994,32 @@
                 }
 
             },
-            getPayInfo: function () {
-                var this_ = this;
+            getPayInfo: function (reference,amount) {
+                var that = this;
+                wx.showLoading({
+                    title: '请稍后。。。',
+                })
                 app.util.request({
                     url: "entry/wxapp/user",
                     data: {
-                        controller: "user.get_copyright",
+                        controller: "index.get_pay_info",
+                        reference: reference,
+                        amount:amount
                     },
                     dataType: "json",
                     method: "POST",
-                    success: function (t) {
-                        this_.payNowInfo.payNowQr = t.paynow_qr
-                        this_.payNowInfo.payNowNo = t.paynow_no
-                        this_.payNowInfo.payNowUen = t.paynow_uen
+                    success: function (res) {
+                        console.log(res)
+
+                        let payNowInfo = {
+                            payNowQr:res.data.paynow_qr,
+                            payNowNo:res.data.paynow_no,
+                            payNowUen:res.data.paynow_uen
+                        }
+                        that.payNowInfo = payNowInfo;
+
+
+                        wx.hideLoading();
                     }
                 });
             },

@@ -463,6 +463,7 @@ export default {
     tuikuanyuanyin: 'Refund Reason'
   },
   supply: {
+    sheshicangkuxinxi: 'Add Warehouse Information',
     gongyingshangmingcheng: 'Shop Name',
     dianpumingcheng: 'Store Name',
     lianxiren: 'Name',

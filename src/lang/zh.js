@@ -450,6 +450,7 @@ export default {
     tuikuanyuanyin: '退款原因'
   },
   supply: {
+    sheshicangkuxinxi: '添加仓库信息',
     gongyingshangmingcheng: '供应商名称',
     dianpumingcheng: '店铺名称',
     lianxiren: '供应商联系人',
