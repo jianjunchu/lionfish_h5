@@ -1638,7 +1638,7 @@
       ,
       getNavigat() {
         this.$http({
-          controller: 'index.get_navigat'
+          controller: 'index.get_navigat_h5'
         }).then(response => {
 
           var a = response.data || [],
