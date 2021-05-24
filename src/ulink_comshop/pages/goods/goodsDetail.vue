@@ -59,15 +59,15 @@
                  :src="item.image" v-if="index!=0"/>
             <div class="video-wrap" v-else>
               <div v-if="fmShow">
-                <div class="btn_div centerboth" v-if="item.video==''"></div>
-                <div @click.stop="btnPlay" class="btn_div centerboth" v-else>
+                <div class="btn_view centerboth" v-if="item.video==''"></div>
+                <div @click.stop="btnPlay" class="btn_view centerboth" v-else>
                   <img src="@/assets/images/play.png"/>
                 </div>
-                <img bindload="imageLoad" @click.stop="predivImg" :data-idx="index" lazyLoad="true" mode="widthFix"
-                     :src="item.image"/>
+                <!-- <img bindload="imageLoad" @click.stop="predivImg" :data-idx="index" lazyLoad="true" mode="widthFix"
+                     :src="item.image"/> -->
               </div>
-              <video bindended="videEnd" class="swiper-video" v-show="fmShow" id="myVideo" objectFit="contain"
-                     :src="goods.video"></video>
+              <video bindended="videEnd" class="swiper-video" id="myVideo" objectFit="contain"
+                     :src="goods.video" :poster="item.image"></video>
 
             </div>
           </div>
@@ -81,12 +81,12 @@
 
 
     <!--<div @click.stop="endPlay" class="end-play" :hidden="fmShow">-->
-    <div @click.stop="endPlay" class="end-play" v-show="false">
+    <div @click.stop="endPlay" class="end-play" v-show="!fmShow">
       <div class="btn">退出播放</div>
     </div>
     <!--<div class="spuInfo" :style="{z-index: fmShow==false?-1:2}">-->
     <!--<div class="spuInfo" :style="!fmShow ? 'z-index:-1':'z-index:2'">-->
-    <div class="spuInfo">
+    <div class="spuInfo" style="z-index: 2">
       <div class="spuPrice">
         <!--<img class="spuPriceBg" :src="goods_details_price_bg?goods_details_price_bg:'@/assets/images/shareBottomBg.png'"/>-->
         <img class="spuPriceBg" src="@/assets/images/shareBottomBg.png"/>
@@ -1694,13 +1694,15 @@
 //        });
       },
       btnPlay: function() {
-        this.fmShow = false, this.videoContext.play()
+        var video = document.getElementById("myVideo");
+        this.fmShow = false, video.play()
       },
       videEnd: function() {
         this.fmShow = true
       },
       endPlay: function() {
-        this.videoContext.pause(), this.fmShow = true
+        var video = document.getElementById("myVideo");
+        video.pause(), this.fmShow = true
       },
       showGroupCode: function() {
         var t = this.group_share_info.share_wxcode || ''
@@ -3021,7 +3023,7 @@
   .end-play {
     position: relative;
     z-index: 1000;
-    background: #000;
+    /* background: #000; */
     text-align: center;
     padding: 10px 0;
   }

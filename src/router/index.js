@@ -430,27 +430,18 @@ export const constantRoutes = [
     }
   },
   {
-    name: '/ulink_comshop/pages/supply/index',
-    path: '/ulink_comshop/pages/supply/index',
-    component: () => import('@/ulink_comshop/pages/supply/index'),
+    name: '/ulink_comshop/pages/supply/index1',
+    path: '/ulink_comshop/pages/supply/index1',
+    component: () => import('@/ulink_comshop/pages/supply/index1'),
     hidden: true,
     meta: {
       keepAlive: false
     }
   },
   {
-    name: '/ulink_comshop/pages/supply/home',
-    path: '/ulink_comshop/pages/supply/home',
-    component: () => import('@/ulink_comshop/pages/supply/home'),
-    hidden: true,
-    meta: {
-      keepAlive: false
-    }
-  },
-  {
-    name: '/ulink_comshop/pages/supply/home',
-    path: '/ulink_comshop/pages/supply/home',
-    component: () => import('@/ulink_comshop/pages/supply/home'),
+    name: '/ulink_comshop/pages/supply/home1',
+    path: '/ulink_comshop/pages/supply/home1',
+    component: () => import('@/ulink_comshop/pages/supply/home1'),
     hidden: true,
     meta: {
       keepAlive: false

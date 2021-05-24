@@ -83,7 +83,7 @@
   var app,wx
   export default {
     mixins: [cartMixin,GlobalMixin],
-    name:'supply-home',
+    name:'supply-home1',
     data() {
       return {
         noData: true,

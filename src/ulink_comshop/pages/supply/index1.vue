@@ -51,7 +51,7 @@
   var app,wx
   export default {
     mixins: [GlobalMixin],
-    name:'supply-index',
+    name:'supply-index1',
     data() {
       return {
         page: 1,
@@ -209,7 +209,7 @@
       goDetails: function(e){
         let id = e.currentTarget.dataset.id || 0;
         id && wx.navigateTo({
-          url: `/ulink_comshop/pages/supply/home?id=${id}`,
+          url: `/ulink_comshop/pages/supply/home1?id=${id}`,
         })
       },
 
