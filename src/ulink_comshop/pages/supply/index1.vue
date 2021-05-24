@@ -51,7 +51,7 @@
   var app,wx
   export default {
     mixins: [GlobalMixin],
-    name:'supply-index',
+    name:'supply-index1',
     data() {
       return {
         page: 1,
