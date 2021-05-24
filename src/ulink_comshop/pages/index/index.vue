@@ -214,7 +214,7 @@
               <div class="supply-title">
                 <span>{{$t('home.fujindianpu')}}</span>
               </div>
-              <router-link class="to-supply" to="/ulink_comshop/pages/supply/index">
+              <router-link class="to-supply" to="/ulink_comshop/pages/supply/index1">
                 <span>{{$t('home.gengduo')}}</span>
                 <img class="icon-right" src="@/assets/images/rightArrowImg.png"/>
               </router-link>
@@ -2394,7 +2394,7 @@
       goSupply: function (event) {
         var id = event.currentTarget.dataset.id;
         wx.navigateTo({
-          url: '/ulink_comshop/pages/supply/home?id=' + id
+          url: '/ulink_comshop/pages/supply/home1?id=' + id
         })
       }
 
