@@ -19,11 +19,17 @@ export const cartMixin = {
     },
 
     authModal: function () {
-      if (this.needAuth) {
-        this.showAuthModal = !this.showAuthModal;
-        return false;
+      debugger
+      var i = this
+      if (i.needAuth) {
+        wx.navigateTo({
+          url: '/login'
+        })
+
+        return false
+      } else {
+        return !i.needAuth
       }
-      return true;
     },
 
     openSku: function (t) {
@@ -163,8 +169,8 @@ export const cartMixin = {
             })
           } else {
             if (is_just_addcar == 1) {
-              list[idx].car_count = res.cur_count || 0;
-              that.cartNum = res.total || 0;
+              list[idx].car_count = res.cur_count ;
+              that.cartNum = res.total;
               that.list = list;
               that.closeSku();
               status.indexListCarCount(goods_id, res.cur_count);
@@ -191,7 +197,7 @@ export const cartMixin = {
     },
 
     changeCartNum(e) {
-      let cartNum = e.detail || 0;
+      let cartNum = e.detail ;
       if(cartNum) {
         this.cartNum = cartNum;
       }
@@ -229,6 +235,7 @@ export const cartMixin = {
       var goods_id = list[idx].actId;
       var community_id = community.communityId;
       let that = this;
+      debugger
       if (t.type == 'plus') {
         let data = {
           goods_id,
@@ -260,7 +267,7 @@ export const cartMixin = {
               let max_quantity = res.max_quantity || '';
               list[idx].car_count = max_quantity;
               if (max_quantity > 0) {
-                that.cartNum = res.total || 0;
+                that.cartNum = res.total ;
                 that.list = list;
               }
               var msg = res.msg;
@@ -271,7 +278,7 @@ export const cartMixin = {
               })
             } else {
               list[idx].car_count = res.cur_count;
-              that.cartNum = res.total || 0;
+              that.cartNum = res.total ;
               that.list = list;
               wx.showToast({
                 title: "已加入购物车",
@@ -307,7 +314,7 @@ export const cartMixin = {
             } else {
               list[idx].car_count = res.cur_count;
               that.list = list;
-              that.cartNum = res.total || 0;
+              that.cartNum = res.total ;
               status.indexListCarCount(goods_id, res.cur_count);
             }
           }

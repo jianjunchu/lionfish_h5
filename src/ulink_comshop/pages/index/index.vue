@@ -209,7 +209,7 @@
           <!--限时抢购结束-->
 
           <!-- 附近店铺 -->
-          <div class="index_supply" v-if="supply.length>0 && isShowContactBtn==1">
+          <div class="index_supply" v-if="supply.length>0 ">
             <div class="my-supply modal-head">
               <div class="supply-title">
                 <span>{{$t('home.fujindianpu')}}</span>
@@ -329,7 +329,7 @@
           <div v-if="hide_index_type!=1">
             <div class="sticky-cate_index" v-if="index_change_cate_btn==1">
               <div v-show="isShowClassification && tabIdx ==0">
-                <van-sticky :offset-top="50">
+                <van-sticky :offset-top="48">
                   <!--<i-tabs :activeIndex="classification.activeIndex" @activeIndexChange="classificationChange"
                           data-idx="1" fontColor="#000" iClass="category-list" :tabs="classification.tabs"></i-tabs>-->
 
@@ -374,7 +374,7 @@
                 </div>
               </div>
               <div v-show="isShowClassification && tabIdx==0">
-                <van-sticky :offset-top="50">
+                <van-sticky :offset-top="48">
                   <!--<i-tabs :activeIndex="classification.activeIndex" @activeIndexChange="classificationChange"
                           data-idx="1" fontColor="#000" class="category-list" :tabs="classification.tabs"></i-tabs>-->
                   <van-tabs v-model="classification.activeIndex" data-idx="1" @click="classificationChange">
@@ -2394,7 +2394,7 @@
       goSupply: function (event) {
         var id = event.currentTarget.dataset.id;
         wx.navigateTo({
-          url: '/ulink_comshop/pages/supply/home1?id=' + id
+          url: '/ulink_comshop/pages/supply/supplyHome?id=' + id
         })
       }
 

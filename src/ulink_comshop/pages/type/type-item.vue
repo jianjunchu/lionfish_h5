@@ -19,7 +19,7 @@
           <div class="item-right-top">
             <div class="spu-title">
               <span class="span">{{spuItem.spuName_en || spuItem.spuName}} </span>
-              <div class="supply" v-if="spuItem.supply_info && isShowContactBtn==1" @click.stop.prevent="goSupply" :data-id="spuItem.supply_info.id">
+              <div class="supply_type" v-if="spuItem.supply_info && isShowContactBtn==1" @click.stop.prevent="goSupply" :data-id="spuItem.supply_info.id">
                 <div class="supply-logo">
                   <img v-if="spuItem.supply_info && spuItem.supply_info.logo" :src="'https://fish.xx315.net//Uploads/image/' + spuItem.supply_info.logo"/>
                 </div>
@@ -273,7 +273,7 @@
       goSupply: function (event) {
         var id = event.currentTarget.dataset.id;
         wx.navigateTo({
-          url: '/ulink_comshop/pages/supply/home1?id=' + id
+          url: '/ulink_comshop/pages/supply/supplyHome?id=' + id
         })
       }
     }
@@ -311,6 +311,7 @@
   .spu {
     width: 100%;
     display: block;
+
   }
 
   .spu .img-class {
@@ -323,8 +324,9 @@
     overflow: hidden;
     position: relative;
     display: flex;
-    padding: 1vw 2vw 3vw;
+    margin: 1vw 2vw 3vw;
     box-sizing: border-box;
+    border-bottom: 1px solid #dfe2e8;
   }
 
   .spu .spu-content-type::after {
@@ -400,7 +402,7 @@
     padding: 0;
     margin: 0;
     position: absolute;
-    right: 4vw;
+    right: 1vw;
     bottom: 3vw;
     display: flex;
     align-items: center;
@@ -561,7 +563,7 @@
     padding-top: 1.4vw;
   }
 
-  .supply {
+  .supply_type {
     position: absolute;
     right: 0;
     padding: 0;

@@ -128,7 +128,7 @@
         util.check_login_new().then(function(t) {
           t ? (that.needAuth = !1 , status.cartNum().then(t => {
             that.cartNum = t.data
-          })) : (that.needAuth = !0,  that.navBackUrl = '/ulink_comshop/pages/supply/home1?id=${id}')
+          })) : (that.needAuth = !0,  that.navBackUrl = '/ulink_comshop/pages/supply/supplyHome?id=${id}')
         })
       },
       authSuccess: function() {

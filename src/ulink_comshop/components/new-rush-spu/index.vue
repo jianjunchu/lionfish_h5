@@ -30,7 +30,7 @@
           <div class="item-right-top">
             <div class="spu-title">
               <span class="span">{{spuItem.spuName_en || spuItem.spuName}}</span>
-              <div class="supply" v-if="spuItem.supply_info && isShowContactBtn==1" @click.stop.prevent="goSupply" :data-id="spuItem.supply_info.id">
+              <div class="supply" v-if="spuItem.supply_info " @click.stop.prevent="goSupply" :data-id="spuItem.supply_info.id">
                 <div class="supply-logo">
                   <img v-if="spuItem.supply_info && spuItem.supply_info.logo" :src="'https://fish.xx315.net//Uploads/image/' + spuItem.supply_info.logo"/>
                 </div>
@@ -316,7 +316,7 @@
       goSupply: function (event) {
         var id = event.currentTarget.dataset.id;
         wx.navigateTo({
-          url: '/ulink_comshop/pages/supply/home1?id=' + id
+          url: '/ulink_comshop/pages/supply/supplyHome?id=' + id
         })
       }
     }

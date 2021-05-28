@@ -618,6 +618,15 @@ export const constantRoutes = [
       keepAlive: false
     }
   },
+  {
+    name: '/ulink_comshop/pages/supply/supplyHome',
+    path: '/ulink_comshop/pages/supply/supplyHome',
+    component: () => import('@/ulink_comshop/pages/supply/supplyHome'),
+    hidden: true,
+    meta: {
+      keepAlive: false
+    }
+  },
   // 404 page must be placed at the end !!!
   {
     name: '/404',

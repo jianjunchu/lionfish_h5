@@ -15,6 +15,8 @@ import { Field } from 'vant'
 import { List } from 'vant'
 import { Tab, Tabs } from 'vant'
 import { ImagePreview } from 'vant'
+import { Col, Row } from 'vant'
+import { Cell, CellGroup } from 'vant';
 
 import 'element-ui/lib/theme-chalk/index.css'
 import 'mint-ui/lib/style.css'
@@ -61,6 +63,7 @@ import RushSpuGig from '@/ulink_comshop/components/rush-spu-big'
 import PaynowModal from '@/ulink_comshop/components/paynow-modal'
 import PayBankModal from '@/ulink_comshop/components/pay-bank-modal'
 import CartBtn from '@/ulink_comshop/components/cartBtn'
+import Empty from '@/ulink_comshop/components/empty'
 
 import '@/ulink_comshop/styles/index.scss' // global css
 import qs from 'qs'
@@ -101,7 +104,12 @@ Vue.use(List)
 Vue.use(Tab)
 Vue.use(Tabs)
 Vue.use(ImagePreview)
+Vue.use(Col)
+Vue.use(Row)
+Vue.use(Cell)
+Vue.use(CellGroup)
 
+Vue.component('i-empty', Empty)
 Vue.component('i-tabbar', Tabbar)
 Vue.component('i-toolbar', Toolbar)
 Vue.component('i-modal', Modal)

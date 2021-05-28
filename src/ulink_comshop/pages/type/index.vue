@@ -98,8 +98,7 @@
   export default {
     name: 'type',
     mixins: [GlobalMixin],
-    components: { [typeItem.name]: typeItem }
-    ,
+    components: { [typeItem.name]: typeItem },
     data() {
 
       return {
@@ -967,7 +966,7 @@
     top: 0;
     left: 0;
     width: 25vw;
-    height: 85vh;
+    height: 78vh;
     background: #f8f8f7;
   }
 
@@ -1012,7 +1011,7 @@
     position: absolute;
     left: 25vw;
     width: 75vw;
-    height: 74.3vh;
+    height: 71vh;
     background-color: white;
     overflow-y: scroll
   }
