@@ -16,7 +16,8 @@ import { List } from 'vant'
 import { Tab, Tabs } from 'vant'
 import { ImagePreview } from 'vant'
 import { Col, Row } from 'vant'
-import { Cell, CellGroup } from 'vant';
+import { Cell, CellGroup } from 'vant'
+import { Button } from 'vant'
 
 import 'element-ui/lib/theme-chalk/index.css'
 import 'mint-ui/lib/style.css'
@@ -34,7 +35,7 @@ import Img from '@/ulink_comshop/components/img'
 import ITabs from '@/ulink_comshop/components/tabs'
 import NewRushSpu from '@/ulink_comshop/components/new-rush-spu'
 import RushSpu from '@/ulink_comshop/components/rush-spu-col'
-import Button from '@/ulink_comshop/components/button'
+import iButton from '@/ulink_comshop/components/button'
 import card from '@/ulink_comshop/components/card'
 import InputNumber from '@/ulink_comshop/components/input-number'
 import IndexItem from '@/ulink_comshop/components/index-item'
@@ -109,6 +110,8 @@ Vue.use(Row)
 Vue.use(Cell)
 Vue.use(CellGroup)
 
+Vue.use(Button)
+
 Vue.component('i-empty', Empty)
 Vue.component('i-tabbar', Tabbar)
 Vue.component('i-toolbar', Toolbar)
@@ -116,7 +119,7 @@ Vue.component('i-modal', Modal)
 Vue.component('i-img', Img)
 Vue.component('i-tabs', ITabs)
 Vue.component('i-new-rush-spu', NewRushSpu)
-Vue.component('i-button', Button)
+Vue.component('i-button', iButton)
 Vue.component('i-card', card)
 Vue.component('i-input-number', InputNumber)
 Vue.component('i-index-item', IndexItem)

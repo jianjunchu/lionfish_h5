@@ -122,6 +122,11 @@
         <van-cell title="联系人" :value="info.name"/>
         <van-cell title="联系电话" :value="info.mobile"/>
       </van-cell-group>
+
+      <div @click="lianxikefu(info.country,info.mobile)" class="lianxikefu" v-if="info.mobile!='' && info.mobile !=null && info.mobile!= 'null'">
+          联系客服
+      </div>
+
     </div>
 
     <div class="model-services show" v-show="is_share_html">
@@ -939,6 +944,20 @@
             },
             changeCartNum: function(t) {
                 this.cartNum = t
+            },
+            lianxikefu:function (c,t) {
+                if (window.navigator.userAgent.match(/(iPhone|iPod|iPad);?/i)) {
+                    window.location.href = "https://wa.me/"+c+t;
+                    setTimeout(function () {
+                        window.location.href = "https://itunes.apple.com/us/app/whatsapp-messenger/id310633997?mt=8";
+                        window.location.href = "https://itunes.apple.com/us/app/whatsapp-messenger/id310633997?mt=8";
+                    }, 2000);
+                } else if (window.navigator.userAgent.match(/android/i)) {
+                    window.location.href = "https://wa.me/"+c+t;
+                    setTimeout(function () {
+                        window.location.href = "https://play.google.com/store/apps/details?id=com.whatsapp";
+                    }, 2000)
+                }
             }
         }
     }
@@ -1409,6 +1428,7 @@
   }
 
   .none_btn {
+
     border: none;
     line-height: 1.1;
     padding: 0px;
@@ -1478,6 +1498,27 @@
 
   .img-div {
     width: 24vw;
+  }
+  .lianxikefu{
+    border: 1px solid #ebedf0;
+    font-size: 14px;
+    color: #323233;
+    background-color: #fff;
+    width: 96vw;
+    position: relative;
+    margin: 2vw;
+    display: inline-block;
+    box-sizing: border-box;
+    height: 10vw;
+    padding: 0;
+    font-size: 16px;
+    line-height: 10vw;
+    text-align: center;
+    border-radius: 2px;
+    cursor: pointer;
+    -webkit-transition: opacity 0.2s;
+    transition: opacity 0.2s;
+    -webkit-appearance: none;
   }
 
 </style>

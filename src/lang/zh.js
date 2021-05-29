@@ -486,6 +486,7 @@ export default {
     dianpumingchengtishi: '请输入店铺名称',
     lianxirentishi: '请输入供应商联系人',
     shoujihaotishi: '请输入手机号',
+    guojiadaima: '国家代码',
     chanpinyijiyoushi: '产品以及优势（选填）',
     fahuodizhideyoubiantishi: '请输入发货地址的邮编',
     fahuodizhidedapaihaotishi: '请输入发货地址的大牌号',

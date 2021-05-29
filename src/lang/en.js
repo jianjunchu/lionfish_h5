@@ -500,6 +500,7 @@ export default {
     dianpumingchengtishi: 'Your Store Name',
     lianxirentishi: 'Your Name',
     shoujihaotishi: 'Your Mobile Phone',
+    guojiadaima: 'Country Code',
     chanpinyijiyoushi: 'Please write something about your products...',
     fahuodizhideyoubiantishi: 'Please input Postal Code Of your shop or warehouse',
     fahuodizhidedapaihaotishi: 'Block',

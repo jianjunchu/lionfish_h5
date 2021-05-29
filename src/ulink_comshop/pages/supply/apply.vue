@@ -33,7 +33,14 @@
           </div>
           <div class="form-item">
             <label class="form-item-control">{{$t('supply.shoujihao')}}</label>
-            <input v-model="mobile" class="form-item-input" :placeholder="$t('supply.shoujihaotishi')" type="text"/>
+            <el-input :placeholder="$t('supply.shoujihaotishi')" v-model="mobile" class="form-item-input">
+              <el-select style="width: 30vw;border:none;margin: -10px -30px;" v-model="country" slot="prepend" :placeholder="$t('supply.guojiadaima')">
+                <el-option label="Singapore" value="65"></el-option>
+                <el-option label="中国" value="86"></el-option>
+                <el-option label="Malaysia" value="60"></el-option>
+
+              </el-select>
+            </el-input>
           </div>
           <div class="form-item form-item2">
             <label class="form-item-control">{{$t('supply.chanpin')}}</label>
@@ -123,8 +130,9 @@
         orign_image: '',
         shopname: '',
         storename:'',
-        name: '',
-        mobile: '',
+          name: '',
+          mobile: '',
+          country:'65',
         product: '',
         zip_code: '',
         blk_no: '',
@@ -355,6 +363,7 @@
         var name = that.name;
         var product = that.product;
         var zip_code = that.zip_code;
+          var country = that.country;
         var blk_no = that.blk_no;
         var road_name = that.road_name;
         var building = that.building;
@@ -367,7 +376,6 @@
         var logoPicList = that.logoPiclist;
         var bannerPiclist = that.bannerPiclist;
         var switchWarehouse = that.switchWarehouse;
-        debugger
         if (shopname == '') {
           wx.showToast({
             title: that.$t('supply.qingshuru')+that.supply_diy_name+that.$t('supply.mingcheng'),
@@ -483,7 +491,7 @@
         }
         var s_data = {
           shopname, storename, name, mobile, product, controller: 'user.supply_apply', 'token': token,
-          zip_code, blk_no, road_name, building, lou_meng_hao, order_amount_free_delivery, delivery_fee_per_order,
+          zip_code, blk_no,country, road_name, building, lou_meng_hao, order_amount_free_delivery, delivery_fee_per_order,
           logo, banner
         };
         this.$http_post(s_data).then(t=> {
@@ -524,4 +532,15 @@
 </script>
 <style>
   @import "apply.less";
+  .el-input-group__prepend{
+    border: 0px;
+    text-align: left;
+  }
+  .el-input__inner{
+    flex: 1;
+    height: 10vw;
+    line-height: 10vw;
+    border: none;
+    background: none;
+  }
 </style>
