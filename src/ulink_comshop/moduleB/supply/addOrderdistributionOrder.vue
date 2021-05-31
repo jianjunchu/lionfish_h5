@@ -42,14 +42,15 @@
 				</div>
         <div class='form-item form-item2'>
           <label class="form-item-control"><label style="color: red;">*</label>{{$t('supply.shouhuodizhi')}}</label>
-          <textarea  class="form-item-textarea" :focus="focus_member_address"  maxlength="300" :placeholder="$t('supply.shouhuodizhitishi')" placeholder-class='placeholder' v-model="member_address"></textarea>
+          <textarea class="form-item-textarea" :focus="focus_member_address"  maxlength="300" :placeholder="$t('supply.shouhuodizhitishi')" placeholder-class='placeholder' v-model="member_address"></textarea>
         </div>
          <div class="form-item">
 					<label class="form-item-control"><label style="color: red;">*</label>{{$t('supply.qiwangsongdashijian')}}</label>
           <input class="form-item-input" data-key="3" :placeholder="$t('supply.qiwangsongdashijiantishi')" type="text" v-model="order_delivery_time" readonly/>
         </div>
         <div class="form-item">
-          <div class="page-body">
+          <div class="page-body" style="width: 100%;">
+            <van-picker style="width: 100%; height: 264px;" :columns="columns" @change="onPickerChange"/>
             <!-- <picker-view indicator-style="height: 50px;" style="width: 700rpx; height: 150px;" :value="array_index" @change="changeOrderDeliveryDate">
               <picker-view-column>
                 <div v-for="item in order_delivery_date_array" :key="order_delivery_date" :data-value="order_delivery_date" style="line-height: 50px; text-align: center;">{{item}}</div>
@@ -129,6 +130,7 @@
         order_id: 0,
         needAuth: false,
         showAuthModal: false,
+        columns: []
       }
     },
     watch:{
@@ -246,6 +248,16 @@
         this.order_id = id;
         this.needAuth = false;
         this.order_delivery_time = this.order_delivery_date_array[this.array_index[0]]+this.period_array[this.array_index[1]];
+        var column1 = {
+          values: this.order_delivery_date_array,
+          defaultIndex: this.array_index[0]
+        }
+        var column2 = {
+          values: this.period_array,
+          defaultIndex: this.array_index[1]
+        }
+        this.columns.push(column1);
+        this.columns.push(column2);
       },
       onShow: function () {
         util.check_login_new().then((res) => {
@@ -320,12 +332,8 @@
           }
         })
       },
-      changeOrderDeliveryDate: function (e) {
-        var o = e.detail.value;
-        var order_delivery_date_array = this.order_delivery_date_array;
-        var period_array = this.period_array;
-        this.array = [o[0], o[1]];
-        this.order_delivery_time = order_delivery_date_array[o[0]] + period_array[o[1]];
+      onPickerChange: function(picker, values, index) {
+        this.order_delivery_time = values[0] + values[1];
       },
       submit: function () {
         if (!this.authModal()) return;
@@ -565,6 +573,7 @@
 
 .form-item-textarea {
   width: 100%;
+  height: 20vw;
   border: 0.2vw solid #e4e4e4;
   border-radius: 5px;
   padding: 5px;

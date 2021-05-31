@@ -54,7 +54,7 @@
       </div>
       <i-load-more iClass="loadMore" :loading="loadMore" :tip="loadspan" v-if="!noMore"></i-load-more>
     </div>
-    <i-empty class="empty" v-if="noData">{{$t('supply.zanwudingdan')}}</i-empty>
+    <i-empty v-if="noData">{{$t('supply.zanwudingdan')}}</i-empty>
   </div>
 </template>
 
