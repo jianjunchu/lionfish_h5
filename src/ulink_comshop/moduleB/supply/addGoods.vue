@@ -18,12 +18,12 @@
           <input class="form-item-input" :placeholder="$t('supply.qingshurushangpinjianjie')" type="text" v-model="subtitle"/>
         </div>
 
-        <div class="form-item">
+        <div class="form-item" @click="showCategory">
           <label class="form-item-control"><label style="color: red">*</label>{{$t('supply.shangpinfenlei')}}</label>
-          <input @click="showCategory" class="form-item-input" data-key="3" :placeholder="$t('supply.qingxuanzeshangpinfenlei')" type="text" :value="yearName+'-'+monthName" disabled="true"/>
+          <input class="form-item-input" data-key="3" :placeholder="$t('supply.qingxuanzeshangpinfenlei')" type="text" :value="yearName+'-'+monthName" disabled="true"/>
         </div>
 
-        <div :style="showCategorys?'display:block':'display:none'+';width: 800rpx;height: 200px;border-bottom: 0.2vw solid #e4e4e4'">
+        <div :style="showCategorys?'display:block;width: 100vw;height: 264px;border-bottom: 0.2vw solid #e4e4e4':'display:none;width: 80vw;height: 200px;border-bottom: 0.2vw solid #e4e4e4'">
             <!-- <button 
                 wx:for="{{riderCommentList}}" 
                 wx:for-item="item" 
@@ -37,14 +37,7 @@
             </button> -->
           <div class="container">
             <div class="page-body">
-              <!-- <picker-view indicator-style="height: 50px;" style="width: 100%; height: 200px;" v-model="cateValue" @change="bindChange">
-                <picker-view-column>
-                  <div v-for="item in years" :key="item.id" :data-value="item.id" style="line-height: 50px; text-align: center;">{{item.name}}</div>
-                </picker-view-column>
-                <picker-view-column>
-                  <div v-for="item in months" :key="item.id" :data-value="item.id" style="line-height: 50px; text-align: center;">{{item.name}}</div>
-                </picker-view-column>
-              </picker-view> -->
+              <van-picker style="width: 100%; height: 264px;" :columns="columns" @change="onPickerChange"/>
             </div>
           </div>
         </div>
@@ -160,7 +153,8 @@
         community_head_commission: '',
         hascommission: 1,
         commission1_rate: '',
-        commission2_rate: ''
+        commission2_rate: '',
+        columns: []
       }
     },
     watch: {
@@ -285,6 +279,24 @@
             if (res.code == 0) {
               var data = res.data;
               that.years = data;
+              var categorys = [];
+              for (var i = 0; i < data.length; i++) {
+                var category = {
+                  id: data[i].id,
+                  text: data[i].name_en || data[i].name
+                }
+                categorys.push(category);
+              }
+              var column1 = {
+                values: categorys,
+                defaultIndex: that.cateValue[0]
+              }
+              var column2 = {
+                values: [],
+                defaultIndex: that.cateValue[1]
+              }
+              that.columns.push(column1);
+              that.columns.push(column2);
             } else {
               wx.showToast({
                 title: res.msg || that.$t('supply.qingqiuchucuo'),
@@ -295,7 +307,17 @@
         })
       },
 
-      getChildCate: function(pid,cid){
+      onPickerChange: function(picker, values, index) {
+        var pid = values[0].id;
+        this.yearName = values[0].text;
+        var cid = 0;
+        if (values[1]) {
+          cid = values[1].id;
+        }
+        this.getChildCate(pid,cid,picker);
+      },
+
+      getChildCate: function(pid,cid,picker){
         let that = this;
         let token = wx.getStorageSync('token');
         app.util.request({
@@ -310,11 +332,24 @@
             if (res.code == 0) {
               var data = res.data;
               that.months = data;
+              var categorys = [];
+              var index = that.cateValue[1];
+              for (var i = 0; i < data.length; i++) {
+                if (cid == data[i].id) {
+                  index = i;
+                }
+                var category = {
+                  id: data[i].id,
+                  text: data[i].name_en || data[i].name
+                }
+                categorys.push(category);
+              }
+              picker.setColumnValues(1, categorys);
               var catids = [];
-              catids.push(data[cid].id);
+              catids.push(data[index].id);
               that.year = pid;
-              that.month = data[cid].id;
-              that.monthName = data[cid].name;
+              that.month = data[index].id;
+              that.monthName = data[index].name_en || data[index].name;
               that.catids = catids;
             } else {
               wx.showToast({
@@ -456,7 +491,7 @@
                   index1 = i;
                   break;
                 }
-                i ++;
+                i++;
               }
               console.log(index1,"一级分类")
               //2,获取二级分类的index
@@ -484,6 +519,8 @@
                       n++;
                     }
                     that.cateValue = [index1,index2];
+                    that.columns[0].defaultIndex = index1;
+                    that.columns[1].defaultIndex = index2;
                   } else {
                     wx.showToast({
                       title: res.msg || that.$t('supply.qingqiuchucuo'),
