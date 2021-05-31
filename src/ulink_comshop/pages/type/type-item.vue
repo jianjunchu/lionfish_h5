@@ -324,7 +324,7 @@
     overflow: hidden;
     position: relative;
     display: flex;
-    margin: 1vw 2vw 3vw;
+    padding: 2vw;
     box-sizing: border-box;
     border-bottom: 1px solid #dfe2e8;
   }
