@@ -136,8 +136,8 @@
         cate_pids:[],
         total: '',
         price: '',
-        productprice: '',
-        costprice:'',
+        productprice: 0,
+        costprice: 0,
         codes:'',
         subtitle:'',
         thumbs: [],
@@ -558,19 +558,37 @@
 
         var goodsname = this.goodsname;
         var id = this.id;
-        var cate_mult = this.catids;
+        var cate_mult = "";
+        var catids = this.catids;
         var total = this.total;
         var price = this.price;
         var productprice = this.productprice;
         var costprice = this.costprice;
         var codes = this.codes;
         var subtitle = this.subtitle;
-        var thumbs = this.thumbs;
+        var thumbs = "";
+        var thumbs_arr = this.thumbs;
         var content = this.content;
         var community_head_commission = this.community_head_commission;
         var hascommission = this.hascommission;
         var commission1_rate = this.commission1_rate;
         var commission2_rate = this.commission2_rate;
+
+        for (var i = 0; i < catids.length; i++) {
+          if (cate_mult == "") {
+            cate_mult += catids[i];
+          } else {
+            cate_mult += "," + catids[i];
+          }
+        }
+
+        for (var i = 0; i < thumbs_arr.length; i++) {
+          if (thumbs == "") {
+            thumbs += thumbs_arr[i];
+          } else {
+            thumbs += "," + thumbs_arr[i];
+          }
+        }
 
         var that = this;
 
@@ -622,20 +640,14 @@
           return false;
         }
 
-        if (productprice == '') {
-          wx.showToast({
-            title: that.$t('supply.qingshuruyuanjia'),
-            icon: 'none',
-          })
-          return false;
-        }
-
-        if (!(/^[0-9]+(.?[0-9]{1,2})?$/.test(productprice))) {
-          wx.showToast({
-            title: that.$t('supply.qingshurushuzi'),
-            icon: 'none',
-          })
-          return false;
+        if (productprice !== '') {
+          if (!(/^[0-9]+(.?[0-9]{1,2})?$/.test(productprice))) {
+            wx.showToast({
+              title: that.$t('supply.qingshurushuzi'),
+              icon: 'none',
+            })
+            return false;
+          }
         }
 
         if (codes == '') {
@@ -654,7 +666,7 @@
           return false;
         }
 
-        if (community_head_commission == '') {
+        if (community_head_commission === '') {
           wx.showToast({
             title: that.$t('supply.qingshezhituanzhangyongjin'),
             icon: 'none',
@@ -678,7 +690,7 @@
           return false;
         }
 
-        if (commission1_rate == '') {
+        if (commission1_rate === '') {
           wx.showToast({
             title: that.$t('supply.qingshezhiyijifenxiaoyongjin'),
             icon: 'none',
@@ -702,7 +714,7 @@
           return false;
         }
 
-        if (commission2_rate == '') {
+        if (commission2_rate === '') {
           wx.showToast({
             title: that.$t('supply.qingshezhierjifenxiaoyongjin'),
             icon: 'none',
@@ -726,20 +738,14 @@
           return false;
         }
 
-        if (costprice == '') {
-          wx.showToast({
-            title: that.$t('supply.qingshuruchengbenjiage'),
-            icon: 'none',
-          })
-          return false;
-        }
-
-        if (!(/^[0-9]+(.?[0-9]{1,2})?$/.test(costprice))) {
-          wx.showToast({
-            title: that.$t('supply.qingshurushuzi'),
-            icon: 'none',
-          })
-          return false;
+        if (costprice !== '') {
+          if (!(/^[0-9]+(.?[0-9]{1,2})?$/.test(costprice))) {
+            wx.showToast({
+              title: that.$t('supply.qingshurushuzi'),
+              icon: 'none',
+            })
+            return false;
+          }
         }
 
         var s_data = {};
@@ -819,7 +825,7 @@
 }
 
 .form-group .form-item .form-item-control {
-  width: 19vw;
+  width: 45vw;
   height: 10vw;
   line-height: 10vw;
 }
