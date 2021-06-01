@@ -529,7 +529,7 @@
 </template>
 
 <script>
-
+    import { Dialog } from 'vant';
   import { swiper, swiperSlide } from 'vue-awesome-swiper'
   import GlobalMixin from '../../mixin/globalMixin.js'
   import status from '../../utils/index.js'
@@ -579,9 +579,13 @@
 
   export default {
     mixins: [GlobalMixin],
+      components: {
+          [Dialog.Component.name]: Dialog.Component,
+      },
     swiper: [swiper],
     swiperSlide: [swiperSlide],
     name: 'goods-goodsDetail',
+
     data() {
       return {
         endtime: {
@@ -926,8 +930,15 @@
               })
             }
           }), 0 == o && 'integral' != L.buy_type) {
-            var s = L.data.groupInfo
-            this.$app.util.message('此商品在您所属' + s.group_name + '不可参与', 'switchTo:/ulink_comshop/pages/index/index', 'error')
+            var s = L.groupInfo
+
+              Dialog.alert({
+                  message: '此商品在您所属' + s.group_name + '不可参与',
+              }).then(() => {
+                  this.$router.go(-1);//返回上一层
+              });
+
+
           }
 
           var i = t.comment_list

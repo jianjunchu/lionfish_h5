@@ -2363,6 +2363,7 @@
             lon: longitude
           },
           dataType: 'json',
+            method:'post',
           success: function (res) {
             if (res.code == 0) {
               let supply = [];

@@ -716,7 +716,7 @@
                 comment: '',
                 is_yue_open: 0,
                 can_yupay: 0,
-                ck_yupay: 2,
+                ck_yupay: -1,
                 pay_method: 'paynow',
                 use_score: 0,
                 commentArr: {},
@@ -1140,7 +1140,14 @@
             goOrderfrom: function () {
                 var e = this, t = e.tabAddress, a = e.tabIdx, i = t[a].name, o = t[a].mobile, s = t[a].receiverAddress,
                     n = t[a].region, r = t[a].receiverAddress, d = t[a].lou_meng_hao, dt = t[a].delivery_date_str,
-                    zc = t[a].zipCode, rn = t[a].roadName, bd = t[a].building
+                    zc = t[a].zipCode, rn = t[a].roadName, bd = t[a].building,ck_yupay = e.ck_yupay
+
+                if (-1== ck_yupay) {
+                    return wx.showToast({
+                        title: e.$t('order.xuanzhezhifufangshi'),
+                        icon: 'none'
+                    }), !1
+                }
                 if ('' == i) {
                     e.focus_name = !0
                     var c = e.$t('order.tianxieshouhuoren')
