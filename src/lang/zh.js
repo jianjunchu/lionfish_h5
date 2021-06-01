@@ -203,6 +203,7 @@ export default {
     jinrudianpu: '进入店铺'
   },
   order: {
+    huodaofukuan:'货到付款',
     shouhuoxinxi: '收货信息',
     nicheng: '昵称',
     shouhuoren1: '收货人',

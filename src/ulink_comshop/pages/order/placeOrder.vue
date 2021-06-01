@@ -369,6 +369,15 @@
               </div>
             </div>
 
+            <div avalonctrl="oc_payment" @click="ck_payhuodaofukuan" class="oc-payment">
+              <div :class="['oc-payment-item', ck_yupay==4?'oc-payment-selected':'']"
+                   :style="ck_yupay==4?'color:'+skin.color:''">
+                <span class="iconfont icon-huodaofukuan oc-payment-icon" style="color:#4cc846;"></span>
+                <div class="oc-payment-method">{{$t('order.huodaofukuan')}}</div>
+                <!--<div class="oc-payment-recommend" :style="{'color':skin.color , 'border-color':skin.color}">推荐</div>-->
+              </div>
+            </div>
+
             <div v-if="is_yue_open==1">
               <div avalonctrl="oc_payment" @click="ck_yupays" class="oc-payment" v-if="can_yupay">
                 <div :class="['oc-payment-item', ck_yupay ==1?'oc-payment-selected':'']"
@@ -1072,6 +1081,10 @@
                 this.ck_yupay = 3
                 this.pay_method = 'paypal'
             },
+            ck_payhuodaofukuan:function(){
+                this.ck_yupay = 4
+                this.pay_method = 'cash'
+            },
 
             scoreChange: function (e) {
                 console.log('是否使用', e.detail.value)
@@ -1356,7 +1369,6 @@
                                 })
                             } else if (pm == 'paynow') {
 
-
                                 this_.closePaymentModal()
                                 this_.showPayNowModal()
                             } else if ('banktransfer' == pm) {
@@ -1426,7 +1438,13 @@
                                     this.payBtnLoading = !1)
                             }
 
+                        },
+                        fail:function () {
+                            wx.redirectTo({
+                                url: '/ulink_comshop/pages/order/index?is_show=1&?isfail=1'
+                            })
                         }
+
                     })
                 }
             },

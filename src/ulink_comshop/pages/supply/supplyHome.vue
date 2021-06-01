@@ -1,5 +1,7 @@
 <template>
   <div class="page">
+    <el-amap style="display: none" vid="amap" :plugin="plugin" class="amap-demo" :center="center">
+    </el-amap>
     <div class="swipe_supply_home">
       <swiper :options="sliderSwiperOption" class="swiper-content">
         <swiper-slide class="swiper-slide" v-for="(item,index) in slider_list" :key="index">
@@ -374,7 +376,32 @@
                     loadOver: false
                 },
                 supplyId: 0,
-                page: 1
+                page: 1,
+                center: [121.59996, 31.197646],
+                plugin: [{
+                    pName: 'Geolocation',
+                    events: {
+                        init(o) {
+                            // o 是高德地图定位插件实例
+                            o.getCurrentPosition((status, result) => {
+                                console.log(result)
+                                if (result && result.position) {
+
+                                    self.$wx.setStorageSync('position', result.position)
+                                    self.$wx.setStorage({
+                                        key: 'latitude',
+                                        data: result.position.lat
+                                    })
+                                    self.$wx.setStorage({
+                                        key: 'longitude',
+                                        data: result.position.lng
+                                    })
+                                    self.$nextTick()
+                                }
+                            })
+                        }
+                    }
+                }],
             }
         },
 
@@ -495,14 +522,10 @@
                 let community = wx.getStorageSync('community');
                 that.community = community
 
-                let latitude = wx.getStorageSync('latitude');
-                let longitude = wx.getStorageSync('longitude');
-                if (!latitude || !longitude) {
-                    that.getLocation();
-                } else {
-                    that.latitude = latitude;
-                    that.longitude = longitude;
-                }
+                var latitude = wx.getStorageSync('latitude');
+                var longitude = wx.getStorageSync('longitude');
+                that.latitude = latitude;
+                that.longitude = longitude;
                 if (that.latitude && that.longitude) {
                     that.getSupplyDetails();
                 } else {
@@ -975,14 +998,15 @@
 
   .swipe_supply_home {
     position: relative;
-    height: 50vw;
+    height: 60vw;
     margin-bottom: 2vw;
   }
 
+
   .logo {
     position: absolute;
-    top: 27vw;
-    left: 42%;
+    top: 35vw;
+    left: 45%;
     width: 12vw;
     height: 12vw;
     z-index: 2;
@@ -993,7 +1017,7 @@
     width: 11vw;
     height: 11vw;
     border-radius: 50%;
-    top: 27vw;
+    top: 36vw;
     left: 80%;
     font-size: 1.3vw;
     padding: 1vw;
@@ -1002,7 +1026,7 @@
   }
 
   .supply_name_supply_hmoe {
-    font-size: 4vw;
+    font-size: 4.5vw;
     text-align: center;
     margin-top: 3vw;
     height: 7vw;
@@ -1016,11 +1040,12 @@
     padding-right: 2vw;
   }
 
-  .supply_subtitle text {
+  .supply_subtitle span {
     text-align: center;
-    font-size: 2.5vw;
+    font-size: 3vw;
     padding-left: 2vw;
     padding-right: 2vw;
+    color: #646566;
   }
 
   .supply_subtitle .border {
@@ -1029,7 +1054,7 @@
 
   .swiper-content {
     width: 100vw;
-    height: 36vw;
+    height: 46vw;
     border-radius: 1.2vw;
     padding-bottom: 4vw;
   }
