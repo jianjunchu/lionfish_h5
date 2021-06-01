@@ -59,6 +59,7 @@
 
               <div :class="['bold', (item.order_status_id==3?'red':'gray')]" :style="(item.order_status_id==3?'color:'+skin.color:'')">
                 <span v-if="item.order_status_id == 10"> {{ $t('order.dengdaituikuan') }}</span>
+                <span v-else-if="item.order_status_id == 15"> {{ $t('order.huodaofukuan') }}</span>
                 <span v-else-if="item.order_status_id == 4 && item.delivery=='pickup' "> {{ $t('order.daiziti') }}</span>
                 <span v-else-if="item.order_status_id == 6 && item.delivery=='pickup' "> {{ $t('order.yiziti') }}</span>
                 <span v-else> {{ item.status_name }}</span>
