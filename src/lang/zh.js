@@ -721,7 +721,8 @@ export default {
     songhuolianxidianhuayouwu: '送货联系电话有误',
     qingshurusonghuodizhi: '请输入送货地址',
     shuruyunfeiguodi: '输入运费过低',
-    nindefahuodingdanyichenggongfabu: '您的发货订单已成功发布'
+    nindefahuodingdanyichenggongfabu: '您的发货订单已成功发布',
+    shezhiqitaxinxi: '设置其他信息'
   },
   score: {
     ninweidenglu: '您未登录',

@@ -732,7 +732,8 @@ export default {
     songhuolianxidianhuayouwu: 'Wrong Member Mobile',
     qingshurusonghuodizhi: 'Please Enter Member Address',
     shuruyunfeiguodi: 'Input Delivery fee Is Too Low',
-    nindefahuodingdanyichenggongfabu: 'Your distribution order has been successfully published'
+    nindefahuodingdanyichenggongfabu: 'Your distribution order has been successfully published',
+    shezhiqitaxinxi: 'Add Other Information'
   },
   score: {
     ninweidenglu: 'You’re Not Login',
