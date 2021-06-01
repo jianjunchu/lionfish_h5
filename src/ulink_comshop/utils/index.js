@@ -317,7 +317,9 @@ function request(o) {
   http(o.data, o.method).then(r => {
     o.success(r)
   }).catch(e => {
-    o.fail(e)
+    if (o.hasOwnProperty('fail')) {
+      o.fail(e)
+    }
   })
 }
 
