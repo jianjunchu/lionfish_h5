@@ -23,7 +23,7 @@
       <div class="supply_subtitle">
         <span class="border">评价{{info.score}}</span>
         <span class="border">月销{{info.quantity_count}}</span>
-        <span>配送距离：{{distance}}</span>
+        <span>距离：{{distance}}</span>
       </div>
 
     </div>
@@ -627,7 +627,11 @@
                                 if (distance < 1000) {
                                     distance = distance + 'M';
                                 } else {
-                                    distance = (distance / 1000).toFixed(1) + 'KM';
+                                    if(km > 200) {
+                                      distance = 'Unknown';
+                                    } else {
+                                      distance = (distance/1000).toFixed(1) + 'KM';
+                                    }
                                 }
                             }
                             let oldList = that.list;

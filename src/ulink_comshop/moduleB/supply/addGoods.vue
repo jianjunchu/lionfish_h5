@@ -63,31 +63,40 @@
         </div>
 
         <div class="form-item">
+          <el-switch
+            active-color="#13ce66"
+            inactive-color="#ff4949"
+            :inactive-text="$t('supply.shezhiqitaxinxi')"
+            v-model="switchShow">
+          </el-switch>
+        </div>
+
+        <div class="form-item" v-show="switchShow">
           <label class="form-item-control"><label style="color: red">*</label>{{$t('supply.tuanzhangyongjin')}}</label>
           <input class="form-item-input" data-key="4" :placeholder="$t('supply.tuanzhangyongjintishi')" type="text" v-model="community_head_commission"/>
         </div>
 
-        <div class="form-item">
+        <div class="form-item" v-show="switchShow">
           <label class="form-item-control"><label style="color: red">*</label>{{$t('supply.yijifenxiaoyongjin')}}</label>
           <input class="form-item-input" data-key="4" :placeholder="$t('supply.yijifenxiaoyongjintishi')" type="text" v-model="commission1_rate"/>
         </div>
 
-        <div class="form-item">
+        <div class="form-item" v-show="switchShow">
           <label class="form-item-control"><label style="color: red">*</label>{{$t('supply.erjifenxiaoyongjin')}}</label>
           <input class="form-item-input" data-key="4" :placeholder="$t('supply.erjifenxiaoyongjintishi')" type="text" v-model="commission2_rate"/>
         </div>
 
-        <div class="form-item">
+        <div class="form-item" v-show="switchShow">
           <label class="form-item-control">{{$t('supply.yuanjia')}}</label>
           <input class="form-item-input" data-key="4" :placeholder="$t('supply.qingshuruyuanjia')" type="text" v-model="productprice"/>
         </div>
 
-        <div class="form-item">
+        <div class="form-item" v-show="switchShow">
           <label class="form-item-control">{{$t('supply.chengbenjiage')}}</label>
           <input class="form-item-input" :placeholder="$t('supply.qingshuruchengbenjiage')" type="text"  v-model="costprice"/>
         </div>
 
-        <div class="form-item">
+        <div class="form-item" v-show="switchShow">
           <label class="form-item-control">{{$t('supply.shangpinmiaoshu')}}</label>
           <input class="form-item-input" :placeholder="$t('supply.qingshurushangpinmiaoshu')" type="text" v-model="content"/>
         </div>
@@ -109,6 +118,7 @@
   import GlobalMixin from '../../mixin/globalMixin.js';
   import status from '../../utils/index.js'
   import util from '../../utils/index.js'
+  import axios from 'axios'
   var date = new Date();
   var app,wx
   export default {
@@ -126,8 +136,8 @@
         cate_pids:[],
         total: '',
         price: '',
-        productprice: '',
-        costprice:'',
+        productprice: 0,
+        costprice: 0,
         codes:'',
         subtitle:'',
         thumbs: [],
@@ -150,11 +160,12 @@
         cates_name:[],
         cate_pids_name:[],
         piclist: [],
-        community_head_commission: '',
+        community_head_commission: 0,
         hascommission: 1,
-        commission1_rate: '',
-        commission2_rate: '',
-        columns: []
+        commission1_rate: 0,
+        commission2_rate: 0,
+        columns: [],
+        switchShow: false
       }
     },
     watch: {
@@ -547,19 +558,37 @@
 
         var goodsname = this.goodsname;
         var id = this.id;
-        var cate_mult = this.catids;
+        var cate_mult = "";
+        var catids = this.catids;
         var total = this.total;
         var price = this.price;
         var productprice = this.productprice;
         var costprice = this.costprice;
         var codes = this.codes;
         var subtitle = this.subtitle;
-        var thumbs = this.thumbs;
+        var thumbs = "";
+        var thumbs_arr = this.thumbs;
         var content = this.content;
         var community_head_commission = this.community_head_commission;
         var hascommission = this.hascommission;
         var commission1_rate = this.commission1_rate;
         var commission2_rate = this.commission2_rate;
+
+        for (var i = 0; i < catids.length; i++) {
+          if (cate_mult == "") {
+            cate_mult += catids[i];
+          } else {
+            cate_mult += "," + catids[i];
+          }
+        }
+
+        for (var i = 0; i < thumbs_arr.length; i++) {
+          if (thumbs == "") {
+            thumbs += thumbs_arr[i];
+          } else {
+            thumbs += "," + thumbs_arr[i];
+          }
+        }
 
         var that = this;
 
@@ -611,20 +640,14 @@
           return false;
         }
 
-        if (productprice == '') {
-          wx.showToast({
-            title: that.$t('supply.qingshuruyuanjia'),
-            icon: 'none',
-          })
-          return false;
-        }
-
-        if (!(/^[0-9]+(.?[0-9]{1,2})?$/.test(productprice))) {
-          wx.showToast({
-            title: that.$t('supply.qingshurushuzi'),
-            icon: 'none',
-          })
-          return false;
+        if (productprice !== '') {
+          if (!(/^[0-9]+(.?[0-9]{1,2})?$/.test(productprice))) {
+            wx.showToast({
+              title: that.$t('supply.qingshurushuzi'),
+              icon: 'none',
+            })
+            return false;
+          }
         }
 
         if (codes == '') {
@@ -643,7 +666,7 @@
           return false;
         }
 
-        if (community_head_commission == '') {
+        if (community_head_commission === '') {
           wx.showToast({
             title: that.$t('supply.qingshezhituanzhangyongjin'),
             icon: 'none',
@@ -667,7 +690,7 @@
           return false;
         }
 
-        if (commission1_rate == '') {
+        if (commission1_rate === '') {
           wx.showToast({
             title: that.$t('supply.qingshezhiyijifenxiaoyongjin'),
             icon: 'none',
@@ -691,7 +714,7 @@
           return false;
         }
 
-        if (commission2_rate == '') {
+        if (commission2_rate === '') {
           wx.showToast({
             title: that.$t('supply.qingshezhierjifenxiaoyongjin'),
             icon: 'none',
@@ -715,20 +738,14 @@
           return false;
         }
 
-        if (costprice == '') {
-          wx.showToast({
-            title: that.$t('supply.qingshuruchengbenjiage'),
-            icon: 'none',
-          })
-          return false;
-        }
-
-        if (!(/^[0-9]+(.?[0-9]{1,2})?$/.test(costprice))) {
-          wx.showToast({
-            title: that.$t('supply.qingshurushuzi'),
-            icon: 'none',
-          })
-          return false;
+        if (costprice !== '') {
+          if (!(/^[0-9]+(.?[0-9]{1,2})?$/.test(costprice))) {
+            wx.showToast({
+              title: that.$t('supply.qingshurushuzi'),
+              icon: 'none',
+            })
+            return false;
+          }
         }
 
         var s_data = {};
@@ -808,7 +825,7 @@
 }
 
 .form-group .form-item .form-item-control {
-  width: 19vw;
+  width: 45vw;
   height: 10vw;
   line-height: 10vw;
 }

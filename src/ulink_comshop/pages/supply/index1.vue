@@ -2,29 +2,40 @@
   <div class="container">
     <van-list v-model="isLoadData" :finished="noMore" ref="pullRefresh" @load="getData">
       <div class='wrap'>
-        <div class="supply" @click='goDetails' v-if="supplyList.length" v-for="(supply,index) in supplyList" :key="supply.id" :data-id="supply.id">
-          <div class="supply-left">
-            <div class="logo">
-              <img v-if="supply.logo" :src="supply.logo"/>
-            </div>
-          </div>
-          <div class="supply-center">
-            <div class="info">
-              <div class="name">{{supply.storename || supply.shopname || '供应商'}}</div>
-              <div class="stars">
-                <div class="star" v-for="(star,index1) in supply.star" :key="index1"><img :src="star"/></div>
-                <div class="score"><span v-if="supply.score" style="color: #f1a700;">{{supply.score}}</span><span v-else>{{$t('supply.zanwupingfen')}}</span></div>
-              </div>
-              <div class="product" v-if="supply.product"><span>{{supply.product}}</span></div>
-            </div>
-            <div class="goods">
-              <div class="good" v-if="supply.goods_list.length" v-for="(good,index2) in supply.goods_list" :key="good.actId">
-                <img src="@/assets/images/onsale.png"/><span class="actPrice"><span class="span">${{good.actPrice[0]}}</span>{{'.'+good.actPrice[1]}}</span><span class="marketPrice">${{good.marketPrice[0]+'.'+good.marketPrice[1]}}</span><span class="spuName">{{good.spuName}}</span>
+        <div class="card" @click='goDetails' v-if="supplyList.length" v-for="(supply,index) in supplyList" :key="supply.id" :data-id="supply.id">
+          <div class="supply">
+            <div class="supply-left">
+              <div class="logo">
+                <img v-if="supply.logo" :src="supply.logo"/>
               </div>
             </div>
+            <div class="supply-center">
+              <div class="info">
+                <div class="name">{{supply.storename || supply.shopname || '供应商'}}</div>
+                <div class="stars">
+                  <div class="star" v-for="(star,index1) in supply.star" :key="index1"><img :src="star"/></div>
+                  <div class="score"><span v-if="supply.score" style="color: #f1a700;">{{supply.score}}</span><span v-else>{{$t('supply.zanwupingfen')}}</span></div>
+                </div>
+                <div class="product" v-if="supply.product"><span>{{supply.product}}</span></div>
+              </div>
+              <!-- <div class="goods">
+                <div class="good" v-if="supply.goods_list.length" v-for="(good,index2) in supply.goods_list" :key="good.actId">
+                  <img src="@/assets/images/onsale.png"/><span class="actPrice"><span class="span">${{good.actPrice[0]}}</span>{{'.'+good.actPrice[1]}}</span><span class="marketPrice">${{good.marketPrice[0]+'.'+good.marketPrice[1]}}</span><span class="spuName">{{good.spuName}}</span>
+                </div>
+              </div> -->
+            </div>
+            <div class="supply-right">
+              <div class="distance">{{supply.distance}}KM</div>
+            </div>
           </div>
-          <div class="supply-right">
-            <div class="distance">{{supply.distance}}KM</div>
+          <div class="goods" v-if="supply.goods_list.length">
+            <div class="good" v-for="(good,index2) in supply.goods_list" :key="good.actId">
+              <div class="skuImage">
+                <img :src="good.skuImage"/>
+              </div>
+              <div class="actPrice">S${{good.actPrice[0]}}{{'.'+good.actPrice[1]}}</div>
+              <div class="spuName">{{good.spuName}}</div>
+            </div>
           </div>
         </div>
         <div class="none-rush-list" v-if="supplyList.length==0">
@@ -189,8 +200,8 @@
                 }
                 // 商品显示
                 if (data[i].goods_list.length) {
-                  if (data[i].goods_list.length > 2) {
-                    var goods_list = [data[i].goods_list[0],data[i].goods_list[1]];
+                  if (data[i].goods_list.length > 3) {
+                    var goods_list = [data[i].goods_list[0],data[i].goods_list[1],data[i].goods_list[2],];
                     data[i].goods_list = goods_list;
                   }
                 }
@@ -242,39 +253,42 @@
   }
 </script>
 <style scoped>
-.supply {
+.card {
   background-color: #fff;
   margin: 2vw auto;
   width: 95%;
-  height: 32vw;
+  height: 54vw;
   border-radius: 2vw;
   box-shadow: 0 0 4vw rgba(0, 0, 0, 0.1);
+}
+
+.supply {
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
 
 .supply-left {
-  height: 30vw;
-  width: 30%;
+  height: 10vw;
+  width: 15%;
   margin-left: 5%;
 }
 
 .logo {
-  height: 20vw;
-  width: 20vw;
+  height: 10vw;
+  width: 10vw;
   margin-top: 10%;
 }
 
 .logo img {
-  width: 20vw;
-  height: 20vw;
-  border-radius: 1vw;
+  width: 10vw;
+  height: 10vw;
+  border-radius: 5vw;
 }
 
 .supply-center {
-  height: 30vw;
-  width: 45%;
+  height: 20vw;
+  width: 50%;
   margin-left: 5%;
 }
 
@@ -339,46 +353,9 @@
   word-break: break-all;
 }
 
-.goods {
-  height: 8vw;
-  width: 100%;
-}
-
-.good {
-  margin-bottom: 1vw;
-  font-size: 1.8vw;
-  line-height: 3vw;
-}
-
-.good img {
-  height: 2.2vw;
-  width: 2.2vw;
-  vertical-align: middle;
-}
-
-.actPrice {
-  color: #ff5344;
-}
-
-.marketPrice {
-  margin-left: 1.5vw;
-  font-size: 1.8vw;
-  text-decoration: line-through;
-  color: #999;
-}
-
-.spuName {
-  margin-left: 1.5vw;
-  display: inline-block;
-  width: 40%;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
 .supply-right {
-  height: 30vw;
-  width: 15%;
+  height: 20vw;
+  width: 25%;
 }
 
 .distance {
@@ -387,6 +364,66 @@
   line-height: 2.2vw;
   color: #999;
   margin-top: 8.5vw;
+  text-align: center;
+}
+
+.goods {
+  height: 30vw;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  margin-top: 2vw;
+}
+
+.good {
+  height: 30vw;
+  width: 30%;
+  margin: 2vw 1.5%;
+  font-size: 2.2vw;
+  line-height: 4vw;
+  border: 0.2vw solid #ff0000;
+  border-radius: 2vw;
+}
+
+.good .skuImage {
+  height: 100%;
+  width: 100%;
+}
+
+.good .skuImage img {
+  height: 100%;
+  width: 100%;
+  margin: 0 auto;
+  border-radius: 2vw;
+}
+
+.actPrice {
+  width: 50%;
+  height: 4vw;
+  position: relative;
+  top: -4vw;
+  color: #ffffff;
+  border-radius: 0 0 0 2vw;
+  background-color: rgba(0,0,0,0.5);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  text-align: center;
+}
+
+.spuName {
+  width: 50%;
+  height: 4vw;
+  position: relative;
+  top: -8vw;
+  right: -50%;
+  color: #ffffff;
+  border-radius: 0 0 2vw 0;
+  background-color: #ff0000;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .addSupply {
