@@ -627,6 +627,7 @@
                                 if (distance < 1000) {
                                     distance = distance + 'M';
                                 } else {
+                                    var km = distance / 1000;
                                     if(km > 200) {
                                       distance = 'Unknown';
                                     } else {
