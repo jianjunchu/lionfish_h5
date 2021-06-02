@@ -212,6 +212,7 @@ export default {
     jinrudianpu: 'Store Home'
   },
   order: {
+    xuanzhezhifufangshi:'Please select payment method',
     huodaofukuan:'Cash On Delivery',
     shouhuoxinxi: 'Order Detail',
     shouhuoren1: 'Name',

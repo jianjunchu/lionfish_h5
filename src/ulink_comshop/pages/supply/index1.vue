@@ -155,6 +155,7 @@
             lon: longitude
           },
           dataType: 'json',
+            method:'get',
           success: function (res) {
             that.isLoadData = !1, setTimeout(function() {
               wx.hideLoading()
