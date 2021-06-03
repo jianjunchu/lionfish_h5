@@ -301,7 +301,7 @@
                         disableOnInteraction: false
                     },
                     //开启循环模式
-                    loop: true
+                    loop: false
                 },
                 scrollViewHeight: 0,
                 is_share_html: false,
