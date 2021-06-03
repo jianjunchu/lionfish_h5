@@ -5,7 +5,7 @@
     <div class="swipe_supply_home">
       <swiper :options="sliderSwiperOption" class="swiper-content">
         <swiper-slide class="swiper-slide" v-for="(item,index) in slider_list" :key="index">
-          <img :src="item.image" class="show-img-index" width="100%" height="100%"/>
+          <img :src="item.image" class="show-img-index" width="100%"/>
         </swiper-slide>
         <!-- 分页器 -->
         <div class="swiper-pagination" slot="pagination"></div>
