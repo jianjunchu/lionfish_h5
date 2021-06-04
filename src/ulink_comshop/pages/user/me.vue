@@ -457,7 +457,7 @@
       </div>
 
 
-      <div class="canvas-content" v-if="fetch_coder_type==0">
+      <!-- <div class="canvas-content" v-if="fetch_coder_type==0">
         <div class="left">
           <img @click="previewImage" class="canvas" data-src="member_info.hexiao_qrcod" :src="member_info.hexiao_qrcod"
                v-if="member_info.hexiao_qrcod"/>
@@ -466,10 +466,10 @@
         <div class="right">
           <div class="title1" :style="{color:skin.color}">向{{groupInfo.owner_name}}出示二维码提货</div>
           <div class="title2" style="display:none;">或出示提货码</div>
-          <!--<div @click="showCoder" class="btn" style="display:none;">使用提货码</div>-->
+          <div @click="showCoder" class="btn" style="display:none;">使用提货码</div>
           <div class="btn" style="display:none;">使用提货码</div>
         </div>
-      </div>
+      </div> -->
       <div class="version">
         <span>{{copyright}}</span>
       </div>
