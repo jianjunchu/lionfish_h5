@@ -369,7 +369,7 @@
                   <i-count-down :clearTimer="stopNotify" countdownClass="count-down" itemClass="item-time"
                                 showDay="true" :target="rushEndTime"
                                 v-if="rushEndTime && !stopNotify && index_qgtab_counttime!=1">
-                    <span class="count-down-left-text">仅剩</span>
+                    <span class="count-down-left-text">{{$t('home.jinsheng')}}</span>
                   </i-count-down>
                 </div>
               </div>
