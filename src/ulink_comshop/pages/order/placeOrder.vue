@@ -673,31 +673,31 @@
                 },
                 tabList: [{
                     id: 0,
-                    name: '到点自提',
+                    name: this.$t('order.peisongdianziti'),
                     dispatching: 'pickup',
                     enabled: !1
                 }, {
                     id: 1,
-                    name: '团长配送',
+                    name: this.$t('order.tuanzhangpeisong'),
                     dispatching: 'tuanz_send',
                     enabled: !1
                 }, {
                     id: 2,
-                    name: '快递配送',
+                    name: this.$t('order.kuaidizhisong'),
                     dispatching: 'express',
                     enabled: !1
                 }],
                 originTabList: [{
                     id: 0,
-                    name: '到点自提',
+                    name: this.$t('order.peisongdianziti'),
                     dispatching: 'pickup'
                 }, {
                     id: 1,
-                    name: '团长配送',
+                    name: this.$t('order.tuanzhangpeisong'),
                     dispatching: 'tuanz_send'
                 }, {
                     id: 2,
-                    name: '快递配送',
+                    name: this.$t('order.kuaidizhisong'),
                     dispatching: 'express'
                 }],
                 tabIdx: 0,
@@ -854,7 +854,7 @@
                                     s.push(o[e])
                                 })
                             }
-                            r && (o[2].name = r), d && (o[1].name = d), c && (o[0].name = c)
+                            // r && (o[2].name = r), d && (o[1].name = d), c && (o[0].name = c)
                             1 == a || 2 == a && t.trans_free_toal
 
                             var T = 0, D = 0, P = t.seller_goodss, z = (Object.keys(P).length, {})
@@ -2087,13 +2087,13 @@
     align-items: center;
     position: relative;
     color: #444;
-    font-size: 3.5vw;
+    font-size: 4vw;
     margin-bottom: 2vw;
     font-weight: 500;
   }
 
   .address-content .receiver span {
-    width: 20vw;
+    width: 30vw;
     color: #666;
   }
 
@@ -2107,7 +2107,7 @@
     font-weight: bold;
     background-color: #f7f7f7;
     border: 0.1vw solid #ddd;
-    font-size: 2vw;
+    font-size: 4vw;
     outline: none;
   }
 
@@ -2498,7 +2498,7 @@
 
   .tab-nav .tab-nav-item {
     color: #6c6c6c;
-    font-size: 3vw;
+    font-size: 4vw;
     font-weight: bold;
     position: relative;
     z-index: 1;

@@ -323,7 +323,10 @@ export default {
     querenshoudao: '确认收到货?',
     yuezhifu: '余额支付（余额：{p1})',
     yuebuzhu: '余额不足',
-    shouhuochenghong: '收货成功'
+    shouhuochenghong: '收货成功',
+    peisongdianziti: '配送点自提',
+    kuaidizhisong: '快递直送',
+    tuanzhangpeisong: '团长配送'
   },
   cart: {
     gouwuchekong: '购物车空空如也，赶紧去逛逛吧~',

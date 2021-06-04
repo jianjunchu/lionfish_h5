@@ -336,7 +336,10 @@ export default {
     querenshoudao: 'Please confirm receipt of your order?',
     yuezhifu: 'Balance Paid（Balance：{p1})',
     yuebuzhu: 'Not Sufficient Funds',
-    shouhuochenghong: 'Delivery Completed'
+    shouhuochenghong: 'Delivery Completed',
+    peisongdianziti: 'Collection',
+    kuaidizhisong: 'Direct Delivery',
+    tuanzhangpeisong: 'Head Shipping'
   },
   cart: {
     gouwuchekong: 'Back to Homepage',
