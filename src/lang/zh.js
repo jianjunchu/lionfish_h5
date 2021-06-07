@@ -727,7 +727,11 @@ export default {
     qingshurusonghuodizhi: '请输入送货地址',
     shuruyunfeiguodi: '输入运费过低',
     nindefahuodingdanyichenggongfabu: '您的发货订单已成功发布',
-    shezhiqitaxinxi: '设置其他信息'
+    shezhiqitaxinxi: '设置其他信息',
+    pingjia: '评价',
+    yuexiao: '月销',
+    shangpin: '商品',
+    shangjia: '商家'
   },
   score: {
     ninweidenglu: '您未登录',

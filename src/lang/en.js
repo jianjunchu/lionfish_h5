@@ -738,7 +738,11 @@ export default {
     qingshurusonghuodizhi: 'Please Enter Member Address',
     shuruyunfeiguodi: 'Input Delivery fee Is Too Low',
     nindefahuodingdanyichenggongfabu: 'Your distribution order has been successfully published',
-    shezhiqitaxinxi: 'Add Other Information'
+    shezhiqitaxinxi: 'Add Other Information',
+    pingjia: 'Review',
+    yuexiao: 'MonthlySales',
+    shangpin: 'Products',
+    shangjia: 'Shop'
   },
   score: {
     ninweidenglu: 'You’re Not Login',

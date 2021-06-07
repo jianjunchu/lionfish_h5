@@ -21,9 +21,9 @@
       <div class="supply_name_supply_hmoe" span="24">{{info.shopname}}</div>
 
       <div class="supply_subtitle">
-        <span class="border">评价{{info.score}}</span>
-        <span class="border">月销{{info.quantity_count}}</span>
-        <span>距离：{{distance}}</span>
+        <span class="border">{{$t('supply.pingjia')}}{{info.score}}</span>
+        <span class="border">{{$t('supply.yuexiao')}}{{info.quantity_count}}</span>
+        <span>{{$t('supply.juli')}}：{{distance}}</span>
       </div>
 
     </div>
@@ -328,16 +328,16 @@
                 info: {},
                 tabs: [{
                     id: 1,
-                    name: '商品'
+                    name: this.$t('supply.shangpin')
                 },
                     {
                         id: 2,
-                        name: '评论',
+                        name: this.$t('supply.pingjia'),
                         info: ''
                     },
                     {
                         id: 3,
-                        name: '商家'
+                        name: this.$t('supply.shop')
                     }
                 ],
                 distance: '',
