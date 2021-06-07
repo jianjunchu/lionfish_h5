@@ -337,7 +337,7 @@
                     },
                     {
                         id: 3,
-                        name: this.$t('supply.shop')
+                        name: this.$t('supply.shangjia')
                     }
                 ],
                 distance: '',
