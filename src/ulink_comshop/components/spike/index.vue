@@ -15,7 +15,7 @@
           <i-img defaultImage="@/assets/images/placeholder-refund.png" height="200" iClass="new-img"
                  :loadImage="item.skuImage" width="180"></i-img>
           <div class="act-end" v-if="item.spuCanBuyNum==0">{{$t('home.yiqiangguang')}}</div>
-          <div class="title" style="width: 25vw">{{item.spuName}}</div>
+          <div class="title" style="width: 25vw">{{item.spuName_en || item.spuName}}</div>
           <div class="new-bot">
             <div class="price">${{item.actPrice[0]}}.{{item.actPrice[1]}}</div>
               <i-button iClass="add-cart" v-if="disabled||item.spuCanBuyNum==0">
@@ -33,7 +33,7 @@
           <i-img defaultImage="@/assets/images/placeholder-refund.png" height="200" iClass="new-img"
                  :loadImage="item.skuImage" width="180" ></i-img>
           <div class="act-end" v-if="item.spuCanBuyNum==0">{{$t('home.yiqiangguang')}}</div>
-          <div class="title" style="width: 25vw">{{item.spuName}}</div>
+          <div class="title" style="width: 25vw">{{item.spuName_en || item.spuName}}</div>
           <div class="new-bot">
             <div class="price">${{item.actPrice[0]}}.{{item.actPrice[1]}}</div>
             <i-button iClass="add-cart" v-if="disabled||item.spuCanBuyNum==0">
