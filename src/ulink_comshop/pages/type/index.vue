@@ -558,6 +558,16 @@
 
               if (0 == t.code) {
                 var a = t.list, e = {}
+                if (a) {
+                  var now = that.getNowFormatDate();
+                  for (let i = 0; i < a.length; i++) {
+                    if (that.compareTime(a[i].begin_time,now)) {
+                      a[i].is_coming=true;
+                    } else {
+                      a[i].is_coming=false;
+                    }
+                  }
+                }
                 if(a.length < 30){
                   e.loadMore = !1, e.canNext = !0,y.loadMore = false;
                 }else{
@@ -873,6 +883,30 @@
             that.isShowContactBtn = isShowContactBtn;
           }
         });
+      },
+      getNowFormatDate: function() {
+        var date = new Date();
+        var seperator = "-";
+        var year = date.getFullYear();
+        var month = date.getMonth() + 1;
+        var strDate = date.getDate();
+        if (month >= 1 && month <= 9) {
+            month = "0" + month;
+        }
+        if (strDate >= 0 && strDate <= 9) {
+            strDate = "0" + strDate;
+        }
+        var currentdate = year + seperator + month + seperator + strDate;
+        return currentdate;
+      },
+      compareTime: function(a, b) {
+        var arr1 = a.split("-");
+        var start = new Date(arr1[0], (arr1[1] - 1), arr1[2]);
+        var start_time = start.getTime();
+        var arr2 = b.split("-");
+        var end = new Date(arr2[0], (arr2[1] - 1), arr2[2]);
+        var end_time = end.getTime();
+        return start_time > end_time;
       }
     }
 
