@@ -627,6 +627,33 @@ export const constantRoutes = [
       keepAlive: false
     }
   },
+  {
+    name: '/ulink_comshop/moduleA/lottery/luckyWheel',
+    path: '/ulink_comshop/moduleA/lottery/luckyWheel',
+    component: () => import('@/ulink_comshop/moduleA/lottery/luckyWheel'),
+    hidden: true,
+    meta: {
+      keepAlive: false
+    }
+  },
+  {
+    name: '/ulink_comshop/moduleA/lottery/recordList',
+    path: '/ulink_comshop/moduleA/lottery/recordList',
+    component: () => import('@/ulink_comshop/moduleA/lottery/recordList'),
+    hidden: true,
+    meta: {
+      keepAlive: false
+    }
+  },
+  {
+    name: '/ulink_comshop/moduleA/lottery/luckyRule',
+    path: '/ulink_comshop/moduleA/lottery/luckyRule',
+    component: () => import('@/ulink_comshop/moduleA/lottery/luckyRule'),
+    hidden: true,
+    meta: {
+      keepAlive: false
+    }
+  },
   // 404 page must be placed at the end !!!
   {
     name: '/404',
