@@ -27,6 +27,8 @@ import 'swiper/css/swiper.css'
 import Cookies from 'js-cookie'
 import less from 'less'
 
+import LuckDraw from 'vue-luck-draw'
+
 import { i18n, vantLocales } from './lang'
 import Tabbar from '@/ulink_comshop/components/tabbar'
 import Toolbar from '@/ulink_comshop/components/toolbar'
@@ -111,6 +113,8 @@ Vue.use(Cell)
 Vue.use(CellGroup)
 
 Vue.use(Button)
+
+Vue.use(LuckDraw)
 
 Vue.component('i-empty', Empty)
 Vue.component('i-tabbar', Tabbar)

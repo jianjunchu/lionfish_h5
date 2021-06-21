@@ -757,6 +757,16 @@
                         success: function (res) {
                             if (res.code == 0) {
                                 let list = res.list;
+                                if (list) {
+                                  var now = that.getNowFormatDate();
+                                  for (let i = 0; i < list.length; i++) {
+                                    if (that.compareTime(list[i].begin_time,now)) {
+                                      list[i].is_coming=true;
+                                    } else {
+                                      list[i].is_coming=false;
+                                    }
+                                  }
+                                }
                                 let h = {};
                                 let rushList = that.rushList.concat(list);
                                 let {full_money, full_reducemoney, is_open_fullreduction, is_open_vipcard_buy, is_vip_card_member, is_member_level_buy} = res;
@@ -827,6 +837,16 @@
                         success: function (res) {
                             if (res.code == 0) {
                                 let list = res.list;
+                                if (list) {
+                                  var now = that.getNowFormatDate();
+                                  for (let i = 0; i < list.length; i++) {
+                                    if (that.compareTime(list[i].begin_time,now)) {
+                                      list[i].is_coming=true;
+                                    } else {
+                                      list[i].is_coming=false;
+                                    }
+                                  }
+                                }
                                 let h = {};
                                 if (list.length < 30) {
                                     h.loadMore = false;
@@ -988,6 +1008,30 @@
                         window.location.href = "https://play.google.com/store/apps/details?id=com.whatsapp";
                     }, 2000)
                 }
+            },
+            getNowFormatDate: function() {
+              var date = new Date();
+              var seperator = "-";
+              var year = date.getFullYear();
+              var month = date.getMonth() + 1;
+              var strDate = date.getDate();
+              if (month >= 1 && month <= 9) {
+                  month = "0" + month;
+              }
+              if (strDate >= 0 && strDate <= 9) {
+                  strDate = "0" + strDate;
+              }
+              var currentdate = year + seperator + month + seperator + strDate;
+              return currentdate;
+            },
+            compareTime: function(a, b) {
+              var arr1 = a.split("-");
+              var start = new Date(arr1[0], (arr1[1] - 1), arr1[2]);
+              var start_time = start.getTime();
+              var arr2 = b.split("-");
+              var end = new Date(arr2[0], (arr2[1] - 1), arr2[2]);
+              var end_time = end.getTime();
+              return start_time > end_time;
             }
         }
     }
