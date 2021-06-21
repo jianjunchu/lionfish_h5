@@ -353,26 +353,46 @@
           <div class="act-content">
             <div avalonctrl="oc_payment" @click="ck_paynowpays" class="oc-payment">
               <div :class="['oc-payment-item', ck_yupay==2?'oc-payment-selected':'']"
-                   :style="ck_yupay==2?'color:'+skin.color:''">
-                <span class="iconfont icon-weixinzhifu oc-payment-icon" style="color:#00c800;"></span>
+                :style="ck_yupay==2?'color:#00c800':'' ">
+                <span class="iconfont icon-weixinzhifu oc-payment-icon" ></span>
                 <div class="oc-payment-method">PayNow</div>
+                <!--<div class="oc-payment-recommend" :style="{'color':skin.color , 'border-color':skin.color}">推荐</div>-->
+              </div>
+            </div>
+
+            <div avalonctrl="oc_payment" @click="ck_grabpay" class="oc-payment">
+              <div :class="['oc-payment-item', ck_yupay==5?'oc-payment-selected':'']"
+                :style="ck_yupay==5?'color:#008517':'' ">
+                <span class="iconfont icon-grab-pay oc-payment-icon" ></span>
+                <div class="oc-payment-method">GrabPay</div>
+                <!--<div class="oc-payment-recommend" :style="{'color':skin.color , 'border-color':skin.color}">推荐</div>-->
+              </div>
+            </div>
+
+            <div avalonctrl="oc_payment" @click="ck_reddotpay" class="oc-payment">
+              <div :class="['oc-payment-item', ck_yupay==6?'oc-payment-selected':'']"
+                   :style="ck_yupay==6?'color:#1c36c8':'' ">
+                <span class="iconfont icon-visa oc-payment-icon"></span>
+                <div class="oc-payment-method">Credit Cards</div>
                 <!--<div class="oc-payment-recommend" :style="{'color':skin.color , 'border-color':skin.color}">推荐</div>-->
               </div>
             </div>
 
             <div avalonctrl="oc_payment" @click="ck_paypalpays" class="oc-payment">
               <div :class="['oc-payment-item', ck_yupay==3?'oc-payment-selected':'']"
-                   :style="ck_yupay==3?'color:'+skin.color:''">
-                <span class="iconfont icon-ccpaypal oc-payment-icon" style="color:#1c36c8;"></span>
+                   :style="ck_yupay==3?'color:#1c36c8':'' ">
+                <span class="iconfont icon-ccpaypal oc-payment-icon"></span>
                 <div class="oc-payment-method">PayPal</div>
                 <!--<div class="oc-payment-recommend" :style="{'color':skin.color , 'border-color':skin.color}">推荐</div>-->
               </div>
             </div>
 
+
+
             <div avalonctrl="oc_payment" @click="ck_payhuodaofukuan" class="oc-payment">
               <div :class="['oc-payment-item', ck_yupay==4?'oc-payment-selected':'']"
-                   :style="ck_yupay==4?'color:'+skin.color:''">
-                <span class="iconfont icon-huodaofukuan oc-payment-icon" style="color:#4cc846;"></span>
+                :style="ck_yupay==4?'color:#4cc846':'' ">
+                <span class="iconfont icon-huodaofukuan oc-payment-icon" ></span>
                 <div class="oc-payment-method">{{$t('order.huodaofukuan')}}</div>
                 <!--<div class="oc-payment-recommend" :style="{'color':skin.color , 'border-color':skin.color}">推荐</div>-->
               </div>
@@ -1085,6 +1105,14 @@
                 this.ck_yupay = 4
                 this.pay_method = 'cash'
             },
+            ck_grabpay:function(){
+                this.ck_yupay = 5
+                this.pay_method = 'grabpay'
+            },
+            ck_reddotpay:function(){
+                this.ck_yupay = 6
+                this.pay_method = 'reddotpay'
+            },
 
             scoreChange: function (e) {
                 console.log('是否使用', e.detail.value)
@@ -1363,18 +1391,14 @@
                             this_.order_id = id
                             this_.order_num_alias = ona.substring(ona.length - 5)
 
-                          if(pm == 'paypal'){
+                          if(pm == 'paypal' || pm == 'grabpay' || pm == 'reddotpay'){
                               let paypal_info = t.paypal_info
                               if(paypal_info.code == 0){
-                                  window.location.href = paypal_info.approvalUrl;
+                                  window.location.href = paypal_info.payURL;
                               }
 
 
-                          } else if (pm == 'cash') {
-                                wx.redirectTo({
-                                    url: '/ulink_comshop/pages/order/order?id=' + a + '&is_show=1'
-                                })
-                            } else if (pm == 'paynow') {
+                          }else if (pm == 'paynow') {
 
                                 this_.closePaymentModal()
                                 this_.showPayNowModal()

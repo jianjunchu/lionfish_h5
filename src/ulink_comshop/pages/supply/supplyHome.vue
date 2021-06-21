@@ -946,16 +946,18 @@
                 this.is_share_html = false
             },
             share_whatsapp: function() {
-
+                var that = this;
+                let supplyId = that.supplyId;
                 let token = wx.getStorageSync('token');
                 let url = encodeURIComponent(window.location.href);
-                let that = this;
+
 
                 app.util.request({
                     url: "entry/wxapp/user",
                     data: {
                         controller: "index.get_share_url",
                         url:url,
+                        supply_id:supplyId,
                         token: token
                     },
                     dataType: "json",
@@ -1066,9 +1068,9 @@
     width: 11vw;
     height: 11vw;
     border-radius: 50%;
-    top: 36vw;
+    top: 37vw;
     left: 80%;
-    font-size: 1.3vw;
+    font-size: 2vw;
     padding: 1vw;
     line-height: 1.2;
     z-index: 100;

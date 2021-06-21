@@ -88,7 +88,7 @@
 
                 var that = this
                 var e = this.$route.query
-                this.$app.globalData.navBackUrl = ''
+
                 console.log(e)
 
             },

@@ -490,7 +490,7 @@
   font-size: 2vw;
   color: #999;
   z-index:100;
-  width: 8vw;
+  width: 17vw;
   line-height: 1.2;
   border: 1px solid #999;
   border-right: 0;
@@ -570,7 +570,7 @@
   font-size: 2vw;
   color: #999;
   z-index:100;
-  width: 8vw;
+  width: 17vw;
   line-height: 1.2;
   border: 1px solid #999;
   border-right: 0;

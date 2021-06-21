@@ -40,7 +40,15 @@
     },
     methods:{
       back:function() {
-        this.$router.go(-1)
+          console.log(this.$router)
+         // this.$router.push({path: url});
+          if(this.$router.history.current.name=='/ulink_comshop/pages/order/index'){
+              this.$router.push({path: '/ulink_comshop/pages/user/me'});
+          }else if('/ulink_comshop/pages/order/order' == this.$router.history.current.name){
+              this.$router.push({path: '/ulink_comshop/pages/order/index'});
+          }else{
+              this.$router.go(-1)
+          }
       }
     }
 

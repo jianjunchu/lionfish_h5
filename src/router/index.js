@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-
+import this_ from '../main'
 Vue.use(Router)
 /**
  * Note: sub-menu only appear when route children.length >= 1
@@ -672,7 +672,10 @@ const createRouter = () => new Router({
 })
 
 const router = createRouter()
-
+router.beforeEach((to, from, next) => {
+  router.app.$app.globalData.historys.push(from.fullPath)
+  next()
+})
 // Detail see: https://github.com/vuejs/vue-router/issues/1234#issuecomment-357941465
 export function resetRouter() {
   const newRouter = createRouter()

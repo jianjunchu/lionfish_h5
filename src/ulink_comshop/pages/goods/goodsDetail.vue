@@ -772,7 +772,7 @@
     methods: {
       onLoad: function() {
         var e = this.$route.query
-        this.$app.globalData.navBackUrl = ''
+
         var o = this
         status.setNavBgColor()
         status.setGroupInfo().then(function(t) {
@@ -905,14 +905,15 @@
           return false
         }
 
-        var e = this.$wx.getStorageSync('token')
-        var currentCommunity_id = 0
-        if (a) currentCommunity_id = a.communityId
+          var e = this.$wx.getStorageSync('token');
+          var community = this.$wx.getStorageSync('community')
+          var currentCommunity_id = 0
+          if (community) currentCommunity_id = community.communityId
         this.$http({
           controller: 'goods.get_goods_detail',
           token: e,
           id: t,
-          community_id: 1022
+          community_id: currentCommunity_id
         }).then(t => {
           console.log(t, 'get_goods_detail')
 //            setTimeout(function() {
@@ -1104,7 +1105,7 @@
       authSuccess: function() {
         var t = this.$data.id, a = this.$data.scene,
           e = '/ulink_comshop/pages/goods/goodsDetail?id=' + t + '&community_id=' + this.$data.community_id + '&scene=' + a
-        this.$app.globalData.navBackUrl = e
+
         var o = this.$wx.getStorageSync('community'), s = this.needPosition
         this.needAuth = false, o && (s = false), s || this.$wx.redirectTo({
           url: e
