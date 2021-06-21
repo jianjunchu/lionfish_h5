@@ -42,6 +42,7 @@
     name:'lucky-wheel',
     data() {
       return {
+        start:false, 
         lottery_id:'',
         maskShow: false,
         lottery:{},
@@ -206,41 +207,52 @@
 
       },
       gridStart() {
-        let lottery_id = this.lottery_id;
         let that = this;
-        let token = wx.getStorageSync('token');
-        app.util.request({
-          url: 'entry/wxapp/index',
-          data: {
-            controller: 'lottery.get_lottery_result',
-            lottery_id,
-            token
-          },
-          dataType: 'json',
-          success: function (res) {
-            if (res.code == 0) {
-              let lottery = res.data;
+        let start = that.start; 
+        if(!start){ 
+          start = true; 
+          that.start = start;
+          let lottery_id = this.lottery_id;
+          let token = wx.getStorageSync('token');
+          app.util.request({
+            url: 'entry/wxapp/index',
+            data: {
+              controller: 'lottery.get_lottery_result',
+              lottery_id,
+              token
+            },
+            dataType: 'json',
+            success: function (res) {
 
-              let buttons = that.buttons;
-              buttons[0].fonts[0].text = '剩余次数:'+lottery.residue_degree+'次';
-              that.buttons = buttons;
-
-              // 调用play方法开始旋转
-              that.$refs.LuckDraw.play()
-              // 用定时器模拟请求接口
               setTimeout(() => {
-                that.$refs.LuckDraw.stop(lottery.prize_index)
+                start = false;
+                that.start = start;
+                
               }, 3000)
-            }else{
-              wx.showModal({
-                title: 'error',
-                content: res.msg,
-                showCancel: false
-              })
-            }
-          }
-        })
+            
+              if (res.code == 0) {
+                let lottery = res.data;
 
+                let buttons = that.buttons;
+                buttons[0].fonts[0].text = '剩余次数:'+lottery.residue_degree+'次';
+                that.buttons = buttons;
+
+                // 调用play方法开始旋转
+                that.$refs.LuckDraw.play()
+                // 用定时器模拟请求接口
+                setTimeout(() => {
+                  that.$refs.LuckDraw.stop(lottery.prize_index)
+                }, 3000)
+              }else{
+                wx.showModal({
+                  title: 'error',
+                  content: res.msg,
+                  showCancel: false
+                })
+              }
+            }
+          })
+        }
         
       },
       gridEnd(event) {
