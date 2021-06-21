@@ -56,6 +56,7 @@
       goodsListCarCount: [],
       typeCateId: 0,
       navBackUrl: '',
+        historys:[],
       isblack: 0,
       skin: {
         color: '#8ED9D1',
@@ -104,7 +105,7 @@
         }).then(t => {
           document.title = t.shoname;
           document.querySelector("link[rel='icon']").href = t.shoplogo_h5;
-        });        
+        });
       }
     },
     computed: {

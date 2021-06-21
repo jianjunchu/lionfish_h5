@@ -223,8 +223,16 @@
         showBack:true
       })
 
+        util.check_login_new().then(function (t) {
+            F.needAuth = !t
+        })
       this.onLoad();
+
+
     },
+
+
+
     methods: {
       toShowPaymentModal: function(t){
 

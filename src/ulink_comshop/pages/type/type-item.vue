@@ -21,7 +21,7 @@
               <span class="span">{{spuItem.spuName_en || spuItem.spuName}} </span>
               <div class="supply_type" v-if="spuItem.supply_info && isShowContactBtn==1" @click.stop.prevent="goSupply" :data-id="spuItem.supply_info.id">
                 <div class="supply-logo">
-                  <img v-if="spuItem.supply_info && spuItem.supply_info.logo" :src="'https://fish.xx315.net//Uploads/image/' + spuItem.supply_info.logo"/>
+                  <img v-if="spuItem.supply_info && spuItem.supply_info.logo" :src="spuItem.supply_info.logo"/>
                 </div>
                 <div class="supply-name" v-if="spuItem.supply_info.storename || spuItem.supply_info.shopname">{{spuItem.supply_info.storename || spuItem.supply_info.shopname}}</div>
               </div>
@@ -408,15 +408,15 @@
     align-items: center;
     justify-content: center;
     border-radius: 50%;
-    width: 7vw;
-    height: 7vw;
+    width: 6vw;
+    height: 6vw;
     border: none;
     outline: none;
   }
 
   .spu .spu-content-type .add-cart .img {
-    width: 7vw;
-    height: 7vw;
+    width: 6vw;
+    height: 6vw;
     display: block;
   }
 

@@ -32,7 +32,7 @@
               <span class="span">{{spuItem.spuName_en || spuItem.spuName}}</span>
               <div class="supply" v-if="spuItem.supply_info " @click.stop.prevent="goSupply" :data-id="spuItem.supply_info.id">
                 <div class="supply-logo">
-                  <img v-if="spuItem.supply_info && spuItem.supply_info.logo" :src="'https://fish.xx315.net//Uploads/image/' + spuItem.supply_info.logo"/>
+                  <img v-if="spuItem.supply_info && spuItem.supply_info.logo" :src="spuItem.supply_info.logo"/>
                 </div>
                 <div class="supply-name" v-if="spuItem.supply_info.storename || spuItem.supply_info.shopname">{{spuItem.supply_info.storename || spuItem.supply_info.shopname}}</div>
               </div>
@@ -423,8 +423,8 @@
 
   .spu >>> .spu-content .item-right .spu-title {
     color: #333;
-    font-size: 4vw;
-    height: 4.2vw;
+    font-size: 3.2vw;
+    height: 7vw;
     width: 60vw;
     margin-bottom: 1.2vw;
     font-weight: bold;
@@ -442,7 +442,7 @@
   }
 
   .spu >>> .spu-content .item-right .spu-title .span {
-    width: 80%;
+    width: 70%;
     position: absolute;
     left: 0;
     top: -0.4vw;
@@ -543,12 +543,12 @@
   }
 
   .spu >>> .spu-content .add-cart {
-    width: 7vw;
-    height: 7vw;
+    width: 6vw;
+    height: 6vw;
     padding: 0;
     margin: 0;
     position: absolute;
-    right: 0;
+    right: 1vw;
     bottom: 0.1vw;
     display: flex;
     align-items: center;
@@ -559,8 +559,8 @@
   }
 
   .spu >>> .spu-content .add-cart .img {
-    width: 7vw;
-    height: 7vw;
+    width: 6vw;
+    height: 6vw;
     display: block;
   }
 
