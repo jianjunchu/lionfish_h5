@@ -210,9 +210,10 @@
 
           <!-- 附近店铺 -->
           <div class="index_supply" v-if="supply.length>0 ">
-            <div class="my-supply modal-head">
+            <div class="my-supply">
               <div class="supply-title">
-                <span>{{$t('home.fujindianpu')}}</span>
+                <span class="leftBorder" :style="{'border-color':skin.color}"></span>
+                {{$t('home.fujindianpu')}}
               </div>
               <router-link class="to-supply" to="/ulink_comshop/pages/supply/index1">
                 <span>{{$t('home.gengduo')}}</span>
@@ -2419,6 +2420,7 @@
   margin: 2vw auto;
   background: #fff;
   box-shadow: 0 0 4vw rgba(0, 0, 0, 0.1);
+  padding: 2vw 0;
 }
 
 .modal-head {
@@ -2441,10 +2443,16 @@
 }
 
 .index_supply .my-supply  {
-  padding: 2.2vw 3vw;
   display: flex;
   align-items: center;
   justify-content: space-between;
+  position: relative;
+  margin-bottom: 10px;
+  font-size: 15px;
+  font-weight: bold;
+  color: #333;
+  padding-left: 10px;
+  height: 34px;
 }
 
 .index_supply .my-supply .my-supply-title {
@@ -2519,6 +2527,14 @@
 
 .supply-list-item .nav-contact .supply-list-img {
   left: 0;
+}
+
+.leftBorder {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  border-left: 4px solid #8ED9D1;
 }
 </style>
 
