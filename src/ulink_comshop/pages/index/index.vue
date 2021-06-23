@@ -1646,6 +1646,9 @@
           var a = response.data || [],
             e = []
           if (0 < a.length) {
+            for (let i = 0; i < a.length; i++) {
+              a[i].navname = a[i].navname.split("##")[0];
+            }
             var o = 5 - a.length % 5 || 0
             o < 5 && 0 < o && (e = new Array(o))
           }
