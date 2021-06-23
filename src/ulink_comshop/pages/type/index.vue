@@ -44,7 +44,7 @@
         </div>-->
         <div>
             <van-list ref="list" @scroll="scrollGet($event)"  v-model="$data.$data.loading" :finished="!loadMore" @load="getHotList" class="van-clearfix page-list scrollY">
-              <i-type-item @authModal="authModal" @changeCartNum="changeCartNum" @openSku="openSku" @vipModal="vipModal" :canLevelBuy="canLevelBuy" :changeCarCount="changeCarCount" :is_open_vipcard_buy="is_open_vipcard_buy" :needAuth="needAuth" :reduction="reduction" :spuItem="item" :stopClick="stopClick" v-for="(item,index) in rushList" :key="item.actId" :isShowContactBtn="isShowContactBtn"></i-type-item>
+              <i-type-item @authModal="authModal" @changeCartNum="changeCartNum" @openSku="openSku" @vipModal="vipModal" :canLevelBuy="canLevelBuy" :changeCarCount="changeCarCount" :is_open_vipcard_buy="is_open_vipcard_buy" :needAuth="needAuth" :reduction="reduction" :spuItem="item" :stopClick="stopClick" v-for="(item,index) in rushList" :key="item.actId" :enabledFrontSupply="enabledFrontSupply"></i-type-item>
             </van-list>
           <div class="none-rush-list" v-if="pageEmpty">
             <img class="img-div" src="@/assets/images/icon-index-empty.png">
@@ -144,7 +144,8 @@
             pageY: 0
           },
           rushList: [],
-          isShowContactBtn: false
+          isShowContactBtn: false,
+          enabledFrontSupply: 0
         }
       }
     },
@@ -196,7 +197,7 @@
       onLoad: function(i) {
         var t = app.globalData.isIpx, s = this
 
-        wx.showLoading(), wx.hideTabBar(), status.setNavBgColor(), this.get_index_info(), status.setGroupInfo().then(function(t) {
+        wx.showLoading(), wx.hideTabBar(), status.setNavBgColor(), this.get_index_info(), this.getCopyright, status.setGroupInfo().then(function(t) {
           s.groupInfo = t
         })
 
@@ -907,7 +908,23 @@
         var end = new Date(arr2[0], (arr2[1] - 1), arr2[2]);
         var end_time = end.getTime();
         return start_time > end_time;
-      }
+      },
+      getCopyright: function() {
+        let that = this;
+        app.util.request({
+          'url': 'entry/wxapp/user',
+          'data': {
+            controller: 'user.get_copyright'
+          },
+          dataType: 'json',
+          success: function(res) {
+            if (res.code == 0) {
+              let enabledFrontSupply = res.enabled_front_supply;
+              that.enabledFrontSupply = enabledFrontSupply;
+            }
+          }
+        })
+      },
     }
 
   }

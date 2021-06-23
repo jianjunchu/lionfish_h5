@@ -209,10 +209,11 @@
           <!--限时抢购结束-->
 
           <!-- 附近店铺 -->
-          <div class="index_supply" v-if="supply.length>0 ">
-            <div class="my-supply modal-head">
+          <div class="index_supply" v-if="supply.length>0 && enabledFrontSupply==1">
+            <div class="my-supply">
               <div class="supply-title">
-                <span>{{$t('home.fujindianpu')}}</span>
+                <span class="leftBorder" :style="{'border-color':skin.color}"></span>
+                {{$t('home.fujindianpu')}}
               </div>
               <router-link class="to-supply" to="/ulink_comshop/pages/supply/index1">
                 <span>{{$t('home.gengduo')}}</span>
@@ -425,7 +426,7 @@
                                 :changeCarCount="changeCarCount" :isShowListCount="isShowListCount"
                                 :isShowListTimer="isShowListTimer==1" :is_open_vipcard_buy="is_open_vipcard_buy"
                                 :needAuth="needAuth" :reduction="reduction" :showPickTime="(ishow_index_pickup_time==1)"
-                                :skin="skin" :spuItem="item" :stopClick="stopClick" :isShowContactBtn="isShowContactBtn"></i-new-rush-spu>
+                                :skin="skin" :spuItem="item" :stopClick="stopClick" :enabledFrontSupply="enabledFrontSupply"></i-new-rush-spu>
 
               </div>
               <div class="active-item-two" v-if="rushList && rushList.length>0&&theme==1" v-for="(item,index) in rushList"
@@ -494,7 +495,7 @@
                                 :changeCarCount="changeCarCount" :isShowListCount="isShowListCount"
                                 :isShowListTimer="isShowListTimer==1" :is_open_vipcard_buy="is_open_vipcard_buy"
                                 :needAuth="needAuth" :reduction="reduction" :showPickTime="(ishow_index_pickup_time==1)"
-                                :skin="skin" :spuItem="item" :stopClick="stopClick" :isShowContactBtn="isShowContactBtn"></i-new-rush-spu>
+                                :skin="skin" :spuItem="item" :stopClick="stopClick" :enabledFrontSupply="enabledFrontSupply"></i-new-rush-spu>
 
               </div>
 
@@ -898,6 +899,7 @@
         loadOver: !1,
         loadText: 'Loading...',
         commigLoadMore: false,
+        enabledFrontSupply: 0,
         $data: {
           stickyFlag: !1,
           scrollTop: 0,
@@ -1443,7 +1445,7 @@
       loadPage() {
 
         var e = this
-        e.get_index_info(), e.get_type_topic(), e.getNavigat(), e.getCoupon(), e.getPinList(), e.getSupplyList(),
+        e.get_index_info(), e.get_type_topic(), e.getNavigat(), e.getCoupon(), e.getPinList(), e.getSupplyList(), e.getCopyright(),
           status.loadStatus().then(function() {
             var t = e.$app.globalData.appLoadStatus
 
@@ -2397,8 +2399,24 @@
         wx.navigateTo({
           url: '/ulink_comshop/pages/supply/supplyHome?id=' + id
         })
-      }
+      },
 
+      getCopyright: function() {
+        let that = this;
+        app.util.request({
+          'url': 'entry/wxapp/user',
+          'data': {
+            controller: 'user.get_copyright'
+          },
+          dataType: 'json',
+          success: function(res) {
+            if (res.code == 0) {
+              let enabledFrontSupply = res.enabled_front_supply;
+              that.enabledFrontSupply = enabledFrontSupply;
+            }
+          }
+        })
+      },
     }
   }
 
@@ -2419,6 +2437,7 @@
   margin: 2vw auto;
   background: #fff;
   box-shadow: 0 0 4vw rgba(0, 0, 0, 0.1);
+  padding: 2vw 0;
 }
 
 .modal-head {
@@ -2441,10 +2460,16 @@
 }
 
 .index_supply .my-supply  {
-  padding: 2.2vw 3vw;
   display: flex;
   align-items: center;
   justify-content: space-between;
+  position: relative;
+  margin-bottom: 10px;
+  font-size: 15px;
+  font-weight: bold;
+  color: #333;
+  padding-left: 10px;
+  height: 34px;
 }
 
 .index_supply .my-supply .my-supply-title {
@@ -2519,6 +2544,14 @@
 
 .supply-list-item .nav-contact .supply-list-img {
   left: 0;
+}
+
+.leftBorder {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  border-left: 4px solid #8ED9D1;
 }
 </style>
 
