@@ -165,7 +165,7 @@
           </span>
           <span class="pre" v-if="goods.is_show_pre == 1">Expected delivery date: <span style="color: #ff5344">{{goods.pre_delivery_date}}</span></span>
         </div>
-        <div class="supply" @click="goLink2" data-link="/ulink_comshop/pages/supply/supplyHome?id=" :data-id="goods.supply_id">
+        <div class="supply" @click="goLink2" data-link="/ulink_comshop/pages/supply/supplyHome?id=" :data-id="goods.supply_id" v-if="enabledFrontSupply==1">
           <div class="supply-btn" :style="'background:'+skin.color">{{$t('detail.jinrudianpu')}}</div>
         </div>
         <div @click.stop="goLink" class="vip i-flex i-flex-spb" data-link="/ulink_comshop/moduleA/vip/upgrade"
@@ -754,7 +754,8 @@
         },
         is_just_addcar: 0,
         showVipModal: false,
-        showSku: false
+        showSku: false,
+        enabledFrontSupply: 0
       }
     },
     created: function() {
@@ -844,6 +845,7 @@
           o.buy_type = i.buy_type
         o.goods_id = i.goods_id
         this.get_instructions()
+        this.getCopyright()
       },
       paramHandle: function(s) {
         var i = 1 < arguments.length && void 0 !== arguments[1] ? arguments[1] : ''
@@ -1807,7 +1809,23 @@
       },
       close: function() {
         this.visible = false
-      }
+      },
+      getCopyright: function() {
+        let that = this;
+        app.util.request({
+          'url': 'entry/wxapp/user',
+          'data': {
+            controller: 'user.get_copyright'
+          },
+          dataType: 'json',
+          success: function(res) {
+            if (res.code == 0) {
+              let enabledFrontSupply = res.enabled_front_supply;
+              that.enabledFrontSupply = enabledFrontSupply;
+            }
+          }
+        })
+      },
     }
   }
 </script>

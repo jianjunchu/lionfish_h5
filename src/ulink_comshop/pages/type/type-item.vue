@@ -19,7 +19,7 @@
           <div class="item-right-top">
             <div class="spu-title">
               <span class="span">{{spuItem.spuName_en || spuItem.spuName}} </span>
-              <div class="supply_type" v-if="spuItem.supply_info && isShowContactBtn==1" @click.stop.prevent="goSupply" :data-id="spuItem.supply_info.id">
+              <div class="supply_type" v-if="spuItem.supply_info && enabledFrontSupply==1" @click.stop.prevent="goSupply" :data-id="spuItem.supply_info.id">
                 <div class="supply-logo">
                   <img v-if="spuItem.supply_info && spuItem.supply_info.logo" :src="spuItem.supply_info.logo"/>
                 </div>
@@ -120,7 +120,7 @@
       canLevelBuy: {
         default: !1
       },
-      isShowContactBtn: {
+      enabledFrontSupply: {
         default: 0
       }
     },

@@ -4,7 +4,7 @@
       <van-list  @load="getData" class="list">
         <i-type-item :actEnd="item.actEnd" @authModal="authModal" @changeCartNum="changeCartNum"
                      @openSku="openSku" @vipModal="vipModal" :needAuth="needAuth" :reduction="reduction"
-                     :spuItem="item" :stopClick="stopClick" v-for="(item , index ) in rushList" :key="item.actId"></i-type-item>
+                     :spuItem="item" :stopClick="stopClick" v-for="(item , index ) in rushList" :key="item.actId" :enabledFrontSupply="enabledFrontSupply"></i-type-item>
 
       </van-list>
 
@@ -112,7 +112,8 @@
         showAuthModal:false,
         showVipModal:false,
         cur_sku_arr:[],
-        skuList:[]
+        skuList:[],
+        enabledFrontSupply: 0
       }
     },
     created: function() {
@@ -134,7 +135,7 @@
     methods: {
       onLoad: function(t) {
         wx.showLoading(), this.keyword = t.keyword || '', this.type = t.type || 0, this.good_ids = t.good_ids || '',
-          this.gid = t.gid || 0, this.getData()
+          this.gid = t.gid || 0, this.getData(), this.getCopyright()
       },
       onShow: function() {
         var e = this
@@ -368,7 +369,23 @@
       },
       onReachBottom: function() {
         console.log('这是我的底线'), this.getData()
-      }
+      },
+      getCopyright: function() {
+        let that = this;
+        app.util.request({
+          'url': 'entry/wxapp/user',
+          'data': {
+            controller: 'user.get_copyright'
+          },
+          dataType: 'json',
+          success: function(res) {
+            if (res.code == 0) {
+              let enabledFrontSupply = res.enabled_front_supply;
+              that.enabledFrontSupply = enabledFrontSupply;
+            }
+          }
+        })
+      },
     }
 
   }

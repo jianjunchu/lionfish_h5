@@ -209,7 +209,7 @@
           <!--限时抢购结束-->
 
           <!-- 附近店铺 -->
-          <div class="index_supply" v-if="supply.length>0 ">
+          <div class="index_supply" v-if="supply.length>0 && enabledFrontSupply==1">
             <div class="my-supply">
               <div class="supply-title">
                 <span class="leftBorder" :style="{'border-color':skin.color}"></span>
@@ -426,7 +426,7 @@
                                 :changeCarCount="changeCarCount" :isShowListCount="isShowListCount"
                                 :isShowListTimer="isShowListTimer==1" :is_open_vipcard_buy="is_open_vipcard_buy"
                                 :needAuth="needAuth" :reduction="reduction" :showPickTime="(ishow_index_pickup_time==1)"
-                                :skin="skin" :spuItem="item" :stopClick="stopClick" :isShowContactBtn="isShowContactBtn"></i-new-rush-spu>
+                                :skin="skin" :spuItem="item" :stopClick="stopClick" :enabledFrontSupply="enabledFrontSupply"></i-new-rush-spu>
 
               </div>
               <div class="active-item-two" v-if="rushList && rushList.length>0&&theme==1" v-for="(item,index) in rushList"
@@ -495,7 +495,7 @@
                                 :changeCarCount="changeCarCount" :isShowListCount="isShowListCount"
                                 :isShowListTimer="isShowListTimer==1" :is_open_vipcard_buy="is_open_vipcard_buy"
                                 :needAuth="needAuth" :reduction="reduction" :showPickTime="(ishow_index_pickup_time==1)"
-                                :skin="skin" :spuItem="item" :stopClick="stopClick" :isShowContactBtn="isShowContactBtn"></i-new-rush-spu>
+                                :skin="skin" :spuItem="item" :stopClick="stopClick" :enabledFrontSupply="enabledFrontSupply"></i-new-rush-spu>
 
               </div>
 
@@ -899,6 +899,7 @@
         loadOver: !1,
         loadText: 'Loading...',
         commigLoadMore: false,
+        enabledFrontSupply: 0,
         $data: {
           stickyFlag: !1,
           scrollTop: 0,
@@ -1444,7 +1445,7 @@
       loadPage() {
 
         var e = this
-        e.get_index_info(), e.get_type_topic(), e.getNavigat(), e.getCoupon(), e.getPinList(), e.getSupplyList(),
+        e.get_index_info(), e.get_type_topic(), e.getNavigat(), e.getCoupon(), e.getPinList(), e.getSupplyList(), e.getCopyright(),
           status.loadStatus().then(function() {
             var t = e.$app.globalData.appLoadStatus
 
@@ -2398,8 +2399,24 @@
         wx.navigateTo({
           url: '/ulink_comshop/pages/supply/supplyHome?id=' + id
         })
-      }
+      },
 
+      getCopyright: function() {
+        let that = this;
+        app.util.request({
+          'url': 'entry/wxapp/user',
+          'data': {
+            controller: 'user.get_copyright'
+          },
+          dataType: 'json',
+          success: function(res) {
+            if (res.code == 0) {
+              let enabledFrontSupply = res.enabled_front_supply;
+              that.enabledFrontSupply = enabledFrontSupply;
+            }
+          }
+        })
+      },
     }
   }
 
