@@ -72,7 +72,8 @@
     </div>
 
     <!-- 查看商品详情 -->
-    <div style="width: 85vw;height: 10vw;margin: 7vw auto 0vw;background: #F3CE30;text-align: center" v-on:click="goback">
+    <!-- <div style="width: 85vw;height: 10vw;margin: 7vw auto 0vw;background: #F3CE30;text-align: center" v-on:click="goback"> -->
+    <div style="width: 85vw;height: 10vw;margin: 7vw auto 0vw;background: #F3CE30;text-align: center" @click="goMiniProgram">
         <!-- <a href="javascript:window.history.back()"><span style="line-height: 10vw;color: #fff">查看商品详情</span></a> -->
         <span style="line-height: 10vw;color: #fff">查看商品详情</span>
     </div>
@@ -183,7 +184,8 @@
         nowMessage: '尾号6688：新酒果然不错，还有动听的音乐，点个赞！',
         messageList: [],
         messageArray:[],
-        animateUp: false
+        animateUp: false,
+        access_token: ""
       }
     },
     created: function() {
@@ -582,6 +584,36 @@
           })
         }
           
+      },
+      getAccessToken: function() {
+        var that = this;
+        this.$http({
+          controller: 'livevideo.get_accessToken'
+        }).then(response => {
+          that.access_token = response.data;
+          that.getUrlLink();
+        });
+      },
+      getUrlLink: function() {
+        var that = this;
+        var access_token = that.access_token;
+        var path = "";
+        var query = "";
+        this.$http({
+          controller: 'livevideo.get_urllink',
+          access_token: access_token,
+          path: path,
+          query: query
+        }).then(response => {
+          var data = JSON.parse(response.data);
+          if (data.errcode == 0) {
+            let url_link = data.url_link;
+            window.location.href = url_link;
+          }
+        });
+      },
+      goMiniProgram: function(){
+        this.getAccessToken();
       }
     }
   }

@@ -139,8 +139,7 @@
             <a style="font-size:3vw;color: #FFFFFF;letter-spacing: 0;width: 100%;line-height: 9vw;" :href="imgLinkUrl">查看详情</a>
         </div> -->
         <div class="detail_button_center">
-            <!-- <a style="font-size:3vw;color: #FFFFFF;letter-spacing: 0;width: 100%;line-height: 9vw;" :href="imgLinkUrl">查看详情</a> -->
-            <a style="font-size:3vw;color: #FFFFFF;letter-spacing: 0;width: 100%;line-height: 9vw;" @click="goMiniProgram()">查看详情</a>
+            <a style="font-size:3vw;color: #FFFFFF;letter-spacing: 0;width: 100%;line-height: 9vw;" :href="imgLinkUrl">查看详情</a>
         </div>
         <!-- <div style="width: 30vw; height: 9vw;box-shadow: 0 0.266667rem 0.533333rem 0 #CBCCCD;border-radius: 4vw;text-align: center;float: left;margin-left: 10vw;margin-top: 3vw;" v-if="showLottery==1">
             <a href="https://beaujolais.nfc315.com/wap/#/lottery"><img src="@/assets/images/choujiang.png" style="height: 100%;"/></a>
@@ -222,7 +221,6 @@
         ecommerceUrlFlag: 0,//0不是第三方链接，1是
         productTypeNr: '',
         openHome: 0, //0否 1是
-        access_token: ""
       }
     },
     created: function() {
@@ -525,36 +523,6 @@
         }
 
       },
-      getAccessToken: function() {
-        var that = this;
-        this.$http({
-          controller: 'livevideo.get_accessToken'
-        }).then(response => {
-          that.access_token = response.data;
-          that.getUrlLink();
-        });
-      },
-      getUrlLink: function() {
-        var that = this;
-        var access_token = that.access_token;
-        var path = "";
-        var query = "";
-        this.$http({
-          controller: 'livevideo.get_urllink',
-          access_token: access_token,
-          path: path,
-          query: query
-        }).then(response => {
-          var data = JSON.parse(response.data);
-          if (data.errcode == 0) {
-            let url_link = data.url_link;
-            window.location.href = url_link;
-          }
-        });
-      },
-      goMiniProgram: function(){
-        this.getAccessToken();
-      }
     }
   }
 </script>
