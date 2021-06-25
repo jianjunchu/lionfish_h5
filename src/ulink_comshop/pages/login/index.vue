@@ -98,7 +98,7 @@
 
 import util from "../../utils"
 import	status  from "../../utils"
-
+  var app, wx
 var	wcache = require("../../utils/wcache.js")
 export default {
   mixins: [GlobalMixin],
@@ -185,6 +185,8 @@ export default {
 			immediate: true
 		}
 	},
+
+
 	methods: {
 		   /**************************************************************获取验证码**************************************************************/
             getVerifyCode(){
@@ -206,7 +208,12 @@ export default {
                 }).then(response => {
                   console.log(response,",,,,,")
 							  if(response.code ==-1){
-								  alert(response.message)
+                    wx.showToast({
+                        title: response.message,
+                        icon: 'none'
+                    })
+
+
 							  }
                 });
                 this.registFlag = true;
@@ -318,7 +325,10 @@ export default {
 
 				} else {
 
-					alert("Login failed, please try again");
+            wx.showToast({
+                title: "Login failed, please try again",
+                icon: 'none'
+            })
 				}
 			})
 		},
@@ -337,7 +347,6 @@ export default {
 				console.log(response)
 				var result = response;
 				if(result != null && result.member_id != -1) {
-					alert('Login Successful');
           i.$wx.setStorageSync('token', response.token)
           util.getMemberInfo({success:function(e) {
               i.$wx.setStorageSync('userInfo',e.data)
@@ -353,7 +362,11 @@ export default {
 
 
 				} else {
-					alert("Login Failed");
+            wx.showToast({
+                title: "Login Failed",
+                icon: 'none'
+            })
+
 				}
 			})
 		},
@@ -380,6 +393,8 @@ export default {
 		}
 	},
 	created: function() {
+      app = this.$getApp()
+      wx = this.$wx
 		this.hideTopAndFooter();
 		this.initLogo();
 	}

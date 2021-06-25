@@ -2147,11 +2147,7 @@
               e = !1
             0 != Object.keys(a).length && 0 != a.communityId || (e = !0)
             var o = a && a.fullAddress && a.fullAddress.split('省')
-            if (a = Object.assign({}, a, {
-              address: o[1]
-            }), (
-              d.community = a
-            ), wx.setStorageSync('community', a), d.$getApp().globalData.community = a, c && !e) {
+            if (a = Object.assign({}, a, {address: o[1]}), d.community = a, wx.setStorageSync('community', a), d.$getApp().globalData.community = a, c && !e) {
               var i = wx.getStorageSync('lastCommunity'),
                 s = i.communityId || ''
               '' != s && s != a.communityId && (
