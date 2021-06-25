@@ -388,6 +388,7 @@ export default {
       that.$http({
           controller: 'index.index_info'
       }).then(t => {
+
           this.logo = t.shoplogo;
       });
 		}
