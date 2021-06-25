@@ -197,7 +197,7 @@
       onLoad: function(i) {
         var t = app.globalData.isIpx, s = this
 
-        wx.showLoading(), wx.hideTabBar(), status.setNavBgColor(), this.get_index_info(), this.getCopyright, status.setGroupInfo().then(function(t) {
+        wx.showLoading(), wx.hideTabBar(), status.setNavBgColor(), this.get_index_info(), this.getCopyright(), status.setGroupInfo().then(function(t) {
           s.groupInfo = t
         })
 
@@ -560,9 +560,9 @@
               if (0 == t.code) {
                 var a = t.list, e = {}
                 if (a) {
-                  var now = that.getNowFormatDate();
+                  var now = y.getNowFormatDate();
                   for (let i = 0; i < a.length; i++) {
-                    if (that.compareTime(a[i].begin_time,now)) {
+                    if (y.compareTime(a[i].begin_time,now)) {
                       a[i].is_coming=true;
                     } else {
                       a[i].is_coming=false;
