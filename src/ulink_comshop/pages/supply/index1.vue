@@ -13,19 +13,19 @@
               <div class="info">
                 <div class="name">{{supply.storename || supply.shopname || '供应商'}}</div>
                 <div class="stars">
-                  <div class="star" v-for="(star,index1) in supply.star" :key="index1"><img :src="star"/></div>
-                  <div class="score"><span v-if="supply.score" style="color: #f1a700;">{{supply.score}}</span><span v-else>{{$t('supply.zanwupingfen')}}</span></div>
+                  <!-- <div class="star" v-for="(star,index1) in supply.star" :key="index1"><img :src="star"/></div> -->
+                  <div class="score">评分<span v-if="supply.score">{{supply.score}}</span><span v-else>-</span></div>
+                  <div class="quantity">月售<span v-if="supply.quantity_count">{{supply.quantity_count}}</span><span v-else>-</span></div>
+                  <div class="distance">{{supply.distance}}</div>
                 </div>
-                <div class="product" v-if="supply.product"><span>{{supply.product}}</span></div>
+                <div class="delivery"><span class="amount">免配送费起送: ${{supply.order_amount_free_delivery}}</span><span class="fee">配送费:  ${{supply.delivery_fee_per_order}}</span></div>
+                <div class="product"><span v-if="supply.product">{{supply.product}}</span></div>
               </div>
               <!-- <div class="goods">
                 <div class="good" v-if="supply.goods_list.length" v-for="(good,index2) in supply.goods_list" :key="good.actId">
                   <img src="@/assets/images/onsale.png"/><span class="actPrice"><span class="span">${{good.actPrice[0]}}</span>{{'.'+good.actPrice[1]}}</span><span class="marketPrice">${{good.marketPrice[0]+'.'+good.marketPrice[1]}}</span><span class="spuName">{{good.spuName}}</span>
                 </div>
               </div> -->
-            </div>
-            <div class="supply-right">
-              <div class="distance">{{supply.distance}}KM</div>
             </div>
           </div>
           <div class="goods" v-if="supply.goods_list.length">
@@ -172,31 +172,40 @@
               var data = res.data;
               for(var i=0;i<data.length;i++){
                 // 评分显示
-                if (data[i].score) {
-                  data[i].star = [];
-                  var on = parseInt(data[i].score);
-                  for(var j=0;j<on;j++) {
-                    data[i].star.push(require('@/assets/images/star-on.png'));
-                  }
-                  if (on < 5) {
-                    var half = data[i].score - on;
-                    if (half > 0) {
-                      data[i].star.push(require('@/assets/images/star-half.png'));
-                    }
-                  }
-                  if (data[i].star.length < 5) {
-                    var length = data[i].star.length;
-                    for(var j=0;j<5-length;j++) {
-                      data[i].star.push(require('@/assets/images/star-off.png'));
-                    }
-                  }
-                } else {
-                  data[i].star = [require('@/assets/images/star-off.png'),require('@/assets/images/star-off.png'),require('@/assets/images/star-off.png'),require('@/assets/images/star-off.png'),require('@/assets/images/star-off.png')];
-                }
+                // if (data[i].score) {
+                //   data[i].star = [];
+                //   var on = parseInt(data[i].score);
+                //   for(var j=0;j<on;j++) {
+                //     data[i].star.push(require('@/assets/images/star-on.png'));
+                //   }
+                //   if (on < 5) {
+                //     var half = data[i].score - on;
+                //     if (half > 0) {
+                //       data[i].star.push(require('@/assets/images/star-half.png'));
+                //     }
+                //   }
+                //   if (data[i].star.length < 5) {
+                //     var length = data[i].star.length;
+                //     for(var j=0;j<5-length;j++) {
+                //       data[i].star.push(require('@/assets/images/star-off.png'));
+                //     }
+                //   }
+                // } else {
+                //   data[i].star = [require('@/assets/images/star-off.png'),require('@/assets/images/star-off.png'),require('@/assets/images/star-off.png'),require('@/assets/images/star-off.png'),require('@/assets/images/star-off.png')];
+                // }
                 // 距离显示
                 let distance = data[i].distance;
                 if (distance) {
-                  data[i].distance = (distance/1000).toFixed(1);
+                  if (distance < 1000) {
+                    data[i].distance = distance + 'M';
+                  } else {
+                    var km = distance / 1000;
+                    if(km > 200) {
+                      data[i].distance = 'Unknown';
+                    } else {
+                      data[i].distance = km.toFixed(1) + 'KM';
+                    }
+                  }
                 }
                 // 商品显示
                 if (data[i].goods_list.length) {
@@ -257,7 +266,7 @@
   background-color: #fff;
   margin: 2vw auto;
   width: 95%;
-  height: 54vw;
+  height: 60vw;
   border-radius: 2vw;
   box-shadow: 0 0 4vw rgba(0, 0, 0, 0.1);
 }
@@ -287,8 +296,8 @@
 }
 
 .supply-center {
-  height: 20vw;
-  width: 50%;
+  height: 23vw;
+  width: 75%;
   margin-left: 5%;
 }
 
@@ -326,7 +335,15 @@
 }
 
 .score {
-  font-size: 3vw;
+  font-size: 3.2vw;
+  line-height: 3vw;
+  color: #ec8e4b;
+  float: left;
+  /* margin-left: 2vw; */
+}
+
+.quantity {
+  font-size: 2.2vw;
   line-height: 3vw;
   color: #999;
   float: left;
@@ -334,7 +351,7 @@
 }
 
 .product {
-  height: 9vw;
+  height: 4vw;
   width: 100%;
   position: relative;
   margin-top: 1vw;
@@ -343,19 +360,31 @@
 .product span {
   position: absolute;
   font-size: 2.2vw;
-  line-height: 3.5vw;
-  color: #999;
+  line-height: 4vw;
+  color: #ec8e4b;
   overflow: hidden;
   text-overflow: ellipsis;
   display: -webkit-box;
-  -webkit-line-clamp: 2;
+  -webkit-line-clamp: 1;
   -webkit-box-orient: vertical;
   word-break: break-all;
+  background-color: #ffefe0;
+  border-radius: 1vw;
+  padding: 0.5vw 1vw;
 }
 
-.supply-right {
-  height: 20vw;
-  width: 25%;
+.delivery {
+  height: 3vw;
+}
+
+.delivery span {
+  font-size: 2.2vw;
+  line-height: 2.8vw;
+  color: #999;
+}
+
+.delivery .fee {
+  margin-left: 1vw;
 }
 
 .distance {
@@ -363,8 +392,8 @@
   font-size: 2.2vw;
   line-height: 2.2vw;
   color: #999;
-  margin-top: 8.5vw;
   text-align: center;
+  float: right;
 }
 
 .goods {
@@ -389,12 +418,15 @@
 .good .skuImage {
   height: 100%;
   width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .good .skuImage img {
-  height: 100%;
   width: 100%;
-  margin: 0 auto;
+  max-height: 100%;
+  text-align: center;
   border-radius: 2vw;
 }
 

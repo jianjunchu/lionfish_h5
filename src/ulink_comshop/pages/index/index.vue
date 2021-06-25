@@ -222,7 +222,7 @@
             </div>
             <div class="supply-list" v-if="supply.length>0">
               <div class="supply-list-item" v-for="(item,index) in supply" :key="item.id" @click="goSupply" :data-id="item.id">
-                <div class="supply-list-distance">{{item.distance}}KM</div>
+                <div class="supply-list-distance">{{item.distance}}</div>
                 <img class="supply-list-img" :src="item.logo"/>
                 <div class="supply-list-text">{{item.storename || item.shopname}}</div>
               </div>
@@ -2375,7 +2375,16 @@
                 for(var i=0;i<length;i++) {
                   let distance = supply_list[i].distance;
                   if (distance) {
-                    supply_list[i].distance = (distance/1000).toFixed(1);
+                    if (distance < 1000) {
+                      supply_list[i].distance = distance + 'M';
+                    } else {
+                      var km = distance / 1000;
+                      if(km > 200) {
+                        supply_list[i].distance = 'Unknown';
+                      } else {
+                        supply_list[i].distance = km.toFixed(1) + 'KM';
+                      }
+                    }
                   }
                   supply.push(supply_list[i]);
                 }
