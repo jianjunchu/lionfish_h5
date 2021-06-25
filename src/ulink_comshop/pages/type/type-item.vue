@@ -34,10 +34,11 @@
           </div>
           <div class="spu-price">
             <span class="sale-price">
-              <span class="span">${{spuItem.actPrice[0]}}</span>.{{spuItem.actPrice[1]}}</span>
-            <div class="market-price" v-if="spuItem.show_productprice">
-              ${{spuItem.marketPrice[0]}}.{{spuItem.marketPrice[1]}}
-            </div>
+              <span class="span">${{spuItem.actPrice[0]}}</span>.{{spuItem.actPrice[1]}}
+              <span class="market-price" v-if="spuItem.show_productprice">
+                ${{spuItem.marketPrice[0]}}.{{spuItem.marketPrice[1]}}
+              </span>
+              </span>
           </div>
         </div>
         <div v-if="!isPast">
@@ -360,7 +361,7 @@
   .spu .spu-content-type .item-right .spu-title {
     color: #222;
     font-size: 3vw;
-    height: 4.2vw;
+    height: 8.4vw;
     margin-bottom: 1vw;
     margin-top: 2vw;
     font-weight: 500;
@@ -374,8 +375,11 @@
     top: -1vw;
     overflow: hidden;
     text-overflow: ellipsis;
-    white-space: nowrap;
     margin: 0;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    word-break: break-all;
   }
 
   .spu .spu-content-type .item-right .spu-desc {
