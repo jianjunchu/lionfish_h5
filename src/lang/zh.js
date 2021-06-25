@@ -87,7 +87,8 @@ export default {
     jinru: '进入',
     lijishengji: '立即升级',
     shenhezhong: '审核中',
-    ninyishi: '您已是'
+    ninyishi: '您已是',
+    tuanzhang: '团长'
   },
   common: {
     daifukuan: '待付款',

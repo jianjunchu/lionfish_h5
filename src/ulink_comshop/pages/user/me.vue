@@ -323,7 +323,7 @@
                 <img class="toolIcon" mode="widthFix"
                      :src="user_tool_icons.i5?user_tool_icons.i5:require('@/assets/images/groupCenterIcon.png')"/>
 
-                <span>{{groupInfo.owner_name}}&nbsp; {{$t('common.zhongxin')}}</span>
+                <span>{{$t('me.tuanzhang')}}&nbsp; {{$t('common.zhongxin')}}</span>
               </div>
               <div class="tool-right">
                 <img class="icon-right " src="@/assets/images/rightArrowImg.png"/>
@@ -334,7 +334,7 @@
             <div class="item-main">
               <div class="item-title">
                 <img class="toolIcon" mode="widthFix" :src="user_tool_icons.i5?user_tool_icons.i5:require('@/assets/images/groupCenterIcon.png')"/>
-                <span>{{groupInfo.owner_name}}{{$t('me.shenhezhong')}}</span>
+                <span>{{$t('me.tuanzhang')}}{{$t('me.shenhezhong')}}</span>
               </div>
               <div class="tool-right">
                 <img class="icon-right " src="@/assets/images/rightArrowImg.png"/>
@@ -347,7 +347,7 @@
               <div class="item-main">
                 <div class="item-title">
                   <img class="toolIcon" mode="widthFix" :src="user_tool_icons.i5?user_tool_icons.i5:require('@/assets/images/groupCenterIcon.png')"/>
-                  <span>{{$t('me.shenqingchengwei1')}}{{groupInfo.owner_name}}</span>
+                  <span>{{$t('me.shenqingchengwei1')}}{{$t('me.tuanzhang')}}</span>
                 </div>
                 <div class="tool-right">
                   <img class="icon-right " src="@/assets/images/rightArrowImg.png"></img>
