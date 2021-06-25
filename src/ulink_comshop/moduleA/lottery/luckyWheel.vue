@@ -87,30 +87,30 @@
       const t = this.$route.query
       this.onLoad(t)
     },
-    mounted: function() {
-      this.onShow()
-    },
     methods: {
       onLoad: function (options) {
+        let that = this;
         let id = options.id || '';
         this.lottery_id = id;
-        if (id) {
-          this.getPrizesList(id);
-        }
-      },
-      onShow: function () {
-        let that = this;
         util.check_login_new().then((res) => {
           if (res) {
             that.needAuth = false;
           } else {
             that.needAuth = true;
           }
+          if (that.authModal()) {
+            if (id) {
+              this.getPrizesList(id);
+            }
+          }
         })
       },
       authModal: function () {
         if (this.needAuth) {
           this.showAuthModal = !this.showAuthModal;
+          wx.navigateTo({
+            url: '/login'
+          })
           return false;
         }
         return true;
