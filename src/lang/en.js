@@ -87,7 +87,8 @@ export default {
     jinru: 'Enter',
     lijishengji: 'Upgrade Now',
     shenhezhong: ' Is Under Review',
-    ninyishi: 'You have been '
+    ninyishi: 'You have been ',
+    tuanzhang: 'Host'
   },
   common: {
     daifukuan: 'To Pay',
@@ -95,7 +96,7 @@ export default {
     yiwancheng: 'Finished',
     daipeisong: 'To Ship',
     peisongzhong: 'In Shipment',
-    daitihuo: 'To Collection',
+    daitihuo: 'To Collect',
     yitihuo: 'Collected',
     shouhoufuwu: 'Returns',
     wodezitidian: 'My Collection Point',
