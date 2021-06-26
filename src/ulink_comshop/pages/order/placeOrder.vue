@@ -360,23 +360,23 @@
               </div>
             </div>
 
-            <div avalonctrl="oc_payment" @click="ck_grabpay" class="oc-payment">
+            <!--<div avalonctrl="oc_payment" @click="ck_grabpay" class="oc-payment">
               <div :class="['oc-payment-item', ck_yupay==5?'oc-payment-selected':'']"
                 :style="ck_yupay==5?'color:#008517':'' ">
                 <span class="iconfont icon-grab-pay oc-payment-icon" ></span>
                 <div class="oc-payment-method">GrabPay</div>
-                <!--<div class="oc-payment-recommend" :style="{'color':skin.color , 'border-color':skin.color}">推荐</div>-->
+                &lt;!&ndash;<div class="oc-payment-recommend" :style="{'color':skin.color , 'border-color':skin.color}">推荐</div>&ndash;&gt;
               </div>
-            </div>
+            </div>-->
 
-            <div avalonctrl="oc_payment" @click="ck_reddotpay" class="oc-payment">
+            <!--<div avalonctrl="oc_payment" @click="ck_reddotpay" class="oc-payment">
               <div :class="['oc-payment-item', ck_yupay==6?'oc-payment-selected':'']"
                    :style="ck_yupay==6?'color:#1c36c8':'' ">
                 <span class="iconfont icon-visa oc-payment-icon"></span>
                 <div class="oc-payment-method">Credit Cards</div>
-                <!--<div class="oc-payment-recommend" :style="{'color':skin.color , 'border-color':skin.color}">推荐</div>-->
+                &lt;!&ndash;<div class="oc-payment-recommend" :style="{'color':skin.color , 'border-color':skin.color}">推荐</div>&ndash;&gt;
               </div>
-            </div>
+            </div>-->
 
             <div avalonctrl="oc_payment" @click="ck_paypalpays" class="oc-payment">
               <div :class="['oc-payment-item', ck_yupay==3?'oc-payment-selected':'']"
