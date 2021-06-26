@@ -98,7 +98,7 @@
                           <input @change="changeNumber" class="i-input-number-text " :data-index="idx"
                                  :data-parentid="index" :max="shopcarts.max_quantity" min="0" readonly
                                  :value="shopcarts.goodsnum"></input>
-                          <div @click.stop="addgoodsnum" class="i-input-number-plus " :data-gid="shopcarts.id"
+                          <div `@click.stop`="addgoodsnum" class="i-input-number-plus " :data-gid="shopcarts.id"
                                :data-index="idx" :data-parentid="index" :id="'tapTest'+idx">
                             <img src="@/assets/images/icon-input-add.png"/>
                           </div>
