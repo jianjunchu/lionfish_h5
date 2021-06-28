@@ -41,7 +41,7 @@
     </div>
     <div class="nav-bar">
       <div class="nav-bar-inner">
-        <div @click.stop="getOrder" :class="['nav-bar-item', (order_status==item.id?'current':'')]" :data-type="item.id" :style="(order_status==item.id?'border-color:'+skin.color:'')"  v-for="(item,idx) in tabs" :key="item.id">
+        <div @click.stop="getOrder" :class="['nav-bar-item', order_status==item.id ? 'current' : '']" :data-type="item.id" :style="(order_status==item.id?'border-color:'+skin.color:'')"  v-for="(item,idx) in tabs" :key="item.id">
           {{item.name}}
         </div>
       </div>
