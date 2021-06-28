@@ -140,7 +140,7 @@
 
 <script>
   import GlobalMixin from '../../mixin/globalMixin.js';
-  //  import util from '../../utils/util.js';
+  import util from '../../utils/index.js';
   import status from '../../utils/index.js';
   import auth from '../../utils/auth';
   import request from '../../utils/request';
@@ -216,6 +216,7 @@
     created: function() {
       app = this.$getApp()
       wx = this.$wx;
+      let that  = this;
       this.$wx.setNavigationBarTitle({
         title: this.$wx.getStorageSync("shopname"),
         showLogo:false,
@@ -224,9 +225,10 @@
       })
 
         util.check_login_new().then(function (t) {
-            F.needAuth = !t
+            that.needAuth = !t
         })
-      this.onLoad();
+        const t = this.$route.query
+      this.onLoad(t);
 
 
     },
@@ -399,12 +401,16 @@
             this_.$router.go(0);
         });
       },
-      onLoad: function(t) {
+      onLoad: function(options) {
         this.getCopyright();
         this.getAccountMoney();
-        var order_status = this.$route.query.order_status;
-        var is_show_tip = this.$route.query.is_show;
-        var isfail = this.$route.query.isfail;
+
+          let {
+              order_status,
+              is_show_tip,
+              isfail
+          } = options;
+
         this.loadOver = true;
         if (!order_status || order_status == undefined) {
             this.order_status = -1;

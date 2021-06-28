@@ -119,7 +119,7 @@ export const constantRoutes = [
     component: () => import('@/ulink_comshop/pages/user/me'),
     hidden: true,
     meta: {
-      keepAlive: false
+      keepAlive: true
     }
   },
   {

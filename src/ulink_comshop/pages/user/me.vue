@@ -475,7 +475,7 @@
       </div>
 
     </div>
-    <i-tabbar @authModal="authModal" :cartNum="cartNum" currentIdx="4" :needAuth="needAuth"
+    <i-tabbar ref="tabbar" @authModal="authModal" :cartNum="cartNum" currentIdx="4" :needAuth="needAuth"
               :tabbarRefresh="tabbarRefresh"></i-tabbar>
   </div>
 
@@ -590,6 +590,20 @@
       this.onLoad()
 
     },
+      activated:function(){
+          var i = this;
+          if(i.$refs.tabbar){
+              i.$refs.tabbar.switchTab();
+          }
+          wx.setNavigationBarTitle({
+              title: 'Me',
+              showLogo: false,
+              showMore: false,
+              showBack: false
+          })
+          this.onShow()
+
+      },
     mounted: function() {
       this.onShow()
     },
