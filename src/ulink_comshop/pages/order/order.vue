@@ -28,12 +28,21 @@
       <!--
       <button class="wux-button wux-button--block" type="warn" style="margin-top=16px">到店付款</button>
       -->
-      <button @click="payNow" class="wux-button wux-button--block" type="warn"
+      <!--<button @click="payNow" class="wux-button wux-button&#45;&#45;block" type="warn"
               :style="{background:skin.color,color:' #fff'}">PayNow
+      </button>-->
+
+      <button @click.stop="grabpay" class="wux-button wux-button--block" data-type="grabpay" :style="{background:skin.color,color:' #fff'}" type="warn">
+        GrabPay
       </button>
-      <button @click="payPal" class="wux-button wux-button--block" type="warn"
+      <button @click.stop="reddotpay" class="wux-button wux-button--block" data-type="reddotpay" :style="{background:skin.color,color:' #fff'}" type="warn">
+        Credit Card
+      </button>
+
+
+      <!--<button @click="payPal" class="wux-button wux-button&#45;&#45;block" type="warn"
               :style="{background:skin.color,color:' #fff'}">PayPal
-      </button>
+      </button>-->
       <button @click="yuepay" v-if="is_open_yue_pay ==1"
               :style="{background:skin.color,color:' #fff','font-size':'2vw'}" class="wux-button wux-button--block"
               type="warn"> {{ $t('order.yuezhifu',{p1:accountMoney}) }}
@@ -810,6 +819,64 @@
                         if (0 == t.code) {
                             window.location.href = t.approvalUrl;
                         } else {
+                            wx.showToast({
+                                title: t.msg,
+                                icon: "none"
+                            });
+                        }
+                    }
+                });
+
+
+            },
+
+            grabpay: function () {
+                var t = wx.getStorageSync("token"), c = this;
+                var a = c.order.order_info, b = c.accountMoney;
+                wx.showLoading()
+                app.util.request({
+                    url: "entry/wxapp/user",
+                    data: {
+                        controller: "car.grab_pay",
+                        order_id: a.order_id,
+                        token: t
+                    },
+                    dataType: "json",
+                    success: function (t) {
+                        let paypal_info = t.paypal_info
+
+                        if(paypal_info.code == 0){
+                            window.location.href = paypal_info.payURL;
+                        }else{
+                            wx.showToast({
+                                title: t.msg,
+                                icon: "none"
+                            });
+                        }
+                    }
+                });
+
+
+            },
+
+            reddotpay: function () {
+                var t = wx.getStorageSync("token"), c = this;
+                var a = c.order.order_info, b = c.accountMoney;
+                wx.showLoading()
+                app.util.request({
+                    url: "entry/wxapp/user",
+                    data: {
+                        controller: "car.reddot_pay",
+                        order_id: a.order_id,
+                        token: t
+                    },
+                    dataType: "json",
+                    success: function (t) {
+                        let paypal_info = t.paypal_info
+
+                        if(paypal_info.code == 0){
+                            window.location.href = paypal_info.payURL;
+                        }else{
                             wx.showToast({
                                 title: t.msg,
                                 icon: "none"

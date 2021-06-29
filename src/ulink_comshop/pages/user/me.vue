@@ -5,6 +5,7 @@
         <img class="back-img"
              :src="common_header_backgroundimage?common_header_backgroundimage:require('@/assets/images/TOP_background@2x.png')"/>
         <div class="personalCon">
+
           <div class="userInfo">
             <div v-if="!needAuth">
               <img class="userAvatarUrl" :src="member_info.avatar" v-if="member_info.avatar"/>
@@ -602,7 +603,7 @@
               showBack: false
           })
           this.onShow()
-
+          this.getMemberInfo();
       },
     mounted: function() {
       this.onShow()
@@ -636,6 +637,7 @@
               1 != e.is_show_auth_mobile || e.data.telephone || (t = !0);
               var o = e.data || "", a = {};
               if (o) {
+                  f.needAuth = false;
                 if (o.member_level_info && (o.member_level_info.discount = (o.member_level_info.discount / 10).toFixed(1)),
                 0 < e.commiss_level) {
                   var s = 1 * e.commiss_share_member_update, i = 1 * e.share_member_count, n = 1 * e.commiss_share_member_update - 1 * e.share_member_count, r = 0;
@@ -650,7 +652,9 @@
                     f.yestoday_share_member_count = e.yestoday_share_member_count,
                     f.need_num_update = n
                 }
-              } else a.needAuth = !0;
+              } else {
+                  a.needAuth = !0;
+              }
               var u = e, _ = u.is_supply, c = u.is_open_vipcard_buy, m = u.modify_vipcard_name, d = u.is_vip_card_member, l = u.modify_vipcard_logo, h = u.isopen_signinreward, p = u.show_signinreward_icon, g = u.is_open_supplymobile;
               f.member_info =  o,
                 f.is_supply = _ || 0,
@@ -832,17 +836,18 @@
       },
       onShow: function() {
         var t = this;
-        util.check_login_new().then(function(e) {
-          console.log(e), e ? ((
-            t.tabbarRefresh = !0
-          ), (0, status.cartNum)("", !0).then(function(e) {
-            0 == e.code && (
-              t.cartNum = e.data
-            );
-          })) : ((
-            t.needAuth = true
-          ), wx.hideLoading());
-        }), t.getCopyright(), t.getMemberInfo();
+          t.getCopyright()
+          util.check_login_new().then(function(e) {
+              if(e){
+                  i.needAuth = !1
+                  i.needAuth = false;
+                  status.cartNum().then(function (e) {
+                      i.cartNum = e.data
+                  })
+                   t.getMemberInfo();
+              }
+          })
+
       },
       onHide: function() {
         this.tabbarRefresh = false

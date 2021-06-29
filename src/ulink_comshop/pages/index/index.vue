@@ -514,7 +514,7 @@
           </div>
 
         </div>
-        <div @click="showCopyTextHandle" class="copytext-btn" data-status="true" v-if="ishow_index_copy_text==1">
+        <div @click="showCopyTextHandle" class="copytext-btn" :data-status="true" v-if="ishow_index_copy_text==1">
           一键复制拼团信息
         </div>
         <div class="fixed-aside">
@@ -686,7 +686,7 @@
         </div>
       </div>
     </div>
-    <i-modal :scrollUp="false" :visible="showCopyText">
+    <i-modal :scrollUp="false" v-show="showCopyText">
       <div class="copytext">
         <div class="copytext-title">
           - 团长信息 -
@@ -2247,15 +2247,16 @@
         t.addhistory()
       },
       showCopyTextHandle: function(t) {
+
         if (this.authModal()) {
-          var a = t.currentTarget.dataset.status
+          var a = t.target.dataset.status
           this.showCopyText = a
         }
       },
       changeSecKillTime: function(t) {
         var a = this,
-          e = t.currentTarget.dataset.time,
-          o = t.currentTarget.dataset.idx
+          e = t.target.dataset.time,
+          o = t.target.dataset.idx
 
         this.secRushList = [],
           this.secKillActiveIdx = o
