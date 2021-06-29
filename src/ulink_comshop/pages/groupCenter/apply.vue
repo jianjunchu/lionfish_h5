@@ -10,42 +10,42 @@
               <label class="form-item-control">{{$t('host.xingming')}}</label>
               <!--<input @input="inputRealName" class="form-item-input" data-key="3" placeholder="{{$t(host.shuruxingming)}}" type="text"/>-->
               <!--<input v-model="head_name" class="form-item-input" :placeholder="$t('host.shuruxingming')" type="text"/>-->
-              <input v-model="head_name" class="form-item-input" type="text" placeholder="请输入姓名"/>
+              <input v-model="head_name" class="form-item-input" type="text" :placeholder="$t('host.shuruxingming')"/>
             </div>
             <!--<div class="['form-item', (errors[2]===2?'error':'')]">-->
             <div class="form-item">
               <label class="form-item-control">{{$t('host.shoujihao')}}</label>
               <!--<input @input="inputMobile" class="form-item-input" data-key="2" :focus="focus_mobile" maxlength="11" placeholder="请输入手机号码" type="text" :value="mobile"/>-->
               <!--<input v-model="mobile_detail" class="form-item-input"  maxlength="11" :placeholder="$t('host.shurushoujihao')" type="text" />-->
-              <input v-model="mobile_detail" class="form-item-input"  maxlength="11" type="text" placeholder="请输入手机号码"/>
+              <input v-model="mobile_detail" class="form-item-input"  maxlength="11" type="text" :placeholder="$t('host.shurushoujihao')"/>
             </div>
 
             <div class="form-item">
               <label class="form-item-control">{{$t('host.youbian')}}</label>
               <!--<input bindinput="inputZipCode" class="form-item-input" focus="{{focus_zip_code}}" placeholder="请输入邮编" type="text" value="{{zip_code}}"></input>-->
               <!--<input v-model="zip_code" class="form-item-input"  :placeholder="$t('host.shuruyoubian')" type="text" />-->
-              <input v-model="zip_code" class="form-item-input"  type="text" placeholder="请输入邮编"/>
+              <input v-model="zip_code" class="form-item-input"  type="text" :placeholder="$t('host.shuruyoubian')"/>
             </div>
 
             <div class="form-item">
               <label class="form-item-control">{{$t('host.dapai')}}</label>
               <!--<input bindinput="inputBlkNo"   class="form-item-input" focus="{{focus_blk_no}}" placeholder="请输入大牌号" type="text" value="{{blk_no}}"></input>-->
               <!--<input v-model="blk_no"   class="form-item-input"  :placeholder="$t('host.shurudapai')" type="text" />-->
-              <input v-model="blk_no"   class="form-item-input"  type="text" placeholder="请输入大牌号"/>
+              <input v-model="blk_no"   class="form-item-input"  type="text" :placeholder="$t('host.shurudapai')"/>
             </div>
 
             <div class="form-item">
               <label class="form-item-control">{{$t('host.luming')}}</label>
               <!--<input bindinput="inputRoadName"   class="form-item-input" focus="{{focus_road_name}}" placeholder="请输入路名" type="text" value="{{road_name}}"></input>-->
               <!--<input v-model="road_name"   class="form-item-input"  :placeholder="$t('host.shuruluming')" type="text" />-->
-              <input v-model="road_name"   class="form-item-input"  type="text" placeholder="请输入路名"/>
+              <input v-model="road_name"   class="form-item-input"  type="text" :placeholder="$t('host.shuruluming')"/>
             </div>
 
             <div class="form-item">
               <label class="form-item-control">{{$t('host.mengpaihao')}}</label>
               <!--<input bindinput="inputLouMengHao"   class="form-item-input" focus="{{focus_lou_meng_hao}}" placeholder="请输入门牌号" type="text" value="{{lou_meng_hao}}"></input>-->
               <!--<input v-model="lou_meng_hao"   class="form-item-input"  :placeholder="$t('host.shurumengpaihao')" type="text" />-->
-              <input v-model="lou_meng_hao"   class="form-item-input"  type="text" placeholder="请输入门牌号"/>
+              <input v-model="lou_meng_hao"   class="form-item-input"  type="text" :placeholder="$t('host.shurumengpaihao')"/>
             </div>
 
             <!--<div class="form-item">-->
@@ -285,7 +285,6 @@
         });
       },
       submit: function() {
-
         if (this.authModal()) {
           var t = this, e = this.$wx.getStorageSync("token"), a = this.region[0], n = this.region[1], i = this.region[2],
             o = this.addr_detail, s = this.community_name, c = this.mobile_detail, u = this.lon_lat,
@@ -446,7 +445,7 @@
 //          });
 //          this.$store.state.app.toolbarTitle =e + "申请";
           a.$wx.setNavigationBarTitle({
-            title: e + " Application",
+            title: a.$t('me.tuanzhang') + " Application",
             showLogo: false,
             showMore: false,
             showBack: true
