@@ -417,7 +417,7 @@ export default {
     quanbutixian: 'Withdraw Total Amount',
     tixianshouxufei: 'Withdraw Fee',
     zuizhongdaozhangjine: 'Final Amount',
-    yue: 'MartPay',
+    yue: 'Wallet',
     yinhangka: 'Bank Transfer',
     xingming: 'Name',
     kaihuyinhang: 'Bank Name',
