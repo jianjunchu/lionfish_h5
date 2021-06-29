@@ -25,8 +25,11 @@
       <!--
       <button class="wux-button wux-button--block" type="warn" style="margin-top=16px">到店付款</button>
       -->
-      <button @click.stop="payNow" class="wux-button wux-button--block" data-type="paynow" :style="{background:skin.color,color:' #fff'}" type="warn">PayNow</button>
-      <button @click.stop="payPal" class="wux-button wux-button--block" data-type="paypal" :style="{background:skin.color,color:' #fff'}" type="warn">PayPal</button>
+      <button @click.stop="grabpay" class="wux-button wux-button--block" data-type="grabpay" :style="{background:skin.color,color:' #fff'}" type="warn">GrabPay</button>
+      <button @click.stop="reddotpay" class="wux-button wux-button--block" data-type="reddotpay" :style="{background:skin.color,color:' #fff'}" type="warn">Credit Card</button>
+
+      <!--<button @click.stop="payPal" class="wux-button wux-button&#45;&#45;block" data-type="paypal" :style="{background:skin.color,color:' #fff'}" type="warn">PayPal</button>-->
+
       <button @click.stop="yuepay" v-if="is_open_yue_pay ==1" :style="{background:skin.color,color:' #fff','font-size':'2vw'}" class="wux-button wux-button--block" type="warn"> {{ $t('order.yuezhifu',{p1:accountMoney}) }} </button>
 
       <!--<button @click.stop="orderPayTransfer" data-type="banktransfer" class="wux-button wux-button&#45;&#45;block" type="warn">公司转账</button>-->
@@ -41,7 +44,7 @@
     </div>
     <div class="nav-bar">
       <div class="nav-bar-inner">
-        <div @click.stop="getOrder" :class="['nav-bar-item', (order_status==item.id?'current':'')]" :data-type="item.id" :style="(order_status==item.id?'border-color:'+skin.color:'')"  v-for="(item,idx) in tabs" :key="item.id">
+        <div @click.stop="getOrder" :class="['nav-bar-item', order_status==item.id ? 'current' : '']" :data-type="item.id" :style="(order_status==item.id?'border-color:'+skin.color:'')"  v-for="(item,idx) in tabs" :key="item.id">
           {{item.name}}
         </div>
       </div>
@@ -343,6 +346,76 @@
             });
 
 
+        },
+        grabpay :function(){
+            var t = wx.getStorageSync("token"), c = this;
+            var a = c.currentItem,b = c.accountMoney;
+            wx.showLoading()
+            app.util.request({
+                url: "entry/wxapp/user",
+                data: {
+                    controller: "car.grab_pay",
+                    order_id:a.order_id,
+                    token: t
+                },
+                dataType: "json",
+                success: function(t) {
+                    if (0 == t.code) {
+
+                        let paypal_info = t.paypal_info
+
+                        if(paypal_info.code == 0){
+                            window.location.href = paypal_info.payURL;
+                        }else{
+                            wx.showToast({
+                                title: t.msg,
+                                icon: "none"
+                            });
+                        }
+
+                    }else{
+                        wx.showToast({
+                            title: t.msg,
+                            icon: "none"
+                        });
+                    }
+                }
+            });
+        },
+        reddotpay :function(){
+            var t = wx.getStorageSync("token"), c = this;
+            var a = c.currentItem,b = c.accountMoney;
+            wx.showLoading()
+            app.util.request({
+                url: "entry/wxapp/user",
+                data: {
+                    controller: "car.reddot_pay",
+                    order_id:a.order_id,
+                    token: t
+                },
+                dataType: "json",
+                success: function(t) {
+                    if (0 == t.code) {
+
+                        let paypal_info = t.paypal_info
+
+                        if(paypal_info.code == 0){
+                            window.location.href = paypal_info.payURL;
+                        }else{
+                            wx.showToast({
+                                title: t.msg,
+                                icon: "none"
+                            });
+                        }
+
+                    }else{
+                        wx.showToast({
+                            title: t.msg,
+                            icon: "none"
+                        });
+                    }
+                }
+            });
         },
       yuepay:function(){
         var t = wx.getStorageSync("token"), c = this;

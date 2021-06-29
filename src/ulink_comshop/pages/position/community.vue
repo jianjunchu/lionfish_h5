@@ -113,6 +113,8 @@
       app = this.$getApp()
       wx = this.$wx;
 
+
+
       this.common_header_backgroundimage = this.$app.globalData.common_header_backgroundimage
       status.setNavBgColor()
       status.setGroupInfo().then(function(t) {
@@ -146,12 +148,7 @@
         this.loadpage()
       }
 
-      this.$wx.setNavigationBarTitle({
-        title: 'Community',
-        showLogo: false,
-        showMore: false,
-        showBack: true
-      })
+
     },
     methods: {
       loadpage: function() {
@@ -162,9 +159,13 @@
         if (e && t.$wx.getStorageSync('tx_map_key')) {
           this.community = e
           var a = t.$wx.getStorageSync('shopname')
-          t.$wx.setNavigationBarTitle({
-            title: a
-          })
+
+            t.$wx.setNavigationBarTitle({
+                title: a,
+                showLogo: false,
+                showMore: false,
+                showBack: true
+            })
           t.load_gps_community()
         } else {
           t.getCommunityConfig()

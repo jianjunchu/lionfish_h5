@@ -378,25 +378,25 @@
               </div>
             </div>
 
-            <!-- <div avalonctrl="oc_payment" @click="ck_paypalpays" class="oc-payment">
+            <!--<div avalonctrl="oc_payment" @click="ck_paypalpays" class="oc-payment">
               <div :class="['oc-payment-item', ck_yupay==3?'oc-payment-selected':'']"
                    :style="ck_yupay==3?'color:#1c36c8':'' ">
                 <span class="iconfont icon-ccpaypal oc-payment-icon"></span>
                 <div class="oc-payment-method">PayPal</div>
-                <div class="oc-payment-recommend" :style="{'color':skin.color , 'border-color':skin.color}">推荐</div>
+                &lt;!&ndash;<div class="oc-payment-recommend" :style="{'color':skin.color , 'border-color':skin.color}">推荐</div>&ndash;&gt;
               </div>
-            </div> -->
+            </div>-->
 
 
 
-            <!-- <div avalonctrl="oc_payment" @click="ck_payhuodaofukuan" class="oc-payment">
+            <div avalonctrl="oc_payment" v-if="is_member_level_buy ==1" @click="ck_payhuodaofukuan" class="oc-payment">
               <div :class="['oc-payment-item', ck_yupay==4?'oc-payment-selected':'']"
                 :style="ck_yupay==4?'color:#4cc846':'' ">
                 <span class="iconfont icon-huodaofukuan oc-payment-icon" ></span>
                 <div class="oc-payment-method">{{$t('order.huodaofukuan')}}</div>
-                <div class="oc-payment-recommend" :style="{'color':skin.color , 'border-color':skin.color}">推荐</div>
+                <!--<div class="oc-payment-recommend" :style="{'color':skin.color , 'border-color':skin.color}">推荐</div>-->
               </div>
-            </div> -->
+            </div>
 
             <div v-if="is_yue_open==1">
               <div avalonctrl="oc_payment" @click="ck_yupays" class="oc-payment" v-if="can_yupay">
