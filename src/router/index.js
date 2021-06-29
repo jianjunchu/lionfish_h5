@@ -654,6 +654,15 @@ export const constantRoutes = [
       keepAlive: false
     }
   },
+  {
+    name: '/ulink_comshop/moduleA/groupCenter/setWorkTime',
+    path: '/ulink_comshop/moduleA/groupCenter/setWorkTime',
+    component: () => import('@/ulink_comshop/moduleA/groupCenter/setWorkTime'),
+    hidden: true,
+    meta: {
+      keepAlive: false
+    }
+  },
   // 404 page must be placed at the end !!!
   {
     name: '/404',

@@ -141,7 +141,7 @@
         </div>
         <div class="record">
 
-          <router-link hoverClass="none" to="/ulink_comshop/pages/groupCenter/groupTime" v-if="isShow">
+          <router-link hoverClass="none" to="/ulink_comshop/moduleA/groupCenter/setWorkTime" v-if="isShow">
             <div class="recordList">
               <span class="recordListTit">Set Work Time</span>
               <img class="rightArrowImg" src="@/assets/images/rightArrowImg.png"/>
