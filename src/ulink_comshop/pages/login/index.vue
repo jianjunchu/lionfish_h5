@@ -11,7 +11,7 @@
 
 
 <!--密码登陆-->
-   <div v-show="isShowLogin">
+   <!-- <div v-show="isShowLogin">
 	  <div style="height: 50px;">
 	  <div style="width: 100%;height:25px;border-bottom:1px solid #ccc;font-size: 16px;color: #939393;float: left;" @click="click_btn()" v-show="this.isShow">Phone</div>
 	  <div style="width: 100%;height:41px;border-bottom:1px solid #3D7BD0;font-size: 16px;color: #3D7BD0;float: left;" v-show="this.isShow2">
@@ -34,11 +34,12 @@
 	   <input type="password" style="width: 90%;height: 100%;border:none;outline: none;" v-model="loginForm.password"/>
 	   </div>
 	   </div>
-    </div>
+    </div> -->
 
 
 	   <!--验证码登陆-->
-   <div v-show="isShowCode">
+   <!-- <div v-show="isShowCode"> -->
+		<div>
    	<div style="height: 50px;">
 	  <div style="width: 100%;height:25px;border-bottom:1px solid #ccc;font-size: 16px;color: #939393;float: left;" @click="click_btn3()" v-show="this.isShow5">Phone</div>
 	  <div style="width: 100%;height:41px;border-bottom:1px solid #3D7BD0;font-size: 16px;color: #3D7BD0;float: left;" v-show="this.isShow6">
@@ -67,17 +68,18 @@
 
    </div>
 
-   <span style="color: #0076FF;font-size: 16px;" v-show="isShowLogin" @click="yanzhengma">Login with OTP</span>
+   <!-- <span style="color: #0076FF;font-size: 16px;" v-show="isShowLogin" @click="yanzhengma">Login with OTP</span>
 
-   <span style="color: #0076FF;font-size: 16px;" v-show="isShowCode" @click="mima">Login with password</span>
+   <span style="color: #0076FF;font-size: 16px;" v-show="isShowCode" @click="mima">Login with password</span> -->
 
 
 	<!--密码登录按钮-->
-   <el-button v-show="isShowLogin"  :loading="loading" type="primary" style="height: 40px;width:100%;margin-bottom:30px;border-radius: 20px;background: #FDEACA;border:none;color: #F7AC39;font-weight: 600;margin-top: 50px;" @click.native.prevent="handleLogin">Login</el-button>
+   <!-- <el-button v-show="isShowLogin"  :loading="loading" type="primary" style="height: 40px;width:100%;margin-bottom:30px;border-radius: 20px;background: #FDEACA;border:none;color: #F7AC39;font-weight: 600;margin-top: 50px;" @click.native.prevent="handleLogin">Login</el-button> -->
 
 
 <!--7验证码登陆按钮-->
-   <el-button v-show="isShowCode" :loading="loading" type="primary" style="height: 40px;width:100%;margin-bottom:30px;border-radius: 20px;background: #FDEACA;border:none;color: #F7AC39;font-weight: 600;margin-top: 50px;" @click.native.prevent="handleLogin2">Login</el-button>
+   <!-- <el-button v-show="isShowCode" :loading="loading" type="primary" style="height: 40px;width:100%;margin-bottom:30px;border-radius: 20px;background: #FDEACA;border:none;color: #F7AC39;font-weight: 600;margin-top: 50px;" @click.native.prevent="handleLogin2">Login</el-button> -->
+	    <el-button :loading="loading" type="primary" style="height: 40px;width:100%;margin-bottom:30px;border-radius: 20px;background: #FDEACA;border:none;color: #F7AC39;font-weight: 600;margin-top: 50px;" @click.native.prevent="handleLogin2">Login</el-button>
 
 
 
