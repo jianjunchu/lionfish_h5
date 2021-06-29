@@ -389,7 +389,7 @@
 
 
 
-            <div avalonctrl="oc_payment" @click="ck_payhuodaofukuan" class="oc-payment">
+            <div avalonctrl="oc_payment" v-if="is_member_level_buy ==1" @click="ck_payhuodaofukuan" class="oc-payment">
               <div :class="['oc-payment-item', ck_yupay==4?'oc-payment-selected':'']"
                 :style="ck_yupay==4?'color:#4cc846':'' ">
                 <span class="iconfont icon-huodaofukuan oc-payment-icon" ></span>
