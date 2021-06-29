@@ -351,14 +351,14 @@
         </div>
         <div v-else>
           <div class="act-content">
-            <!--<div avalonctrl="oc_payment" @click="ck_paynowpays" class="oc-payment">
+            <!-- <div avalonctrl="oc_payment" @click="ck_paynowpays" class="oc-payment">
               <div :class="['oc-payment-item', ck_yupay==2?'oc-payment-selected':'']"
                 :style="ck_yupay==2?'color:#00c800':'' ">
                 <span class="iconfont icon-weixinzhifu oc-payment-icon" ></span>
                 <div class="oc-payment-method">PayNow</div>
-                &lt;!&ndash;<div class="oc-payment-recommend" :style="{'color':skin.color , 'border-color':skin.color}">推荐</div>&ndash;&gt;
+                <div class="oc-payment-recommend" :style="{'color':skin.color , 'border-color':skin.color}">推荐</div>
               </div>
-            </div>-->
+            </div> -->
 
             <div avalonctrl="oc_payment" @click="ck_grabpay" class="oc-payment">
               <div :class="['oc-payment-item', ck_yupay==5?'oc-payment-selected':'']"
