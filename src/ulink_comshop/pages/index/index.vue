@@ -91,12 +91,12 @@
           <div class="nav-list" v-if="navigat && navigat.length>0">
             <div v-for="(item,idx) in navigat" style="width:20%;" class="block" :key="item.id">
               <div @click="goNavUrl" class="nav-list-item" :data-idx="idx" v-if="item.type!=5">
-                <img height="36" class="nav-list-img" :src="item.thumb" width="36"/>
+                <img class="nav-list-img" :src="item.thumb"/>
                 <div class="nav-list-text">{{item.navname_en || item.navname}}</div>
               </div>
               <button class="nav-list-item nav-contact" openType="contact" v-else>
 
-                <img height="36" iClass="nav-list-img" :src="item.thumb" width="36"/>
+                <img class="nav-list-img" :src="item.thumb"/>
                 <div class="nav-list-text">{{item.navname_en || item.navname}}</div>
               </button>
             </div>
