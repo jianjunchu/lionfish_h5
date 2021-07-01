@@ -163,7 +163,6 @@
 
       const t = this.$route.query
       this.onLoad(t)
-      this.onShow();
     },
     /*mounted:function(){
       this.onShow();
@@ -190,7 +189,7 @@
       next()
     },
     mounted(){
-      
+      this.onShow();
     },
     methods: {
       scrollGet (e) {
@@ -240,7 +239,7 @@
         this.$data.$data.rushCategoryId = app.globalData.typeCateId || 0
       }
       ,
-      onShow: function(i) {
+      onShow: function() {
         var s = this
         s.$data.$data.pageNum = 1,
         /*s.rushCategoryData = {
@@ -274,7 +273,6 @@
                 }else{
                   for(let inx in t.sub){
                     if(t.sub[inx].id == e){
-                      s.active_sub_index = parseInt(inx) + 1;
                       return true;
                     }
                   }

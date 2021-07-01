@@ -841,12 +841,12 @@
           t.getCopyright()
           util.check_login_new().then(function(e) {
               if(e){
-                  i.needAuth = !1
-                  i.needAuth = false;
+                  t.needAuth = !1
+                  t.needAuth = false;
                   status.cartNum().then(function (e) {
-                      i.cartNum = e.data
+                      t.cartNum = e.data
                   })
-                   t.getMemberInfo();
+                  t.getMemberInfo();
               }
           })
 

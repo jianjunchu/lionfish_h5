@@ -4,7 +4,7 @@
       <div class="left-arrow"></div>
     </div>
     <div class="vux-header-left-logo" v-if="getShowToolbarLogo"><a class="vux-header-back"></a>
-      <img class="mart-logo" :src="getToolbarLogo"/>
+      <img :src="getToolbarLogo" height="32px"/>
     </div>
     <h2 class="vux-header-title">
       <!-- <span>{{getToolbarTitle}}</span> -->
@@ -96,6 +96,7 @@
 
   .vux-header .vux-header-left-logo {
     position: absolute;
+    top: 10px;
     display: block;
     font-size: 14px;
     color: #fff;
