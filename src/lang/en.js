@@ -183,7 +183,9 @@ export default {
     shenqingshenhezhong: 'Processing',
     dengdaijieguo: 'We will be in contact via WhatsApp within 48 hrs',
     gongli: 'km',
-    shurushequming: 'Search by estate name or postal code'
+    shurushequming: 'Search by estate name or postal code',
+    zitidian: 'Collection Point',
+    cengyong: 'Used'
   },
   detail: {
     huishouye: 'Home',
@@ -210,7 +212,8 @@ export default {
     yixiajia: 'Shelf off',
     tuanzhangxiuxi: 'Host in Rest',
     lijiduihuan: 'Exchange Now',
-    jinrudianpu: 'Store Home'
+    jinrudianpu: 'Store Home',
+    shengyu: 'Avaiable'
   },
   order: {
     xuanzhezhifufangshi:'Please select payment method',

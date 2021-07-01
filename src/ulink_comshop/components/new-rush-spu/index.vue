@@ -45,12 +45,12 @@
             <div class="spu-tag-pre" v-if="spuItem.is_show_presell" >Expected Delivery: {{spuItem.begin_time_str}}</div>
             <div class="spu-tag" v-if="isShowListTimer"></div>
 
-            <div class="spu-count" v-if="isShowListCount==1">
+            <!-- <div class="spu-count" v-if="isShowListCount==1">
               <div class="spu-count-border" :style="{'border-color':skin.color}">
-                <span class="txt" :style="{color:skin.color}">{{$t('detail.yishou')}}{{spuItem.soldNum}}{{$t('order.meidanxiangou3')}}</span>
-                <span class="txt spu-count-num" :style="{'background-color':skin.color}">仅剩{{spuItem.spuCanBuyNum}}{{$t('order.meidanxiangou2')}}</span>
+                <span class="txt" :style="{color:skin.color}">{{spuItem.soldNum}} {{$t('detail.yishou')}}</span>
+                <span class="txt spu-count-num" :style="{'background-color':skin.color}">{{spuItem.spuCanBuyNum}} {{$t('detail.jinsheng')}}</span>
               </div>
-            </div>
+            </div> -->
             <i-vip-price :price="spuItem.card_price" v-if="is_open_vipcard_buy==1&&spuItem.is_take_vipcard==1"></i-vip-price>
             <i-vip-price :price="spuItem.levelprice" type="1" v-else-if="canLevelBuy&&spuItem.is_mb_level_buy==1"></i-vip-price>
           </div>
@@ -59,6 +59,9 @@
               <span class="span">${{spuItem.actPrice[0]}}</span>.{{spuItem.actPrice[1]}}
             </div>
             <div class="market-price" v-if="spuItem.show_productprice">${{spuItem.marketPrice[0]}}.{{spuItem.marketPrice[1]}}</div>
+            <div class="spu-counts" v-if="isShowListCount==1">
+              <span class="count">{{spuItem.soldNum}} {{$t('detail.yishou')}} / {{spuItem.spuCanBuyNum}} {{$t('detail.shengyu')}}</span>
+            </div>
           </div>
         </div>
         <div v-if="!isPast">
@@ -499,6 +502,8 @@
   .spu >>> .spu-content .item-right .spu-price .sale-price {
     color: #ff5344;
     margin-right: 1.2vw;
+    position: absolute;
+    bottom: 5vw;
   }
 
   .spu >>> .spu-content .item-right .spu-price .sale-price .span {
@@ -518,7 +523,7 @@
     font-size: 2.4vw;
     height: 2.4vw;
     color: #999;
-    margin-bottom: 2vw;
+    margin-bottom: 1vw;
   }
 
   .spu >>> .spu-content .item-right .spu-count .spu-count-border {
@@ -543,13 +548,13 @@
   }
 
   .spu >>> .spu-content .add-cart {
-    width: 6vw;
-    height: 6vw;
+    width: 8vw;
+    height: 8vw;
     padding: 0;
     margin: 0;
     position: absolute;
     right: 1vw;
-    bottom: 0.1vw;
+    bottom: 3vw;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -559,8 +564,8 @@
   }
 
   .spu >>> .spu-content .add-cart .img {
-    width: 6vw;
-    height: 6vw;
+    width: 8vw;
+    height: 8vw;
     display: block;
   }
 
@@ -634,7 +639,7 @@
   .spu .index-input-number {
     position: absolute;
     right: 0;
-    bottom: 1vw;
+    bottom: 5vw;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -754,5 +759,12 @@
     text-overflow: ellipsis;
     white-space: nowrap;
     text-align: center;
+  }
+
+  .spu-counts {
+    position: absolute;
+    right: 1vw;
+    font-size: 2.6vw;
+    color: #999;
   }
 </style>

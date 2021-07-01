@@ -9,10 +9,10 @@
     <div class="item-center">
       <div class="community-title">
         <span class="span">{{item.communityName}}</span>
-        <span class="em" :style="{'color':skin.color}" v-if="item.distance">{{$t('host.juli')}}&nbsp;{{item.distance}}</span>
+        <span class="em" :style="{'color':skin.color}" v-if="item.distance">{{item.distance}}</span>
       </div>
       <div class="group-master">
-        {{groupInfo.owner_name}}：{{item.realName||item.disUserName}}
+        {{$t('me.tuanzhang')}}：{{item.realName||item.disUserName}}
         <img class="right-arrow" src='@/assets/images/community-right-arrow.png'/>
       </div>
       <div class="community-address" v-if="hiddenDetails==0">{{item.fullAddress||item.communityAddress}}</div>

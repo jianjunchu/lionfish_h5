@@ -156,7 +156,7 @@
             -->
           </div>
 
-          <div class="receiver align-start">
+          <div class="receiver align-start pickup-time">
             <span>{{tabIdx ==0 ? $t('cart.zitishijian') : $t('cart.songhuoshijian') }}</span>
             <input @click="showPickupTime" readonly
                    :placeholder="'Choose'+tabIdx ==0 ? $t('cart.xuanzeshijian') : $t('cart.xuanzeshijian')" type="text"
@@ -2256,9 +2256,9 @@
   }
 
   .sku-item .sku-msg .sku-title {
-    font-size: 2vw;
+    font-size: 3.5vw;
     color: #444;
-    line-height: 3vw;
+    line-height: 3.5vw;
     margin-bottom: 1.2vw;
     font-weight: 500;
     overflow: hidden;
@@ -2742,7 +2742,7 @@
     position: relative;
     display: inline-block;
     margin-left: 1vw;
-    font-size: 3vw;
+    font-size: 3.5vw;
     color: #333;
   }
 
@@ -2774,7 +2774,8 @@
   }
 
   .oc-payment-icon {
-    font-size: 3vw;
+    font-size: 3.5vw;
+    width: 6vw;
   }
 
   .coupon {
@@ -3094,4 +3095,30 @@
     background: #efefef;
   }
 
+  .pickup-time input::-webkit-input-placeholder {
+    color: #ccc;
+    font-style: italic;
+  }
+  .pickup-time input::-moz-input-placeholder {
+    color: #ccc;
+    font-style: italic;
+  }
+  .pickup-time input::-ms-input-placeholder {
+    color: #ccc;
+    font-style: italic;
+  }
+
+  .to-distribution {
+    color:#444;
+  }
+
+  .cart-footer input::-webkit-input-placeholder {
+    color: #ccc;
+  }
+  .cart-footer input::-moz-input-placeholder {
+    color: #ccc;
+  }
+  .cart-footer input::-ms-input-placeholder {
+    color: #ccc;
+  }
 </style>

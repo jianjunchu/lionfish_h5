@@ -325,7 +325,7 @@
             <a hoverClass="none" openType="switchTab" href="#/ulink_comshop/pages/index/index">
               <div class="bar-item back-to-index">
                 <!--<img class="icon" :src="iconArr.home"/>-->
-                <img class="icon" src="@/assets/images/icon-tab-index.png" height="27px" width="27px"/>
+                <img class="icon" :src="home_icon?home_icon:require('@/assets/images/icon-tab-index.png')" height="27px" width="27px"/>
                 {{$t('detail.huishouye')}}
               </div>
             </a>
@@ -333,7 +333,7 @@
               <div class="bar-item shop-cart">
                 <div class="icon">
                   <!--<img :src="iconArr.car"/>-->
-                  <img src="@/assets/images/icon-tab-shop.png" height="27px" width="27px"/>
+                  <img :src="cart_icon?cart_icon:require('@/assets/images/icon-tab-shop.png')" height="27px" width="27px"/>
                   <div class="cart-num" v-if="cartNum">{{cartNum}}</div>
                 </div>
                 {{$t('detail.gouwuche')}}
@@ -755,7 +755,9 @@
         is_just_addcar: 0,
         showVipModal: false,
         showSku: false,
-        enabledFrontSupply: 0
+        enabledFrontSupply: 0,
+        home_icon: '',
+        cart_icon: ''
       }
     },
     created: function() {
@@ -846,6 +848,7 @@
         o.goods_id = i.goods_id
         this.get_instructions()
         this.getCopyright()
+        this.getTabbar()
       },
       paramHandle: function(s) {
         var i = 1 < arguments.length && void 0 !== arguments[1] ? arguments[1] : ''
@@ -1823,6 +1826,18 @@
               let enabledFrontSupply = res.enabled_front_supply;
               that.enabledFrontSupply = enabledFrontSupply;
             }
+          }
+        })
+      },
+      getTabbar() {
+        const p = this
+        this.$http({
+          controller: 'index.get_tabbar'
+        }).then(response => {
+          if (0 == response.code) {
+            const t = response.data
+            p.home_icon = t.i1 || require('@/assets/images/icon-tab-index.png')
+            p.cart_icon = t.i2 || require('@/assets/images/icon-tab-shop.png')
           }
         })
       },

@@ -281,6 +281,7 @@
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+    font-size: 3.5vw;
   }
 
   .new-comers-item .new-bot, .w250 .new-bot {
@@ -306,6 +307,7 @@
 
   .new-comers-item .price, .w250 .price {
     color: #ff5041;
+    font-size: 3.5vw;
   }
 
   .new-comers-item .act-end, .w250 .act-end {

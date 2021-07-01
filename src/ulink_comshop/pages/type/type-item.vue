@@ -38,6 +38,9 @@
             <div class="market-price" v-if="spuItem.show_productprice">
               ${{spuItem.marketPrice[0]}}.{{spuItem.marketPrice[1]}}
             </div>
+            <div class="spu-counts" v-if="isShowListCount==1">
+              <span class="count">{{spuItem.soldNum}} {{$t('detail.yishou')}} / {{spuItem.spuCanBuyNum}} {{$t('detail.shengyu')}}</span>
+            </div>
           </div>
         </div>
         <div v-if="!isPast">
@@ -122,7 +125,13 @@
       },
       enabledFrontSupply: {
         default: 0
-      }
+      },
+      isShowListCount: {
+        default: 0
+      },
+      skin: {
+        type: Object
+      },
     },
     data() {
       return {
@@ -404,20 +413,20 @@
     margin: 0;
     position: absolute;
     right: 1vw;
-    bottom: 3vw;
+    bottom: 7vw;
     display: flex;
     align-items: center;
     justify-content: center;
     border-radius: 50%;
-    width: 6vw;
-    height: 6vw;
+    width: 8vw;
+    height: 8vw;
     border: none;
     outline: none;
   }
 
   .spu .spu-content-type .add-cart .img {
-    width: 6vw;
-    height: 6vw;
+    width: 8vw;
+    height: 8vw;
     display: block;
   }
 
@@ -432,6 +441,8 @@
   .spu .spu-content-type .item-right .spu-price .sale-price {
     color: #ff5344;
     margin-right: 1vw;
+    position: absolute;
+    bottom: 5vw;
   }
 
   .spu .spu-content-type .item-right .spu-price .sale-price .span {
@@ -495,7 +506,7 @@
   .spu .index-input-number {
     position: absolute;
     right: 3vw;
-    bottom: 3vw;
+    bottom: 7vw;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -619,5 +630,12 @@
 .mask-icon-coming img {
   height: 4vw;
   width: 15.2vw;
+}
+
+.spu-counts {
+  position: absolute;
+  right: 1vw;
+  font-size: 2.6vw;
+  color: #999;
 }
 </style>

@@ -44,7 +44,7 @@
         </div>-->
         <div>
             <van-list ref="list" @scroll="scrollGet($event)"  v-model="$data.$data.loading" :finished="!loadMore" @load="getHotList" class="van-clearfix page-list scrollY">
-              <i-type-item @authModal="authModal" @changeCartNum="changeCartNum" @openSku="openSku" @vipModal="vipModal" :canLevelBuy="canLevelBuy" :changeCarCount="changeCarCount" :is_open_vipcard_buy="is_open_vipcard_buy" :needAuth="needAuth" :reduction="reduction" :spuItem="item" :stopClick="stopClick" v-for="(item,index) in rushList" :key="item.actId" :enabledFrontSupply="enabledFrontSupply"></i-type-item>
+              <i-type-item @authModal="authModal" @changeCartNum="changeCartNum" @openSku="openSku" @vipModal="vipModal" :canLevelBuy="canLevelBuy" :changeCarCount="changeCarCount" :is_open_vipcard_buy="is_open_vipcard_buy" :needAuth="needAuth" :reduction="reduction" :spuItem="item" :stopClick="stopClick" v-for="(item,index) in rushList" :key="item.actId" :enabledFrontSupply="enabledFrontSupply" :isShowListCount="isShowListCount" :skin="skin"></i-type-item>
             </van-list>
           <div class="none-rush-list" v-if="pageEmpty">
             <img class="img-div" src="@/assets/images/icon-index-empty.png">
@@ -144,9 +144,10 @@
             pageY: 0
           },
           rushList: [],
-          isShowContactBtn: false,
-          enabledFrontSupply: 0
-        }
+        },
+        isShowContactBtn: false,
+        enabledFrontSupply: 0,
+        isShowListCount: 0
       }
     },
     created: function() {
@@ -162,6 +163,7 @@
 
       const t = this.$route.query
       this.onLoad(t)
+      this.onShow();
     },
     /*mounted:function(){
       this.onShow();
@@ -188,8 +190,7 @@
       next()
     },
     mounted(){
-      const t = this.$route.query
-      this.onShow(t);
+      
     },
     methods: {
       scrollGet (e) {
@@ -201,6 +202,10 @@
         wx.showLoading(), wx.hideTabBar(), status.setNavBgColor(), this.get_index_info(), this.getCopyright(), status.setGroupInfo().then(function(t) {
           s.groupInfo = t
         })
+
+        if (i.id != 'undefined' && i.id > 0) {
+          app.globalData.typeCateId = i.id;
+        }
 
         if (this.getScrollViewHeight(), (
           s.subCateHeight = this.getPx(44),
@@ -232,8 +237,7 @@
             }
           })
         }
-        // this.$data.$data.rushCategoryId = app.globalData.typeCateId || 0, app.globalData.typeCateId = 0
-        this.$data.$data.rushCategoryId = i.id || 0
+        this.$data.$data.rushCategoryId = app.globalData.typeCateId || 0
       }
       ,
       onShow: function(i) {
@@ -254,12 +258,11 @@
         s.tabbarRefresh = !0,
         console.log('s.isFirst'+s.isFirst)
         s.get_cate_list().then(function() {
-            // if(app.globalData.typeCateId>0){
-            //   s.active_sub_index =0;
-            // }
-            // if (1 <= s.isFirst && (s.$data.$data.rushCategoryId = app.globalData.typeCateId  || 0,
-            //    app.globalData.typeCateId = 0,
-            if (1 <= s.isFirst && (s.$data.$data.rushCategoryId = i.id || 0,
+            if(app.globalData.typeCateId>0){
+              s.active_sub_index =0;
+            }
+            if (1 <= s.isFirst && (s.$data.$data.rushCategoryId = app.globalData.typeCateId  || 0,
+               app.globalData.typeCateId = 0,
               s.$data.$data.rushCategoryId)) {
 
 
@@ -285,7 +288,6 @@
             }
 
             s.setCategory(s.rushCategoryData.activeIndex)
-
           }), util.check_login_new().then(function(t) {
           if (t) {
             s.needAuth = !1
@@ -886,6 +888,8 @@
           success: function(res) {
             let isShowContactBtn = res.index_service_switch || 0;
             that.isShowContactBtn = isShowContactBtn;
+            let isShowListCount = res.is_show_list_count || 0;
+            that.isShowListCount = isShowListCount;
           }
         });
       },

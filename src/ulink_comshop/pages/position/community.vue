@@ -16,10 +16,10 @@
         <div v-if="!community.communityId">
           <div class="location-title">{{$t('host.dangqiandizhi')}}</div>
           <div class="location-msg">{{city.districtName}}</div>
-          <div class="switch-btn">{{$t('host.qingxuanze')}}{{groupInfo.group_name}}</div>
+          <div class="switch-btn">{{$t('host.qingxuanze')}}{{$t('host.zitidian')}}</div>
         </div>
         <div v-else>
-          <div class="location-title location-title-pad">{{$t('host.dangqian')}}{{groupInfo.group_name}}</div>
+          <div class="location-title location-title-pad">{{$t('host.dangqian')}}{{$t('host.zitidian')}}</div>
           <div class="local-community-card" openType="navigateBack">
             <img class="card-bg" src="@/assets/images/community-desc-bg.png"/>
             <div class="head-pic">
@@ -28,7 +28,7 @@
               <img class="head-pic-content" src="@/assets/images/head-bitmap.png" v-else/>
             </div>
             <div class="card-msg">
-              <div class="group-master">{{groupInfo.owner_name}}：{{community.disUserName||community.realName}}</div>
+              <div class="group-master">{{$t('me.tuanzhang')}}：{{community.disUserName||community.realName}}</div>
               <div class="community-name">{{community.communityName}}</div>
               <div class="community-address">{{community.communityAddress||community.fullAddress}}</div>
             </div>
@@ -36,13 +36,13 @@
         </div>
       </div>
       <div class="community-list history-communities" style="display:none;" v-if="!isNotHistory">
-        <div class="title">曾用{{groupInfo.group_name}}</div>
+        <div class="title">{{$t('host.cengyong')}}{{$t('host.zitidian')}}</div>
         <i-community-item :city="city" class="item-border" :isOld="true"
                           :item="historyCommunity"></i-community-item>
       </div>
       <!--<div class="community-list around-communities">-->
       <van-list  :finished="loadMore" @load="load_gps_community_list" class="community-list around-communities">
-        <div class="title" :style="{'border-color':skin.color}">{{$t('host.fujin')}}{{groupInfo.group_name}}</div>
+        <div class="title" :style="{'border-color':skin.color}">{{$t('host.fujin')}}{{$t('host.zitidian')}}</div>
         <i-community-item :isOld="true" :city="city" class="item-border" :groupInfo="groupInfo"
                           :hiddenDetails="index_hide_headdetail_address" :item="item" :skin="skin"
                           v-if="communities.length" v-for="(item,index) in communities"
@@ -145,6 +145,7 @@
           mask: !0,
           icon: 'none'
         })
+        this.getCopyright();
         this.loadpage()
       }
 
@@ -409,6 +410,22 @@
         this.$wx.navigateTo({
           url: "/ulink_comshop/pages/position/search"
         });
+      },
+      getCopyright: function() {
+        let that = this;
+        app.util.request({
+          'url': 'entry/wxapp/user',
+          'data': {
+            controller: 'user.get_copyright'
+          },
+          dataType: 'json',
+          success: function(res) {
+            if (res.code == 0) {
+              let common_header_backgroundimage = res.common_header_backgroundimage;
+              that.common_header_backgroundimage = common_header_backgroundimage || require('@/assets/images/TOP_background@2x.png');
+            }
+          }
+        })
       },
     }
 

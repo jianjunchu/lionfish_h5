@@ -77,6 +77,19 @@
             </div>
           </div>
 
+          <div class="index-search-bar" v-if="index_switch_search==1">
+            <div class="search-box">
+              <input @keypress="goResult" class="ipt" confirmType="搜索" placeholder="Search" type="search"
+                     v-model="searchName"></input>
+              <div class="search-icon">
+                <div class="iconfont icon-sousuo1"></div>
+              </div>
+              <div class="search-icon2" @click="clearSearch">
+                <img style="width: 5vw;height: 5vw;margin-top: 2vw"
+                 src="@/assets/images/img-close.png"/>
+              </div>
+            </div>
+          </div>
 
           <div class="swipe" v-if="slider_list.length>0">
             <swiper :options="sliderSwiperOption" class="swiper-content">
@@ -89,7 +102,7 @@
             </swiper>
           </div>
           <div class="nav-list" v-if="navigat && navigat.length>0">
-            <div v-for="(item,idx) in navigat" style="width:20%;" class="block" :key="item.id">
+            <div v-for="(item,idx) in navigat" style="width:25%;" class="block" :key="item.id">
               <div @click="goNavUrl" class="nav-list-item" :data-idx="idx" v-if="item.type!=5">
                 <img class="nav-list-img" :src="item.thumb"/>
                 <div class="nav-list-text">{{item.navname_en || item.navname}}</div>
@@ -100,7 +113,7 @@
                 <div class="nav-list-text">{{item.navname_en || item.navname}}</div>
               </button>
             </div>
-            <div style="width:20%;" v-if="navigatEmpty &&navigatEmpty.length" v-for="(item,id) in navigatEmpty"></div>
+            <div style="width:25%;" v-if="navigatEmpty &&navigatEmpty.length" v-for="(item,id) in navigatEmpty"></div>
           </div>
           <div class="promotion" v-if="hasCoupon">
             <div class="slider">
@@ -312,19 +325,6 @@
 
                     <img class="rush-list-title" id="rush-title" src="@/assets/images/rush-title.png" v-else/>
           -->
-          <div class="index-search-bar" v-if="index_switch_search==1">
-            <div class="search-box">
-              <input @keypress="goResult" class="ipt" confirmType="搜索" placeholder="Search" type="search"
-                     v-model="searchName"></input>
-              <div class="search-icon">
-                <div class="iconfont icon-sousuo1"></div>
-              </div>
-              <div class="search-icon2" @click="clearSearch">
-                <img style="width: 5vw;height: 5vw;margin-top: 2vw"
-                 src="@/assets/images/img-close.png"/>
-              </div>
-            </div>
-          </div>
 
 
           <div v-if="hide_index_type!=1">
@@ -1649,8 +1649,8 @@
             for (let i = 0; i < a.length; i++) {
               a[i].navname = a[i].navname.split("##")[0];
             }
-            var o = 5 - a.length % 5 || 0
-            o < 5 && 0 < o && (e = new Array(o))
+            var o = 4 - a.length % 4 || 0
+            o < 4 && 0 < o && (e = new Array(o))
           }
 
           this.navigat = a

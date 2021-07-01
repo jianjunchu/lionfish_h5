@@ -6,8 +6,13 @@
     <div class="vux-header-left-logo" v-if="getShowToolbarLogo"><a class="vux-header-back"></a>
       <img class="mart-logo" :src="getToolbarLogo"/>
     </div>
-    <h2 class="vux-header-title"><span>{{getToolbarTitle}}</span></h2>
+    <h2 class="vux-header-title">
+      <!-- <span>{{getToolbarTitle}}</span> -->
+    </h2>
     <div class="vux-header-right" v-if="getShowToSolbarMore"><a class="vux-header-more"></a></div>
+    <div class="vux-header-right" @click="changeLang" v-if="getShowToolbarLogo">
+      <img class="change-lang" src="@/assets/images/change-lang.png"/>
+    </div>
   </div>
 </template>
 
@@ -49,6 +54,10 @@
           }else{
               this.$router.go(-1)
           }
+      },
+      changeLang: function() {
+        let locale = this.$i18n.locale
+        locale === 'zh' ? this.$i18n.locale = 'en' : this.$i18n.locale = 'zh'
       }
     }
 
@@ -175,5 +184,11 @@
 
   .mart-logo {
     height: 50px;
+  }
+
+  .change-lang {
+    height: 30px;
+    position: relative;
+    top: -5px;
   }
 </style>

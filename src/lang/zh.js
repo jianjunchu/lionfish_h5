@@ -175,6 +175,8 @@ export default {
     dengdaijieguo: '您的申请在处理中，请等待结果...',
     gongli: '公里',
     shurushequming: '请输入社区名或邮编',
+    zitidian: '自提点',
+    cengyong: '曾用'
   },
   detail: {
     huishouye: '回首页',
@@ -201,7 +203,8 @@ export default {
     yixiajia: '已下架',
     tuanzhangxiuxi: '团长休息中',
     lijiduihuan: '立即兑换',
-    jinrudianpu: '进入店铺'
+    jinrudianpu: '进入店铺',
+    shengyu: '剩余'
   },
   order: {
     xuanzhezhifufangshi: '请选择支付方式!',
