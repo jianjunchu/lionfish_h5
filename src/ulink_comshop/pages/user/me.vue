@@ -166,7 +166,9 @@
           </div>
         </div>
       </div> -->
-      <div class="tool distribution" v-if="commiss_level>0">
+      
+      <!-- 分销 -->
+      <!-- <div class="tool distribution" v-if="commiss_level>0">
         <div v-if="commiss_sharemember_need==1">
           <div class="my-distribution modal-head">
             <div class="my-distribution-title">
@@ -231,7 +233,7 @@
             </div>
           </div>
         </div>
-      </div>
+      </div> -->
 
 
       <div class="tool">
