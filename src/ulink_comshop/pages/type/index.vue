@@ -188,7 +188,8 @@
       next()
     },
     mounted(){
-      this.onShow();
+      const t = this.$route.query
+      this.onShow(t);
     },
     methods: {
       scrollGet (e) {
@@ -231,10 +232,11 @@
             }
           })
         }
-        this.$data.$data.rushCategoryId = app.globalData.typeCateId || 0, app.globalData.typeCateId = 0
+        // this.$data.$data.rushCategoryId = app.globalData.typeCateId || 0, app.globalData.typeCateId = 0
+        this.$data.$data.rushCategoryId = i.id || 0
       }
       ,
-      onShow: function() {
+      onShow: function(i) {
         var s = this
         s.$data.$data.pageNum = 1,
         /*s.rushCategoryData = {
@@ -252,11 +254,12 @@
         s.tabbarRefresh = !0,
         console.log('s.isFirst'+s.isFirst)
         s.get_cate_list().then(function() {
-            if(app.globalData.typeCateId>0){
-              s.active_sub_index =0;
-            }
-            if (1 <= s.isFirst && (s.$data.$data.rushCategoryId = app.globalData.typeCateId  || 0,
-               app.globalData.typeCateId = 0,
+            // if(app.globalData.typeCateId>0){
+            //   s.active_sub_index =0;
+            // }
+            // if (1 <= s.isFirst && (s.$data.$data.rushCategoryId = app.globalData.typeCateId  || 0,
+            //    app.globalData.typeCateId = 0,
+            if (1 <= s.isFirst && (s.$data.$data.rushCategoryId = i.id || 0,
               s.$data.$data.rushCategoryId)) {
 
 
@@ -268,6 +271,7 @@
                 }else{
                   for(let inx in t.sub){
                     if(t.sub[inx].id == e){
+                      s.active_sub_index = parseInt(inx) + 1;
                       return true;
                     }
                   }
