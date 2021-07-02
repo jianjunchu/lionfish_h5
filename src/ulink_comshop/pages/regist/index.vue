@@ -324,14 +324,20 @@
            	      var str   =   a.replace(/\s+/g,"");
                  	console.log(str);
                 if(result.code == 0){
-                  this.$router.push({path: '/userInfo?memberId='+result.member_id+'&country='+this.cityCode+'&phone='+str});
+                //   this.$router.push({path: '/userInfo?memberId='+result.member_id+'&country='+this.cityCode+'&phone='+str});
+                    this.$wx.setStorageSync('token', response.token)
+                    if(response.token!=''){
+                        this.$router.push({path: '/ulink_comshop/pages/index/index'});
+                    }else if(response.token ==''){
+                        alert("Error! Please contact the administrator!")
+                    }
                 } else if(result.code == -1){
-									alert(" code parameter not")
-								}else if(result.code == -2){
-									alert("timeout")
-								}else if(result.code == -3){
-									alert("code verify fails")
-								}
+					alert(" code parameter not")
+				}else if(result.code == -2){
+					alert("timeout")
+				}else if(result.code == -3){
+					alert("code verify fails")
+				}
               })
             },
             initLogo: function() {
