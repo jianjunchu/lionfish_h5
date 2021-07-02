@@ -204,6 +204,9 @@
 
         if (i.id != 'undefined' && i.id > 0) {
           app.globalData.typeCateId = i.id;
+          this.loadMore = false;
+        }else{
+            this.loadMore = !0;
         }
 
         if (this.getScrollViewHeight(), (
@@ -249,7 +252,7 @@
         s.rushList = [],
         s.categoryScrollBarTop = 0,
         s.resetScrollBarTop = 50,
-        s.loadMore = !0,
+
         s.loadText = '加载中...',
         s.isFirstCategory = !0,
         s.isLastCategory = !1,
