@@ -24,10 +24,10 @@
             </div>
             <div class="item">
                 <div class="title">{{$t('goodsinfo.peisongfangshi')}}</div>
-                <div class="detail">{{order.order_info.delivery_name}}</div>
+                <div class="detail"><span v-if="$i18n.locale == 'en'">{{order.order_info.delivery_name_en}}</span><span v-else>{{order.order_info.delivery_name}}</span></div>
             </div>
             <div class="item" v-if="order.order_info.type=='normal'">
-                <div class="title">{{groupInfo.owner_name}}{{$t('goodsinfo.xinxi')}}</div>
+                <div class="title">{{$t('goodsinfo.xinxi')}}{{$t('goodsinfo.xinxi')}}</div>
                 <div class="detail">
                     <span>{{order.order_info.ziti_name}}</span>
                     <!--<div @click="callTelphone" class="phone" :data-phone="order.order_info.ziti_mobile" v-if="hidePhone==0">-->

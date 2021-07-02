@@ -79,7 +79,7 @@
 
           <div class="index-search-bar" v-if="index_switch_search==1">
             <div class="search-box">
-              <input @keypress="goResult" class="ipt" confirmType="搜索" placeholder="Search" type="search"
+              <input @keypress="goResult" class="ipt" confirmType="搜索" :placeholder="$t('index.search')" type="search"
                      v-model="searchName"></input>
               <div class="search-icon">
                 <div class="iconfont icon-sousuo1"></div>
@@ -105,12 +105,12 @@
             <div v-for="(item,idx) in navigat" style="width:25%;" class="block" :key="item.id">
               <div @click="goNavUrl" class="nav-list-item" :data-idx="idx" v-if="item.type!=5">
                 <img class="nav-list-img" :src="item.thumb"/>
-                <div class="nav-list-text">{{item.navname_en || item.navname}}</div>
+                <div class="nav-list-text"><span v-if="$i18n.locale == 'en'">{{item.navname_en}}</span><span v-else>{{item.navname}}</span></div>
               </div>
               <button class="nav-list-item nav-contact" openType="contact" v-else>
 
                 <img class="nav-list-img" :src="item.thumb"/>
-                <div class="nav-list-text">{{item.navname_en || item.navname}}</div>
+                <div class="nav-list-text"><span v-if="$i18n.locale == 'en'">{{item.navname_en}}</span><span v-else>{{item.navname}}</span></div>
               </button>
             </div>
             <div style="width:25%;" v-if="navigatEmpty &&navigatEmpty.length" v-for="(item,id) in navigatEmpty"></div>
@@ -379,7 +379,7 @@
                   <!--<i-tabs :activeIndex="classification.activeIndex" @activeIndexChange="classificationChange"
                           data-idx="1" fontColor="#000" class="category-list" :tabs="classification.tabs"></i-tabs>-->
                   <van-tabs v-model="classification.activeIndex" data-idx="1" @click="classificationChange">
-                    <van-tab v-for="(item , index) in classification.tabs" :title="item.name_en || item.name"
+                    <van-tab v-for="(item , index) in classification.tabs" :title="$i18n.locale == 'en' ? item.name_en:item.name"
                              :title-style="{'flex-basis':'auto','padding': '0 10px'}">
                     </van-tab>
                   </van-tabs>
@@ -391,7 +391,7 @@
                           iClass="category-list" :tabs="classification.tabs"></i-tabs>-->
 
                   <van-tabs v-model="commingClassification.activeIndex" data-idx="2"  @click="commingClassificationChange">
-                    <van-tab v-for="(item , index) in classification.tabs" :title="item.name_en || item.name"
+                    <van-tab v-for="(item , index) in classification.tabs" :title="$i18n.locale == 'en' ? item.name_en:item.name"
                              :title-style="{'flex-basis':'auto','padding': '0 10px'}">
                     </van-tab>
                   </van-tabs>
@@ -1646,9 +1646,6 @@
           var a = response.data || [],
             e = []
           if (0 < a.length) {
-            for (let i = 0; i < a.length; i++) {
-              a[i].navname = a[i].navname.split("##")[0];
-            }
             var o = 4 - a.length % 4 || 0
             o < 4 && 0 < o && (e = new Array(o))
           }

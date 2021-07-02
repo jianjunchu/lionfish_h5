@@ -175,7 +175,7 @@
                       <!--<span class="pintag" style="background:{{skin.color}}" v-if="order.order_info.is_pin==1">拼团</span>-->
                       <span class="pintag" :style="{color:skin.color,background:skin.light}"
                             v-if="order.order_info.is_pin==1">拼团</span>
-                      {{goodsInfo.name}}
+                      <span v-if="$i18n.locale == 'en'">{{goodsInfo.name_en}}</span><span v-else>{{goodsInfo.name}}</span>
                     </div>
                     <div class="mount">
                       <span v-if="goodsInfo.option_str">{{goodsInfo.option_str}} </span>

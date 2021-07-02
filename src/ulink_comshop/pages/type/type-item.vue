@@ -18,7 +18,7 @@
         <div class="item-right">
           <div class="item-right-top">
             <div class="spu-title">
-              <span class="span">{{spuItem.spuName_en || spuItem.spuName}} </span>
+              <span class="span" v-if="$i18n.locale == 'en'">{{spuItem.spuName_en}}</span><span class="span" v-else>{{spuItem.spuName}}</span>
               <div class="supply_type" v-if="spuItem.supply_info && enabledFrontSupply==1" @click.stop.prevent="goSupply" :data-id="spuItem.supply_info.id">
                 <div class="supply-logo">
                   <img v-if="spuItem.supply_info && spuItem.supply_info.logo" :src="spuItem.supply_info.logo"/>
@@ -27,7 +27,7 @@
               </div>
             </div>
             <div class="spu-desc" v-if="spuItem.spuDescribe_en || spuItem.spuDescribe">
-              <span class="em">{{spuItem.spuDescribe_en || spuItem.spuDescribe}}</span>
+              <span class="em" v-if="$i18n.locale == 'en'">{{spuItem.spuDescribe_en}}</span><span class="em" v-else>{{spuItem.spuDescribe}}</span>
             </div>
             <i-vip-price :price="spuItem.card_price"
                          v-if="is_open_vipcard_buy==1&&spuItem.is_take_vipcard==1"></i-vip-price>

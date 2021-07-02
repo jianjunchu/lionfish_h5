@@ -213,7 +213,9 @@ export default {
     tuanzhangxiuxi: 'Host in Rest',
     lijiduihuan: 'Exchange Now',
     jinrudianpu: 'Store Home',
-    shengyu: 'Avaiable'
+    shengyu: 'Avaiable',
+    tuanzhangyuguyongjin: 'Host Astimated Commission',
+    zitiriqi: ' Collection Date'
   },
   order: {
     xuanzhezhifufangshi:'Please select payment method',
@@ -389,7 +391,8 @@ export default {
     songhuoshijian: 'Delivery Time:',
     lianxi: 'Contact ',
     xinxi: ' Infomation',
-    xiaoji: '  Amount:'
+    xiaoji: '  Amount:',
+    tuanzhang: 'Host'
   },
   coupon: {
     weishiyong: 'Unused',

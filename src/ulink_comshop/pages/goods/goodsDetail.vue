@@ -116,7 +116,7 @@
       <div class="spuDetailInfo">
         <div class="spuName">
           <div class="red" style="font-size:15px;" v-if="goods.is_seckill==1">[Flash Deal]</div>
-          {{goods.goodsname_en||goods.goodsname}}
+          <span v-if="$i18n.locale == 'en'">{{goods.goodsname_en}}</span><span v-else>{{goods.goodsname}}</span>
         </div>
         <div class="fsz-22 i-flex mt10 i-aic" v-if="is_only_hexiao==1">
           <div class="hexiao text-6">
@@ -132,14 +132,14 @@
           <div class="con">会员分销预估佣金:${{commiss_mb_money}}</div>
         </div>
         <div class="comiss" v-if="is_goods_head_mb==1&&goods_head_money>0">
-          <div class="con">团长预估佣金：${{goods_head_money}}</div>
+          <div class="con">{{$t('detail.tuanzhangyuguyongjin')}}：${{goods_head_money}}</div>
         </div>
         <i-vip-price :price="goods.card_price" v-if="is_open_vipcard_buy==1&&goods.is_take_vipcard==1"></i-vip-price>
         <i-vip-price :price="goods.levelprice" type="1"
                      v-if="is_member_level_buy==1&&goods.is_mb_level_buy==1"></i-vip-price>
         <div class="remind" v-if="is_show_ziti_time==1&&goods.is_show_arrive==1">
           <img class="remindImg" src="@/assets/images/icon-give.png"/>
-          <div>现在下单，预计({{goods.pick_up_modify}})可自提</div>
+          <div>{{$t('detail.zitiriqi')}}：{{goods.pick_up_modify}}</div>
         </div>
         <div class="remind" v-if="goods.diy_arrive_switch==1&&goods.diy_arrive_details">
           <img class="remindImg" src="@/assets/images/icon-give.png"/>

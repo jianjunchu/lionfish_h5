@@ -204,7 +204,9 @@ export default {
     tuanzhangxiuxi: '团长休息中',
     lijiduihuan: '立即兑换',
     jinrudianpu: '进入店铺',
-    shengyu: '剩余'
+    shengyu: '剩余',
+    tuanzhangyuguyongjin: '团长预估佣金',
+    zitiriqi: '自提日期'
   },
   order: {
     xuanzhezhifufangshi: '请选择支付方式!',
@@ -375,8 +377,9 @@ export default {
     tihuoshijian: '提货时间:',
     songhuoshijian: '送货时间:',
     lianxi: '联系',
-    xinxi: '信息',
-    xiaoji: ' 小计'
+    xinxi: ' 信息',
+    xiaoji: ' 小计',
+    tuanzhang: '团长'
   },
   coupon: {
     weishiyong: '未使用',
