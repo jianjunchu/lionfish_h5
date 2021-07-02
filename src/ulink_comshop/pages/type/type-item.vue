@@ -542,7 +542,7 @@
 
   .spu .item-tag {
     position: absolute;
-    left: 1vw;
+    right: 1vw;
     top: 1vw;
     width: 5.4vw;
     height: 6.2vw;
@@ -610,8 +610,8 @@
   height: 8vw;
   width: 9vw;
   position: absolute;
-  left: 2.5vw;
-  top: 3vw;
+  left: 10vw;
+  top: 10vw;
 }
 
 .mask-icon-out img {
