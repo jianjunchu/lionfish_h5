@@ -41,7 +41,6 @@
       </div>
       <!--<div class="item-tag" :style="background:url(goods.label_info.tagcontent) no-repeat left top;background-size: 100%;" v-if="goods.label_info&&goods.label_info.type==1"></div>-->
       <div class="item-tag"
-           :style="{background:'url('+goods.label_info.tagcontent+ ') no-repeat left top',backgroundSize: '100%;'}"
            v-if="goods.label_info&&goods.label_info.type==1">
         <img :src="goods.label_info.tagcontent"/>
       </div>
@@ -2932,7 +2931,7 @@
 
   .spuInfoImg .item-tag {
     position: absolute;
-    left: 15px;
+    right: 15px;
     top: 10px;
     width: 40px;
     height: 46px;

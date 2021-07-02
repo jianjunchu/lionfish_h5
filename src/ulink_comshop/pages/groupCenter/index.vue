@@ -23,14 +23,14 @@
             {{$t('host.bangding')}}&nbsp;{{groupInfo.group_name}}：{{community_info.community_name}}<span class="iconfont icon-youjiantou"></span>
           </div>
           <div class="address" v-if="community_info.is_show_head_level==1">
-            <span>{{$t('host.dengji')}}{{community_info.head_level_info.levelname}}(分佣比例:{{community_info.head_level_info.commission}}%)</span>
+            <span>{{groupInfo.owner_name}}{{$t('host.dengji')}}{{community_info.head_level_info.levelname}}(分佣比例:{{community_info.head_level_info.commission}}%)</span>
           </div>
         </div>
       </div>
       <div class="distributionCon">
         <div class="distribution">
           <div class="myDistribution">
-            <span>{{$t('host.gaikuang')}}</span>
+            <span>{{groupInfo.owner_name}}&nbsp;{{$t('host.gaikuang')}}</span>
           </div>
           <div class="incomeCon">
             <div class="income">

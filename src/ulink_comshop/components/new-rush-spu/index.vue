@@ -603,7 +603,7 @@
 
   .spu >>> .item-tag {
     position: absolute;
-    left: -0.1vw;
+    right: -0.1vw;
     top: 0;
     width: 5.4vw;
     height: 6.2vw;
