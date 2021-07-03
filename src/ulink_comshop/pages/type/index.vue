@@ -180,6 +180,12 @@
       if(i.$refs.tabbar){
         i.$refs.tabbar.switchTab();
       }
+
+      const t = this.$route.query
+      if (t.id != 'undefined' && t.id > 0) {
+        app.globalData.typeCateId = t.id
+        this.onShow()
+      }
     },
     beforeRouteLeave(to, from, next) {
 
