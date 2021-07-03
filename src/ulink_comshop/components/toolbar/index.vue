@@ -10,7 +10,7 @@
       <!-- <span>{{getToolbarTitle}}</span> -->
     </h2>
     <div class="vux-header-right" v-if="getShowToSolbarMore"><a class="vux-header-more"></a></div>
-    <div class="vux-header-right" @click="changeLang" v-if="getShowToolbarLogo">
+    <div class="vux-header-right" @click="changeLang" >
       <img class="change-lang" src="@/assets/images/change-lang.png"/>
     </div>
   </div>
