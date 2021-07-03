@@ -332,7 +332,9 @@ export default {
     shouhuochenghong: '收货成功',
     peisongdianziti: '配送点自提',
     kuaidizhisong: '快递直送',
-    tuanzhangpeisong: '团长配送'
+    tuanzhangpeisong: '团长配送',
+    chongzhi: '充值',
+    querenchongzhi: '确认充值'
   },
   cart: {
     gouwuchekong: '购物车空空如也，赶紧去逛逛吧~',

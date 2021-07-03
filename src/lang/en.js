@@ -345,7 +345,9 @@ export default {
     shouhuochenghong: 'Delivery Completed',
     peisongdianziti: 'Collection',
     kuaidizhisong: 'Direct Delivery',
-    tuanzhangpeisong: 'Head Shipping'
+    tuanzhangpeisong: 'Head Shipping',
+    chongzhi: 'Top Up',
+    querenchongzhi: 'Confirm Top up'
   },
   cart: {
     gouwuchekong: 'Back to Homepage',

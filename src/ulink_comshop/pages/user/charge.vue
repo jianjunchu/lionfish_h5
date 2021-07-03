@@ -12,7 +12,7 @@
     </div>
     <div class="charge-form">
       <div class="tit">
-        <div>{{$t('order.zhifujine')}}:</div>
+        <div>{{$t('order.chongzhi')}}:</div>
       </div>
       <div class="list" v-if="chargetype_list.length">
         <div bindtap="selChargeType" :class="['list-item' ,activeTypeId==item.id?'item-hover':'']" :data-idx="index" v-for="(item,index) in chargetype_list" v-key="id">
@@ -28,7 +28,7 @@
         <div :class="['bottom-line' ,onFocus?'ipt-focus':'']"></div>
       </div>
     </div>
-    <div @click.stop="paynowcharge" :class="['btn', canPay?'':'disable']" :style="{'background': canPay ? skin.color: skin.lighter}">{{$t('order.querenzhifu')}}</div>
+    <div @click.stop="paynowcharge" :class="['btn', canPay?'':'disable']" :style="{'background': canPay ? skin.color: skin.lighter}">{{$t('order.querenchongzhi')}}</div>
     <div class="desc">
       <div class="h2">Explain：</div>
       <div class="wxParse">
