@@ -215,7 +215,7 @@
 
                 <div class="sku-msg">
                   <div class="sku-title">
-                    {{item.name}}
+                    <span v-if="$i18n.locale == 'en'">{{item.name_en}}</span><span v-else>{{item.name}}</span>
                   </div>
                   <div class="sku-spec" v-if="item.option.length>0">{{$t('common.guige')}}
                     <span v-for="(option,index) in item.option " :key="option.option_id">{{option.value}}；</span>
