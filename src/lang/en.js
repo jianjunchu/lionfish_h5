@@ -394,7 +394,8 @@ export default {
     lianxi: 'Contact ',
     xinxi: ' Infomation',
     xiaoji: '  Amount:',
-    tuanzhang: 'Host'
+    tuanzhang: 'Host',
+    yushoushijian:'Pre-sale Delivery Time:'
   },
   coupon: {
     weishiyong: 'Unused',

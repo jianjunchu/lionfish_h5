@@ -189,8 +189,8 @@ function setGroupInfo() {
     }).then(a => {
       if (a.code === 0) {
         var t = a.data
-        t.commiss_diy_name = t.commiss_diy_name || '分销'
-        t.group_name = t.group_name || '社区'
+        t.commiss_diy_name = _this.$t('distributionCenter.fenxiao');//t.commiss_diy_name || '分销'
+        t.group_name = _this.$t('host.zitidian');//t.group_name || '社区'
         t.owner_name = t.owner_name || '团长'
         t.delivery_ziti_name = t.delivery_ziti_name || '到点自提'
         t.delivery_tuanzshipping_name = t.delivery_tuanzshipping_name || '团长配送'

@@ -80,6 +80,7 @@
                         <div class="title">{{shopcarts.title}}</div>
 
                         <div class="spec">{{shopcarts.goodstype}}</div>
+                        <div class="sale-price" v-if="shopcarts.is_presell ==1">{{$t('goodsinfo.yushoushijian')}}{{shopcarts.presell_date}}</div>
                       </div>
                       <i-vip-price :price="shopcarts.card_price"
                                    v-if="is_open_vipcard_buy==1&&shopcarts.is_take_vipcard==1&&is_vip_card_member==1"></i-vip-price>
@@ -152,6 +153,7 @@
                       <div>
                         <div class="title">{{shopcarts.title}}</div>
                         <div class="spec">{{shopcarts.goodstype}}</div>
+                        <div class="sale-price" v-if="shopcarts.is_presell ==1">{{$t('goodsinfo.yushoushijian')}}{{shopcarts.presell_date}}</div>
                       </div>
                       <i-vip-price :price="shopcarts.card_price"
                                    v-if="is_open_vipcard_buy==1&&shopcarts.is_take_vipcard==1&&is_vip_card_member==1"></i-vip-price>
@@ -1834,6 +1836,7 @@
   .cart-item-content >>>.sale-price {
     color: #ff5344;
     font-size: 10px;
+    padding-top: 0.8vw;
     line-height: 10px;
   }
 

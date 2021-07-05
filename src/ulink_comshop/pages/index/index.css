@@ -989,15 +989,20 @@ button[plain] {
 }
 
 .search-icon {
-  position: absolute;
-  left: 2vw;
+  position: relative;
+  left: -79vw;
+  margin-left: 2.5vw;
+  margin-right: 1.2vw;
+}
+.search-icon2 {
+  position: relative;
+  left: 0vw;
   margin-left: 2.5vw;
   margin-right: 1.2vw;
 }
 
 .search-icon .iconfont {
   font-size: 4vw;
-  padding-top: 0.6vw;
 }
 
 .search-box .ipt {

@@ -71,7 +71,7 @@
                 </router-link>
               </div>
               <div @click="goLink" class="top-search" data-link="/ulink_comshop/pages/type/search">
-                <span class="iconfont icon-sousuo1"></span>
+                <span class="iconfont icon-sousuo"></span>
                 ${{$t('index.search')}}
               </div>
             </div>
@@ -82,7 +82,7 @@
               <input @keypress="goResult" class="ipt" confirmType="搜索" :placeholder="$t('index.search')" type="search"
                      v-model="searchName"></input>
               <div class="search-icon">
-                <div class="iconfont icon-sousuo1"></div>
+                <div class="iconfont icon-sousuo"></div>
               </div>
               <div class="search-icon2" @click="clearSearch">
                 <img style="width: 5vw;height: 5vw;margin-top: 2vw"

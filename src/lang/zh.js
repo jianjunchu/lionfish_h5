@@ -381,7 +381,8 @@ export default {
     lianxi: '联系',
     xinxi: ' 信息',
     xiaoji: ' 小计',
-    tuanzhang: '团长'
+    tuanzhang: '团长',
+    yushoushijian:'预售时间:'
   },
   coupon: {
     weishiyong: '未使用',

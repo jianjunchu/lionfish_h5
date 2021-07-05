@@ -215,7 +215,7 @@
 
                 <div class="sku-msg">
                   <div class="sku-title">
-                    {{item.name}}
+                    {{item.name}}{{item.is_presell}}
                   </div>
                   <div class="sku-spec" v-if="item.option.length>0">{{$t('common.guige')}}
                     <span v-for="(option,index) in item.option " :key="option.option_id">{{option.value}}；</span>
@@ -237,14 +237,13 @@
                   </div>
                 </div>
 
-                <div class="pre" v-if="item.is_show_presell">
-                  <div class="pre-title">
-                    Pre-Order
-                  </div>
-                  <div class="pre-content">
-                    Delivery date: {{item.begin_time_str}}
-                  </div>
-
+                <div class="pre" v-if="item.is_presell == 1">
+                  <span class="pre-title">
+                    {{$t('goodsinfo.yushoushijian')}}
+                  </span>
+                  <span class="pre-content">
+                    {{item.presell_date}}
+                  </span>
                 </div>
 
 
@@ -782,6 +781,7 @@
                 seller_chose_id: 0,
                 index_hide_headdetail_address: 0,
                 open_score_buy_score: 0,
+                delivery_start_time:0,
                 total_all: 0,
                 pick_up_type: 0,
                 pick_up_time: '',
@@ -865,7 +865,7 @@
                                 g = n.level_save_money,
                                 f = n.is_open_vipcard_buy, v = n.is_member_level_buy, b = n.total_integral,
                                 x = n.is_need_subscript,
-                                w = n.need_subscript_template, S = n.is_hexiao, A = !1
+                                w = n.need_subscript_template, S = n.is_hexiao, A = !1,delivery_start_time = n.delivery_start_time;
                             if (1 == f ? 1 != m && 1 == v && (A = !0) : 1 == v && (A = !0), 1 == u && (o[2].enabled = !0,
                                 i++), 1 == l && (o[1].enabled = !0, i++), 1 == h && (o[0].enabled = !0, i++), _) {
                                 var k = _.split(',')
@@ -887,6 +887,8 @@
                                     0 < P[O].goods[j].header_disc && P[O].goods[j].header_disc < 100 && (P[O].goods[j].header_disc = (P[O].goods[j].header_disc / 10).toFixed(1))
                                 }
                             }
+
+                            F.delivery_start_time = delivery_start_time;
                             F.is_hexiao = S
                             F.loadover = !0
                             F.commentArr = z
@@ -1860,16 +1862,8 @@
                 })
             },
             showPickupTime: function () {
-                console.log("showPickupTime");
-                var isPresell = this.isPresell();
-
                 var that = this;
-                if (!isPresell) {
-                    that.doShowPickupTime();
-                } else {
-                    that.doShowPreTime();
-                }
-
+                that.doShowPickupTime();
             },
             showSelectDialog: function () {
                 var that = this;
@@ -1974,7 +1968,8 @@
             doShowPickupTime: function () {
 
 
-                var r = this, s = r.tabAddress, n = r.tabIdx, t = wx.getStorageSync("token");
+                var r = this, s = r.tabAddress, n = r.tabIdx, t = wx.getStorageSync("token"),delivery_start_time = r.delivery_start_time;
+
                 var I = wx.getStorageSync("community").communityId;
                 var controller = '';
                 if (n == 0) {
@@ -1982,12 +1977,15 @@
                 } else {
                     controller = 'car.get_express_date_list'
                 }
+
                 app.util.request({
                     url: 'entry/wxapp/user',
                     data: {
                         controller: controller,
                         token: t,
-                        head_id: I
+                        head_id: I,
+                        delivery_start_time: delivery_start_time
+
                     },
                     dataType: 'json',
                     method: 'POST',
@@ -2219,8 +2217,9 @@
   }
 
   .cart-item >>> .pre {
-    margin: 0vw 5vw 0;
 
+    margin: 1vw 0vw 0vw 0vw;
+    color: red;
   }
 
   .sku-item {
