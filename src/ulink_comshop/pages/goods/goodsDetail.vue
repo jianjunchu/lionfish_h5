@@ -387,7 +387,7 @@
             <img class="sku-img" :src="cur_sku_arr.skuImage" style="width:80px;height:80px;"/>
             <div class="sku-desc">
               <div class="sku-title">
-                <span>{{cur_sku_arr.spuName}}</span>
+                <span v-if="$i18n.locale == 'en'">{{cur_sku_arr.spuName_en}}</span><span v-else>{{cur_sku_arr.spuName}}</span>
               </div>
               <div class="sku-price">
                 <div class="sale-price" v-if="buy_type=='integral'">
@@ -744,6 +744,7 @@
         cur_sku_arr: {
           skuImage: '',
           spuName: '',
+          spuName_en: '',
           actPrice: [],
           marketPrice: [],
           card_price: 0,
@@ -1029,6 +1030,7 @@
           L.cur_sku_arr = {
             skuImage: '',
             spuName: '',
+            spuName_en: '',
             actPrice: [],
             marketPrice: [],
             card_price: 0,
@@ -1243,6 +1245,7 @@
             var f = this.goods, p = f.card_price || '0.00', y = f.levelprice || '0.00', v = {
               canBuyNum: f.total,
               spuName: f.goodsname,
+              spuName_en: f.goodsname_en,
               actPrice: f.actPrice,
               marketPrice: f.marketPrice,
               stock: f.total,
@@ -3261,6 +3264,10 @@
     color: #fff;
     padding: 1vw 3vw;
     border-radius: 6vw;
+  }
+
+  .sku-desc {
+    width: 65vw;
   }
 
 </style>
