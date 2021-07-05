@@ -65,7 +65,7 @@
                 <span v-else-if="item.order_status_id == 15"> {{ $t('order.huodaofukuan') }}</span>
                 <span v-else-if="item.order_status_id == 4 && item.delivery=='pickup' "> {{ $t('order.daiziti') }}</span>
                 <span v-else-if="item.order_status_id == 6 && item.delivery=='pickup' "> {{ $t('order.yiziti') }}</span>
-                <span v-else> {{ item.status_name }}</span>
+                <span v-else> <span v-if="$i18n.locale == 'en'">{{item.status_name_en}}</span><span v-else>{{item.status_name}}</span></span>
 
               </div>
             </div>
