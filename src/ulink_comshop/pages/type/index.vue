@@ -5,9 +5,9 @@
         <input @keypress="goResult" class="ipt" confirmType="搜索" :placeholder="$t('common.sousuoshangpin')"
                type="text" v-model="name"/>
         <div class="search-icon">
-          <span class="iconfont icon-sousuo1"></span>
+          <span class="iconfont icon-sousuo"></span>
         </div>
-        <div class="search-icon2" @click="clearSearch">
+        <div class="search-icon-type" @click="clearSearch">
              <img style="width: 4vw;height: 4vw;margin-top: 1vw"
                  src="@/assets/images/img-close.png"/>
         </div>
@@ -994,9 +994,10 @@
     padding-top: 5px;
   }
 
-  .search-icon2 {
+  .search-icon-type {
     position: absolute;
     right: 20px;
+    margin-top: 3px;
     margin-left: 13px;
     margin-right: 6px;
   }
