@@ -77,7 +77,7 @@
                     </div>
                     <div class="cart-item-content">
                       <div>
-                        <div class="title">{{shopcarts.title}}</div>
+                        <div class="title"><span v-if="$i18n.locale == 'en'">{{shopcarts.title_en}}</span><span v-else>{{shopcarts.title}}</span></div>
 
                         <div class="spec">{{shopcarts.goodstype}}</div>
                       </div>
@@ -150,7 +150,7 @@
                     </div>
                     <div class="cart-item-content">
                       <div>
-                        <div class="title">{{shopcarts.title}}</div>
+                        <div class="title"><span v-if="$i18n.locale == 'en'">{{shopcarts.title_en}}</span><span v-else>{{shopcarts.title}}</span></div>
                         <div class="spec">{{shopcarts.goodstype}}</div>
                       </div>
                       <i-vip-price :price="shopcarts.card_price"
@@ -241,7 +241,7 @@
                       </div>
                       <div class="cart-item-content">
                         <div>
-                          <div class="title">{{shopcarts.title}}</div>
+                          <div class="title"><span v-if="$i18n.locale == 'en'">{{shopcarts.title_en}}</span><span v-else>{{shopcarts.title}}</span></div>
                           <div class="spec">{{shopcarts.goodstype}}</div>
                         </div>
                         <div class="cart-item-content-bottom">
