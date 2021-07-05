@@ -1147,7 +1147,7 @@
 
                 wx.showModal({
                   title: '',
-                  content: 'Please select an ' + e.group_name,
+                  content: F.$t('index.qingxuanzeyigezitidian'),
                   showCancel: false,
                   confirmColor: '#8ED9D1',
                   success: function(t) {

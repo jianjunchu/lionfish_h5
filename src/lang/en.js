@@ -44,7 +44,8 @@ export default {
     jujieshu: 'Time to finish',
     jukaishi: 'Time to start',
     jieshushijian: 'Finish Time',
-    buxianshijian: 'No Time Limit'
+    buxianshijian: 'No Time Limit',
+    qingxuanzeyigezitidian: 'Please select a pick up point'
   },
   me: {
     wodedingdan: 'My Orders',
