@@ -77,7 +77,7 @@
                     </div>
                     <div class="cart-item-content">
                       <div>
-                        <div class="title">{{shopcarts.title}}</div>
+                        <div class="title"><span v-if="$i18n.locale == 'en'">{{shopcarts.title_en}}</span><span v-else>{{shopcarts.title}}</span></div>
 
                         <div class="spec">{{shopcarts.goodstype}}</div>
                         <div class="sale-price" v-if="shopcarts.is_presell ==1">{{$t('goodsinfo.yushoushijian')}}{{shopcarts.presell_date}}</div>
@@ -151,7 +151,7 @@
                     </div>
                     <div class="cart-item-content">
                       <div>
-                        <div class="title">{{shopcarts.title}}</div>
+                        <div class="title"><span v-if="$i18n.locale == 'en'">{{shopcarts.title_en}}</span><span v-else>{{shopcarts.title}}</span></div>
                         <div class="spec">{{shopcarts.goodstype}}</div>
                         <div class="sale-price" v-if="shopcarts.is_presell ==1">{{$t('goodsinfo.yushoushijian')}}{{shopcarts.presell_date}}</div>
                       </div>
@@ -243,7 +243,7 @@
                       </div>
                       <div class="cart-item-content">
                         <div>
-                          <div class="title">{{shopcarts.title}}</div>
+                          <div class="title"><span v-if="$i18n.locale == 'en'">{{shopcarts.title_en}}</span><span v-else>{{shopcarts.title}}</span></div>
                           <div class="spec">{{shopcarts.goodstype}}</div>
                         </div>
                         <div class="cart-item-content-bottom">

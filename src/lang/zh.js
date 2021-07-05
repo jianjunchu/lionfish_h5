@@ -44,7 +44,8 @@ export default {
     jujieshu: '距结束',
     jukaishi: 'Time 距开始',
     jieshushijian: '结束时间',
-    buxianshijian: '不限时间'
+    buxianshijian: '不限时间',
+    qingxuanzeyigezitidian: '请选择一个自提点'
   },
   me: {
     wodedingdan: '我的订单',
