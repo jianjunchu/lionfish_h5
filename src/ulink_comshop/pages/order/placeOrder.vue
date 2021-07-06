@@ -2210,7 +2210,7 @@
 
   .cart-item >>> .pre-title {
     width: 80vw;
-
+    color: red;
     font-weight: 600;
     font-size: 3vw;
   }
@@ -2219,11 +2219,11 @@
     width: 80vw;
     margin-top: 1.5vw;
     font-size: 2.5vw;
-
+    color: red;
   }
 
   .cart-item >>> .pre {
-    margin: 0vw 5vw 0;
+    margin: 0.5vw 0vw 0vw 0vw;
 
   }
 
