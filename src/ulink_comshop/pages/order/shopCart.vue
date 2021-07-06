@@ -494,10 +494,10 @@
       wx = this.$wx
       app = this.$getApp()
       this.$wx.setNavigationBarTitle({
-        title: "Cart",
+        title: this.$t('common.gouwuche'),
         showLogo:false,
         showMore:false,
-        showBack:false
+        showBack:true
       })
       status.setNavBgColor()
 
@@ -509,10 +509,10 @@
 
       var i = this;
       wx.setNavigationBarTitle({
-        title: 'Cart',
+        title: i.$t('common.gouwuche'),
         showLogo:false,
         showMore:false,
-        showBack:false
+        showBack:true
       })
       i.onShow();
       if(i.$refs.tabbar){
@@ -1652,7 +1652,7 @@
     white-space: nowrap;
   }
 
-  .fixed-bar >>>.cart-item-checkbox checkbox-group {
+  .fixed-bar >>>.cart-item-checkbox .checkbox-group {
     margin-right: 1vw;
   }
 

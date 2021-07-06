@@ -99,7 +99,7 @@
               <input @input="inputZipCode" class="receive-name"
                      placeholder="" type="" v-model="tabAddress[tabIdx].zipCode"></input>
             </div>
-            <div class="receiver align-start">
+            <div class="receiver">
               <span space="ensp">{{$t('order.dapaihao')}}</span>
               <input class="receive-name" placeholder=""
                      type="text" v-model="tabAddress[tabIdx].blk_no"></input>
@@ -110,7 +110,7 @@
                      type="" v-model="tabAddress[tabIdx].roadName"></input>
             </div>
 
-            <div class="receiver align-start">
+            <div class="receiver">
               <span space="ensp">{{$t('order.menpaihao')}}</span>
               <input class="receive-name" :placeholder="$t('order.liru106')"
                      type="text" v-model="tabAddress[tabIdx].lou_meng_hao" v-if="!showConfirmModal"></input>
@@ -156,7 +156,7 @@
             -->
           </div>
 
-          <div class="receiver align-start pickup-time">
+          <div class="receiver pickup-time">
             <span>{{tabIdx ==0 ? $t('cart.zitishijian') : $t('cart.songhuoshijian') }}</span>
             <input @click="showPickupTime" readonly
                    :placeholder="'Choose'+tabIdx ==0 ? $t('cart.xuanzeshijian') : $t('cart.xuanzeshijian')" type="text"
@@ -270,7 +270,8 @@
             <em>+ $ {{delivery_tuanz_money}}</em>
           </div>
           <div class="cell" v-if="tabIdx==2&&trans_free_toal>0">
-            <span>{{groupInfo.placeorder_trans_name}}</span>
+            <!-- <span>{{groupInfo.placeorder_trans_name}}</span> -->
+            <span>{{$t('cart.kuaisongfei')}}</span>
             <em>+ $ {{trans_free_toal}}</em>
           </div>
           <div class="cell" v-if="tabIdx!=0">
@@ -362,7 +363,8 @@
             <div avalonctrl="oc_payment" @click="ck_grabpay" class="oc-payment">
               <div :class="['oc-payment-item', ck_yupay==5?'oc-payment-selected':'']"
                 :style="ck_yupay==5?'color:#008517':'' ">
-                <span class="iconfont icon-grab-pay oc-payment-icon" ></span>
+                <!-- <span class="iconfont icon-grab-pay oc-payment-icon" ></span> -->
+                <img :src=" ck_yupay==5?require('@/assets/images/grab_selected.png'):require('@/assets/images/grab.png')" width="30vw">
                 <div class="oc-payment-method">GrabPay</div>
                 <!--<div class="oc-payment-recommend" :style="{'color':skin.color , 'border-color':skin.color}">推荐</div>-->
               </div>
@@ -371,7 +373,8 @@
             <div avalonctrl="oc_payment" @click="ck_reddotpay" class="oc-payment">
               <div :class="['oc-payment-item', ck_yupay==6?'oc-payment-selected':'']"
                    :style="ck_yupay==6?'color:#1c36c8':'' ">
-                <span class="iconfont icon-visa oc-payment-icon"></span>
+                <!-- <span class="iconfont icon-visa oc-payment-icon"></span> -->
+                <img :src=" ck_yupay==6?require('@/assets/images/creditcard_Selected.png'):require('@/assets/images/creditcard.png')" width="30vw">
                 <div class="oc-payment-method">Credit Cards</div>
                 <!--<div class="oc-payment-recommend" :style="{'color':skin.color , 'border-color':skin.color}">推荐</div>-->
               </div>
@@ -401,13 +404,15 @@
               <div avalonctrl="oc_payment" @click="ck_yupays" class="oc-payment" v-if="can_yupay">
                 <div :class="['oc-payment-item', ck_yupay ==1?'oc-payment-selected':'']"
                      :style="ck_yupay ==1?'color:'+skin.color:''">
-                  <span class="iconfont icon-balance oc-payment-icon" style="color:#ff5777;"></span>
+                  <!-- <span class="iconfont icon-balance oc-payment-icon" style="color:#ff5777;"></span> -->
+                  <img :src=" ck_yupay==1?require('@/assets/images/Balancepaid_selected.png'):require('@/assets/images/Balancepaid.png')" width="30vw">
                   <div class="oc-payment-method">{{ $t('order.yuezhifu',{p1:yu_money}) }}</div>
                 </div>
               </div>
               <div class="oc-payment" v-else>
                 <div class="oc-payment-item">
-                  <span class="iconfont icon-balance oc-payment-icon text-gray"></span>
+                  <!-- <span class="iconfont icon-balance oc-payment-icon text-gray"></span> -->
+                  <img :src=" ck_yupay==1?require('@/assets/images/Balancepaid_selected.png'):require('@/assets/images/Balancepaid.png')" width="30vw">
                   <div class="oc-payment-method">{{ $t('order.yuezhifu',{p1:yu_money}) }}</div>
                 </div>
               </div>
@@ -450,7 +455,7 @@
           </div>
           <div v-if="tabIdx==2" class="title"> This product is Direct Delivery.</div>
           <div class="sub-title">
-            <img src="@/assets/images/icon-give.png"/>
+            <img src="@/assets/images/Pickuptime.png" width="30vw"/>
 
             <div v-if="tabAddress[tabIdx].delivery_date_str && tabAddress[tabIdx].delivery_date_str!=''">
               <!-- <div>预计{{tabAddress[tabIdx].delivery_date_str}}可自提</div>  -->
@@ -795,7 +800,7 @@
             app = this.$getApp()
             wx = this.$wx
             this.$wx.setNavigationBarTitle({
-                title: "Place Order",
+                title: this.$t('common.querendingdan'),
                 showLogo: false,
                 showMore: false,
                 showBack: true
@@ -2411,7 +2416,7 @@
   .confirm-order-modal >>> .title {
     font-size: 3.5vw;
     color: #444;
-    line-height: 8.5vw;
+    line-height: 6vw;
     margin-bottom: 1vw;
     font-weight: 500;
   }
@@ -2446,8 +2451,8 @@
     padding: 0 4vw;
     margin-bottom: 1vw;
     display: flex;
-    font-size: 3vw;
-    line-height: 4vw;
+    font-size: 3.5vw;
+    line-height: 5vw;
     color: #444;
     box-sizing: border-box;
   }
@@ -2610,7 +2615,7 @@
     align-items: center;
     border-bottom: 0.1vw solid #efefef;
     line-height: 8vw;
-    font-size: 2.4vw;
+    font-size: 3.4vw;
     color: #444;
     padding: 0 3vw;
   }
@@ -3097,14 +3102,17 @@
   .pickup-time input::-webkit-input-placeholder {
     color: #ccc;
     font-style: italic;
+    font-weight: normal;
   }
   .pickup-time input::-moz-input-placeholder {
     color: #ccc;
     font-style: italic;
+    font-weight: normal;
   }
   .pickup-time input::-ms-input-placeholder {
     color: #ccc;
     font-style: italic;
+    font-weight: normal;
   }
 
   .to-distribution {

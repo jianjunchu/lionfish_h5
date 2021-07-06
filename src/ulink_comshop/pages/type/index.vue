@@ -5,7 +5,9 @@
         <input @keypress="goResult" class="ipt" confirmType="搜索" :placeholder="$t('common.sousuoshangpin')"
                type="text" v-model="name"/>
         <div class="search-icon">
-          <span class="iconfont icon-sousuo"></span>
+          <!-- <span class="iconfont icon-sousuo"></span> -->
+          <img style="width: 4vw;height: 4vw;margin-top: 1vw"
+           src="@/assets/images/searchicon.png"/>
         </div>
         <div class="search-icon-type" @click="clearSearch">
              <img style="width: 4vw;height: 4vw;margin-top: 1vw"
@@ -155,10 +157,10 @@
       wx = this.$wx
 
       wx.setNavigationBarTitle({
-        title: 'Type',
+        title: this.$t('common.fenlei'),
         showLogo:false,
         showMore:false,
-        showBack:false
+        showBack: true
       })
 
       const t = this.$route.query
@@ -171,10 +173,10 @@
       var i = this;
       this.$refs.list.scrollTop = this.$data.$data.scrollInfo
       wx.setNavigationBarTitle({
-        title: 'Type',
+        title: i.$t('common.fenlei'),
         showLogo:false,
         showMore:false,
-        showBack:false
+        showBack: true
       })
 
       if(i.$refs.tabbar){
@@ -975,7 +977,7 @@
     background-color: #f0f0f0;
     height: 28px;
     line-height: 28px;
-    border-radius: 14px;
+    border-radius: 40px;
     color: #acacac;
     display: flex;
     align-content: center;

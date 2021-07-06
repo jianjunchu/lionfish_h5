@@ -98,18 +98,16 @@
           </span>
         </div>
         <div class="time" v-if="is_close_details_time==0">
-          <div v-if="goods.over_type==1">{{$t('common.jujieshu')}}</div>
+          <div v-if="goods.over_type==1 && goods.end_time!=0">{{$t('common.jujieshu')}}</div>
           <div class="endAct" v-if="goods.over_type==0">{{$t('common.jukaishi')}}</div>
           <div class="endAct" v-if="goods.over_type==2">{{$t('common.jieshushijian')}}</div>
           <div class="endAct" v-if="goods.over_type==2">{{goods.end_date}}</div>
           <div class="countdown-class i-count-down" v-else>
-            <!--
-                        <span v-if="goods.end_time==0" class="item-class">{{$t('common.buxianshijian')}}</span>
-                        <em v-if="goods.end_time!=0 && endtime.days>0">{{endtime.days}} Days</em>
-                        <span v-if="goods.end_time!=0" class="item-class">{{endtime.hours}} :</span>
-                        <span v-if="goods.end_time!=0"class="item-class">{{endtime.minutes}}:</span>
-                        <span v-if="goods.end_time!=0"class="item-class">{{endtime.seconds}}</span>
-            -->
+            <span v-if="goods.end_time==0" class="item-class">{{$t('common.buxianshijian')}}</span>
+            <em v-if="goods.end_time!=0 && endtime.days>0">{{endtime.days}} Days</em>
+            <span v-if="goods.end_time!=0" class="item-class">{{endtime.hours}} :</span>
+            <span v-if="goods.end_time!=0"class="item-class">{{endtime.minutes}}:</span>
+            <span v-if="goods.end_time!=0"class="item-class">{{endtime.seconds}}</span>
           </div>
         </div>
       </div>
@@ -764,7 +762,7 @@
         app = this.$getApp();
         wx = this.$wx;
       this.$wx.setNavigationBarTitle({
-        title: 'Product Details',
+        title: this.$t('common.shangpinxiangqing'),
         showLogo: false,
         showMore: false,
         showBack: true

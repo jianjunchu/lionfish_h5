@@ -126,7 +126,14 @@ export default {
     gong: '共',
     zhanshimeiyoutuangou: '暂时没有团购',
     qingqiushibai: '请求失败',
-    zanwurenhejilu: '暂无任何记录～'
+    zanwurenhejilu: '暂无任何记录～',
+    lang: '中文',
+    shouye: '首页',
+    fenlei: '分类',
+    gouwuche: '购物车',
+    wode: '我的',
+    querendingdan: '确认订单',
+    shangpinxiangqing: '商品详情'
   },
   host: {
     shuruxinxi: '请填写姓名、手机号等相关信息',
@@ -361,7 +368,8 @@ export default {
     haoburongyi: '好不容易挑出来，确定要取消吗？',
     quxiaochenggong: '取消成功',
     manjian: '满减',
-    yijian: '已减'
+    yijian: '已减',
+    kuaisongfei: '快送费'
   },
   type: {
     yijingdingbu: '已经拉到最顶部啦～',

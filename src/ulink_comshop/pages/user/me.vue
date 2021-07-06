@@ -585,7 +585,7 @@
       app = this.$getApp()
       wx = this.$wx
       wx.setNavigationBarTitle({
-        title: 'Me',
+        // title: this.$t('common.wode'),
         showLogo: false,
         showMore: false,
         showBack: false
@@ -599,7 +599,7 @@
               i.$refs.tabbar.switchTab();
           }
           wx.setNavigationBarTitle({
-              title: 'Me',
+              // title: i.$t('common.wode'),
               showLogo: false,
               showMore: false,
               showBack: false
@@ -1277,7 +1277,7 @@
     font-weight: bold;
     display: flex;
     align-items: center;
-    margin-left: 70px;
+    margin-left: 80px;
     margin-top: -40px;
   }
 

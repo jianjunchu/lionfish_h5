@@ -982,7 +982,7 @@ button[plain] {
   background-color: #f0f0f0;
   height: 9vw;
   line-height: 9vw;
-  border-radius: 2.8vw;
+  border-radius: 40px;
   color: #acacac;
   display: flex;
   align-content: center;

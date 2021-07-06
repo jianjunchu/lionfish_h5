@@ -170,5 +170,6 @@
     font-size: 3.5vw;
     line-height: 5vw;
     z-index: 0;
+    margin: 0 1vw;
   }
 </style>

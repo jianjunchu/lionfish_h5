@@ -135,7 +135,14 @@ export default {
     haoyou: 'Friends',
     fanhuishouye: 'Back to Homepage',
     qingqiushibai: 'Request Failed',
-    zanwurenhejilu: 'No Records'
+    zanwurenhejilu: 'No Records',
+    lang: 'EN',
+    shouye: 'Home',
+    fenlei: 'Category',
+    gouwuche: 'Cart',
+    wode: 'Me',
+    querendingdan: 'Order Confirm',
+    shangpinxiangqing: 'Product Details'
   },
   host: {
     shuruxinxi: 'Your Details',
@@ -374,7 +381,8 @@ export default {
     haoburongyi: 'Are you sure?',
     quxiaochengggong: 'Cancel Successful',
     manjian: 'Discount',
-    yijian: 'Discount'
+    yijian: 'Discount',
+    kuaisongfei: 'Freight'
   },
   type: {
     yijingdingbu: 'Already on the top～',

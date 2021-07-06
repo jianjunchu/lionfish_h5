@@ -82,7 +82,9 @@
               <input @keypress="goResult" class="ipt" confirmType="搜索" :placeholder="$t('index.search')" type="search"
                      v-model="searchName"></input>
               <div class="search-icon">
-                <div class="iconfont icon-sousuo"></div>
+                <!-- <span class="iconfont icon-sousuo"></span> -->
+                <img style="width: 5vw;height: 5vw;margin-top: 2vw"
+                 src="@/assets/images/searchicon.png"/>
               </div>
               <div class="search-icon2" @click="clearSearch">
                 <img style="width: 5vw;height: 5vw;margin-top: 2vw"
@@ -954,7 +956,7 @@
       wx = this.$wx;
 
       wx.setNavigationBarTitle({
-        title: this.shop_info.shoname,
+        // title: this.shop_info.shoname,
         logo: this.shop_info.logo,
         showLogo: true,
         showMore: false,
@@ -1192,7 +1194,7 @@
             F.$getApp().globalData.placeholdeImg = a.index_loading_image || ''
             var g = a.index_loading_image || ''
             wcache.put('shopname', a.shoname), wx.setNavigationBarTitle({
-              title: a.shoname,
+              // title: a.shoname,
               logo: a.shoplogo_h5,
               showLogo: true,
               showMore: false,

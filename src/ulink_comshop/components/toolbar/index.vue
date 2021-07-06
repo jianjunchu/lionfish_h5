@@ -1,17 +1,20 @@
 <template>
   <div class="vux-header" :style="{background:navBgColor}">
     <div class="vux-header-left" v-if="getShowToolbarBack" @click.stop="back"><a class="vux-header-back"></a>
-      <div class="left-arrow"></div>
+      <div class="left-arrow"></div> <span>{{getToolbarTitle}}</span>
+    </div>
+    <div class="vux-header-left" v-else>
+      <span>{{getToolbarTitle}}</span>
     </div>
     <div class="vux-header-left-logo" v-if="getShowToolbarLogo"><a class="vux-header-back"></a>
-      <img :src="getToolbarLogo" height="32px"/>
+      <img :src="getToolbarLogo" height="48px"/>
     </div>
     <h2 class="vux-header-title">
       <!-- <span>{{getToolbarTitle}}</span> -->
     </h2>
     <div class="vux-header-right" v-if="getShowToSolbarMore"><a class="vux-header-more"></a></div>
-    <div class="vux-header-right" @click="changeLang" >
-      <img class="change-lang" src="@/assets/images/change-lang.png"/>
+    <div class="vux-header-right" @click="changeLang">
+      {{$t('common.lang')}} <img class="change-lang" src="@/assets/images/language.png"/>
     </div>
   </div>
 </template>
@@ -96,7 +99,6 @@
 
   .vux-header .vux-header-left-logo {
     position: absolute;
-    top: 10px;
     display: block;
     font-size: 14px;
     color: #fff;
@@ -122,7 +124,7 @@
   }
   .vux-header .vux-header-left {
     left: 18px;
-    width: 30px;
+    width: 150px;
   }
   .vux-header .vux-header-left .vux-header-back {
     padding-left: 16px
@@ -146,6 +148,7 @@
    }
   }
   .vux-header .vux-header-right {
+    width: 60px;
     right: 15px
   }
   .vux-header .vux-header-right a,.vux-header .vux-header-right button {
@@ -183,13 +186,19 @@
     }
   }
 
-  .mart-logo {
-    height: 50px;
+  .vux-header .vux-header-left span {
+    position: absolute;
+    vertical-align: middle;
+    left: 25px;
   }
 
-  .change-lang {
-    height: 30px;
-    position: relative;
-    top: -5px;
+  .vux-header .vux-header-right span{
+    color: #fff;
+    vertical-align: middle;
+  }
+
+  .vux-header .vux-header-right .change-lang {
+    height: 24px;
+    vertical-align: middle;
   }
 </style>
