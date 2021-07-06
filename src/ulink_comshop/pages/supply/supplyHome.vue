@@ -951,7 +951,7 @@
                 let token = wx.getStorageSync('token');
                 let url = encodeURIComponent(window.location.href);
 
-
+                wx.showLoading();
                 app.util.request({
                     url: "entry/wxapp/user",
                     data: {
@@ -962,7 +962,7 @@
                     },
                     dataType: "json",
                     success: function(t) {
-
+                        wx.hideLoading();
                         location  =  'whatsapp://send?text=' + encodeURIComponent(that.info.shopname) + encodeURIComponent('\n\n' +  t.url)
 
                     }

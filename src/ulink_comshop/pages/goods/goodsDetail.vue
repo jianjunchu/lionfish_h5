@@ -1444,7 +1444,7 @@
           let token = this.$wx.getStorageSync('token');
           let url = encodeURIComponent(window.location.href);
          let goods_id = this.order.goods_id;
-
+          wx.showLoading();
           this.$app.util.request({
               url: "entry/wxapp/user",
               data: {
@@ -1455,6 +1455,7 @@
               },
               dataType: "json",
               success: function(t) {
+                  wx.hideLoading();
                   location = 'whatsapp://send?text=' + encodeURIComponent(text) + encodeURIComponent('\n\n' + t.url) + '&via=lopscoop'
               }
           });
