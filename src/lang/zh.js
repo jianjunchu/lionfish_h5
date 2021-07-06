@@ -184,7 +184,10 @@ export default {
     gongli: '公里',
     shurushequming: '请输入社区名或邮编',
     zitidian: '自提点',
-    cengyong: '曾用'
+    cengyong: '曾用',
+    tongzhitihuo: '通知提货',
+    tongzhitihuochenggong: '通知提货发送成功',
+    tongzhitihuoshibai: '通知提货发送失败'
   },
   detail: {
     huishouye: '回首页',
