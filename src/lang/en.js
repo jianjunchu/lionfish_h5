@@ -193,7 +193,10 @@ export default {
     gongli: 'km',
     shurushequming: 'Search by estate name or postal code',
     zitidian: 'Collection Point',
-    cengyong: 'Used'
+    cengyong: 'Used',
+    tongzhitihuo: 'Collection Notice',
+    tongzhitihuochenggong: 'Send Collection Notice Successful',
+    tongzhitihuoshibai: 'Send Collection Notice Failed'
   },
   detail: {
     huishouye: 'Home',

@@ -178,6 +178,13 @@
             </div>
           </a>
 
+          <div @click="collection_notice">
+            <div class="recordList">
+              <span class="recordListTit">{{$t('host.tongzhitihuo')}}</span>
+              <img class="rightArrowImg" src="@/assets/images/rightArrowImg.png"/>
+            </div>
+          </div>
+
           <!--<a hoverClass="none" style="display:none;" href="#/ulink_comshop/pages/groupCenter/settlementList">-->
             <!--<div class="recordList borNone">-->
               <!--<span class="recordListTit">{{$t('host.jiesuanjilu')}}</span>-->
@@ -436,6 +443,26 @@
           url: link
         })
       },
+      collection_notice: function() {
+        var that = this
+        var e = this.$wx.getStorageSync("token");
+        this.$http({
+            controller: "community.bulk_sms_notice",
+            token: e
+          }).then(t=> {
+            if (0 == t.code) {
+              that.$wx.showToast({
+                title: "Send Collection Notice Successful",
+                icon: "none"
+              });
+            } else {
+              that.$wx.showToast({
+                title: "Send Collection Notice Failed",
+                icon: "none"
+              });
+            }
+        });
+      }
     }
   }
 </script>
