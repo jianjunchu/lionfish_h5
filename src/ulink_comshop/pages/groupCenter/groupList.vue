@@ -42,6 +42,8 @@
             </div>
             <div class="orderDate">
               <span>Member Order Date：{{item.createTime}}</span>
+              <span class="black" v-if="item.delivery == 'pickup'">To Host Location</span>
+              <span class="black" v-else>Direct Delivery</span>
               <!-- <span :class="[(item.order_status_id==11?'black':''), 'statusName']">{{item.status_name}}</span> -->
             </div>
             <div class=""  v-for="(goods,idx) in item.goods_list" :key="goods.order_goods_id">
@@ -801,6 +803,10 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+  }
+
+  .orderDate .black {
+    color: #aaa;
   }
 
 </style>
