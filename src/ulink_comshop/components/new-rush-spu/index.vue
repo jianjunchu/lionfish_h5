@@ -78,8 +78,8 @@
           </div>
           <i-input-number addImage="@/assets/images/icon-add-2.png" @change="changeNumber" @outOfMax="outOfMax" iClass="index-input-number" iClassNumberText="input-number-span" :max="spuItem.spuCanBuyNum" min="0" reduceImage="@/assets/images/icon-reduce-2.png" :value="number" v-else></i-input-number>
         </div>
-        <div class="mask" v-if="isPast||disabled||spuItem.spuCanBuyNum==0?'disabled':''"></div>
-        <div class="act-end act-out" v-if="spuItem.spuCanBuyNum==0">{{$t('home.yiqiangguang')}}</div>
+        <div class="mask" v-if="isPast||disabled||spuItem.spuCanBuyNum<=0?'disabled':''"></div>
+        <div class="act-end act-out" v-if="spuItem.spuCanBuyNum<=0">{{$t('home.yiqiangguang')}}</div>
         <div class="act-end" v-else-if="actEnd" v-show="false">{{$t('home.tuangouyijieshu')}}</div>
       </router-link>
       <div class="picktime" v-if="showPickTime">
