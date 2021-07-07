@@ -17,7 +17,7 @@
     </div>
     <div class="page-content" v-if="!noCateList">
       <div class="scrollY page-category" :scrollTop="categoryScrollBarTop">
-        <div @click="changeCategory(index)" :data-index="index"
+        <div  @touchstart.prevent="touchinCategory(index)" @touchend.prevent="cleartimeCategory(index)" :data-index="index"
              :class="[rushCategoryData.activeIndex===index?'category-item active':'category-item']"
              v-for="(item,index) in rushCategoryData.tabs" :key="index">
           <div class="item-border"></div>
@@ -29,7 +29,7 @@
       <div class="sub-cate" v-if="rushCategoryData.tabs[rushCategoryData.activeIndex] && rushCategoryData.tabs[rushCategoryData.activeIndex].sub && rushCategoryData.tabs[rushCategoryData.activeIndex].sub.length">
         <div class="sub-cate-scroll scrollX">
           <div @click.stop="change_sub_cate" class="sub-cate-item" :data-id="rushCategoryData.tabs[rushCategoryData.activeIndex].id" :data-idx="0" :style="active_sub_index==0?'color:'+skin.color:''"><span v-if="$i18n.locale == 'en'">All</span><span v-else>全部</span></div>
-          <div @click.stop="change_sub_cate" class="sub-cate-item" :data-id="item.id" :data-idx="index+1" :style="active_sub_index==index+1?'color:'+skin.color:''" v-for="(item,index) in rushCategoryData.tabs[rushCategoryData.activeIndex].sub" :key="item.id"><span v-if="$i18n.locale == 'en'">{{item.name_en}}</span><span v-else>{{item.name}}</span></div>
+          <div @touchstart.prevent="touchinSubCategory" @touchend.prevent="cleartimeSubCategory" class="sub-cate-item" :data-id="item.id" :data-idx="index+1" :style="active_sub_index==index+1?'color:'+skin.color:''" v-for="(item,index) in rushCategoryData.tabs[rushCategoryData.activeIndex].sub" :key="item.id"><span v-if="$i18n.locale == 'en'">{{item.name_en}}</span><span v-else>{{item.name}}</span></div>
         </div>
         <!-- <div @click="showDrop" class="icon-open">
             <img class="openImg " src="@/assets/images/commentsOpen.png">
@@ -104,6 +104,8 @@
     data() {
 
       return {
+          Loop:0,
+          LoopSub:0,
         cartNum: 0,
         rushCategoryData: {
           tabs: [],
@@ -705,26 +707,28 @@
             }
           })
         })
-      }
-      ,
+      },
+
       change_sub_cate: function(t) {
-        var a = this.rushCategoryData, e = a.tabs, o = a.activeIndex, i = t.currentTarget.dataset.idx, s = e[o].id,
-          r = t.currentTarget.dataset.id || s, n = this.getPx(64) * i
-        console.log(i)
-        var d = this
-        d.$data.$data.pageNum = 1, d.$data.$data.rushCategoryId = r, (
-          d.showDrop = !1,
-            d.active_cate_id = r,
-            d.active_sub_index = i,
-            d.rushList = [],
-            d.scrollLeft = n,
-            d.showEmpty = !1,
-            d.loadMore = !0,
-            d.loadText = '加载中',
-            d.resetScrollBarTop = 50, d.getHotList()
-        )
-      }
-      ,
+        var a = this.rushCategoryData, e = a.tabs, o = a.activeIndex, s = e[o].id, i = t.currentTarget.dataset.idx, s = e[o].id, r = t.currentTarget.dataset.id || s;
+
+        this.change_sub_cate_do(i,r);
+      },
+        change_sub_cate_do: function(i,r) {
+            var a = this.rushCategoryData, e = a.tabs, o = a.activeIndex,  n = this.getPx(64) * i;
+            console.log(i)
+            var d = this;
+            d.$data.$data.pageNum = 1, d.$data.$data.rushCategoryId = r,
+                d.showDrop = !1,
+                    d.active_cate_id = r,
+                    d.active_sub_index = i,
+                    d.rushList = [],
+                    d.scrollLeft = n,
+                    d.showEmpty = !1,
+                    d.loadMore = !0,
+                    d.loadText = '加载中',
+                    d.resetScrollBarTop = 50, d.getHotList()
+        },
       show_search: function() {
         wx.navigateTo({
           url: '/ulink_comshop/pages/type/search'
@@ -861,12 +865,80 @@
       closeSku: function() {
         this.visible = 0
         this.stopClick = !1
-      }
-      ,
-      changeCartNum: function(t) {
+      },
+        touchinCategory(index){
+            var that=this;
+            this.Loop = setTimeout(function() {
+                that.Loop = 0;
+                let e = that.rushCategoryData;
+                let o = e.tabs[index];
+                let href = window.location.href+"?id="+o.id;
+                that.$copyText(href).then(
+                    function(e) {
+                        console.log("copy arguments e:", e);
+                        alert("复制成功!");
+                    },
+                    function(e) {
+                        console.log("copy arguments e:", e);
+
+                    }
+                );
+
+
+
+            }, 1000);
+            return false;
+
+        },
+        cleartimeCategory(index) {
+            var that=this;
+            clearTimeout(this.Loop);
+            if(that.Loop!=0){
+               this.changeCategory(index);
+            }
+            return false;
+
+        },
+        touchinSubCategory(t){
+            var that=this;
+            let i = t.currentTarget.dataset.idx
+            this.LoopSub = setTimeout(function() {
+                that.LoopSub = 0;
+                let e = that.rushCategoryData;
+                let index = e.activeIndex
+                let o = e.tabs[index].sub[i];
+                let href = window.location.href+"?id="+o.id;
+                that.$copyText(href).then(
+                    function(e) {
+                        console.log("copy arguments e:", e);
+                        alert("复制成功!");
+                    },
+                    function(e) {
+                        console.log("copy arguments e:", e);
+
+                    }
+                );
+
+
+            }, 1000);
+            return false;
+
+        },
+        cleartimeSubCategory(t) {
+            var that=this;
+
+            clearTimeout(this.LoopSub);
+            if(that.LoopSub!=0){
+                var a = this.rushCategoryData, e = a.tabs, o = a.activeIndex, s = e[o].id, i = t.currentTarget.dataset.idx, s = e[o].id, r = t.currentTarget.dataset.id || s;
+                that.change_sub_cate_do(i,r)
+            }
+            return false;
+
+        },
+
+        changeCartNum: function(t) {
         this.cartNum = t
-      }
-      ,
+      },
       onShareAppMessage: function() {
         var t = wx.getStorageSync('community').communityId || '', a = wx.getStorageSync('member_id') || ''
         return console.log('ulink_comshop/pages/type/index?community_id=' + t + '&share_id=' + a),
