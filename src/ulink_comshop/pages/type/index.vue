@@ -186,6 +186,7 @@
       const t = this.$route.query
       if (t.id != 'undefined' && t.id > 0) {
         app.globalData.typeCateId = t.id
+        this.onLoad()
         this.onShow()
       }
     },
