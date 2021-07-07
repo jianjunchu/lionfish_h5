@@ -46,7 +46,7 @@
         <div v-if="!isPast">
           <div v-if="number<=0">
 
-            <i-button iClass="add-cart" v-if="spuItem.spuCanBuyNum==0||actEnd||spuItem.is_coming">
+            <i-button iClass="add-cart" v-if="spuItem.spuCanBuyNum<=0||actEnd||spuItem.is_coming">
               <img class="img" src="@/assets/images/icon-add-shopCart-disabled.png"/>
             </i-button>
             <i-button @handleTap="openSku" iClass="add-cart" v-else>
