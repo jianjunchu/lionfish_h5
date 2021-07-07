@@ -873,7 +873,12 @@
                 that.Loop = 0;
                 let e = that.rushCategoryData;
                 let o = e.tabs[index];
-                let href = window.location.href+"?id="+o.id;
+                let href = '';
+                if (window.location.href.indexOf('?') != -1) {
+                  href = window.location.href.substring(0,window.location.href.indexOf('?'))+"?id="+o.id;
+                } else {
+                  href = window.location.href+"?id="+o.id;
+                }
                 that.$copyText(href).then(
                     function(e) {
                         console.log("copy arguments e:", e);
@@ -902,13 +907,18 @@
         },
         touchinSubCategory(t){
             var that=this;
-            let i = t.currentTarget.dataset.idx
+            let i = t.currentTarget.dataset.idx - 1
             this.LoopSub = setTimeout(function() {
                 that.LoopSub = 0;
                 let e = that.rushCategoryData;
                 let index = e.activeIndex
                 let o = e.tabs[index].sub[i];
-                let href = window.location.href+"?id="+o.id;
+                let href = '';
+                if (window.location.href.indexOf('?') != -1) {
+                  href = window.location.href.substring(0,window.location.href.indexOf('?'))+"?id="+o.id;
+                } else {
+                  href = window.location.href+"?id="+o.id;
+                }
                 that.$copyText(href).then(
                     function(e) {
                         console.log("copy arguments e:", e);
