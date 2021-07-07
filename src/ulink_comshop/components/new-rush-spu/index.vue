@@ -66,7 +66,7 @@
         </div>
         <div v-if="!isPast">
           <div v-if="number<=0">
-            <i-button iClass="add-cart" class="add-cart" v-if="disabled||spuItem.spuCanBuyNum==0||actEnd">
+            <i-button iClass="add-cart" class="add-cart" v-if="disabled||spuItem.spuCanBuyNum<=0||actEnd">
               <img class="img" src="@/assets/images/icon-add-shopCart-disabled.png"></img>
             </i-button>
             <div @click.stop.prevent="openSku" iClass="card-btn" class="card-btn" v-if="spuItem.is_presell && spuItem.is_presell == 1">
@@ -78,8 +78,8 @@
           </div>
           <i-input-number addImage="@/assets/images/icon-add-2.png" @change="changeNumber" @outOfMax="outOfMax" iClass="index-input-number" iClassNumberText="input-number-span" :max="spuItem.spuCanBuyNum" min="0" reduceImage="@/assets/images/icon-reduce-2.png" :value="number" v-else></i-input-number>
         </div>
-        <div class="mask" v-if="isPast||disabled||spuItem.spuCanBuyNum==0?'disabled':''"></div>
-        <div class="act-end act-out" v-if="spuItem.spuCanBuyNum==0">{{$t('home.yiqiangguang')}}</div>
+        <div class="mask" v-if="isPast||disabled||spuItem.spuCanBuyNum<=0?'disabled':''"></div>
+        <div class="act-end act-out" v-if="spuItem.spuCanBuyNum<=0">{{$t('home.yiqiangguang')}}</div>
         <div class="act-end" v-else-if="actEnd" v-show="false">{{$t('home.tuangouyijieshu')}}</div>
       </router-link>
       <div class="picktime" v-if="showPickTime">

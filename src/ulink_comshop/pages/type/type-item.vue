@@ -46,7 +46,7 @@
         <div v-if="!isPast">
           <div v-if="number<=0">
 
-            <i-button iClass="add-cart" v-if="spuItem.spuCanBuyNum==0||actEnd||spuItem.is_coming">
+            <i-button iClass="add-cart" v-if="spuItem.spuCanBuyNum<=0||actEnd||spuItem.is_coming">
               <img class="img" src="@/assets/images/icon-add-shopCart-disabled.png"/>
             </i-button>
             <i-button @handleTap="openSku" iClass="add-cart" v-else>
@@ -55,7 +55,7 @@
           </div>
           <i-input-number addImage="@/assets/images/icon-add-2.png" @change="changeNumber" @outOfMax="outOfMax" iClass="index-input-number" iClassNumberText="input-number-text" iNumberImg="iNumberImg" iNumberView="iNumberView" :max="spuItem.spuCanBuyNum" min="0" reduceImage="@/assets/images/icon-reduce-2.png" :value="number" v-else></i-input-number>
         </div>
-        <span class="mask-icon-out" v-if="spuItem.spuCanBuyNum==0"><img src="@/assets/images/sold-out.png"/></span>
+        <span class="mask-icon-out" v-if="spuItem.spuCanBuyNum<=0"><img src="@/assets/images/sold-out.png"/></span>
         <span class="mask-icon-coming" v-if="spuItem.is_coming"><img src="@/assets/images/coming-soon.png"/></span>
         <span class="act-end" v-else-if="actEnd">团购已结束</span>
       </router-link>

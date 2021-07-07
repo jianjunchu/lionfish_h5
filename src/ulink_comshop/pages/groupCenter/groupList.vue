@@ -36,11 +36,17 @@
         </div>
         <div v-else>
           <div class="item" v-for="(item,idx) in order" :key="item.order_id">
+            <div class="orderNum">
+              <span>Order Num：{{item.order_num_alias}}</span>
+              <span :class="[(item.order_status_id==11?'black':''), 'statusName']">{{item.status_name}}</span>
+            </div>
+            <div class="orderDate">
+              <span>Member Order Date：{{item.createTime}}</span>
+              <span class="black" v-if="item.delivery == 'pickup'">To Host Location</span>
+              <span class="black" v-else>Direct Delivery</span>
+              <!-- <span :class="[(item.order_status_id==11?'black':''), 'statusName']">{{item.status_name}}</span> -->
+            </div>
             <div class=""  v-for="(goods,idx) in item.goods_list" :key="goods.order_goods_id">
-              <div class="orderNum">
-                <span>Member Order Date：{{item.createTime}}</span>
-                <span :class="[(item.order_status_id==11?'black':''), 'statusName']">{{item.status_name}}</span>
-              </div>
               <div class="spu">
                 <img class="i-class goodsImg" mode="widthFix" :src="goods.goods_images"/>
                 <div class="detail">
@@ -625,11 +631,10 @@
   }
 
   .orderNum {
-    height: 40px;
+    height: 30px;
     font-size: 13px;
     color: #333;
     padding: 0 15px;
-    border-bottom: 0.5px solid #efefef;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -787,6 +792,21 @@
     font-size: 15px!important;
     height: 34px!important;
     line-height: 34px!important;
+  }
+
+  .orderDate {
+    height: 30px;
+    font-size: 13px;
+    color: #333;
+    padding: 0 15px;
+    border-bottom: 0.5px solid #efefef;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .orderDate .black {
+    color: #aaa;
   }
 
 </style>

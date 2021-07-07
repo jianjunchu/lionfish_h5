@@ -4,7 +4,7 @@
       <van-list  @load="getData" class="list">
         <i-type-item :actEnd="item.actEnd" @authModal="authModal" @changeCartNum="changeCartNum"
                      @openSku="openSku" @vipModal="vipModal" :needAuth="needAuth" :reduction="reduction"
-                     :spuItem="item" :stopClick="stopClick" v-for="(item , index ) in rushList" :key="item.actId" :enabledFrontSupply="enabledFrontSupply"></i-type-item>
+                     :spuItem="item" :stopClick="stopClick" v-for="(item , index ) in rushList" :key="item.actId" :enabledFrontSupply="enabledFrontSupply" :isShowListCount="isShowListCount" :skin="skin"></i-type-item>
 
       </van-list>
 
@@ -113,7 +113,8 @@
         showVipModal:false,
         cur_sku_arr:[],
         skuList:[],
-        enabledFrontSupply: 0
+        enabledFrontSupply: 0,
+        isShowListCount: 0
       }
     },
     created: function() {
@@ -385,6 +386,25 @@
             }
           }
         })
+      },
+      get_index_info: function() {
+        let that = this;
+        let community = wx.getStorageSync('community');
+        let communityId = community && community.communityId || '';
+        let token = wx.getStorageSync('token');
+        app.util.request({
+          url: 'entry/wxapp/index',
+          data: {
+            controller: 'index.index_info',
+            communityId,
+            token
+          },
+          dataType: 'json',
+          success: function(res) {
+            let isShowListCount = res.is_show_list_count || 0;
+            that.isShowListCount = isShowListCount;
+          }
+        });
       },
     }
 

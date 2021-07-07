@@ -952,8 +952,9 @@
 
         this.$wx.removeStorageSync('community')
         this.$wx.removeStorageSync('token')
-        this.onLoad()
-        this.onShow()
+        location.reload();
+        // this.onLoad()
+        // this.onShow()
 //         this.$wx.redirectTo({
 //           url: '/ulink_comshop/pages/user/me',
 //         });
