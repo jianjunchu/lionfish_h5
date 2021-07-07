@@ -82,6 +82,10 @@ import '@/permission' // permission control
 
 import VueAMap from 'vue-amap'
 Vue.use(VueAMap)
+
+import VueClipBoard from 'vue-clipboard2'
+Vue.use(VueClipBoard);
+
 VueAMap.initAMapApiLoader({
   // 高德的key
   key: '0a0885f588aeb852302f18f8633eb61b',
