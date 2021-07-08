@@ -17,7 +17,7 @@
     </div>
     <div class="page-content" v-if="!noCateList">
       <div class="scrollY page-category" :scrollTop="categoryScrollBarTop">
-        <div  @touchstart.prevent="touchinCategory(index)" @touchend.prevent="cleartimeCategory(index)" :data-index="index"
+        <div  @click.prevent="changeCategory(index)"  :data-index="index"
              :class="[rushCategoryData.activeIndex===index?'category-item active':'category-item']"
              v-for="(item,index) in rushCategoryData.tabs" :key="index">
           <div class="item-border"></div>
@@ -29,7 +29,7 @@
       <div class="sub-cate" v-if="rushCategoryData.tabs[rushCategoryData.activeIndex] && rushCategoryData.tabs[rushCategoryData.activeIndex].sub && rushCategoryData.tabs[rushCategoryData.activeIndex].sub.length">
         <div class="sub-cate-scroll scrollX">
           <div @click.stop="change_sub_cate" class="sub-cate-item" :data-id="rushCategoryData.tabs[rushCategoryData.activeIndex].id" :data-idx="0" :style="active_sub_index==0?'color:'+skin.color:''"><span v-if="$i18n.locale == 'en'">All</span><span v-else>全部</span></div>
-          <div @touchstart.prevent="touchinSubCategory" @touchend.prevent="cleartimeSubCategory" class="sub-cate-item" :data-id="item.id" :data-idx="index+1" :style="active_sub_index==index+1?'color:'+skin.color:''" v-for="(item,index) in rushCategoryData.tabs[rushCategoryData.activeIndex].sub" :key="item.id"><span v-if="$i18n.locale == 'en'">{{item.name_en}}</span><span v-else>{{item.name}}</span></div>
+          <div @click.stop="change_sub_cate"  class="sub-cate-item" :data-id="item.id" :data-idx="index+1" :style="active_sub_index==index+1?'color:'+skin.color:''" v-for="(item,index) in rushCategoryData.tabs[rushCategoryData.activeIndex].sub" :key="item.id"><span v-if="$i18n.locale == 'en'">{{item.name_en}}</span><span v-else>{{item.name}}</span></div>
         </div>
         <!-- <div @click="showDrop" class="icon-open">
             <img class="openImg " src="@/assets/images/commentsOpen.png">
@@ -583,7 +583,8 @@
                     if (y.compareTime(a[i].begin_time,now)) {
                       a[i].is_coming=true;
                     } else {
-                      a[i].is_coming=false;
+                        //a[i].is_coming=false;
+                      a[i].is_coming=true;//预售可以下单
                     }
                   }
                 }
@@ -867,32 +868,25 @@
         this.stopClick = !1
       },
         touchinCategory(index){
-            var that=this;
-            this.Loop = setTimeout(function() {
-                that.Loop = 0;
-                let e = that.rushCategoryData;
-                let o = e.tabs[index];
-                let href = '';
-                if (window.location.href.indexOf('?') != -1) {
-                  href = window.location.href.substring(0,window.location.href.indexOf('?'))+"?id="+o.id;
-                } else {
-                  href = window.location.href+"?id="+o.id;
+
+            let e = that.rushCategoryData;
+            let o = e.tabs[index];
+            let href = '';
+            if (window.location.href.indexOf('?') != -1) {
+                href = window.location.href.substring(0,window.location.href.indexOf('?'))+"?id="+o.id;
+            } else {
+                href = window.location.href+"?id="+o.id;
+            }
+            that.$copyText(href).then(
+                function(e) {
+                    console.log("copy arguments e:", e);
+                    alert("复制成功!");
+                },
+                function(e) {
+                    console.log("copy arguments e:", e);
+
                 }
-                that.$copyText(href).then(
-                    function(e) {
-                        console.log("copy arguments e:", e);
-                        alert("复制成功!");
-                    },
-                    function(e) {
-                        console.log("copy arguments e:", e);
-
-                    }
-                );
-
-
-
-            }, 1000);
-            return false;
+            );
 
         },
         cleartimeCategory(index) {
