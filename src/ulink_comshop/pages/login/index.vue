@@ -60,7 +60,7 @@
 	 	<div style="height: 50px;">
 		 <div style="width: 100%;height:28px;border-bottom:1px solid #ccc;font-size: 12px;color: #3D7BD0;" >
 		 <input type="number" style="width: 70%;height: 100%;border:none;outline: none;background: none;" v-model="logoCode" id="input_code"  @blur="blur('code')" @keyup="activeregist()" ref="code" placeholder="Code"/>
-		 <div style="float: right;background: #FDEACA;border-radius: 20px;color: #FDB56D;font-size: 13px;padding:5px;margin-bottom: 10px;" @click="getVerifyCode()" ref="getCode" :disabled="getCodeDisabled">{{getCodeBtnText}}</div>
+		 <el-button style="float: right;background: #FDEACA;border-radius: 20px;color: #FDB56D;font-size: 13px;padding:5px;margin-bottom: 10px;" @click="debounceGetVerifyCode()" ref="getCode" :disabled="getCodeDisabled">{{getCodeBtnText}}</el-button>
 		 </div>
 		 </div>
 
@@ -162,7 +162,7 @@ export default {
                 timeOut:true,
                 timer:null,
                  // 获取验证码按钮禁用
-                getCodeDisabled: true,
+                getCodeDisabled: false,
                 registFlag: true,
                 // 获取验证码按钮文字
                 getCodeBtnText: "Get OTP",
@@ -188,6 +188,11 @@ export default {
 		}
 	},
 
+	computed: {
+    debounceGetVerifyCode() {
+      return this.debounce(this.getVerifyCode, 3000);
+    }
+  },	
 
 	methods: {
 		   /**************************************************************获取验证码**************************************************************/
@@ -393,6 +398,17 @@ export default {
 
           this.logo = t.shoplogo;
       });
+		},
+		debounce: function (fn, delay) {
+			var timer
+			return function () {
+				var context = this
+				var args = arguments
+				clearTimeout(timer)
+				timer = setTimeout(function () {
+					fn.apply(context, args)
+				}, delay)
+			}
 		}
 	},
 	created: function() {

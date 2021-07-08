@@ -53,7 +53,7 @@
 		<div style="height: 50px;">
 		 <div style="width: 100%;height:28px;border-bottom:1px solid #ccc;font-size: 16px;color: #3D7BD0;" >
 		 <input type="number" style="width: 70%;height: 100%;border:none;outline: none;background: none;" v-model="input_info.code" id="input_code" @focus="focus('code')" @blur="blur('code')" @keyup="activeregist()" ref="code" placeholder="Code"/>
-		 <div style="float: right;background: #FDEACA;border-radius: 20px;color: #FDB56D;font-size: 13px;padding:5px;margin-bottom: 10px;" @click="getVerifyCode()" ref="getCode" :disabled="getCodeDisabled">{{getCodeBtnText}}</div>
+		 <el-button style="float: right;background: #FDEACA;border-radius: 20px;color: #FDB56D;font-size: 13px;padding:5px;margin-bottom: 10px;" @click="debounceGetVerifyCode()" ref="getCode" :disabled="getCodeDisabled">{{getCodeBtnText}}</el-button>
 		 </div>
 		 </div>
 
@@ -166,6 +166,13 @@
             },
             this.hideFooter
         },
+
+        computed: {
+            debounceGetVerifyCode() {
+                return this.debounce(this.getVerifyCode, 3000);
+            }
+        },	
+
         methods:{
 			click_btn(){
 					this.isShow=false,
@@ -347,6 +354,17 @@
                 }).then(t => {
                     this.logo = t.shoplogo;
                 });
+		    },
+            debounce: function (fn, delay) {
+		    	var timer
+		    	return function () {
+		    		var context = this
+		    		var args = arguments
+		    		clearTimeout(timer)
+		    		timer = setTimeout(function () {
+		    			fn.apply(context, args)
+		    		}, delay)
+		    	}
 		    }
         },
         beforeDestroy(){
@@ -427,22 +445,22 @@
             }
         }
         //注册按钮
-        button{
-            // .gradient;
-            border: none;
-            outline: none;
-            position: relative;
-           /* color: #2370e2;*/
-            border-radius: 1.2rem;
-            padding-top: .42rem;
-            padding-bottom: .42rem;
-            margin-top: 10%;
-            font-size: 1.111rem;
-            overflow: hidden;
-            letter-spacing: .2rem;
-            text-indent: .6rem;
-            text-align: center;
-        }
+        // button{
+        //     // .gradient;
+        //     border: none;
+        //     outline: none;
+        //     position: relative;
+        //    /* color: #2370e2;*/
+        //     border-radius: 1.2rem;
+        //     padding-top: .42rem;
+        //     padding-bottom: .42rem;
+        //     margin-top: 10%;
+        //     font-size: 1.111rem;
+        //     overflow: hidden;
+        //     letter-spacing: .2rem;
+        //     text-indent: .6rem;
+        //     text-align: center;
+        // }
         .registBtn {
             width: 100%;
             height: 50px;
