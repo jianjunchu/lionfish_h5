@@ -8,7 +8,7 @@
         <input @keypress="subInput" v-model="inputValue" class="ipt-class"
                :placeholder="$t('host.shurushequming')" type="search"/>
 
-        <div class="search-icon2" @click="clearSearch">
+        <div class="search-icon-position" @click="clearSearch">
           <img style="width: 4vw;height: 4vw;margin-top: 2vw"
                  src="@/assets/images/img-close.png"/>
         </div>
@@ -190,9 +190,9 @@
     background: #fff;
   }
 
-  .search-icon2 {
+  .search-icon-position {
     position: absolute;
-    right: 20px;
+    right: 1vw;
     margin-left: 13px;
     margin-right: 6px;
   }
@@ -244,8 +244,8 @@
   }
 
   .search-content .city-content .position-search-icon {
-    width: 2.8vw;
-    height: 2.8vw;
+    width: 3.5vw;
+    height: 3.5vw;
     margin-right: 2vw;
     margin-left: 2vw;
     margin-top: -1vw;
