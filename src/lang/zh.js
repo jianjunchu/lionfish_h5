@@ -217,7 +217,9 @@ export default {
     jinrudianpu: '进入店铺',
     shengyu: '剩余',
     tuanzhangyuguyongjin: '团长预估佣金',
-    zitiriqi: '自提日期'
+    zitiriqi: '自提日期',
+    maiguangle: '卖光了',
+    jijiangqianggou: '即将开抢'
   },
   order: {
     xuanzhezhifufangshi: '请选择支付方式!',

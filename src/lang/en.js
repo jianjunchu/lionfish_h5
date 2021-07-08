@@ -226,7 +226,9 @@ export default {
     jinrudianpu: 'Store Home',
     shengyu: 'Avaiable',
     tuanzhangyuguyongjin: 'Host Astimated Commission',
-    zitiriqi: ' Collection Date'
+    zitiriqi: ' Collection Date',
+    maiguangle: 'Sold Out',
+    jijiangqianggou: 'Coming Soon'
   },
   order: {
     xuanzhezhifufangshi:'Please select payment method',

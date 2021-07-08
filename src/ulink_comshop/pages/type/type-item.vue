@@ -55,8 +55,8 @@
           </div>
           <i-input-number addImage="@/assets/images/icon-add-2.png" @change="changeNumber" @outOfMax="outOfMax" iClass="index-input-number" iClassNumberText="input-number-text" iNumberImg="iNumberImg" iNumberView="iNumberView" :max="spuItem.spuCanBuyNum" min="0" reduceImage="@/assets/images/icon-reduce-2.png" :value="number" v-else></i-input-number>
         </div>
-        <span class="mask-icon-out" v-if="spuItem.spuCanBuyNum<=0"><img src="@/assets/images/sold-out.png"/></span>
-        <span class="mask-icon-coming" v-if="spuItem.is_coming"><img src="@/assets/images/coming-soon.png"/></span>
+        <div class="mask-icon-out" v-if="spuItem.spuCanBuyNum<=0"><span>{{$t('detail.maiguangle')}}</span></div>
+        <div class="mask-icon-coming" v-if="spuItem.is_coming"><span>{{$t('detail.jijiangqianggou')}}</span></div>
         <span class="act-end" v-else-if="actEnd">团购已结束</span>
       </router-link>
     </label>
@@ -606,30 +606,46 @@
     text-align: center;
   }
 
-  .mask-icon-out {
-  height: 8vw;
-  width: 9vw;
+.mask-icon-out {
+  height: 12vw;
+  width: 12vw;
   position: absolute;
-  left: 10vw;
-  top: 10vw;
+  left: 9vw;
+  top: 9vw;
+  color: #fff;
+  font-size: 2.8vw;
+  display: flex;
+  text-align: center;
+  background: #000000;
+  opacity: 60%;
+  border-radius: 50%;
 }
 
-.mask-icon-out img {
-  height: 8vw;
-  width: 9vw;
+.mask-icon-out span {
+  display: inline-block;
+  width: 100%;
+  align-self: center;
 }
 
 .mask-icon-coming {
-  height: 4vw;
-  width: 15.2vw;
+  height: 12vw;
+  width: 12vw;
   position: absolute;
-  left: 2.5vw;
-  top: 3vw;
+  left: 9vw;
+  top: 9vw;
+  color: #fff;
+  font-size: 2.8vw;
+  display: flex;
+  text-align: center;
+  background: #F72D2D;
+  opacity: 70%;
+  border-radius: 50%;
 }
 
-.mask-icon-coming img {
-  height: 4vw;
-  width: 15.2vw;
+.mask-icon-coming span {
+  display: inline-block;
+  width: 100%;
+  align-self: center;
 }
 
 .spu-counts {
