@@ -57,7 +57,7 @@
           <i-input-number addImage="@/assets/images/icon-add-2.png" @change="changeNumber" @outOfMax="outOfMax" iClass="index-input-number" iClassNumberText="input-number-text" iNumberImg="iNumberImg" iNumberView="iNumberView" :max="spuItem.spuCanBuyNum" min="0" reduceImage="@/assets/images/icon-reduce-2.png" :value="number" v-else></i-input-number>
         </div>
         <div class="mask-icon-out" v-if="spuItem.spuCanBuyNum<=0"><span>{{$t('detail.maiguangle')}}</span></div>
-        <div class="mask-icon-coming" v-if="spuItem.is_coming"><span>{{$t('detail.jijiangqianggou')}}</span></div>
+        <div class="mask-icon-coming" v-if="spuItem.is_coming && spuItem.spuCanBuyNum>0"><span>{{$t('detail.jijiangqianggou')}}</span></div>
         <span class="act-end" v-else-if="actEnd">团购已结束</span>
       </router-link>
     </label>
@@ -618,7 +618,7 @@
   display: flex;
   text-align: center;
   background: #000000;
-  opacity: 60%;
+  opacity: 0.6;
   border-radius: 50%;
 }
 
@@ -639,7 +639,7 @@
   display: flex;
   text-align: center;
   background: #F72D2D;
-  opacity: 70%;
+  opacity: 0.7;
   border-radius: 50%;
 }
 
