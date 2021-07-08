@@ -22,7 +22,7 @@ export default {
     common_use: 'can be used in all shops',
     search_products: 'Search products',
     buying: 'On Sale',
-    to_buy: 'Coming Soon',
+    to_buy: 'Pre Order',
     jinsheng: 'Only',
     meituangou: 'No products now',
     zhunbeituangou: 'We are preparing for you',
@@ -42,7 +42,7 @@ export default {
     tuangoujia: 'Group buy price',
     yijiagouwuche: 'Added to the cart',
     jujieshu: 'Time to finish',
-    jukaishi: 'Time to start',
+    jukaishi: 'Pick up from',
     jieshushijian: 'Finish Time',
     buxianshijian: 'No Time Limit',
     qingxuanzeyigezitidian: 'Please select a pick up point'

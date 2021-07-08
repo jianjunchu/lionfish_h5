@@ -22,7 +22,7 @@ export default {
     common_use: '全场通用',
     search_products: '搜索商品',
     buying: '正在抢购',
-    to_buy: '即将开抢',
+    to_buy: '预售',
     jinsheng: '仅剩',
     meituangou: '暂时没有团购',
     zhunbeituangou: '我们正在为您准备更优惠的团购',
@@ -42,7 +42,7 @@ export default {
     tuangoujia: '团购价',
     yijiagouwuche: '已加入购物车',
     jujieshu: '距结束',
-    jukaishi: 'Time 距开始',
+    jukaishi: '提货时间：',
     jieshushijian: '结束时间',
     buxianshijian: '不限时间',
     qingxuanzeyigezitidian: '请选择一个自提点'

@@ -102,6 +102,7 @@
           <div class="endAct" v-if="goods.over_type==0">{{$t('common.jukaishi')}}</div>
           <div class="endAct" v-if="goods.over_type==2">{{$t('common.jieshushijian')}}</div>
           <div class="endAct" v-if="goods.over_type==2">{{goods.end_date}}</div>
+          <div class="endAct" v-else-if="goods.over_type==0">{{begin_time}}</div>
           <div class="countdown-class i-count-down" v-else>
             <span v-if="goods.end_time==0" class="item-class">{{$t('common.buxianshijian')}}</span>
             <em v-if="goods.end_time!=0 && endtime.days>0">{{endtime.days}} Days</em>
@@ -755,7 +756,8 @@
         showSku: false,
         enabledFrontSupply: 0,
         home_icon: '',
-        cart_icon: ''
+        cart_icon: '',
+        begin_time: ''
       }
     },
     created: function() {
@@ -1049,6 +1051,14 @@
             hours: '00',
             minutes: '00',
             seconds: '00'
+          }
+
+          if (e.begin_time) {
+            var begin_time = new Date(parseInt(e.begin_time)*1000);
+            var y = begin_time.getFullYear();
+            var m = begin_time.getMonth()+1;
+            var d = begin_time.getDate();
+            L.begin_time = y + "-" + m + "-" + d;
           }
 
           L.$forceUpdate()
