@@ -583,8 +583,7 @@
                     if (y.compareTime(a[i].begin_time,now)) {
                       a[i].is_coming=true;
                     } else {
-                        //a[i].is_coming=false;
-                      a[i].is_coming=true;//预售可以下单
+                      a[i].is_coming=false;
                     }
                   }
                 }
