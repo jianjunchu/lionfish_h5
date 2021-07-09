@@ -58,7 +58,7 @@
             app = this.$getApp()
             wx = this.$wx
             this.$wx.setNavigationBarTitle({
-                title: "开团时间",
+                title: this.$t('host.shezhitihuoshijian'),
                 showLogo: false,
                 showMore: false,
                 showBack: true
@@ -477,23 +477,24 @@
     border-radius: 50%;
     text-align: center;
     color: #fff;
-    background-color: #22A7F6;
+    background-color: #FF4048;
     margin: 0 auto;
   }
   .nowDay .break_time{
     width: 6vw;
     border-radius: 50%;
     text-align: center;
-    color: rgb(233, 78, 78);
-    background-color: rgba(110, 114, 116, 0.945);
+    color: #B3B3B3;
+    /* color: rgb(233, 78, 78); */
+    /* background-color: rgba(110, 114, 116, 0.945); */
     margin: 0 auto;
   }
   .nowDay .date-head2{
     width: 6vw;
     border-radius: 50%;
     text-align: center;
-    color: #fff;
-    background-color: rgba(110, 114, 116, 0.945);
+    color: #B3B3B3;
+    /* background-color: rgba(110, 114, 116, 0.945); */
     margin: 0 auto;
   }
   .date-weight{

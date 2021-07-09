@@ -119,7 +119,7 @@ export default {
     buxianshijian: 'No Time Limit',
     qiehuan: 'Change',
     phone: 'Phone',
-    zhongxin: 'Centre',
+    zhongxin: ' Center',
     dianji: 'Click',
     sousuo: 'Search',
     sousuoshangpin: 'Search Products',
@@ -142,7 +142,8 @@ export default {
     gouwuche: 'Cart',
     wode: 'Me',
     querendingdan: 'Order Confirm',
-    shangpinxiangqing: 'Product Details'
+    shangpinxiangqing: 'Product Details',
+    dingdan: 'Orders'
   },
   host: {
     shuruxinxi: 'Your Details',
@@ -196,7 +197,9 @@ export default {
     cengyong: 'Used',
     tongzhitihuo: 'Collection Notice',
     tongzhitihuochenggong: 'Send Collection Notice Successful',
-    tongzhitihuoshibai: 'Send Collection Notice Failed'
+    tongzhitihuoshibai: 'Send Collection Notice Failed',
+    shezhitihuoshijian: 'Set Collection Date',
+    tixingguke: 'Notify Customer'
   },
   detail: {
     huishouye: 'Home',

@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="groupCenter">
-      <div class="basicInform">
+      <div class="basicInform" :style="common_header_backgroundimage?'background-image: url('+common_header_backgroundimage+')':'background-image: url('+require('@/assets/images/TOP_background@2x.png')+')'">
         <div class="user-avatar">
           <img class="userAvatarUrl" :src="member_info.avatar"/>
         </div>
@@ -15,9 +15,9 @@
           </div>
           <div class="userId">
             <span>ID：{{community_info.re_id}}</span>
-            <div @click="goScan" class="scan-code">
+            <!-- <div @click="goScan" class="scan-code">
               <span class="iconfont icon-erweima icon-scan"></span>
-            </div>
+            </div> -->
           </div>
           <div @click="changeMycommunion" class="address text-overflow1" style="width:200px;">
             {{$t('host.bangding')}}&nbsp;{{groupInfo.group_name}}：{{community_info.community_name}}<span class="iconfont icon-youjiantou"></span>
@@ -143,7 +143,7 @@
 
           <router-link hoverClass="none" to="/ulink_comshop/moduleA/groupCenter/setWorkTime" v-if="isShow">
             <div class="recordList">
-              <span class="recordListTit">Set Work Time</span>
+              <span class="recordListTit">{{$t('host.shezhitihuoshijian')}}</span>
               <img class="rightArrowImg" src="@/assets/images/rightArrowImg.png"/>
             </div>
           </router-link>
@@ -181,7 +181,7 @@
           <div @click="collection_notice">
             <div class="recordList">
               <span class="recordListTit">{{$t('host.tongzhitihuo')}}</span>
-              <img class="rightArrowImg" src="@/assets/images/rightArrowImg.png"/>
+              <div class="circular-button">{{$t('host.tixingguke')}}</div>
             </div>
           </div>
 
@@ -283,7 +283,8 @@
 
         effectEstimate: 0,
         effectSettle: 0,
-        appLoadStatus:1
+        appLoadStatus:1,
+        common_header_backgroundimage: ''
       }
     },
     created: function() {
@@ -297,7 +298,7 @@
           var e = t && t.owner_name || "团长";
 //          o.$store.state.app.toolbarTitle = e + "中心"
           o.$wx.setNavigationBarTitle({
-            title: o.$t('me.tuanzhang') + " Center",
+            title: o.$t('me.tuanzhang') + o.$t('common.zhongxin'),
             showLogo: false,
             showMore: false,
             showBack: true
@@ -326,6 +327,7 @@
 //            that.community= this.$getApp().globalData.community;
 
         });
+        this.getCopyright();
         this.load_community_data();
       },
       load_community_data: function() {
@@ -462,7 +464,18 @@
               });
             }
         });
-      }
+      },
+      getCopyright: function() {
+        let that = this;
+        this.$http({
+          controller: 'user.get_copyright'
+         }).then(res => {
+          if (res.code == 0) {
+            let common_header_backgroundimage = res.common_header_backgroundimage;
+            that.common_header_backgroundimage = common_header_backgroundimage;
+          }
+        })
+      },
     }
   }
 </script>

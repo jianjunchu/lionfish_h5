@@ -115,7 +115,7 @@
               <div class="button-group" v-if="item.order_status_id==3">
                 <div @click.stop="cancelOrder" class="my-button" data-show="cancelVisible" :data-type="item.order_id"> {{$t('order.quxiaodingdan')}}</div>
                 <!--<div  @click.stop="showPaymentModal" class="my-button-pay padding-15" :data-type="item"  :style="{background: linear-gradient(90deg, skin.color 0%, skin.light 100%)}">立即支付</div>-->
-                <div  @click.stop="toShowPaymentModal(item)" class="my-button-pay padding-15" :data-type="{item}"  :style="{color:skin.color,background:skin.light}">{{$t('order.lijizhifu')}}</div>
+                <div  @click.stop="toShowPaymentModal(item)" class="my-button-pay padding-15" :data-type="{item}" style="color: #fff;background: #FF4048">{{$t('order.lijizhifu')}}</div>
               </div>
               <div v-if="item.order_status_id==4">
                 <div class="get-goods" :data-delivery="item.delivery" :data-type="item.order_id">
@@ -221,7 +221,7 @@
       wx = this.$wx;
       let that  = this;
       this.$wx.setNavigationBarTitle({
-        title: this.$wx.getStorageSync("shopname"),
+        title: this.$t('common.dingdan'),
         showLogo:false,
         showMore:false,
         showBack:true

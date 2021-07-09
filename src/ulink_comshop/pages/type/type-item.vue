@@ -11,7 +11,7 @@
 
           <i-img :defaultImage="placeholdeImg?placeholdeImg:'@/assets/images/placeholder-refund.png'" height="170"
                  iClass="img-class" lazyLoad="true" :loadImage="spuItem.skuImage" width="170"></i-img>
-          <img class="img-class corner-mark" src="@/assets/images/Preorder_Main1.png" v-if="spuItem.is_coming"/>
+          <img class="corner-mark" src="@/assets/images/Preorder_Main1.png" v-if="spuItem.is_coming"/>
           <div class="tag" v-if="reduction.is_open_fullreduction==1&&spuItem.is_take_fullreduction==1">
             满{{reduction.full_money}}减{{reduction.full_reducemoney}}
           </div>
@@ -58,7 +58,7 @@
           <i-input-number addImage="@/assets/images/icon-add-2.png" @change="changeNumber" @outOfMax="outOfMax" iClass="index-input-number" iClassNumberText="input-number-text" iNumberImg="iNumberImg" iNumberView="iNumberView" :max="spuItem.spuCanBuyNum" min="0" reduceImage="@/assets/images/icon-reduce-2.png" :value="number" v-else></i-input-number>
         </div>
         <div class="mask-icon-out" v-if="spuItem.spuCanBuyNum<=0"><span>{{$t('detail.maiguangle')}}</span></div>
-        <div class="mask-icon-coming" v-if="spuItem.is_coming && spuItem.spuCanBuyNum>0"><span>{{$t('detail.jijiangqianggou')}}</span></div>
+        <!-- <div class="mask-icon-coming" v-if="spuItem.is_coming && spuItem.spuCanBuyNum>0"><span>{{$t('detail.jijiangqianggou')}}</span></div> -->
         <span class="act-end" v-else-if="actEnd">团购已结束</span>
       </router-link>
     </label>
@@ -658,7 +658,9 @@
 }
 
 .corner-mark {
+  width: 20vw;
+  height: 20vw;
   position: relative;
-  top: -27vw;
+  top: -21vw;
 }
 </style>

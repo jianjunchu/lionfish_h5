@@ -71,7 +71,7 @@
     },
     created: function() {
       this.$wx.setNavigationBarTitle({
-        title: '',
+        title: this.$t('host.wodeqianbao'),
         showLogo:false,
         showMore:false,
         showBack:true

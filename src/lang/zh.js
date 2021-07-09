@@ -133,7 +133,8 @@ export default {
     gouwuche: '购物车',
     wode: '我的',
     querendingdan: '确认订单',
-    shangpinxiangqing: '商品详情'
+    shangpinxiangqing: '商品详情',
+    dingdan: '订单'
   },
   host: {
     shuruxinxi: '请填写姓名、手机号等相关信息',
@@ -187,7 +188,9 @@ export default {
     cengyong: '曾用',
     tongzhitihuo: '通知提货',
     tongzhitihuochenggong: '通知提货发送成功',
-    tongzhitihuoshibai: '通知提货发送失败'
+    tongzhitihuoshibai: '通知提货发送失败',
+    shezhitihuoshijian: '设置提货日期',
+    tixingguke: '提醒顾客'
   },
   detail: {
     huishouye: '回首页',
