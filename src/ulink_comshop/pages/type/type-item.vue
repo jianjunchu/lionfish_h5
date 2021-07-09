@@ -11,6 +11,7 @@
 
           <i-img :defaultImage="placeholdeImg?placeholdeImg:'@/assets/images/placeholder-refund.png'" height="170"
                  iClass="img-class" lazyLoad="true" :loadImage="spuItem.skuImage" width="170"></i-img>
+          <img class="img-class corner-mark" src="@/assets/images/Preorder_Main1.png" v-if="spuItem.is_coming"/>
           <div class="tag" v-if="reduction.is_open_fullreduction==1&&spuItem.is_take_fullreduction==1">
             满{{reduction.full_money}}减{{reduction.full_reducemoney}}
           </div>
@@ -654,5 +655,10 @@
   right: 1vw;
   font-size: 2.6vw;
   color: #999;
+}
+
+.corner-mark {
+  position: relative;
+  top: -27vw;
 }
 </style>
