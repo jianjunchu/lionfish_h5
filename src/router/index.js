@@ -30,6 +30,7 @@ Vue.use(Router)
  * all roles can be accessed
  */
 export const constantRoutes = [
+  { path: '/categories', redirect: { name: '/ulink_comshop/pages/index/index' }},
   {
     name: '/login',
     path: '/login',
