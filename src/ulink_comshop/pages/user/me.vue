@@ -448,7 +448,7 @@
           <div @click="loginOut" v-if="!needAuth&&ishow_user_loginout_btn==1">
             <div class="item-main">
               <div class="item-title">
-                <img class="toolIcon" mode="widthFix" src="@/assets/images/loginOut.png"/>
+                <img class="toolIcon" mode="widthFix" src="@/assets/images/logout.jpg"/>
                 <span>{{$t('me.tuichudenglu')}}</span>
               </div>
               <div class="tool-right">
