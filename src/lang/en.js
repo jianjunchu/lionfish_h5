@@ -227,8 +227,8 @@ export default {
     tuanzhangxiuxi: 'Host in Rest',
     lijiduihuan: 'Exchange Now',
     jinrudianpu: 'Store Home',
-    shengyu: 'Avaiable',
-    tuanzhangyuguyongjin: 'Host Astimated Commission',
+    shengyu: 'Available',
+    tuanzhangyuguyongjin: 'Host Estimated Commission',
     zitiriqi: ' Collection Date',
     maiguangle: 'Sold Out',
     jijiangqianggou: 'Coming Soon'
@@ -390,7 +390,8 @@ export default {
     quxiaochengggong: 'Cancel Successful',
     manjian: 'Discount',
     yijian: 'Discount',
-    kuaisongfei: 'Freight'
+    kuaisongfei: 'Delivery Fee',
+    manmiankuaisongfei: 'Free Delivery Above $89'
   },
   type: {
     yijingdingbu: 'Already on the top～',

@@ -274,13 +274,13 @@
             <span>{{$t('cart.kuaisongfei')}}</span>
             <em>+ $ {{trans_free_toal}}</em>
           </div>
-          <div class="cell" v-if="tabIdx!=0">
-            <div v-if="tabIdx==1&&is_man_delivery_tuanz_fare>0">
+          <div v-if="tabIdx!=0">
+            <div class="cell" v-if="tabIdx==1&&is_man_delivery_tuanz_fare>0">
               <span>满{{man_free_tuanzshipping}}免{{groupInfo.placeorder_tuan_name}}</span>
               <em>- $ {{delivery_tuanz_money}}</em>
             </div>
-            <div v-if="tabIdx==2&&is_man_shipping_fare>0">
-              <span>满{{man_free_shipping}}免{{groupInfo.placeorder_trans_name}}</span>
+            <div class="cell" v-if="tabIdx==2&&is_man_shipping_fare>0">
+              <span>{{$t('cart.manmiankuaisongfei')}}</span>
               <em>- $ {{fare_man_shipping_fare_money}}</em>
             </div>
           </div>

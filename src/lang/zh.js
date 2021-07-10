@@ -377,7 +377,8 @@ export default {
     quxiaochenggong: '取消成功',
     manjian: '满减',
     yijian: '已减',
-    kuaisongfei: '快送费'
+    kuaisongfei: '快送费',
+    manmiankuaisongfei: '满$89免快送费'
   },
   type: {
     yijingdingbu: '已经拉到最顶部啦～',
