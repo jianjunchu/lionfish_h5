@@ -89,7 +89,8 @@ export default {
     lijishengji: 'Upgrade Now',
     shenhezhong: ' Is Under Review',
     ninyishi: 'You have been ',
-    tuanzhang: 'Host'
+    tuanzhang: 'Host',
+    fenxiao: 'Distribution'
   },
   common: {
     daifukuan: 'To Pay',

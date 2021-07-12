@@ -104,7 +104,7 @@
               that.page++;
 
             } else if (res.code == 1) {
-              if (that.list.length == 0 && that.page == 1) that.setData({ showData: 0});
+              if (that.list.length == 0 && that.page == 1) that.showData = 0;
               that.no_data = 1;
               //that.setData({ isHideLoadMore: true })
               that.isHideLoadMore = true;

@@ -168,7 +168,7 @@
       </div> -->
       
       <!-- 分销 -->
-      <!-- <div class="tool distribution" v-if="commiss_level>0">
+      <div class="tool distribution" v-if="commiss_level>0">
         <div v-if="commiss_sharemember_need==1">
           <div class="my-distribution modal-head">
             <div class="my-distribution-title">
@@ -194,38 +194,38 @@
           </div>
           <div class="modal-foot i-flex i-flex-spb" v-if="!(member_info.comsiss_flag==1&&member_info.comsiss_state==1)">
             <div class="modal-foot-l" v-if="need_num_update>0">
-              <span v-if="share_member_count!=0">{{$t('me.zai')}}</span>{{$t('me.fenxiang')}}<span class="tot">{{need_num_update}}</span>{{$t('me.weixinfensi')}}{{commiss_diy_name}}
+              <span v-if="share_member_count!=0">{{$t('me.zai')}}</span>{{$t('me.fenxiang')}}<span class="tot">{{need_num_update}}</span>{{$t('me.weixinfensi')}}{{$t('me.fenxiao')}}
             </div>
             <div class="modal-foot-l" v-if="commiss_biaodan_need==0&&need_num_update<=0">
-              <div v-if="formStatus==0">{{$t('me.chayibujiuchengwei')}}{{commiss_diy_name}}{{$t('me.renyuanla')}}</div>
+              <div v-if="formStatus==0">{{$t('me.chayibujiuchengwei')}}{{$t('me.fenxiao')}}{{$t('me.renyuanla')}}</div>
               <div v-if="formStatus==1">{{$t('me.gongxinitianxiechenggong')}}</div>
-              <div v-if="formStatus==2">{{$t('me.gongxinichengwei')}}{{commiss_diy_name}}{{$t('me.renyuan')}}</div>
+              <div v-if="formStatus==2">{{$t('me.gongxinichengwei')}}{{$t('me.fenxiao')}}{{$t('me.renyuan')}}</div>
             </div>
             <div class="modal-foot-l" v-if="commiss_biaodan_need==1&&need_num_update<=0">
-              <div v-if="formStatus==0">{{$t('me.chayibujiuchengwei')}}{{commiss_diy_name}}{{$t('me.renyuanla')}}</div>
+              <div v-if="formStatus==0">{{$t('me.chayibujiuchengwei')}}{{$t('me.fenxiao')}}{{$t('me.renyuanla')}}</div>
               <div v-if="formStatus==1">{{$t('me.gongxinitianxiechenggong')}}</div>
-              <div v-if="formStatus==2">{{$t('me.gongxinichengwei')}}{{commiss_diy_name}}{{$t('me.renyuan')}}</div>
+              <div v-if="formStatus==2">{{$t('me.gongxinichengwei')}}{{$t('me.fenxiao')}}{{$t('me.renyuan')}}</div>
             </div>
             <div @click="goNext" class="modal-foot-r btn" data-type="share" :style="{background:skin.color}"
                  v-if="need_num_update>0">{{$t('me.lijifenxiang')}}
             </div>
             <div @click="goNext" class="modal-foot-r btn" data-type="commiss" :style="{background:skin.color}"
-                 v-if="need_num_update<=0&&commiss_biaodan_need<=0&&formStatus==2">{{$t('me.jinru')}}{{commiss_diy_name}}
+                 v-if="need_num_update<=0&&commiss_biaodan_need<=0&&formStatus==2">{{$t('me.jinru')}}{{$t('me.fenxiao')}}
             </div>
             <div @click="goNext" class="modal-foot-r btn" data-type="form" v-if="need_num_update<=0&&formStatus==0">
               {{$t('me.lijishengji')}}
             </div>
             <div @click="goNext" class="modal-foot-r btn" data-type="commiss" :style="{background:skin.color}"
                  v-if="commiss_biaodan_need==1&&need_num_update<=0&&formStatus==2">
-              {{$t('me.jinru')}}{{commiss_diy_name}}
+              {{$t('me.jinru')}}{{$t('me.fenxiao')}}
             </div>
           </div>
         </div>
-        <div class="toolList">
+        <div class="toolList" v-if="member_info.comsiss_flag != 0 && member_info.comsiss_state != 0">
           <div @click="goDistribution">
             <div class="item-main">
               <div class="item-title">
-                <span>{{commiss_diy_name}}</span>
+                <span>{{$t('me.fenxiao')}}</span>
               </div>
               <div class="tool-right">
                 <img class="icon-right " src="@/assets/images/rightArrowImg.png"/>
@@ -233,12 +233,13 @@
             </div>
           </div>
         </div>
-      </div> -->
+      </div>
 
 
       <div class="tool">
         <div class="toolList">
-          <div @click="goLink2" class="yuenav" data-link="/ulink_comshop/pages/user/charge"
+          <!-- <div @click="goLink2" class="yuenav" data-link="/ulink_comshop/pages/user/charge" -->
+          <div @click="goLink2" class="yuenav" data-link="/ulink_comshop/pages/user/rechargeDetails"
                v-if="is_open_yue_pay==1">
             <div class="item-main">
               <div class="item-title">

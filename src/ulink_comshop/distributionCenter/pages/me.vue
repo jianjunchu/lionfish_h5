@@ -79,7 +79,7 @@
       var that = this;
       let commiss_diy_name = wx.getStorageSync('commiss_diy_name') || that.$t('distributionCenter.fenxiao');
       wx.setNavigationBarTitle({
-        title: commiss_diy_name + that.$t('distributionCenter.zhongxin'),
+        title: that.$t('me.fenxiao') + that.$t('distributionCenter.zhongxin'),
         showBack: true
       })
       that.onShow();

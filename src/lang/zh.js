@@ -89,7 +89,8 @@ export default {
     lijishengji: '立即升级',
     shenhezhong: '审核中',
     ninyishi: '您已是',
-    tuanzhang: '团长'
+    tuanzhang: '团长',
+    fenxiao: '分销'
   },
   common: {
     daifukuan: '待付款',
