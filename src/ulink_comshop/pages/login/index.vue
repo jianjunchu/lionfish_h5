@@ -220,24 +220,24 @@ export default {
                         icon: 'none'
                     })
 
-
+									return;
 							  }
-                });
-                this.registFlag = true;
-                this.timeOut = false;
+
+								that.registFlag = true;
+                that.timeOut = false;
                 //倒计时
-                if (!this.errorFlag.phone_empty){
+                if (!that.errorFlag.phone_empty){
 //                  Toast({
 //                      message: 'OTP Send',
 //                      position: 'middle',
 //                  });
-                    this.timer = setInterval(()=>{
+                    that.timer = setInterval(()=>{
                         that.countDownTime--;
                         // that.getCodeBtnText = this.countDownTime + "s后重新获取";
-                        that.getCodeBtnText = this.countDownTime + "秒";
+                        that.getCodeBtnText = that.countDownTime + "秒";
                         that.getCodeDisabled = true;
                         if(that.countDownTime <= 0){
-                            clearInterval(this.timer);
+                            clearInterval(that.timer);
                             that.countDownTime = 60;
                             that.timeOut = true;
                             that.getCodeDisabled = false;
@@ -249,6 +249,8 @@ export default {
                 } else {
                     that.errorFlag.phone_empty = true;
                 }
+                });
+
             },
 		//验证码
 		yanzhengma(){
