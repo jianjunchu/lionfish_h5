@@ -117,6 +117,9 @@
           <div class="red" style="font-size:15px;" v-if="goods.is_seckill==1">[Flash Deal]</div>
           <span v-if="$i18n.locale == 'en'">{{goods.goodsname_en}}</span><span v-else>{{goods.goodsname}}</span>
         </div>
+        <div class="subtitle">
+          <span v-if="$i18n.locale == 'en'">{{goods.subtitle_en}}</span><span v-else>{{goods.subtitle}}</span>
+        </div>
         <div class="fsz-22 i-flex mt10 i-aic" v-if="is_only_hexiao==1">
           <div class="hexiao text-6">
             <div class="iconfont icon-gou red fsz-22"></div>
@@ -3277,6 +3280,20 @@
 
   .sku-desc {
     width: 65vw;
+  }
+
+  .spuInfo .spuDetailInfo .subtitle {
+    font-size: 16px;
+    color: #444;
+    min-height: 24px;
+    line-height: 22px;
+    padding: 5px;
+    white-space: initial;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
   }
 
 </style>
