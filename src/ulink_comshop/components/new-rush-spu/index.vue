@@ -58,7 +58,7 @@
             <div class="sale-price">
               <span class="span">${{spuItem.actPrice[0]}}</span>.{{spuItem.actPrice[1]}}
             </div>
-            <div class="market-price" v-if="spuItem.show_productprice">${{spuItem.marketPrice[0]}}.{{spuItem.marketPrice[1]}}</div>
+            <div class="market-price">${{spuItem.marketPrice[0]}}.{{spuItem.marketPrice[1]}}</div>
             <div class="spu-counts" v-if="isShowListCount==1">
               <span class="count">{{spuItem.soldNum}} {{$t('detail.yishou')}} / {{spuItem.spuCanBuyNum}} {{$t('detail.shengyu')}}</span>
             </div>
