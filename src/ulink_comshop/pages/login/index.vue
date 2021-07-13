@@ -353,27 +353,61 @@ export default {
 			}).then(response => {
 				console.log(response)
 				var result = response;
-				if(result != null && result.member_id != -1) {
-          i.$wx.setStorageSync('token', response.token)
-          util.getMemberInfo({success:function(e) {
-              i.$wx.setStorageSync('userInfo',e.data)
-              if(e.data.community){
-                i.$wx.setStorageSync('community',e.data.community)
-              }
-              i.$router.go(-1)
-            },
-            error:function() {
+				if (result) {
+					if(result.member_id != -1 && result.token) {
+						i.$wx.setStorageSync('token', response.token)
+						util.getMemberInfo({success:function(e) {
+								i.$wx.setStorageSync('userInfo',e.data)
+								if(e.data.community){
+									i.$wx.setStorageSync('community',e.data.community)
+								}
+								i.$router.go(-1)
+							},
+							error:function() {
 
-            }
-          });
-
-
+							}
+						});
+					} else if (result.code == -1) {
+						wx.showToast({
+							title: "Code Parameter Not Found",
+							icon: 'none'
+						})
+					} else if (result.code == -2) {
+						wx.showToast({
+							title: "Please Get OTP First",
+							icon: 'none'
+						})
+					} else if (rresult.code == -3) {
+						wx.showToast({
+							title: "Code Verify Fails",
+							icon: 'none'
+						})
+					} else if (result.code == -4 && result.member_id == -1) {
+						wx.showToast({
+							title: "Please Sign Up First",
+							icon: 'none'
+						})
+					} else if (result.member_id == -1) {
+						wx.showToast({
+							title: "Member Doesn't Exist",
+							icon: 'none'
+						})
+					} else if (!result.token) {
+						wx.showToast({
+							title: "Token Doesn't Exist",
+							icon: 'none'
+						})
+					} else {
+						wx.showToast({
+							title: "Login Failed",
+							icon: 'none'
+						})
+					}
 				} else {
-            wx.showToast({
-                title: "Login Failed",
-                icon: 'none'
-            })
-
+					wx.showToast({
+						title: "No Result Found",
+						icon: 'none'
+					})
 				}
 			})
 		},
