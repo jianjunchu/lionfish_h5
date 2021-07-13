@@ -224,7 +224,7 @@
           this.list = [];
           this.noData = 0;
           this.loadMore = true;
-          this.loadText = that.$t('distributionCenter.jiazaizhong');
+          this.loadText = this.$t('distributionCenter.jiazaizhong');
           this.getData();
         },
 

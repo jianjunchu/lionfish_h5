@@ -69,7 +69,7 @@
             <i-button iClass="add-cart" class="add-cart" v-if="disabled||spuItem.spuCanBuyNum<=0||actEnd">
               <img class="img" src="@/assets/images/icon-add-shopCart-disabled.png"></img>
             </i-button>
-            <div @click.stop.prevent="openSku" iClass="card-btn" class="card-btn" v-if="spuItem.is_presell && spuItem.is_presell == 1">
+            <div @click.stop.prevent="openSku" iClass="card-btn" class="card-btn" v-else-if="spuItem.is_presell && spuItem.is_presell == 1">
                 {{$t('detail.mashangqianggou')}}
             </div>
             <i-button @handleTap="openSku" iClass="add-cart" class="add-cart" v-else>

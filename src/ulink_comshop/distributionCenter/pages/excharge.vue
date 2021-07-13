@@ -18,7 +18,7 @@
         <!-- <div class='tip'>已提现(元)：{{info.getmoney}}</div> -->
         <radio-group class="radio-group">
           <label class="radio" v-for="(item,index) in items" :key="item.id" v-if="item.show">
-            <input type="radio" v-model="item.name" :checked="item.checked" /><span>{{item.value}}</span>
+            <input type="radio" name="type" v-model="item.name" :checked="item.checked" /><span>{{item.value}}</span>
           </label>
         </radio-group>
         <div class='form-box' v-if="type==2">
