@@ -58,7 +58,7 @@
             <div class="sale-price">
               <span class="span">${{spuItem.actPrice[0]}}</span>.{{spuItem.actPrice[1]}}
             </div>
-            <div class="market-price">${{spuItem.marketPrice[0]}}.{{spuItem.marketPrice[1]}}</div>
+            <div class="market-price" v-if="comparePrice(spuItem)">${{spuItem.marketPrice[0]}}.{{spuItem.marketPrice[1]}}</div>
             <div class="spu-counts" v-if="isShowListCount==1">
               <span class="count">{{spuItem.soldNum}} {{$t('detail.yishou')}} / {{spuItem.spuCanBuyNum}} {{$t('detail.shengyu')}}</span>
             </div>
@@ -321,6 +321,15 @@
         wx.navigateTo({
           url: '/ulink_comshop/pages/supply/supplyHome?id=' + id
         })
+      },
+      comparePrice: function (spuItem) {
+        var actPrice = parseFloat(spuItem.actPrice[0] + '.' + spuItem.actPrice[1]);
+        var marketPrice = parseFloat(spuItem.marketPrice[0] + '.' + spuItem.marketPrice[1]);
+        if (actPrice < marketPrice) {
+          return true;
+        } else {
+          return false;
+        }
       }
     }
 
@@ -707,7 +716,7 @@
     margin: 0;
     position: absolute;
     right: 0;
-    bottom: 0.1vw;
+    bottom: 5vw;
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;

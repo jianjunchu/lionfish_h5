@@ -93,7 +93,7 @@
           <span v-if="buy_type!='integral'">$</span>
           <span class="salePrice">{{goods.price_front}}</span>.{{goods.price_after}}
           <span v-if="buy_type=='integral'">积分</span>
-          <span class="storePrice" v-if="goods.show_productprice">
+          <span class="storePrice" v-if="comparePrice(goods)">
             <span v-if="buy_type!='integral'">$</span>{{goods.productprice}} <span v-if="buy_type=='integral'">积分</span>
           </span>
         </div>
@@ -1855,6 +1855,15 @@
           }
         })
       },
+      comparePrice: function (goods) {
+        var price = parseFloat(goods.price);
+        var productprice = parseFloat(goods.productprice);
+        if (price < productprice) {
+          return true;
+        } else {
+          return false;
+        }
+      }
     }
   }
 </script>

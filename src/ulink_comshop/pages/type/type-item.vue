@@ -36,7 +36,7 @@
           <div class="spu-price">
             <span class="sale-price">
               <span class="span">${{spuItem.actPrice[0]}}</span>.{{spuItem.actPrice[1]}}</span>
-            <div class="market-price">
+            <div class="market-price" v-if="comparePrice(spuItem)">
               ${{spuItem.marketPrice[0]}}.{{spuItem.marketPrice[1]}}
             </div>
             <div class="spu-counts" v-if="isShowListCount==1">
@@ -287,6 +287,15 @@
         wx.navigateTo({
           url: '/ulink_comshop/pages/supply/supplyHome?id=' + id
         })
+      },
+      comparePrice: function (spuItem) {
+        var actPrice = parseFloat(spuItem.actPrice[0] + '.' + spuItem.actPrice[1]);
+        var marketPrice = parseFloat(spuItem.marketPrice[0] + '.' + spuItem.marketPrice[1]);
+        if (actPrice < marketPrice) {
+          return true;
+        } else {
+          return false;
+        }
       }
     }
 
