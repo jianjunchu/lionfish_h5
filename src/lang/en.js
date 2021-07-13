@@ -470,7 +470,7 @@ export default {
     tixiandanhao: 'Withdraw Order',
     tixianzhuangtai: 'Withdraw Status',
     chenggong: 'Successful',
-    shenghezhong: 'Review',
+    shenhezhong: 'Review',
     jujue: 'Reject',
     tixianjine: 'Withdraw Amount',
     shenqingriqi: 'Withdraw Date'

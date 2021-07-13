@@ -10,7 +10,7 @@
             <div class="per">
               <span>{{$t('wallet.tixianzhuangtai')}}：</span>
               <span v-if="item.state==1">{{$t('wallet.chenggong')}}</span>
-              <span v-if="item.state==0">{{$t('wallet.shehezhong')}}</span>
+              <span v-if="item.state==0">{{$t('wallet.shenhezhong')}}</span>
               <span v-if="item.state==2">{{$t('wallet.jujue')}}</span>
             </div>
             <div class="per">

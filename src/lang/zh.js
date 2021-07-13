@@ -457,7 +457,7 @@ export default {
     tixiandanhao: '提现单号',
     tixianzhuangtai: '提现状态',
     chenggong: '成功',
-    shenghezhong: '审核中',
+    shenhezhong: '审核中',
     jujue: '拒绝',
     shenqingriqi: '申请日期',
     querentihuo: '确认提货'
