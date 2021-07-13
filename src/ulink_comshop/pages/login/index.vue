@@ -377,7 +377,7 @@ export default {
 							title: "Please Get OTP First",
 							icon: 'none'
 						})
-					} else if (rresult.code == -3) {
+					} else if (result.code == -3) {
 						wx.showToast({
 							title: "Code Verify Fails",
 							icon: 'none'
