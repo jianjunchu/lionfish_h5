@@ -21,6 +21,12 @@
             </div>
 
             <div class="form-item">
+              <label class="form-item-control">{{$t('host.zitidianmingcheng')}}</label>
+              <input v-model="community_name" class="form-item-input"  maxlength="11" type="text" :placeholder="$t('host.qingshuruzitidianmingcheng')"/>
+            </div>
+
+
+            <div class="form-item">
               <label class="form-item-control">{{$t('host.youbian')}}</label>
               <!--<input bindinput="inputZipCode" class="form-item-input" focus="{{focus_zip_code}}" placeholder="请输入邮编" type="text" value="{{zip_code}}"></input>-->
               <!--<input v-model="zip_code" class="form-item-input"  :placeholder="$t('host.shuruyoubian')" type="text" />-->
@@ -85,10 +91,9 @@
               <!--<input v-model="addr_detail" class="form-item-input" placeholder="" type="text" />-->
             <!--</div>-->
             <div class="form-item">
-              <label class="submit">
+              <el-button class="submit" @click.native.prevent="submit">
                 Send
-                <button hidden @click="submit"></button>
-              </label>
+              </el-button>
             </div>
           </div>
       </form>
@@ -314,6 +319,14 @@
             return false;
           }
 
+          if ("" == s || void 0 === s) {
+            this.$wx.showToast({
+              title: "Group Name is not correct",
+              icon: "none"
+            })
+            return false;
+          }
+
           if ("" == this.zip_code) {
             this.$wx.showToast({
               title: "Postal Code is not correct",
@@ -461,7 +474,14 @@
         });
       },
       authModal: function() {
-        return !this.needAuth || (this.showAuthModal= !this.showAuthModal, !1);
+        if (this.needAuth) {
+          this.showAuthModal = !this.showAuthModal
+          wx.navigateTo({
+            url: '/login'
+          })
+          return false
+        }
+        return true
       },
       authSuccess: function() {
         var t = this;

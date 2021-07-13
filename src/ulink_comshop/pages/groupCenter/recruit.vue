@@ -80,6 +80,7 @@
           this.$wx.navigateTo({
             url: '/login'
           })
+          return false
         }
         return true
 

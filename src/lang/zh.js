@@ -192,7 +192,9 @@ export default {
     tongzhitihuoshibai: '通知提货发送失败',
     shezhitihuoshijian: '设置提货日期',
     tixingguke: '提醒顾客',
-    tishi: '提示'
+    tishi: '提示',
+    zitidianmingcheng: '自提点名称',
+    qingshuruzitidianmingcheng: '请输入自提点名称'
   },
   detail: {
     huishouye: '回首页',
