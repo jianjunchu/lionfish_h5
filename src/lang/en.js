@@ -200,7 +200,8 @@ export default {
     tongzhitihuochenggong: 'Send Collection Notice Successful',
     tongzhitihuoshibai: 'Send Collection Notice Failed',
     shezhitihuoshijian: 'Set Collection Date',
-    tixingguke: 'Notify Customer'
+    tixingguke: 'Notify Customer',
+    tishi: 'Prompt'
   },
   detail: {
     huishouye: 'Home',

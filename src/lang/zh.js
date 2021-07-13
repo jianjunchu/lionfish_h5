@@ -191,7 +191,8 @@ export default {
     tongzhitihuochenggong: '通知提货发送成功',
     tongzhitihuoshibai: '通知提货发送失败',
     shezhitihuoshijian: '设置提货日期',
-    tixingguke: '提醒顾客'
+    tixingguke: '提醒顾客',
+    tishi: '提示'
   },
   detail: {
     huishouye: '回首页',

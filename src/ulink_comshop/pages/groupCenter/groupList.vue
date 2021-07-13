@@ -97,6 +97,9 @@
                 <div @click="sign_one" class="goods-sign-btn" :data-order_id="item.order_id" v-if="currentTab==2">
                   <span >Confirm Received</span>
                 </div>
+                <div @click="receivOrder" class="goods-sign-btn" :data-order_id="item.order_id" v-if="item.order_status_id=='4'">
+                  {{item.delivery=='pickup'? $t('order.querentihuo'): $t('order.querenshouhuo') }}
+                </div>
                 <div @click="goOrderDetail" class="goods-sign-btn gray" :data-order_id="item.order_id">
                   <span >Detail</span>
                 </div>
@@ -154,6 +157,7 @@
 <script>
   import GlobalMixin from '../../mixin/globalMixin.js';
   import status from '../../utils/index.js'
+  var wx, app;
 
   var _extends = Object.assign || function(e) {
       for (var t = 1; t < arguments.length; t++) {
@@ -228,6 +232,8 @@
       }
     },
     created: function() {
+      app = this.$getApp();
+      wx = this.$wx;
       this.onLoad();
     },
     methods: {
@@ -394,7 +400,35 @@
         var t = e.currentTarget.dataset.type || 0;
         this.showTipDialog= !this.data.showTipDialog,
           this.fen_type= t;
-      }
+      },
+      receivOrder: function (e) {
+        var t = e.currentTarget.dataset.order_id || "", o = wx.getStorageSync("token"), a = this;
+        wx.showModal({
+            title: a.$t('host.tishi'),
+            content: a.$t('order.querentihuo'),
+            confirmColor: "#8ED9D1",
+            success: function (res) {
+                if (res.confirm) {
+                  a.$http({
+                      controller: "order.receive_order",
+                      token: o,
+                      order_id: t
+                  }).then(e => {
+                    if (0 == e.code) {
+                      wx.showToast({
+                          title: a.$t('order.shouhuochenghong'),
+                          icon: "success",
+                          duration: 1000
+                      });
+                      var order = a.order, n = [];
+                      for (var r in order) order[r].order_id != t && n.push(t[r]);
+                        a.order= n;
+                      }
+                  });
+              }
+          }
+        });
+      },
     }
   }
 </script >
