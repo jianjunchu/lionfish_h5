@@ -34,8 +34,9 @@
 
 
 		<div style="height: 50px;">
-		<div style="width: 100%;height:25px;border-bottom:1px solid #ccc;font-size: 16px;color: #939393;float: left;" @click="click_btn()" v-show="this.isShow">Phone</div>
-		<div style="width: 100%;height:41px;border-bottom:1px solid #3D7BD0;font-size: 16px;color: #3D7BD0;float: left;" v-show="this.isShow2">
+		<!-- <div style="width: 100%;height:25px;border-bottom:1px solid #ccc;font-size: 16px;color: #939393;float: left;" @click="click_btn()" v-show="this.isShow">Phone</div>
+		<div style="width: 100%;height:41px;border-bottom:1px solid #3D7BD0;font-size: 16px;color: #3D7BD0;float: left;" v-show="this.isShow2"> -->
+        <div style="width: 100%;height:41px;border-bottom:1px solid #3D7BD0;font-size: 16px;color: #3D7BD0;float: left;">
 				 <span>
 		 <el-select v-model="cityCode" placeholder="请选择" style="width:70px;height:30px;float: left;color: #0076FF;border:none">
 				<el-option label="65" value="65">+65 Singapore</el-option>
@@ -43,9 +44,9 @@
 				<el-option label="62" value="62">+62 Indonesia</el-option>
 				<el-option label="86" value="86">+86 China</el-option>
 		  </el-select>
-		<span style="margin-top: 12220px;">|</span>
+		<!-- <span style="margin-top: 12220px;">|</span> -->
 		</span>
-		<input type="number" style="width: 60%;height: 100%;border:none;outline: none;height: 40px;background: none;"    v-model="input_info.phone"  @focus="focus('phoneNum')" @blur="blur('phoneNum')" ref="phoneNum" @keyup="inputPhone" maxlength="13" autofocus/>
+		<input type="number" style="width: 60%;height: 100%;border:none;outline: none;height: 40px;background: none;"    v-model="input_info.phone"  @focus="focus('phoneNum')" @blur="blur('phoneNum')" ref="phoneNum" @keyup="inputPhone" maxlength="13"/>
 		</div>
 		</div>
 
@@ -156,6 +157,9 @@
           wx = this.$wx;
         this.hideTopAndFooter();
         this.initLogo();
+        this.$nextTick(() => {
+		    this.$refs.phoneNum.focus();
+  	    })
       },
         mounted() {
             //监听事件
@@ -251,6 +255,7 @@
               }), !1;
 
                 var phone = this.cityCode + input_phone;
+                that.getCodeDisabled = true;
                 this.$http({
                   controller : 'index.send_sms',
                   country: this.cityCode,
@@ -260,23 +265,25 @@
                   console.log(response,",,,,,")
 				  if(response.code ==-1){
 					  alert(response.message)
+                      that.getCodeDisabled = false;
+                      return;
 				  }
-                });
-                this.registFlag = true;
-                this.timeOut = false;
+
+                that.registFlag = true;
+                that.timeOut = false;
                 //倒计时
-                if (!this.errorFlag.phone_empty){
+                if (!that.errorFlag.phone_empty){
                     Toast({
                         message: 'OTP Send',
                         position: 'middle',
                     });
-                    this.timer = setInterval(()=>{
+                    that.timer = setInterval(()=>{
                         that.countDownTime--;
                         // that.getCodeBtnText = this.countDownTime + "s后重新获取";
-                        that.getCodeBtnText = this.countDownTime + "秒";
+                        that.getCodeBtnText = that.countDownTime + "秒";
                         that.getCodeDisabled = true;
                         if(that.countDownTime <= 0){
-                            clearInterval(this.timer);
+                            clearInterval(that.timer);
                             that.countDownTime = 60;
                             that.timeOut = true;
                             that.getCodeDisabled = false;
@@ -288,6 +295,7 @@
                 } else {
                     that.errorFlag.phone_empty = true;
                 }
+                });
             },
             activeregist(){
                 //判空

@@ -41,8 +41,9 @@
    <!-- <div v-show="isShowCode"> -->
 		<div>
    	<div style="height: 50px;">
-	  <div style="width: 100%;height:25px;border-bottom:1px solid #ccc;font-size: 16px;color: #939393;float: left;" @click="click_btn3()" v-show="this.isShow5">Phone</div>
-	  <div style="width: 100%;height:41px;border-bottom:1px solid #3D7BD0;font-size: 16px;color: #3D7BD0;float: left;" v-show="this.isShow6">
+	  <!-- <div style="width: 100%;height:25px;border-bottom:1px solid #ccc;font-size: 16px;color: #939393;float: left;" @click="click_btn3()" v-show="this.isShow5">Phone</div>
+	  <div style="width: 100%;height:41px;border-bottom:1px solid #3D7BD0;font-size: 16px;color: #3D7BD0;float: left;" v-show="this.isShow6"> -->
+		<div style="width: 100%;height:41px;border-bottom:1px solid #3D7BD0;font-size: 16px;color: #3D7BD0;float: left;">
 		 <span>
 	   <el-select v-model="country" placeholder="请选择" style="width:80px;height:30px;float: left;color: #0076FF;float: left;">
 		   <el-option label="65" value="65">+65 Singapore</el-option>
@@ -50,9 +51,9 @@
 			   <el-option label="62" value="62">+62 Indonesia</el-option>
 			   <el-option label="86" value="86">+86 China</el-option>
 	    </el-select>
-	  <span style="margin-top: 12220px;">|</span>
+	  <!-- <span style="margin-top: 12220px;">|</span> -->
 	  </span>
-	  <input type="number" style="width: 60%;height: 100%;border:none;outline: none;height: 40px;" v-model="loginForm.username"/>
+	  <input type="number" style="width: 60%;height: 100%;border:none;outline: none;height: 40px;" v-model="loginForm.username" ref="phone"/>
 	  </div>
 	  </div>
 
@@ -207,6 +208,7 @@ export default {
                     return false;
                 }
                 var phone = this.country + input_phone;
+								that.getCodeDisabled = true;
                 this.$http({
                   controller : 'index.send_sms_login',
                   country: this.country,
@@ -219,7 +221,7 @@ export default {
                         title: response.message,
                         icon: 'none'
                     })
-
+									that.getCodeDisabled = false;
 									return;
 							  }
 
@@ -452,6 +454,9 @@ export default {
       wx = this.$wx
 		this.hideTopAndFooter();
 		this.initLogo();
+		this.$nextTick(() => {
+			this.$refs.phone.focus();
+  	})
 	}
 }</script>
 
