@@ -18,6 +18,7 @@ import { ImagePreview } from 'vant'
 import { Col, Row } from 'vant'
 import { Cell, CellGroup } from 'vant'
 import { Button } from 'vant'
+import { Checkbox, CheckboxGroup } from 'vant';
 
 import 'element-ui/lib/theme-chalk/index.css'
 import 'mint-ui/lib/style.css'
@@ -115,7 +116,8 @@ Vue.use(Col)
 Vue.use(Row)
 Vue.use(Cell)
 Vue.use(CellGroup)
-
+Vue.use(Checkbox);
+Vue.use(CheckboxGroup);
 Vue.use(Button)
 
 Vue.use(LuckDraw)

@@ -1,6 +1,7 @@
 <template>
 
   <!--ulink_comshop/pages/groupCenter/setWorkTime.wxml-->
+
   <div class='wrap'>
     <div>
       <div class='date-show'>
@@ -19,17 +20,43 @@
     <div class='date-box'>
       <div v-for="(item , index ) in dateArr" :class='[item.weight == 1 ? "" : "nowDay"]'>
         <div v-if="item.weight == 2" class='date-head'>
-          <div @click.stop='addDate' :data-date='index'>{{item.dateNum}}</div>
+          <div @click.stop='addTime' :data-date='index'>{{item.dateNum}}</div>
         </div>
-        <div v-else-if="item.weight == 4" class='break_time'>
+        <div v-else-if="item.weight == 3 || item.weight == 4" class='break_time'>
           <div  :data-date='item'>{{item.dateNum}}</div>
         </div>
         <div v-else class='date-head2'>
-          <div @click.stop='addDate' :data-date='index'>{{item.dateNum}}</div>
+          <div @click.stop='addTime' :data-date='index'>{{item.dateNum}}</div>
         </div>
         <!-- <div class='date-weight'>{{item.weight}}</div> -->
       </div>
     </div>
+
+    <van-popup v-model="showTimeList" closeable round close-icon="close" position="bottom" :style="{ height: '40%' }">
+
+      <div class="van-hairline--bottom time_list_title">{{current_date}}</div>
+
+      <div class="time_list">
+        <van-checkbox-group v-model="time_result">
+          <van-checkbox checked-color="#ee0a24" name="06:00 - 08:00">06:00 - 08:00</van-checkbox>
+          <van-checkbox checked-color="#ee0a24" name="08:00 - 10:00">08:00 - 10:00</van-checkbox>
+          <van-checkbox checked-color="#ee0a24" name="10:00 - 12:00">10:00 - 12:00</van-checkbox>
+          <van-checkbox checked-color="#ee0a24" name="12:00 - 14:00">12:00 - 14:00</van-checkbox>
+          <van-checkbox checked-color="#ee0a24" name="14:00 - 16:00">14:00 - 16:00</van-checkbox>
+          <van-checkbox checked-color="#ee0a24" name="16:00 - 18:00">16:00 - 18:00</van-checkbox>
+          <van-checkbox checked-color="#ee0a24" name="18:00 - 20:00">18:00 - 20:00</van-checkbox>
+          <van-checkbox checked-color="#ee0a24" name="20:00 - 22:00">20:00 - 22:00</van-checkbox>
+        </van-checkbox-group>
+
+
+      </div>
+
+      <div class="time_list_foot">
+        <van-button @click.stop='saveTime'  plain hairline type="info" block size="small">{{$t('common.queding')}}</van-button>
+      </div>
+
+    </van-popup>
+
   </div>
 
 </template>
@@ -42,6 +69,8 @@
         name: "",
         data() {
             return {
+                current_date:'',
+                showTimeList:false,
                 year: 0,
                 month: 0,
                 date: ['日', '一', '二', '三', '四', '五', '六'],
@@ -50,7 +79,8 @@
                 isTodayWeek: false,
                 todayIndex: 0,
                 workDates: [],
-                breakTimes:[]
+                breakTimes:[],
+                time_result:[]
             }
         },
         created: function () {
@@ -97,6 +127,8 @@
                 let nowDays = new Date().getDate();
                 var that = this;
 
+                let monthStr = month+1 < 10 ? '0'+(month+1 ) : month+1;
+
                 if (month + 1 > 11) {
                     nextYear = year + 1;
                     dayNums = new Date(nextYear, nextMonth, 0).getDate();
@@ -111,9 +143,14 @@
                     if (year == new Date().getFullYear()) {
                         if (i >= startWeek) {
                             num = i - startWeek + 1;
+
+                            let dateStr = '' + year + "-" + monthStr + "-" + (num < 10 ? ('0'+num) : num);
+
+
+
                             if (a < b) {
                                 obj = {
-                                    isToday: '' + year + "-" + (month + 1) + "-" + num,
+                                    isToday: dateStr,
                                     dateNum: num,
                                     weight: 3,
                                     index: i
@@ -121,14 +158,14 @@
                             } else if (a == b) {
                                 if (num <= nowDays) {
                                     obj = {
-                                        isToday: '' + year + "-" + (month + 1) + "-" + num,
+                                        isToday: dateStr,
                                         dateNum: num,
                                         weight: 3,
                                         index: i
                                     }
                                 } else {
                                     obj = {
-                                        isToday: '' + year + "-" + (month + 1) + "-" + num,
+                                        isToday: dateStr,
                                         dateNum: num,
                                         weight: 1,
                                         index: i
@@ -137,29 +174,16 @@
 
                             } else if (a > b) {
                                 obj = {
-                                    isToday: '' + year + "-" + (month + 1) + "-" + num,
+                                    isToday: dateStr,
                                     dateNum: num,
                                     weight: 1,
                                     index: i
                                 }
                             }
-                            var now1 = '';
-                            var monStr = '';
-                            var dayStr = '';
-                            if ((month + 1) < 10) {
-                                monStr = '0' + (month + 1);
-                            } else {
-                                monStr = '' + (month + 1);
-                            }
-                            if (num < 10) {
-                                dayStr = '0' + num;
-                            } else {
-                                dayStr = '' + num;
-                            }
-                            now1 = '' + year + "-" + monStr + "-" + dayStr;
-                            var workTimes = that.workDates;
+
+                            let workTimes = that.workDates;
                             for (var j = 0; j < workTimes.length; j++) {
-                                if (now1 == workTimes[j]) {
+                                if (dateStr == workTimes[j]) {
                                     obj.weight = 2;
                                     //console.log("success");
                                     break;
@@ -168,7 +192,7 @@
 
                             let breakTimes = that.breakTimes;
                             for (var j = 0; j < breakTimes.length; j++) {
-                                if (now1 == breakTimes[j]) {
+                                if (dateStr == breakTimes[j]) {
                                     obj.weight = 4;
                                     //console.log("success");
                                     break;
@@ -181,9 +205,12 @@
                     } else if (year > new Date().getFullYear()){
                         if (i >= startWeek) {
                             num = i - startWeek + 1;
+
+                            let dateStr = '' + year + "-" + monthStr + "-" + (num < 10 ? ('0'+num) : num);
+
                             if (a < b) {
                                 obj = {
-                                    isToday: '' + year + "-" + (month + 1) + "-" + num,
+                                    isToday: dateStr,
                                     dateNum: num,
                                     weight: 1,
                                     index: i
@@ -191,14 +218,14 @@
                             } else if (a == b) {
                                 if (num <= nowDays) {
                                     obj = {
-                                        isToday: '' + year + "-" + (month + 1) + "-" + num,
+                                        isToday: dateStr,
                                         dateNum: num,
                                         weight: 1,
                                         index: i
                                     }
                                 } else {
                                     obj = {
-                                        isToday: '' + year + "-" + (month + 1) + "-" + num,
+                                        isToday: dateStr,
                                         dateNum: num,
                                         weight: 1,
                                         index: i
@@ -207,29 +234,16 @@
 
                             } else if (a > b) {
                                 obj = {
-                                    isToday: '' + year + "-" + (month + 1) + "-" + num,
+                                    isToday: dateStr,
                                     dateNum: num,
                                     weight: 1,
                                     index: i
                                 }
                             }
-                            var now1 = '';
-                            var monStr = '';
-                            var dayStr = '';
-                            if ((month + 1) < 10) {
-                                monStr = '0' + (month + 1);
-                            } else {
-                                monStr = '' + (month + 1);
-                            }
-                            if (num < 10) {
-                                dayStr = '0' + num;
-                            } else {
-                                dayStr = '' + num;
-                            }
-                            now1 = '' + year + "-" + monStr + "-" + dayStr;
+
                             var workTimes = that.workDates;
                             for (var j = 0; j < workTimes.length; j++) {
-                                if (now1 == workTimes[j]) {
+                                if (dateStr == workTimes[j]) {
                                     obj.weight = 2;
                                     //console.log("success");
                                     break;
@@ -238,7 +252,7 @@
 
                             var breakTimes = that.breakTimes;
                             for (var j = 0; j < breakTimes.length; j++) {
-                                if (now1 == breakTimes[j]) {
+                                if (dateStr == breakTimes[j]) {
                                     obj.weight = 4;
                                     //console.log("success");
                                     break;
@@ -314,6 +328,55 @@
 
                 this.dateInit(year, month);
             },
+            addTime: function(e){
+                let that = this;
+                let  index = e.currentTarget.dataset['date'];
+                let dataArr2 = that.dateArr;
+                let obj = dataArr2[index];
+                console.log(obj)
+                this.current_date = obj.isToday;
+                let token = wx.getStorageSync("token");
+                app.util.request({
+                    url: "entry/wxapp/index",
+                    data: {
+                        controller: "community.get_head_work_day_time",
+                        token: token,
+                        date: that.current_date
+                    },
+                    dataType: "json",
+                    method: "GET",
+                    success: function (e) {
+                        that.time_result = e.data;
+                        that.showTimeList = true;
+
+                    }
+                });
+
+
+            },
+
+            saveTime:function(){
+                let that = this;
+                let token = wx.getStorageSync("token");
+
+                app.util.request({
+                    url: "entry/wxapp/index",
+                    data: {
+                        controller: "community.save_head_work_day_time",
+                        token: token,
+                        date: that.current_date,
+                        times: that.time_result
+                    },
+                    dataType: "json",
+                    method: "GET",
+                    success: function (e) {
+                        that.getWorkDates();
+                        that.showTimeList = false;
+                    }
+                });
+
+            },
+
             addDate: function(e){
                 let that = this;
                 var dataArr3 = that.workDates;
@@ -521,5 +584,22 @@
     height: 2vw;
     border-radius: 50%;
     background-color: blue;
+  }
+  .time_list_title{
+     height: 14vw;
+    text-align: center;
+    line-height: 14vw;
+  }
+  .time_list{
+    padding-top: 5%;
+    padding-left: 10%;
+    margin-bottom: 10%;
+  }
+  .time_list .van-checkbox-group .van-checkbox {
+    margin: 0 0 8px 20px;
+    float:left;
+  }
+  .time_list_foot{
+    padding: 5vw 12vw 0vw 12vw;
   }
 </style>

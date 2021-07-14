@@ -587,7 +587,7 @@
         <div class="order-content" style="padding:0; border-radius:0vw; width: 100vw;margin-bottom: 0">
           <div class="page-content">
             <div scrollWithAnimation scrollY class="page-category" scrollTop="categoryScrollBarTop"
-                 style="min-height:50vw">
+                 style="min-height:100vw">
 
               <div @click="changePickupDate"
                    :class="['category-item',rickupTimeData.activeDateIndex == index?'active':'']" :data-index="index"
@@ -603,10 +603,10 @@
                  bindtouchend="touchend" bindtouchstart="touchstart" class="page-list pt50"
                  lowerThreshold="200" scrollTop="resetScrollBarTop" style="" upperThreshold="50">
 
-              <div @click="changePickupTime" v-for="(item , index ) in rickupTimeData.currentTimes" :key="index"
+              <div style="margin-bottom: 2vw" @click="changePickupTime" v-for="(item , index ) in rickupTimeData.currentTimes" :key="index"
                    :data-index="index">
-                <el-button style="width: 50vw" :type="rickupTimeData.activeTimeIndex===index?'warn':'primary'"
-                           plain="true" size="mini">{{item}}
+                <el-button style="width: 50vw" :type="rickupTimeData.activeTimeIndex ==index?'danger':'default'"
+                           plain size="mini">{{item}}
                 </el-button>
               </div>
             </div>
@@ -1986,6 +1986,7 @@
                 } else {
                     controller = 'car.get_express_date_list'
                 }
+                let activeTimeIndex = this.rickupTimeData.activeTimeIndex;
                 app.util.request({
                     url: 'entry/wxapp/user',
                     data: {
@@ -2000,7 +2001,7 @@
                         console.log(e, "date_list");
 
                         r.rickupTimeData.list = list
-                        r.rickupTimeData.currentTimes = list[0].times
+                        r.rickupTimeData.currentTimes = list[activeTimeIndex].times
 
                     }
                 })
@@ -2417,6 +2418,7 @@
     font-size: 3.5vw;
     color: #444;
     line-height: 6vw;
+    height: 8vw;
     margin-bottom: 1vw;
     font-weight: 500;
   }
