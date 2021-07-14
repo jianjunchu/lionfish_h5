@@ -51,7 +51,7 @@
                 <img class="i-class goodsImg" mode="widthFix" :src="goods.goods_images"/>
                 <div class="detail">
                   <div class="spuName">
-                    <span>{{goods.name}}</span>
+                    <span v-if="$i18n.locale == 'en'">{{goods.name_en}}</span><span v-else>{{goods.name}}</span>
                   </div>
                   <div class="tips">
                     <span>Quantity：{{goods.quantity}}</span>
@@ -410,7 +410,7 @@
             success: function (res) {
                 if (res.confirm) {
                   a.$http({
-                      controller: "order.receive_order",
+                      controller: "order.host_receive_order",
                       token: o,
                       order_id: t
                   }).then(e => {
