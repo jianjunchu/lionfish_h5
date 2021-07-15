@@ -167,11 +167,8 @@
 
       const t = this.$route.query
       this.onLoad(t);
-       // this.onShow();
     },
-    /*mounted:function(){
-      this.onShow();
-    },*/
+
     activated:function(){
       var i = this;
       this.$refs.list.scrollTop = this.$data.$data.scrollInfo
