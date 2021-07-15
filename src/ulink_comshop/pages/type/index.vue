@@ -166,7 +166,8 @@
       })
 
       const t = this.$route.query
-      this.onLoad(t)
+      this.onLoad(t);
+       // this.onShow();
     },
     /*mounted:function(){
       this.onShow();
@@ -187,7 +188,6 @@
 
       const t = this.$route.query
       if (t.id != 'undefined' && t.id > 0) {
-        this.onLoad(t)
         this.onShow()
       }
     },
@@ -198,9 +198,7 @@
       console.log("this.$refs.list.scrollTop = " +this.$refs.list.scrollTop)
       next()
     },
-    mounted(){
-      this.onShow();
-    },
+
     methods: {
       scrollGet (e) {
         console.log(e.srcElement.scrollTop, e.target.scrollTop)
@@ -517,14 +515,16 @@
       ,
       setCategory: function(t) {
 
+
         var activeactive_sub_idx = this.active_sub_index;
 
         var a = this, e = this.rushCategoryData,  i = this.scrollViewHeight
 
-        if(this.active_sub_index > 0){
-          var o = e.tabs[t].sub[activeactive_sub_idx-1] || {}
+        if(activeactive_sub_idx > 0 ){
+            let tabsItem = e.tabs[t];
+            var o = tabsItem.sub[activeactive_sub_idx-1] || {}
         }else{
-          var o = e.tabs[t];
+            var o = e.tabs[t];
         }
 
         this.$data.$data.rushCategoryId = o.id || null, this.$data.$data.pageNum = 1, this.$data.$data.isSetCategoryScrollBarTop = !1
