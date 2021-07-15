@@ -117,13 +117,13 @@
                 <!--<div  @click.stop="showPaymentModal" class="my-button-pay padding-15" :data-type="item"  :style="{background: linear-gradient(90deg, skin.color 0%, skin.light 100%)}">立即支付</div>-->
                 <div  @click.stop="toShowPaymentModal(item)" class="my-button-pay padding-15" :data-type="{item}" style="color: #fff;background: #FF4048">{{$t('order.lijizhifu')}}</div>
               </div>
-              <div v-if="item.order_status_id==4">
+              <!-- <div v-if="item.order_status_id==4">
                 <div class="get-goods" :data-delivery="item.delivery" :data-type="item.order_id">
-                  <!--<div class="sure-get" @click.stop="receivOrder" :data-delivery="item.delivery" :data-type="item.order_id">{{item.delivery=='pickup'?'确认提货':'确认收货'}}</div>-->
+                  <div class="sure-get" @click.stop="receivOrder" :data-delivery="item.delivery" :data-type="item.order_id">{{item.delivery=='pickup'?'确认提货':'确认收货'}}</div>
                   <div class="sure-get" @click.stop="receivOrder" :data-delivery="item.delivery" :data-type="item.order_id">{{item.delivery=='pickup'?$t('order.querentihuo'): $t('order.querenshouhuo')}}</div>
                   <img class="right-arrow" src="@/assets/images/rightArrowImg.png"></img>
                 </div>
-              </div>
+              </div> -->
               <div v-if="item.order_status_id==1||item.order_status_id==6||item.order_status_id==11||item.order_status_id==14||item.order_status_id==15||item.order_status_id==16">
                 <div class="my-button"  :data-type="item.order_id" size="small">{{$t('order.chakanxiangqing')}}</div>
               </div>

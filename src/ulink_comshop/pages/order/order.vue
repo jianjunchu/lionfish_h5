@@ -231,12 +231,12 @@
                            v-if="goodsInfo.is_refund_state==0&&(order.order_info.order_status_id==1||order.order_info.order_status_id==14)">
                         {{$t('order.beihuozhong')}}
                       </div>
-                      <div @click="receivOrder" class="btn-3 mar-left-8" :data-show="confirmGoodsVisible"
+                      <!-- <div @click="receivOrder" class="btn-3 mar-left-8" :data-show="confirmGoodsVisible"
                            :data-type="order.order_info.order_id"
                            v-if="goodsInfo.is_refund_state==0&&order.order_info.order_status_id==4">
-                        <!--{{order.order_info.delivery=='pickup'?'确认提货':'确认收货'}}-->
+                        {{order.order_info.delivery=='pickup'?'确认提货':'确认收货'}}
                         {{order.order_info.delivery=='pickup'? $t('order.querentihuo'): $t('order.querenshouhuo') }}
-                      </div>
+                      </div> -->
                     </div>
                   </div>
 
